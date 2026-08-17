@@ -353,3 +353,71 @@ power-of-a-point identities behind Ex. 13/14/17, irregularity of the 12-9 path,
   measured off a scan — the plate's path is too small to read individual
   vertices at 400 dpi. Structure and irregularity are right; exact spacing is
   arbitrary.
+
+***
+
+## Figure-repair pass, 2026-08-17 (feedback/FIX-SPEC.md)
+
+### What changed
+
+**Spec §2 — exercise-group figures are now inline.** All 14 figures cited by
+exercises were moved inside their lists, each `\exfig{...}` immediately after
+the item that names it; `multicols` dropped from the three groups that carry
+figures (12-1, 12-2, 12-11). Groups with no figures keep their two columns.
+Eight combined macros were split, since the two halves are cited by different
+exercises: 12-2/12-3, 12-7/12-8, 12-24/12-25, 12-26/12-27, 12-29/12-30. The
+Review Exercises list was merged into one `exlist` so Fig 12-31 sits after
+item 1 without a counter reset. Figure numbers still print in book order.
+
+12-5/12-6, 12-9/12-10, 12-11/12-12, 12-13/12-14, 12-17/12-18, 12-19/12-20 and
+12-21/12-22 stay paired: they are body figures, and the book prints each pair
+side by side on one page (verified on the plates for 12-5/12-6 and
+12-21/12-22).
+
+### Figures corrected
+
+| Fig | Fix |
+|---|---|
+| 12-5 | drew a chord *AB* that missed the centre by 0.44 r; the book draws the two **radii** *OA*, *OB* meeting at a 170-degree bend. Arc widened 146→170 deg, which is what un-crowds the nine labels; eight-side path struck heavier with a radial nick at each interior vertex, so the letters name marked points instead of reading as a caption strip. |
+| 12-6 | angles re-cut to match 12-5's new arc; tangent corners now derived as `R/cos(42.5)`. |
+| 12-8 | outer arc ran *OA*→*OC*, **crossing ray *OB*** — it marked ∠AOC. Now two arcs abutting at *OB*, one on ∠AOB and one on ∠BOC, at radii 60 % apart. Fan tilted (78/33/−12) so no ray is axis-aligned while ∠AOC stays exactly right. |
+| 12-9 | inscribed path had seven short sides sagging 0.017 r — under a point on the page — so it printed on top of the circle as a ragged doubled edge. Now four long irregular sides, sag 0.07 r, plainly inside the circle. |
+| 12-10 | arc emphasis was a `key` arc on the circle itself (1.0 pt against a 0.9 pt circle, invisible). Now a heavier **dash-broken** arc just outside the circle, as the book marks it; fan tilted off the axes. |
+| 12-14 | was an axis-aligned 90-degree quarter with five over-long rays running through the marker. Now the book's ~68-degree sector, tilted symmetric about the horizontal, with exactly four interior rays at the 1/2, 5/8 and 3/4 subdivisions plus the solid ray at 0.662 ("a little greater than 5/8"), all stopping short of the marker. The *l* marker is a real brace — end hooks, middle nib — spanning only arc *AP*. *r* moved inside the sector. |
+| 12-15 | both markers were plain arcs (one with straight ticks, one with nothing and a floating label). Both are now hooked braces with a nib pointing at the label. The 1-degree marker is a short headed arrow tucked into the wedge with its label right under *OB*, not a crossbar parked below the figure. Each dashed ray now runs out only as far as the marker it closes. |
+| 12-16 | same brace/arrow rebuild, **plus the reported label bug: the radius was a bare *r* and is now *r′***, matching every other primed letter in the figure. |
+| 12-22 | removed the chord *AC* the book does not have; restored **both** angle arcs at *B* (thin, concentric, springing from *A* and from 0.55 along *BA*, sweeping across chord *BC* and landing on the dashed diameter *BQ* with a terminal tick); added the centre dot. |
+| 12-28 | reverted from the solved cut (AO:OB = 3, CO:OD = 4/3) to the plate's schematic (2.76 and 1.11), so Ex. 15 can't be answered with a ruler. |
+| 12-29 | reverted from the solved cut; lower secant no longer grazes the circle (*BC* is now a long near-horizontal chord with *C* on the right) and *A* sits ~0.6 r clear instead of 1.5 diameters out. *A* derived as the secants' crossing. |
+| 12-30 | reverted from the solved cut; *AB* is now genuinely **tangent** (*B* from the tangent-length construction, so *OB* ⊥ *AB* exactly) and *ACD* is a true horizontal **diameter**. AB² = AC·AD then holds identically, but AC:CD is 0.43, not the exercise's 0.8. |
+
+New in `figures12.tex`: `\XIIbrace{centre}{radius}{ang1}{ang2}{depth}`, the
+book's arc-measure brace. `XIIhook` thinned 0.5→0.45 pt so the sector reads
+bold against the markers, as the plates set them.
+
+### Gates
+compiles twice clean · `verify_figures.py 12` **168/168** · `check_labels.py`
+**0 COLLIDE, 0 TIGHT** · every changed page rasterised at 130 dpi and read.
+
+### Questions / deliberate deviations for Caleb
+
+1. **Fig 12-22, label *O*.** The book sets it above-left of the centre dot.
+   That wedge — between the dashed diameter and chord *BC* — is only 0.42 r
+   deep at the centre and will not hold a footnotesize letter clear of both
+   lines; it collided. It is set **below-left** instead, still against the dot.
+   Say the word and I will shrink the letter rather than move it.
+2. **Fig 12-14, rays vs. brace.** The spec lists "rays running past the brace"
+   as a defect to fix, so ours now stop short. Note the book's own plate does
+   let the two lower dashed rays graze the brace. Ours is the tidier reading
+   Caleb asked for, not the literal plate.
+3. **Fig 12-14, label *r*.** The photo review says the book tucks *r* inside
+   the sector against *OB*; my read of the plate put it just outside. I went
+   with the review (inside), centred in the wedge between *OB* and the 3/4 ray.
+4. **Fig 12-5 / 12-9 arc-emphasis weight.** The heavy path is 1.5 pt against a
+   0.9 pt circle. This is the book's own convention for these two plates, not
+   a revival of the retired `key` weight — flag it if it reads too heavy.
+5. **Vertical spacing.** Dropping `multicols` leaves the de-columned groups
+   with fewer, taller elements per page, so `\flushbottom` stretches the glue
+   and the gap under an "Exercise Group" heading can run to ~20 pt. Source-side
+   spacing is unchanged; this wants the whole-book re-fit at integration, not a
+   local patch.
