@@ -1,0 +1,155 @@
+% brumfiel.sty -- structure for Brumfiel/Eicholz/Shanks, _Geometry_ (Addison-Wesley)
+% Reusable across all chapters. Colour is opt-in via \colorfigurestrue.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{brumfiel}[2026/08/16 Brumfiel Geometry structure]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{mathpazo}
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{tikz}
+\RequirePackage{enumitem}
+\RequirePackage{multicol}
+\RequirePackage{tabularx}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\usetikzlibrary{calc,angles,quotes,decorations.markings,patterns}
+
+% ---------------------------------------------------------------- palette
+% Sampled from Byrne for continuity across the two projects.
+\definecolor{bkBlue}{HTML}{265999}
+\definecolor{bkRed}{HTML}{D94C19}
+\definecolor{bkYellow}{HTML}{F2B219}
+\definecolor{bkInk}{HTML}{1A1A1A}
+
+\newif\ifcolorfigures
+\colorfiguresfalse  % B&W pass -- flip to \colorfigurestrue for the colour edition
+
+\newcommand{\ifc}[2]{\ifcolorfigures#1\else#2\fi}
+\newcommand{\clA}{\ifc{bkBlue}{black}}
+\newcommand{\clB}{\ifc{bkRed}{black}}
+\newcommand{\clC}{\ifc{bkYellow}{black}}
+
+% Semantic figure roles. Colour encodes the ROLE a line plays in the argument,
+% never decoration. Every figure uses the same three roles:
+%   given  black solid   - the figure as the hypothesis hands it to you
+%   aux    blue dashed   - auxiliary lines YOU add during the proof/construction
+%   key    red solid     - the thing being proved, measured, or asked about
+%   region yellow wash   - a area being identified as a whole
+\tikzset{
+  fig/.style    = {line width=0.7pt, line cap=round, line join=round, draw=bkInk},
+  given/.style  = {fig},
+  aux/.style    = {fig, draw=\clA, dashed, dash pattern=on 3pt off 2pt},
+  key/.style    = {fig, line width=1.15pt, draw=\clB},
+  keyb/.style   = {fig, line width=1.15pt, draw=\clA},
+  region/.style = {draw=none, fill=\clC, fill opacity=0.22},
+  rmark/.style  = {fig, line width=0.6pt, draw=\clB},   % right-angle box on a key
+  vlab/.style   = {font=\footnotesize\itshape, inner sep=1.2pt, outer sep=3.4pt},
+  slab/.style   = {font=\scriptsize, inner sep=1.2pt, outer sep=3.4pt},
+  klab/.style   = {font=\scriptsize, inner sep=1.2pt, outer sep=3.4pt, text=\clB},
+  tick/.style   = {fig, line width=0.6pt},
+}
+% back-compat aliases used by the first draft
+\tikzset{emph/.style={key}, emphb/.style={keyb}}
+
+% Legend, printed once at the head of the chapter.
+\newcommand{\figurekey}{%
+  \par\medskip\noindent\fbox{\begin{minipage}{0.94\linewidth}\footnotesize
+  \textbf{How to read the figures.}\quad
+  \tikz[baseline=-0.6ex]{\draw[given](0,0)--(0.5,0);}~given\quad
+  \tikz[baseline=-0.6ex]{\draw[aux](0,0)--(0.5,0);}~auxiliary (added in the proof)\quad
+  \tikz[baseline=-0.6ex]{\draw[key](0,0)--(0.5,0);}~what is being proved or asked
+  \end{minipage}}\par\medskip}
+
+% ------------------------------------------------------- theorem apparatus
+% The book numbers within the chapter as 9-1, 9-2, ... with corollaries 9-1-1.
+\newtheoremstyle{bkplain}{1.1\topsep}{1.1\topsep}{\itshape}{}%
+  {\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont(#3)}}
+\newtheoremstyle{bkdefn}{1.1\topsep}{1.1\topsep}{\normalfont}{}%
+  {\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont(#3)}}
+
+\theoremstyle{bkplain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}{Corollary}[theorem]
+\renewcommand{\thetheorem}{\thechapter--\arabic{theorem}}
+\renewcommand{\thecorollary}{\thetheorem--\arabic{corollary}}
+
+\theoremstyle{bkdefn}
+\newtheorem{definition}{Definition}[chapter]
+\renewcommand{\thedefinition}{\thechapter--\arabic{definition}}
+\newtheorem{construction}{Construction}[chapter]
+\renewcommand{\theconstruction}{\thechapter--\arabic{construction}}
+
+\newenvironment{remark}{\par\medskip\noindent\emph{Remark.}\ }{\par\medskip}
+\newenvironment{histremark}{\par\medskip\noindent\emph{Historical remark.}\ }{\par\medskip}
+\newenvironment{note}{\par\medskip\noindent\emph{Note.}\ }{\par\medskip}
+
+% ------------------------------------------------- STATEMENTS / REASONS proof
+% The book's signature layout. Steps auto-number in parallel columns.
+\newcounter{stepc}
+\newenvironment{steps}{%
+  \par\medskip\setcounter{stepc}{0}%
+  \noindent\begin{tabular}{@{}p{1.5em}@{}p{0.435\linewidth}@{\hspace{1.1em}}p{0.435\linewidth}@{}}
+  & \centering\footnotesize\bfseries\MakeUppercase{Statements}
+  & \hfil\footnotesize\bfseries\MakeUppercase{Reasons}\hfil \\[3pt]
+}{\end{tabular}\par\medskip}
+
+\newcommand{\step}[2]{%
+  \refstepcounter{stepc}\thestepc. & #1 & #2 \\[2pt]}
+\newcommand{\stepx}[3]{% explicit number, for proofs continued across pages
+  #1. & #2 & #3 \\[1.5pt]}
+
+% ---------------------------------------------------------------- exercises
+\newcounter{exgroup}[chapter]
+\newcommand{\exercisegroup}[1]{%
+  \par\medskip\begin{center}\bfseries Exercise Group #1\end{center}\par\nopagebreak}
+\newcommand{\exercise}[1]{%
+  \par\medskip\begin{center}\bfseries Exercise #1\end{center}\par\nopagebreak}
+
+\newlist{exlist}{enumerate}{1}
+\setlist[exlist]{label=\arabic*., leftmargin=1.6em, itemsep=2pt, topsep=3pt}
+
+% starred (harder) exercises, as the book marks them
+\newcommand{\stex}{\makebox[0pt][r]{*}}
+
+% ------------------------------------------------------------- figure caption
+% Book style: small caps "FIGURE 9-1" centred beneath.
+\newcommand{\figcap}[1]{\par\smallskip{\footnotesize\textsc{Figure} #1}}
+\newenvironment{bkfigure}[1][]{%
+  \par\medskip\begin{center}\begin{minipage}{#1}\centering}%
+  {\end{minipage}\end{center}\par\medskip}
+
+% ------------------------------------------------------------------ notation
+\newcommand{\sg}[1]{\overline{#1}}          % segment / its length
+\newcommand{\simto}{\sim}
+\newcommand{\pll}{\mathrel{\|}}
+\newcommand{\tri}[1]{\triangle #1}
+\newcommand{\ang}[1]{\angle #1}
+\newcommand{\RC}{RC}                         % ruler-and-compass, book's term
+
+% ============================ additions for Chapter 2 (Logic) ================
+% Truth tables, set as the book sets them: centred, no rules, roman T/F.
+\newenvironment{truthtable}[1]{%
+  \par\medskip\begin{center}\begin{tabular}{#1}}%
+  {\end{tabular}\end{center}\par\medskip}
+\newcommand{\tth}[1]{\multicolumn{1}{c}{$#1$}}   % column head
+\newcommand{\TT}{\textrm{T}}
+\newcommand{\FF}{\textrm{F}}
+
+% Starred (optional) exercises. The book flags them with * and footnotes the
+% convention once, on the page where it first occurs.
+\newcommand{\starnote}{\footnotetext{*Starred exercises, sections, theorems,
+  etc., are optional.}}
+
+% "Hyp: / Theorem:" exercise format used in Exercise Group 2-15.
+\newenvironment{hyp}{\par\smallskip\noindent\emph{Hyp:}\ }{\par}
+\newenvironment{thmclaim}{\par\noindent\emph{Theorem:}\ }{\par\smallskip}
+
+% Greek statement letters, so alpha/beta stay upright with the book's usage.
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\imp}{\rightarrow}
+\newcommand{\iffx}{\leftrightarrow}
+\newcommand{\notx}[1]{\text{not }#1}
+
+\endinput

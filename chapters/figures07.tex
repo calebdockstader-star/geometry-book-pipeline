@@ -1,0 +1,799 @@
+% figures07.tex -- Chapter 7 figures redrawn in TikZ.
+% Geometry reconstructed from sources/Geometry.pdf pp.130-146 (book pp.116-132)
+% and checked against scans/scan08.pdf pp.11-24 and scans/scan09.pdf pp.1-6.
+% Every constrained point is computed, never eyeballed; see tools/constraints/ch07.py.
+
+% ---------------------------------------------------------------- Fig 7-1
+\newcommand{\FIGVIIONE}{\begin{bkfigure}[0.60\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  \coordinate (A) at (0,0); \coordinate (B) at (3.1,0);
+  \coordinate (D) at (3.9,0); \coordinate (C) at (1.64,2.1);
+  \draw[given] (A) -- (D);
+  \draw[given] (A) -- (C) -- (B);
+  \foreach \p/\d in {A/below left, B/below, D/below right, C/above}
+    {\node[vlab,\d] at (\p) {$\p$};}
+\end{tikzpicture}
+\figcap{7--1}
+\end{bkfigure}}
+
+% ------------------------------------------------------------ Fig 7-2, 7-3
+\newcommand{\FIGVIITWOTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  % BD is chosen congruent to AC (book's own wording in the First Proof),
+  % so D sits at distance |AC| beyond B.  |AC| = sqrt(1.10^2+2.10^2).
+  \coordinate (A) at (0,0); \coordinate (B) at (2.6,0);
+  \coordinate (C) at (1.10,2.10);
+  \coordinate (D) at (4.97066,0);
+  \draw[given] (A) -- (5.28,0);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[aux] (C) -- (D);
+  % angle ACB at C, angle DBC at B -- the pair the proof assumes congruent
+  \draw[tick] ($(C)+(242.35:0.58)$) arc (242.35:305.54:0.58);
+  \draw[tick] ($(B)+(0:0.48)$) arc (0:125.54:0.48);
+  \foreach \p/\d in {A/below left, B/below, D/below right, C/above}
+    {\node[vlab,\d] at (\p) {$\p$};}
+\end{tikzpicture}
+\figcap{7--2}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0); \coordinate (B) at (2.4,0);
+  \coordinate (D) at (4.29,0); \coordinate (C) at (1.2,2.1);
+  \coordinate (F) at (1.05,0);
+  \coordinate (E) at ($(C)!1.245!(F)$);
+  \draw[given] (A) -- (D);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[aux] (C) -- (E);
+  % angle ECB at C -- the angle the proof makes congruent to angle DBC
+  \draw[tick] ($(C)+(265.91:0.72)$) arc (265.91:299.74:0.72);
+  \foreach \p/\d in {A/below left, B/below, D/below right, C/above,
+                     F/above right, E/below}
+    {\node[vlab,\d] at (\p) {$\p$};}
+\end{tikzpicture}
+\figcap{7--3}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 7-4
+\newcommand{\FIGVIIFOUR}{\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  \coordinate (A) at (0,0); \coordinate (B) at (2.6,0);
+  \coordinate (D) at (5.05,0); \coordinate (C) at (1.15,2.1);
+  \coordinate (G) at ($(C)!0.5!(B)$);
+  \coordinate (H) at ($(A)!2!(G)$);
+  \draw[given] (A) -- (D);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[given] (B) -- (H);
+  \draw[aux] (A) -- (H);
+  \foreach \p/\d in {A/below left, B/below, D/below right, C/above,
+                     H/above right}
+    {\node[vlab,\d] at (\p) {$\p$};}
+  \node[vlab] at (1.957,1.40) {$G$};
+\end{tikzpicture}
+\figcap{7--4}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 7-5
+\newcommand{\FIGVIIFIVE}{\begin{bkfigure}[0.72\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  \coordinate (P) at (1.30,1.95);
+  \coordinate (Q) at (1.15,0); \coordinate (R) at (1.75,0);
+  \draw[given] (0,0) -- (3.2,0);
+  \draw[given] (P) -- (Q); \draw[given] (P) -- (R);
+  \draw[tick] (1.15,0.16) -- (1.31,0.16) -- (1.31,0);
+  \draw[tick] (1.75,0.16) -- (1.59,0.16) -- (1.59,0);
+  \node[vlab,above] at (P) {$P$};
+  \node[vlab,below] at (Q) {$Q$};
+  \node[vlab,below] at (R) {$R$};
+  \node[vlab,right] at (3.2,0) {$l$};
+\end{tikzpicture}
+\figcap{7--5}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 7-6
+\newcommand{\FIGVIISIX}{\begin{bkfigure}[0.58\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  \coordinate (B) at (0,0); \coordinate (C) at (2.7,0);
+  \coordinate (A) at (2.5,1.9);
+  % C' on AB with AC' = AC  (t = |AC|/|AB|)
+  \coordinate (Cp) at ($(A)!0.60843!(B)$);
+  \draw[given] (B) -- (C) -- (A) -- cycle;
+  \draw[aux] (Cp) -- (C);
+  \node[vlab,above] at (A) {$A$};
+  \node[vlab,below left] at (B) {$B$};
+  \node[vlab,below right=2pt] at (C) {$C$};
+  \node[vlab] at (0.737,1.062) {$C'$};
+\end{tikzpicture}
+\figcap{7--6}
+\end{bkfigure}}
+
+% ------------------------------------------------------------ Fig 7-7, 7-8
+\newcommand{\FIGVIISEVENEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.05]
+  % sides 17, 16, 25 to scale (0.1 unit per unit length)
+  \coordinate (A) at (0,0); \coordinate (C) at (2.5,0);
+  \coordinate (B) at (1.316,1.076);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \node[vlab,below left] at (A) {$A$};
+  \node[vlab,below right] at (C) {$C$};
+  \node[vlab,above] at (B) {$B$};
+  \node[slab,above left] at ($(A)!0.5!(B)$) {17};
+  \node[slab,above right] at ($(B)!0.5!(C)$) {16};
+  \node[slab,below] at ($(A)!0.5!(C)$) {25};
+\end{tikzpicture}
+\figcap{7--7}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (P) at (0,0); \coordinate (Q) at (2.6,0.35);
+  \coordinate (R) at (1.10,2.55);
+  % QS bisects angle PQR  =>  PS/SR = QP/QR
+  \coordinate (S) at ($(P)!0.49629!(R)$);
+  \draw[given] (P) -- (Q) -- (R) -- cycle;
+  \draw[given] (S) -- (Q);
+  % congruence ticks across the two halves of angle PQR
+  \draw[tick] ([shift=(65.95:0.09)]$(Q)!0.30!(S)$)
+            -- ([shift=(245.95:0.09)]$(Q)!0.30!(S)$);
+  \draw[tick] ([shift=(34.30:0.09)]$(Q)!0.30!(R)$)
+            -- ([shift=(214.30:0.09)]$(Q)!0.30!(R)$);
+  \node[vlab,below left] at (P) {$P$};
+  \node[vlab,right] at (Q) {$Q$};
+  \node[vlab,above] at (R) {$R$};
+  \node[vlab,above left] at (S) {$S$};
+\end{tikzpicture}
+\figcap{7--8}
+\end{minipage}
+\end{bkfigure}}
+
+% ----------------------------------------------------------- Fig 7-9, 7-10
+\newcommand{\FIGVIININETEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (A) at (0,0); \coordinate (C) at (2.9,0);
+  \coordinate (B) at (1.0,1.62);
+  % B' on AC with AB' = AB   (|AB| = sqrt(1.0^2 + 1.62^2))
+  \coordinate (Bp) at (1.903786,0);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[aux] (B) -- (Bp);
+  % the book's two angle arcs: one at B crossed by BB' (angles 1, 4),
+  % one at B' crossed by B'B (angles 2, 3)
+  \draw[tick] ($(B)+(238.33:0.42)$) arc (238.33:319.54:0.42);
+  \draw[tick] ($(Bp)+(0:0.20)$) arc (0:180:0.20);
+  \node[vlab,below left] at (A) {$A$};
+  \node[vlab,below right] at (C) {$C$};
+  \node[vlab,above] at (B) {$B$};
+  \node[vlab,below] at (Bp) {$B'$};
+  \node[slab] at (0.986,1.000) {1};   % angle ABB'
+  \node[slab] at (1.665,0.808) {4};   % angle B'BC
+  \node[slab] at (1.429,0.278) {2};   % angle AB'B
+  \node[slab] at (2.210,0.300) {3};   % angle BB'C
+\end{tikzpicture}
+\figcap{7--9}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % vertex ratios measured off scan08 p.15 (grid overlay); three interior
+  % vertices are unlabelled in the book, as here.
+  \coordinate (Pone) at (0.73,1.58);
+  \coordinate (Ptwo) at (1.61,4.41);
+  \coordinate (Pthree) at (1.73,1.61);
+  \coordinate (U) at (0.12,2.99);
+  \coordinate (R) at (2.78,2.16);
+  \coordinate (S) at (2.38,0.83);
+  \coordinate (Pn1) at (0.34,0.45);
+  \coordinate (Pn) at (2.60,0.10);
+  \draw[given] (Pone) -- (Ptwo) -- (Pthree) -- (U) -- (R) -- (S)
+               -- (Pn1) -- (Pn);
+  \draw[aux] (Pone) -- (Pn);
+  \node[vlab,left] at (Pone) {$P_1$};
+  \node[vlab,above] at (Ptwo) {$P_2$};
+  \node[vlab,right] at (Pthree) {$P_3$};
+  \node[vlab,left] at (Pn1) {$P_{n-1}$};
+  \node[vlab,right] at (Pn) {$P_n$};
+\end{tikzpicture}
+\figcap{7--10}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 7-11
+\newcommand{\FIGVIIELEVEN}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (B) at (0,0); \coordinate (C) at (2.6,0);
+  \coordinate (A) at (1.85,1.35);
+  % D on BA with DB = DC  (D lies on the perpendicular bisector x = 1.3)
+  \coordinate (D) at (1.3,0.94865);
+  \draw[given] (B) -- (C) -- (A) -- cycle;
+  \draw[given] (D) -- (C);
+  % DB = DC, so the book marks angle DBC and angle DCB congruent
+  % with a DOUBLE arc at each vertex.
+  \draw[tick] (0.30,0) arc (0:36.13:0.30);
+  \draw[tick] (0.40,0) arc (0:36.13:0.40);
+  \draw[tick] ($(C)+(180:0.30)$) arc (180:143.87:0.30);
+  \draw[tick] ($(C)+(180:0.40)$) arc (180:143.87:0.40);
+  \node[vlab,below left] at (B) {$B$};
+  \node[vlab,below right] at (C) {$C$};
+  \node[vlab,above] at (A) {$A$};
+  \node[vlab,above left] at (D) {$D$};
+\end{tikzpicture}
+\figcap{7--11}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 7-12
+\newcommand{\FIGVIITWELVE}{\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  % C is on the perpendicular bisector of BB', so CB' = CB exactly
+  % (the hypothesis BC = B'C' with C' = C).  Q on AB with QB = QB'.
+  \coordinate (A) at (0,0); \coordinate (B) at (3.2,0);
+  \coordinate (C) at (1.8875,1.43);
+  \coordinate (Bp) at (1.30,-0.42);     % CB' = CB
+  \coordinate (Q) at (2.2036,0);        % QB = QB'
+  \draw[given] (A) -- (B);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[given] (C) -- (Bp);
+  \draw[aux] (Bp) -- (Q);
+  \node[vlab,above] at (C) {$C'=C$};
+  \node[vlab,left] at (A) {$A'=A$};
+  \node[vlab,left] at (Bp) {$B'$};
+  \node[vlab,above right] at (Q) {$Q$};
+  \node[vlab,right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{7--12}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-13, 7-14
+\newcommand{\FIGVIITHIRTEENFOURTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (A) at (0,0); \coordinate (C) at (3.0,0);
+  \coordinate (B) at (1.45,1.93);
+  \coordinate (E) at ($(B)!0.49!(C)$);
+  \coordinate (D) at ($(A)!0.655!(E)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (A) -- (D);
+  \draw[aux] (D) -- (E);
+  \draw[given] (D) -- (C);
+  \node[vlab,below left] at (A) {$A$};
+  \node[vlab,below right] at (C) {$C$};
+  \node[vlab,above] at (B) {$B$};
+  \node[vlab,above] at (D) {$D$};
+  \node[vlab,above right] at (E) {$E$};
+\end{tikzpicture}
+\figcap{7--13}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[given] (1.2,2.03) -- (1.2,-0.10);
+  \draw[given] (0,1.6) -- (2.8,1.6);
+  \draw[given] (0,0.2) -- (2.8,0.2);
+  % both right-angle boxes sit ABOVE the horizontal, right of m (as printed)
+  \draw[tick] (1.2,1.76) -- (1.36,1.76) -- (1.36,1.6);
+  \draw[tick] (1.2,0.36) -- (1.36,0.36) -- (1.36,0.2);
+  \node[vlab,above] at (1.2,2.03) {$m$};
+  \node[vlab,right] at (2.8,1.6) {$l$};
+  \node[vlab,right] at (2.8,0.2) {$l'$};
+\end{tikzpicture}
+\figcap{7--14}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 7-15
+\newcommand{\FIGVIIFIFTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \def\rr{1.15}
+  \coordinate (O) at (0,0);
+  \draw[given] (O) circle (\rr);
+  \coordinate (A) at (40:\rr);          % on the circle
+  \coordinate (Bi) at (95:0.80);        % interior: OB < r
+  \coordinate (Cx) at (-10:1.87);       % exterior: OC > r
+  \coordinate (E) at (215:\rr);
+  \coordinate (F) at (293:\rr);
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (Bi);
+  \draw[given] (O) -- (Cx);
+  \draw[given] (E) -- (F);            % the chord EF
+  \draw[aux] (E) -- ($(F)!-0.30!(E)$);  % secant, produced both ways
+  \draw[aux] (F) -- ($(E)!-0.30!(F)$);
+  \node[vlab,above right] at (A) {$A$};
+  \node[vlab,left] at (Bi) {$B$};
+  \node[vlab,right] at (Cx) {$C$};
+  \node[vlab,below left] at (E) {$E$};
+  \node[vlab,below] at (F) {$F$};
+  \node[vlab,below left] at (O) {$O$};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \def\rr{1.15}
+  \coordinate (O) at (0,0);
+  \draw[given] (O) circle (\rr);
+  \coordinate (A) at (95:\rr);
+  \coordinate (B) at (45:\rr);
+  \coordinate (F) at (178:\rr);
+  \coordinate (E) at (250:\rr);
+  \coordinate (G) at (310:\rr);
+  \draw[given] (O) -- (A);            % central angle AOB
+  \draw[given] (O) -- (B);
+  % inscribed angle EFG: only the two chords FE and FG are drawn.
+  % (Checked on scan08 p.18 -- the book does NOT close E--G.)
+  \draw[given] (F) -- (E);
+  \draw[given] (F) -- (G);
+  \node[vlab,above] at (A) {$A$};
+  \node[vlab] at (38:1.48) {$B$};
+  \node[vlab,left] at (F) {$F$};
+  \node[vlab,below] at (E) {$E$};
+  \node[vlab,below right] at (G) {$G$};
+  \node[vlab,below right] at (O) {$O$};
+\end{tikzpicture}
+\end{minipage}
+\figcap{7--15}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 7-16
+\newcommand{\FIGVIISIXTEEN}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.05]
+  % Ex. 7-5 #3 asks what kind of angle each of /A, /B, /C, /D, /E is, so
+  % every labelled point must carry two drawn rays.  C is the CENTRE
+  % (printed "C = O"), and the two radii CD, CP_3 form the central angle.
+  % Chord set read off scan08 p.20; P_1..P_4 are the book's unlabelled
+  % points where the other chords meet the circle.
+  \def\rr{1.3}
+  \coordinate (O) at (0,0);
+  \draw[given] (O) circle (\rr);
+  \coordinate (A) at (57:\rr);
+  \coordinate (B) at (132:\rr);
+  \coordinate (D) at (240:\rr);
+  \coordinate (E) at (308:\rr);
+  \coordinate (Pone) at (-4:\rr);
+  \coordinate (Ptwo) at (13:\rr);
+  \coordinate (Pthree) at (-13:\rr);
+  \coordinate (Pfour) at (-34:\rr);
+  \draw[given] (B) -- (D);                       % chord, side of /B and /D
+  \draw[given] (B) -- (Pone);                    % chord, other side of /B
+  \draw[given] (A) -- (Ptwo);                    % chord, one side of /A
+  \draw[given] (A) -- ($(A)+(-19.5:1.05)$);      % ray outside, other side of /A
+  \draw[given] (O) -- (D);                       % radius
+  \draw[given] (O) -- (Pthree);                  % radius
+  \draw[given] (D) -- (Pfour);                   % chord
+  \draw[given] (D) -- (E);                       % chord
+  \draw[given] (E) -- ($(E)+(9.9:1.20)$);        % the two rays at E, both
+  \draw[given] (E) -- ($(E)+(-11.5:1.20)$);      % lying outside the circle
+  \node[vlab,above left] at (B) {$B$};
+  \node[vlab,above right] at (A) {$A$};
+  \node[vlab,below left] at (D) {$D$};
+  \node[vlab,below] at (E) {$E$};
+  \node[slab] at (-0.30,0.22) {$C=O$};
+\end{tikzpicture}
+\figcap{7--16}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 7-17
+% Line drawing of a drafting compass, brace beneath marking the radius r.
+\newcommand{\FIGVIISEVENTEEN}{\begin{bkfigure}[0.40\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  % handle
+  \draw[given] (-0.075,2.62) rectangle (0.075,3.05);
+  % knurled collar
+  \draw[given] (-0.115,2.30) -- (-0.115,2.62) -- (0.115,2.62) -- (0.115,2.30);
+  \draw[given] (-0.115,2.30) arc (180:360:0.115);
+  % hinge head
+  \draw[given] (-0.16,1.92) .. controls (-0.20,2.16) and (-0.12,2.28) ..
+               (0,2.30) .. controls (0.12,2.28) and (0.20,2.16) .. (0.16,1.92);
+  % legs
+  \draw[given] (-0.13,2.02) -- (-0.58,0.30);
+  \draw[given] (0.13,2.02) -- (0.58,0.30);
+  \draw[given] (-0.055,2.00) -- (-0.50,0.30);
+  \draw[given] (0.055,2.00) -- (0.50,0.30);
+  % needle point (left) and pen nib (right)
+  \draw[given] (-0.58,0.30) -- (-0.605,0.10) -- (-0.545,0.10) -- (-0.50,0.30);
+  \draw[given] (-0.605,0.10) -- (-0.62,0.0);
+  \draw[given] (0.50,0.30) -- (0.545,0.06) -- (0.605,0.06) -- (0.58,0.30);
+  \draw[given] (0.575,0.06) -- (0.62,0.0);
+  % brace showing the radius
+  \draw[tick] (-0.62,-0.16) -- (-0.62,-0.24) -- (-0.04,-0.24);
+  \draw[tick] (0.0,-0.30) -- (0.04,-0.24) -- (0.62,-0.24) -- (0.62,-0.16);
+  \node[vlab,below] at (0,-0.34) {$r$};
+\end{tikzpicture}
+\figcap{7--17}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-18, 7-19
+\newcommand{\FIGVIIEIGHTEENNINETEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (V) at (0,0);
+  \foreach \a in {45,18,-9,-36}{\draw[given] (V) -- (\a:2.35);}
+  \draw[tick] (-36:1.75) arc (-36:45:1.75);
+  \node[slab] at (31.5:1.20) {$B$};
+  \node[slab] at (4.5:1.20) {$C$};
+  \node[slab] at (-22.5:1.20) {$D$};
+  \node[slab] at (2.020,0.324) {$A$};
+\end{tikzpicture}
+\figcap{7--18}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[given] (0,0) circle (0.85);
+  \draw[given] (1.6,-0.85) rectangle (3.3,0.85);
+\end{tikzpicture}
+\figcap{7--19}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-20, 7-21
+\newcommand{\FIGVIITWENTYTWENTYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.90]
+  % angle A
+  \coordinate (A) at (0,1.75);
+  \draw[given] (A) -- ++(0:3.0);
+  \draw[given] (A) -- ++(14:3.0);
+  \node[vlab,left] at (A) {$A$};
+  % ray from B, with the two possible copied angles dotted in
+  \coordinate (B) at (0,0);
+  \draw[given] (B) -- ++(0:3.0);
+  \draw[aux] (B) -- ++(20:2.5);
+  \draw[aux] (B) -- ++(-20:2.5);
+  \node[vlab,left] at (B) {$B$};
+  \node[slab,right] at (3.0,0) {Ray};
+\end{tikzpicture}
+\figcap{7--20}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.90]
+  % copied angle at A
+  \coordinate (A) at (0,1.75);
+  \coordinate (E) at ($(A)+(0:1.0)$);
+  \coordinate (D) at ($(A)+(38:1.0)$);
+  \draw[given] (A) -- ++(0:2.9);
+  \draw[given] (A) -- ++(38:1.85);
+  % the compass arc of radius r about A, cutting both sides (at D and E)
+  \draw[aux] ($(A)+(-8:1.0)$) arc (-8:50:1.0);
+  \node[vlab,left] at (A) {$A$};
+  \node[vlab] at ($(A)+(50:1.35)$) {$D$};
+  \node[vlab,below right] at (E) {$E$};
+  % construction at B
+  \coordinate (B) at (0,0);
+  \coordinate (F) at ($(B)+(0:1.0)$);
+  \coordinate (G) at ($(B)+(38:1.0)$);
+  \draw[given] (B) -- ++(0:2.9);
+  \draw[given] (B) -- ($(B)+(38:1.85)$);
+  % arc of radius r about B, cutting the ray at F;
+  % then the arc of radius DE about F, which meets the first at G.
+  \draw[aux] ($(B)+(-8:1.0)$) arc (-8:50:1.0);
+  \draw[aux] ($(F)+(96:0.6512)$) arc (96:122:0.6512);
+  \node[vlab,left] at (B) {$B$};
+  \node[vlab,below] at (F) {$F$};
+  \node[vlab] at ($(B)+(50:1.35)$) {$G$};
+  \node[vlab,above right] at ($(B)+(38:1.85)$) {$H$};
+  \node[slab,right] at (2.9,0) {Ray};
+\end{tikzpicture}
+\figcap{7--21}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-22, 7-23
+\newcommand{\FIGVIITWENTYTWOTWENTYTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  % given triangle
+  \coordinate (A) at (0,2.05); \coordinate (B) at (0.95,3.40);
+  \coordinate (C) at (2.35,2.05);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \node[vlab,left] at (A) {$A$};
+  \node[vlab,above] at (B) {$B$};
+  \node[vlab,right] at (C) {$C$};
+  % copy on a ray
+  \coordinate (Ap) at (0,0); \coordinate (Bp) at (0.95,1.35);
+  \coordinate (Cp) at (2.35,0);   % A'C' = AC, A'B' = AB (congruent copy)
+  \draw[given] (Ap) -- (3.05,0);
+  % Construction 7-2 stops here: the copied side A'B', the ray, C' cut off
+  % on it, and the arc of radius AB about A' that fixes B'.  The book does
+  % NOT close B'C' (scan08 p.24).
+  \draw[given] (Ap) -- (Bp);
+  \draw[aux] ($(Ap)+(44.9:1.65076)$) arc (44.9:64.9:1.65076);
+  \draw[tick] ($(Cp)+(0,-0.13)$) -- ($(Cp)+(0,0.13)$);
+  \node[vlab,left] at (Ap) {$A'$};
+  \node[vlab] at ($(Bp)+(0.10,0.36)$) {$B'$};
+  \node[vlab] at ($(Cp)+(0.26,0.34)$) {$C'$};
+\end{tikzpicture}
+\figcap{7--22}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  % given triangle
+  \coordinate (A) at (0,2.15); \coordinate (B) at (1.15,3.45);
+  \coordinate (C) at (2.4,2.15);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \node[vlab,left] at (A) {$A$};
+  \node[vlab,above] at (B) {$B$};
+  \node[vlab,right] at (C) {$C$};
+  % ray with the two arcs crossing at B'
+  \coordinate (Ap) at (0,0); \coordinate (Cp) at (2.4,0);
+  \coordinate (Bp) at (1.15,1.30);
+  \draw[given] (Ap) -- (3.1,0);
+  \fill (Ap) circle (1.3pt);
+  \draw[tick] ($(Cp)+(0,-0.13)$) -- ($(Cp)+(0,0.13)$);
+  % the two construction circles: radius AB about A', radius BC about C'.
+  % They cross at B'.
+  \draw[aux] ($(Ap)+(38.5:1.73566)$) arc (38.5:58.5:1.73566);
+  \draw[aux] ($(Cp)+(123.9:1.80347)$) arc (123.9:143.9:1.80347);
+  \node[vlab,left] at (Ap) {$A'$};
+  \node[vlab] at ($(Bp)+(0,0.44)$) {$B'$};
+  \node[vlab] at ($(Cp)+(0.26,0.34)$) {$C'$};
+  \node[slab,right] at (3.1,0) {Ray};
+\end{tikzpicture}
+\figcap{7--23}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-24, 7-25
+\newcommand{\FIGVIITWENTYFOURTWENTYFIVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A) at (0,0); \coordinate (B) at (3.0,0);
+  \coordinate (P) at (1.5,1.0828); \coordinate (Q) at (1.5,-1.0828);
+  \draw[given] (A) -- (B);
+  \fill (A) circle (1.3pt); \fill (B) circle (1.3pt);
+  \draw[aux] ([shift=(-50:1.85)]A) arc (-50:50:1.85);
+  \draw[aux] ([shift=(130:1.85)]B) arc (130:230:1.85);
+  \node[vlab,left] at (A) {$A$};
+  \node[vlab,right] at (B) {$B$};
+  \node[vlab] at (2.35,1.30) {$P$};
+  \node[vlab] at (2.35,-1.30) {$Q$};
+\end{tikzpicture}
+\figcap{7--24}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A) at (0,0); \coordinate (B) at (3.0,0);
+  \coordinate (P) at (1.5,1.0828); \coordinate (Q) at (1.5,-1.0828);
+  \coordinate (C) at (1.5,0);
+  \draw[given] (A) -- (B);
+  \fill (A) circle (1.3pt); \fill (B) circle (1.3pt);
+  \draw[aux] ([shift=(-50:1.85)]A) arc (-50:50:1.85);
+  \draw[aux] ([shift=(130:1.85)]B) arc (130:230:1.85);
+  \draw[given] ($(P)!-0.16!(Q)$) -- ($(Q)!-0.16!(P)$);
+  \node[vlab,left] at (A) {$A$};
+  \node[vlab,right] at (B) {$B$};
+  \node[vlab] at (2.35,1.30) {$P$};
+  \node[vlab] at (2.35,-1.30) {$Q$};
+  \node[vlab] at (2.05,0.72) {$C$};
+\end{tikzpicture}
+\figcap{7--25}
+\end{minipage}
+\end{bkfigure}}
+
+% -------------------------------------------------- Fig 7-26, 7-27, 7-28
+\newcommand{\FIGVIITWENTYSIXSEVENEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.30\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \draw[given] (0,0) -- (3.0,0);
+  \coordinate (A) at (0.55,0); \coordinate (P) at (1.5,0);
+  \coordinate (B) at (2.45,0);
+  \draw[tick] (0.55,-0.16) -- (0.55,0.16);
+  \draw[tick] (2.45,-0.16) -- (2.45,0.16);
+  \fill (P) circle (1.3pt);
+  \node[vlab,above left] at (A) {$A$};
+  \node[vlab,above] at (P) {$P$};
+  \node[vlab,above right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{7--26}
+\end{minipage}\hfill
+\begin{minipage}{0.30\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \draw[given] (0,0) -- (3.2,0);
+  \coordinate (A) at (0.35,0); \coordinate (B) at (2.85,0);
+  \coordinate (P) at (1.6,1.75);
+  \draw[tick] (0.35,-0.16) -- (0.35,0.16);
+  \draw[tick] (2.85,-0.16) -- (2.85,0.16);
+  \draw[aux] (P) -- (1.6,0);
+  \node[vlab,above] at (P) {$P$};
+  \node[vlab,above right] at (A) {$A$};
+  \node[vlab,above left] at (B) {$B$};
+\end{tikzpicture}
+\figcap{7--27}
+\end{minipage}\hfill
+\begin{minipage}{0.34\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (P) at (1.55,1.8); \coordinate (Pp) at (1.55,-1.8);
+  \coordinate (D) at (1.55,0);
+  \coordinate (B) at (2.45,0); \coordinate (C) at (2.9,0);
+  \draw[given] (-0.4,0) -- (3.4,0);
+  \draw[given] (A) -- (P);
+  \draw[given] (A) -- ($(A)!1.22!(Pp)$);   % the ray AQ, through P'
+  \draw[given] (P) -- (Pp);
+  % angle PAC congruent to angle QAC -- the book marks both
+  \draw[tick] (0.42,0) arc (0:49.28:0.42);
+  \draw[tick] (0.42,0) arc (0:-49.28:0.42);
+  \fill (B) circle (1.2pt); \fill (C) circle (1.2pt);
+  \node[vlab] at (-0.24,0.46) {$A$};
+  \node[vlab,above] at (P) {$P$};
+  \node[vlab,below left] at (Pp) {$P'$};
+  \node[vlab] at (1.80,0.30) {$D$};
+  \node[vlab,above] at (B) {$B$};
+  \node[vlab,above] at (C) {$C$};
+  \node[vlab,right] at (3.4,0) {$l$};
+  \node[vlab,below right] at ($(A)!1.22!(Pp)$) {$Q$};
+\end{tikzpicture}
+\figcap{7--28}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-29, 7-30
+\newcommand{\FIGVIITWENTYNINETHIRTY}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A) at (0,0);
+  \coordinate (P) at (1.6,1.6); \coordinate (Pp) at (1.6,-1.6);
+  \draw[given] (-0.3,0) -- (3.4,0);
+  \draw[given] (A) -- (P); \draw[given] (A) -- (Pp);
+  \draw[aux] (P) -- (Pp);
+  \node[vlab] at (-0.18,0.26) {$A$};
+  \node[vlab,above] at (P) {$P$};
+  \node[vlab,below] at (Pp) {$P'$};
+  \node[vlab,right] at (3.4,0) {$l$};
+  \node[slab] at (0.66,0.34) {1};
+  \node[slab] at (0.66,-0.36) {2};
+\end{tikzpicture}
+\figcap{7--29}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.90]
+  \coordinate (A) at (0,2.0);
+  \coordinate (C) at (0,1.0);
+  \coordinate (B) at (0.643,1.234);
+  \coordinate (Q) at (0.5303,0.5435);
+  \draw[given] (A) -- (0,0);
+  \draw[given] (A) -- (1.672,0.008);
+  \draw[tick] (-0.13,1.0) -- (0.13,1.0);
+  \draw[tick] ($(B)+(-50:0.13)$) -- ($(B)+(130:0.13)$);
+  \draw[aux] ($(Q)+(150:0.26)$) arc (150:205:0.26);
+  \draw[aux] ($(Q)+(-25:0.26)$) arc (-25:30:0.26);
+  \fill (Q) circle (1.2pt);
+  \node[vlab,above] at (A) {$A$};
+  \node[vlab,left] at (C) {$C$};
+  \node[vlab,above right] at (B) {$B$};
+  \node[vlab,below] at (Q) {$Q$};
+\end{tikzpicture}
+\figcap{7--30}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-31, 7-32
+\newcommand{\FIGVIITHIRTYONETHIRTYTWO}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.98]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (1.5,0);          % r  on the lower side
+  \coordinate (Cp) at (2.1,0);         % r' on the lower side
+  \coordinate (D) at (30:1.5);         % r  on the upper side
+  \coordinate (Dp) at (30:2.1);        % r' on the upper side
+  \coordinate (P) at (1.633,0.4373);   % DC' meets D'C on the bisector
+  \draw[given] (A) -- (0:2.55);
+  \draw[given] (A) -- (30:2.55);
+  % the two compass arcs, radius r and r', each cutting BOTH sides of the
+  % angle -- at C, D and at C', D' respectively.
+  \draw[aux] ([shift=(0:1.5)]A) arc (0:30:1.5);
+  \draw[aux] ([shift=(0:2.1)]A) arc (0:30:2.1);
+  \draw[aux] (D) -- (Cp);
+  \draw[aux] (Dp) -- (C);
+  \fill (P) circle (1.2pt);
+  \node[vlab,left] at (A) {$A$};
+  \node[vlab] at (1.149,1.010) {$D$};
+  \node[vlab] at (1.669,1.310) {$D'$};
+  \node[vlab,below] at (C) {$C$};
+  \node[vlab,below] at (Cp) {$C'$};
+  \node[vlab] at (1.227,0.329) {$P$};
+\end{tikzpicture}
+\figcap{7--31}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.90]
+  % upper: angle CAD bisected
+  \coordinate (A) at (0,1.35);
+  \draw[given] (A) -- ++(30:2.7);
+  \draw[given] (A) -- ++(15:2.7);
+  \draw[given] (A) -- ++(0:2.7);
+  \node[vlab,left] at (A) {$A$};
+  \node[vlab,above right] at ($(A)+(30:2.7)$) {$C$};
+  \node[vlab,below right] at ($(A)+(0:2.7)$) {$D$};
+  \node[slab] at ($(A)+(22.5:1.90)$) {1};
+  \node[slab] at ($(A)+(7.5:1.90)$) {2};
+  % lower: angle EBF bisected
+  \coordinate (B) at (0,-0.55);
+  \draw[given] (B) -- ++(30:2.7);
+  \draw[given] (B) -- ++(15:2.7);
+  \draw[given] (B) -- ++(0:2.7);
+  \node[vlab,left] at (B) {$B$};
+  \node[vlab,above right] at ($(B)+(30:2.7)$) {$E$};
+  \node[vlab,below right] at ($(B)+(0:2.7)$) {$F$};
+  \node[slab] at ($(B)+(22.5:1.90)$) {3};
+  \node[slab] at ($(B)+(7.5:1.90)$) {4};
+\end{tikzpicture}
+\figcap{7--32}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-33, 7-34
+\newcommand{\FIGVIITHIRTYTHREETHIRTYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (B) at (0,0); \coordinate (A) at (0,1.85);
+  \coordinate (C) at (1.25,0); \coordinate (D) at (2.85,0);
+  \draw[given] (B) -- (D);
+  \draw[given] (A) -- (B);
+  \draw[given] (A) -- (C);
+  \draw[given] (A) -- (D);
+  \draw[tick] (0,0.20) -- (0.20,0.20) -- (0.20,0);
+  \node[vlab,above] at (A) {$A$};
+  \node[vlab,below left] at (B) {$B$};
+  \node[vlab,below] at (C) {$C$};
+  \node[vlab,below right] at (D) {$D$};
+\end{tikzpicture}
+\figcap{7--33}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.20]
+  \coordinate (A) at (0,1.35); \coordinate (B) at (2.9,1.1);
+  \coordinate (C) at (0.1,0);  \coordinate (D) at (3.0,0.35);
+  \coordinate (O) at (1.913,0.7123);
+  \draw[given] (A) -- (B);
+  \draw[given] (C) -- (D);
+  \draw[given] (A) -- (D);
+  \draw[given] (C) -- (B);
+  \node[vlab,above left] at (A) {$A$};
+  \node[vlab,above right] at (B) {$B$};
+  \node[vlab,below left] at (C) {$C$};
+  \node[vlab,right] at (D) {$D$};
+  \node[vlab] at (1.99,0.48) {$O$};
+\end{tikzpicture}
+\figcap{7--34}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------- Fig 7-35, 7-36
+\newcommand{\FIGVIITHIRTYFIVETHIRTYSIX}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (A) at (0,0);
+  % B, A, F are collinear in the printed figure (158 and -22 degrees), which
+  % is what makes Review Ex. 18's conclusion true: AC bisects angle DAB and
+  % AE bisects angle DAF, hence angle CAE is right.
+  \draw[given] (A) -- (158:1.70);     % B
+  \draw[given] (A) -- (100.5:1.75);   % C
+  \draw[given] (A) -- (43:1.75);      % D
+  \draw[given] (A) -- (10.5:1.75);    % E
+  \draw[given] (A) -- (-22:1.75);     % F
+  \draw[aux] (A) -- (190.5:0.95);     % extension of AE (the exercise's hint)
+  \node[vlab] at (0.10,-0.30) {$A$};
+  \node[vlab,left] at (158:1.70) {$B$};
+  \node[vlab,above] at (100.5:1.75) {$C$};
+  \node[vlab,above right] at (43:1.75) {$D$};
+  \node[vlab,right] at (10.5:1.75) {$E$};
+  \node[vlab,right] at (-22:1.75) {$F$};
+\end{tikzpicture}
+\figcap{7--35}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (A) at (0,0);
+  % AC bisects angle DAB ; angle CAE is right
+  \draw[given] (A) -- (180:1.55);     % B
+  \draw[given] (A) -- (127.5:1.75);   % C
+  \draw[given] (A) -- (75:1.75);      % D
+  \draw[given] (A) -- (37.5:1.75);    % E
+  \draw[given] (A) -- (0:1.55);       % F
+  \node[vlab] at (0,-0.32) {$A$};
+  \node[vlab,left] at (180:1.55) {$B$};
+  \node[vlab,above] at (127.5:1.75) {$C$};
+  \node[vlab,above] at (75:1.75) {$D$};
+  \node[vlab,right] at (37.5:1.75) {$E$};
+  \node[vlab,right] at (0:1.55) {$F$};
+\end{tikzpicture}
+\figcap{7--36}
+\end{minipage}
+\end{bkfigure}}

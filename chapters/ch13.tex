@@ -1,0 +1,422 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures13}
+
+% ---- local macros (hoist into book preamble) ----
+% The "*" on _locus_ on p.227 is a GLOSSARY footnote, not the starred-exercise
+% convention, so \starnote is wrong here.  As with ch02's \IIstarnote and
+% ch09's \IXstarnote, \footnotetext alone would print the footnote counter;
+% the book marks this note with the "*" itself and no number.
+\newcommand{\XIIIlocusnote}{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*\emph{Locus} is a Latin word meaning, literally, \emph{place}
+  in the sense that we use the word \emph{location}.}%
+  \endgroup}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{13}
+
+\chapter*{\raggedright\Huge LOCI AND SETS}
+\markboth{LOCI AND SETS}{}
+\addcontentsline{toc}{chapter}{13.\ Loci and Sets}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 13-1
+\section*{13--1\quad TERMINOLOGY}
+\addcontentsline{toc}{section}{13--1\quad Terminology}
+
+In this chapter we use the term \emph{locus}*\XIIIlocusnote{} (plural,
+\emph{loci}), which we inherit from the days when Latin was the universal
+language of science. (Even in the first part of the 19th century, most
+mathematics was published in Latin.) As will be clear from the definition given
+below, a locus is just a set of points. The language may be met in later work,
+so we devote this short chapter to it. We also collect a number of geometric
+constructions in this chapter.
+
+\begin{definition}
+A locus of points is the set of all points, and only those points, which
+satisfy some given condition.
+\end{definition}
+
+We may now use the language, ``The locus of points $P$ such that\ldots.'' This
+is just another way of saying, ``The set of all points $P$ such that\ldots.''
+
+Examples:
+
+(a) The \emph{locus} of points at a given distance $r$ from a given point is
+obviously a circle.
+
+(b) The \emph{locus} of points at a given distance $d$ from a given line $l$ is
+a pair of lines parallel to $l$, one on each side of $l$ (Fig.~13--1).
+
+\FIGXIIIONE
+
+Example (b) requires a bit of proof, which is omitted. We will discuss such
+proofs in the next section. This locus could also be described as the \emph{set}
+of all points at distance $d$ from $l$.
+
+\FIGXIIITWO
+
+(c) The \emph{locus} of points equidistant from two parallel lines is a line
+between the given lines.
+
+An equivalent way of describing (c) would be to say: the \emph{set} of all
+points equidistant from two parallel lines (Fig.~13--2). Again, the fact that
+locus (c) is a line requires proof.
+
+\exercisegroup{13--1}
+
+In the following exercises, state what you believe the locus to be. Also
+describe this locus as a \emph{set}.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item What is the locus of points $P$ such that $\sg{PP_0} = 4$, where $P_0$ is
+      a given point?
+\item What is the locus of all points at a distance 1 from a line segment three
+      units long (Fig.~13--3)? (By the distance from a point to a line segment,
+      we mean the shortest distance from the point to any point of the
+      segment.)
+\item What is the locus of all points at a distance four units from the sides of
+      a unit square? a square 12 units on a side? eight units?
+\item A circle of radius five units is given. What is the locus of all points at
+      a distance two units from the given circle?
+\item A triangle has a fixed base four units long (Fig.~13--4). What is the
+      locus of all possible positions of the vertex $V$ if the area is four
+      units? if the area is $A$ units?
+\end{exlist}
+\end{multicols}
+
+\FIGXIIITHREE
+\FIGXIIIFOUR
+
+%========================================================= 13-2
+\section*{13--2\quad SOME LOCUS THEOREMS}
+\addcontentsline{toc}{section}{13--2\quad Some Locus Theorems}
+
+In many locus problems the set of points can be characterized in more than one
+way, or we can say that two locus statements may describe the same set of
+points. When this is the case, there is the following to be shown: (1)~Each
+point of the first locus is also a point of the second locus. (The first set is
+a \emph{subset} of the second set.) (2)~Each point of the second locus is also a
+point of the first locus. (The second set is a subset of the first set.) If each
+is a subset of the other, the two sets are the same.
+
+\FIGXIIIFIVE
+
+\begin{theorem}
+The locus of points $P$ equidistant from two given points, $A$ and $B$, is the
+set of points on the perpendicular bisector of the segment $AB$ (Fig.~13--5).
+\end{theorem}
+
+To make the proof we must show two things: (1)~that if a point $P$ is
+equidistant from $A$ and $B$, then it is on the perpendicular bisector, and
+(2)~that if a point is on the perpendicular bisector, then it is equidistant
+from $A$ and $B$. These should be easy for you to prove now; in fact, both (1)
+and (2) were proven previously as theorems or exercises.
+
+A brief proof will be sketched here, although your teacher may require you to
+write out the details. To prove (1), let $C$ denote the midpoint of $AB$. Then
+if $P \neq C$, $\tri{PAC} \cong \tri{PBC}$. (Why?) Thus $\ang{PCA} \cong
+\ang{PCB}$, and $P$ is on the perpendicular bisector. (How do we argue if
+$P = C$?) To prove (2), suppose that $P$ is on the perpendicular bisector and
+$P \neq C$. Then $\tri{PCA} \cong \tri{PCB}$ (why?) and $PA \cong PB$. (How do
+we argue if $P = C$?)
+
+A similar theorem concerns angle bisectors.
+
+\begin{theorem}
+The locus of points interior to an angle and equidistant from the sides of the
+angle is the set of points on the bisector of the angle, excluding the vertex
+(Fig.~13--6).
+\end{theorem}
+
+\FIGXIIISIX
+
+\noindent\emph{Proof sketch.} Suppose that $P$ is interior to the angle and
+equidistant from the sides. Let $A$ and $B$ be the feet of perpendiculars from
+$P$ to the sides of the angle. (How do you know that perpendiculars from $P$
+meet the sides of the angle?) Then $\tri{POA}$ and $\tri{POB}$ are right
+triangles with two congruent sides and are congruent. Hence $\ang{POA} \cong
+\ang{POB}$, and $OP$ is the angle bisector. Conversely, if $P$ is on the
+bisector, then $P \neq O$, $PA$ and $PB$ are perpendicular to the sides of the
+angle, and the right triangles $POA$ and $POB$ are congruent. Hence
+$\sg{PA} = \sg{PB}$.
+
+\begin{theorem}
+Let $AB$ be a given segment. The set of all points $P$ such that $\tri{APB}$ is
+right, with $AB$ the hypotenuse, is the circle on $AB$ as diameter, excluding
+points $A$ and $B$ (Fig.~13--7).
+\end{theorem}
+
+\FIGXIIISEVEN
+
+Let $O$ be the midpoint of $AB$. It is necessary to show that if $P$ is a point
+such that $AP \perp PB$, then $P$ is on the circle whose center is $O$ and which
+contains $A$ and $B$.
+
+Conversely, if $P$ is on the circle, and different from $A$ and $B$, it is
+necessary to show that $AP \perp PB$. But this follows from theorems on the
+measure of inscribed angles. (There are other proofs, too.) The details are left
+to the student.
+
+\exercisegroup{13--2}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item What is the set of all points that are centers of circles tangent to both
+      sides of an angle?
+\item What is the locus of all points exterior to a given circle and at a
+      distance $d$ from the circle?
+\item A barn has dimensions $30 \times 50$ ft. A cow is tethered to a corner of
+      the barn by a rope 60 ft long. What is the locus of points where the cow
+      may graze?
+\item[\stex 4.] In Fig.~13--8, points $A$ and $B$ are fixed. What is the locus
+      of all points $P$, on a given side of the line $AB$, such that
+      $\ang{APB}$ is $50^\circ$?
+\item[5.] What is the locus of points equidistant from three noncollinear
+      points?
+\item[6.] As in Fig.~13--9, sketch the path of a point on the rim of a wheel
+      rolling on a line. The curve obtained is called a \emph{cycloid}.
+\item[\stex 7.] With the same wheel as in Exercise 6, sketch the locus if $P$ is
+      on a spoke of the wheel; on an extension of a spoke.
+\item[8.] A small circle of radius $R/4$ rolls on the inside of a circle of
+      radius $R$ (Fig.~13--10). What is the path of a point on the small circle?
+      (The curve is called a \emph{hypocycloid}.)
+\item[\stex 9.] What are the various possibilities that arise from Exercise 8 if
+      the radius of the small circle is $xR$? Investigate the locus if
+      $x = \frac{1}{2}$; $x = \frac{1}{3}$; $x$ is a rational number; $x$ is an
+      irrational number.
+\end{exlist}
+\end{multicols}
+
+\FIGXIIIEIGHT
+\FIGXIIININE
+\FIGXIIITEN
+
+%========================================================= 13-3
+\section*{13--3\quad UNIONS AND INTERSECTIONS}
+\addcontentsline{toc}{section}{13--3\quad Unions and Intersections}
+
+Some loci are just unions or intersections of other simpler loci. To be precise,
+we make a definition.
+
+\begin{definition}
+Given two sets of points $S_1$ and $S_2$, the union of the two sets is the set of
+all points of $S_1$ and $S_2$. The \emph{intersection} of $S_1$ and $S_2$ is the
+set of points that are common to $S_1$ and $S_2$.
+\end{definition}
+
+\exercisegroup{13--3}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Describe an angle as a union of two sets.
+\item Describe an angle and its interior as the intersection of two sets.
+\item Describe the interior of a triangle as the intersection of three sets; as
+      the intersection of two sets.
+\item Describe a triangle as the union of three sets.
+\item Describe a quadrilateral as the union of four sets. Describe the interior
+      of a simple convex quadrilateral as the intersection of two sets; as the
+      intersection of four sets.
+\end{exlist}
+\end{multicols}
+
+\begin{theorem}
+The bisectors of the angles of a triangle intersect in one point (called the
+\emph{incenter}), which is equidistant from the three sides (Fig.~13--11).
+\end{theorem}
+
+\FIGXIIIELEVEN
+
+\noindent\emph{Proof sketch.} The bisectors of angles $A$ and $B$ must intersect
+in one point $O$. (Why?) Then this point $O$ is equidistant from $AB$ and from
+$BC$. (Why?) Likewise, $O$ is equidistant from $AB$ and $AC$. Therefore, $O$ is
+on the bisector of $\ang{C}$. (Why?) This proves the theorem.
+
+The point $O$ is called the \emph{incenter} because it is the center of a circle
+\emph{inscribed} in the triangle. One may also state the theorem by saying that
+\emph{the bisectors of the angles are concurrent}.
+
+\FIGXIIITWELVE
+
+\begin{theorem}
+The perpendicular bisectors of the sides of a triangle intersect in one point
+(called the \emph{circumcenter}), which is equidistant from the three vertices
+(Fig.~13--12).
+\end{theorem}
+
+The proof is left to the student.
+
+\exercisegroup{13--4}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Consider all lines that are parallel to the base of a triangle and that
+      intersect the other sides in points $C$ and $D$ (Fig.~13--13). Show that
+      the locus of midpoints of such segments $CD$ is the median to the base
+      (except for one point!).
+\item Show how to inscribe a circle in a triangle. State why your construction
+      is correct. Why is there a unique inscribed circle?
+\item Show how to circumscribe a circle about a triangle. State why there is a
+      unique circumscribing circle.
+\item In Fig.~13--14, $\ang{ABC}$, neither right nor straight, is given. The
+      point $O$ is the intersection of the perpendicular bisector of $AB$ and
+      the line perpendicular to $BC$ through $B$. Prove that there is a circle
+      with center $O$ containing $A$ and $B$. If $Q$ is a point of this circle
+      and is on the same side of $AB$ as $O$, prove that
+      $\ang{AQB} \cong \ang{ABC}$.
+\end{exlist}
+\end{multicols}
+
+\FIGXIIITHIRTEEN
+\FIGXIIIFOURTEEN
+
+\begin{theorem}
+The medians of a triangle intersect in one point (called the \emph{centroid}),
+which is two thirds of the distance from each vertex to the midpoint of the
+opposite side.
+\end{theorem}
+
+\noindent\emph{Outline of proof.} (Details are left as an exercise.) (1)~Any two
+medians, say $CD$ and $AE$ in Fig.~13--15, intersect. Call this intersection
+point $O$. (2)~Choose $F$ and $G$ as the midpoints of $OC$ and $OA$,
+respectively. (3)~Show that $D$, $E$, $F$, and $G$ are vertices of a
+parallelogram. (4)~Thus $AG \cong GO \cong OE$, and $FC \cong FO \cong OD$.
+(5)~The point $O$ has, therefore, the required distance properties. Since there
+is but one such point on each median, the medians are concurrent.
+
+The centroid is the ``balance point'' in the following sense. A sheet of metal
+of uniform thickness, the shape of the triangle, would balance if supported at
+$O$. Exercise 1 of Group 13--4 may help you to see why this is so.
+
+\FIGXIIIFIFTEENSIXTEEN
+
+\begin{theorem}
+The altitudes of a triangle intersect in one point (called the
+\emph{orthocenter}).
+\end{theorem}
+
+\noindent\emph{Outline of proof.} (Details are left as an exercise.)
+(1)~Through each vertex, consider the line that is parallel to the opposite side
+of the given $\tri{ABC}$. These lines will intersect to form $\tri{A'B'C'}$, as
+in Fig.~13--16. (2)~Show that $AC'BC$, $ABCB'$, and $ABA'C$ are parallelograms,
+and hence observe that $C'B \cong BA'$, $C'A \cong AB'$, and $B'C \cong CA'$.
+(3)~Show that the circumcenter $O$ of $\tri{A'B'C'}$ is the point of
+intersection of the altitudes of $\tri{ABC}$.
+
+\exercisegroup{13--5}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Construct a triangle, given the lengths of its base, altitude, and one
+      side.
+\item Construct a triangle, given the base, the length of the altitude to this
+      base, and one of the base angles.
+\item[\stex 3.] As in Fig.~13--17, construct a triangle, given the lengths of
+      two sides and an angle other than the included angle. [\emph{Hint:} Use
+      Exercise 4 in Group 13--4.]
+\item[4.] Construct a triangle, given the lengths of an altitude to one side and
+      the other two sides.
+\item[5.] Construct a triangle, given the midpoints of the three sides.
+\item[6.] Construct a triangle, given the length of the altitude to the base and
+      the two base angles.
+\item[7.] Given a circle and a line segment $AB$, construct the locus of all
+      points $P$ such that tangents of length $\sg{AB}$ can be drawn to the
+      circle from $P$.
+\item[8.] Construct a right triangle with a given segment as hypotenuse and
+      having a side of given length.
+\item[9.] Construct a circle tangent to a given line at a given point and having
+      a given radius.
+\item[10.] Construct the locus of all points $P$ such that there is a circle,
+      with given radius and center at $P$, which is tangent to a given circle.
+\item[11.] Construct all circles with a given radius which are tangent to two
+      given circles of unequal radii.
+\item[12.] Construct a line tangent to a given circle and perpendicular to a
+      given line.
+\item[13.] Given a circle and a line segment $AB$, construct the set of all
+      points $M$ such that $M$ is the midpoint of a chord (of the circle)
+      congruent to $AB$.
+\item[14.] Given an arc of a circle, construct the center of the circle.
+\item[15.] Construct an isosceles triangle, given the base, and the radius of
+      the circumscribed circle.
+\item[16.] Construct an isosceles triangle, given the base, and the radius of
+      the inscribed circle.
+\item[17.] Construct an isosceles triangle, given the base and the vertex angle.
+\item[18.] Construct a triangle, given two sides and the length of the median to
+      one of these sides.
+\item[\stex 19.] Let $P$ be a given point not on a given circle whose center is
+      $O$. Consider all segments $PX$ such that $X$ is on the circle. Show that
+      the locus of midpoints $M$ of these segments is a circle whose diameter is
+      a segment on the line through $P$ and $O$. Construct this circle.
+\item[\stex 20.] Given three segments, construct a triangle two of whose sides
+      are congruent to two of these segments, and such that the median to the
+      other side is congruent to the third segment.
+\end{exlist}
+\end{multicols}
+
+\FIGXIIISEVENTEEN
+
+%========================================================= Review
+\section*{REVIEW OF CHAPTER 13}
+\addcontentsline{toc}{section}{Review of Chapter 13}
+\markboth{REVIEW OF CHAPTER 13}{}
+
+In earlier chapters we were using the phrases \emph{set of points} and
+\emph{geometric figure} interchangeably. In this chapter we introduced a third
+term, \emph{locus}, which has exactly the same meaning as the earlier
+expressions.
+
+It is important that you understand what is involved in establishing that two
+different ``rules'' determine the same locus. A statement like
+
+\begin{quote}
+\emph{the set of points having property $p$ is the same set as that having
+property $q$}
+\end{quote}
+
+\noindent must be established by proving two things:
+
+(1) Every point in the first set is also in the second. That is, every point
+having property $p$ also has property $q$.
+
+(2) Every point in the second set is also in the first. That is, every point
+having property $q$ also has property $p$.
+
+% The book heads this "Review Exercises", with no "Exercise"/"Exercise Group"
+% prefix, so \exercise{} (which prepends "Exercise") is wrong here.
+\par\medskip\begin{center}\bfseries Review Exercises\end{center}\par\nopagebreak
+
+\begin{exlist}
+\item If $AB$ is a fixed segment, are the properties
+      \begin{quote}
+      $p$: $\ang{AXB}$ is acute
+      \end{quote}
+      \noindent and
+      \begin{quote}
+      $q$: $X$ is in the exterior of the circle on $AB$ as diameter
+      \end{quote}
+      \noindent equivalent to each other?
+\item Restate Exercise 1 in conventional locus terminology.
+\item If $R$ is the set of points $X$ such that, for a fixed segment $AB$,
+      % As printed: the book sets the right-hand side of this first relation
+      % WITHOUT an overbar, though the two relations below it carry one.
+      % Verified at 320 dpi (PDF 249); "AB," opens the line, so nothing is
+      % clipped.  Reproduced as printed -- see ch13-UNCERTAIN.md.
+      $\sg{AX} + \sg{XB} = AB$, and $S$ is the set of points between $A$
+      and $B$, prove that $R = S$. How else can you describe the locus of points
+      $X$ such that $\sg{AX} - \sg{XB} = \sg{AB}$? such that
+      $\sg{BX} - \sg{XA} = \sg{AB}$?
+\item Let $AB$ and $CD$ be two given segments. Describe in a second way the set
+      of points $X$ such that
+      \begin{quote}
+      $\ang{AXB}$ is obtuse and $\ang{CXD}$ is right;\\
+      $\ang{AXB}$ is obtuse or $\ang{CXD}$ is right;\\
+      $\ang{AXB}$ is acute and $\ang{CXD}$ is obtuse;\\
+      $\ang{AXB}$ is acute or $\ang{CXD}$ is obtuse.
+      \end{quote}
+\end{exlist}
+
+\end{document}

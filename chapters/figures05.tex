@@ -1,0 +1,188 @@
+% figures05.tex -- Chapter 5, "Measurement of Segments".
+% All figures in this chapter are number-line / segment diagrams: labelled
+% points on straight lines, with the unit segment shown below.  Every point
+% position below is exact arithmetic on the unit u -- no point is placed by
+% eye.  Proportions read off the iPad scans (scan05 pp.18-24, scan06 pp.6-7)
+% and the photo PDF (PDF pp.87-97); see tools/constraints/ch05.py.
+%
+% Fig. 5-1 (a pictorial vignette of a man pacing off a building) is NOT
+% redrawn -- see chapters/ch05-UNCERTAIN.md.
+%
+% Loaded here rather than in ch05.tex so that this file stands alone for
+% tools/check_labels.py, whose driver inputs figures05.tex by itself.
+\usetikzlibrary{decorations.pathreplacing}
+
+% ---------------------------------------------------------------- Fig. 5-2
+% Unit CD laid off from A: A1,A2,A3,A4 at 1..4 units; B between A3 and A4
+% (measured at 0.36 of that gap, giving AB about 3.36 units).
+\newcommand{\FIGVTWO}{%
+\begin{bkfigure}[0.92\linewidth]
+\begin{tikzpicture}[x=1.75cm,y=1cm]
+  \draw[given] (-0.20,0) -- (4.40,0);
+  \foreach \x/\lb in {0/A,1/{A_1},2/{A_2},3/{A_3},3.36/B,4/{A_4}}{%
+    \fill (\x,0) circle (1.5pt);
+    \node[vlab,above] at (\x,0) {$\lb$};}
+  \node[vlab,right] at (4.40,0) {$l$};
+  % unit segment CD, drawn below, spanning 0.52u to 1.52u.  Drop measured
+  % from the book plate: gap between the two lines is 0.35 of the unit.
+  \draw[given] (0.52,-0.61) -- (1.52,-0.61);
+  \fill (0.52,-0.61) circle (1.5pt); \fill (1.52,-0.61) circle (1.5pt);
+  \node[vlab,above,xshift=-2pt] at (0.52,-0.61) {$C$};
+  \node[vlab,above,xshift=2pt] at (1.52,-0.61) {$D$};
+  \node[slab,above] at (1.02,-0.63) {1};
+\end{tikzpicture}
+\figcap{5--2}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig. 5-3
+% The unit is too large: B lies between A and A1.  Re-measured off the book
+% plate: B sits at 0.32 of AA1 (not 0.45), and the line runs on to 1.71 u.
+\newcommand{\FIGVTHREE}{%
+\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[x=1.75cm,y=1cm]
+  \draw[given] (-0.26,0) -- (1.71,0);
+  \foreach \x/\lb in {0/A,0.32/B,1/{A_1}}{%
+    \fill (\x,0) circle (1.5pt);
+    \node[vlab,above] at (\x,0) {$\lb$};}
+\end{tikzpicture}
+\figcap{5--3}
+\end{bkfigure}}
+
+% ----------------------------------------------------------- Figs. 5-4/5-5
+% Archimedes' integer n = 4.  5-4: B = A4 exactly.  5-5: B between A3 and A4
+% (measured at 0.18 of that gap).  In both plates the drawn line STARTS at A
+% -- there is no stub to the left of A, unlike Fig. 5-2.
+\newcommand{\FIGVFOURFIVE}{%
+\begin{bkfigure}[0.94\linewidth]
+\begin{tikzpicture}[x=1.75cm,y=1cm]
+  \draw[given] (0,0) -- (4.40,0);
+  \foreach \x/\lb in {0/{A=A_0},1/{A_1},2/{A_2},3/{A_3},4/{A_4=B}}{%
+    \fill (\x,0) circle (1.5pt);
+    \node[vlab,above] at (\x,0) {$\lb$};}
+  \draw[given] (0.52,-0.61) -- (1.52,-0.61);
+  \fill (0.52,-0.61) circle (1.5pt); \fill (1.52,-0.61) circle (1.5pt);
+  \node[vlab,above,xshift=-2pt] at (0.52,-0.61) {$C$};
+  \node[vlab,above,xshift=2pt] at (1.52,-0.61) {$D$};
+\end{tikzpicture}
+\figcap{5--4}
+\end{bkfigure}%
+\begin{bkfigure}[0.94\linewidth]
+\begin{tikzpicture}[x=1.75cm,y=1cm]
+  \draw[given] (0,0) -- (4.40,0);
+  \foreach \x in {0,1,2,3,3.18,4}{\fill (\x,0) circle (1.5pt);}
+  \foreach \x/\lb in {0/A,1/{A_1},2/{A_2},4/{A_4}}{%
+    \node[vlab,above] at (\x,0) {$\lb$};}
+  % A3 and B sit 0.18 u apart, as in the book; the labels are nudged apart
+  % by 1.5pt each so they read as "A_3 B" rather than colliding.  The DOTS
+  % stay at the exact positions 3 and 3.18 -- only the text moves.
+  \node[vlab,above,xshift=-1.5pt] at (3,0) {$A_3$};
+  \node[vlab,above,xshift=1.5pt] at (3.18,0) {$B$};
+\end{tikzpicture}
+\figcap{5--5}
+\end{bkfigure}}
+
+% ----------------------------------------------------------- Figs. 5-6/5-7
+% 5-6: the unit interval CD divided into tenths (9 interior marks).
+% 5-7: AB measured as about 2.3 units; the tenth-scale unit CD alongside.
+\newcommand{\FIGVSIXSEVEN}{%
+\begin{bkfigure}[0.90\linewidth]
+\begin{tikzpicture}[x=7.5cm,y=1cm]
+  \draw[given] (0,0) -- (1,0);
+  \fill (0,0) circle (1.5pt); \fill (1,0) circle (1.5pt);
+  \node[vlab,above,xshift=-2pt] at (0,0) {$C$};
+  \node[vlab,above,xshift=2pt] at (1,0) {$D$};
+  \foreach \k in {1,...,9}{\draw[tick] ({\k/10},-0.085) -- ({\k/10},0.085);}
+\end{tikzpicture}
+\figcap{5--6}
+\end{bkfigure}%
+\begin{bkfigure}[0.90\linewidth]
+\begin{tikzpicture}[x=1.9cm,y=1cm]
+  \draw[given] (0,0) -- (2.30,0);
+  \foreach \x/\lb in {0/A,1/{A_1},2/{A_2},2.30/B}{%
+    \fill (\x,0) circle (1.5pt);
+    \node[vlab,above] at (\x,0) {$\lb$};}
+  % the unit CD alongside, itself divided into tenths
+  \draw[given] (2.64,0) -- (3.64,0);
+  \fill (2.64,0) circle (1.5pt); \fill (3.64,0) circle (1.5pt);
+  \node[vlab,above,xshift=-2pt] at (2.64,0) {$C$};
+  \node[vlab,above,xshift=2pt] at (3.64,0) {$D$};
+  \foreach \k in {1,...,9}{\draw[tick] ({2.64+\k/10},-0.075) -- ({2.64+\k/10},0.075);}
+\end{tikzpicture}
+\figcap{5--7}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig. 5-8
+% Theorem 5-2: B'' chosen on the same side of A as B with AB'' = A'B'.
+% B'' drawn between A and B (measured at 0.77 of AB).  AB is drawn the same
+% length as A'B' (the theorem's given |AB| = |A'B'|), A sits directly under
+% A', and the two rows are 0.17 of the segment length apart -- all measured
+% off the book plate.
+\newcommand{\FIGVEIGHT}{%
+\begin{bkfigure}[0.72\linewidth]
+\begin{tikzpicture}[x=4.6cm,y=1cm]
+  \draw[given] (0,0.80) -- (1,0.80);
+  \fill (0,0.80) circle (1.5pt); \fill (1,0.80) circle (1.5pt);
+  \node[vlab,above] at (0,0.80) {$A'$};
+  \node[vlab,above] at (1,0.80) {$B'$};
+  \draw[given] (0,0) -- (1,0);
+  \foreach \x/\lb in {0/A,1/B}{%
+    \fill (\x,0) circle (1.5pt);
+    \node[vlab,above] at (\x,0) {$\lb$};}
+  \fill (0.77,0) circle (1.5pt);
+  \node[vlab,above,yshift=1.2pt] at (0.77,0) {$B''$};
+\end{tikzpicture}
+\figcap{5--8}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig. 5-9
+% Theorem 5-3: E on the same side of C as D with AB = CE; D between C and E
+% (measured at 0.66 of CE).
+\newcommand{\FIGVNINE}{%
+\begin{bkfigure}[0.72\linewidth]
+\begin{tikzpicture}[x=4.6cm,y=1cm]
+  \draw[given] (0,0.75) -- (1,0.75);
+  \fill (0,0.75) circle (1.5pt); \fill (1,0.75) circle (1.5pt);
+  \node[vlab,above] at (0,0.75) {$A$};
+  \node[vlab,above] at (1,0.75) {$B$};
+  \draw[given] (0,0) -- (1,0);
+  \foreach \x/\lb in {0/C,0.66/D,1/E}{%
+    \fill (\x,0) circle (1.5pt);
+    \node[vlab,above] at (\x,0) {$\lb$};}
+\end{tikzpicture}
+\figcap{5--9}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig. 5-10
+% Change of scale: E is the midpoint of the unit CD, so AB = 3 with unit CD
+% and AB = 6 with unit ED.  Horizontal layout re-measured off the book plate
+% (all in CD units from C): A at 1.55, B at 4.55, the half-unit ED alongside
+% at 5.15..5.65.  The earlier 2.24/5.24/5.92/6.42 spread the plate too wide.
+\newcommand{\FIGVTEN}{%
+\begin{bkfigure}[0.96\linewidth]
+\begin{tikzpicture}[x=1.25cm,y=1cm]
+  % unit CD with midpoint E, braced and labelled 1
+  \draw[given] (0,0) -- (1,0);
+  \fill (0,0) circle (1.5pt); \fill (1,0) circle (1.5pt);
+  \draw[tick] (0.5,-0.09) -- (0.5,0.09);
+  \node[vlab,below] at (0,-0.02) {$C$};
+  \node[vlab,below] at (0.5,-0.02) {$E$};
+  \node[vlab,below] at (1,-0.02) {$D$};
+  \draw[fig,line width=0.5pt,decorate,decoration={brace,amplitude=3pt}]
+        (0,0.16) -- (1,0.16);
+  \node[slab,above,yshift=2.6pt] at (0.5,0.19) {1};
+  % AB, three units long; the "1" sits under its first third
+  \draw[given] (1.55,0.55) -- (4.55,0.55);
+  \fill (1.55,0.55) circle (1.5pt); \fill (4.55,0.55) circle (1.5pt);
+  \node[vlab,above] at (1.55,0.55) {$A$};
+  \node[vlab,above] at (4.55,0.55) {$B$};
+  \draw[tick] (2.55,0.46) -- (2.55,0.64);
+  \draw[tick] (3.55,0.46) -- (3.55,0.64);
+  \node[slab,below,yshift=-2.2pt] at (2.05,0.53) {1};
+  % the half-unit ED alongside
+  \draw[given] (5.15,0.30) -- (5.65,0.30);
+  \fill (5.15,0.30) circle (1.5pt); \fill (5.65,0.30) circle (1.5pt);
+  \node[vlab,above] at (5.15,0.30) {$E$};
+  \node[vlab,above] at (5.65,0.30) {$D$};
+\end{tikzpicture}
+\figcap{5--10}
+\end{bkfigure}}

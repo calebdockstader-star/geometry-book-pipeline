@@ -1,0 +1,356 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures17}
+
+% ---- local macros (hoist into book preamble) ----
+% The Appendix has no numbered "N--M" sections. Its three major heads are
+% set centred, bold and small, not flush left like a chapter's \section*.
+% \APPhead also files the TOC entry the assembled book needs.
+\newcommand{\APPhead}[2]{%
+  \par\bigskip\begin{center}\bfseries #1\end{center}%
+  \addcontentsline{toc}{section}{#2}\par\nopagebreak\medskip}
+% Bold centred subhead grouping a run of postulates.
+\newcommand{\APPsub}[1]{%
+  \par\medskip\begin{center}\bfseries\small #1\end{center}\par\nopagebreak}
+% Continuously-numbered reference list, with (a)/(b)/(c) subparts.
+\newlist{applist}{enumerate}{2}
+\setlist[applist,1]{label=\arabic*., leftmargin=1.7em, labelsep=0.4em,
+                    itemsep=2.5pt, topsep=4pt, parsep=0pt}
+\setlist[applist,2]{label=(\alph*), leftmargin=1.9em, labelsep=0.4em,
+                    itemsep=1.5pt, topsep=2.5pt, parsep=0pt}
+% Editorial summary standing in for a passage of the authors' connective
+% prose that has NOT been reproduced verbatim -- see appendix-UNCERTAIN.md,
+% item 1, which lists every one of these and the reason they are here.
+\newcommand{\APPnote}[1]{%
+  \par\medskip\noindent\fbox{\begin{minipage}{0.94\linewidth}\footnotesize
+  \itshape #1\end{minipage}}\par\medskip}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{17}
+
+% The book sets this opener flush RIGHT: "APPENDIX" occupies the slot that
+% "CHAPTER 10" occupies on a numbered chapter opener (cf. book p.180).
+\chapter*{\raggedleft\Huge APPENDIX}
+\addcontentsline{toc}{chapter}{Appendix}
+\markboth{APPENDIX}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+\APPnote{Opening paragraph (book p.~275): the Appendix collects all the
+postulates for plane geometry together with a selection of the definitions
+and theorems. The authors recommend reading it through rather than merely
+consulting it, on the grounds that the order in which the theorems are
+arranged is itself a picture of how Euclidean geometry is built up.
+Summarised, not transcribed --- see \texttt{appendix-UNCERTAIN.md}, item~1.}
+
+%========================================================= the postulates
+\APPhead{THE POSTULATES}{The Postulates}
+
+There are three groups of postulates, and three postulates listed singly.
+They are:
+
+\begin{center}
+\begin{minipage}{0.86\linewidth}
+Postulates of incidence (3 postulates)\\
+Postulates of order or betweenness (5 postulates)\\
+Postulates of congruence (7 postulates)\\
+The postulate of Archimedes\\
+The completeness postulate\\
+The parallel postulate.
+\end{minipage}
+\end{center}
+
+\APPsub{The Incidence Postulates}
+
+\begin{applist}
+\item There are at least three points not all on a line.
+\item For any two different points, there is exactly one line containing
+      these points.
+\item Every line contains at least two points.
+\end{applist}
+
+\APPsub{The Betweenness Postulates}
+
+\begin{applist}[resume]
+\item If $B$ is between $A$ and $C$, then $A$, $B$, and $C$ are three
+      different, or distinct, points on a line.
+\item Of any three points on a line, exactly one is between the other two.
+\item Four points on a line can be named $A_1, A_2, A_3, A_4$ so that the
+      betweenness relations among them are exactly those given by the order
+      of the subscripts.
+\item If $A$ and $B$ are two points, then there is at least one point $C$
+      such that $B$ is between $A$ and $C$, and at least one point $D$ such
+      that $D$ is between $A$ and $B$.
+\item Every line $l$ separates the plane: the points not on $l$ fall into
+      two sets, the two \emph{sides} of $l$, such that
+      \begin{applist}
+      \item two points of the same set have no point of $l$ between them;
+      \item two points of different sets have a point of $l$ between them.
+      \end{applist}
+\end{applist}
+
+\APPsub{Linear Congruence Postulates}
+
+\begin{applist}[resume]
+\item Given $A$, $B$ on a line $l$ and $A'$ on a line $l'$, there is exactly
+      one point $B'$ on a given side of $A'$ with $AB \cong A'B'$. Order is
+      immaterial: $AB \cong A'B'$ also gives $AB \cong B'A'$,
+      $BA \cong A'B'$ and $BA \cong B'A'$.
+\item Segment congruence is reflexive, symmetric and transitive:
+      \begin{applist}
+      \item $AB \cong AB$.
+      \item If $AB \cong A'B'$, then $A'B' \cong AB$.
+      \item If $AB \cong A'B'$ and $A'B' \cong A''B''$, then
+            $AB \cong A''B''$.
+      \end{applist}
+\item Segments may be added and subtracted. Let $B$ lie between $A$ and $C$
+      on a line $l$, and $B'$ between $A'$ and $C'$ on a line $l'$.
+      \begin{applist}
+      \item If $AB \cong A'B'$ and $BC \cong B'C'$, then $AC \cong A'C'$.
+      \item If $AC \cong A'C'$ and $BC \cong B'C'$, then $AB \cong A'B'$.
+      \end{applist}
+\end{applist}
+
+\APPsub{Archimedes' Postulate}
+
+\begin{applist}[resume]
+\item Given a segment $AB$ on a line $l$ and any other segment $CD$, finitely
+      many points $A_1, A_2, \ldots, A_n$ of $l$ can be laid off in order
+      from $A$ with every segment $AA_1, A_1A_2, \ldots, A_{n-1}A_n$
+      congruent to $CD$, and with either $B = A_n$ or $B$ between $A_{n-1}$
+      and $A_n$.
+\end{applist}
+
+\APPsub{The Completeness Postulate}
+
+\begin{applist}[resume]
+\item For every line $l$, every point $A$ on $l$ and every positive real
+      number $x$, there is a point $B$ on a given side of $A$ with
+      $\sg{AB} = x$.
+\end{applist}
+
+\APPsub{Congruence Postulates for Angles}
+
+\begin{applist}[resume]
+\item If $\ang{A}$ is not a straight angle and $r'$ is a ray from $A'$ on a
+      line $l'$, then on a given side of $l'$ there is exactly one ray $s'$
+      from $A'$ making the angle at $A'$ with sides $r'$, $s'$ congruent to
+      $\ang{A}$; we write $\ang{A'} \cong \ang{A}$. If $\ang{A}$ is a
+      straight angle, the straight angle at $A'$ with side $r'$ is the only
+      such angle.
+\item Angle congruence is reflexive, symmetric and transitive:
+      \begin{applist}
+      \item $\ang{A} \cong \ang{A}$.
+      \item If $\ang{A} \cong \ang{B}$, then $\ang{B} \cong \ang{A}$.
+      \item If $\ang{A} \cong \ang{B}$ and $\ang{B} \cong \ang{C}$, then
+            $\ang{A} \cong \ang{C}$.
+      \end{applist}
+\item In the figure, if any two of the three pairs $\ang{A}$ and
+      $\ang{A'}$, $\ang{B}$ and $\ang{B'}$, $\ang{C}$ and $\ang{C'}$ are
+      congruent, then so is the third pair. That is:
+      \begin{applist}
+      \item If $\ang{A} \cong \ang{A'}$ and $\ang{B} \cong \ang{B'}$, then
+            $\ang{C} \cong \ang{C'}$.
+      \item If $\ang{B} \cong \ang{B'}$ and $\ang{C} \cong \ang{C'}$, then
+            $\ang{A} \cong \ang{A'}$.
+      \item If $\ang{C} \cong \ang{C'}$ and $\ang{A} \cong \ang{A'}$, then
+            $\ang{B} \cong \ang{B'}$.
+      \end{applist}
+      The angle $A$ may be a straight angle.
+\end{applist}
+
+\FIGAPPONE
+
+\begin{applist}[resume]
+\item If for $\tri{ABC}$ and $\tri{A'B'C'}$, $AB \cong A'B'$,
+      $AC \cong A'C'$, and $\ang{A} \cong \ang{A'}$, then
+      $\ang{B} \cong \ang{B'}$ and $\ang{C} \cong \ang{C'}$.
+\end{applist}
+
+\APPsub{The Parallel Postulate}
+
+\begin{applist}[resume]
+\item Through a point not on a line there is no more than one line parallel
+      to the given line.
+\end{applist}
+
+%========================================================= definitions
+\APPhead{SELECTED DEFINITIONS}{Selected Definitions}
+
+\APPnote{Headnote (book p.~277): not every definition is equally
+load-bearing, and the ones gathered here are the essential ones; a few are
+given in abbreviated form where the short form cannot be misread.
+Summarised, not transcribed.}
+
+\begin{applist}
+\item A \emph{geometric figure} is any set of points in the plane.
+\item The \emph{line segment} (or \emph{segment}) determined by two points
+      $A$, $B$ of a line is the set consisting of $A$, $B$ and all points
+      between them, written ``$AB$''; $A$ and $B$ are its \emph{ends}.
+\item For three points $A$, $B$, $C$ not all on a line, the points of the
+      segments $AB$, $BC$, $AC$ form a \emph{triangle}, written
+      $\tri{ABC}$; $A$, $B$, $C$ are its \emph{vertices} and $AB$, $AC$,
+      $BC$ its \emph{sides}.
+\item For $O$, $A$, $B$ on a line, $A$ and $B$ are on the \emph{same side of
+      $O$} if $O$ is not between them, and on \emph{opposite sides of $O$}
+      if $O$ is between them.
+\item A \emph{ray} from $O$ consists of $O$ together with all points on one
+      side of $O$ of a line through $O$.
+\item An \emph{angle} is the set of all points on two rays from a point $O$,
+      its \emph{vertex}; the rays are the \emph{sides}. If the rays lie on
+      one line the angle is a \emph{straight angle}.
+\item For an angle that is not straight, with vertex $O$ and sides $r_1$,
+      $r_2$ on lines $l_1$, $l_2$: its \emph{interior} is the set of points
+      lying both on the same side of $l_1$ as $r_2$ and on the same side of
+      $l_2$ as $r_1$; its \emph{exterior} is the set of points belonging
+      neither to the angle nor to its interior.
+\item Two angles are \emph{adjacent} if they share a side and vertex and
+      have no interior point in common.
+\item Let $AB$ and $A'B'$ be segments, $A'B'$ on a line $l'$, and let $B''$
+      be the point on the same side of $A'$ as $B'$ with $AB \cong A'B''$.
+      Then $AB > A'B'$ if $B'$ is between $A'$ and $B''$, and
+      $AB < A'B'$ if $B''$ is between $A'$ and $B'$.
+\item For the definition of \emph{length of a segment} read Chapter 5,
+      Section 4.
+\item A \emph{right} angle is one congruent to its supplement.
+\item Two triangles are \emph{congruent} if they can be labeled
+      $\tri{ABC}$ and $\tri{A'B'C'}$ in such a way that all three pairs of
+      corresponding sides and all three pairs of corresponding angles are
+      congruent. This is written $\tri{ABC} \cong \tri{A'B'C'}$.
+\item Let $\ang{A}$ and $\ang{B}$ be angles, neither of them straight. Copy
+      $\ang{B}$ as $\ang{B'}$ against the first side of $\ang{A}$, placing
+      it on the same side of that first side as the second side of
+      $\ang{A}$. Then $\ang{B} < \ang{A}$ if the second side of $\ang{B'}$
+      is interior to $\ang{A}$, and $\ang{B} > \ang{A}$ if it is exterior.
+      If $\ang{A}$ is straight and $\ang{B}$ is not, then
+      $\ang{A} > \ang{B}$.
+\item Given $n$ points $P_1, P_2, \ldots, P_n$, the points lying on the
+      segments $P_1P_2$, $P_2P_3$, \ldots, $P_{n-1}P_n$ form a
+      \emph{polygonal path} joining $P_1$ to $P_n$; the points $P_i$ are
+      its \emph{vertices}. If $P_1 = P_n$, the path is called a
+      \emph{polygon}, designated polygon $P_1P_2 \ldots P_{n-1}$.
+
+      A polygon is \emph{convex} if, for every two of its points, every
+      point between them lies on the polygon or in its interior. A convex
+      polygon that is both equiangular and equilateral is \emph{regular}.
+\item Two lines are \emph{parallel} if they do not intersect.
+\item If the ray $OB$ is in the interior of $\ang{AOC}$, or $\ang{AOC}$ is
+      straight, then $\ang{AOC}$ is the \emph{sum} of $\ang{AOB}$ and
+      $\ang{BOC}$.
+\item The \emph{ratio} of segment $AB$ to segment $CD$ is the number
+      $\sg{AB} \div \sg{CD}$. Segments $AB$, $CD$ are \emph{proportional} to
+      $A'B'$, $C'D'$ when $\sg{AB}/\sg{A'B'} = \sg{CD}/\sg{C'D'}$; the sides
+      of $\tri{ABC}$ are proportional to those of $\tri{A'B'C'}$ when
+      $\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'} = \sg{CA}/\sg{C'A'}$.
+\item A \emph{circle} with center $O$ and positive number $r$ is the set of
+      points $A$ with $\sg{OA} = r$. For $A$ on the circle, $OA$ is a
+      \emph{radius} (plural \emph{radii}); a segment $AB$ with $A$, $B$ on
+      the circle and $O$ on $AB$ is a \emph{diameter}.
+\item For a circle with center $O$ and radius $r$: its \emph{interior} is
+      the set of points $B$ with $\sg{OB} < r$, its \emph{exterior} the set
+      of points $C$ with $\sg{OC} > r$. A \emph{chord} is a segment joining
+      two points $E$, $F$ of the circle, and line $EF$ is a \emph{secant}. A
+      \emph{central angle} has its vertex at the center; an \emph{inscribed
+      angle} has its vertex on the circle and meets the circle again on each
+      of its two sides.
+\item If to each positive integer $n$ a number $x_n$ is assigned, the
+      numbers $x_1, x_2, \ldots, x_n$ form an \emph{infinite sequence},
+      written $\{x_n\}$, and $x_n$ is its $n$th term.
+\item $L$ is the \emph{limit of the sequence} $x_n$ if $x_n$ is necessarily
+      arbitrarily close to $L$ for large $n$; written $L = \lim \{x_n\}$.
+\item The \emph{circumference} $C$ of a circle is the limit of the
+      perimeters $p_n$ of the regular inscribed polygons: $C = \lim \{p_n\}$.
+\item The number $C/d$, the same for every circle, is denoted by the Greek
+      letter $\pi$ (pi).
+\item The \emph{area} $S$ of a circle is the limit of the areas of the
+      inscribed regular polygons: $S = \lim \{S_n\}$.
+\item For a circular arc, let $l_n$ be the length of the regular polygonal
+      path of $2^n$ sides inscribed in it. The \emph{length} $l$ of the arc
+      is $l = \mathrm{limit}\, \{l_n\}$.
+\item On a circle of radius $r$, an arc of length $\pi r/180$ is subtended
+      by a central angle of \emph{one degree} ($1^\circ$).
+\item If a central angle of a circle of radius $r$ subtends an arc of length
+      $L$, then the \emph{measure of the angle in degrees} is
+      $(L/\pi r) \cdot 180^\circ$.
+\end{applist}
+
+%========================================================= theorems
+\APPhead{SELECTED THEOREMS}{Selected Theorems}
+
+\APPnote{Headnote (book p.~280): the theorems below were picked to show how
+the ideas were developed and, above all, \emph{in what order}; the list is
+avowedly incomplete, and where a statement here is looser than the one in
+the text the reader is asked to supply the missing precision or turn back to
+the chapter. Summarised, not transcribed.}
+
+\begin{applist}
+\item Two different lines intersect in at most one point.
+\item A point $O$ of a line $l$ separates $l$ into two \emph{sides} of $O$,
+      such that for $P$, $Q$ on the same side either $OPQ$ or $OQP$, and for
+      $P$, $Q$ on different sides $POQ$.
+\item If $P$ and $Q$ are both interior to $\ang{O}$, so is the segment $PQ$.
+\item A ray $r$ from $O$ other than the sides $r_1$, $r_2$ of $\ang{O}$ lies
+      wholly in the interior or wholly in the exterior of $\ang{O}$.
+\item If $P$ is interior to $\ang{O}$ and $Q$ exterior, the segment $PQ$
+      contains a point of the angle.
+\item For any two segments exactly one of $AB > A'B'$, $AB \cong A'B'$,
+      $AB < A'B'$ holds.
+\item If $AB > CD$ and $CD \cong EF$, then $AB > EF$.
+\item If $AB \cong A'B'$, then $\sg{AB} = \sg{A'B'}$.
+\item If $\sg{AB} = \sg{A'B'}$, then $AB \cong A'B'$.
+\item $AB > CD$ if and only if $\sg{AB} > \sg{CD}$.
+\item The S.A.S. theorem for congruent triangles.
+\item The A.S.A. theorem.
+\item The S.S.S. theorem.
+\item For any two angles exactly one of $\ang{A} < \ang{B}$,
+      $\ang{A} \cong \ang{B}$, $\ang{A} > \ang{B}$ is true.
+\item All right angles are congruent to one another.
+\item An exterior angle of a triangle is greater than either opposite
+      interior angle.
+\item In $\tri{ABC}$, $AB > AC$ if and only if $\ang{C} > \ang{B}$.
+\item In $\tri{ABC}$, $\sg{AB} + \sg{BC} > \sg{AC}$.
+\item If $l$ is any line and $A$ any point not on $l$, there exists at least
+      one line on $A$ parallel to $l$.
+\item If parallel lines are cut by a transversal, the alternate interior
+      angles are congruent.
+\item The sum of the angles of a triangle is a straight angle.
+\item If a transversal is cut by three parallel lines in congruent segments,
+      the same is true for every transversal of these lines.
+\item If for $\tri{ABC}$ and $\tri{A'B'C'}$, $\ang{A} \cong \ang{A'}$,
+      $\ang{B} \cong \ang{B'}$, and $\ang{C} \cong \ang{C'}$, then the
+      triangles are similar.
+\item If $\sg{AB}/\sg{A'B'} = \sg{AC}/\sg{A'C'} = \sg{BC}/\sg{B'C'}$, then
+      $\tri{ABC}$ is similar to $\tri{A'B'C'}$.
+\item In a right triangle the altitude on the hypotenuse forms two right
+      triangles similar to the given triangle.
+\item In $\tri{ABC}$ with $\ang{C}$ a right angle,
+      $\sg{AC}^2 + \sg{BC}^2 = \sg{AB}^2$.
+\item The area of a triangle is one half the base times the altitude.
+\item Circles with centers $A$ and $B$, each of radius
+      $r > \frac{1}{2}\sg{AB}$, intersect in two points on opposite sides of
+      the line $AB$.
+\item Exactly one circle is circumscribed about a regular polygon.
+\item If regular polygons of $n$ sides are inscribed in two circles, then
+      the perimeters of the polygons are proportional to the radii of the
+      circles.
+\item For a given circle let $p_n$ be the perimeter of a regular polygon of
+      $n$ sides inscribed in the circle. The numbers $p_n$,
+      $n = 3, 4, 5, \ldots$, form a sequence which has a limit.
+\item The ratio $C/d$ (circumference to diameter) is the same for all
+      circles.
+\item If $S_n$ is the area of a regular polygon of $n$ sides inscribed in a
+      circle, then $\mathrm{limit}\, \{S_n\}$ exists.
+\item The area of a circle is equal to one half the circumference times the
+      radius.
+\item If two central angles are congruent, they subtend arcs of equal
+      length.
+\item If $\widehat{AB}$ and $\widehat{BC}$ are adjacent arcs (that is, if
+      they have only point $B$ in common), then length $\widehat{ABC}$
+      ${}={}$ length $\widehat{AB}$ ${}+{}$ length $\widehat{BC}$.
+\item The measure of an angle inscribed in a circle is one half the measure
+      of the central angle which subtends the same arc.
+\end{applist}
+
+\end{document}

@@ -1,0 +1,616 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures05}
+
+% ---- local macros (hoist into book preamble) ----
+% Centred display headings ("REVIEW OF CHAPTER 5", "ALGEBRA REVIEW").
+\newcommand{\Vhead}[1]{%
+  \par\bigskip\begin{center}\bfseries\large\MakeUppercase{#1}\end{center}%
+  \par\nopagebreak\medskip}
+% Unnumbered star footnote, same reasoning as ch02's \IIstarnote: \footnote
+% would set a numbered mark, but the book prints a bare "*". Used for the
+% "irrational" footnote on book p.74.  NOTE: this chapter does NOT carry the
+% "*Starred ... are optional" note -- book p.75, which holds this chapter's
+% first starred exercises (Ex. Group 5-3, nos. 4 and 7), has no footnote at
+% all; ch02 owns the book-wide first use.  Verified against PDF p.89.
+\newcommand{\Vstarfoot}[1]{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*\,#1}\endgroup}
+% Fig. 5-1 is a pictorial vignette, not a geometric diagram -> placeholder,
+% per the plate rule (same treatment as Fig. 4-1). See ch05-UNCERTAIN.md.
+\newcommand{\FIGVONE}{\begin{bkfigure}[0.46\linewidth]
+\fbox{\begin{minipage}{0.92\linewidth}\centering\footnotesize
+\vspace{1.6em}
+\textit{[Illustration: a man striding along the\\
+hatched ground beside a building, pacing\\
+off its length.]}
+\vspace{1.6em}
+\end{minipage}}
+\figcap{5--1}
+\end{bkfigure}}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{5}
+
+\chapter*{\raggedright\Huge MEASUREMENT\\OF SEGMENTS}
+\addcontentsline{toc}{chapter}{5.\ Measurement of Segments}
+\markboth{MEASUREMENT OF SEGMENTS}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 5-1
+\section*{5--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{5--1\quad Introduction}
+
+In this chapter we are going to get a number for the length of a segment, that
+is for the distance between two points. The way we get the length will be
+exactly the same as the method we use in practical work. We will see that
+finding a length is based upon simple \emph{counting}. For example, when you
+pace off the length of a building (Fig.~5--1), you count how many steps you
+take. Or when you say that the room is 15 feet wide, you mean that a foot ruler
+can be laid down 15 times, one after the other, on a line. If the width of the
+room is between 14 and 15 feet, the ruler can be laid down 14 times, but 15
+times would put the end of the ruler past the wall. To measure the room more
+accurately, you must choose a smaller unit of measure, say an inch, so that if
+the width is 14 feet and three inches, the foot ruler can be laid down 14 times
+and beyond that the inch ruler can be laid down three times. If even then you
+have not come exactly to the wall of the room, you must choose an even smaller
+unit of measure, some fraction of an inch, and so on.
+
+\FIGVONE
+
+\exercisegroup{5--1}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Measure the length of your desk. Describe the process of measurement in
+      terms of counting.
+\item Measure the length of a page. Describe the counting you do to get the
+      length.
+\item Think of other examples of measurement and describe them in terms of
+      counting.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 5-2
+\section*{5--2\quad NUMBERS}
+\addcontentsline{toc}{section}{5--2\quad Numbers}
+
+Because we express length in terms of numbers, we need certain facts about
+numbers that you learned in algebra and arithmetic. You have studied different
+kinds of numbers. In the beginning grades you first used whole numbers
+$1$, $2,\ldots$ and learned how to add, subtract, and multiply them. These
+numbers we now call the \emph{positive integers} instead of ``whole numbers.''
+When you tried to divide integers you found that it was necessary to have other
+numbers, which you called \emph{fractions}, for example,
+$\frac{1}{2}$, $\frac{2}{3}$, $\frac{5}{8}$, $\frac{7}{37}$. These are numbers
+obtained by dividing one integer by another integer. \emph{The numbers which
+are either positive integers or positive fractions are called positive rational
+numbers.}
+
+You also wrote numbers as \emph{decimals}, for example, 1.25, 2.537, 173.612.
+Sometimes a rational number when written as a decimal ``comes out even,'' as
+for example, $\frac{1}{2} = 0.5$, $\frac{3}{8} = 0.375$. Sometimes it does not
+come out even, so that the decimal goes on forever, for example,
+$\frac{1}{3} = 0.333\ldots$, $\frac{2}{3} = 0.6666\ldots$,
+$\frac{1}{11} = 0.090909\ldots$. You also met with other numbers which did not
+come out even, for example, $\sqrt{2} = 1.4142\ldots$,
+$\sqrt{3} = 1.7321\ldots$. These numbers are different from $\frac{1}{3}$,
+$\frac{2}{3}$, and $\frac{1}{11}$ because they not only do not come out even,
+but \emph{the decimal never repeats}. In other words, no matter to how many
+decimal places you were to calculate $\sqrt{2}$, you would never reach a place
+where, from then on, one group of digits would occur over and over again in the
+same order.
+
+Decimals that, after some place, repeat one group of digits over and over are
+called \emph{repeating decimals}. Decimals which come out even are called
+\emph{terminating decimals}, and may be considered as repeating with zeros.
+
+\exercise{5--2}
+
+Write the following rational numbers as decimals to see that they are repeating
+decimals. If they come out even (terminate), the repeating part is all zeros.
+1/6, 5/6, 122/99, 1/13, 1/7, 6/5, 3/2.
+
+\medskip
+It is proved in advanced algebra that rational numbers are always repeating
+decimals, and that, conversely, repeating decimals are rational numbers. (These
+proofs are hard, so don't be discouraged if you cannot construct them; your
+teacher may show you.) Hence, rational numbers and repeating decimals are the
+same. What, then, about the decimals which never repeat? These numbers are not
+rational numbers, and so they have been called \emph{irrational
+numbers}.*%
+\Vstarfoot{The word ``irrational'' is not a very pleasant choice
+because it sounds like ``not sensible.'' What it really means is this. Rational
+numbers are obtained by dividing one integer by another; that is, a rational
+number is the ratio of two integers. Hence the word ``rational'' in ``rational
+number'' means that the number is a \emph{ratio} of integers. Therefore, an
+\emph{irrational} number is one which is \emph{not} the ratio of two integers.}
+Irrational numbers are defined to be \emph{those numbers which are not
+rational}. Examples of irrational numbers are $\sqrt{2}$, $\sqrt{3}$,
+$\sqrt{5}$, $\sqrt[3]{2}$, $\sqrt[3]{17}$, and, in fact, any root of an integer
+which is not itself an integer.
+
+All the decimals together are defined to be the \emph{real numbers}. Thus a
+real number is a decimal. If the decimal repeats, the number is a rational
+number. If the decimal does not repeat, it is an irrational number.
+
+\exercisegroup{5--3}
+% Book p.75 holds this chapter's first starred exercises (nos. 4 and 7) but
+% prints NO "*Starred ... are optional" footnote -- verified against PDF p.89.
+% ch02 owns the book-wide first use; deliberately no \starnote here.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Write the symbols for several rational numbers and for several irrational
+      numbers.
+\item Is $3.131313\ldots$, where the 1's and 3's keep alternating, a rational
+      number?
+\item Is $0.234234234\ldots$, where 2, 3, and 4 keep following each other, a
+      rational number?
+\item[\stex 4.] The number $1.010010001\ldots$ is formed from just 0's and 1's.
+      After each 1 there is one more 0 than the previous time. Is this number
+      rational?
+\item[5.] Give the definitions of rational number, irrational number, real
+      number.
+\item[6.] A real number is either rational or irrational. Why?
+\item[\stex 7.] There is a rule for deciding when a fraction written as a
+      decimal will have its repeating part all zeros and when it will not. For
+      example, each of the fractions 3/20, 17/250, 5/16, and 4/25 has its
+      repeating decimal part all zeros. The fractions 7/15, 5/12, and 11/23 do
+      not. Can you discover the rule?
+\end{exlist}
+\end{multicols}
+
+When we write a decimal, for example 1.23, we mean $1 + 0.2 + 0.03$ or
+$1 + 2/10 + 3/100$. Similarly, $4.383 = 4 + 3/10 + 8/100 + 3/1000$. Thus, any
+terminating decimal (one which comes out even) may be written as a sum of
+ordinary fractions with denominators 10, $100,\ldots$. If the decimal is
+repeating, this sum is an \emph{infinite} one, for example,
+$1/3 = 0.333\ldots = 3/10 + 3/100 + 3/1000 + 3/10000 + \cdots$.
+
+\exercisegroup{5--4}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Write the following decimals as sums of rational numbers: 4.82, 1.29,
+      2.75, 7.122, 0.8875, 2.40. In order to express each number as a single
+      fraction, add the rational numbers.
+\item Write the following numbers as decimals: $3 + 2/10 + 4/100$,
+      $2 + 3/10 + 5/100 + 6/1000$, $4 + 3/100$, $1 + 1/10 + 1/10000$.
+\item Write the following repeating decimals as sums of rational numbers:
+      $0.6666\ldots$, $0.7777\ldots$, $0.121212\ldots$.
+\item Write the following numbers as decimals:
+      $1 + 2/10 + 2/100 + 2/1000 + \cdots$,
+      $3 + 1/10 + 4/100 + 1/1000 + 4/10000 + \cdots$,
+      $8/10 + 8/100 + 8/1000 + 8/10000 + \cdots$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 5-3
+\section*{5--3\quad INEQUALITIES}
+\addcontentsline{toc}{section}{5--3\quad Inequalities}
+
+In this book you are expected to know how to do arithmetic, that is, how to
+add, subtract, multiply, and divide real numbers. But there is one part of
+arithmetic you have not yet studied systematically. That part is concerned with
+comparing the sizes of real numbers. Since you already know what it means to
+say that the number $x$ is larger than the number $y$, all we need is a symbol
+to indicate this. We therefore make the definition: $x > y$ means ``$x$ is
+greater than $y$.'' Another way to say this is ``$x - y$ is a positive
+number.'' We also define $x < y$ to mean ``$x$ is less than $y$,'' or, in other
+words ``$y$ is greater than $x$.'' Listed below are several properties of real
+numbers. These properties can be established as indicated in the review of
+Chapter 4.
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item If $x > y$ and $y = z$, then $x > z$.
+\item If $x > y$ and $y > z$, then $x > z$.
+\item $x$ is a positive number if and only if $x > 0$.
+\item $x$ is a negative number if and only if $x < 0$.
+\item If $x > y$, then $x - y > 0$, and conversely.
+\end{enumerate}
+
+\medskip
+We define $x \geqq y$ to mean ``either $x > y$ or $x = y$,'' and we read
+``$\geqq$'' as ``is greater than or equal to.'' We make a similar definition
+for $x \leqq y$ (``$x$ is less than or equal to $y$'').
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt,
+                  start=6]
+\item If $x > y$ and $u \geqq v$, then $x + u > y + v$.
+\end{enumerate}
+
+\exercisegroup{5--5}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Substitute numbers for the variables in properties (a), (b), (e), and (f)
+      above, and thus verify their truth for certain cases.
+\item Write in symbols: $a$ is greater than $b$; $a$ is greater than or equal
+      to $b$; $u$ is less than $w$; $a + c$ is less than or equal to $r + s$;
+      $(a + b)^2$ is positive; $z$ is a negative number.
+\item If $x$ is any real number, $x^2 \geqq 0$. Why?
+\item Why is it true that if $x > 0$ and $y > 0$, then $xy > 0$?
+\item Tell why $xy < 0$ if $x > 0$ and $y < 0$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 5-4
+\section*{5--4\quad MEASUREMENT}
+\addcontentsline{toc}{section}{5--4\quad Measurement}
+
+To measure a line segment we must first tell what our unit of length is. Some
+units of length often used in practical work are inch, foot, yard, mile, meter,
+centimeter, etc. Having picked a unit of length, we will describe the geometric
+process whereby we get a real number, that is, a decimal for the length of a
+line segment.
+
+Choose any segment $CD$ as a unit (Fig.~5--2). This segment and all segments
+congruent to it are defined to have length 1. Suppose $AB$ is any segment on a
+line $l$. On the same side of $A$ as $B$ there is a point $A_1$ such that
+$AA_1 \cong CD$. If $A_1 = B$, then the length of $AB$ is 1.
+
+\FIGVTWO
+
+\FIGVTHREE
+
+\noindent If $B$ lies between $A$ and $A_1$ (Fig.~5--3), then our unit was too
+large to measure the length of $AB$ in integers (whole numbers). We will return
+to this possibility later. If $A_1$ lies between $A$ and $B$, then there is a
+point $A_2$, on the same side of $A_1$ as $B$, such that either $A_2 = B$, or
+$B$ is between $A_1$ and $A_2$, or $A_2$ is between $A_1$ and $B$. If
+$A_2 = B$, the length of $AB$ is 2. If $B$ is between $A_1$ and $A_2$, then our
+unit will not measure the length in integers. If $A_2$ is between $A_1$ and
+$B$, there is a point $A_3$, on the same side of $A_2$ as $B$, such that
+$A_2A_3 \cong CD$.
+
+The process described above is what we actually follow when we measure. If we
+lay out segments congruent to $CD$ from $A$ toward $B$, we know from experience
+that we eventually either reach $B$ exactly, so that the length of $AB$ is an
+integer, or reach a point \emph{beyond} $B$. Thus in Fig.~5--2, $A_4$ is beyond
+$B$ but $A_3$ is still between $A$ and $B$. The length in this case will be a
+number between 3 and 4. If the above process can always be carried out in our
+geometry, then we have described the beginning of the process of measurement.
+
+The only part of the above process that does not follow from our postulates is
+the proof that we can always get to or beyond $B$. Because we need to do this,
+we now add a new postulate to our list. It was the Greek mathematician
+Archimedes (287--212 B.C.) who first stated this postulate. He apparently did
+not see how to get it from Euclid's postulates and, needing it, assumed it was
+true. It is one of the things that Euclid forgot to state as a postulate. It is
+called \emph{Archimedes' axiom} or \emph{Archimedes' postulate} in spite of its
+use by Eudoxus much earlier. This is the first of the two new postulates in
+Postulate Group IV which we need for measurement. The other one will be given
+later.
+
+\medskip
+IV--1 \emph{Archimedes' postulate.} If $AB$ is any segment on a line $l$ and
+$CD$ any other segment, then there is a definite number $n$ of points
+$A_1$, $A_2,\ldots$, $A_n$ on $l$ such that the points $A = A_0$, $A_1$,
+$A_2,\ldots$, $A_n$ are arranged in this order, and all the segments $AA_1$,
+$A_1A_2,\ldots$, $A_{n-1}A_n$ are congruent to $CD$, and either $B = A_n$ or
+$B$ lies between $A_{n-1}$ and $A_n$.
+
+\medskip
+The integer $n$ is called \emph{Archimedes' integer}. When $n$ is 4, an
+illustration would look like Fig.~5--4 or Fig.~5--5.
+
+\FIGVFOURFIVE
+
+\exercisegroup{5--6}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item If $AB$ is this segment \raisebox{0.18ex}{$A$\rule[0.35ex]{2.2em}{0.4pt}$B$}
+      and $CD$ is this segment
+      \raisebox{0.18ex}{$C$\rule[0.35ex]{1.3em}{0.4pt}$D$}, find how many
+      points are needed to get beyond $B$.
+\item Draw a segment $AB$ and a segment $CD$. Find the integer $n$ of
+      Archimedes' axiom for your segments.
+\end{exlist}
+\end{multicols}
+
+Using Archimedes' postulate, we find that the length of $AB$ is either an
+integer or is between two integers. If the length lies between two integers,
+the next step in the process is to divide the unit interval into tenths
+(Fig.~5--6). (We would not have to keep to tenths if we were not trying to come
+out with a decimal.) Then we count ``tenths'' until either we reach $B$ exactly
+or $B$ lies between two of the tenth marks. If we reach $B$ exactly, then the
+length of $AB$ comes out exactly in tenths. If $B$ is not reached exactly, then
+we must divide the unit interval into one-hundredths and repeat the process. In
+this way we obtain a real number or decimal, for the length of $AB$. In
+Fig.~5--7 the length of $AB$ is about 2.3.
+
+\FIGVSIXSEVEN
+
+We have indicated a segment by writing the two endpoints of the segment as
+$AB$. At this point we also need a notation for the \emph{length} of the
+segment. For this we will use $\sg{AB}$, that is $\sg{AB} = $ \emph{the length
+of the segment} $AB$. Whenever you see the symbol $\sg{AB}$ you must remember
+that it represents a \emph{number}, while the symbol $AB$ stands for a \emph{set
+of points}.
+
+Except for dividing a segment into tenths, the entire procedure of this section
+can be carried out (that is, described) in our geometry. At the moment we do
+not have the means for dividing a segment into tenths. As soon as we have
+studied parallel lines (Chapter 8), we will be able to make this construction.
+Since we do not need the results of this chapter until after we have studied
+parallel lines, our procedure is logically correct.
+
+\exercisegroup{5--7}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a line segment. Then draw a segment that will be your unit. Now
+      measure the first segment, describing how you use Archimedes' postulate
+      and relations of betweenness in the process.
+\item Draw a line segment. Measure it with your ruler to the nearest 1/16 of an
+      inch. Describe your measurement process, using Archimedes' postulate and
+      betweenness.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 5-5
+\section*{5--5\quad POINTS ON A LINE}
+\addcontentsline{toc}{section}{5--5\quad Points on a Line}
+
+We have just described the measurement process for getting a number for the
+length of a segment. We now turn the question around and ask whether, given a
+number, there is a segment with that number for its length. Of course, we would
+like this to be true, but our postulates so far do not tell us that it is true.
+The process of measurement describes a method for ``sneaking up'' on the point
+$B$, but if we start out with a number we are not assured that there is a point
+to sneak up on! To have this property, we must postulate it. This postulate
+tells us that there are enough points on the line.
+
+\medskip
+IV--2. \emph{The completeness postulate.} For every line $l$ and any point $A$
+on $l$, and for any positive real number $x$, there is, on a given side of $A$,
+a point $B$ such that $\sg{AB} = x$.
+
+\medskip
+The name of the last postulate is meant to signify that our lines are complete,
+that is, that they have all the points on them we expect them to have.
+
+\exercisegroup{5--8}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a segment that is to be the unit segment. Draw another segment that
+      is 1.3 units in length.
+\item With the unit segment of Exercise 1, draw a segment of length
+      $2 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8}$ units.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 5-6
+\section*{5--6\quad LENGTH AND CONGRUENCE}
+\addcontentsline{toc}{section}{5--6\quad Length and Congruence}
+
+When we started talking about congruent segments we had in mind a notion of
+size. Now that we have lengths for segments it should turn out that congruent
+segments have the same length, and conversely that segments of the same length
+are congruent. We now prove these theorems. To do so we need the following
+theorem (4--3) that we proved in Chapter 4. \emph{If $AB \cong A'B'$ and $ACB$
+and if $C'$ is on the same side of $A'$ as $B'$ and $AC \cong A'C'$, then
+$A'C'B'$.}
+
+\medskip\noindent
+\textbf{*Theorem 5--1.}\ \emph{If $AB \cong A'B'$, then
+$\sg{AB} = \sg{A'B'}$.}
+\refstepcounter{theorem}
+\par\medskip
+
+\noindent\emph{Proof.} To get the length of segment $AB$, we establish a
+sequence of points \emph{between} $A$ and $B$. Let us designate this sequence
+by $C_1$, $C_2$, $C_3,\ldots$. Now, consider the corresponding sequence,
+$C_1'$, $C_2'$, $C_3',\ldots$, where $AC_1 \cong A'C_1'$,
+$AC_2 \cong A'C_2'$, $AC_3 \cong A'C_3',\ldots$, and all the points $C_1'$,
+$C_2'$, $C_3',\ldots$ are on the same side of $A'$ as $B'$. Using Theorem
+4--3, we see that all the points $C_1'$, $C_2'$, $C_3',\ldots$, are between
+$A'$ and $B'$; therefore, this sequence determines the same real number
+(decimal) as does the sequence $C_1$, $C_2$, $C_3,\ldots$.
+
+\medskip\noindent
+\textbf{*Theorem 5--2.}\ \emph{If $\sg{AB} = \sg{A'B'}$, then
+$AB \cong A'B'$.}
+\refstepcounter{theorem}
+\par\medskip
+
+\noindent\emph{Proof.} This theorem is the converse of Theorem 5--1. We will
+prove it by choosing a point $B''$, on the same side of $A$ as $B$, such that
+$AB'' \cong A'B'$, and then proving that $B'' = B$ (Fig.~5--8). This will show
+that $AB \cong A'B'$. Either $B'' = B$ or $B'' \neq B$. Since
+$AB'' \cong A'B'$, then from Theorem 5--1 $\sg{AB''} = \sg{A'B'}$. We are given
+that $\sg{AB} = \sg{A'B'}$. Hence $\sg{AB''} = \sg{AB}$. Thus we must show that
+if $B'' \neq B$, we cannot have $\sg{AB''} = \sg{A'B'}$. But if $B'' \neq B$,
+then, if the unit segment is smaller than $BB''$, the corresponding Archimedes
+integers for $AB$ and $AB''$ would be different. This would lead to different
+lengths for $AB$ and $AB''$. Hence $B''$ must be the same as $B$ and
+$AB \cong A'B'$.
+
+\FIGVEIGHT
+
+These two theorems give us the right to use the words ``the same length'' in
+place of ``congruent.'' Therefore we can use everyday language in talking about
+congruence of segments.
+
+\exercisegroup{5--9}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item $AB \cong CD$ and $CD \cong EF$, and $\sg{AB} = 7.26$ inches. What is
+      $\sg{EF}$?
+\item If $\sg{PQ}$ is 1.23 ft, and $VU \cong RS$, and $\sg{RS} = 1.23$ ft, is
+      $QP \cong VU$?
+\item If $AB \cong CD$, $CD \cong EF$, $EF \cong GH$, is $\sg{AB} = \sg{GH}$?
+\item An isosceles triangle can be defined now in two ways. State the two
+      definitions.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 5-7
+\section*{5--7\quad MORE ABOUT INEQUALITIES}
+\addcontentsline{toc}{section}{5--7\quad More about Inequalities}
+
+In Chapter 4 we defined $>$ and $<$ for segments. In this chapter (Section
+5--3) we defined $>$ and $<$ for numbers. Since ``same length'' means
+``congruent,'' it should also be true that if $AB > CD$, then
+$\sg{AB} > \sg{CD}$, and conversely.
+
+\medskip\noindent
+\textbf{*Theorem 5--3.}\ \emph{If $AB > CD$ then $\sg{AB} > \sg{CD}$, and
+conversely, if $\sg{AB} > \sg{CD}$ then $AB > CD$.}
+\refstepcounter{theorem}
+\par\medskip
+
+\noindent\emph{Proof.} The theorem could also be stated as ``$AB > CD$ if and
+only if $\sg{AB} > \sg{CD}$.'' Or, again, as ``If $AB > CD$ then
+$\sg{AB} > \sg{CD}$, and conversely.'' We first prove that $AB > CD$ implies
+$\sg{AB} > \sg{CD}$. The hypothesis, $AB > CD$, means that if $E$ is on the
+same side of $C$ as $D$, and $AB \cong CE$, then $D$ is between $C$ and $E$.
+(See Fig.~5--9.) By Theorem 5--1, $\sg{AB} = \sg{CE}$. In the measurement
+process, if the unit is chosen smaller than $DE$, the corresponding Archimedes'
+integers for $CD$ and $CE$ will be different, and in fact the integer for $CD$
+will be smaller than that for $CE$. Hence $\sg{CD} < \sg{CE}$ and, since
+$\sg{CE} = \sg{AB}$, $\sg{CD} < \sg{AB}$.
+
+\FIGVNINE
+
+The converse is proved in a similar manner. We have given that
+$\sg{AB} > \sg{CD}$. Choose $E$, on the same side of $C$ as $D$, such that
+$AB \cong CE$. By Theorem 5--1, $\sg{AB} = \sg{CE}$. Now either $CDE$,
+$D = E$, or $CED$. (Why?) We cannot have $D = E$. (Why?) An argument like the
+first part of the proof will show we cannot have $CED$. Hence we must have
+$CDE$. It follows from the definition of ``less than'' for segments that
+$CD < CE \cong AB$.
+
+\exercisegroup{5--10}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item If $ABC$ and $\sg{AB} = 5$, what can you say about $\sg{AC}$?
+\item If $AB > EF$ and $\sg{EF} = 4$, what can you say about $\sg{AB}$?
+\item If $AB > CD > EF$, what can you say about $\sg{AB}$ and $\sg{EF}$?
+\item If $ABCD$, what can you say about $\sg{AD}$ and $\sg{BC}$?
+\item If $\sg{AB} > \sg{AC}$, and $C$ is a point on the line containing $A$ and
+      $B$, and $C$ lies on the same side of $A$ as $B$, where is the point $C$?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 5-8
+\section*{5--8\quad CHANGE OF SCALE}
+\addcontentsline{toc}{section}{5--8\quad Change of Scale}
+
+In measurement we choose a fixed segment for a unit of length. What happens if
+a different segment is chosen for the unit? This is a familiar situation
+because we are all used to dealing with inches, feet, yards, or miles to
+measure length. In Fig.~5--10, if $CD$ is the unit, the length of $AB$ is 3. If
+$ED$ is the unit, the length of $AB$ is 6. This illustrates the following
+theorem.
+
+\FIGVTEN
+
+\medskip\noindent
+\textbf{Theorem 5--4.}\ \emph{If $\sg{AB} = x$ when $CD$ is the unit, and if
+$\sg{CD} = y$ when $EF$ is the unit, then $AB = xy$ when $EF$ is the unit.}
+\refstepcounter{theorem}
+\par\medskip
+
+We will not give the proof of this theorem for arbitrary $x$ and $y$ because it
+is long to write out and quite hard if $y$ is an irrational number. But if $y$
+is an integer, the proof is very easy and is really clear from Fig.~5--10,
+where $y = 2$.
+
+\exercisegroup{5--11}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item $\sg{AB} = 5$ when $CD$ is the unit, and $\sg{CD} = 2.3$ when $EF$ is the
+      unit. What is $\sg{AB}$ when $EF$ is the unit?
+\item The width of the room is 14 ft. What is the width in inches? How does
+      this follow from Theorem 5--4?
+\item One kilometer is 1000 meters. One meter is 100 centimeters. How many
+      centimeters in a kilometer? Show how this follows from Theorem 5--4.
+\item $\sg{PQ} = 6.5$ when $\sg{RS} = 1$. $\sg{RS} = \frac{1}{2}$ when
+      $\sg{UV} = 1$. What is $\sg{PQ}$ when $\sg{UV} = 1$?
+\item If $CD < EF$, how does $\sg{AB}$ with unit $CD$ compare with $\sg{AB}$
+      with unit $EF$? In other words, if we use two different units and compute
+      two lengths for one segment, does the smaller unit give the smaller or
+      the larger length?
+\end{exlist}
+\end{multicols}
+
+%========================================================= Review
+\Vhead{Review of Chapter 5}
+\addcontentsline{toc}{section}{Review of Chapter 5}
+\markboth{REVIEW OF CHAPTER 5}{}
+
+\begin{exlist}
+\item In this chapter we have given definitions of the following: real number,
+      rational number, irrational number, positive integer, greater than, less
+      than, the process of measurement. Be sure you know these definitions.
+\item This chapter has two new postulates, Archimedes' postulate and the
+      completeness postulate. Go over them again and be sure you see what they
+      mean.
+\item In this chapter we have proved the following theorems. Study them again
+      to be sure you know what they say. You should be able to state clearly
+      the facts upon which each proof depends.
+\end{exlist}
+
+\begin{align*}
+(AB \cong CD) &\iffx \sg{AB} = \sg{CD},\\
+(AB > CD) &\iffx \sg{AB} > \sg{CD},\\
+(AB < CD) &\iffx \sg{AB} < \sg{CD}.
+\end{align*}
+
+\begin{note}
+In this chapter we have shown that congruence is equivalent to equality of
+length. From this point on in our development of geometry you may use the
+ordinary language of length in speaking of congruence.
+\end{note}
+
+%========================================================= Algebra review
+\Vhead{Algebra Review}
+\addcontentsline{toc}{section}{Algebra Review}
+
+\begin{exlist}
+\item Segment $XY$ has a length of 28 units. Point $T$ is between $X$ and $Y$
+      and $\sg{XT} = \sg{YT} + 9$. Determine the lengths of $XT$ and $YT$.
+\item Points $R$, $T$, and $S$ are in this order on a line. Segment $RT$ is
+      twice as long as segment $TS$. The difference in their lengths is 11.
+      Find the length of $RS$.
+\item Points $A$, $B$, and $C$ are on one line. The length of $AC$ is 12 more
+      than that of $AB$. The length of $BC$ is four times the length of $AB$.
+      Find the lengths of $AB$ and $AC$ if (a) $A$ is between $B$ and $C$, and
+      (b) $B$ is between $A$ and $C$.
+\item Points $A$, $B$, $C$, and $D$ are in this order on one line.
+      $\sg{BC} = \sg{AB} + 4$; $\sg{CD} = \sg{AB} + \sg{BC}$; $\sg{AD} = 32$.
+      Find $\sg{AB}$.
+\item The length of $XY$ is $\frac{2}{3}$ of the length of $XZ$. The length of
+      $XZ$ is $\frac{3}{5}$ of the length of $YZ$. If these three points are
+      collinear: (a) What is the order of the points on $l$? (b) Express
+      $\sg{XY}$ as a fraction of $\sg{YZ}$. (c) Determine $\sg{XY}$ if
+      $\sg{XZ} - \sg{XY} = 6$.
+\item The point $M$ is the midpoint of segment $AB$, $N$ is the midpoint of
+      $MB$, and $O$ is the midpoint of $NB$. If $\sg{AN} - \sg{NO} = 20$, find
+      the length of $AB$.
+\item $\sg{AC} = 2\sg{AB}$, $\sg{AB} + \sg{BC} = \sg{AC} + 2$. If
+      $\sg{AB} > 1$, prove that the three points $A$, $B$, and $C$ are not on
+      one line.
+\item A square and equilateral triangle have equal perimeters. The length of a
+      side of the triangle exceeds the length of a side of the square by six
+      inches. Find the perimeter of each.
+\item The sum of the perimeters of a square and a rectangle is 36 ft. The
+      rectangle is twice as long as it is wide, and the width of the rectangle
+      is 1 ft more than the length of a side of the square. Find the dimensions
+      of each.
+\item The point $B$ is the midpoint of segment $AC$. Point $X$ is between $B$
+      and $C$, and $\sg{BX} = 3$ inches. Show that a square having a side
+      congruent to $AB$ has an area of 9 in$^2$ more than a rectangle with
+      sides congruent to $AX$ and $XC$.
+\end{exlist}
+
+\end{document}

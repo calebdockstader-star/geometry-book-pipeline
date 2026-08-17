@@ -1,0 +1,26 @@
+# scan07.pdf — 24 pages
+
+- p1: book p.93 | Fig 6-36–6-42 (Isosceles Triangles page) full page | good
+- p2: book p.94 | 6-7 Congruence of Triangles, Thm 6-4, Exercise 6-7, Fig 6-43 | good
+- p3: book p.95 | Exercise Group 6-8, Fig 6-44–6-48 | good
+- p4: book p.96 | Fig 6-48–6-54 (farmer/barn word problems) full page | good
+- p5: book p.96 (duplicate of p4, different angle) full page | good
+- p6: book p.97 | 6-8 Second Congruence Theorem, Thm 6-5, Fig 6-55, Fig 6-56, Exercise Group 6-9 | good
+- p7: book p.97 (duplicate of p6) | good
+- p8: book p.98 | Fig 6-57–6-63, Exercise 6-10 begins, Thm 6-6 referenced | good
+- p9: book p.98 (duplicate of p8, slightly more of Thm 6-6 proof visible) | good
+- p10: book p.98 (+ facing p.99 upside-down/partial, page-turn shot) Fig 6-57–6-63 full page, p.99 unreadable | good (p.99 partial)
+- p11: book p.98 fragment (Fig 6-63 area), page-turn motion shot, bottom half frame black/obstructed | trash
+- p12: not book content — quilted product packaging text ("QUILT.../Comfort.../Design.../painful.../heal"), bottom half black | trash
+- p13: duplicate of p12, same off-book product-packaging frame, bottom half black | trash
+- p14: book p.99 (top half only, bottom black) | Exercise 11–13, Fig 6-64, Fig 6-66 | partial
+- p15: book p.100 (top half only, bottom black) | 6-9 Third Congruence Theorem, Thm 6-7, S.S.S., 3 unlabeled triangle figs (incl. Fig ABC with tick marks) | partial
+- p16: book p.101 (top half only, bottom black) | Thm 6-7 proof statements 5–10, Remark referencing Fig 6-71(a)/(b) (not shown), Problem | partial
+- p17: book p.102 (top half only, bottom black) | Exercise 4 Fig 6-75 (top of fig only), Exercise 8 Fig 6-79 full | partial
+- p18: book p.103 (top ~80%, bottom black) | Exercises 12–18, Fig 6-83, 6-84, 6-85(partial), 6-87, 6-88 | good
+- p19: book p.104 (top ~85%, bottom black) | Exercises 20–23, Fig 6-90, 6-91, 6-92, 6-10 Right Angles intro begins | good
+- p20: book p.105 full page | Fig 6-94 (3 panels), Exercise Group 6-12, Fig 6-95, 6-96, 6-11 Inequalities for Angles intro | good
+- p21: book p.106 (top ~60%, skewed/tilted, bottom black) | Fig 6-97, Definition 6-5 start | partial
+- p22: book p.106 (top ~85%, straight, bottom black; better dupe of p21) | Fig 6-97, 6-98, 6-99, Definition 6-5(a)(b)(c) | good
+- p23: book p.107 (top ~85%, bottom black) | Fig 6-100, 6-101, 6-102, trichotomy-law proof for angle inequalities | good
+- p24: book p.108 (top ~85%, slight tilt, bottom black) | Theorem 6-10 (a)–(e) + proof of (a), Exercise Group 6-13 begins | good

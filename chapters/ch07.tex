@@ -1,0 +1,771 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures07}
+
+% ---- local macros (hoist into book preamble) ----
+% Numbered remark head. Sections 7-4 (pp.122) and 7-5 (pp.123-124) print
+% "Remark 1.", "Remark 2." ... as running heads; brumfiel.sty's {remark}
+% emits a bare "Remark." and would drop the book's numbering.
+% Same shape as {remark}, with the number restored.
+\newenvironment{VIIremarkn}[1]%
+  {\par\medskip\noindent\emph{Remark #1.}\ }{\par\medskip}
+% No \VIIstarnote: ch07 has starred exercises (7-2 #3, 7-4 #4-7, 7-7 #3,
+% 7-8 #8-9, Algebra Review #7-9) but the book prints NO star footnote on any
+% of pp.116-132 -- verified against the source pages, incl. the foot of
+% p.118 where the chapter's first "*3." falls. ch02 owns the book-wide first
+% use of the convention note (\IIstarnote); ch05 and ch10 omit it for the
+% same reason.
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{7}
+
+\chapter*{\raggedright\Huge USE OF THE\\CONGRUENCE THEOREMS}
+\addcontentsline{toc}{chapter}{7.\ Use of the Congruence Theorems}
+\markboth{USE OF THE CONGRUENCE THEOREMS}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 7-1
+\section*{7--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{7--1\quad Introduction}
+
+In this chapter we do two things. In the first part we prove several
+inequalities involving sides and angles of a triangle, ending up with the
+\emph{triangle inequality}. This enables us to prove that a line segment is
+the shortest path between two points. In the second part we prove that some of
+the constructions we made with ruler and compass in Chapter 1 are correct.
+
+%========================================================= 7-2
+\section*{7--2\quad EXTERIOR ANGLES}
+\addcontentsline{toc}{section}{7--2\quad Exterior angles}
+
+In this section we prove a theorem about triangles which Euclid found to be
+very useful. We need a definition.
+
+\begin{definition}
+If an angle is adjacent and supplementary to an angle of a triangle, it is
+called an \emph{exterior angle} of the triangle. The other two angles of the
+triangle are called the \emph{opposite interior angles}. For example,
+$\ang{DBC}$ in Fig.~7--1 is an exterior angle and $\ang{A}$ and $\ang{C}$ are
+interior angles and opposite to $\ang{DBC}$.
+\end{definition}
+
+\FIGVIIONE
+
+\exercisegroup{7--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item In $\tri{ABC}$, how many exterior angles are there having vertex $B$?
+  How are these exterior angles related to $\ang{B}$?
+\item How many exterior angles does a triangle have?
+\item Do the words \emph{opposite}, \emph{interior}, and \emph{exterior}, used
+  in Definition 7--1, refer to properties or to relations?
+\end{exlist}
+\end{multicols}
+
+\begin{theorem}
+An exterior angle of a triangle is greater than either opposite interior angle.
+\end{theorem}
+
+We give two separate proofs of this theorem. The first proof may be found in
+Hilbert's work, the second in Euclid's \emph{Elements}.
+
+\noindent\emph{First Proof.}\quad
+We know that, for any two angles, the first angle is either $>$, or $<$, or
+$\cong$ the second. Therefore, we need only show that the exterior angle
+cannot be $\cong$ or $<$ an opposite interior angle, and it must follow that
+the exterior angle is $>$ an opposite interior angle. Suppose that the triangle
+is labeled as in Fig.~7--2.
+
+\FIGVIITWOTHREE
+
+We first show that the exterior angle cannot be congruent to $\ang{C}$. Choose
+$D$, as in the figure, such that $BD \cong AC$, and suppose that
+$\ang{DBC} \cong \ang{C}$. Then $\tri{ACB} \cong \tri{DBC}$ because of the
+S.A.S. theorem. Hence $\ang{CBA} \cong \ang{BCD}$. Therefore, because of the
+addition of angles postulate, $\ang{ACD} \cong \ang{ABD}$. But $\ang{ABD}$ is
+a straight angle, and so $\ang{ACD}$ is a straight angle. This is impossible.
+(Why?) Hence $\ang{DBC}$ is \emph{not} congruent to $\ang{C}$.
+
+We now show that it is impossible that $\ang{DBC} < \ang{ACB}$. Assume that
+$\ang{DBC} < \ang{ACB}$. With $C$ as a vertex, let $\ang{ECB}$ be the angle, as
+drawn in Fig.~7--3, that is congruent to $\ang{DBC}$. (Why is there such an
+angle?) Then the ray $CE$ is in the interior of $\ang{ACB}$. (Why?) Hence the
+segment $AB$ contains a point $F$ in the ray $CE$. (This is obvious from the
+figure, and it may be proved with what we know about betweenness and interior
+of angles.) Now consider $\tri{FCB}$. $\ang{DBC}$ is an exterior angle of this
+triangle which is congruent to the opposite interior angle $FCB$. This has
+already been shown to be impossible. Hence we cannot have
+$\ang{DBC} < \ang{ACB}$. The only possibility then is
+$\ang{DBC} > \ang{ACB}$. This completes the proof.
+
+\noindent\emph{Second Proof.}\quad
+Using the same labeling for the triangle, let $G$ be the point on $BC$, such
+that $BG \cong GC$. Let $H$ be the point on the line $AG$ that is on the other
+side of $G$ from $A$, such that $AG \cong GH$. Then
+$\tri{GCA} \cong \tri{GBH}$. (Why?) Hence $\ang{C} \cong \ang{GBH}$. The ray
+$BH$ is interior to $\ang{DBC}$. (This is obvious from Fig.~7--4, but it needs
+proof. It is interesting to note that Euclid neglects to prove this. See
+Exercise 3 below.) Therefore, $\ang{DBC} > \ang{HBC}$, and so
+$\ang{DBC} > \ang{C}$. (Why?)
+
+\FIGVIIFOUR
+
+\begin{remark}
+In Chapter 8, when we study parallel lines, we shall be able to prove that an
+exterior angle is congruent to the ``sum'' of the opposite interior angles, and
+from this fact, Theorem 7--1 follows easily. What is interesting is that
+Theorem 7--1 may be proved without any knowledge of properties of parallel
+lines.
+\end{remark}
+
+\exercisegroup{7--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item What kind of angles are the exterior angles of a right triangle?
+\item Use Theorem 7--1 to prove that the angles opposite the legs of a right
+  triangle are acute angles.
+\item[\stex 3.]\stepcounter{exlisti} Prove that the ray $BH$ is interior to $\ang{DBC}$.
+  [\emph{Hint:} first show that $H$ is on the same side of line $BC$ as $D$.
+  Since $G$ is on the same side of $BD$ as $C$, if $H$ were on the opposite
+  side of $BD$ from $C$, then the segment $GH$ would contain a point of the
+  line $BD$. This is absurd.]
+\item Prove the following corollary to Theorem 7--1. There is at most one line
+  perpendicular to a given line $l$ from a given point $P$. [\emph{Hint:}
+  Suppose that there were two perpendiculars, as in Fig.~7--5.]
+\end{exlist}
+\end{multicols}
+
+\FIGVIIFIVE
+
+%========================================================= 7-3
+\section*{7--3\quad INEQUALITIES IN TRIANGLES}
+\addcontentsline{toc}{section}{7--3\quad Inequalities in triangles}
+
+In this section we prove some theorems about the relative sizes of sides and
+angles in a triangle. We arrive at a proof of a theorem that, in effect, says
+that a line segment is the shortest path between two points.
+
+\begin{theorem}
+If, in $\tri{ABC}$, $AB > AC$, then $\ang{C} > \ang{B}$, and conversely, if
+$\ang{C} > \ang{B}$, then $AB > AC$.
+\end{theorem}
+
+\begin{remark}
+The meaning of this theorem can be stated briefly as ``the greater side is
+opposite the greater angle.''
+\end{remark}
+
+\FIGVIISIX
+
+\noindent\emph{Proof.}\quad
+To prove the first part of the theorem, suppose that $AB > AC$, as shown in
+Fig.~7--6. Choose $C'$ on $AB$, such that $AC' \cong AC$. Then by
+Theorem 7--1, $\ang{AC'C} > \ang{B}$. But $\ang{AC'C} < \ang{C}$. Hence
+$\ang{C} > \ang{B}$.
+
+The converse follows readily from the fact that any two segments, are either
+congruent to each other or one is greater than the other. The argument is given
+below.
+
+Given that $\ang{C} > \ang{B}$, we wish to show that $AB > AC$. Exactly one of
+the relations $AB < AC$, $AB \cong AC$, or $AB > AC$ is true. If
+$AB \cong AC$, then we would have $\ang{C} \cong \ang{B}$, which contradicts
+the given fact that $\ang{C} > \ang{B}$. If $AB < AC$, then by the first part
+of the theorem, we would have $\ang{C} < \ang{B}$, which also contradicts the
+given fact that $\ang{C} > \ang{B}$. Hence the only possibility is that
+$AB > AC$.
+
+\exercisegroup{7--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item Which angle in Fig.~7--7 is the smallest? Which is the largest? The
+  numbers are lengths of the sides.
+\item If in $\tri{EFG}$, $\ang{E}$ has a measure of $61^\circ$, and $\ang{F}$ a
+  measure of $54^\circ$, which side is the longer, $FG$ or $EG$? Can you say
+  anything yet about the length of $EF$?
+\item In $\tri{PQR}$, $S$ is a point of $PR$, such that $QS$ bisects
+  $\ang{PQR}$ (see Fig.~7--8). Prove that $PQ > PS$. [\emph{Hint:} Prove first
+  that $\ang{PSQ} > \ang{PQS}$.]
+\end{exlist}
+\end{multicols}
+
+\FIGVIISEVENEIGHT
+
+We now come to a very important and familiar inequality for triangles, called
+the \emph{triangle inequality}.
+
+\begin{theorem}
+In any $\tri{ABC}$, $\sg{AB} + \sg{BC} > \sg{AC}$.
+\end{theorem}
+
+\FIGVIININETEN
+
+\noindent\emph{Proof.}\quad
+If $AC$ is not the longest of the sides, the inequality is obvious. Therefore
+we may confine our attention to the case in which $\sg{AC} > \sg{AB}$ and
+$\sg{AC} > \sg{BC}$, as in Fig.~7--9.
+
+\begin{steps}
+\step{There is a point $B'$ on $AC$, such that $AB \cong AB'$.}{Why?}
+\step{$\ang{1} \cong \ang{2}$.}{Why?}
+\step{$\ang{3} > \ang{1}$.}{Why?}
+\step{$\ang{2} > \ang{4}$.}{Why?}
+\step{$\ang{3} > \ang{4}$.}{This follows from Statements 2, 3, and 4. Why?}
+\step{$\sg{B'C} < \sg{BC}$.}{Why?}
+\step{$\sg{AB'} + \sg{B'C} < \sg{AB} + \sg{BC}$.}{Statements 1 and 6 and
+      properties of numbers.}
+\step{$\sg{AC} < \sg{AB} + \sg{BC}$.}{$\sg{AC} = \sg{AB'} + \sg{B'C}$.}
+\end{steps}
+
+\begin{remark}
+This theorem is sometimes loosely stated as ``a straight line is the shortest
+distance between two points.'' In fact, this last statement is sometimes used
+as a postulate, although incorrectly, since one must first have a notion of
+distance or of length of a segment.
+\end{remark}
+
+Having proved the triangle inequality, we now see that the lines we have been
+talking about all along are, after all, ``straight'' in the precise sense of
+the triangle inequality. Perhaps this can be made clearer by defining
+\emph{polygonal path} and \emph{length of a polygonal path}.
+
+\begin{definition}
+Let $P_1$, $P_2,\ldots, P_n$ be any set of $n$ points (Fig.~7--10). The set of
+points on all the segments $P_1P_2$, $P_2P_3,\ldots, P_{n-1}P_n$ is called a
+\emph{polygonal path}. The path is said to join, or connect, the
+\emph{endpoints} $P_1$ and $P_n$. The points $P_1,\ldots, P_n$ are called the
+\emph{vertices}. In particular, if $P_1 = P_n$, the polygonal path is called a
+\emph{polygon} and designated as polygon $P_1P_2\ldots P_{n-1}$.
+\end{definition}
+
+\begin{definition}
+The \emph{length of the polygonal path} $P_1\ldots P_n$ is defined to be
+$\sg{P_1P_2} + \sg{P_2P_3} + \cdots + \sg{P_{n-1}P_n}$.
+\end{definition}
+
+\begin{corollary}
+The length of a polygonal path is greater than, or equal to, the length of the
+segment joining its ends.
+\end{corollary}
+
+\exercisegroup{7--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item Two sides of a triangle have lengths of 5 and 7 in. What can you say
+  about the third side?
+\item Can the numbers 6, 8, and 15 be the lengths of the three sides of a
+  triangle?
+\item Prove that the difference between the lengths of two sides of a triangle
+  is less than the length of the third side.
+\item[\stex 4.]\stepcounter{exlisti} Use the triangle inequality and Fig.~7--11 to show that if
+  $\ang{C} > \ang{B}$, then $AB > AC$.
+\item[\stex 5.]\stepcounter{exlisti} In Fig.~7--12, $AC \cong A'C'$, $BC \cong B'C'$, and
+  $\ang{ACB} > \ang{A'C'B'}$. Prove that $\sg{AB} > \sg{A'B'}$.
+  [\emph{Hint:} Show how to find a point $Q$ on $AB$, such that
+  $QB \cong QB'$, and use $\sg{AB} = \sg{AQ} + \sg{QB} = \sg{AQ} + \sg{QB'}$.]
+\item[\stex 6.]\stepcounter{exlisti} Use the result of Exercise 5 to prove that if, in two
+  triangles, $\tri{ABC}$ and $\tri{A'B'C'}$, $AC \cong A'C'$,
+  $BC \cong B'C'$, and $AB > A'B'$, then $\ang{C} > \ang{C'}$. Show that the
+  statements $\ang{C} \cong \ang{C'}$ and $\ang{C} < \ang{C'}$ are false.
+\item[\stex 7.]\stepcounter{exlisti} If $D$ in Fig.~7--13 is a point inside $\tri{ABC}$, show that
+  $\sg{AD} + \sg{DC} < \sg{AB} + \sg{BC}$. [\emph{Hint:} Consider first
+  $\tri{ABE}$ and $\tri{DEC}$.] Show also that $\ang{ADC} > \ang{ABC}$.
+\item By using Theorem 7--2, prove that an equiangular triangle is equilateral.
+\item If, in Fig.~7--14, $l \perp m$, and $l' \perp m$, prove that $l$ and $l'$
+  do not intersect. [\emph{Hint:} Suppose they do.]
+\item Show that a polygonal path connecting points $A$ and $B$ could have four
+  vertices and still have the same length as $AB$.
+\end{exlist}
+\end{multicols}
+
+\FIGVIIELEVEN
+\FIGVIITWELVE
+\FIGVIITHIRTEENFOURTEEN
+
+%========================================================= 7-4
+\section*{7--4\quad CIRCLES}
+\addcontentsline{toc}{section}{7--4\quad Circles}
+
+There are two ways that we could define a circle. One is to use the idea of
+congruent segments, and the other is to use the idea of distance. Because two
+segments are congruent if and only if they have the same length, these two ways
+are equivalent.
+
+\begin{definition}
+A circle is determined by a point $O$, called the \emph{center}, and a positive
+number $r$. The \emph{circle} is the set of all points $A$ of the plane, such
+that $\sg{OA} = r$. If $A$ is a point of the circle, then the segment $OA$ is
+called a \emph{radius} (plural, \emph{radii}). If $A$ and $B$ are on the
+circle, and the segment $AB$ contains $O$, then $AB$ is called a
+\emph{diameter}.
+\end{definition}
+
+\begin{VIIremarkn}{1}
+You will note that we have not said that a circle is a ``curve,'' because
+nowhere in our geometry have we defined what ``curve'' might mean. The circle
+is a set of points, and in the definition, we have told only how to decide
+whether any point $A$ is, or is not, a point of the circle.
+\end{VIIremarkn}
+
+\begin{VIIremarkn}{2}
+According to the definition, a radius is a segment, that is, a set of points.
+It is common usage to also call the real number $r$ the radius. We will also
+use this language, so that the circle can be described as the ``circle with
+center $O$ and radius $r$.'' Similarly, if $AB$ is a diameter, the length
+$\sg{AB} = 2r$ will be called the diameter. No confusion will arise, because it
+will always be clear whether we are talking about a set of points or a number.
+\end{VIIremarkn}
+
+\begin{VIIremarkn}{3}
+We have not mentioned the inside or outside of the circle as yet, because these
+sets have not yet been defined.
+\end{VIIremarkn}
+
+\begin{definition}
+If a circle (Fig.~7--15) has center $O$ and radius $r$, the \emph{interior} of
+the circle is the set of all points $B$, such that $\sg{OB} < r$. The
+\emph{exterior} of the circle is the set of all points $C$, such that
+$\sg{OC} > r$.
+
+A \emph{chord} is a segment determined by two points $E$ and $F$ on the circle;
+the line through $E$ and $F$ is a \emph{secant}.
+
+A \emph{central angle} of a circle is an angle whose vertex is at the center of
+the circle. An \emph{inscribed angle} (such as $\ang{EFG}$) is an angle whose
+vertex is on the circle, and having points of the circle on each of the two
+sides of the angle.
+\end{definition}
+
+\FIGVIIFIFTEEN
+
+\exercisegroup{7--5}
+\begin{multicols}{2}
+\begin{exlist}
+\item A circle has center $A$ and radius 5. The points $B$, $C$, $D$, $E$, are
+  such that $\sg{AB} = 4$, $\sg{AC} = 5$, $\sg{AD} = 17$, and $\sg{AE} = 5$.
+  Where are these points? That is, in what sets are they?
+\item If $AB$ is a diameter of a circle with center $C$, what is $\ang{ACB}$?
+\item In Fig.~7--16, the circle has center $O$. What kind of angles are
+  $\ang{A}$, $\ang{B}$, $\ang{C}$, $\ang{D}$, and $\ang{E}$?
+\item Give a definition of circle in terms of congruence instead of distance.
+\item If $A$ is a point of a circle and $O$ is the center, what can be said
+  about a point $B$, such that $\sg{OB} \leqq \sg{OA}$?
+\end{exlist}
+\end{multicols}
+
+\FIGVIISIXTEEN
+
+%========================================================= 7-5
+\section*{7--5\quad RULER AND COMPASS}
+\addcontentsline{toc}{section}{7--5\quad Ruler and compass}
+
+In the preceding section we defined a circle in terms of distance. When drawing
+a circle on a piece of paper, we use the fact, familiar from experience, that
+the distance between the two points of the compass stays fixed. In this section
+we define those drawings that are called ``ruler and compass constructions.''
+Do not think that these are the only constructions possible. They are only the
+simplest kind. The ruler used in these constructions is just an unmarked
+straightedge.
+
+\FIGVIISEVENTEEN
+
+\begin{definition}
+To make a \emph{ruler and compass} (\RC) \emph{construction} is to draw a
+picture of a set of points, using only a ruler and compass. The ruler can only
+be used to draw a line through two points. The compass can only be used to
+draw a circle with a given center and radius.
+\end{definition}
+
+\begin{VIIremarkn}{1}
+\RC{} constructions are sets that can be illustrated with certain mechanical
+devices. Circles and lines exist in our geometry independently of these
+mechanical devices. Interest in \RC{} constructions originates in the
+simplicity of the tools needed to make them.
+\end{VIIremarkn}
+
+\begin{VIIremarkn}{2}
+To draw a line or circle in an \RC{} construction, two points are needed. We
+may not slide the ruler, mark it, or guess the opening of the compass. We must
+have two points already constructed in order to draw a line or circle.
+\end{VIIremarkn}
+
+\begin{VIIremarkn}{3}
+The study of \RC{} constructions at this point is not really necessary for the
+logical development of our geometry, but it does help us to visualize geometric
+figures, and it demonstrates the usefulness of what has already been studied.
+\end{VIIremarkn}
+
+\begin{VIIremarkn}{4}
+It will be clear that the knowledge of \RC{} constructions is quite useful to a
+draftsman.
+\end{VIIremarkn}
+
+%========================================================= 7-6
+\section*{7--6\quad HISTORICAL NOTE}
+\addcontentsline{toc}{section}{7--6\quad Historical note}
+
+The ancient Greeks were much attracted by \RC{} constructions and attempted to
+solve all sorts of problems with these two tools. However, they encountered
+several problems that they could not handle using only ruler and compass. This
+does not mean that these problems are not solvable---only that a ruler and
+compass are not enough. Three of the problems that puzzled the Greeks have had
+a long and interesting history, which we cannot pursue here. They are:
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=3pt]
+\item \emph{The trisection of an angle.} Given any $\ang{A}$, the problem is to
+  construct angles $B$, $C$, and $D$, as in Fig.~7--18, such that
+  $\ang{B} \cong \ang{C} \cong \ang{D}$.
+\item \emph{The duplication of a cube.} Suppose that a cube has side of length
+  $x$. The problem is to construct the side of a cube having twice the volume
+  of the given cube.
+\item \emph{Squaring the circle.} Given a circle, the problem is to construct a
+  square with the same area as the circle (Fig.~7--19).
+\end{enumerate}
+
+\FIGVIIEIGHTEENNINETEEN
+
+All these problems have been completely resolved in modern times, and
+\emph{all are impossible of solution with ruler and compass alone}. This is a
+fact beyond dispute. It does not mean that in the trisection problem, for
+example, angles $B$, $C$, and $D$ do not exist. It means that one cannot draw
+them using ruler and compass alone. When you think about this a moment, it may
+not be so surprising. No one is surprised that it is impossible to build a
+large building with only a tack hammer. A ruler and compass alone are like a
+tack hammer in so far as these problems are concerned.
+
+There are, however, many constructions possible with ruler and compass. We will
+study some of them.
+
+%========================================================= 7-7
+\section*{7--7\quad COPYING ANGLES AND TRIANGLES}
+\addcontentsline{toc}{section}{7--7\quad Copying angles and triangles}
+
+$\ang{A}$ and a ray from point $B$ are given, as in Fig.~7--20. We wish to
+construct an angle at $B$ congruent to $\ang{A}$. Of course, from the existence
+postulate for angles, there are two such angles, as shown by the dotted lines
+in the figure. When we draw the angle at $B$ congruent to $\ang{A}$, we say
+that we have ``copied'' $\ang{A}$.
+
+\FIGVIITWENTYTWENTYONE
+
+\begin{construction}
+Draw a circle of radius $r$, with center $A$. This circle will intersect the
+sides of $\ang{A}$ in two points $D$ and $E$ (Fig.~7--21). (Why?) Draw a circle
+of the same radius $r$ with center $B$. This circle will intersect the ray from
+$B$ in a point $F$. Draw a circle, with center $F$ and radius $\sg{DE}$. On a
+given side of the line $BF$, the two circles will intersect in a point $G$.
+$\ang{GBF}$ is congruent to $\ang{A}$.
+\end{construction}
+
+You should recognize that there are two things to prove. Because the entire
+construction is centered around finding a point in which our circles intersect,
+we must first prove that such a point exists in our geometry. Of course, when
+we draw the picture, it is clear that there should be such a point. The real
+question, however, is whether we can take the assumptions we have made and
+prove that there is such a point. After we establish the existence of this
+point, we must prove further that the angles are congruent to each other. These
+two proofs should be considered separately.
+
+\noindent\emph{Proof.} (a)\quad
+(The existence of a point of intersection of the circles.) By the existence
+postulate for angles, there is exactly one ray $BH$, on a given side of $BF$,
+such that $\ang{FBH} \cong \ang{A}$. The existence of the \emph{ray} is thus
+assured. The existence of the points $D$, $E$, and $F$ follows from theorems of
+measurement and congruence. There is a point $G$ on the ray $BH$, such that
+$BG \cong BF \cong AE \cong AD$. Since $\ang{A} \cong \ang{B}$,
+$\tri{ADE} \cong \tri{BGF}$ by the S.A.S. theorem. Therefore,
+$GF \cong DE$. Hence, the point $G$ is on the circle with radius $\sg{DE}$ and
+center $F$. Since $G$ is also on the circle with center $B$ and radius
+$\sg{BF}$, it is therefore on both circles and is a point of intersection of
+the two circles.
+
+\noindent\emph{Proof.} (b)\quad
+(The congruence of the angles.) We now consider any point $G$ on both circles.
+$AD \cong AE \cong BG \cong BF$. Since both circles have the same radius,
+$DE \cong GF$, and $\tri{AED} \cong \tri{BFG}$ by the S.S.S. theorem. Hence
+$\ang{A} \cong \ang{B}$.
+
+In a similar manner we can copy a triangle.
+
+\begin{construction}
+Given $\tri{ABC}$ (Fig.~7--22) and a ray from a point $A'$, use the previous
+construction to copy $\ang{A}$. Then draw a circle, with center $A'$ and radius
+$\sg{AB}$, which intersects the other side of $\ang{A'}$ at $B'$. Then draw a
+circle, with center $A'$ and radius $\sg{AC}$, which intersects the given ray
+in $C'$. Then $\tri{ABC} \cong \tri{A'B'C'}$.
+\end{construction}
+
+\noindent\emph{Proof.}\quad
+The proof is left to the student.
+
+\FIGVIITWENTYTWOTWENTYTHREE
+
+\begin{construction}
+Given $\tri{ABC}$ (Fig.~7--23) and a ray from a point $A'$, draw a circle, with
+center $A'$ and radius $\sg{AC}$, which intersects the ray in $C'$. Then draw
+circles, with centers at $A'$ and $C'$ and radii $\sg{AB}$ and $\sg{BC}$,
+respectively. These two circles will intersect, on a given side of the ray, in
+exactly one point $B'$. We will then have $\tri{ABC} \cong A'B'C'$.
+\end{construction}
+
+\noindent\emph{Proof.}\quad
+The proof is left to the student. Remember, you must first prove that $B'$
+exists and then prove $\tri{ABC} \cong \tri{A'B'C'}$.
+
+%========================================================= 7-8
+\section*{7--8\quad OTHER CONSTRUCTIONS}
+\addcontentsline{toc}{section}{7--8\quad Other constructions}
+
+It should now be clear that proving the validity of certain constructions
+involves first the proof of the existence of certain points and lines, and
+secondly the proof that the construction produces the desired result. In the
+remainder of our work on constructions, we will concentrate our efforts on the
+second part. The proof of existence of certain points can actually be quite
+hard at times. For example, when we try to prove that the construction for the
+perpendicular bisector of a segment is valid, we need a theorem, Theorem 7--4,
+that is very difficult to prove at this time.
+
+\begin{theorem}
+If $AB$ is a segment, and circles are drawn, with centers at $A$ and $B$ and
+radius $r > \frac{1}{2}\sg{AB}$, then these circles intersect in exactly two
+points $P$ and $Q$, on opposite sides of the line through $A$ and $B$
+(Fig.~7--24).
+\end{theorem}
+
+\begin{remark}
+From what we know about measurement of length, we know that every line segment
+$AB$ has exactly one midpoint $C$, that is, a point $C$ such that
+$\sg{AC} = \sg{BC} = \frac{1}{2}\sg{AB}$. Likewise, it is easy to show that
+every angle has a bisector, that is, from the vertex of the angle, there is a
+ray that forms, with the sides of the given angle, two congruent angles.
+\end{remark}
+
+\FIGVIITWENTYFOURTWENTYFIVE
+
+The constructions of this section show how to make \RC{} constructions for
+midpoints of segments and bisectors of angles; but the \emph{existence} of
+these midpoints and bisectors has been obtained independently of these
+constructions.
+
+\begin{construction}
+Draw circles, with centers $A$ and $B$ and equal radii greater than
+$\frac{1}{2}\sg{AB}$. These circles intersect at points $P$ and $Q$. The line
+$PQ$ is the desired perpendicular bisector (Fig.~7--25).
+\end{construction}
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{$AP \cong PB \cong AQ \cong QB$.}{Construction.}
+\step{$\tri{APQ} \cong \tri{BPQ}$.}{S.S.S. theorem.}
+\step{$PQ$ intersects line $AB$ in $C$.}{$P$ and $Q$ are on opposite sides of
+      $AB$.}
+\step{$\tri{APC} \cong \tri{BPC}$.}{S.A.S. theorem.}
+\step{$AC \cong CB$, and $\ang{ACP} \cong \ang{BCP}$.}{Statement 4.}
+\step{$PQ$ is the $\perp$ bis $AB$.}{Statement 5.}
+\end{steps}
+
+\exercisegroup{7--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Prove that each segment has exactly one perpendicular bisector.
+\item Prove that every point on the perpendicular bisector of $AB$ is
+  equidistant from $A$ and $B$.
+\item Prove that if a point $R$ is equidistant from $A$ and $B$, then it lies
+  on the perpendicular bisector of $AB$.
+\item Construct the perpendicular bisector of a segment by constructing two
+  points on the same side of the line and equidistant from the ends of the
+  segment.
+\end{exlist}
+\end{multicols}
+
+\begin{construction}
+To construct the perpendicular to a line at a point $P$ on the line
+(Fig.~7--26), draw a circle, with center $P$ and arbitrary radius, intersecting
+the line in points $A$ and $B$. Then construct the perpendicular bisector of
+$AB$.
+\end{construction}
+
+\begin{construction}
+To construct a perpendicular to a line from a point not on the line, choose a
+point $A$ on the line, and draw the circle with center $P$ and radius $AP$
+(Fig.~7--27). The circle will intersect the line in a second point $B$ (if $A$
+is properly chosen). Then construct the perpendicular bisector of $AB$, which
+passes through $P$.
+\end{construction}
+
+\FIGVIITWENTYSIXSEVENEIGHT
+
+\noindent\emph{Proof.}\quad
+We first show that there actually is a line through $P$ perpendicular to the
+line. Then we show that the \RC{} construction produces this line.
+
+First choose any point $A$ on $l$ and any other point $C$ on $l$ (Fig.~7--28).
+Let $AQ$ be the ray, on the opposite side of $l$ from $P$, such that
+$\ang{PAC} \cong \ang{QAC}$. (There is only one such ray, by the existence
+postulate for angles.) Choose $P'$ on $AQ$, such that $AP' \cong AP$. Then
+$PP'$ intersects $l$ in a point $D$. (Why?) If $A \neq D$, then triangles are
+formed, and by S.A.S., $\tri{APD} \cong \tri{AP'D}$. Therefore, $\ang{ADP}$ and
+$\ang{ADP'}$ are right angles, and $PP' \perp l$. If $A = D$, there are no
+triangles, but then, because of the way $AQ$ was selected, $PP' \perp l$.
+(Why?)
+
+Having established that a perpendicular from $P$ exists, we now show that the
+\RC{} construction gives us this perpendicular. If $D \neq A$, there is a point
+$B$ on the opposite side of $D$ from $A$, so that $AD \cong BD$. It follows
+that the circle with center $P$ and radius $AP$ does intersect the line in a
+second point $B$, and this was the main part to be proved in the construction.
+Now the perpendicular bisector of $AB$ can be drawn, and $P$ lies on it.
+(Why?)
+
+\exercisegroup{7--7}
+\begin{multicols}{2}
+\begin{exlist}
+\item Construct a right triangle, having been given the lengths of the two
+  legs.
+\item Construct points $D$, $E$, and $F$ on the segment $AB$, such that
+  $\sg{AD} = \sg{DE} = \sg{EF} = \sg{FB} = \frac{1}{4}\sg{AB}$.
+\item[\stex 3.]\stepcounter{exlisti} Suppose that $P$ is not on a line $l$, and that a given circle
+  with center at $P$ intersects $l$ in exactly one point $Q$. Prove that $PQ$
+  is perpendicular to $l$. [\emph{Hint:} If $PQ$ were not perpendicular, then
+  the construction in the proof of Construction 7--6 would lead to a
+  contradiction.]
+\item Construct the perpendicular from $P$ by choosing $A$, as in Fig.~7--29,
+  constructing $\ang{2} \cong \ang{1}$, and point $P'$, such that
+  $AP \cong AP'$.
+\end{exlist}
+\end{multicols}
+
+\FIGVIITWENTYNINETHIRTY
+
+\begin{construction}
+To bisect $\ang{A}$, draw a circle, with center $A$, intersecting the sides of
+$\ang{A}$ in points $B$ and $C$ (Fig.~7--30). Then construct a point $Q$ on the
+perpendicular bisector of $BC$ and in the interior of $\ang{A}$. The ray $AQ$
+bisects $\ang{A}$.
+\end{construction}
+
+\noindent\emph{Proof.}\quad
+The point $Q$ can be found by a previous construction.
+$\tri{ABQ} \cong \tri{ACQ}$, by S.S.S. Hence $\ang{BAQ} \cong \ang{CAQ}$.
+
+\exercisegroup{7--8}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw an acute angle, and construct its bisector.
+\item Construct and bisect a right angle.
+\item Bisect an obtuse angle.
+\item Draw a triangle, and construct the bisectors of its angles. (They should
+  meet in one point.)
+\item If $P$ is on the bisector of $\ang{A}$, and $B$ and $C$ are points on the
+  sides of $\ang{A}$, such that $AB = AC$, prove that $PB \cong PC$.
+\item Prove that an angle has only one bisector.
+\item Suppose that $B$ and $C$ are points on the two sides of $\ang{A}$, such
+  that $AB \cong AC$. Show that if $M$ is the midpoint of $BC$, then $AM$
+  bisects $\ang{A}$.
+\item[\stex 8.]\stepcounter{exlisti} Figure 7--31 shows another construction for the angle bisector.
+  Consider two circles, with center $A$ and radii $r$ and $r'$, such that
+  $r' > r$. These circles intersect the sides of $A$ in four points $C$, $C'$,
+  $D$, and $D'$. The lines through these points intersect in a point $P$ on the
+  bisector. (Why?)
+\item[\stex 9.]\stepcounter{exlisti} If, in Fig.~7--32, $\ang{CAD} \cong \ang{EBF}$,
+  $\ang{1} \cong \ang{2}$, and $\ang{3} \cong \ang{4}$, then
+  $\ang{2} \cong \ang{4}$. \emph{Note:} This theorem is often stated as
+  ``halves of congruent angles are congruent to each other.'' Prove this
+  theorem.
+\end{exlist}
+\end{multicols}
+
+\FIGVIITHIRTYONETHIRTYTWO
+
+%========================================================= Review
+\section*{REVIEW OF CHAPTER 7}
+\addcontentsline{toc}{section}{Review of Chapter 7}
+
+In this chapter we have used the congruence theorems to study inequalities in
+triangles and verify constructions.
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=3pt]
+\item Make a list of all the theorems on inequalities in triangles, then study
+  their proofs.
+\item Make a list of the different \RC{} constructions. Prove them correct
+  without looking at the book.
+\end{enumerate}
+
+Review the following definitions, which you met for the first time in this
+chapter: exterior angle, circle, interior of circle, exterior of circle,
+radius, diameter, chord, secant, central angle, inscribed angle, \RC{}
+construction.
+
+\begin{center}\bfseries Review Exercises\end{center}\nopagebreak
+\begin{multicols}{2}
+\begin{exlist}
+\item Construct an angle of $45^\circ$.
+\item Construct an angle of $60^\circ$, of $30^\circ$.
+\item Construct an angle of $15^\circ$, of $75^\circ$.
+\item Construct an equilateral triangle.
+\item Construct a right triangle having acute angles of $60^\circ$ and
+  $30^\circ$.
+\item Draw an obtuse triangle, and construct the bisectors of its angles.
+\item Draw an angle. Copy it, using ruler and compass.
+\item Draw three separate segments. Construct a triangle having sides congruent
+  to the given segments.
+\item Draw a line, and mark a point $P$ not on the line. Construct the
+  perpendicular to the line, passing through $P$. How do you know that there is
+  only this one perpendicular?
+\item Draw a triangle. Construct the altitudes of the triangle.
+\item Draw a triangle. Construct the perpendicular bisectors of its sides.
+\item Construct an isosceles triangle if the vertex angle and the congruent
+  sides are given.
+\item Draw a segment. Construct a circle having this segment as a diameter.
+\item In a right triangle, which side is longest? Why?
+\item Prove that the sum of the lengths of three sides of a quadrilateral is
+  greater than the length of the fourth side.
+\item $\ang{ABC}$ is a right angle, and $C$ is between $B$ and $D$. Prove that
+  $AD > AC$. (Fig.~7--33)
+\item Prove that $\sg{AD} + \sg{CB} > \sg{AB} + \sg{CD}$. (Fig.~7--34)
+\item $AE$ bisects $\ang{DAF}$, and $AC$ bisects $\ang{DAB}$. (Fig.~7--35)
+  Prove that $\ang{CAE}$ is right. [\emph{Hint:} Extend $AE$.]
+\item $AC$ bisects $\ang{DAB}$, and $\ang{CAE}$ is right. Prove that $AE$
+  bisects $\ang{DAF}$. (Fig.~7--36)
+\end{exlist}
+\end{multicols}
+
+\FIGVIITHIRTYTHREETHIRTYFOUR
+\FIGVIITHIRTYFIVETHIRTYSIX
+
+\begin{center}\bfseries ALGEBRA REVIEW\end{center}\nopagebreak
+\begin{multicols}{2}
+\begin{exlist}
+\item In $\tri{ABC}$, $AB < BC < CA$. The greatest angle in this triangle has a
+  measure of $32^\circ$ more than the measure of the smallest angle. The sum of
+  the measures of these two angles is $120^\circ$. Determine the number of
+  degrees in the smallest angle in this triangle.
+\item An exterior angle at $A$ of $\tri{ABC}$ has a measure of $65^\circ$. The
+  sum of the measures of angles $A$ and $B$ is $145^\circ$, and the sum of the
+  measures of angles $A$ and $C$ is $150^\circ$. Determine the number of
+  degrees in each angle of the triangle.
+\item Points $O$, $A$, and $B$ are collinear. $\sg{OA}$ is 7 in. more than
+  $\sg{BA}$. $A$ is not between $O$ and $B$. Determine the length of $OB$.
+\item $\sg{AB} = 17$, and $\sg{AC} = 12$. The number $\sg{BC}$ is a root of the
+  equation $(x-6)(x-4) = 0$. Determine $\sg{BC}$.
+\item If $B$ is between $A$ and $C$, $\sg{AC}/\sg{BC} = \frac{5}{3}$, and
+  $\sg{AB} = 10$ in., determine the lengths of $AC$ and $BC$.
+\item $B$ is between $A$ and $C$, and $\sg{AB}/\sg{AC} = \frac{3}{5}$. The
+  midpoint of $AC$ is $M$, and $\sg{MB} = 3$. Determine $\sg{AC}$.
+\item[\stex 7.]\stepcounter{exlisti} $A$, $B$, $C$ and $D$ are points in this order on a line. The
+  length of $AC$ is twice the length of $BD$. The length of $AB$ is four times
+  the length of $CD$. The length of $BC$ is 4. Determine the lengths of $AB$
+  and $AD$.
+\item[\stex 8.]\stepcounter{exlisti} The difference of the squares of two numbers is 33. The sum of
+  these numbers is 11. Determine the numbers.
+\item[\stex 9.]\stepcounter{exlisti} Analyze the following mathematical trick. Choose any number;
+  multiply this number by 2; add 4 to this product; multiply by 5; divide by
+  10; subtract from this result the original number. The result will be 2, no
+  matter what number was originally chosen.
+\end{exlist}
+\end{multicols}
+
+\end{document}

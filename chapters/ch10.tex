@@ -1,0 +1,621 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures10}
+
+% ---- local macros (hoist into book preamble) ----
+% (No \Xstarnote here: ch10 has starred exercises but the book prints no star
+% footnote on any of its pages; ch02:311 owns the book-wide first use.)
+% Unnumbered "limit" footnote on book p.182 — same reasoning as ch02's
+% \IIstarnote: \starnote in brumfiel.sty emits a bare \footnotetext, which
+% prints the footnote counter, and the book marks this note with "*" and no
+% number.
+\newcommand{\Xlimitnote}{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*The word ``limit'' has a precise mathematical sense, which
+  need not concern us now. Roughly, the idea is that the areas of the
+  approximating rectangles get close to a number that we call the \emph{area}
+  of the given rectangle.}\endgroup}
+% Figure-name glyphs. The book writes "area (<glyph>ABCD)". In the running
+% proofs it uses a plain square for both rectangles and parallelograms; the
+% Review of Chapter 10 summary distinguishes four glyphs, so the parallelogram
+% and trapezoid are drawn here rather than faked with \square.
+\newcommand{\Xrect}{\ensuremath{\square}}
+\newcommand{\Xpgram}{\mathord{\tikz[baseline=-0.05ex,line width=0.5pt]{%
+  \draw (0,0) -- (1.35ex,0) -- (1.75ex,1.05ex) -- (0.40ex,1.05ex) -- cycle;}}}
+\newcommand{\Xtrap}{\mathord{\tikz[baseline=-0.05ex,line width=0.5pt]{%
+  \draw (0,0) -- (1.85ex,0) -- (1.45ex,1.05ex) -- (0.42ex,1.05ex) -- cycle;}}}
+% Narrow multicol columns plus this chapter's long primed/subscripted math
+% atoms ($A''B''C''D''$, $\sg{A_1B_1}/\sg{A_2B_2}$) leave TeX no legal break
+% point. Give it a little slack rather than re-wording the book.
+\setlength{\emergencystretch}{2.5em}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{10}
+
+\chapter*{\raggedright\Huge AREA}
+\addcontentsline{toc}{chapter}{10.\ Area}
+\markboth{AREA}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 10-1
+\section*{10--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{10--1\quad Introduction}
+
+You already have an intuitive understanding of the concept of \emph{area}. In
+this chapter we will describe \emph{area} in much the same way as we described
+length in Chapter 5. There we determined a number that we called the length of
+a line segment by choosing an arbitrary \emph{unit segment} and
+\emph{counting}. Here, for a given geometric figure, we determine a number
+that we call the \emph{area} of the figure by first choosing an arbitrary
+\emph{unit square} and then \emph{counting}.
+
+It is much more difficult to describe the \emph{counting process} for area
+than it is for length. We content ourselves with a crude description of the
+counting process as it relates to finding areas of rectangles. Once the area
+formula for rectangles is determined, we employ it to derive area formulas for
+other simple polygons.
+
+%========================================================= 10-2
+\section*{10--2\quad AREA BY COUNTING}
+\addcontentsline{toc}{section}{10--2\quad Area by counting}
+
+We understand by \emph{polygon}, of course, the set of points on the sides.
+When we refer to the \emph{area} of a \emph{polygon}, we really are considering
+the set of interior points. It would be more descriptive to speak of the
+\emph{area} of this \emph{interior set}. But for brevity, we simply speak of
+the area of a polygon. First, we study rectangular polygons.
+
+We need to explain what we mean by the area of a rectangle. It will help to
+consider a few examples.
+
+Having chosen a unit length, a square 1 unit of length on a side is said to
+have 1 unit of area. Clearly, if we had two squares side by side, as in
+Fig.~10--1, we would want to count the area as 2. Suppose we had a rectangle
+with sides of lengths 3 and 2. Figure 10--1 shows that we would want the area
+to be 6 units.
+
+If we had a square of side $\tfrac{1}{2}$ unit, then placing it in a unit
+square as in Fig.~9--2,\footnote{\emph{Transcriber's note.} The 1961 printing
+reads ``Fig.~9--2'' here; the figure meant is plainly Fig.~10--2. Reproduced
+as printed.} we see that the area should be only $\tfrac{1}{4}$ unit.
+
+If we had a rectangle with sides $2\tfrac{1}{2}$ and 3 units, what would the
+area be?
+
+\FIGXONETWO
+
+\exercisegroup{10--1}
+% No star footnote here. Text review 2026-08-17 checked the foot of book p.181
+% at 200 dpi in BOTH sources (photo PDF 195 and scan13 p2): the page ends with
+% Fig. 10-3 and carries no footnote. ch02:311 owns the book-wide first use of
+% the "*Starred exercises ... are optional" note. Do not re-add it here.
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a rectangle whose sides are 3 and 5 units. Determine its area by
+  decomposing it into unit squares and counting.
+\item Sketch a figure to illustrate why the area of an $m$ by $n$ rectangle is
+  $mn$ units. Here, $m$ and $n$ are positive integers.
+\item A rectangle is $3\tfrac{1}{3}$ units long and 3 units wide. Find its
+  area. What is the largest size square, such that the rectangle can be
+  covered by an integral number of squares? Suppose that the rectangle were
+  $3\tfrac{1}{3}$ by 2. What is the answer then?
+\item[\stex 4.] Suppose that the length of a rectangle is $a$, and its width
+  is $b/c$, where $a$, $b$, and $c$ are positive integers. Obtain the area by
+  dividing the rectangle into squares $1/c$ units on a side and then counting.
+\item[5.] A rectangle has sides 2.2 and 3.3 in. Obtain its area by dividing it
+  into small squares and counting.
+\item[6.] A rectangle has sides 3.24 and 4.83 ft. Describe how to obtain the
+  area by counting squares.
+\item[\stex 7.] The sides of a rectangle are $a/b$ and $c/b$ units, where $a$,
+  $b$, and $c$ are positive integers. Show how its area is obtained by counting
+  squares.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 10-3
+\section*{10--3\quad DEFINITION OF RECTANGLE AREA}
+\addcontentsline{toc}{section}{10--3\quad Definition of rectangle area}
+
+In the previous section we saw how to obtain the area of a rectangle by
+counting squares if the rectangle has sides whose lengths are integers.
+Remember that, so far, we have not explicitly defined what area is, but have
+used only our previous experience.
+
+\FIGXTHREE
+
+Suppose the lengths of the sides of a rectangle are $l$ and $w$, where $l$ and
+$w$ are terminating decimals. If $l$ and $w$ end in 10ths, then we chop up the
+rectangle into squares 0.1 on a side. If $l$ and $w$ end in 100ths, we chop the
+rectangle into squares 0.01 on a side, and so on. In Fig.~10--3, we have
+started to chop up the rectangle, which is 1.4 by 2.3. Is it necessary to draw
+more of the small squares in order to count them?
+
+It is rather obvious that the method of counting could be applied to a
+rectangle whose sides are any rational numbers.
+
+\exercise{10--2}
+\noindent Find, by counting, the area of the rectangle whose sides are
+(a)~2.5 and 3.3, (b)~2.23 and 1.77, (c)~5/3 and 7/3, (d)~5/3 and 1/2,
+(e)~5/3 and 3/4.
+
+\medskip
+In all our problems so far, we have found, by counting squares, that the area
+of the rectangle is $lw$.
+
+Now suppose that at least one of the sides of the rectangle is not a rational
+number, that is, this side and the unit are not commensurable. To be definite,
+let us consider a rectangle whose length is $\sqrt{2}$ and whose width is 1.
+(Remember that $\sqrt{2}$ is not rational, and that \emph{approximately}
+$\sqrt{2} = 1.4142$.) Examination of Fig.~10--4 shows that the area of the
+rectangle is greater than 1.4 and less than 1.5. We may see this by counting
+squares. If we were to subdivide the length into 100ths, we would also see
+that the area is greater than 1.41 and less than 1.42. As we approximate to
+$\sqrt{2}$ more and more closely by rational numbers, for example, by 1.4,
+1.41, 1.414, 1.4142,\dots, we will get rectangles whose areas are ever closer
+to $\sqrt{2}$.
+
+% Fig. 10-4 sits at the foot of book p.182, i.e. AFTER Exercise 10-2 and after
+% the incommensurable-case prose that references it. It was ahead of the
+% exercise here; restored to source order.
+\FIGXFOUR
+
+Therefore, the situation in which we find ourselves is as follows. If the
+sides of the rectangle are rational numbers, we can get the area by counting.
+If the sides are not rational, then simple counting does not give us the area.
+In this latter case, we must approximate to the sides by rational numbers and
+consider the \emph{limit}*\Xlimitnote{} of the areas of the rectangles whose
+sides have rational numbers for lengths. It is possible to prove that this
+limit exists and is equal to the product $lw$.
+
+You see that to define the area of a rectangle by starting with counting may be
+quite troublesome. Therefore, in this book we do not give a detailed definition
+of area of a rectangle, but only state the following theorem, which tells us
+how to calculate the area.
+
+\begin{theorem}
+The area of a rectangle whose sides have lengths $l$ and $w$ is $lw$.
+\end{theorem}
+
+\exercisegroup{10--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item A square has side $x$ yards. What is its area in square feet?
+\item What is the area of a rectangle $3\sqrt{2}$ units long and $2\sqrt{2}$
+  units wide?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 10-4
+\section*{10--4\quad AREA OF POLYGONS}
+\addcontentsline{toc}{section}{10--4\quad Area of polygons}
+
+So far, the only polygons whose areas we have studied are rectangles. In
+discussing areas of other polygons, and in particular triangles, perhaps we
+should define area in terms of some kind of counting process. If we did, we
+would be forced to concern ourselves with limits, so we will determine areas of
+polygons by a method used by the Greek geometers. Our basic formula for the
+area of a rectangle will enable us to find areas of triangles, and other
+figures, without any counting of squares.
+
+Remember that although the Greeks used numbers in commerce, they had no numbers
+other than integers in their geometry. They did not compute numerical measures
+of angles, lines, or areas. Just as in a primitive society a hunter might
+compare his son's height with that of the son of his friend by marking his
+spear, so the Greeks devised a method for comparing the sizes of polygons. Of
+course, the Greeks had no word in their geometry corresponding to our term
+``area,'' since area is a \emph{number}. Instead of saying that two geometric
+figures had \emph{equal areas}, they merely remarked that the figures were
+\emph{equal}. The Greeks showed that two polygons were \emph{equal} by cutting
+them up into congruent triangles. Note that the word \emph{equal} meant
+\emph{the same size} to the Greeks. This is different from the word's meaning
+in modern mathematics, where \emph{equal} means \emph{identical}. Figure
+10--5(a) illustrates what is meant. The Greek geometers would call rectangle
+$ADBE$ and isosceles triangle $ABC$ \emph{equal} because
+$\tri{ABE} \cong \tri{ABE}$ and $\tri{ABD} \cong \tri{ACE}$.
+
+\FIGXFIVE
+
+\exercise{10--4}
+\noindent In Fig.~10--5(b), $A'B'C'D'$ is a parallelogram, and
+$\sg{A'B'} \cong \sg{D'E'}$. Show that $A'B'D'E'$ and $A'B'C'D'$ are
+\emph{equal} in the sense of Greek geometry. Do the same for parallelograms
+$A''B''C''D''$ and $A''E''F''D''$ in Fig.~10--5(c).
+
+\medskip
+We use the methods of the Greek geometers to develop area formulas. But before
+doing so, we need a few theorems about areas of geometric figures. These
+theorems can be proved, using properties of numbers and our geometric
+postulates, but their proofs are long and difficult. Accordingly, we treat them
+as postulates even though proofs can be given.
+
+\begin{theorem}
+Congruent triangles have equal areas.
+\end{theorem}
+
+\begin{theorem}
+If two simple polygons have one side and only the points of this side in
+common, and if, moreover, they have no interior points in common, then the
+simple polygon formed by the sides that remain after the common side is
+deleted has an area equal to the sum of the areas of the original polygons.
+\end{theorem}
+
+Theorem 10--2 is intuitively obvious, since any method of counting squares to
+get the area of one triangle can be duplicated for the other triangle. Draw a
+figure to illustrate this. Figure 10--6 will make the meaning of Theorem 10--3
+clear. The theorem tells us that the area of polygon $ABCDGFE$ is the sum of
+the areas of polygons $ABCDE$ and $DEFG$.
+
+\FIGXSIXSEVEN
+
+With these two theorems and our rectangle formula, we can establish theorems on
+the areas of triangles and parallelograms.
+
+\begin{theorem}
+If $a$ and $b$ are the lengths of the legs of a right triangle, then the
+area of the triangle is $\frac{1}{2}ab$.
+\end{theorem}
+
+\noindent\emph{Proof.} Let the right triangle be $\tri{ABC}$, as in
+Fig.~10--7, and let $C'$ be chosen as indicated in the figure. (How is $C'$
+chosen?)
+
+\begin{steps}
+\step{$\tri{ABC} \cong \tri{BAC'}$.}{Why?}
+\step{Area $(\tri{ABC})$ = area $(\tri{ABC'})$.}{Theorem 10--2.}
+\step{Area $(\tri{ABC})$ $+$\newline area $(\tri{ABC'})$ $=$\newline
+      area $(\Xrect AC'BC) = ab$.}{Theorem 10--3 and formula for area of
+      rectangle.}
+\step{2 area $(\tri{ABC}) = ab$.}{Statements 2 and 3.}
+\step{Area $(\tri{ABC}) = \frac{1}{2}ab$.}{Statement 4.}
+\end{steps}
+
+In a parallelogram, if we call the length of one side the \emph{base}, then the
+corresponding \emph{altitude} (or \emph{height}) is the perpendicular distance
+from this side to the line containing the opposite side. From Theorem 10--4, we
+can deduce the area of a parallelogram.
+
+\begin{theorem}
+The area of a parallelogram is equal to the product of its base and its
+height.
+\end{theorem}
+
+\FIGXEIGHT
+
+\noindent\emph{Proof.} Let the parallelogram be $ABCD$, as in Fig.~10--8, its
+base $b = \sg{AD}$, and its height $h$. Consider, as in the figure, the
+rectangle $AECF$. (How can the vertices $E$ and $F$ be found?) Let
+$\sg{EB} = x$.
+
+\begin{steps}
+\step{$\tri{AEB} \cong \tri{CFD}$.}{Why?}
+\step{Area $(\tri{AEB})$ = area $(\tri{CFD})$ = $\frac{1}{2}hx$.}{Why?}
+\step{Area $(\Xrect AECF)$ $=$\newline area $(\tri{AEB})$ $+$\newline
+      area $(\Xrect ABCD)$ $+$\newline area $(\tri{CFD})$.}{Why?}
+\step{$\sg{AF} = \sg{EC} = b + x$.}{Why?}
+\step{$h(b + x) = \frac{1}{2}hx$ $+$\newline area $(\Xrect ABCD)$ $+$
+      $\frac{1}{2}hx$.}{Statements 3 and 4.}
+\step{$hb + hx$ = area $(\Xrect ABCD)$ $+$ $hx$.}{Statement 5 and algebra.}
+\step{Area $(\Xrect ABCD) = bh$.}{Statement 6 and algebra.}
+\end{steps}
+
+We can now quite easily derive the familiar formula,
+$A = \frac{1}{2}b \cdot h$, for computing the area of a triangle. Here, $b$
+(base) is the length of a side of a triangle, and $h$ (height) is the
+perpendicular distance from the opposite vertex to the line containing the
+base.
+
+\FIGXNINE
+
+\begin{theorem}
+The area of a triangle is given by the formula
+$A = \frac{1}{2}b \cdot h$ (Fig.~10--9).
+\end{theorem}
+
+The proof is left to the student.
+
+From these last two theorems, we may conclude that parallelograms (or
+triangles) with equal bases and heights have equal areas. The area formula for
+triangles provides us with a tool for determining areas of polygons in general,
+for the area of any polygon can be computed as the sum of the areas of certain
+triangles.
+
+\exercisegroup{10--5}
+\begin{multicols}{2}
+\begin{exlist}
+\item A triangle has an area of 30 and a base of 6. Determine its height.
+\item Two adjacent sides of a parallelogram have lengths of 12 and 8 in. These
+  sides determine a $30^\circ$ angle. Compute the area of the parallelogram.
+\item A triangle has area 50 and altitude 8. What is the length of its base?
+\item A rhombus has one angle of $45^\circ$ and is 2 ft on a side. Find its
+  area.
+\item In Fig.~10--10, $l$ and $m$ are parallel and 3 ft apart.
+  $\sg{AB} = \sg{CD} = 5$ ft. If the distance from $B$ to $C$ is 1 mi, what is
+  the area of the quadrilateral $ABDC$?
+\item What is the area of $\Xrect ABCD$ if the sides are as shown in
+  Fig.~10--11 and $BD \perp AD$?
+\item The area of a triangle is $A$, and its base is $x$. Find the altitude in
+  terms of $A$ and $x$.
+\item The base of a parallelogram can be expressed in terms of its area and
+  height. What is this formula?
+\item Two triangles have the same side for base. The height of one triangle
+  exceeds that of the other by 4 in. The areas differ by 40 in$^2$. What is the
+  length of the common base?
+\item The midpoints of the sides of a parallelogram determine a polygon.
+  Compare the area of this polygon to the area of the original parallelogram.
+\item[\stex 11.] The midpoints $A_1$, $B_1$, and $C_1$ of the sides of
+  $\tri{ABC}$ are joined to form a second triangle. Consider also the midpoints
+  $A_2$, $B_2$, and $C_2$ of the sides of triangle $A_1B_1C_1$. This process is
+  continued. Compare the area of $\tri{A_5B_5C_5}$ with that of $\tri{ABC}$.
+\item[\stex 12.] Triangles $ABC$ and $A'B'C'$ are similar. The lengths of two
+  corresponding sides are $s$ and $s'$, where $s = 5s'$. If $A$ and $A'$
+  represent the respective areas of the triangles, prove that $A = 25A'$.
+  Generalize this problem, and establish the theorem that \emph{if two
+  triangles are similar, the ratio of their areas is equal to the ratio of the
+  squares of the lengths of two corresponding sides.}
+\item[13.] $\tri{ABC}$ is similar to $\tri{A'B'C'}$, and $AB = 2A'B'$. How do
+  their areas compare? Draw a figure.
+\item[\stex 14.] Plans for a house are drawn, so that $\frac{1}{4}$ in. on the
+  plan corresponds to 1 ft in the house. If the plans cover an area of
+  105 in$^2$, how many square feet in the house?
+\item[15.] Two equilateral triangles have sides of 8 and 10 in.,
+  respectively. How do their areas compare?
+\item[16.] A rhombus has sides 10 in.\ long. If one angle is $30^\circ$, what
+  is its area? if $60^\circ$? if $120^\circ$?
+\item[17.] Find the area of an isosceles right triangle if one leg is 20 ft
+  long.
+\item[18.] In Fig.~10--12, $AD \pll BC$. Compute the area of the figure.
+\item[\stex 19.] Generalize Exercise 18, designating the lengths of the
+  parallel sides, or bases, by $b$ and $b'$ and the height by $h$. Of course,
+  you are developing a formula for the area of a trapezoid.
+\item[20.] Besides the proof suggested by the dotted line in Fig.~10--12,
+  Fig.~10--13 also suggests a proof. Here, it is assumed that $b > b'$. Make a
+  proof.
+\end{exlist}
+\end{multicols}
+
+\FIGXTENELEVEN
+
+\FIGXTWELVETHIRTEEN
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{20}
+\item The bases of a trapezoid are 3 and 12, and the altitude is 6. What is
+  its area?
+\item The area of a trapezoid of height 6 in.\ is 39 in$^2$. If one base is
+  6 in.\ what is the other?
+\item One base of a trapezoid is twice as long as the other. If the area is
+  30 ft$^2$ and the altitude is 5 ft, what are the two bases?
+\item An equilateral triangle has sides 18 in.\ long. Find its area in square
+  feet.
+\item An equilateral triangle has an area of $(9\sqrt{3})/4$. How long is its
+  side?
+\item In Fig.~10--14, $ABCD$ is a parallelogram. Prove that the four small
+  triangles, $\tri{AOB}$, $\tri{BOC}$, etc., all have equal areas.
+\item The areas of two similar triangles are 360 and 250 square units. If a
+  side of the first triangle is 8 units, how long is the corresponding side of
+  the second triangle?
+\item[\stex 28.] Prove that the ratio of the areas of similar polygons is equal
+  to the square of the ratio of corresponding sides.
+\item[29.] Find the area of a regular hexagon 6 in.\ on a side. What will be
+  the area of a regular hexagon whose side is 8 in.?
+\item[\stex 30.] If $a$, $b$, and $c$ are the lengths of the sides of any
+  triangle (Fig.~10--15), and $s = \frac{1}{2}(a + b + c)$, then the area is
+  given by
+  \[ A = \sqrt{s(s\!-\!a)(s\!-\!b)(s\!-\!c)}. \]
+  This is ``Heron's formula,'' named after an Alexandrian Greek by that name of
+  about 100 B.C., possibly later. Show that this formula is correct.
+\item[31.] The sides of a triangle are 8, 11, and 13 in. Find its area.
+\item[32.] The sides of a triangle are 17, 25, and 26 ft. Find its area. Find
+  the height to the 25-ft side.
+\item[33.] Find the area of an isosceles triangle if the base is 12 in.\ and
+  the sides 10 in.
+\item[34.] Find the area of an equilateral triangle if one side is 6 in.
+\item[35.] If, in Fig.~10--16, $ABCD$ is a parallelogram, with $\sg{BE} = 2$
+  and $\sg{ED} = 6$, what is the number
+  \[ \frac{\text{Area } (BEC)}{\text{Area } (ABCD)}\,? \]
+\item[36.] A square has a diagonal of length 12 in. Compute the area of the
+  square. Determine a formula for the area of a square in terms of the length
+  $d$ of its diagonal.
+\item[37.] The diagonals of a rhombus are 10 in.\ and 6 in., respectively. What
+  is its area? Generalize this problem by formulating and proving a theorem.
+\item[38.] In Fig.~10--17, $\ang{C}$ is right, $CD \perp AB$, $\sg{AC} = 5$,
+  and $\sg{CB} = 12$. Compute the areas of triangles $ABC$, $ACD$, and $BCD$.
+  Check your work by verifying that the sum of the area of the latter two
+  triangles is equal to the area of $\tri{ABC}$.
+\end{exlist}
+\end{multicols}
+
+\FIGXFOURTEEN
+
+\FIGXFIFTEEN
+
+\FIGXSIXTEENSEVENTEEN
+
+%========================================================= 10-5
+\section*{10--5\quad AREA PROOF OF THE\\PYTHAGOREAN THEOREM}
+\addcontentsline{toc}{section}{10--5\quad Area proof of the Pythagorean theorem}
+
+The Greek geometers thought of the Pythagorean theorem, not as a numerical
+relationship between lengths of the sides of a right triangle, but rather as a
+relationship between areas. Viewed in this light, the theorem may be stated as:
+
+\begin{theorem}
+For every right triangle, it is true that the square on the hypotenuse has
+an area equal to the sum of the areas of the squares on the other two sides
+(see Fig.~10--18).
+\end{theorem}
+
+\FIGXEIGHTEENNINETEEN
+
+\begin{center}
+Area 1 $+$ area 2 $=$ area 3.
+\end{center}
+
+Probably more different proofs have been given for the Pythagorean theorem than
+for any other theorem in mathematics. Our earlier proof did not refer to area
+at all. It was essentially an ``algebraic style'' proof. We give a proof below
+that is a kind of algebraic and area proof. If the sides of the right triangle
+are $a$, $b$, and $c$, consider Fig.~10--19.
+
+\noindent\emph{Proof.} Evidently, the area of the large square, of side
+$a + b$, is equal to the area of the square of side $c$ plus the areas of the
+four triangles. That is,
+\[ (a + b)^2 = c^2 + 4(\tfrac{1}{2}ab). \]
+But $(a + b)^2 = a^2 + 2ab + b^2$, so that we get
+\[ a^2 + 2ab + b^2 = c^2 + 2ab. \]
+From algebra then,
+\[ a^2 + b^2 = c^2. \]
+
+There are many more proofs of this theorem. Your teacher can show you some if
+you are interested.
+
+\exercisegroup{10--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Triangles $ABC$ and $A'B'C'$ are similar. $\sg{AB} = 3$,
+  $\sg{A'B'} = 5$, and area $(ABC) = 18$. Compute area $(A'B'C')$.
+\item Determine the area of an equilateral triangle if the length of one side
+  is 10.
+\item Show that the area of an equilateral triangle is given by the formula
+  $A = (s^2/4) \cdot \sqrt{3}$, where $s$ is the length of a side.
+\item Develop a formula for the area of a regular hexagon if each side has
+  length $c$.
+\item The lengths of two adjacent sides of a parallelogram are 12 in.\ and
+  8 in. The included angle is $45^\circ$. Determine the area of the
+  parallelogram.
+\item The altitude of a rectangle is 12 ft. A diagonal has length 20 ft.
+  Compute the area of the rectangle.
+\item[\stex 7.] A square and a regular hexagon have equal perimeters. Find the
+  ratio of their areas.
+\item[\stex 8.] It is said that the Hindu mathematician Bhaskara, born about
+  1100 A.D., discovered a proof of the Pythagorean theorem and presented the
+  figure like that in Fig.~10--20 with the single word, ``Behold.'' Give a
+  proof. In Fig.~10--20 $DF \pll AC$, and $EG \pll BC$.
+  [\emph{Hint:} $\sg{FC} = a - b$.]
+\end{exlist}
+\end{multicols}
+
+\FIGXTWENTY
+
+%========================================================= 10-6
+\section*{*10--6\quad CONSTRUCTION PROBLEMS}
+\addcontentsline{toc}{section}{*10--6\quad Construction problems}
+
+There are many RC constructions related to area concepts. It is interesting to
+note that it is possible to construct a triangle whose area is equal to the
+area of any given polygon. We indicate in Fig.~10--21 a procedure for
+constructing a triangle equal in area to a quadrilateral. $DE$ has been drawn
+parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
+[\emph{Hint:} Show that area $(ADC)$ = area $(AEC)$.]
+
+\FIGXTWENTYONE
+
+\exercisegroup{10--7}
+\begin{multicols}{2}
+\begin{exlist}
+\item Construct a triangle whose area is equal to that of pentagon $ABCDE$
+  (Fig.~10--22). Use the method employed above to construct a triangle equal in
+  area to a given quadrilateral.
+\item Show how to construct a square whose area is equal to the sum of the
+  areas of two given squares.
+\item Solve Exercise 2 with ``sum'' replaced by ``difference.''
+\item Construct a square whose area is $\frac{3}{4}$ of the area of a given
+  square.
+\item Construct a square whose area is equal to the area of a given rectangle.
+\item Construct a rectangle whose area is equal to the area of a given
+  triangle.
+\item Construct a square whose area is the same as the area of a given
+  triangle.
+\item Construct a triangle similar to a given triangle and having exactly twice
+  the area of the given triangle.
+\item Show how to construct a polygon of $n - 1$ sides whose area is the same
+  as that of an $n$-gon. Assume $n > 3$.
+\item[\stex 10.] Prove that if $P$ is any point in the interior of an
+  equilateral triangle (Fig.~10--23), the sum of the lengths of the
+  perpendiculars from $P$ to the sides of the triangle is equal to the length
+  of an altitude of the triangle. [\emph{Hint:} Consider the areas of triangles
+  $APB$, $APC$, and $BPC$.]
+\end{exlist}
+\end{multicols}
+
+\FIGXTWENTYTWOTHREE
+
+%========================================================= review
+\section*{REVIEW OF CHAPTER 10}
+\addcontentsline{toc}{section}{Review of Chapter 10}
+
+\begin{exlist}
+\item In this chapter we have studied methods for finding the areas of
+  rectangles, triangles, and polygons. All area formulas were derived from the
+  formula for the area of a rectangle.
+  \begin{flushleft}
+  Area $\Xrect$ $=$ length $\cdot$ width $=$ $lw$.\\
+  Area $\Xpgram$ $=$ base $\cdot$ altitude $=$ $bh$.\\
+  Area $\triangle$ $=$ $\frac{1}{2}$ base $\cdot$ altitude $=$
+    $\frac{1}{2}bh$.\\
+  Area $\Xtrap$ $=$ $\frac{1}{2}$ altitude $\cdot$ sum of bases $=$
+    $h(b + b')/2$.
+  \end{flushleft}
+\item Review how the above area formulas were obtained.
+\item Areas of similar figures are proportional to the squares of corresponding
+  sides.
+\end{exlist}
+
+\par\medskip\begin{center}\bfseries Review Exercises\end{center}\par\nopagebreak
+\begin{exlist}
+\item $\tri{A_1B_1C_1} \sim \tri{A_2B_2C_2}$. If area $(A_2B_2C_2) = 72$, and
+  $\sg{A_1B_1}/\sg{A_2B_2} = \tfrac{3}{4}$, find area $(A_1B_1C_1)$.
+\item Prove that a median of a triangle divides the triangle into two equal
+  areas.
+\item[\stex 3.] Prove that the medians divide a triangle into six triangles of
+  equal areas (Fig.~10--24).
+\item[4.] Prove that the area of a square is half the area of a square whose
+  side is the diagonal of the given square.
+\item[5.] Two similar triangles have areas of 108 and 48 ft$^2$. The first has
+  altitude $7\frac{1}{2}$ ft; find the altitude of the second.
+\item[6.] Prove that the area of a trapezoid is equal to the altitude times the
+  length of the segment joining the midpoints of the nonparallel sides.
+\item[7.] A triangle has one angle of $30^\circ$. Prove that the area is
+  $\frac{1}{4}$ of the product of the lengths of the sides adjacent to the
+  $30^\circ$ angle.
+\item[8.] In $\tri{ABC}$, if $D$ is the foot of the perpendicular from $C$ to
+  $AB$, prove that $\sg{AC}^2 - \sg{BC}^2 = \sg{AD}^2 - \sg{BD}^2$.
+\item[9.] The hypotenuse of a right triangle is 41 ft. One leg is 40 ft. Find
+  the length of the other leg.
+\item[10.] The median of a trapezoid is 8 in., and one of the bases is 12 in.
+  How long is the other base? If the area is $\frac{1}{2}$ft$^2$, what is the
+  altitude?
+\item[11.] In a right triangle, the altitude from the right angle is 14 in.
+  From the foot of the altitude to a vertex is 8 in. How long is the
+  hypotenuse?
+\end{exlist}
+
+\FIGXTWENTYFOUR
+
+\par\medskip\begin{center}\bfseries Review Test\end{center}\par\nopagebreak
+\begin{exlist}
+\item What is the area of a parallelogram with sides 10 and 8 and an included
+  angle of $30^\circ$?
+\item What is the area of a rhombus with side 10 if an angle is $45^\circ$?
+\item Find the area of an isosceles right triangle whose legs are 20.
+\item One of the bases of a trapezoid is 15, and its height is 6. Find the
+  other base if the area is 75.
+\item Two similar triangles, $T$ and $T'$, have two corresponding sides 6 and
+  15, respectively. What is the ratio of the area of $T$ to the area of $T'$?
+\item The length of a diagonal of a square is 15. Find the area.
+\item Two similar polygons have areas of 250 and 160. If the length of a side
+  of the first is 6, what is the length of the corresponding side of the
+  second?
+\item Two triangles are similar, and the lengths of the sides of the first
+  triangle are 3, 5, and 6. If the length of the greatest side of the other
+  triangle is 15, compute the lengths of the other sides.
+\item If the legs of a right triangle are in the ratio of 5 to 4, find the
+  ratio of the segments formed on the hypotenuse by the altitude to the
+  hypotenuse.
+\item If one leg of a right triangle has length 25, and the altitude to the
+  hypotenuse is 7, what is the area of the triangle?
+\end{exlist}
+
+\end{document}

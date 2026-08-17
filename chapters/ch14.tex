@@ -1,0 +1,602 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures14}
+
+% ---- local macros (hoist into book preamble) ----
+% Centred, letter-spaced part heading ("A. LINES, PLANES, AND ...").
+\newcommand{\XIVpart}[1]{%
+  \par\addvspace{1.5\baselineskip}\nopagebreak
+  \begin{center}\bfseries\spaceskip=1.05em\relax #1\end{center}%
+  \nopagebreak\addvspace{0.8\baselineskip}}
+% Unnumbered footnote (the chapter-title and "sum" notes carry a bare *).
+\newcommand{\XIVnote}[1]{{\let\thefootnote\relax\footnotetext{#1}}}
+% The book's run-in label on book p. 242 is PLURAL ("Remarks."), whereas the
+% shared \begin{remark} in brumfiel.sty prints the singular "Remark."
+% Verified against book p. 242 (PDF 256, scan15 p. 10).
+\newenvironment{XIVremarks}{\par\medskip\noindent\emph{Remarks.}\ }%
+  {\par\medskip}
+% Postulate Group VII. The book sets a bold run-in label, roman body -- the
+% same shape as the bkdefn theorem style but hand-numbered (VII-1 ... VII-4).
+\newenvironment{postulate}[1]%
+  {\par\addvspace{1.1\topsep}\noindent\textbf{Postulate #1.}\ \ignorespaces}%
+  {\par\addvspace{1.1\topsep}}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{14}
+
+\chapter*{\raggedright\Huge SPACE GEOMETRY\textsuperscript{*}}
+\addcontentsline{toc}{chapter}{14.\ Space Geometry}
+\markboth{SPACE GEOMETRY}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+\XIVnote{*\,This chapter is divided into three parts. For Part A (Section
+14--3), Chapters 1 through 3 are prerequisites. For Part B (Sections 14--4 and
+14--5), Chapters 4 through 8 are prerequisites. For Part C (Sections 14--6
+through 14--9), Chapters 9 through 12 are prerequisites.}
+
+%========================================================= 14-1
+\section*{14--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{14--1\quad Introduction}
+
+In this chapter we outline the geometry of space, that is, three-dimensional
+Euclidean space. Sometimes this study is called \emph{solid} geometry. Just as
+plane geometry is an abstraction derived from our experience with flat surfaces,
+so solid geometry is an abstraction derived from our ordinary perception of
+objects in space.
+
+In this chapter you will find many figures and many theorems and definitions,
+but very few proofs. Proofs are omitted because this chapter is intended to be
+only an introduction to the subject. Nevertheless, if you study the theorems in
+the order they occur, you will find that their arrangement is logical because
+they can be proved in that order. Furthermore, most of them have fairly simple
+proofs. To get an understanding of the \emph{facts} of solid geometry, it will
+be sufficient to read over the theorems and be sure that you know what they say.
+
+%========================================================= 14-2
+\section*{14--2\quad GEOMETRIC OBJECTS}
+\addcontentsline{toc}{section}{14--2\quad Geometric Objects}
+
+As in plane geometry, we shall be concerned mostly with simple sets of points
+that you have already encountered, namely, planes, spheres, pyramids, cubes,
+prisms, etc., as in Fig.~14--1. More complicated sets of points, such as those
+in Fig.~14--2, will occur to you. As before, any set of points may be studied.
+The drawings in Fig.~14--2 represent sets of points that do not lie in a plane.
+
+\FIGXIVONE
+
+\FIGXIVTWO
+
+\exercisegroup{14--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw figures of several three-dimensional sets of points.
+\item Sketch a polyhedron.
+\item What might be meant by parallel planes? perpendicular planes?
+\end{exlist}
+\end{multicols}
+
+\XIVpart{A.\quad LINES, PLANES, AND BETWEENNESS IN SPACE}
+\addcontentsline{toc}{section}{A.\ Lines, Planes, and Betweenness in Space}
+
+%========================================================= 14-3
+\section*{14--3\quad THE POSTULATES}
+\addcontentsline{toc}{section}{14--3\quad The Postulates}
+
+It is perhaps somewhat surprising that most of the essential difficulties in
+geometry already occur in the plane, so that extension to space geometry
+requires no fundamentally new concepts. As a matter of fact, very few more
+postulates are needed than for the plane, indeed only four more.
+
+\begin{postulate}{VII--1}
+There is a set of points called \emph{space}. Certain subsets of these points
+are called planes. There are at least four points that are not in any one plane.
+\end{postulate}
+
+\begin{postulate}{VII--2}
+There is exactly one plane containing any three noncollinear points
+(Fig.~14--3).
+\end{postulate}
+
+\FIGXIVTHREE
+
+\begin{postulate}{VII--3}
+Each plane satisfies all the postulates for plane geometry. In particular, the
+line joining two points of a plane lies in that plane. Furthermore, the
+postulates for congruence of segments and angles apply whether or not the
+segments and angles are in the same plane.
+\end{postulate}
+
+\begin{postulate}{VII--4}
+Each plane separates space. By this we mean that the set of points of space not
+on the plane consists of two subsets, called the sides of the plane, with the
+following properties. If two points are in the same subset, then the segment
+joining them does not meet the plane, but if the two points are in different
+subsets, the segment joining them does intersect the plane.
+\end{postulate}
+
+Postulate VII--1 asserts that no plane fills up all of space, so that we have a
+geometry of more than two dimensions (Fig.~14--4).
+
+Postulate VII--2 gives us a simple requirement for fixing a definite plane.
+
+Postulate VII--3 states that our planes are as we want them to be from our study
+of plane geometry. In addition, this postulate relates congruent lines and
+angles in different planes.
+
+Postulate VII--4 expresses the familiar fact that a wall between neighbors
+separates them.
+
+\FIGXIVFOURFIVE
+
+\exercise{14--2}
+Restate Postulate Group VII in your own words.
+
+From these postulates and the first two postulate groups for plane geometry, we
+can prove a number of theorems concerning intersections of lines and planes.
+
+\begin{theorem}
+If a line $l$ does not lie in a plane $\pi$, and has at least one point in
+$\pi$, then $l$ and $\pi$ have exactly one point in common (Fig.~14--5).
+\end{theorem}
+
+For the rest of the chapter, proofs will be left out, but we include a proof of
+Theorem 14--1 as a guide to start you out correctly.
+
+\noindent\emph{Proof.} There is, by assumption, at least one point $P$ in both
+$l$ and $\pi$. Suppose that there were a second point $Q$. Then, by Postulate
+VII--3, the line $l = PQ$ would lie in the plane $\pi$. But we have assumed that
+$l$ is not in $\pi$. Hence $P$ is the only point in both $l$ and $\pi$.
+
+\FIGXIVSIXSEVEN
+
+\begin{theorem}
+There is a unique plane containing a given line and a point not on the line
+(Fig.~14--6).
+\end{theorem}
+
+\begin{theorem}
+There are infinitely many planes containing a given line.
+\end{theorem}
+
+\noindent Figure 14--7 may suggest a proof.
+
+\begin{theorem}
+There is a unique plane containing two intersecting lines (Fig.~14--8).
+\end{theorem}
+
+\begin{theorem}
+If two distinct planes have at least one point in common, they have precisely a
+line in common (Fig.~14--9).
+\end{theorem}
+
+\FIGXIVEIGHTNINE
+
+\begin{definition}
+If two planes $\pi_1$ and $\pi_2$ intersect in a line $l$ (Fig.~14--10), let
+$\pi_1^+$ and $\pi_2^+$ be half planes of $\pi_1$ and $\pi_2$, determined by
+$l$. The set of all points in $\pi_1^+$ and $\pi_2^+$ is called a
+\emph{dihedral angle}. The line $l$ is called the \emph{edge}, and $\pi_1^+$ and
+$\pi_2^+$ are called the \emph{faces}, of the dihedral angle.
+\end{definition}
+
+\FIGXIVTEN
+
+\begin{definition}
+The interior of the dihedral angle with faces $\pi_1^+$ and $\pi_2^+$ is the set
+of all points of space on the same side of $\pi_2$ as $\pi_1^+$ and on the same
+side of $\pi_1$ as $\pi_2^+$.
+\end{definition}
+
+\exercisegroup{14--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item Give a precise definition for a tetrahedron (Fig.~14--11). The
+      tetrahedron is usually considered to be just the surface. What do you
+      define the interior to be?
+\item Give a definition for a polyhedron (surface). See Fig.~14--12.
+\item Give a precise definition for a half plane.
+\end{exlist}
+\end{multicols}
+
+\FIGXIVELEVENTWELVE
+
+\XIVpart{B.\quad CONGRUENCE IN SPACE}
+\addcontentsline{toc}{section}{B.\ Congruence in Space}
+
+%========================================================= 14-4
+\section*{14--4\quad PERPENDICULAR LINES\\AND PLANES}
+\addcontentsline{toc}{section}{14--4\quad Perpendicular Lines and Planes}
+
+Before giving some theorems, we observe that all right angles are congruent
+regardless of whether they are in the same plane. We know this because our
+postulates for angle congruence state that, given an $\ang{AOB}$ in a plane
+$\pi$ and a ray $r'$ from $O'$ in a plane $\pi'$, there is exactly one ray $r''$
+from $O'$ (on a given side of the line of $r'$ in the plane $\pi'$) that forms
+with $r'$ an angle congruent to $\ang{AOB}$. See Fig.~14--13.
+
+\FIGXIVTHIRTEENFOURTEEN
+
+\begin{definition}
+A line $l$ is perpendicular to a plane $\pi$ if $l$ intersects $\pi$ at a point
+$P$ and $l$ is perpendicular to every line in $\pi$ that passes through $P$
+(Fig.~14--14).
+\end{definition}
+
+\begin{theorem}
+If a line $l$ is perpendicular to two intersecting lines, then it is
+perpendicular to the plane containing the lines (Fig.~14--15).
+\end{theorem}
+
+\noindent[\emph{Hint:} Choose $A$ and $A'$ such that $AP \cong A'P$. Choose $B$
+and $C$. Then prove that $\tri{ABC} \cong \tri{A'BC}$. Then prove that
+$\tri{ABQ} \cong \tri{A'BQ}$, so that $AQ \cong A'Q$. This will imply that line
+$m \perp l$.]
+
+\FIGXIVFIFTEENSIXTEEN
+
+\begin{theorem}
+There is exactly one plane perpendicular to a line at a point of the line.
+\end{theorem}
+
+\noindent See Fig.~14--16(a).
+
+\noindent[\emph{Hint:} Use the previous theorem to show that there is at least
+one plane. To prove there is only one, it is sufficient to show that if $l_1$,
+$l_2$, and $l_3$ in Fig.~14--16(b) are distinct lines perpendicular to $l$ at
+$P$, then they are in a single plane. Thus, the plane of $l_2$ and $l_3$ meets
+the plane of $l$ and $l_1$ in a line $l' \perp l$. Since there is only one line
+in the plane of $l$ and $l_1$ perpendicular to $l$ at $P$, we have $l_1 = l'$.
+Hence $l_1$, $l_2$, and $l_3$ are coplanar.]
+
+\begin{theorem}
+There is exactly one plane perpendicular to a line and containing a point not on
+the line (Fig.~14--17).
+\end{theorem}
+
+\exercisegroup{14--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item State two theorems, analogous to Theorems 14--7 and 14--8, concerning
+      existence of lines perpendicular to planes.
+\item Prove the theorems that you stated in Exercise 1.
+\end{exlist}
+\end{multicols}
+
+\begin{theorem}
+If two lines are perpendicular to the same plane, they are parallel
+(Fig.~14--18).
+\end{theorem}
+
+\noindent[\emph{Hint:} First one must show that the two lines are in one plane.]
+
+\FIGXIVSEVENTEENEIGHTEEN
+
+\begin{definition}
+Two lines are called \emph{skew} if they do not lie in one plane. Two planes are
+called \emph{parallel} if they do not intersect.
+\end{definition}
+
+\begin{XIVremarks}
+Two lines in one plane either intersect or are parallel. Two lines in parallel
+planes need not be parallel. See Fig.~14--19.
+\end{XIVremarks}
+
+\FIGXIVNINETEEN
+
+\begin{theorem}
+Through a point $P$ not in a plane $\pi$, there is exactly one plane parallel to
+$\pi$ (Fig.~14--20).
+\end{theorem}
+
+\noindent[\emph{Hint:} Choose intersecting lines $l_1$ and $l_2$ in $\pi$. Then
+$P$, with these lines, determines two planes $\pi_1$ and $\pi_2$, in which there
+are unique lines $l_1'$ and $l_2'$ parallel to $l_1$ and $l_2$, respectively, as
+in Fig.~14--21. These lines determine a plane parallel to $\pi$. The uniqueness
+is yet to be proved.]
+
+\begin{theorem}
+Two planes perpendicular to the same line are parallel (Fig.~14--22).
+\end{theorem}
+
+\FIGXIVTWENTYTWENTYTWO
+
+\begin{theorem}
+If two lines are cut by three parallel planes, the intercepted segments have
+lengths that are proportional. In Fig.~14--23, we would have
+$\sg{AB}/\sg{A'B} = \sg{BC}/\sg{B'C'}$.
+\end{theorem}
+
+\FIGXIVTWENTYTHREE
+
+\exercisegroup{14--5}
+Prove the following theorems.
+\begin{multicols}{2}
+\begin{exlist}
+\item Two planes parallel to one plane are parallel to each other.
+\item If a line intersects one of two parallel planes, it intersects the other.
+\item If a line is perpendicular to one of two parallel planes, it is
+      perpendicular to the other.
+\item If a plane intersects one of two parallel planes, it intersects the other.
+\item If one of two parallel lines is perpendicular to a plane $\pi$, then the
+      other line is perpendicular to $\pi$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 14-5
+\section*{14--5\quad POLYHEDRA AND\\POLYHEDRAL ANGLES}
+\addcontentsline{toc}{section}{14--5\quad Polyhedra and Polyhedral Angles}
+
+\begin{definition}
+Let $P_1P_2\ldots P_n$ be a simple closed polygon in a plane $\pi$, and let $V$
+be a point not in $\pi$, as in Fig.~14--24. The set of points $Q$ on rays from
+$V$ through all the points $P$ of the polygon is called a polyhedral angle. $V$
+is the \emph{vertex}, and $VP_1$, $VP_2, \ldots VP_n$ are called \emph{edges}.
+The planes $VP_1P_2$, $VP_2P_3, \ldots$ contain the \emph{faces} of the angle.
+The angles $\ang{P_1VP_2}$, $\ang{P_2VP_3}, \ldots$ are called \emph{face
+angles}. The polyhedral angle is called convex if the polygon $P_1 \ldots P_n$
+is convex.
+\end{definition}
+
+\exercisegroup{14--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a trihedral angle and a tetrahedral angle. These have three and four
+      faces, respectively.
+\item Can a trihedral angle have three right-angled face angles?
+\end{exlist}
+\end{multicols}
+
+\begin{theorem}
+The sum\textsuperscript{*} of two face angles of a trihedral angle is greater
+than the third face angle (Fig.~14--25).
+\end{theorem}
+
+\XIVnote{*\,The word \emph{sum} is not defined, but the idea is clear.}
+
+\noindent[\emph{Hint:} It suffices to prove the theorem in the case in which the
+third angle is the largest. Suppose that that angle is $\ang{AVB}$, as in
+Fig.~14--25. Choose $C$ such that $\ang{CAV} \cong \ang{BAV}$. Choose $D$ on
+$AB$ such that $AC \cong AD$. Now show that $VC \cong VD$ and $CB > DB$. Hence
+conclude that $\ang{CVB} > \ang{DVB}$.]
+
+\FIGXIVTWENTYFOURTWENTYFIVE
+
+\begin{theorem}
+The sum of the face angles of a convex polyhedral angle is less than four right
+angles.
+\end{theorem}
+
+\exercise{14--7}
+Illustrate the truth of Theorem 14--14 by constructing a polyhedral angle
+(Fig.~14--26) of paper and observing that when it is ``flattened out'' in a
+plane, it does not ``encircle'' a point.
+
+\FIGXIVTWENTYSIXTWENTYSEVEN
+
+\begin{definition}
+A \emph{polygonal cell} (Fig.~14--27) is the sets of points on, or interior to,
+a simple plane polygon $P_1P_2\ldots P_{n-1}$. The edges of the cell are the
+sides $P_1P_2$, $P_2P_3, \ldots$ of the polygon.
+\end{definition}
+
+A \emph{polyhedron} is the set of points on a finite number of polygonal cells
+joined together in the following way:
+
+\begin{enumerate}[label=(\arabic*), leftmargin=2.1em, itemsep=2pt, topsep=3pt]
+\item Any two cells have either no points in common, exactly one vertex in
+      common, or exactly one edge in common.
+\item Every edge is on precisely two cells.
+\end{enumerate}
+
+\exercise{14--8}
+With Scotch tape and cardboard, construct a number of polyhedra.
+
+\begin{theorem}
+A polyhedron separates space in the following sense. The points not on the
+polyhedron consist of two sets (called the inside and the outside) such that a
+polygonal path joining an inside point and an outside point must intersect the
+polyhedron, and two inside (or two outside) points can be joined by a polygonal
+path not intersecting the polyhedron.
+\end{theorem}
+
+\exercise{14--9}
+Describe the interior of a tetrahedron.
+
+\begin{definition}
+A polyhedron is called \emph{convex} if the segment joining any two points of
+the polyhedron lies either in the polyhedron or its interior. A polyhedron is
+\emph{regular} if it is convex and all faces are congruent regular polygons.
+\end{definition}
+
+\exercise{14--10}
+With Scotch tape and cardboard, construct regular polyhedra with faces that are
+triangles; squares; pentagons.
+
+\begin{theorem}
+There are but five (except for size) regular polyhedra (Fig.~14--28).
+\end{theorem}
+
+\FIGXIVTWENTYEIGHT
+
+\XIVpart{C.\quad MEASUREMENT IN SPACE}
+\addcontentsline{toc}{section}{C.\ Measurement in Space}
+
+%========================================================= 14-6
+\section*{14--6\quad ANGLES}
+\addcontentsline{toc}{section}{14--6\quad Angles}
+
+\begin{theorem}
+Parallel planes intercept a dihedral angle in congruent angles (Fig.~14--29).
+\end{theorem}
+
+\begin{definition}
+The measure of a dihedral angle is equal to the measure of the angle intercepted
+by a plane perpendicular to the edge of the dihedral angle (Fig.~14--30).
+\end{definition}
+
+\exercise{14--11}
+Restate Theorems 14--13 and 14--14, using degrees for measuring angles.
+
+\FIGXIVTWENTYNINETHIRTY
+
+%========================================================= 14-7
+\section*{14--7\quad AREA}
+\addcontentsline{toc}{section}{14--7\quad Area}
+
+\begin{definition}
+The area of a polyhedron is the sum of the areas of its faces.
+\end{definition}
+
+\exercisegroup{14--12}
+\begin{multicols}{2}
+\begin{exlist}
+\item A \emph{prism} is a polyhedron two of whose faces are congruent polygons
+      in parallel planes, called bases, and whose remaining edges are all
+      parallel to one another, as in Fig.~14--31. The lateral area is the total
+      area of the faces less the area of the bases. Find a formula for the
+      lateral area of a prism.
+\item Using Fig.~14--32, define \emph{pyramid} and \emph{regular pyramid}. Find
+      a formula for the lateral area of a regular pyramid.
+\item A \emph{parallelepiped} is a special kind of prism. Give a definition that
+      you think fits the drawing in Fig.~14--33. Prove that the opposite faces
+      of a parallelepiped are congruent.
+\end{exlist}
+\end{multicols}
+
+\FIGXIVTHIRTYONETHIRTYTHREE
+
+%========================================================= 14-8
+\section*{14--8\quad VOLUME}
+\addcontentsline{toc}{section}{14--8\quad Volume}
+
+Just as area in the plane offers special difficulties, so does volume in space.
+We content ourselves with listing the theorems and sketching a few ``proofs,''
+obtained by drawing figures. Proofs that involve the notion of limit are not
+presented.
+
+\begin{theorem}
+The volume of a rectangular parallelepiped (box) is equal to the product of the
+lengths of three concurrent edges. Volume $=lwh$.
+\end{theorem}
+
+\noindent See Fig.~14--34.
+
+\FIGXIVTHIRTYFOURTHIRTYFIVE
+
+\begin{theorem}
+If a polyhedron is the union of two other polyhedra, with only a face and no
+interior points in common, then its volume is the sum of the volumes of the two
+polyhedra forming it (Fig.~14--35).
+\end{theorem}
+
+\exercise{14--13}
+A parallelepiped is shown in Fig.~14--36. Show, by ``chopping up'' the
+parallelepiped to form a box, that the following theorem is true.
+
+\FIGXIVTHIRTYSIXTHIRTYSEVEN
+
+\begin{theorem}
+The volume of a parallelepiped is equal to the area of a base multiplied by the
+corresponding altitude (Fig.~14--37).
+\end{theorem}
+
+The same formula holds for the volume of a prism. To see this, we first prove
+the theorem for prisms with triangular bases.
+
+\exercisegroup{14--14}
+\begin{multicols}{2}
+\begin{exlist}
+\item By constructing a parallelepiped of which a triangular prism is half, show
+      that the volume of the prism is equal to the area of a base times the
+      altitude. See Fig.~14--38(a).
+\item Show that the same result holds for an arbitrary prism. See
+      Fig.~14--38(b).
+\end{exlist}
+\end{multicols}
+
+\FIGXIVTHIRTYEIGHT
+
+\begin{theorem}
+The volume of a prism is equal to the area of a base times the altitude.
+\end{theorem}
+
+Volumes of pyramids are somewhat harder to discuss. The following theorem is to
+be taken without proof.
+
+\begin{theorem}
+If $B$ is the area of the base of a pyramid, then the volume $=
+\frac{1}{3}Bh$, where $h$ is the altitude (Fig.~14--39).
+\end{theorem}
+
+\FIGXIVTHIRTYNINE
+
+\exercisegroup{14--15}
+\begin{multicols}{2}
+\begin{exlist}
+\item Find the volume of a regular pyramid with a base 4 ft square and altitude
+      equal to 4 ft.
+\item Find the volume of a regular tetrahedron whose side has length $a$.
+\item Show that if the formula for volume of a pyramid is correct for pyramids
+      with triangular bases, then it is correct for all pyramids.
+\item Define \emph{similar polyhedra}, and prove that the volumes of similar
+      polyhedra are proportional to the cubes of corresponding edges. Thus,
+      $V/V' = l^3/l'^3$, as in Fig.~14--40.
+\end{exlist}
+\end{multicols}
+
+\FIGXIVFORTY
+
+%========================================================= 14-9
+\section*{14--9\quad CYLINDERS, CONES, AND SPHERES}
+\addcontentsline{toc}{section}{14--9\quad Cylinders, Cones, and Spheres}
+
+The familiar shapes in Fig.~14--41 are analogous to prisms, pyramids, and
+regular polyhedra.
+
+The lateral surface area of cylinders and cones is obtained as a limit of the
+areas of prisms and pyramids.
+
+\FIGXIVFORTYONE
+
+\exercisegroup{14--16}
+\begin{multicols}{2}
+\begin{exlist}
+\item Give precise definitions for cylinders, cones, and spheres.
+\item Find a formula for the lateral surface of a ``regular'' cone, called a
+      \emph{right circular cone} (Fig.~14--42).
+\end{exlist}
+\end{multicols}
+
+The surface area of a sphere is harder to discuss. We merely state the result.
+
+\FIGXIVFORTYTWOFORTYTHREE
+
+\begin{theorem}
+The area of the surface of a sphere of radius $r$ is $4\pi r^2$.
+\end{theorem}
+
+With the aid of Theorem 14--23, it is not too hard to arrive at the volume of a
+sphere. Try to prove the following theorem by considering small ``pyramids,'' as
+shown in Fig.~14--43.
+
+\begin{theorem}
+The volume of a sphere of radius $r$ is $\frac{4}{3}\pi r^3$.
+\end{theorem}
+
+\exercisegroup{14--17}
+\begin{multicols}{2}
+\begin{exlist}
+\item Show that if the radius of a sphere is doubled, the volume is multiplied
+      by a factor of 8.
+\item Oranges 2 in.\ in diameter are 50\textcent{} per dozen. Neglecting skin
+      thickness, how much should one pay for oranges 3 in.\ in diameter?
+\item Prove that if a plane intersects a sphere, then it intersects the sphere
+      in either a circle or one point.
+\item What is the formula for the lateral area of a cylinder?
+\end{exlist}
+\end{multicols}
+
+\end{document}

@@ -1,0 +1,950 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures08}
+
+% ---- local macros (hoist into book preamble) ----
+% Plate placeholder: a halftone photograph in the original, never redrawn.
+\newcommand{\VIIIplate}[2]{%
+  \begin{bkfigure}[0.78\linewidth]
+  \setlength{\fboxsep}{10pt}%
+  \fbox{\begin{minipage}{0.80\linewidth}\centering\footnotesize
+    \textsc{plate}\par\medskip
+    #1\par\medskip
+    \emph{Halftone photograph in the original; not redrawn.}
+  \end{minipage}}
+  \figcap{#2}
+  \end{bkfigure}}
+% Two unnumbered "*" footnotes belonging to this chapter (book pp.135 and 139).
+% \starnote in brumfiel.sty emits a bare \footnotetext, which prints the
+% footnote counter; the book marks both of these with "*" and no number, so
+% they get the same counter-suppressing treatment ch10 gives \Xlimitnote.
+\newcommand{\VIIIproofnote}{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*\,If the teacher wishes, the second and third proofs may be
+  omitted. Note that the second proof employs a lemma, or helping
+  theorem.}\endgroup}
+\newcommand{\VIIIgaussnote}{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*\,See, for example, the discussion of Gauss' experiment in
+  \emph{The World of Mathematics}, by J.~R. Newman, Vol.~3, p.~1644.}\endgroup}
+% The three-utilities puzzle on book p.145 is set as bare letters over dots in
+% the running text, not as a numbered figure.
+\newcommand{\VIIIutilities}{%
+  \par\medskip\begin{center}
+  \begin{tabular}{@{}c@{\hspace{3.2em}}c@{\hspace{3.2em}}c@{}}
+    $A$ & $B$ & $C$ \\[-1pt]
+    $\cdot$ & $\cdot$ & $\cdot$ \\[4pt]
+    $G$ & $W$ & $E$ \\[-1pt]
+    $\cdot$ & $\cdot$ & $\cdot$ \\
+  \end{tabular}
+  \end{center}\par\medskip}
+% Narrow multicol columns plus this chapter's primed/subscripted math atoms
+% ($\ang{A'O'B'}$, $l_1 \pll l_2$) leave TeX few legal break points.
+\setlength{\emergencystretch}{2.5em}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{8}
+
+\chapter*{\raggedright\Huge PARALLEL LINES}
+\addcontentsline{toc}{chapter}{8.\ Parallel Lines}
+\markboth{PARALLEL LINES}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 8-1
+\section*{8--1\quad DEFINITION OF PARALLEL LINES}
+\addcontentsline{toc}{section}{8--1\quad Definition of parallel lines}
+
+In earlier mathematics courses, you learned some facts about parallel lines.
+Before reading this chapter, try to recall some properties of parallel lines
+that you have accepted as true. The following exercises will help your memory
+and prepare you for proofs.
+
+\exercisegroup{8--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item What do you mean when you say, ``Line $l$ is \emph{parallel} to line
+  $m$''?
+\item Name some geometric figures that have pairs of \emph{parallel} sides.
+\item Explain why two sides of a triangle are not \emph{parallel}.
+\item Two rocks are dropped, one from the Brooklyn Bridge, and the other from
+  the Golden Gate Bridge. Would you say that these rocks fall along
+  \emph{parallel} paths?
+\item If you drop two rocks, one from each hand, do they traverse
+  \emph{parallel} paths?
+\item Roads $r$ and $s$ run ``due north and south.'' Are they \emph{parallel}?
+\item Roads $t$ and $u$ run ``due east and west.'' Are they \emph{parallel}?
+\item How many different pairs of \emph{parallel} edges does a cube have?
+\item Both lines $l$ and $m \perp$ line $n$. Does this suggest a theorem about
+  \emph{parallels}?
+\item Each of the lines $l$ and $m$ is \emph{parallel} to line $n$. What
+  theorem does this suggest?
+\item Lines $p$ and $q$ are \emph{parallel}. Line $r \perp p$. What theorem
+  does this suggest?
+\item Draw two angles, $\ang{AOB}$ and $\ang{A'O'B'}$, such that the lines
+  $AO$ and $A'O'$ are \emph{parallel}, and also lines $BO$ and $B'O'$ are
+  \emph{parallel}. Does this figure suggest a theorem? Be careful! Draw more
+  than one figure.
+\item Draw a line $l$, and mark a point $A$ not on $l$. What might it mean to
+  say that a ray from $A$ is \emph{parallel} to line $l$?
+\item Which of the above exercises do not strictly belong to plane geometry?
+\end{exlist}
+\end{multicols}
+
+If you discussed Exercises 6 and 7, someone probably pointed out that roads on
+the surface of the earth are not quite the same as lines. Also, in connection
+with Exercises 4 and 5, the paths along which objects fall are hardly the
+imaginary lines of our geometry. Since the earth rotates about its axis and at
+the same time revolves around the sun, an object falling toward the center of
+the earth follows a path extremely hard to visualize. Our task is to choose a
+definition of parallel lines, such that we can use the definition in our plane
+geometry along with our postulates to prove the truth of statements that
+concern parallel lines and that we feel ought to be true. The definition below
+was perhaps suggested by someone in the class during the discussion of
+Exercise Group 8--1.
+
+\begin{definition}
+Two lines $l$ and $m$ are parallel if and only if they do not intersect. We
+indicate that two lines are parallel by writing ``$l \pll m$.''
+\end{definition}
+
+\exercisegroup{8--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item Give definitions of the following. In later sections, it will be
+  convenient to have these definitions. Good definitions are not hard to make,
+  and so are given as exercises here.
+  \begin{enumerate}[label=(\alph*), leftmargin=1.8em, topsep=2pt, itemsep=1pt]
+    \item A ray parallel to a line.
+    \item Parallel rays.
+    \item A line segment parallel to a line.
+    \item Parallel line segments.
+  \end{enumerate}
+\item Draw a figure of a line not intersecting a segment and not parallel to
+  the segment.
+\item Can a ray and a line not intersect and yet not be parallel?
+\end{exlist}
+\end{multicols}
+
+Now that we have parallel lines, it is possible for us to talk about rays that
+have the same direction. This requires another definition.
+
+\begin{definition}
+Two rays have the same \emph{direction} if and only if they are parallel and
+both rays are on the same side of the line through their vertices
+(Fig.~8--1).
+\end{definition}
+
+\FIGVIIIONE
+
+\exercise{8--3}
+\noindent What would have been wrong had we defined lines to be parallel if
+they had the same direction?
+
+%========================================================= 8-2
+\section*{8--2\quad EXISTENCE OF PARALLELS}
+\addcontentsline{toc}{section}{8--2\quad Existence of parallels}
+
+Perhaps it will seem strange to you that we are going to prove that parallel
+lines actually exist. We could add an extra postulate and assume that there
+are parallels, but the proof is not difficult. We give three different proofs
+of the following theorem.
+
+\begin{theorem}
+If $l$ is any line, and $A$ any point not on $l$, then there exists at least
+one line through $A$ parallel to $l$.
+\end{theorem}
+
+\emph{First Proof.} Referring to Fig.~8--2, let $B$ be any point on $l$, and
+let $n$ be the line through $A$ and $B$. Let $E$ be another point on $l$, and
+let $D$ be a point on the same side of $n$ as $E$, such that
+$\ang{DAC} \cong \ang{EBA}$. Lines $l$ and $m$ cannot intersect, for if they
+did, say at $P$, we should have $\tri{PBA}$ with exterior
+$\ang{PAC} \cong \ang{PBA}$. But we know this is impossible, for an exterior
+angle of a triangle is always greater than either opposite interior angle.
+
+\FIGVIIITWOTHREE
+
+\emph{*Second Proof. Lemma.} Let line $l$, point $A$, and line $n$ be as in
+Theorem 8--1.\VIIIproofnote{} Now, referring to Fig.~8--2, if $m$ is not
+parallel to $l$, then $\ang 1$ is not congruent to $\ang 2$. (For ``not
+parallel to,'' we use the symbol $\nparallel$.) \emph{Proof.} If $m$ is not
+parallel to $l$, these lines intersect, a triangle is formed, and
+$\ang 1 \ncong \ang 2$. Now Theorem 8--1 follows quickly from the lemma. The
+lemma states that $l \nparallel m \imp \ang 1 \ncong \ang 2$. The
+contrapositive of the lemma is $\ang 1 \cong \ang 2 \imp l \pll m$, and the
+theorem obviously follows.
+
+\emph{*Third Proof.} Referring to Fig.~8--4, let $l$, $m$, and $n$ refer to
+the lines of the preceding proofs with $n$ cutting $m$ at $A$, and $l$ at $B$,
+and the indicated angles at $A$ and $B$ congruent to each other. If $l$ and
+$m$ intersected at $P$, we could choose $Q$ on $m$, as above, so that
+$AQ \cong BP$. It follows at once, by the S.A.S. theorem, that
+$\tri{BAQ} \cong \tri{ABP}$. Hence, $\ang{ABQ} \cong \ang{BAP}$.
+
+\FIGVIIIFOUR
+
+Since also, $\ang{ABP} \cong \ang{BAQ}$, we have
+$\ang{QBP} \cong \ang{QAP}$. $\ang{QAP}$ is a straight angle, so $\ang{QBP}$
+is a straight angle. It follows that $Q$ lies on line $l$, and so if lines $l$
+and $m$ intersect in one point, they have a second point in common. This is
+impossible, so lines $l$ and $m$ do not intersect.
+
+\exercisegroup{8--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a line, and mark a point not on it. Use the first proof of Theorem
+  8--1 to draw a line, parallel to the first line, through your point.
+\item Prove that if $l \perp m$, and $n \perp m$, then, if $l \neq n$,
+  $l \pll n$.
+\item Is a line parallel to itself?
+\item In the first proof of Theorem 8--1, several details were omitted. First
+  a point $B$ was chosen and then a point $E$. How was $C$ selected? How would
+  we have argued if $l$ and $m$ were to intersect on the other side of $AB$?
+\item The second proof of Theorem 8--1 is really just a reworded version of
+  the first proof. Explain why this is so.
+\item Without pointing at Fig.~8--4, describe how the point $Q$ is chosen in
+  the third proof. What postulate guarantees the existence of $Q$?
+\item Prove that if $l_1 \pll l_2$, then all the points of $l_2$ are on the
+  same side of $l_1$.
+\item Use the result of Exercise 7 to give a definition of ``the set of points
+  between $l_1$ and $l_2$, where $l_1 \pll l_2$.''
+\end{exlist}
+\end{multicols}
+
+%========================================================= 8-3
+\section*{8--3\quad THE PARALLEL POSTULATE}
+\addcontentsline{toc}{section}{8--3\quad The parallel postulate}
+
+We proved in Section 8--2 that through a point $A$ not on line $l$, there is
+\emph{at least one line parallel to $l$}. Now we raise the question, \emph{is
+there more than one such line?} Our geometric intuition tells us that there is
+only the one, and it is natural to attempt to prove this from our other
+postulates. For 2000 years, many fine mathematicians tried and failed to find
+such a proof. At last, in the 19th century, it was shown that \emph{it is
+impossible to prove from the postulates we have already listed that there is
+no more than one line through a given point parallel to a given line}. Euclid
+himself assumed that there was no more than one such parallel, and we shall
+make the same assumption.
+
+\par\medskip\noindent
+\textbf{Postulate VI--1.} \emph{The parallel postulate.} Through a point not
+on a line $l$, there is no more than one line parallel to $l$.
+\par\medskip
+
+\emph{Historical note.} It may seem strange that it is possible to prove that
+the parallel postulate is not a consequence of the other postulates. The
+understanding of the fact that the parallel postulate is independent of the
+others came about in the following way.
+
+After vainly trying to prove the truth of the parallel postulate by using the
+other postulates of Euclid, Johann Bolyai (Yo'-hahn Bull'-y\={\i}), a young
+Hungarian mathematician, decided to assume that \emph{a second parallel could
+be drawn through A}. Using this postulate, he proved many strange and
+beautiful theorems. Later it was shown that Bolyai's geometry was just as
+acceptable as ordinary Euclidean geometry. We call this geometry of Bolyai's a
+\emph{non-Euclidean} geometry to contrast it with our Euclidean geometry which
+employs the parallel postulate of Euclid. Whenever you encounter the term
+non-Euclidean geometry, you can be sure that some postulate different from the
+parallel postulate is used. All the theorems we have proved up to now are true
+in the non-Euclidean geometry of Bolyai.
+
+When these things are first explained, many students ask which postulate is
+right. Can only one parallel be drawn, or is it possible to draw several?
+While these questions are quite natural ones to ask, they do not have the
+simple answers that one might expect. Our postulates are statements that we
+invent in order to prove interesting and useful theorems. The theorems of
+Euclidean geometry are useful in carpentry, drafting, surveying, navigation,
+astronomy, and in many other fields. The theorems of some non-Euclidean
+geometries have been found to be extremely useful in astronomy and physics.
+Today mathematicians study many different geometries. Each of the geometries
+has a postulate system different from that of any other geometry. All are
+interesting. Many have proved to be of practical use. It does not make sense
+to ask which geometry is true. Mathematicians design geometries as architects
+design houses. You might as well ask which house is true. It \emph{is}
+appropriate to ask which house is better adapted to one's living requirements.
+And so it is also appropriate to ask which geometry is most convenient to
+describe the universe.*\VIIIgaussnote
+
+\VIIIplate{\textsc{Karl Friedrich Gauss}\\(1777--1855)\\
+  Probably the first mathematician to recognize the\\
+  existence of non-Euclidean geometries.\\
+  Courtesy of \emph{Scripta Mathematica}.}{--- (book p.~137)}
+
+\VIIIplate{\textsc{Nicolai Ivanovich Lobachevsky}\\(1793--1856)\\
+  Co-inventor, with Johann Bolyai, of\\
+  non-Euclidean geometry.\\
+  Courtesy of \emph{Scripta Mathematica}.}{--- (book p.~138)}
+
+%========================================================= 8-4
+\section*{8--4\quad CONSEQUENCES OF THE\\PARALLEL POSTULATE}
+\addcontentsline{toc}{section}{8--4\quad Consequences of the parallel postulate}
+
+We can now prove several interesting theorems quite easily.
+
+\begin{theorem}
+If $l$, $m$, and $n$ are distinct lines, with $l \pll m$ and $m \pll n$, then
+$l \pll n$ \textup{(Fig.~8--5)}.
+\end{theorem}
+
+\emph{Proof.} If $l$ were not parallel to $n$, then $l$ and $n$ would
+intersect, say at $P$ in Fig.~8--5. Two lines, namely $l$ and $n$, would then
+pass through $P$, parallel to $m$, thus contradicting the parallel postulate.
+
+\begin{theorem}
+If $l \pll m$, and line $n \neq l$ intersects $l$ at $P$, then $n$ intersects
+$m$ \textup{(Fig.~8--6)}.
+\end{theorem}
+
+\FIGVIIIFIVESIX
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{$l \pll m$.}{Given.}
+\step{$P$ is on $n$ and $l$, and $n \neq l$.}{Given.}
+\step{$l$ is the only line on $P$ parallel to $m$.}{Statements 1, 2, and the
+  parallel postulate.}
+\step{$n$ intersects $m$.}{Statements 2 and 3.}
+\end{steps}
+
+\exercisegroup{8--5}
+
+\FIGVIIISEVENEIGHT
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Prove that the construction of a parallel to $l$ through a given point
+  $A$ is an \RC{} construction.
+\item In Fig.~8--7, $\ang{ABC} \cong \ang{BCD}$. Prove that $AB \pll CD$.
+\item Prove that if $l \perp n$, $n \perp m$, and $l \neq m$, then
+  $l \pll m$. Have you used the parallel postulate?
+\item If $l \pll m$, and $l \perp n$, prove that $n \perp m$. Did you use the
+  parallel postulate?
+\item If $l \pll m$, $k \pll m$, and $l$ and $k$ intersect at $P$, what can
+  you say?
+\item[\stex 6.] In Fig.~8--8, $\sg{AB} = \sg{CD}$, and $\ang{ABC}$ and
+  $\ang{BCD}$ are right. Prove that $AD \pll BC$. [\emph{Hint:} Prove that
+  $\ang A \cong \ang D$.]
+\item[\stex 7.] If a rectangle is defined as a quadrilateral with four right
+  angles, prove that rectangles actually exist.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 8-5
+\section*{8--5\quad CORRESPONDING AND\\ALTERNATE ANGLES}
+\addcontentsline{toc}{section}{8--5\quad Corresponding and alternate angles}
+
+When a line intersects two other lines, we often wish to refer to certain
+pairs of the angles formed. In order to be precise, we need a definition.
+
+\begin{definition}
+A line $l$ (Fig.~8--9) that intersects lines $l_1$ and $l_2$ in distinct
+points is called a \emph{transversal} of $l_1$ and $l_2$. We also say that
+$l_1$ and $l_2$ are cut by the transversal $l$. Angles 3, 4, 5, and 6 are
+called \emph{interior angles}. Angles 1, 2, 7, and 8 are called \emph{exterior
+angles}. These eight angles are grouped into four pairs referred to as pairs
+of \emph{corresponding angles}. Angles 1 and 5 form such a pair of
+corresponding angles, as do also 2 and 6, 3 and 7, and 4 and 8. Angles such as
+3 and 5 are called \emph{alternate angles}. Other pairs of alternate angles
+are 2 and 8, 1 and 7, and 4 and 6. We speak of the pair 3 and 5 as
+\emph{alternate interior angles}. We call the pair 2 and 8 \emph{alternate
+exterior angles}. We observe that \emph{alternate} angles have the points of
+their interiors on \emph{opposite} sides of $l$, while \emph{corresponding}
+angles have their interiors on the \emph{same} side of $l$. In a pair of
+corresponding angles, one angle is always exterior and one interior.
+\end{definition}
+
+\FIGVIIININETEN
+
+\begin{theorem}
+Let $l_1$ and $l_2$ be lines cut by line $l$. If $l_1 \pll l_2$, then two
+alternate interior angles are congruent to each other, and conversely, if two
+alternate interior angles are congruent, then $l_1 \pll l_2$
+\textup{(Fig.~8--10)}.
+\end{theorem}
+
+\emph{Proof.} The last part of the theorem follows at once from the first
+proof of Theorem 8--1, for if $\ang{CAB} \cong \ang{ABD}$, then
+$\ang{ABD} \cong \ang{EAF}$, and $l_1 \pll l_2$.
+
+The first part of the theorem requires the parallel postulate, and may be
+proved as follows. Choose $G$, located in the interior of $\ang{DBE}$, such
+that $\ang{EAG} \cong \ang{ABD}$. Then line $AG \pll l_2$. (Why?) But $A$ is
+also on $l_1$, and $l_1 \pll l_2$. Hence the line through $A$ and $G$ is the
+same as $l_1$, so $G$ is on $l_1$. Now,
+$\ang{CAB} \cong \ang{EAG} \cong \ang{ABD}$. Thus the alternate interior
+angles are congruent.
+
+As important consequences of Theorem 8--4, we state the following corollaries,
+which you can easily prove.
+
+\begin{corollary}
+Let $l$ cut $l_1$ and $l_2$ at distinct points. If $l_1 \pll l_2$, then
+alternate exterior angles are congruent, and conversely.
+\end{corollary}
+
+\begin{corollary}
+Let $l$ cut $l_1$ and $l_2$ at distinct points. If $l_1 \pll l_2$, then
+corresponding angles are congruent, and conversely.
+\end{corollary}
+
+\exercisegroup{8--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Prove that if a line is perpendicular to one of two parallel lines, it
+  is perpendicular to the other.
+\item Prove that if $l \pll m$, $n \perp l$, $p \perp m$, and $n \neq p$, then
+  $n \pll p$.
+\item In Fig.~8--11, $\sg{AO} = \sg{CO}$, and $\sg{BO} = \sg{OD}$. Prove that
+  $AB \pll CD$.
+\item Show that $\sg{BC} = \sg{AD}$, and $BC \pll AD$ in Fig.~8--11.
+\item Show that if $AB \cong CD$, and $AB \pll CD$, then $BO \cong OD$, and
+  $BC \pll AD$ in Fig.~8--11.
+\item If $l \pll m$, and $A$ and $B$ are any two points on $l$, show that the
+  perpendicular distances from $A$ and $B$ to $m$ are equal. We may state this
+  result in the form: if $l \pll m$, then $l$ and $m$ are ``everywhere
+  equidistant.'' State and prove the converse of this theorem. State also the
+  contrapositive.
+\end{exlist}
+\end{multicols}
+
+\FIGVIIIELEVEN
+
+%========================================================= 8-6
+\section*{8--6\quad ANGLE SUMS}
+\addcontentsline{toc}{section}{8--6\quad Angle sums}
+
+One of the most interesting consequences of the parallel postulate is a
+theorem relating to the angles of a triangle. We need a definition.
+
+\begin{definition}
+If $\ang{AOB}$ and $\ang{BOC}$ are adjacent angles (Fig.~8--12), and either
+$\ang{AOC}$ is a straight angle, or $OB$ is in the interior of $\ang{AOC}$,
+then we say that $\ang{AOC}$ is a \emph{sum} of $\ang{AOB}$ and $\ang{BOC}$.
+Likewise, if $\ang{A'O'B'} \cong \ang{AOB}$, and
+$\ang{B''O''C''} \cong \ang{BOC}$, then we say that $\ang{AOC}$ is a
+\emph{sum} of $\ang{A'O'B'}$ and $\ang{B''O''C''}$.
+\end{definition}
+
+\FIGVIIITWELVE
+
+\begin{remark}
+At this stage in our geometry, we cannot yet ``add'' angles by adding their
+measures in degrees, because we have not as yet described how angles are
+measured. The measurement of angles is more complicated than measurement of
+length, and will be described in a later chapter.
+\end{remark}
+
+Draw a figure to illustrate the last part of Definition 8--4.
+
+\begin{definition}
+Two angles are said to be \emph{complementary} if their sum is a right angle.
+\end{definition}
+
+\begin{definition}
+Two angles are said to be \emph{supplementary} if their sum is a straight
+angle.
+\end{definition}
+
+\exercisegroup{8--7}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw an obtuse angle. Draw an angle that is supplementary to this angle
+  and is not adjacent to it. Draw one that is adjacent and supplementary.
+\item Draw an acute angle. Draw an angle that is complementary to this angle
+  and is adjacent to it. Draw one that is not adjacent, but is complementary,
+  to the acute angle.
+\item Prove that if two acute angles are congruent, then their complements are
+  congruent.
+\item Prove that if the sides of one angle are parallel, respectively, to the
+  sides of a second angle, then either the angles are congruent or they are
+  supplementary.
+\end{exlist}
+\end{multicols}
+
+\begin{theorem}
+The sum of the angles of a triangle is a straight angle.
+\end{theorem}
+
+\FIGVIIITHIRTEEN
+
+\emph{Proof.} In Fig.~8--13, let $l$ be the line through $A$ and parallel to
+the side $BC$ of $\tri{ABC}$. Let $D$ be a point on $l$ that is on the
+opposite side of $AB$ from $C$. Let $E$ be a point of $l$ on the same side of
+$AB$ as $C$. Then $\ang{DAB} \cong \ang{ABC}$, and
+$\ang{EAC} \cong \ang{ACB}$. The straight angle $DAE$ is the sum of angles
+$A$, $B$, and $C$.
+
+\exercisegroup{8--8}
+
+\FIGVIIIFOURTEEN
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Show that the acute angles of a right triangle are complementary.
+\item Two angles of a triangle are $40^\circ\ 17'\ 30''$ and
+  $78^\circ\ 31'\ 38''$, respectively. Determine the number of degrees in the
+  third angle.
+\item How many degrees are there in each angle of an equilateral triangle?
+\item Show that a median of an equilateral triangle divides the triangle into
+  two right triangles, each of which has acute angles of $30^\circ$ and
+  $60^\circ$.
+\item Prove that in a right triangle, with acute angles of $30^\circ$ and
+  $60^\circ$, the side opposite the $30^\circ$ angle is half as long as the
+  hypotenuse.
+\item In $\tri{ABC}$, an exterior angle at $B$ is $124^\circ$. $\ang A$ is
+  $58^\circ$. How many degrees in $\ang C$?
+\item Prove that if two angles of one triangle are congruent, respectively, to
+  two angles of another triangle, then the third angles are congruent.
+\item In Fig.~8--14, $AB \cong A'B'$, $\ang A \cong \ang{A'}$, and
+  $\ang C \cong \ang{C'}$. Prove that $\tri{ABC} \cong \tri{A'B'C'}$.
+\item Is the following true? Two triangles are congruent to each other if one
+  side and two angles of the one triangle are congruent to one side and two
+  angles of the other.
+\item Prove that two right triangles are congruent if the hypotenuse and an
+  acute angle of one triangle are congruent, respectively, to the hypotenuse
+  and acute angle of the other.
+\item In $\tri{ABC}$ (Fig.~8--15), $\ang A$ is right, and $AD \perp BC$. Prove
+  that $\ang{BAD} \cong \ang{ACD}$, and $\ang{ABD} \cong \ang{DAC}$.
+\item[\stex 12.] In Fig.~8--16, $D$ is the midpoint of $BC$, and
+  $BD \cong AD$. Prove that $\ang{BAC}$ is right.
+\item[\stex 13.] Prove that two right triangles are congruent if the
+  hypotenuse and one side of one triangle are congruent to the hypotenuse and
+  one side of the other.
+\end{exlist}
+\end{multicols}
+
+\FIGVIIIFIFTEENSIXTEEN
+
+%========================================================= 8-7
+\section*{8--7\quad POLYGONS}
+\addcontentsline{toc}{section}{8--7\quad Polygons}
+
+In this and the remaining sections, we will be studying certain polygons.
+First, we need to recall the definition of a polygonal path.
+
+A \emph{polygonal path} (Fig.~8--17) is determined by a number of points,
+$P_1, P_2, \ldots, P_n$, called the \emph{vertices}, given in a definite
+order. The path is the set of points on the segments
+$P_1P_2, P_2P_3, \ldots, P_{n-1}P_n$. The point $P_1$ is called the
+\emph{beginning} of the path, and $P_n$ is called the \emph{end}. The segments
+$P_1P_2$, etc., are called the \emph{sides} of the path.
+
+\FIGVIIISEVENTEENEIGHTEEN
+
+\begin{remark}
+There is no requirement that the sides of a polygonal path not intersect.
+Hence the path can be quite complicated. See Fig.~8--18 for a six-sided path.
+\end{remark}
+
+\exercisegroup{8--9}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a polygonal path with five sides that does not cross itself. Draw
+  one that does.
+\item If the length of a polygonal path is the sum of the lengths of its
+  sides, how does the length of a polygonal path $P_1, \ldots, P_n$ compare
+  with $\sg{P_1P_n}$?
+\end{exlist}
+\end{multicols}
+
+\begin{definition}
+A \emph{polygon} is a polygonal path whose beginning and end coincide. If the
+vertices are all different and no two sides have a point in common (other than
+a vertex of two adjacent sides), then the polygon is called \emph{simple}
+(Fig.~8--19).
+\end{definition}
+
+\FIGVIIININETEEN
+
+Each simple polygon separates the points of the plane, other than the polygon
+itself, into two sets called the \emph{interior} and \emph{exterior} of the
+polygon. If $A$ is a point of the interior, and $B$ is a point of the
+exterior, every polygonal path connecting $A$ to $B$ contains at least one
+point of the polygon. If $A$ and $B$ both belong to either the interior or
+exterior, then there exist polygonal paths joining $A$ to $B$ that contain no
+point of the polygon. The proofs of these statements are quite difficult, and
+will not be given here. It would be instructive to carry out the proofs in the
+case in which the polygon is a triangle. The student interested in doing so
+should restudy Section 3--6.
+
+\emph{*Problem.} The theorem that a simple polygon separates the plane is
+powerful and has surprising applications. It can be used to show that the
+well-known puzzle below has no solution.
+
+It is desired to connect each of three houses $A$, $B$, and $C$ with three
+outlets, one for gas $G$, one for water $W$, and one for electricity $E$.
+
+\VIIIutilities
+
+Is it possible to run the lines, one from each house to each outlet, in such a
+way that no lines cross? In other words, can polygonal paths from $A$ to $G$,
+$A$ to $W$, etc., be drawn so that no two paths cross?
+
+\begin{definition}
+Vertices of a polygon that are endpoints of the same side are called
+\emph{adjacent} vertices (Fig.~8--20). Angles whose vertices are adjacent to
+each other are called \emph{consecutive} angles. A \emph{diagonal} of a
+polygon is a segment joining any two nonadjacent vertices. Sides with a common
+vertex are called \emph{adjacent} sides.
+\end{definition}
+
+\FIGVIIITWENTYTWENTYONE
+
+\begin{definition}
+A simple polygon is called \emph{convex} if, whenever $A$ and $B$ are points
+of the polygon, every point of the segment $AB$ lies either on the polygon or
+in its interior (see Fig.~8--21).
+\end{definition}
+
+\begin{remark}
+Unless otherwise stated, we will confine our attention to simple convex
+polygons.
+\end{remark}
+
+\begin{definition}
+If all sides of a polygon have the same length, the polygon is
+\emph{equilateral}. If all angles are congruent, it is \emph{equiangular}. A
+convex polygon that is equilateral and equiangular is called \emph{regular}.
+Polygons are also classified according to the number of sides. Polygons of 3,
+4, 5, 6, 7, 8, 9, and 10 sides are called \emph{triangles},
+\emph{quadrilaterals}, \emph{pentagons}, \emph{hexagons}, \emph{heptagons},
+\emph{octagons}, \emph{nonagons}, and \emph{decagons}, respectively. A polygon
+of $n$ sides will be called an \emph{$n$-gon}.
+\end{definition}
+
+\exercisegroup{8--10}
+\begin{multicols}{2}
+\begin{exlist}
+\item What do we call a regular polygon of three sides? of four sides?
+\item Draw a convex polygon of five sides. Draw a quadrilateral that is not
+  convex. Draw a polygon that is not simple.
+\item[\stex 3.] Is it true that every interior point of a convex polygon is
+  also interior to every angle of the polygon?
+\item[4.] We can divide a convex polygon into triangles by drawing the
+  diagonals from any vertex. Into how many triangles does this procedure
+  divide a convex polygon of four sides? of ten sides? of $n$ sides?
+\item[\stex 5.] How many diagonals has a convex polygon of four sides? five
+  sides? ten sides? $n$ sides?
+\item[6.] Show that an equiangular polygon need not be equilateral.
+\item[\stex 7.] Find an example of an equilateral, equiangular polygon that is
+  not regular.
+\end{exlist}
+\end{multicols}
+
+A diagonal of a convex quadrilateral divides the quadrilateral into two
+triangles. Since the sum of the angles in each triangle is a straight angle,
+we shall say that \emph{the sum of the (four) angles of the quadrilateral is
+two straight angles}. The two diagonals from one vertex of a convex pentagon
+divide the pentagon into three triangles, and we say that \emph{the sum of the
+(five) angles of the pentagon is three straight angles}.
+
+When we have defined degree measure for angles, we will see that the sum of
+the degree measures of the angles of a convex quadrilateral is
+$2 \cdot 180^\circ = 360^\circ$, of a pentagon,
+$3 \cdot 180^\circ = 540^\circ$, and in general for a polygon of $n$ sides,
+the sum of degree measures is $(n - 2) \cdot 180^\circ$.
+
+Do not misunderstand the statement that the sum of the angles of a pentagon is
+three straight angles. This is using the word ``sum'' in a different sense
+than when we speak of the sum of \emph{two angles}. Recall that when we add
+two angles, the sum is less than or congruent to a straight angle.
+
+\FIGVIIITWENTYTWOTHREE
+
+We observe that the sum of the five interior angles and the five indicated
+exterior angles in Fig.~8--22 is precisely five straight angles. Since the
+interior angles account for three straight angles, the sum of the exterior
+angles must be two straight angles. Similar reasoning shows that for any
+convex polygon of $n$ sides, the sum of the $n$ exterior angles (one at each
+vertex) is exactly two straight angles (Fig.~8--23).
+
+\exercisegroup{8--1}
+
+\FIGVIIITWENTYFOUR
+
+\begin{multicols}{2}
+\begin{exlist}
+\item A quadrilateral has three $95^\circ$ angles. How many degrees are there
+  in the fourth angle?
+\item How many degrees are there in each angle of a regular hexagon?
+\item How many degrees are there in each exterior angle of a regular pentagon?
+\item A convex quadrilateral has three angles of the same size. The fourth
+  angle is a $120^\circ$ angle. How many degrees are there in each of the
+  other angles?
+\item Explain why it is impossible for a convex polygon to have as many as six
+  angles smaller than $120^\circ$.
+\item[\stex 6.] What is the sum of the angles at the vertices of a regular
+  five-pointed star? (The points of the star are vertices of a regular
+  pentagon.)
+\item[7.] An exterior angle of a regular polygon is $20^\circ$. How many sides
+  has the polygon?
+\item[8.] Pentagon $ABCDE$ is regular. Prove that a line $l$, bisecting the
+  angle at $A$, is perpendicular to side $CD$.
+\item[9.] How many sides does a regular polygon have if each angle is
+  $120^\circ$? $140^\circ$? $160^\circ$? $179^\circ$?
+\item[10.] Make up some theorems of your own relating to regular pentagons or
+  regular hexagons.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 8-8
+\section*{8--8\quad PARALLELOGRAMS}
+\addcontentsline{toc}{section}{8--8\quad Parallelograms}
+
+The following definitions make certain familiar terms precise.
+
+\begin{definition}
+A \emph{parallelogram} is a quadrilateral having two pairs of parallel sides.
+A \emph{rectangle} is a parallelogram with a right angle. A \emph{square} is a
+rectangle with two congruent perpendicular sides. A \emph{rhombus} is an
+equilateral parallelogram.
+\end{definition}
+
+\FIGVIIITWENTYFIVE
+
+Our knowledge of parallels and these definitions make it possible to prove
+many results, as the following exercises will demonstrate.
+
+\exercisegroup{8--12}
+\noindent The exercises below present many interesting theorems concerning
+polygons. Give proofs for these theorems.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item A diagonal of a parallelogram divides it into two congruent triangles.
+\item Opposite sides of a parallelogram are congruent to each other.
+\item The diagonals of a parallelogram bisect each other.
+\item Opposite angles of a parallelogram are congruent.
+\item Consecutive angles of a parallelogram are supplementary to each other.
+\item Every angle of a rectangle is right.
+\item All sides of a square are congruent.
+\item The diagonals of a rectangle are congruent.
+\item The diagonals of a square are perpendicular to each other.
+\item The diagonals of a rhombus are perpendicular.
+\item If the diagonals of a parallelogram are congruent, the parallelogram is
+  a rectangle.
+\item If the diagonals of a rectangle are perpendicular, the rectangle is a
+  square.
+\item The quadrilateral formed by connecting midpoints of the sides of a
+  parallelogram is also a parallelogram.
+\item The parallelogram formed by connecting midpoints of the sides of a
+  square is also a square.
+\item If the diagonals of a quadrilateral bisect each other, the quadrilateral
+  is a parallelogram.
+\item If a quadrilateral has a pair of sides congruent and parallel to each
+  other, it is a parallelogram.
+\item A parallelogram has one angle of $70^\circ$. Give the number of degrees
+  in each angle.
+\item One angle of a parallelogram is twice as large as a second angle.
+  Determine the number of degrees in each angle of the parallelogram.
+\item A diagonal of a rhombus bisects two angles of the rhombus.
+\item If a rectangle is not a square, a diagonal does not bisect an angle of
+  the rectangle.
+\item If each angle of a quadrilateral is congruent to the angle opposite it,
+  then the quadrilateral is a parallelogram.
+\item Is a rhombus a regular polygon?
+\item For every quadrilateral, it is true that either the bisectors of two
+  consecutive angles of the quadrilateral are perpendicular, or the
+  quadrilateral is not a parallelogram.
+\item If a diagonal of a parallelogram bisects one angle of the parallelogram,
+  it bisects a second angle, and the parallelogram is a rhombus.
+\item If a parallelogram is not a rhombus, then the four bisectors of the
+  angles of the parallelogram are not concurrent.
+\item If a parallelogram is not a rhombus, then the four bisectors of the
+  angles intersect to form a rectangle.
+\item The four bisectors of the angles of a rectangle that is not a square
+  intersect to form a square.
+\item How many degrees are there in the angle formed by the two diagonals
+  drawn from one vertex of a regular pentagon?
+\item In Fig.~8--26, $DE \pll AC$, and $DF \pll AB$. Use the figure to prove
+  that the sum of the angles of $\tri{ABC}$ is a straight angle.
+\item In the regular hexagon $ABCDEF$, prove that diagonal $FD$ is
+  perpendicular to side $DC$ (Fig.~8--27).
+\item Prove that $\sg{FC} = 2 \cdot \sg{DC}$ in Fig.~8--27. Show that the
+  diagonals $FC$ and $AD$ bisect each other.
+\end{exlist}
+\end{multicols}
+
+\FIGVIIITWENTYSIXSEVEN
+
+%========================================================= Review of Chapter 8
+\section*{REVIEW OF CHAPTER 8}
+\addcontentsline{toc}{section}{Review of Chapter 8}
+
+This chapter has dealt with consequences of the parallel postulate, by far the
+most famous of all the postulates of Euclid. (Euclid did not state it exactly
+as we have given it.) It was through the careful investigation of this
+postulate that non-Euclidean geometries were invented early in the 19th
+century. This investigation also led indirectly to the first set of correct
+postulates from which the theorems of Euclidean geometry could be rigorously
+proved. These postulates, presented about 1900 by the German mathematician
+David Hilbert, are equivalent to the ones that we have listed in this text. We
+list below some of the most important consequences of the parallel postulate
+shown in this chapter.
+
+\begin{quote}
+If two lines are parallel to one line, they are parallel to each other.
+
+When parallel lines are cut by a line, alternate interior angles are
+congruent.
+
+The sum of the angles of any triangle is a straight angle.
+
+The sum of the interior angles of any convex polygon is $(n - 2)$ straight
+angles.
+\end{quote}
+
+Several new terms were defined in this chapter. In addition, precise
+definitions of some familiar concepts were formulated. (For example, though we
+have referred freely to squares and rectangles in earlier chapters, they had
+not yet been exactly defined. Indeed, it is not even possible to prove that
+squares and rectangles exist until the parallel postulate is available.) You
+should know the definitions given in this chapter for the following:
+
+\begin{center}
+\begin{tabular}{@{}l@{\hspace{3.2em}}l@{}}
+alternate interior angles & octagon \\
+corresponding angles      & $n$-gon \\
+polygon                   & regular polygon \\
+simple polygon            & parallelogram \\
+convex polygon            & rectangle \\
+parallel lines            & square \\
+pentagon                  & rhombus \\
+hexagon                   & diagonal \\
+equilateral polygon       & equiangular polygon \\
+\end{tabular}
+\end{center}
+
+%--------------------------------------------------------- Algebra Review
+\section*{ALGEBRA REVIEW}
+\addcontentsline{toc}{section}{Algebra Review (Chapter 8)}
+
+\begin{exlist}
+\item Two angles of a triangle are congruent, and the measure of each exceeds
+  that of the third angle by $10^\circ$. Determine the number of degrees in
+  each angle of the triangle.
+\item In $\tri{ABC}$, the sum of $\ang B$ and an exterior angle at $A$ has a
+  measure of $170^\circ$. The sum of this exterior angle and $\ang C$ is
+  $160^\circ$. Determine the measure of each angle of the triangle.
+\item An exterior angle of a triangle has a measure of $117^\circ$. One angle
+  of this triangle has a measure of $42^\circ$. Determine the degree measure
+  of each angle of the triangle.
+\item Prove that there is no $\tri{ABC}$ such that the measure of an exterior
+  angle at $A$ is $103^\circ$ and an exterior angle at $B$ is $74^\circ$.
+\item Diagonal $AC$ of parallelogram $ABCD$ forms with sides $AB$ and $AD$ two
+  angles whose measures differ by $10^\circ$. The measure of $\ang B$ is
+  $110^\circ$. Determine the measure of $\ang A$.
+\item Two angles of a triangle are complementary. Prove that the measure of
+  the third angle is $90^\circ$.
+\item The measure of the vertex angle of an isosceles triangle is $84^\circ$.
+  Find the measure of each angle of the triangle.
+\item The first angle of a triangle has a measure three-fourths of the second.
+  The first angle is also one-third of the sum of the other two. Compute each
+  angle.
+\item In Fig.~8--28 the letters represent the degree measures of the indicated
+  angles. Prove that $x + y + t = r + s + z$.
+\item In Fig.~8--29, $AB \cong BC$, $BE \cong BD$, and the measure of
+  $\ang{CBD}$ is $40^\circ$. Determine the measure of $\ang{ADE}$.
+\end{exlist}
+
+\FIGVIIITWENTYEIGHTNINE
+
+%========================================================= Review, Chs 1-8
+\section*{REVIEW EXERCISES,\\CHAPTERS 1 THROUGH 8}
+\addcontentsline{toc}{section}{Review Exercises, Chapters 1 through 8}
+
+\begin{exlist}
+\item Give truth values of $\al$, $\be$, and $\ga$ for which a statement of the
+  form ($\al$ or $\be$) and $\ga$ is true; is false.
+\item Can you find truth values of $\al$, $\be$, and $\ga$ for which ($\al$ or
+  $\be$) and $\ga$ is false, and $\al$ or ($\be$ and $\ga$) is true? Can you
+  find truth values for which ($\al$ or $\be$) and $\ga$ is true, and $\al$ or
+  ($\be$ and $\ga$) is false? Is ($\al$ or $\be$) and
+  $\ga \imp \al$ or ($\be$ and $\ga$) true? Is $\al$ or ($\be$ and $\ga$)
+  $\imp$ ($\al$ or $\be$) and $\ga$ true?
+\item Formulate an ``if\ldots, then\ldots'' statement equivalent to (a) no
+  fishermen lie, (b) only fishermen lie, (c) fishermen necessarily lie.
+\item Give the contrapositive of each of your implications in Exercise 3.
+\item One set of points contains, among others, the points $A$, $B$, $C$, and
+  $D$. A second set of points contains $A$, $B$, and $D$, but does not contain
+  the point $C$. Prove that these two sets of points cannot both be lines.
+\item Point $C$ is in the interior of $\ang{AOB}$. Is every point of ray $OC$
+  in the interior of this angle?
+\item Define \emph{interior of a triangle} in at least two ways.
+\item Explain what is meant by saying that \emph{congruence of segments} has
+  the \emph{reflexive} property; the \emph{symmetric} property; the
+  \emph{transitive} property.
+\item Explain why one of these statements is true, and the other false:\\
+  (a) $AB \cong CD \imp AB = CD$, (b) $AB = CD \imp AB \cong CD$.
+\end{exlist}
+
+\FIGVIIITHIRTY
+
+\begin{exlist}
+\item[10.] Figure 8--30 indicates that $AB \cong A'B'$, and $ABC$. Using only
+  the definitions of \emph{greater than} and \emph{less than}, does the figure
+  indicate that $AC > A'B'$, or that $A'B' < AC$?
+\item[11.] The length of $AB$, measured with $CD$ as unit, is 17.23. What is
+  Archimedes' integer?
+\item[12.] The length of $CD$ in Exercise 11, as measured by $EF$, is 10. If
+  $AB$ is measured by $EF$, what is its length? What is Archimedes' integer in
+  this case?
+\item[13.] Express the rational number $\tfrac{3}{19}$ as a repeating decimal.
+  Find the rational number whose decimal representation is the repeating
+  decimal $0.272727\ldots$; $0.027027027\ldots$.
+\item[14.] State the S.A.S. postulate for triangles.
+\item[15.] Two lines that intersect to form congruent adjacent angles are said
+  to be perpendicular to each other. Does this definition in itself prove that
+  there is a pair of perpendicular lines in the plane? How do we know that
+  right angles exist?
+\item[16.] Are there points $A$, $B$, and $C$, such that $\sg{AB} = 5$,
+  $\sg{BC} = 7$, and $\sg{AC} = 13$?
+\item[17.] What can be said about the position of the points $R$, $S$, and
+  $T$, if $\sg{RS} = 8$, $\sg{ST} = 19$, and $\sg{RT} = 11$?
+\item[18.] Consider a circle whose center is $A$ and which contains the point
+  $B$.
+  \begin{enumerate}[label=(\alph*), leftmargin=1.8em, topsep=2pt, itemsep=1pt]
+    \item If $\sg{AX} > \sg{AB}$, what can be said about point $X$?
+    \item If $P$ and $Q$ are on the circle, how do we refer to $\ang{PAQ}$? to
+      segment $PQ$?
+    \item If $O$ and $C$ are on the circle, how do we refer to $\ang{AOC}$?
+    \item If $R$ and $S$ are points of the circle, and $A$ is on the segment
+      $RS$, what do we call segment $RS$?
+  \end{enumerate}
+\item[19.] What does it mean to say that two rays have the same direction?
+\item[\stex 20.] Without using the parallel postulate or any of its
+  consequences, prove the following theorem.
+  \begin{quote}
+  \emph{If in triangles $ABC$ and $A'B'C'$, $AB \cong A'B'$,
+  $\ang B \cong \ang{B'}$, and $\ang C \cong \ang{C'}$, then
+  $\tri{ABC} \cong \tri{A'B'C'}$.}
+  \end{quote}
+\item[\stex 21.] Without using the parallel postulate, prove the following
+  theorem, which relates to Fig.~8--31.
+  \begin{quote}
+  \emph{If $\ang{CAB}$ and $\ang{ABD}$ are right, $CA \cong DB$, and $M$ and
+  $N$ are midpoints of $CD$ and $AB$, respectively, then $MN$ is perpendicular
+  both to $AB$ and to $CD$.}
+  \end{quote}
+\end{exlist}
+
+\FIGVIIITHIRTYONETWO
+
+\begin{exlist}
+\item[\stex 22.] Carry through the proofs of Exercises 20 and 21 using the
+  parallel postulate.
+\item[\stex 23.] Euclid's formulation of the parallel postulate is different
+  from ours. The following statement is essentially the postulate that Euclid
+  used:
+  \begin{quote}
+  \emph{If the points $X$ and $Y$ are on one side of line $AB$, and if the sum
+  of $\ang{XAB}$ and $\ang{YBA}$ is less than a straight angle, then the rays
+  $AX$ and $BY$ intersect.}
+  \end{quote}
+  Figure 8--32 illustrates Euclid's parallel postulate. (a) Prove Euclid's
+  parallel postulate as a theorem, using our parallel postulate. (b) Assuming
+  the truth of Euclid's parallel postulate, prove ours as a theorem.
+\end{exlist}
+
+\end{document}

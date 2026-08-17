@@ -1,0 +1,1215 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures06}
+
+% ---- local macros (hoist into book preamble) ----
+% Unnumbered star footnote, same reasoning as ch02/ch09: \starnote in
+% brumfiel.sty emits a bare \footnotetext, which prints the footnote counter;
+% the book marks these notes with the symbol itself and no number.
+\newcommand{\VIstarnote}[1]{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{#1}\endgroup}
+% The book's stacked "Given: / Prove:" exercise layout (Exercise Groups 6--5,
+% 6--11, 6--14 and the review exercises).  Each argument may hold its own
+% \\-separated lines.
+\newcommand{\VIgp}[2]{%
+  \par\smallskip\noindent
+  \begin{tabular}[t]{@{}l@{\hspace{0.6em}}l@{}}
+    Given: & \begin{tabular}[t]{@{}l@{}}#1\end{tabular}\\[2pt]
+    Prove: & \begin{tabular}[t]{@{}l@{}}#2\end{tabular}
+  \end{tabular}\par\smallskip}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{6}
+
+\chapter*{\raggedright\Huge CONGRUENCE OF\\ANGLES AND TRIANGLES}
+\markboth{CONGRUENCE OF ANGLES AND TRIANGLES}{}
+\addcontentsline{toc}{chapter}{6.\ Congruence of Angles and Triangles}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 6-1
+\section*{6--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{6--1\quad Introduction}
+
+In the last two chapters we have been concerned with congruence of segments
+only. But we also have a feeling for size of an angle---and, in fact, in
+Chapter 1 we used a protractor to measure angles. If our geometry is to be
+like the world of our experience, we must include in it postulates that will
+enable us to compare the sizes of angles. These postulates form Postulate
+Group V. There are four postulates in the group, and we take them up one at a
+time. As in Chapter 4, we shall use the word ``congruent'' to give the idea of
+\emph{the same size}.
+
+%========================================================= 6-2
+\section*{6--2\quad POSTULATE V--1, THE EXISTENCE POSTULATE FOR ANGLES}
+\addcontentsline{toc}{section}{6--2\quad Postulate V--1, the existence postulate for angles}
+
+This first postulate of Group V tells of the existence of angles congruent to
+a given angle. Remember to think of the word ``congruent'' as meaning
+\emph{the same size}.
+
+\medskip
+V--1 If $\ang{A}$ is not a straight angle, and if $r\VIpr$ is a ray from
+$A\VIpr$ on a line $l\VIpr$, then on a given side of $l\VIpr$, there is exactly
+one ray $s\VIpr$ from $A\VIpr$ such that the angle $A\VIpr$, with sides
+$r\VIpr$ and $s\VIpr$, is congruent to angle $A$ (Fig.~6--1). We write this as
+$\ang{A\VIpr} \cong \ang{A}$. If $\ang{A}$ is a straight angle, then the
+straight angle at $A\VIpr$, with one side $r\VIpr$, is the only angle with one
+side $r\VIpr$ congruent to angle $A$.
+\medskip
+
+\FIGVIONE
+
+\exercisegroup{6--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item If $\ang{A}$ is not a straight angle, how many angles with side $r\VIpr$
+  are congruent to $\ang{A}$? How many if $\ang{A}$ is a straight angle?
+\item In a figure like 6--2 draw the possible positions of the side $s\VIpr$
+  such that $\ang{A\VIpr} \cong \ang{A}$.
+\item In a figure like 6--3, draw all possible positions of $s\VIpr$ such that
+  $\ang{A\VIpr} \cong \ang{A}$.
+\item If in Fig.~6--4, $A$ is a straight angle and $r\VIpr$ is a ray from
+  $A\VIpr$, draw an angle, with one side $r\VIpr$, that is congruent to $A$.
+  Is it the only such angle?
+\item If $\ang{O}$ is a straight angle and $\ang{O\VIpr} \cong \ang{O}$, is
+  $\ang{O\VIpr}$ a straight angle? Why?
+\end{exlist}
+\end{multicols}
+
+\FIGVITWOTHREEFOUR
+
+%========================================================= 6-3
+\section*{6--3\quad POSTULATE V--2, THE THREE-PART ANGLE POSTULATE}
+\addcontentsline{toc}{section}{6--3\quad Postulate V--2, the three-part angle postulate}
+
+The next postulate is for angles what Postulate III--2 is for segments. It may
+seem odd to have to state such seemingly obvious things, but remember we are
+dealing with those imaginary things called points and lines, and so we must
+state \emph{all} the properties we need.
+
+\medskip
+\noindent
+\begin{tabular}{@{}p{2.2em}@{}p{0.86\linewidth}@{}}
+V--2 & (a)\ \ $\ang{A} \cong \ang{A}$.\ \ (Congruence of angles is reflexive.)\\[2pt]
+ & (b)\ \ If $\ang{A} \cong \ang{B}$, then $\ang{B} \cong \ang{A}$.
+   (Congruence of angles is symmetric.)\\[2pt]
+ & (c)\ \ If $\ang{A} \cong \ang{B}$, and $\ang{B} \cong \ang{C}$, then
+   $\ang{A} \cong \ang{C}$. (Congruence of angles is transitive.)
+\end{tabular}
+\medskip
+
+\exercisegroup{6--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item State each part of Postulate V--2 in words.
+\item If $\ang{E} \cong \ang{F}$, and $\ang{F} \cong \ang{G}$, and
+  $\ang{G} \cong \ang{H}$, show, by using part (c) of Postulate V--2, that
+  $\ang{E} \cong \ang{H}$.
+\item If $\ang{R} \cong \ang{S}$ and $\ang{T} \cong \ang{S}$, prove that
+  $\ang{R} \cong \ang{T}$.
+\item[\stex 4.] Use Postulate V--1 and (b) and (c) of Postulate V--2 to prove
+  that for every $\ang{A}$, $\ang{A} \cong \ang{A}$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 6-4
+\section*{6--4\quad POSTULATE V--3, THE ADDITION AND SUBTRACTION OF ANGLES POSTULATE}
+\addcontentsline{toc}{section}{6--4\quad Postulate V--3, the addition and subtraction of angles postulate}
+
+The next postulate does for angles what Postulate III--3 does for segments. It
+enables us to ``add'' and ``subtract'' angles. To avoid a complicated statement
+in words, we explain the postulate by using Fig.~6--5, where the side common to
+$\ang{B}$ and $\ang{C}$, except the vertex, is in the interior of $\ang{A}$,
+and the same for $\ang{A\VIpr}$, $\ang{B\VIpr}$, and $\ang{C\VIpr}$.
+
+\FIGVIFIVE
+
+\medskip
+\noindent
+V--3 If the angles in any two of the pairs $\ang{A}$ and $\ang{A\VIpr}$,
+$\ang{B}$ and $\ang{B\VIpr}$, $\ang{C}$ and $\ang{C\VIpr}$ are congruent to
+each other, then the angles of the third pair are also congruent to each other.
+In other words:
+\begin{enumerate}[label=(\alph*), leftmargin=2.6em, itemsep=1pt, topsep=3pt]
+\item If $\ang{A} \cong \ang{A\VIpr}$ and $\ang{B} \cong \ang{B\VIpr}$, then
+  $\ang{C} \cong \ang{C\VIpr}$.
+\item If $\ang{B} \cong \ang{B\VIpr}$ and $\ang{C} \cong \ang{C\VIpr}$, then
+  $\ang{A} \cong \ang{A\VIpr}$.
+\item If $\ang{C} \cong \ang{C\VIpr}$ and $\ang{A} \cong \ang{A\VIpr}$, then
+  $\ang{B} \cong \ang{B\VIpr}$.
+\end{enumerate}
+\noindent The angle $A$ may be a straight angle.
+\medskip
+
+\exercisegroup{6--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item We have not yet in our geometry studied the measurement of angles in
+  degrees. However, in this exercise, use the fact (which will be proved later)
+  that angles congruent to each other have the same measure in degrees, and add
+  or subtract degree measures as you are accustomed to do. Refer to Fig.~6--6.
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+  \item If $\ang{A}$ is $130^\circ$ and $\ang{B}$ is $45^\circ$, how many
+    degrees in $\ang{C}$?
+  \item If $\ang{B\VIpr}$ is $41^\circ$ and $\ang{C\VIpr}$ is $75^\circ$, how
+    many degrees in $\ang{A\VIpr}$?
+  \item If $\ang{A} \cong \ang{A\VIpr}$ and $\ang{A}$ is $150^\circ$, how many
+    degrees in $\ang{A\VIpr}$?
+  \item If $\ang{A} \cong \ang{A\VIpr}$ and $\ang{C} \cong \ang{C\VIpr}$, are
+    $\ang{B}$ and $\ang{B\VIpr}$ congruent to each other?
+  \item If $\ang{A}$ is $87^\circ$ and congruent to $\ang{A\VIpr}$, and if
+    $\ang{C} \cong \ang{C\VIpr}$ and $\ang{C\VIpr}$ is $33^\circ$, how many
+    degrees in $\ang{B}$?
+  \end{enumerate}
+\item In Fig.~6--7, if $\ang{POR} \cong \ang{SVU}$, and $\ang{QOR} \cong
+  \ang{TVU}$, what can you say about $\ang{POQ}$?
+\item In Fig.~6--8, if $\ang{BAC} \cong \ang{DAE}$, what can you say about
+  $\ang{BAD}$?
+\item In Fig.~6--9, if $\ang{SPU} \cong \ang{RPT}$, what can you say about
+  $\ang{RPS}$?
+\item Is Exercise 2 an example of ``adding'' or ``subtracting'' angles? What
+  about Exercises 3 and 4?
+\end{exlist}
+\end{multicols}
+
+\FIGVISIXSEVEN
+
+\FIGVIEIGHTNINE
+
+Supplementary and adjacent angles were defined in Definition 3--9. The
+statement that $\ang{A}$ is \emph{supplementary} to $\ang{B}$ shall mean that
+$\ang{A}$ is congruent to an angle that is \emph{supplementary and adjacent} to
+$\ang{B}$.
+
+\begin{theorem}
+If two angles are congruent to each other, then their supplements are also
+congruent to each other.
+\end{theorem}
+
+\emph{Proof.} Let the given angles be $A$ and $A\VIpr$, and let their
+supplements be $B$ and $B\VIpr$, respectively, as in Fig.~6--10. We are given
+that $\ang{A} \cong \ang{A\VIpr}$. Since any two straight angles are congruent
+to each other, it follows at once from Postulate V--3 that $\ang{B} \cong
+\ang{B\VIpr}$. (Why?)
+
+\FIGVITENELEVENTWELVE
+
+\begin{theorem}
+Angles that are vertical to each other are also congruent to each other.
+\end{theorem}
+
+\emph{Proof.} Let the angles $A$ and $A\VIpr$ be vertical to each other, as in
+Fig.~6--11, and consider $\ang{B}$, one of the other angles formed by the
+lines. Then $\ang{B}$ is the supplement of $\ang{A}$ and also the supplement of
+$\ang{A\VIpr}$. Since $\ang{B} \cong \ang{B}$, it follows from Theorem 6--1
+that $\ang{A} \cong \ang{A\VIpr}$.
+
+\begin{definition}
+An angle (Fig.~6--12) that is congruent to its supplement is called a
+\emph{right angle}.
+\end{definition}
+
+\begin{remark}
+Note that the words \emph{congruent}, \emph{vertical}, \emph{equal}, and
+\emph{supplementary} refer to relations between two objects, not to their
+properties. That is, it makes no sense to say that $\ang{A}$ is a vertical
+angle, or a congruent angle, or a supplementary angle. At times, we refer to
+two angles $A$ and $B$ as equal angles, or vertical angles, or congruent
+angles, etc. What we really mean is that $\ang{A}$ is equal to $\ang{B}$,
+$\ang{A}$ is vertical to $\ang{B}$, $\ang{A}$ is congruent to $\ang{B}$, etc.
+It is important to distinguish between properties and relations.
+\end{remark}
+
+\exercisegroup{6--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item If an angle is a right angle, what is its supplement?
+\item If $\ang{1} \cong \ang{2}$ in Fig.~6--13, prove that $\ang{EAC} \cong
+  \ang{DAB}$.
+\item In Fig.~6--14 it is given that $\ang{B}$ is congruent to the supplement
+  of $\ang{C}$ and $\ang{C} \cong \ang{D}$. Prove that $\ang{A} \cong \ang{E}$.
+\item[\stex 4.] An angle is congruent to a right angle. Show that it, too, is a
+  right angle.
+\item[5.] In Fig.~6--15, the line $CD$ bisects $\ang{AOB}$. Show that it also
+  bisects $\ang{EOF}$. (By ``bisect'' we mean that $\ang{AOC} \cong \ang{COB}$.)
+\item[6.] Decide whether the following words refer to properties or relations:
+  perpendicular, parallel, vertex, altitude, greater than, angle, segment,
+  median, right (angle), straight (angle), bisector.
+\end{exlist}
+\end{multicols}
+
+\FIGVITHIRTEENFOURTEENFIFTEEN
+
+%========================================================= 6-5
+\section*{6--5\quad POSTULATE V--4, THE SIDE-ANGLE-SIDE POSTULATE}
+\addcontentsline{toc}{section}{6--5\quad Postulate V--4, the side-angle-side postulate}
+
+This postulate (abbreviated S.A.S.) is one that combines congruence of segments
+with congruence of angles. Up to this point, we have the two kinds of
+congruence but no relationship between them. This is the connecting link that
+will enable us to prove many theorems.
+
+\medskip
+\noindent
+V--4 If two triangles, $\tri{ABC}$ and $\tri{A\VIpr B\VIpr C\VIpr}$, are such
+that $AB \cong A\VIpr B\VIpr$, $AC \cong A\VIpr C\VIpr$, and $\ang{A} \cong
+\ang{A\VIpr}$, then $\ang{B} \cong \ang{B\VIpr}$ and $\ang{C} \cong
+\ang{C\VIpr}$ (Fig.~6--16).
+\medskip
+
+\FIGVISIXTEEN
+
+This postulate tells us that if two triangles have two sides of one congruent
+to two sides of the other, and if the angles formed by these two sides (called
+the \emph{included} angles) are congruent to each other, then the other pairs
+of corresponding angles are congruent.
+
+\exercisegroup{6--5}
+\begin{multicols}{2}
+\begin{exlist}
+\item In Fig.~6--17, if $AB \cong DF$, $BC \cong DE$, and $\ang{B} \cong
+  \ang{D}$, what angle is congruent to $\ang{A}$? to $\ang{C}$?
+\item In Fig.~6--18, if $PQ = US$, $QR = UT$, and $\ang{Q} \cong \ang{U}$, what
+  congruences hold?
+\item Draw figures to show that if $AB \cong A\VIpr B\VIpr$, and $\ang{A} \cong
+  \ang{A\VIpr}$, but $AC \not\cong A\VIpr C\VIpr$ (the symbol $\not\cong$ is
+  read ``is not congruent to''), then it need not be true that $\ang{C} \cong
+  \ang{C\VIpr}$.
+\item Draw figures to show that if $AB \cong A\VIpr B\VIpr$, and $AC \cong
+  A\VIpr C\VIpr$, but $\ang{A} \not\cong \ang{A\VIpr}$, then it need not be
+  true that $\ang{B} \cong \ang{B\VIpr}$.
+\item If, in the figure $AC \cong AD$, and $\ang{CAB} \cong \ang{BAD}$, prove
+  that $\ang{C} \cong \ang{D}$. (Fig.~6--19)
+\item If, in the figure, $DO \cong OB$, and $AO \cong OC$, prove that $\ang{A}
+  \cong \ang{C}$. (Fig.~6--20)
+\item If, in the figure, $AB \cong CD$, and $\ang{CBA} \cong \ang{BCD}$, prove
+  that $\ang{CAB} \cong \ang{BDC}$. (Fig.~6--21)
+\item If, in the figure, $AD \cong BD$, and $\ang{ADC}$ is a right angle, prove
+  that $\ang{A} \cong \ang{B}$. (Fig.~6--22)
+\item \VIgp{$\ang{EBC} \cong \ang{ABD}$,\\ $AB \cong BC$,\\ $BE \cong BD$.}%
+  {$\ang{A} \cong \ang{C}$.\\ \hbox{}\hfill(Fig.~6--23)}
+\item \VIgp{$AD \cong DC$,\\ $\ang{1} \cong \ang{C}$,\\ $\ang{2} \cong
+  \ang{C}$.}{$\ang{3} \cong \ang{4}$.\\ \hbox{}\hfill(Fig.~6--24)}
+\item \VIgp{$\ang{1} \cong \ang{2}$,\\ $\ang{BCF} \cong \ang{ADF}$,\\ $CG \cong
+  HD$,\\ $CF \cong DF$.}{$\ang{3} \cong \ang{4}$.\\ \hbox{}\hfill(Fig.~6--25)}
+\item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AE \cong CD$,\\ $AB \cong BC$.}%
+  {$\ang{E} \cong \ang{D}$.\\ \hbox{}\hfill(Fig.~6--26)}
+\item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AC \cong BC$,\\ $AM \cong BM$.}%
+  {$\ang{3} \cong \ang{4}$.\\ \hbox{}\hfill(Fig.~6--27)}
+\item \VIgp{$\ang{ADC} \cong \ang{ABC}$,\\ $\ang{1} \cong \ang{2}$,\\ $AD \cong
+  BC$.}{$\ang{A} \cong \ang{C}$.\\ \hbox{}\hfill(Fig.~6--28)}
+\item \VIgp{$AD \cong DC$,\\ $\ang{1} \cong \ang{2}$.}{$\ang{A} \cong
+  \ang{C}$.\\ \hbox{}\hfill(Fig.~6--29)}
+\item[\stex 16.] \VIgp{$BF \cong ED$,\\ $AE \cong CF$,\\ $\ang{1} \cong
+  \ang{2}$.}{$\ang{3} \cong \ang{4}$,\\ $\ang{5} \cong \ang{6}$.\\
+  \hbox{}\hfill(Fig.~6--30)}
+\item[\stex 17.] \VIgp{$AB \cong AD$,\\ $BO \cong OD$,\\ $\ang{OAB} \cong
+  \ang{OAD}$.}{$\ang{1} \cong \ang{2}$.\\ \hbox{}\hfill(Fig.~6--31)}
+\end{exlist}
+\end{multicols}
+
+\FIGVISEVENTEENEIGHTEEN
+
+\FIGVININETEENTWENTY
+
+\FIGVITWENTYONETWENTYTWO
+
+\FIGVITWENTYTHREETWENTYFOUR
+
+\FIGVITWENTYFIVETWENTYSIXTWENTYSEVEN
+
+\FIGVITWENTYEIGHTTWENTYNINE
+
+\FIGVITHIRTYTHIRTYONE
+
+%========================================================= 6-6
+\section*{6--6\quad ISOSCELES TRIANGLES}
+\addcontentsline{toc}{section}{6--6\quad Isosceles triangles}
+
+We can now prove a theorem about isosceles triangles, for which we need a
+definition. The definition of isosceles triangle is the same as that given in
+Chapter 1, Exercise Group 1--4:
+
+\begin{definition}
+A triangle is called \emph{isosceles} if two of its sides are congruent (of
+equal length). The \emph{base angles} of the triangle are those opposite the
+congruent sides.
+\end{definition}
+
+\begin{theorem}
+In every isosceles triangle, the base angles are congruent to each other.
+\end{theorem}
+
+\emph{Proof.} Consider any isosceles triangle, and label the vertices in two
+different ways, as shown in Fig.~6--32. Let $AB \cong AC$. Let us look at
+the triangle both as $\tri{ABC}$ and as $\tri{A\VIpr B\VIpr C\VIpr}$. We have
+$AB \cong AC \cong A\VIpr B\VIpr$, and $AC \cong AB = A\VIpr C\VIpr$, and
+$\ang{A} \cong \ang{A\VIpr}$. Therefore, by the S.A.S. postulate, $\ang{B}
+\cong \ang{B\VIpr}$, that is, $\ang{B} \cong \ang{C}$.
+
+This proof is quite interesting because it illustrates very well how good
+notation can help. In the proof we look at the same triangle in two different
+ways, and once we have done this, the proof is very short.
+
+\FIGVITHIRTYTWO
+
+\begin{definition}
+A \emph{midpoint} of a segment $AB$ is a point $M$ of the segment, such that
+$AM \cong MB$.
+\end{definition}
+
+\exercisegroup{6--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Using Theorem 6--3, prove that an equilateral triangle is equiangular.
+\item If $PQ = PR$, and $\ang{Q}$ is $44^\circ$, how many degrees in $\ang{R}$?
+  (We have not yet studied degrees in our geometry, but for this problem you
+  may use what you already know from Chapter 1.) (Fig.~6--33)
+\item If, in the figure, $AB \cong AC$ and $BD \cong DC$, prove that
+  \begin{center}
+  $\ang{ABC} \cong \ang{ACB}$,\\ $\ang{CBD} \cong \ang{BCD}$,\\
+  $\ang{ABD} \cong \ang{ACD}$.\\ \hbox{}\hfill(Fig.~6--34)
+  \end{center}
+\item \VIgp{$AC \cong BC$,\\ $AD \cong DB$.}{$\ang{1} \cong \ang{2}$.\\
+  \hbox{}\hfill(Fig.~6--35)}
+\item \VIgp{$\ang{ABC} \cong \ang{ABE}$,\\ $CB \cong BE$.}{$\ang{C} \cong
+  \ang{E}$.\\ \hbox{}\hfill(Fig.~6--36)}
+\item \VIgp{$AC \cong DF$,\\ $BD \cong CE$,\\ $\ang{1} \cong \ang{2}$.}%
+  {$\ang{A} \cong \ang{F}$.\\ \hbox{}\hfill(Fig.~6--37)}
+\item In the figure $AD \cong EC$, and $BE \cong BD$. Show that $\ang{A} \cong
+  \ang{C}$. (Fig.~6--38)
+\item \VIgp{$RS \cong RT$,\\ $US \cong UT$.}{$\ang{RSU} \cong \ang{RTU}$.\\
+  \hbox{}\hfill(Fig.~6--39)}
+\item \VIgp{$AC \cong BC$,\\ $CD \cong CE$.}{$\ang{1} \cong \ang{2}$.\\
+  \hbox{}\hfill(Fig.~6--40)}
+\item \VIgp{$AO \cong OD$,\\ $AF \cong FD$,\\ $BO \cong OC$,\\ $BF \cong FC$.}%
+  {$\ang{EAB} \cong \ang{EDC}$.\\ \hbox{}\hfill(Fig.~6--41)}
+\item In the figure, $AC \cong BC$, $CG \cong CF$, and $\ang{1} \cong \ang{2}$.
+  Prove that $\ang{3} \cong \ang{4}$. (Fig.~6--42)
+\end{exlist}
+\end{multicols}
+
+\FIGVITHIRTYTHREETHIRTYFOURTHIRTYFIVE
+
+\FIGVITHIRTYSIXTHIRTYSEVEN
+
+\FIGVITHIRTYEIGHTTHIRTYNINE
+
+\FIGVIFORTYFORTYONEFORTYTWO
+
+%========================================================= 6-7
+\section*{6--7\quad CONGRUENCE OF TRIANGLES}
+\addcontentsline{toc}{section}{6--7\quad Congruence of triangles}
+
+We now define congruence for triangles and prove some theorems.
+
+\begin{definition}
+Two triangles are said to be \emph{congruent} to each other if they can be
+labeled $\tri{ABC}$ and $\tri{A\VIpr B\VIpr C\VIpr}$, such that
+$AB \cong A\VIpr B\VIpr$, $AC \cong A\VIpr C\VIpr$, $BC \cong B\VIpr C\VIpr$,
+$\ang{A} \cong \ang{A\VIpr}$, $\ang{B} \cong \ang{B\VIpr}$, and $\ang{C} \cong
+\ang{C\VIpr}$. We then write $\tri{ABC} \cong \tri{A\VIpr B\VIpr C\VIpr}$ and
+read this as ``triangle $ABC$ is congruent to triangle $A\VIpr B\VIpr
+C\VIpr$.'' $\ang{A}$ corresponds to $\ang{A\VIpr}$, $\ang{B}$ to
+$\ang{B\VIpr}$, side $AC$ to side $A\VIpr C\VIpr$, etc.
+\end{definition}
+
+\exercise{6--7}
+Prove that congruence of triangles is transitive.
+
+\begin{theorem}
+If the vertices of two triangles may be labeled $A$, $B$, $C$ and $A\VIpr$,
+$B\VIpr$, $C\VIpr$, such that $AB \cong A\VIpr B\VIpr$, $AC \cong A\VIpr
+C\VIpr$, $\ang{A} \cong \ang{A\VIpr}$, then $\tri{ABC} \cong \tri{A\VIpr
+B\VIpr C\VIpr}$.
+\end{theorem}
+
+\begin{remark}
+This is the first of the three congruence theorems for triangles. It may also
+be stated as follows: \emph{if two triangles are such that two sides and the
+included angle of one are congruent, respectively, to two sides and the
+included angle of the other, then the triangles are congruent.} This theorem
+is often called the ``side-angle-side theorem'' and is abbreviated S.A.S.
+\end{remark}
+
+\emph{Proof.} From the S.A.S. postulate, we know that $\ang{B} \cong
+\ang{B\VIpr}$ and $\ang{C} \cong \ang{C\VIpr}$. It only remains to be shown
+that the third sides are congruent, that is, that $BC \cong B\VIpr C\VIpr$. We
+prove this by considering the point $D\VIpr$ on ray $C\VIpr B\VIpr$, such that
+$CB \cong C\VIpr D\VIpr$, as in Fig.~6--43, and then showing that $D\VIpr =
+B\VIpr$.
+
+\FIGVIFORTYTHREE
+
+\begin{steps}
+\step{There is a point $D\VIpr$ on the ray $C\VIpr B\VIpr$ such that $CB \cong
+      C\VIpr D\VIpr$.}{Existence postulate for segments.}
+\step{$AC \cong A\VIpr C\VIpr$, and $AB \cong A\VIpr B\VIpr$.}{Given.}
+\step{$\ang{B\VIpr A\VIpr C\VIpr} \cong \ang{BAC}$.}{Given.}
+\step{$\ang{C} \cong \ang{C\VIpr}$, and $\ang{B} \cong \ang{B\VIpr}$.}{S.A.S. postulate.}
+\step{$\ang{BAC} \cong \ang{D\VIpr A\VIpr C\VIpr}$.}{By S.A.S. postulate, considering
+      $\tri{ACB}$ and $\tri{A\VIpr C\VIpr D\VIpr}$.}
+\step{Ray $A\VIpr B\VIpr$ is the same as the ray $A\VIpr D\VIpr$.}{Existence postulate for angles.}
+\step{$B\VIpr = D\VIpr$.}{The lines $A\VIpr B\VIpr$ and
+      $B\VIpr C\VIpr$ intersect in exactly one point by Theorem 3--1. This
+      point is $B\VIpr$ and is also $D\VIpr$.}
+\step{$BC \cong B\VIpr C\VIpr$.}{Statements 1 and 7.}
+\step{$\tri{ABC} \cong \tri{A\VIpr B\VIpr C\VIpr}$.}{Definition 6--4.}
+\end{steps}
+
+In the exercises that follow we will make use of the congruence theorems. In
+some exercises it will be convenient to know that \emph{``halves'' of congruent
+segments are congruent to each other}. That is, if $AB \cong CD$ and $M$ and $N$
+are midpoints of $AB$ and $CD$ respectively, then $AM \cong CN$. To see this we
+note that $\sg{AB} = \sg{CD}$ and by the properties of numbers $\sg{AM} =
+\sg{CN}$ so that $AM \cong CN$.
+
+\exercisegroup{6--8}
+\begin{multicols}{2}
+\begin{exlist}
+\item Given the figure, let $\ang{1} \cong \ang{2}$ and $AB \cong BC$. Prove
+  that $AD \cong DC$. (Fig.~6--44)
+\item Given the figure, let $\ang{1} \cong \ang{2}$ and $EF \cong GH$. Prove
+  that $\tri{EGH} = \tri{HFE}$. (Fig.~6--45)
+\item Given the figure, let $AC \cong AD$ and $AB$ bisect $\ang{A}$. Prove that
+  $\ang{CBA} \cong \ang{DBA}$. (Fig.~6--46)
+\item Given the figure, let $AB \cong AD$ and $BC \cong CD$. Prove that
+  $\tri{ABC} \cong \tri{ADC}$. (Fig.~6--47)
+\item If, in the figure, $AB \cong AC$, $D$ is the midpoint of $AB$, and $E$ is
+  the midpoint of $AC$, prove that $\tri{ABE} \cong \tri{ACD}$. (Fig.~6--48)
+\item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that
+  $\ang{ABC} \cong \ang{ADC}$ and $\ang{BAC} \cong \ang{DAC}$. (Fig.~6--49)
+\item In the figure, $AB \cong BC$, and $D$, $E$ are the midpoints of $AB$ and
+  $BC$ respectively. Prove that $AE \cong CD$. (Fig.~6--50)
+\item Given: $EB \cong BD$, $B$ is the midpoint of $AC$, and $\ang{EBC} \cong
+  \ang{DBA}$. Prove that $AE \cong CD$. (Fig.~6--51)
+\item Prove that $BD \cong AC$ if $\ang{DAB} \cong \ang{CBA}$ and $AD \cong
+  BC$. (Fig.~6--52)
+\item In the figure, $AD \cong EC$, and $BE \cong BD$. Prove that $\tri{ABC}$
+  is isosceles. (Fig.~6--53)
+\item A farmer, wishing to find the distance between posts at $A$ and $B$ on
+  opposite sides of a barn, does the following. He places a stake at $C$, and
+  on the line through $B$ and $C$ places a stake at $D$, such that $\sg{BC} =
+  \sg{DC}$. Then on the line through $A$ and $C$, he places a stake at $E$,
+  such that $\sg{AC} = \sg{CE}$. He measures $DE$ and finds the length is
+  78~ft. Prove that $\sg{AB} = 78$~ft. (Fig.~6--54)
+\end{exlist}
+\end{multicols}
+
+\FIGVIFORTYFOURFORTYFIVE
+
+\FIGVIFORTYSIXFORTYSEVEN
+
+\FIGVIFORTYEIGHTFORTYNINE
+
+\FIGVIFIFTYFIFTYONE
+
+\FIGVIFIFTYTWOFIFTYTHREEFIFTYFOUR
+
+%========================================================= 6-8
+\section*{6--8\quad THE SECOND CONGRUENCE THEOREM}
+\addcontentsline{toc}{section}{6--8\quad The second congruence theorem}
+
+The first congruence theorem was the side-angle-side theorem (S.A.S.). The
+second one says that two triangles are congruent if two angles and the included
+side of one are, respectively, congruent to two angles and the included side of
+the other. This theorem is called the ``angle-side-angle theorem'' and is
+abbreviated A.S.A.
+
+\begin{theorem}
+If two triangles $\tri{ABC}$ and $\tri{A\VIpr B\VIpr C\VIpr}$ are such that
+$\ang{A} \cong \ang{A\VIpr}$, $\ang{C} \cong \ang{C\VIpr}$, and $AC \cong
+A\VIpr C\VIpr$, then $\tri{ABC} \cong \tri{A\VIpr B\VIpr C\VIpr}$.
+\end{theorem}
+
+\FIGVIFIFTYFIVE
+
+\emph{Proof.} We consider the point $D\VIpr$ on the ray $A\VIpr B\VIpr$
+(Fig.~6--55), such that $AB \cong A\VIpr D\VIpr$. Then it is true that
+$\tri{ABC} \cong \tri{A\VIpr D\VIpr C\VIpr}$. (Why?) Then, if $D\VIpr \neq
+B\VIpr$, we have both $\ang{D\VIpr C\VIpr A\VIpr}$ and $\ang{B\VIpr C\VIpr
+A\VIpr}$ congruent to $\ang{C}$. This is impossible, so $B\VIpr = D\VIpr$.
+
+\begin{steps}
+\step{There is a point $D\VIpr$ on the ray $A\VIpr B\VIpr$, such that $AB \cong
+      A\VIpr D\VIpr$.}{Existence postulate for segments.}
+\step{$\ang{A} \cong \ang{A\VIpr}$, $AC \cong A\VIpr C\VIpr$.}{Given.}
+\step{$\ang{C} \cong \ang{D\VIpr C\VIpr A\VIpr}$.}{S.A.S. postulate, applied to
+      $\tri{ABC}$ and $\tri{A\VIpr D\VIpr C\VIpr}$.}
+\step{$\ang{C} \cong \ang{B\VIpr C\VIpr A\VIpr}$.}{Given.}
+\step{Ray $C\VIpr D\VIpr$ $=$ ray $C\VIpr B\VIpr$.}{Existence postulate for angles.}
+\step{$D\VIpr = B\VIpr$.}{Two lines intersect in at most
+      one point.}
+\step{$\tri{ABC} \cong \tri{A\VIpr B\VIpr C\VIpr}$.}{S.A.S. theorem.}
+\end{steps}
+
+\exercisegroup{6--9}
+\begin{multicols}{2}
+\begin{exlist}
+\item If, in the figure, $\ang{1} \cong \ang{2}$, and $\ang{3} \cong \ang{4}$,
+  prove that $\tri{ABD} \cong \tri{CBD}$. (Fig.~6--56)
+\item If, in the figure, $\ang{1} \cong \ang{2}$, and $\ang{3} \cong \ang{4}$,
+  prove that $AB = CD$. (Fig.~6--57)
+\item If, in the figure, $\ang{1} \cong \ang{2}$, and $AB \cong BC$, prove that
+  $AE \cong DC$. (Fig.~6--58)
+\item Draw a triangle. Let one angle be $31^\circ$, a second angle be
+  $53^\circ$, and their included side be 7 inches.
+\item If, in the figure, $\ang{ABC} \cong \ang{ABE}$, and $\ang{CDB} \cong
+  \ang{EDB}$, prove that $CD \cong ED$. (Fig.~6--59)
+\item If, in the figure, $AB \cong BC$, and $\ang{A} \cong \ang{C}$, prove that
+  $\tri{ABD} \cong \tri{CBE}$. (Fig.~6--60)
+\item If, in the figure, $\ang{A} \cong \ang{D}$ and $AB \cong BD$, prove that
+  $AE \cong CD$. (Fig.~6--61)
+\item If, in the figure, $AF \cong CD$, $\ang{A} \cong \ang{D}$, and
+  $\ang{ACB} \cong \ang{DFE}$, prove that $\tri{ABC} \cong \tri{DEF}$.
+  (Fig.~6--62)
+\item Draw triangles $ABC$ whose parts are:
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+  \item $\ang{A} = 36^\circ$; $\ang{B} = 45^\circ$; $AB = 3$ in.
+  \item $\ang{A} = 60^\circ$; $\ang{C} = 30^\circ$; $AC = 4$ in.
+  \item $\ang{C} = 33^\circ$; $\ang{B} = 33^\circ$; $BC = 5/2$ in.
+  \end{enumerate}
+\item \VIgp{$\ang{3} \cong \ang{4}$,\\ $AB \cong AD$,\\ $AC$ bisects
+  $\ang{BAD}$.}{$BC \cong CD$.\\ \hbox{}\hfill(Fig.~6--63)}
+\item In the figure, $AF \cong FB$, and $AE \cong DB$. Prove that $\ang{3}
+  \cong \ang{4}$. (Fig.~6--64)
+\item Prove that $\ang{1} \cong \ang{2}$ if $AB \cong BC$ and $AD \cong DC$.
+  (Fig.~6--65)
+\item If $AH \cong HB$, and $AG \cong GB$, prove that $\ang{3} \cong \ang{4}$.
+  (Fig.~6--66)
+\item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AC \cong BC$,\\ $DF \cong EG$.}%
+  {$\tri{HIJ}$ is isosceles.\\ \hbox{}\hfill(Fig.~6--67)}
+\end{exlist}
+\end{multicols}
+
+\FIGVIFIFTYSIX
+
+\FIGVIFIFTYSEVENFIFTYEIGHT
+
+\FIGVIFIFTYNINESIXTY
+
+\FIGVISIXTYONESIXTYTWOSIXTYTHREE
+
+\FIGVISIXTYFOURSIXTYFIVE
+
+\FIGVISIXTYSIXSIXTYSEVEN
+
+In Section 6--6 we proved that the base angles of an isosceles triangle are
+congruent. We can now easily prove the converse.
+
+\begin{theorem}
+If a triangle has two angles congruent to each other, then the sides opposite
+these angles are congruent.
+\end{theorem}
+
+\emph{Proof.} Suppose that the triangle is $\tri{ABC}$, and that $\ang{A} \cong
+\ang{C}$. Let the vertices be labeled $A\VIpr$, $B\VIpr$, $C\VIpr$, as in
+Fig.~6--68. Then we have $\ang{A} \cong \ang{C} \cong \ang{A\VIpr}$, and
+$\ang{C} \cong \ang{A} \cong \ang{C\VIpr}$, and $AC \cong CA \cong A\VIpr
+C\VIpr$. Hence by the A.S.A. congruence theorem, $\tri{ABC} \cong \tri{A\VIpr
+B\VIpr C\VIpr}$. Therefore $AB \cong A\VIpr B\VIpr \cong CB$.
+
+\FIGVISIXTYEIGHT
+
+\exercise{6--10}
+Prove that an equiangular triangle is equilateral.
+
+%========================================================= 6-9
+\section*{6--9\quad THE THIRD CONGRUENCE THEOREM}
+\addcontentsline{toc}{section}{6--9\quad The third congruence theorem}
+
+The two previous congruence theorems were the S.A.S. and A.S.A. theorems. The
+third of the three fundamental congruence theorems states that two triangles
+are congruent if the sides of one are congruent to the sides of the other. It
+is called the ``side-side-side theorem'' and is abbreviated S.S.S.
+
+\begin{theorem}
+If the sides of one triangle are congruent, respectively, to the sides of
+another triangle, then the triangles are congruent.
+\end{theorem}
+
+\FIGVISIXTYNINE
+
+\emph{Proof.} Suppose that the triangles are labeled $\tri{ABC}$ and
+$\tri{A\VIpr B\VIpr C\VIpr}$, as in Fig.~6--69(a) and 6--69(b), and that $AB
+\cong A\VIpr B\VIpr$, $AC \cong A\VIpr C\VIpr$, and $BC \cong B\VIpr C\VIpr$.
+We have only to prove that the angles are congruent. There is a ray $AD$, as in
+Fig.~6--69(c), from $A$ on the opposite side of $AC$ from $B$, such that
+$\ang{DAC} \cong \ang{A\VIpr}$. On $AD$, there is a point $E$, such that $AE
+\cong A\VIpr B\VIpr$.
+
+\begin{steps}
+\step{$\ang{EAC} \cong \ang{A\VIpr}$.}{The ray $AE$ was chosen this way.}
+\step{$AE \cong A\VIpr B\VIpr$.}{$E$ was so chosen.}
+\step{$AC \cong A\VIpr C\VIpr$.}{Given.}
+\step{$\tri{AEC} \cong \tri{A\VIpr B\VIpr C\VIpr}$.}{S.A.S. theorem.}
+\end{steps}
+
+Now consider the segment $BE$ and the triangles $ABE$ and $BEC$, as in
+Fig.~6--70.
+
+\FIGVISEVENTY
+
+\begin{steps}
+\stepx{5}{$\tri{ABE}$ is isosceles.}{$AB \cong A\VIpr B\VIpr
+      \cong AE$.}
+\stepx{6}{$\ang{1} \cong \ang{3}$.}{Statement 5 and Theorem 6--3.}
+\stepx{7}{$\ang{2} \cong \ang{4}$.}{Same argument as used for
+      $\ang{1}$ and $\ang{3}$.}
+\stepx{8}{$\ang{B} \cong \ang{E}$.}{Addition of angles postulate.}
+\stepx{9}{$\tri{ABC} \cong \tri{AEC}$.}{S.A.S. theorem.}
+\stepx{10}{$\tri{ABC} \cong \tri{A\VIpr B\VIpr C\VIpr}$.}{Statements 4 and 9.}
+\end{steps}
+
+\begin{remark}
+In our proof, we have tacitly assumed that $BE$ intersects the segment $AC$ at
+a point between $A$ and $C$. This need not be the case. We could have either
+Fig.~6--71(a) or 6--71(b).
+
+\par\medskip\noindent\emph{Problem.} Prove both cases.
+\end{remark}
+
+\FIGVISEVENTYONE
+
+\exercisegroup{6--11}
+\begin{multicols}{2}
+\begin{exlist}
+\item You can conclude from Theorem 6--7 that a triangle is \emph{rigid}. Why?
+  Why is a brace put on a gate? (Fig.~6--72)
+\item If, in the figure, $\sg{AB} = \sg{BC}$, and $\sg{AD} = \sg{DC}$, prove
+  that $\ang{ABD} \cong \ang{DBC}$. (Fig.~6--73)
+\item If, in the figure, $\sg{AB} = \sg{DC}$, and $AD \cong BC$, prove that
+  $\ang{CAB} \cong \ang{ACD}$ and $\ang{D} = \ang{B}$. (Fig.~6--74)
+\item If, in the figure, $AB \cong BC$, and $AD \cong DC$, prove that $BD$
+  bisects $\ang{ABC}$. (Fig.~6--75)
+\item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that $\ang{1}
+  \cong \ang{2}$, $\tri{ABE} \cong \tri{ADE}$, and $\ang{AEB}$ is a right
+  angle. (Fig.~6--76)
+\item If, in the figure, $\sg{AB} = \sg{CD}$, and $\sg{BC} = \sg{AD}$, and
+  $\sg{AF} = \sg{EC}$, prove that $\sg{BF} = \sg{ED}$. (Fig.~6--77)
+\item If, in the figure, $\tri{ABC}$ is isosceles with vertex $B$, and $AD
+  \cong EC$, prove that $BE \cong BD$. (Fig.~6--78)
+\item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that $\ang{B}
+  \cong \ang{D}$. (Fig.~6--79)
+\item \VIgp{$CE \cong CF$,\\ $AE \cong BF$,\\ $AD \cong BD$.}{$\ang{1} \cong
+  \ang{2}$.\\ \hbox{}\hfill(Fig.~6--80)}
+\item \VIgp{$\ang{1} \cong \ang{2}$,\\ $\ang{DCE} \cong \ang{DCF}$,\\ $AC \cong
+  BC$.}{$AD \cong BD$.\\ \hbox{}\hfill(Fig.~6--81)}
+\item If $AC \cong BD$, and $AD \cong BC$, show that $\ang{C} \cong \ang{D}$.
+  (Fig.~6--82)
+\item If $AB \cong BC$, and $BD \cong BE$, show that $\ang{A} \cong \ang{C}$.
+  (Fig.~6--83)
+\item \VIgp{$AC \cong BC$,\\ $AD \cong DB$.}{$AO \cong BO$.\\
+  \hbox{}\hfill(Fig.~6--84)}
+\item Prove that $AD \cong BE$ if $AC \cong BC$ and $\ang{1} \cong \ang{2}$.
+  (Fig.~6--85)
+\item \VIgp{$AD \cong BC$,\\ $AB \cong DC$,\\ $AM \cong MC$.}{$EM \cong MF$.\\
+  \hbox{}\hfill(Fig.~6--86)}
+\item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AE \cong DB$.}{$\ang{3} \cong
+  \ang{4}$.\\ \hbox{}\hfill(Fig.~6--87)}
+\item \VIgp{$BE \cong CE$,\\ $\ang{1} \cong \ang{2}$.}{$\ang{3} \cong
+  \ang{4}$.\\ \hbox{}\hfill(Fig.~6--88)}
+\item Prove that the medians from the base angles of an isosceles triangle are
+  congruent.
+\item \VIgp{$AD \cong BC$,\\ $AB \cong CD$,\\ $\ang{1} \cong \ang{2}$.}%
+  {$DE \cong BF$.\\ \hbox{}\hfill(Fig.~6--89)}
+\item \VIgp{$AD \cong CB$,\\ $BD \cong AC$.}{$\tri{DEC}$ is isosceles.\\
+  \hbox{}\hfill(Fig.~6--90)}
+\item \VIgp{$AB \cong CD$,\\ $AE \cong CF$,\\ $\ang{3} \cong \ang{4}$.}%
+  {$\ang{1} \cong \ang{2}$.\\ \hbox{}\hfill(Fig.~6--91)}
+\item If triangles $ABC$ and $ADE$ are isosceles with vertex $A$, and $\ang{1}
+  \cong \ang{2}$, prove that $\ang{3} \cong \ang{4}$, $FG \cong FH$, and $GI
+  \cong HJ$. (Fig.~6--92)
+\item Prove that the line joining the vertex of an isosceles triangle to the
+  midpoint of the base bisects the vertex angle, and conversely.
+\end{exlist}
+\end{multicols}
+
+\FIGVISEVENTYTWOSEVENTYTHREESEVENTYFOUR
+
+\FIGVISEVENTYFIVESEVENTYSIX
+
+\FIGVISEVENTYSEVENSEVENTYEIGHT
+
+\FIGVISEVENTYNINEEIGHTY
+
+\FIGVIEIGHTYONEEIGHTYTWO
+
+\FIGVIEIGHTYTHREEEIGHTYFOUR
+
+\FIGVIEIGHTYFIVEEIGHTYSIX
+
+\FIGVIEIGHTYSEVENEIGHTYEIGHT
+
+\FIGVIEIGHTYNINE
+
+\FIGVININETYNINETYONE
+
+\FIGVININETYTWO
+
+%========================================================= 6-10
+\section*{6--10\quad RIGHT ANGLES}
+\addcontentsline{toc}{section}{6--10\quad Right angles}
+
+In Definition 6--1 we defined right angles, but so far \emph{we do not know
+that there are such angles}. We now show how to use our congruence theorem
+(S.A.S.) to show that there is a right angle in our geometry.
+
+\FIGVININETYTHREE
+
+\emph{Proof.} On a line $l$, choose a point $O$ and let $\ang{AOB}$ be an angle
+(not straight) with one side on $l$ (Fig.~6--93). Now consider the angle
+congruent to $\ang{AOB}$, with vertex $O$, one side $OB$ on the line $l$ and
+the other on the opposite side of $l$ from $A$. Choose the point $A\VIpr$ on
+this last side, such that $OA \cong OA\VIpr$. Because $A$ and $A\VIpr$ are on
+opposite sides of $l$, the segment $AA\VIpr$ intersects the line in some point
+$C$. There are three cases to consider, as shown in Fig.~6--94.
+
+\FIGVININETYFOUR
+
+If $C$ is on the same side of $O$ as $B$, then by the S.A.S. theorem,
+$\tri{AOC} \cong \tri{A\VIpr OC}$. Hence $\ang{OCA} \cong \ang{OCA\VIpr}$.
+Since these angles are congruent and supplementary to each other, they are
+right angles. In case $C = O$, we have $\ang{AOB} \cong \ang{A\VIpr OB}$, and
+hence they are right angles. If $C$ is on the opposite side of $O$ from $B$,
+then the angles $AOC$ and $A\VIpr OC$ are congruent. (Why?) We may apply the
+S.A.S. congruence theorem. $\ang{ACO} \cong \ang{A\VIpr CO}$, and these are
+right angles.
+
+\exercisegroup{6--12}
+\begin{multicols}{2}
+\begin{exlist}
+\item Perform a construction to draw a right angle.
+\item If, in the figure, $PQ \cong PS$, and $\ang{QPR} \cong \ang{SPR}$, prove
+  that $\ang{PRQ}$ is a right angle. (Fig.~6--95)
+\item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that
+  $\ang{AEB}$ is a right angle. (Fig.~6--96)
+\end{exlist}
+\end{multicols}
+
+\FIGVININETYFIVENINETYSIX
+
+%========================================================= 6-11
+\section*{6--11\quad INEQUALITIES FOR ANGLES}
+\addcontentsline{toc}{section}{6--11\quad Inequalities for angles}
+
+Even before studying geometry you used angles of the same size and compared
+angles of different sizes (by saying, for example, that one angle is larger
+than another). In this section, we see how to compare the sizes of angles. To
+do this, we have to define $>$ (is greater than) and $<$ (is less than) for
+angles. The idea we use in forming this definition is illustrated in
+Fig.~6--97. If $\ang{B\VIpr}$ is congruent to $\ang{B}$, and $\ang{B\VIpr}$ and
+$\ang{A}$ are as drawn (that is, the other side of $\ang{B\VIpr}$ is \emph{in
+the interior} of $\ang{A}$), then we would say that $\ang{B} < \ang{A}$. In
+Fig.~6--97, we have, so to speak, ``moved'' $\ang{B}$ to the position of
+$\ang{B\VIpr}$ for comparison. Notice how the definition below parallels the
+definition of ``greater than'' and ``less than'' for segments.
+
+\FIGVININETYSEVEN
+
+\begin{definition}
+Let $A$ and $B$ be any angles not straight angles. Let $\ang{B\VIpr}$ be an
+angle congruent to $\ang{B}$, such that one side of $\ang{B\VIpr}$ is the same
+as the first side of $\ang{A}$, and the other side of $\ang{B\VIpr}$ and the
+second side of $\ang{A}$ both lie on the same side of the first side of
+$\ang{A}$.
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=2pt, topsep=3pt]
+\item If the second side of $\ang{B\VIpr}$ is interior to $\ang{A}$, we say
+  that $\ang{B} < \ang{A}$. (See Fig.~6--98.)
+\item If the second side of $\ang{B\VIpr}$ is exterior to $\ang{A}$, we say
+  that $\ang{B} > \ang{A}$. (See Fig.~6--99.)
+\item If $\ang{A}$ is a straight angle, and $\ang{B}$ is not, we say that
+  $\ang{A} > \ang{B}$ and that $\ang{B} < \ang{A}$.
+\end{enumerate}
+\end{definition}
+
+\FIGVININETYEIGHTNINETYNINE
+
+Our intuition tells us that if $\ang{B} < \ang{A}$, then $\ang{A} > \ang{B}$,
+and if $\ang{B} > \ang{A}$, then $\ang{A} < \ang{B}$. These statements require
+proof. Since the proofs of these statements are essentially the same, we prove
+only the first.
+
+\begin{theorem}
+If $\ang{B}$ and $\ang{A}$ are two angles, such that $\ang{B} < \ang{A}$, then
+$\ang{A} > \ang{B}$.
+\end{theorem}
+
+\VIstarnote{*This proof is difficult. If the teacher wishes, Theorem 6--8 may
+be treated as a postulate.}
+
+\stex\emph{Proof.} Figure 6--100 shows that $\ang{B} < \ang{A}$. To show that
+$\ang{A} > \ang{B}$, we must show that the second side of $\ang{A\VIpr}$ is in
+the exterior of $\ang{B}$, as in Fig.~6--101.
+
+\FIGVIONEHUNDREDONEHUNDREDONE
+
+\FIGVIONEHUNDREDTWO
+
+Choose points $D$ and $E$ on the sides of $\ang{A}$ and points $D\VIpr$ and
+$E\VIpr$ on the sides of $\ang{A\VIpr}$ such that $AD \cong BD\VIpr$ and $AE
+\cong BE\VIpr$. (See Fig.~6--102.) $DE$ intersects the second side of
+$\ang{B\VIpr}$ in some point $F$ between $D$ and $E$ because the second side of
+$\ang{B\VIpr}$ is in the interior of $\ang{A}$. $\tri{ADE} \cong \tri{BD\VIpr
+E\VIpr}$ by the S.A.S. theorem, and hence $DE \cong D\VIpr E\VIpr$. Choose
+$F\VIpr$ between $D\VIpr$ and $E\VIpr$, such that $DF \cong D\VIpr F\VIpr$.
+This is possible because $D\VIpr E\VIpr \cong DE > DF$. The ray $BF\VIpr$ is in
+the interior of $\ang{A\VIpr}$. (Why?) $\ang{D} \cong \ang{D\VIpr}$, and hence
+$\tri{FDA} \cong \tri{F\VIpr D\VIpr B}$. $\ang{DAF} \cong \ang{D\VIpr
+BF\VIpr}$, and $\ang{DAF}$ was given congruent to $\ang{B}$. By the three-part
+angle postulate, $\ang{B} \cong \ang{D\VIpr BF\VIpr}$; it follows that the ray
+$BF\VIpr$ is the same as the second side of $\ang{B}$. Therefore, the second
+side of $\ang{B}$ is interior to $\ang{A\VIpr}$ or, what is the same, the
+second side of $\ang{A\VIpr}$ is in the exterior of $\ang{B}$. This completes
+the proof that $\ang{A} > \ang{B}$.
+
+\begin{remark}
+Theorem 6--8 tells us that we get the same result regardless of whether we
+``move'' $B$ to compare with $A$, or ``move'' $A$ to compare with $B$.
+\end{remark}
+
+\begin{theorem}
+For any two angles $\ang{A}$ and $\ang{B}$, either $\ang{A} < \ang{B}$, or
+$\ang{A} \cong \ang{B}$, or $\ang{A} > \ang{B}$; and exactly one of these is
+true.
+\end{theorem}
+
+\emph{Proof.} If $\ang{A}$ is a straight angle, either $\ang{A} \cong \ang{B}$
+and $\ang{B}$ is also a straight angle or, by Definition 6--5, $\ang{A} >
+\ang{B}$. Similarly, if $\ang{B}$ is a straight angle, either $\ang{B} \cong
+\ang{A}$ or $\ang{B} > \ang{A}$. If neither $\ang{A}$ nor $\ang{B}$ is
+straight, then the second side of $\ang{B\VIpr}$ coincides with the second side
+of $\ang{A}$, and $\ang{B} \cong \ang{A}$; or the second side of $\ang{B\VIpr}$
+is interior to $\ang{A}$, and $\ang{A} > \ang{B}$; or the second side of
+$\ang{B\VIpr}$ is exterior to $\ang{A}$, and $\ang{A} < \ang{B}$. Since only
+one of these possibilities can hold, the proof is complete.
+
+Some simple properties of inequalities are collected in the following theorem.
+
+\begin{theorem}
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item If $\ang{A} \cong \ang{B}$, and $\ang{B} < \ang{C}$, then $\ang{A} < \ang{C}$.
+\item If $\ang{A} < \ang{B}$, and $\ang{B} \cong \ang{C}$, then $\ang{A} < \ang{C}$.
+\item If $\ang{A} \cong \ang{B}$, and $\ang{B} > \ang{C}$, then $\ang{A} > \ang{C}$.
+\item If $\ang{A} < \ang{B}$, and $\ang{B} < \ang{C}$, then $\ang{A} < \ang{C}$.
+\item If $\ang{A} \geqq \ang{B}$, and $\ang{B} \geqq \ang{C}$, then
+  $\ang{A} \geqq \ang{C}$.*
+\end{enumerate}
+\end{theorem}
+
+\VIstarnote{*The symbol $\geqq$ means ``greater than or congruent to,'' as in
+Chapter 4.}
+
+\emph{Proof of} (a). Since $\ang{B} < \ang{C}$, on ``moving'' $\ang{B}$ to
+compare with $\ang{C}$, the second side of $\ang{B\VIpr}$ is interior to
+$\ang{C}$. Since $\ang{A} \cong \ang{B}$, the second sides of $\ang{A\VIpr}$
+and $\ang{B\VIpr}$ would be the same. Hence $\ang{A} < \ang{C}$. The proofs in
+all the other cases are essentially the same.
+
+\exercisegroup{6--13}
+\begin{multicols}{2}
+\begin{exlist}
+\item Can you think of any other properties not included in Theorem 6--10?
+  There are several. Write them down. Draw figures to illustrate them.
+\item Draw figures to indicate that parts (b) through (e) of Theorem 6--10 are
+  true. Be sure you understand how to use Definition 6--5.
+\end{exlist}
+\end{multicols}
+
+\begin{definition}
+An angle less than a right angle is called an \emph{acute} angle. An angle
+greater than a right angle is called an \emph{obtuse} angle.
+\end{definition}
+
+%========================================================= 6-12
+\section*{6--12\quad RIGHT ANGLES AGAIN}
+\addcontentsline{toc}{section}{6--12\quad Right angles again}
+
+We can now use Theorem 6--9 to prove that all right angles are congruent to
+each other. It is interesting, from a historical point of view, to know that
+Euclid \emph{postulated} this fact. The proof we give below could have been
+formulated by Euclid just as well as he formulated other proofs. Not only did
+Euclid ignore postulates that were needed (like the betweenness postulates),
+but he also introduced postulates that were not needed.
+
+\begin{theorem}
+All right angles are congruent to each other.
+\end{theorem}
+
+\emph{Proof.} Suppose that two right angles are $\ang{A}$ and $\ang{B}$, and
+that their supplements are $\ang{A\VIpr}$ and $\ang{B\VIpr}$, as in
+Fig.~6--103(a) and 6--103(b). There are only three possibilities, according to
+Theorem 6--9. Either $\ang{A} < \ang{B}$, or $\ang{A} \cong \ang{B}$, or
+$\ang{A} > \ang{B}$, and one of these must be true. We will show that $\ang{A}
+< \ang{B}$ and $\ang{A} > \ang{B}$ are false. Suppose that $\ang{A} < \ang{B}$,
+and that $\ang{B\VIppr}$ is congruent to $\ang{B}$ and located as in
+Fig.~6--103(c). Let $B\VIpppr$ be the supplement of $\ang{B\VIppr}$.
+
+\FIGVIONEHUNDREDTHREE
+
+\begin{steps}
+\step{$\ang{B\VIppr} \cong \ang{B}$.}{By definition of $\ang{B\VIppr}$.}
+\step{$\ang{B\VIpppr}$ is the supplement of $\ang{B\VIppr}$, and
+      $\ang{B\VIpr}$ is the supplement of $\ang{B}$.}{By definition of supplement.}
+\step{$\ang{B\VIpr} \cong \ang{B\VIpppr}$.}{If angles are congruent, their
+      supplements are congruent.}
+\step{$\ang{B} \cong \ang{B\VIpr}$.}{$\ang{B}$ is a right angle.}
+\step{$\ang{B} \cong \ang{B\VIpppr}$.}{Angle congruence is transitive.}
+\step{$\ang{A} < \ang{B}$.}{Hypothesis.}
+\step{$\ang{A} < \ang{B\VIpppr}$.}{$\ang{A} < \ang{B} \cong
+      \ang{B\VIpppr}$.}
+\step{$\ang{B\VIpppr} < \ang{A\VIpr}$.}{The ``second'' side of
+      $\ang{B\VIpppr}$ is in the interior of $\ang{A\VIpr}$.}
+\step{$\ang{B\VIpppr} < \ang{A}$.}{$\ang{B\VIpppr} < \ang{A\VIpr}
+      \cong \ang{A}$.}
+\step{$\ang{A} < \ang{A}$.}{Statements 7 and 9.}
+\end{steps}
+
+Since $\ang{A} \cong \ang{A}$, we know by Theorem 6--9 that it is impossible
+for $\ang{A}$ to be less than itself. Therefore, it is impossible that $\ang{A}
+< \ang{B}$. In the same way, it can be shown that it is impossible that
+$\ang{B} < \ang{A}$. Therefore, we must have $\ang{A} \cong \ang{B}$. This
+completes the proof.
+
+\begin{definition}
+Two lines, $l$ and $m$, are said to be \emph{perpendicular} to each other if
+they intersect and the angles formed are right angles, as in Fig.~6--104(a).
+To indicate that lines are perpendicular we write ``$l \perp m$.''
+\end{definition}
+
+\FIGVIONEHUNDREDFOUR
+
+The line $l$ is called the \emph{perpendicular bisector} of the segment $AB$ if
+$l \perp AB$ and $l$ passes through the midpoint of $AB$, as in
+Fig.~6--104(b). This is written ``$l \perp$ bis $AB$,'' and read ``$l$ is the
+perpendicular bisector of $AB$.''
+
+\exercisegroup{6--14}
+\begin{multicols}{2}
+\begin{exlist}
+\item Prove the theorem that if the two legs of one right triangle are
+  congruent, respectively, to the two legs of another right triangle, then the
+  triangles are congruent.
+\item In the figure, angles $ADC$ and $BCD$ are right, $AD \cong BC$, and $AB
+  \cong CD$. Prove that $\tri{ADC} \cong \tri{BCD}$ and $\tri{ABD} \cong
+  \tri{BAC}$. (Fig.~6--105)
+\item If, in the figure, $AD \cong DC$, and $BD \perp AC$, prove that
+  $\ang{BAD} \cong \ang{BCD}$. (Fig.~6--106)
+\item If, in the figure, $AD \cong BC$, angles $ADC$ and $BCD$ are right, and
+  $DE \cong EC$, prove that $AE \cong BE$. (Fig.~6--107)
+\item \VIgp{$BD \perp AC$,\\ $\ang{ABD} \cong \ang{DBC}$.}{$\ang{A} \cong
+  \ang{C}$.\\ \hbox{}\hfill(Fig.~6--108)}
+\item Using Fig.~6--108, prove that $\ang{A} \cong \ang{C}$ if $BD \perp$ bis
+  $AC$.
+\item In the figure, $AB \perp BD$, $DE \perp BD$, and $BC \cong CD$. Prove
+  that $AB \cong DE$. (Fig.~6--109)
+\item \VIgp{$AB \perp DC$,\\ $BE \cong BC$,\\ $\ang{DEB} \cong \ang{C}$.}%
+  {$DE \cong AC$.\\ \hbox{}\hfill(Fig.~6--110)}
+\item Prove that the bisector of the vertex angle of an isosceles triangle is
+  the perpendicular bisector of the base.
+\item Prove that the median from the vertex of an isosceles triangle is
+  perpendicular to the base.
+\item \VIgp{$AC \cong AD$,\\ $AC \perp CB$,\\ $AD \perp DB$.}{$\tri{ACB} \cong
+  \tri{ADB}$.\\ \hbox{}\hfill(Fig.~6--111)}
+\end{exlist}
+\end{multicols}
+
+\FIGVIONEHUNDREDFIVEONEHUNDREDSIX
+
+\FIGVIONEHUNDREDSEVENONEHUNDREDEIGHT
+
+\FIGVIONEHUNDREDNINEONEHUNDREDTEN
+
+\FIGVIONEHUNDREDELEVEN
+
+%========================================================= Review
+\section*{REVIEW OF CHAPTER 6}
+\addcontentsline{toc}{section}{Review of Chapter 6}
+
+In this chapter there are many important ideas and geometric facts. It is most
+important that you review the topics listed below. Each topic contains many
+ideas, so study each one separately. Then study the whole list to be sure that
+you understand how the topics are related.
+
+1. First in importance are the four postulates of Group V. It is not necessary
+to memorize the postulates word for word, but you must understand the meaning
+of each one so that you will know when you can use it.
+
+2. We also gave several important definitions. Be sure that you know
+definitions for the following: right angle, congruent triangles, $>$ and $<$
+for angles, acute angle, obtuse angle.
+
+3. Below we list the most important theorems proved in this chapter. You should
+be able to prove many of them. In reviewing the proofs of these theorems, first
+see whether you can formulate a proof without looking at the text.
+
+\begin{quote}
+If two angles are congruent, their supplements are congruent.\\
+Vertical angles are congruent.\\
+In an isosceles triangle, the base angles are congruent.\\
+The first congruence theorem (S.A.S.).\\
+For any two angles $\ang{A}$ and $\ang{B}$, exactly one of the following is
+true: $\ang{A} > \ang{B}$, $\ang{A} \cong \ang{B}$, $\ang{A} < \ang{B}$.\\
+If $\ang{A} \cong \ang{B}$, and $\ang{B} < \ang{C}$, then $\ang{A} < \ang{C}$,
+etc.\\
+All right angles are congruent.\\
+The second congruence theorem (A.S.A.).\\
+The third congruence theorem (S.S.S.).
+\end{quote}
+
+\subsection*{Review Exercises}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw an $\ang{A}$. Draw a ray $r$ from a point $O$. Draw the two angles
+  congruent to $A$ that have the ray $r$ as one side. See Postulate V--1.
+\item If $\ang{A} \cong \ang{D}$, and $\ang{D} \cong \ang{E}$, and $\ang{E}
+  \cong \ang{F}$, prove that $\ang{A} \cong \ang{F}$. See Postulate V--2.
+\item If in Fig.~6--112, $\ang{A_1} \cong \ang{R}$, and $\ang{A_2} \cong
+  \ang{S}$, prove that $\ang{B} \cong \ang{T}$. See Postulate V--3.
+\item If in Fig.~6--113, $\ang{A} \cong \ang{B}$, prove that $\ang{C} \cong
+  \ang{D}$. What is the converse of this? Is the converse true? What is the
+  contrapositive of this? Is it true?
+\item If in Fig.~6--114, $\ang{AOB} \cong \ang{BOC}$, what is $\ang{AOB}$
+  called?
+\item If (Fig.~6--115) $FE \cong ST$, $EG \cong RT$, and $\ang{E} \cong
+  \ang{T}$, to what angle is $\ang{F}$ congruent?
+\item If (Fig.~6--116) $\sg{RS} = \sg{TS}$, prove that $\ang{R} \cong \ang{T}$.
+\item Using Fig.~6--115, prove that the triangles are congruent.
+\item Figure 6--117 shows a way to measure the width $\sg{PQ}$ of a river. From
+  any point $R$ not on the line $PQ$, $RU$ is sighted so that $\ang{URP} \cong
+  \ang{PRQ}$. From $P$ a line $PT$ is sighted so that $\ang{TPR} \cong
+  \ang{QPR}$. The point $S$, where $PT$ and $RU$ intersect, is determined, and
+  $PS$ is measured. Why is this the distance from $P$ to $Q$?
+\item The first congruence theorem says that if two sides and the included
+  angle of one triangle are congruent to two sides and the included angle of
+  another triangle, then the triangles are congruent. What is the converse of
+  this theorem? Is it true?
+\item If a triangle is equilateral, then it is isosceles. What is the converse
+  of this statement? Is it true? What is the contrapositive? Is it true?
+\item If in Fig.~6--118, $\tri{ABC}$ and $\tri{ADC}$ are isosceles, with
+  vertices $B$ and $D$, prove that $BD$ bisects $\ang{ABC}$.
+\item If (Fig.~6--119) $\tri{ABC}$ is isosceles, and $\ang{ABD} \cong
+  \ang{EBC}$, prove that $\sg{AD} = \sg{EC}$.
+\item If (Fig.~6--120) $\sg{AB} = \sg{BC}$, $\sg{AD} = \sg{DC}$, and
+  $\ang{ADE} \cong \ang{CDF}$, prove that $BE \cong BF$.
+\item When we build a house, the sub-flooring and the sheathing boards are
+  usually laid diagonally. Why?
+\item If (Fig.~6--121) $QS \cong SR$, and $PS \perp QR$, prove that $PQ \cong
+  PR$.
+\item If the point $O$ bisects the segments $AB$ and $CD$, prove that $\ang{A}
+  \cong \ang{B}$. See Fig.~6--122.
+\item Show that if two isosceles triangles have congruent vertex angles, and
+  their congruent sides have the same length, then the triangles are congruent.
+\item If in Fig.~6--123, $AB \cong AD$, $BC \cong DE$, and $AC \cong AE$, to
+  what angle is $\ang{B}$ congruent? Why?
+\item If in Fig.~6--124 $\tri{ABC}$ is equilateral, and $D$, $E$, $F$ bisect
+  the sides, prove that $\tri{EFD}$ is equilateral.
+\item If (Fig.~6--125) $\ang{CAD} \cong \ang{BDA}$, and $\ang{CDA} \cong
+  \ang{BAD}$, prove that $\sg{AB} = \sg{CD}$.
+\item Prove that if two points are equidistant from the ends of a segment, they
+  determine the perpendicular bisector of the segment.
+\item Prove that if the bisector of an angle of a triangle is perpendicular to
+  the opposite side, then it bisects that side, and the triangle is isosceles.
+\item Prove that any point on the perpendicular bisector of a segment is
+  equidistant from the ends of the segment.
+\item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AC \cong BC$,\\ $IJ \cong IK$.}%
+  {$GJ \cong HK$,\\ $GF \cong FH$.\\ \hbox{}\hfill(Fig.~6--126)}
+\end{exlist}
+\end{multicols}
+
+\FIGVIONEHUNDREDTWELVEONEHUNDREDTHIRTEEN
+
+\FIGVIONEHUNDREDFOURTEENONEHUNDREDFIFTEEN
+
+\FIGVIONEHUNDREDSIXTEENONEHUNDREDSEVENTEEN
+
+\FIGVIONEHUNDREDEIGHTEENONEHUNDREDNINETEEN
+
+\FIGVIONEHUNDREDTWENTYONEHUNDREDTWENTYONE
+
+\FIGVIONEHUNDREDTWENTYTWOONEHUNDREDTWENTYTHREE
+
+\FIGVIONEHUNDREDTWENTYFOUR
+
+\FIGVIONEHUNDREDTWENTYFIVEONEHUNDREDTWENTYSIX
+
+\subsection*{Test 1}
+\begin{center}\bfseries True-False\end{center}
+\begin{exlist}
+\item If a theorem is true, its contrapositive is true.
+\item The supplement of a $40^\circ$ angle is a $50^\circ$ angle.
+\item If $\ang{A} < \ang{B}$, and $\ang{B} < \ang{C}$, and $C$ is a $50^\circ$
+  angle, then $\ang{A}$ is less than a $49^\circ$ angle.
+\item If $ABC$ ($B$ is between $A$ and $C$), $DEF$, $AC \cong DF$, and $AB >
+  DE$, then $BC > EF$.
+\item If $\tri{ABC}$ is isosceles, with vertex $A$, and $D$, $E$ are the
+  midpoints of $AB$, $AC$ respectively, then $BE \cong CD$.
+\item If in triangles $ABC$ and $A\VIpr B\VIpr C\VIpr$, $\ang{A} \cong
+  \ang{A\VIpr}$, $\ang{B} \cong \ang{B\VIpr}$, $\ang{C} \cong \ang{C\VIpr}$,
+  and $AB \cong A\VIpr C\VIpr$, then $\tri{ABC} \cong \tri{A\VIpr B\VIpr
+  C\VIpr}$.
+\item If $\ang{ABC}$ is $40^\circ$, and $\ang{DBC}$ is $50^\circ$, then
+  $\ang{DBA}$ is a right angle.
+\item If $\ang{ABC}$ is $60^\circ$, and $\ang{DBC}$ is $120^\circ$, then either
+  $\ang{DBA} \cong \ang{ABC}$, or $\ang{DBA}$ is a straight angle.
+\item If segments $AB$ and $CD$ intersect at $O$, then $\ang{AOB} \cong
+  \ang{BOD}$.
+\item For all statements $\al$, $\be$, $\ga$, such that $\al \to \be$ is true
+  and $\be \to \ga$ is false, the implication $\al \to \ga$ is false.
+\end{exlist}
+
+\subsection*{Test 2}
+\begin{exlist}
+\item Lines $l$ and $m$ intersect so that a pair of adjacent angles differ by
+  $18^\circ$. Determine the number of degrees in each angle.
+\item If $\sg{AB} = 24$, and $ACB$, and $\sg{AC} = 3 \cdot \sg{CB}$, compute
+  $\sg{CB}$.
+\item If $\sg{AB} = 24$, $ABC$, and $\sg{AC} = 3 \cdot \sg{CB}$, compute
+  $\sg{CB}$.
+\item Line segments $AB$ and $CD$ are congruent. The length of $AB$ as measured
+  by $EF$ is 12. The length of $CD$ as measured by $GH$ is 36. What is the
+  length of $GH$ as measured by $EF$?
+\item The length of $AB$ as measured by $CD$ is $\tfrac{3}{4}$. What is the
+  length of $CD$ as measured by $AB$?
+\item Let $AB$ be a unit segment. Designate the midpoint of $AB$ by $A_1$, the
+  midpoint of $AA_1$ by $A_2$, the midpoint of $AA_2$ by $A_3$, etc. What is
+  the length of $A_5A_3$?
+\end{exlist}
+
+\subsection*{Algebra Review}
+\begin{exlist}
+\item The perimeter of an isosceles triangle is 75 ft. One side is 15 ft longer
+  than the second side. Prove that the shortest side of the triangle is either
+  15 ft long or 20 ft long.
+\item A triangle has two equal angles. The length of the included side is 7 in.
+  The perimeter of the triangle is 43 in. Determine the lengths of the other
+  two sides of the triangle.
+\item $\tri{ABC}$ is equilateral. Points $X$, $Y$, and $Z$ are the midpoints of
+  sides $AB$, $BC$, and $CA$, respectively. The perimeter of $\tri{XYZ}$ is
+  30 in. Determine the length of each side of $\tri{ABC}$.
+\item In Fig.~6--127, $\sg{AE} = \sg{AD}$, and $\sg{AB} = \sg{AC}$. $\sg{BE} =
+  18$ in., and $\sg{DO} = \tfrac{1}{2}\sg{OC}$. Determine the length of segment
+  $OC$.
+\item In $\tri{ABC}$, the bisector of vertex angle $A$ is perpendicular to the
+  base $BC$ at point $D$. $\sg{BD} = \sg{CD}$. $\sg{AB} - \sg{BD} = 8$ in., and
+  the perimeter of $\tri{ABC}$ is 40 in. Determine the length of each side of
+  $\tri{ABC}$.
+\item Prove that if $(x + 2)(x - 3) = 0$, and $x$ is positive, then $x = 3$.
+\item Prove that if $(x + 2)(x - 3) = 0$, and $x$ is negative, then $x = -2$.
+\item A businessman bought several suits of clothes. He paid \$40 each for some
+  of the suits and \$50 each for the rest. If he paid a total of \$1500 for
+  these suits, prove that he could not possibly have bought 22 of the \$40
+  suits.
+\item[\stex 9.] Prove that the following problem has no solution: Find two
+  numbers whose sum is 32, such that if the larger of the numbers is divided by
+  6, and the smaller is divided by 5, then the sum of the quotients is 6.
+\item[\stex 10.] Describe all possible pairs of numbers $a$ and $b$ such that
+  $(a - 2)/(2b - 9) = a - 2$.
+\end{exlist}
+
+\FIGVIONEHUNDREDTWENTYSEVEN
+
+\end{document}

@@ -1,0 +1,26 @@
+# scan04.pdf — 24 pages
+
+- p1: book p.42 (+facing 43 not shown) | Logic review ex. 5–12, finger over lower-right | trash
+- p2: book p.42 | duplicate of p1, same crop, finger present | trash
+- p3: book p.43 | Ch.3 opener "CONCERNING LINES", 3-1 Introduction, no figures | good
+- p4: book p.44 | 3-2 Straightness; Fig 3-1, Fig 3-2 (crossing-lines illustration) | good
+- p5: book p.45 | 3-3 The Postulates; Fig 3-3, Fig 3-4, Fig 3-5 | good
+- p6: book p.46 (page rotated ~90°) | Postulate Group I (I-1,I-2,I-3), Theorem 3-1 proof, Theorem 3-2 statement; Fig 3-6, Fig 3-7 | partial (rotated, readable)
+- p7: book p.46 | same content as p6, upright/clean duplicate; Fig 3-6, Fig 3-7 | good
+- p8: book p.47 | Theorem 3-2 two-column proof, Exercise Group 3-1 (1–12); Fig 3-7 (repeat), Fig 3-8, Fig 3-9, Fig 3-10 | good
+- p9: book p.48 | 3-4 Postulates of Betweenness, Postulate Group II (II-1–II-4); Fig 3-11, Fig 3-12 | good
+- p10: book p.49 | Definition 3-1, Postulate II-5 (two-side postulate); Fig 3-13, Fig 3-14 | partial (bottom half black/cut off)
+- p11: book p.50 | Def 3-2 text, Fig 3-16/3-17 (ghosted double-exposure, text blurry) | blurry
+- p12: book p.50 | clean duplicate of p11; Def 3-2, Fig 3-16, Fig 3-17, start of Def 3-3 | good (bottom cropped black)
+- p13: book p.51 | Exercise Group 3-2, items 1–3 and 5(partial)–6, no figures | partial (bottom half black/cut off)
+- p14: book p.52 | top sliver only: "52 CONCERNING LINES" heading, corner of Fig 3-18, one line of ex.16 text | trash
+- p15: book p.52 | full page: ex.15–18, Fig 3-18, 3-5 Rays and Angles intro, Fig 3-19, Theorem 3-3 statement+proof start | good (small finger lower-right)
+- p16: book p.53 | Fig 3-20, Fig 3-21, Theorem 3-3 proof continued/Remark, Def 3-4, Def 3-5, Fig 3-22, Fig 3-23, Exercise 3-3, Def 3-6 | good
+- p17: book p.54 | top sliver only: heading + corner of Fig 3-24 (angle "1" labeled) | trash
+- p18: book p.54 | full top ~60%: Fig 3-24 (4 sub-drawings: rays, angle AOB, straight angle), Fig 3-25 (a/b/c notation panels), Remark text, top edge of Fig 3-26 | good (bottom cropped black)
+- p19: book p.55 | Definition 3-9 (vertical angles); Fig 3-28 (labeled l,m,l1,l2,m1,m2, angles 1–4); Exercise Group 3-4 items 1–10(partial) | good (bottom cropped black); NOTE gap — Fig 3-26/3-27 and 3-6 Interior/Exterior intro (Def 3-7, 3-8) not captured on this scan
+- p20: book p.56 | full page: Fig 3-29 (shaded/cross-hatched overlapping regions, points A,B,C,D,O — organic shading, valuable), Fig 3-30, Exercise Group 3-5, Definition 3-10 (interior/exterior of angle), Theorem 3-4 statement+proof start, Fig 3-31 | good (tiny finger lower-right)
+- p21: book p.57 | Theorem 3-4 proof end, Theorem 3-5 statement+proof; Fig 3-32 (large, labeled Q1–Q5, O, R, S, P, r1, r2, r1′, r2′, l1, l2) top ~55% clear, plus a small blurred/ghosted duplicate fragment lower-left | partial (bottom cropped black, minor ghosting)
+- p22: book p.58 | top ~25% only: Definition 3-11 (interior/exterior of triangle), references Fig 3-34 but figure itself not on page | trash
+- p23: book p.58 | duplicate of p22, slightly different crop/angle, one extra line ("...Theorem 3-6...") visible | trash (duplicate)
+- p24: book p.59 | "REVIEW OF CHAPTER 3" heading, Fig 3-37 (angle with rays l, l1, m, m1), Fig 3-38 (labeled Q1, R, P, r1, r1′, r2, r2′, l1, l2), exercise item (f) and item 8 | good (bottom cropped black)

@@ -1,0 +1,3520 @@
+% figures06.tex -- Chapter 6 figures (Congruence of Angles and Triangles).
+%
+% Built 2026-08-17 from sources/Geometry.pdf pp. 98-129 (book pp. 84-115) with
+% structure checked against the iPad scans (scan06 p11-p24, scan07 p1-p24,
+% scan08 p1-p10; see sources/scan-index/).
+%
+% Constrained points are DERIVED, never eyeballed:
+%   parallels  -> equal ratios along the two sides   ($(X)!r!(Y)$)
+%   altitudes / perpendicular feet                   ($(X)!(P)!(Y)$)
+%   crossings  -> (intersection of A--B and C--D)
+%   midpoints  -> ($(X)!0.5!(Y)$)
+% so the hypothesis the book states in words holds exactly in the drawing.
+% The same hypotheses are re-asserted numerically in tools/constraints/ch06.py.
+%
+% Macro names are chapter-prefixed English number words: \FIGVI<NUMBERWORD>.
+% A macro spanning several consecutive figures concatenates the words
+% (e.g. \FIGVITWOTHREEFOUR holds Figs 6-2, 6-3 and 6-4).
+%
+% Line treatment follows the book: solid where the book prints solid (given),
+% dashed where the book prints dashed (the constructed D' in the congruence
+% proofs, and the "moved" angle B' in the inequality figures).  This chapter is
+% otherwise plain `given' line work -- the book draws these diagrams uniformly.
+
+\usetikzlibrary{decorations.pathreplacing,arrows.meta,angles,quotes}
+
+% Primed labels: a math prime sits high enough that the collision audit reads it
+% as a separate word overlapping its own letter; a small drop keeps the pair in
+% one word and is visually indistinguishable.  (Same fix as ch09.)
+\newcommand{\VIpr}{\raisebox{-1.3pt}{\ensuremath{{}^{\prime}}}}
+\newcommand{\VIppr}{\VIpr\VIpr}
+\newcommand{\VIpppr}{\VIpr\VIpr\VIpr}
+
+% Chapter-local label clearance.  A labelled point lying ON a line needs a
+% little more room than brumfiel.sty's default or the line clips the box.
+\tikzset{
+  vlab/.append style={outer sep=4.6pt},
+  slab/.append style={outer sep=4.4pt},
+  klab/.append style={outer sep=4.4pt},
+}
+
+% ---------------------------------------------------------------- house marks
+% The congruence apparatus this chapter runs on, defined once.
+%
+% All helpers are chapter-prefixed: \aa and friends collide with LaTeX
+% built-ins (\aa is the Scandinavian ring-a), so every one carries the VI code.
+%
+% \VItk{A}{B}{n} -- n tick marks across the middle of segment AB, perpendicular
+%                 to it.  The book uses one tick for one pair of congruent
+%                 segments, two for the second pair.
+\newcommand{\VItk}[3]{%
+  \foreach \tki in {1,...,#3}{%
+    \pgfmathsetmacro{\tkd}{(\tki-(#3+1)/2)*2.0}%
+    \coordinate (tkm) at ($(#1)!0.5!(#2)$);
+    \coordinate (tkt) at ($(tkm)!\tkd pt!(#2)$);
+    \draw[tick] ($(tkt)!2.6pt!90:(#2)$) -- ($(tkt)!2.6pt!270:(#2)$);}}
+%
+% The angle marks are struck by hand rather than through the `angles' pic
+% library, because that library always sweeps COUNTERCLOCKWISE from its first
+% ray to its second.  Whenever a call happened to name the two sides the other
+% way round, the pic drew the REFLEX angle -- a 331-degree sweep that renders
+% as a near-complete circle swallowing the whole figure (this is what put the
+% spurious circle in Fig. 6-13, and it silently mis-marked several others).
+% Striking the arc from the two bearings and normalising the sweep into
+% (-180,180] makes every call draw the minor angle no matter which side is
+% named first, so the mark can never depend on argument order again.
+%
+% \VIarc{P}{V}{Q}{r} -- single arc of radius r at vertex V, from side VP to VQ.
+\newcommand{\VIarc}[4]{%
+  \begingroup
+  \pgfmathanglebetweenpoints{\pgfpointanchor{#2}{center}}{\pgfpointanchor{#1}{center}}%
+  \edef\VIaP{\pgfmathresult}%
+  \pgfmathanglebetweenpoints{\pgfpointanchor{#2}{center}}{\pgfpointanchor{#3}{center}}%
+  \edef\VIaQ{\pgfmathresult}%
+  \pgfmathparse{\VIaQ-\VIaP-360*round((\VIaQ-\VIaP)/360)}%
+  \edef\VIdA{\pgfmathresult}%
+  \draw[fig, line width=0.55pt] ([shift=(\VIaP:#4)]#2)
+       arc[start angle=\VIaP, end angle=\VIaP+\VIdA, radius=#4];
+  \endgroup}
+% \VIarcb{P}{V}{Q}{r} -- double arc (the book's second congruent-angle mark).
+\newcommand{\VIarcb}[4]{%
+  \VIarc{#1}{#2}{#3}{#4}%
+  \VIarc{#1}{#2}{#3}{#4+2.1pt}}
+% \VIarcvia{P}{V}{Q}{W}{r} -- arc at V from side VP to side VQ, sweeping the way
+%   that passes through ray VW.  \VIarc always takes the MINOR angle, which is
+%   right for a numbered angle but cannot draw the marks Fig. 6-94 needs: there
+%   the book sweeps one arc from OA all the way round to OA' on the side B lies
+%   on -- a straight angle in case 2 and a reflex one in case 3.  Naming the ray
+%   the arc must pass through picks the branch without hard-coding bearings, so
+%   the mark still follows the points if they move.
+\newcommand{\VIarcvia}[5]{%
+  \begingroup
+  \pgfmathanglebetweenpoints{\pgfpointanchor{#2}{center}}{\pgfpointanchor{#1}{center}}%
+  \edef\VIvP{\pgfmathresult}%
+  \pgfmathanglebetweenpoints{\pgfpointanchor{#2}{center}}{\pgfpointanchor{#3}{center}}%
+  \edef\VIvQ{\pgfmathresult}%
+  \pgfmathanglebetweenpoints{\pgfpointanchor{#2}{center}}{\pgfpointanchor{#4}{center}}%
+  \edef\VIvW{\pgfmathresult}%
+  \pgfmathparse{mod(\VIvQ-\VIvP+720,360)}\edef\VIdQ{\pgfmathresult}%
+  \pgfmathparse{mod(\VIvW-\VIvP+720,360)}\edef\VIdW{\pgfmathresult}%
+  \pgfmathparse{\VIdW<\VIdQ ? \VIdQ : \VIdQ-360}\edef\VIsw{\pgfmathresult}%
+  \draw[fig, line width=0.55pt] ([shift=(\VIvP:#5)]#2)
+       arc[start angle=\VIvP, end angle=\VIvP+\VIsw, radius=#5];
+  \endgroup}
+% \VIrt{P}{V}{Q}{r} -- the small square marking a right angle.  Built from the
+% two side directions directly, so it always lands inside the angle.
+\newcommand{\VIrt}[4]{%
+  \begingroup
+  \coordinate (rt@p) at ($(#2)!#4!(#1)$);
+  \coordinate (rt@q) at ($(#2)!#4!(#3)$);
+  \draw[fig, line width=0.55pt] (rt@p) -- ($(rt@p)+(rt@q)-(#2)$) -- (rt@q);
+  \endgroup}
+% \VInum{V}{ang}{d}{txt} -- a small numeral label (the book's "1", "2", ...
+%   inside an angle), placed d from vertex V along direction ang.
+\newcommand{\VInum}[4]{\node[slab] at ($(#1)+({#2}:#3)$) {#4};}
+%
+% \VInumb{P}{V}{Q}{d}{txt} -- the same numeral, but placed on the BISECTOR of
+%   angle P-V-Q at distance d.  Placing by bisector rather than by a
+%   hand-picked compass angle is what keeps the numeral off both rays, which
+%   is where most label/geometry collisions in this chapter came from.
+\newcommand{\VInumb}[5]{%
+  \begingroup
+  \coordinate (nb@1) at ($(#2)!1cm!(#1)$);
+  \coordinate (nb@2) at ($(#2)!1cm!(#3)$);
+  \coordinate (nb@m) at ($(nb@1)!0.5!(nb@2)$);
+  \node[slab] at ($(#2)!#4!(nb@m)$) {#5};
+  \endgroup}
+
+% ================================================================== Fig 6-1
+% Book p.84.  The given angle A (a free "V"), and below it the line l' with A'
+% on it: r' is the ray of l' to the right of A', s' the constructed ray.  The
+% dashed stub to the left of A' carries the caption "Given side of l'".
+\newcommand{\FIGVIONE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  % given angle A, drawn free above
+  \coordinate (A)  at (2.55,1.32);
+  \draw[given] (A) -- (3.12,2.14);
+  \draw[given] (A) -- (3.95,0.92);
+  \node[vlab, above left] at (A) {$A$};
+  % line l' with A' on it
+  \coordinate (Ap) at (1.72,0.16);
+  \draw[given] (Ap) -- (3.62,-0.22);           % ray r'
+  \draw[aux]   (Ap) -- (0.62,0.38);            % given side of l', dashed stub
+  \draw[given] (Ap) -- (2.62,1.24);            % ray s'
+  \node[vlab, below left] at (Ap) {$A\VIpr$};
+  \node[slab, right] at (3.62,-0.22) {$r\VIpr$};
+  \node[slab] at (2.10,1.02) {$s\VIpr$};
+  \node[slab, below]  at (0.62,0.38) {$l\VIpr$};
+  % The book runs the caption straight through the ray s', with the ray
+  % passing in the word space.  Setting it as two nodes either side of the ray
+  % reproduces that exactly and leaves the ray unobscured.
+  \node[slab, anchor=east] at (2.01,0.60) {Given side};
+  \node[slab, anchor=west] at (2.17,0.60) {of $l\VIpr$};
+\end{tikzpicture}
+\figcap{6--1}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-2, 6-3, 6-4
+% Book p.85, Exercise Group 6-1.
+%  6-2: angle A with sides r (right) and s (up-left); ray r' from A' below.
+%  6-3: angle A with sides r and s; a detached ray r' ending at A'.
+%  6-4: a straight angle A on a line, with A' on it and ray r'.
+\newcommand{\FIGVITWOTHREEFOUR}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.88]
+  \coordinate (A)  at (1.35,0.52);
+  \coordinate (Ap) at (0.22,-0.62);
+  \draw[given] (A) -- (2.62,0.44);            % r
+  \draw[given] (A) -- (0.52,1.02);            % toward r'/s corner
+  \draw[given] (0.52,1.02) -- (0.30,1.62);    % s
+  \draw[given] (Ap) -- (0.52,1.02);
+  \node[vlab, below] at (A) {$A$};
+  \node[vlab, below left] at (Ap) {$A\VIpr$};
+  \node[slab, right] at (2.62,0.44) {$r$};
+  \node[slab, above] at (0.30,1.62) {$s$};
+  \node[slab, left]  at (0.52,1.02) {$r\VIpr$};
+\end{tikzpicture}
+\figcap{6--2}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.88]
+  \coordinate (A) at (1.05,1.05);
+  \draw[given] (A) -- (0.18,0.05);            % s
+  \draw[given] (A) -- (1.72,0.12);            % r
+  \node[vlab, above] at (A) {$A$};
+  \node[slab, below left]  at (0.18,0.05) {$s$};
+  \node[slab, below right] at (1.72,0.12) {$r$};
+  % detached ray r' ending at A'
+  \draw[given] (2.18,1.00) -- (3.30,1.00);
+  \node[slab, above] at (2.30,1.00) {$r\VIpr$};
+  \node[vlab, right] at (3.30,1.00) {$A\VIpr$};
+\end{tikzpicture}
+\figcap{6--3}
+
+\medskip
+\begin{tikzpicture}[scale=0.88]
+  \coordinate (A)  at (0.95,0.72);
+  \coordinate (Ap) at (1.42,0.72);
+  \draw[given] (0.12,0.28) -- (Ap);
+  \draw[given] (Ap) -- (3.05,0.16);
+  \fill (A) circle (1.1pt);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, above right] at (Ap) {$A\VIpr$};
+  \node[slab, right] at (3.05,0.16) {$r\VIpr$};
+\end{tikzpicture}
+\figcap{6--4}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================== Fig 6-5
+% Book p.86.  THREE rays from each vertex, not four.  The common side splits
+% the whole angle A into the two parts B and C.  The book marks this with two
+% concentric arcs struck from the vertex: a SMALL one spanning the whole
+% opening (that is angle A) and a LARGE one, also spanning the whole opening,
+% which the middle ray cuts into the two arcs belonging to B and C.  Each
+% letter is written just BEYOND its own arc -- A outside the small arc, B and
+% C outside the large one, in their respective sectors.  The common side is
+% drawn a little longer than the other two, as in the book.
+% Ray directions and arc radii measured off the plate (book p.86, left fan):
+% sides at 146/94/52 degrees, large arc at 0.89 and small arc at 0.35 of the
+% side length.
+\newcommand{\FIGVIFIVE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}
+ \foreach \dx/\lA/\lB/\lC in {0/A/B/C, 4.27/A\VIpr/B\VIpr/C\VIpr}{
+  \begin{scope}[xshift=\dx cm]
+   \coordinate (V) at (0,0);
+   \draw[given] (V) -- ++(146:2.30);        % outer side, left
+   \draw[given] (V) -- ++(94:2.38);         % common side of B and C
+   \draw[given] (V) -- ++(52:2.20);         % outer side, right
+   % large arc -- the middle ray cuts it into the marks for B and C
+   \draw[tick] ([shift=(146:2.04)]V)
+        arc[start angle=146, end angle=52, radius=2.04];
+   % small arc near the vertex -- the mark for the whole angle A
+   \draw[tick] ([shift=(146:0.80)]V)
+        arc[start angle=146, end angle=52, radius=0.80];
+   \node[vlab] at ($(V)+(116:1.14)$) {$\lA$};
+   \node[vlab] at ($(V)+(120:2.36)$) {$\lB$};
+   \node[vlab] at ($(V)+(71:2.33)$)  {$\lC$};
+  \end{scope}}
+\end{tikzpicture}
+\figcap{6--5}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-6, 6-7
+% Book p.86, Exercise Group 6-3.
+%  6-6: same two fans as 6-5 but labelled A,B,C and A',C',B' (the primed fan
+%       has C' inside B', which is what makes part (b) of the exercise work).
+%  6-7: two separate three-ray fans, P Q R from O and R V U from S T U -- the
+%       book draws them as two "V" clusters sharing a baseline.
+% 6-6 is the same three-ray idea as 6-5, but here each of the three angles
+% carries its OWN arc at its own radius: the whole angle A on the outside, and
+% the two parts on smaller arcs.  The unprimed fan opens up-left to
+% horizontal-right with B the upper part and C the lower; the primed fan is
+% the mirror-ish case with C' the part next to the horizontal side and B' the
+% part next to the slanting one -- that swap is what the exercise turns on.
+\newcommand{\FIGVISIXSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.60\linewidth}\centering
+\begin{tikzpicture}
+   % ---- unprimed fan: sides at 134 / 89 / 0 degrees
+   \coordinate (V) at (0,0);
+   \draw[given] (V) -- ++(134:1.84);
+   \draw[given] (V) -- ++(89:1.87);
+   \draw[given] (V) -- ++(0:1.86);
+   \draw[tick] ([shift=(134:1.61)]V)
+        arc[start angle=134, end angle=0, radius=1.61];    % whole angle A
+   \draw[tick] ([shift=(134:0.50)]V)
+        arc[start angle=134, end angle=89, radius=0.50];   % part B
+   \draw[tick] ([shift=(89:1.06)]V)
+        arc[start angle=89, end angle=0, radius=1.06];     % part C
+   \node[vlab] at ($(V)+(64:1.94)$)  {$A$};
+   \node[vlab] at ($(V)+(111:0.96)$) {$B$};
+   \node[vlab] at ($(V)+(45:0.62)$)  {$C$};
+   % ---- primed fan: sides at 163 / 89 / 48 degrees
+   \coordinate (W) at (4.24,0);
+   \draw[given] (W) -- ++(163:1.91);
+   \draw[given] (W) -- ++(89:2.06);
+   \draw[given] (W) -- ++(48:1.93);
+   \draw[tick] ([shift=(163:1.58)]W)
+        arc[start angle=163, end angle=48, radius=1.58];   % whole angle A'
+   \draw[tick] ([shift=(163:1.06)]W)
+        arc[start angle=163, end angle=89, radius=1.06];   % part C'
+   \draw[tick] ([shift=(89:0.50)]W)
+        arc[start angle=89, end angle=48, radius=0.50];    % part B'
+   \node[vlab] at ($(W)+(119:2.01)$) {$A\VIpr$};
+   \node[vlab] at ($(W)+(126:0.62)$) {$C\VIpr$};
+   \node[vlab] at ($(W)+(68:1.10)$)  {$B\VIpr$};
+\end{tikzpicture}
+\figcap{6--6}
+\end{minipage}\hfill
+\begin{minipage}{0.36\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (O) at (0.72,0);
+  \draw[given] (O) -- (0.10,1.62);   \node[vlab, above] at (0.10,1.62) {$P$};
+  \draw[given] (O) -- (0.62,1.62);   \node[vlab, above] at (0.62,1.62) {$Q$};
+  \draw[given] (O) -- (1.46,1.62);   \node[vlab, above] at (1.46,1.62) {$R$};
+  \node[vlab, below] at (O) {$O$};
+  \coordinate (S) at (1.72,0);
+  \coordinate (T) at (2.10,0);
+  \coordinate (U) at (2.72,0);
+  \coordinate (Vv) at (2.16,1.62);
+  \draw[given] (S) -- (Vv);
+  \draw[given] (T) -- (Vv);
+  \draw[given] (U) -- (Vv);
+  \node[vlab, below] at (S) {$S$};
+  \node[vlab, below] at (T) {$T$};
+  \node[vlab, below] at (U) {$U$};
+  \node[vlab, above] at (Vv) {$V$};
+\end{tikzpicture}
+\figcap{6--7}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-8, 6-9
+% Book p.87.  6-8: fan at A with rays to B, C, D, E.
+%             6-9: fan at P with rays to R, S, T, U.
+\newcommand{\FIGVIEIGHTNINE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A) at (1.30,0);
+  \draw[given] (A) -- (0.10,1.28);  \node[vlab, above left]  at (0.10,1.28) {$B$};
+  \draw[given] (A) -- (1.02,1.62);  \node[vlab, above] at (1.02,1.62) {$C$};
+  \draw[given] (A) -- (1.42,1.62);  \node[vlab, above] at (1.42,1.62) {$D$};
+  \draw[given] (A) -- (2.42,1.10);  \node[vlab, right] at (2.42,1.10) {$E$};
+  \node[vlab, below] at (A) {$A$};
+\end{tikzpicture}
+\figcap{6--8}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (P) at (1.30,0);
+  \draw[given] (P) -- (0.28,1.42);  \node[vlab, above left] at (0.28,1.42) {$R$};
+  \draw[given] (P) -- (0.92,1.62);  \node[vlab, above] at (0.92,1.62) {$S$};
+  \draw[given] (P) -- (1.52,1.62);  \node[vlab, above] at (1.52,1.62) {$T$};
+  \draw[given] (P) -- (2.16,1.44);  \node[vlab, above right] at (2.16,1.44) {$U$};
+  \node[vlab, below] at (P) {$P$};
+\end{tikzpicture}
+\figcap{6--9}
+\end{minipage}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-10, 6-11, 6-12
+% Book p.87.  6-10: two supplement pictures (angle A with its adjacent
+%   supplement B on a line; the primed copy).  6-11: two crossing lines with
+%   vertical angles A and A', and B one of the others.  6-12: a right angle.
+\newcommand{\FIGVITENELEVENTWELVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+% In the book the ray rises to the RIGHT from a point on the line, so the
+% OBTUSE angle (marked by the big arc sweeping over the top from the
+% left-hand ray) is A and the small acute one tucked between the ray and the
+% right-hand part of the line is B.  An earlier draft mirrored the ray and
+% then put both letters in the same wedge, so the picture no longer showed a
+% pair of supplements at all.
+\begin{tikzpicture}
+ \foreach \dx/\lA/\lB in {0/A/B, 3.30/A\VIpr/B\VIpr}{
+  \begin{scope}[xshift=\dx cm]
+   \coordinate (O)  at (0,0);
+   \coordinate (Lt) at (-1.05,0);
+   \coordinate (Rt) at (1.55,0);
+   \coordinate (St) at (32:1.55);
+   \draw[given] (Lt) -- (Rt);
+   \draw[given] (O) -- (St);
+   \VIarc{Lt}{O}{St}{0.62cm}   % the obtuse angle A
+   \VIarc{St}{O}{Rt}{0.40cm}   % the acute angle B
+   \node[slab] at ($(O)+(118:0.86)$) {$\lA$};
+   \node[slab] at ($(O)+(16:1.02)$)  {$\lB$};
+  \end{scope}}
+\end{tikzpicture}
+\figcap{6--10}
+\end{minipage}\hfill
+\begin{minipage}{0.30\linewidth}\centering
+% Two crossing lines: A and A' are the vertical pair (left and right), B is
+% one of the other two (the top one).  Each letter sits on the BISECTOR of
+% its own wedge -- off the bisector a letter drifts into one of the four rays,
+% which is what the collision audit was catching here.
+\begin{tikzpicture}
+  \coordinate (O)  at (0,0);
+  \coordinate (P1) at (-1.30,-0.44);   \coordinate (P2) at (1.30,0.44);
+  \coordinate (Q1) at (-1.30,0.44);    \coordinate (Q2) at (1.30,-0.44);
+  \draw[given] (P1) -- (P2);
+  \draw[given] (Q1) -- (Q2);
+  \VIarc{Q1}{O}{P1}{0.60cm}   % left vertical angle  A
+  \VIarc{P2}{O}{Q1}{0.90cm}   % top angle            B
+  \VIarc{P2}{O}{Q2}{0.60cm}   % right vertical angle A'
+  \node[slab] at ($(O)+(208:1.45)$) {$A$};
+  \node[slab] at ($(O)+(90:0.70)$)  {$B$};
+  \node[slab] at ($(O)+(-32:1.56)$)   {$A\VIpr$};
+\end{tikzpicture}
+\figcap{6--11}
+\end{minipage}\hfill
+\begin{minipage}{0.16\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (O) at (0.62,0);
+  \coordinate (R) at (1.24,0);
+  \coordinate (U) at (0.62,1.02);
+  \draw[given] (0.02,0) -- (R);
+  \draw[given] (O) -- (U);
+  \VIrt{R}{O}{U}{6pt}
+\end{tikzpicture}
+\figcap{6--12}
+\end{minipage}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-13, 6-14, 6-15
+% Book p.88, Exercise Group 6-4.
+%  6-13: fan at A with rays to E, D, C, B; angle 1 = DAE, angle 2 = CAB.
+%  6-14: two parallel lines cut by a transversal through A, B, C, D, E.
+%  6-15: three concurrent lines through O: A--F, C--D, E--B.
+\newcommand{\FIGVITHIRTEENFOURTEENFIFTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A) at (1.42,0);
+  \coordinate (E) at (0.05,1.02);
+  \coordinate (D) at (0.72,1.52);
+  \coordinate (C) at (2.02,1.52);
+  \coordinate (B) at (2.62,1.02);
+  \draw[given] (A) -- (E);  \draw[given] (A) -- (D);
+  \draw[given] (A) -- (C);  \draw[given] (A) -- (B);
+  \node[vlab, left]  at (E) {$E$};
+  \node[vlab, above] at (D) {$D$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, below] at (A) {$A$};
+  \VIarc{E}{A}{D}{0.86cm}
+  \VIarc{C}{A}{B}{0.86cm}
+  % Both wedges here are under 30 degrees wide, so a numeral set at a
+  % hand-picked bearing lands on a ray; take the bisector instead.
+  \VInumb{E}{A}{D}{1.10cm}{1}
+  \VInumb{C}{A}{B}{1.10cm}{2}
+\end{tikzpicture}
+\figcap{6--13}
+
+\medskip
+% Rebuilt against scan06 p17 / photo p.88.  A, B, C, D, E are ANGLES, not
+% points: the book draws THREE parallels cut by one transversal and strikes an
+% arc on five of the angles so formed -- A below-left and B above-right at the
+% lowest crossing, C below-right at the middle one, D below-right and E
+% above-right at the top one.  (An earlier draft drew two parallels and
+% lettered A..E as five POINTS, which left Exercise 3 -- "angle B is congruent
+% to the supplement of angle C, and angle C is congruent to angle D; prove
+% angle A is congruent to angle E" -- with nothing in the picture to name.)
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (L1a) at (0.02,0.05);  \coordinate (L1b) at (3.20,0.05);
+  \coordinate (L2a) at (0.02,1.00);  \coordinate (L2b) at (3.20,1.00);
+  \coordinate (L3a) at (0.02,1.95);  \coordinate (L3b) at (3.20,1.95);
+  \draw[given] (L1a) -- (L1b);
+  \draw[given] (L2a) -- (L2b);
+  \draw[given] (L3a) -- (L3b);
+  \coordinate (P) at (1.02,-0.28);
+  \coordinate (Q) at (2.86,2.24);
+  \draw[given] (P) -- (Q);
+  \coordinate (X1) at (intersection of P--Q and L1a--L1b);
+  \coordinate (X2) at (intersection of P--Q and L2a--L2b);
+  \coordinate (X3) at (intersection of P--Q and L3a--L3b);
+  % arcs: the angle each letter names
+  \VIarc{L1a}{X1}{P}{0.30cm}    % A -- below-left at the lowest crossing
+  \VIarc{L1b}{X1}{Q}{0.34cm}    % B -- above-right there
+  \VIarc{L2b}{X2}{P}{0.34cm}    % C -- below-right at the middle crossing
+  \VIarc{L3b}{X3}{P}{0.34cm}    % D -- below-right at the top crossing
+  \VIarc{L3b}{X3}{Q}{0.34cm}    % E -- above-right there
+  \VInumb{L1a}{X1}{P}{0.56cm}{$A$}
+  \VInumb{L1b}{X1}{Q}{0.60cm}{$B$}
+  \VInumb{L2b}{X2}{P}{0.60cm}{$C$}
+  \VInumb{L3b}{X3}{P}{0.60cm}{$D$}
+  \VInumb{L3b}{X3}{Q}{0.62cm}{$E$}
+\end{tikzpicture}
+\figcap{6--14}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  % The six ends carry names so the constraint suite can read them straight
+  % out of the drawing; the three lines really do meet at O.
+  \coordinate (A) at (0.10,1.62);
+  \coordinate (F) at (2.74,0.10);
+  \coordinate (E) at (0.10,0.10);
+  \coordinate (B) at (2.74,1.62);
+  \coordinate (C) at (1.42,1.72);
+  \coordinate (D) at (1.42,0.02);
+  \coordinate (O) at (intersection of A--F and E--B);
+  \draw[given] (A) -- (F);
+  \draw[given] (E) -- (B);
+  \draw[given] (C) -- (D);
+  \node[vlab, above left]  at (A) {$A$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, above right] at (B) {$B$};
+  \node[vlab, below left]  at (E) {$E$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, below right] at (F) {$F$};
+  % Three lines meet at O, so six rays leave it; the letter goes on the
+  % bisector of one of the 60-degree gaps rather than beside a ray.
+  \node[vlab] at ($(O)+(68:0.64)$) {$O$};
+\end{tikzpicture}
+\figcap{6--15}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-16
+% Book p.89.  The S.A.S. postulate picture: triangles ABC and A'B'C' with one
+% tick on AB/A'B', two on AC/A'C', and a double arc at A and A'.
+\newcommand{\FIGVISIXTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.95]
+ \foreach \dx/\lA/\lB/\lC in {0/A/B/C, 3.85/A\VIpr/B\VIpr/C\VIpr}{
+  \begin{scope}[xshift=\dx cm]
+   \coordinate (A) at (0,0);
+   \coordinate (C) at (2.72,0);
+   \coordinate (B) at (1.18,1.42);
+   \draw[given] (A) -- (C) -- (B) -- cycle;
+   \VItk{A}{B}{1}
+   \VItk{A}{C}{2}
+   \VIarcb{C}{A}{B}{0.52cm}
+   \node[vlab, below left]  at (A) {$\lA$};
+   \node[vlab, above] at (B) {$\lB$};
+   \node[vlab, below right] at (C) {$\lC$};
+  \end{scope}}
+\end{tikzpicture}
+\figcap{6--16}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-17, 6-18
+% Book p.89, Exercise Group 6-5.
+%  6-17: triangles ABC (flat, opening right) and DEF.
+%  6-18: triangles PQR and STU.
+\newcommand{\FIGVISEVENTEENEIGHTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0.62);
+  \coordinate (B) at (1.02,0);
+  \coordinate (C) at (1.92,0.68);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, below] at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  % The two triangles are separate figures; keep a clear gap between C and E
+  % so their letters cannot run together.
+  \coordinate (E) at (2.62,0);
+  \coordinate (D) at (3.28,1.42);
+  \coordinate (F) at (4.24,1.10);
+  \draw[given] (E) -- (D) -- (F) -- cycle;
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, above] at (D) {$D$};
+  \node[vlab, right] at (F) {$F$};
+\end{tikzpicture}
+\figcap{6--17}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (P) at (0,0);
+  \coordinate (R) at (1.32,0);
+  \coordinate (Q) at (0.86,1.30);
+  \draw[given] (P) -- (R) -- (Q) -- cycle;
+  \node[vlab, left]  at (P) {$P$};
+  \node[vlab, right] at (R) {$R$};
+  \node[vlab, above] at (Q) {$Q$};
+  % R and U were close enough that their letters merged into one word.
+  \coordinate (U) at (2.14,0);
+  \coordinate (S) at (2.04,1.30);
+  \coordinate (T) at (3.38,1.30);
+  \draw[given] (U) -- (S) -- (T) -- cycle;
+  \node[vlab, below] at (U) {$U$};
+  \node[vlab, above left]  at (S) {$S$};
+  \node[vlab, above right] at (T) {$T$};
+\end{tikzpicture}
+\figcap{6--18}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-19, 6-20
+% Book p.89.  6-19: A above, B below it, with C and D at the ends -- the
+%   "arrowhead" of Exercise 5 (AC = AD, angle CAB = angle BAD).
+%  6-20: segments D--B and A--C crossing at O.
+\newcommand{\FIGVININETEENTWENTY}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (1.42,1.52);
+  \coordinate (B) at (1.42,0.52);
+  \coordinate (C) at (0.02,0);
+  \coordinate (D) at (2.82,0);
+  \draw[given] (C) -- (A) -- (D);
+  \draw[given] (C) -- (B) -- (D);
+  \draw[given] (A) -- (B);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, below] at (B) {$B$};
+  \node[vlab, left]  at (C) {$C$};
+  \node[vlab, right] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--19}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (D) at (0,0.52);
+  \coordinate (B) at (3.02,0.42);
+  \coordinate (A) at (0.86,0);
+  \coordinate (C) at (2.42,1.02);
+  \draw[given] (D) -- (B);
+  \draw[given] (A) -- (C);
+  \coordinate (O) at (intersection of D--B and A--C);
+  \node[vlab, left]  at (D) {$D$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, below] at (A) {$A$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below right] at (O) {$O$};
+\end{tikzpicture}
+\figcap{6--20}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-21, 6-22
+% Book p.90.  6-21: rectangle A B D C with the diagonal C--B.
+%             6-22: triangle ACB with the cevian CD to the base.
+\newcommand{\FIGVITWENTYONETWENTYTWO}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0.92);
+  \coordinate (B) at (2.92,0.92);
+  \coordinate (C) at (0,0);
+  \coordinate (D) at (2.92,0);
+  \draw[given] (A) -- (B) -- (D) -- (C) -- cycle;
+  \draw[given] (C) -- (B);
+  \node[vlab, above left]  at (A) {$A$};
+  \node[vlab, above right] at (B) {$B$};
+  \node[vlab, below left]  at (C) {$C$};
+  \node[vlab, below right] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--21}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.32,0);
+  \coordinate (C) at (1.12,1.62);
+  \coordinate (D) at ($(A)!0.48!(B)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (C) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--22}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-23, 6-24
+% Book p.90.  6-23: A--B--C on a line with E and D above (two triangles meeting
+%   at B).  6-24: quadrilateral A D C with B at the right, angles 1..4.
+\newcommand{\FIGVITWENTYTHREETWENTYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (1.62,0);
+  \coordinate (C) at (3.12,0);
+  \coordinate (E) at (0.86,1.22);
+  \coordinate (D) at (2.02,1.28);
+  \draw[given] (A) -- (C);
+  \draw[given] (A) -- (E) -- (B);
+  \draw[given] (B) -- (D) -- (C);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, below] at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (E) {$E$};
+  \node[vlab, above] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--23}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=1.30]
+  \coordinate (A) at (0.72,1.52);
+  \coordinate (C) at (0.72,0);
+  % Exercise 10 gives AD = DC, so D must sit on the perpendicular bisector of
+  % AC -- i.e. at the height of AC's midpoint.
+  % Measured off scan06 p20 (book p.90): the book's quadrilateral is A D C B
+  % with the single diagonal D--B.  There is NO segment A--C: D sits only a
+  % little to the left of the line AC (offset 0.12 of AC's length), so the
+  % angle ADC is nearly straight and its one big arc sweeps almost 180 deg.
+  % An earlier draft drew A--C as well and pushed D out to 0.46 of AC, which
+  % turned the plate into a diamond and buried the numerals 1 and 2 under the
+  % spurious chord.
+  \coordinate (D) at (0.54,0.76);
+  \coordinate (B) at (2.62,0.76);
+  \draw[given] (A) -- (D) -- (C);
+  \draw[given] (A) -- (B) -- (C);
+  \draw[given] (D) -- (B);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, below] at (C) {$C$};
+  \node[vlab, left]  at (D) {$D$};
+  \node[vlab, right] at (B) {$B$};
+  % D carries one big arc across the whole of angle ADC, which the segment DB
+  % cuts into the parts 2 (upper) and 1 (lower); B carries a small arc for
+  % each of 3 and 4.  Every numeral sits on its own bisector.
+  \VIarc{A}{D}{C}{0.40cm}
+  \VInumb{A}{D}{B}{0.62cm}{2}
+  \VInumb{B}{D}{C}{0.62cm}{1}
+  \VIarc{A}{B}{D}{0.52cm}   \VInumb{A}{B}{D}{1.20cm}{3}
+  \VIarc{D}{B}{C}{0.52cm}   \VInumb{D}{B}{C}{1.20cm}{4}
+\end{tikzpicture}
+\figcap{6--24}
+\end{minipage}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-25, 6-26, 6-27
+% Book p.90.
+%  6-25: the zigzag B G C F H D A -- C and D are the upper vertices, G and H
+%        the lower ones, with F between C and D on the upper line.
+%  6-26: A B C on a line with peaks E and D; angles 1 and 2 at the ends.
+%  6-27: triangle A M B with apex C, cevian CM, angles 1..4.
+\newcommand{\FIGVITWENTYFIVETWENTYSIXTWENTYSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (0.62,1.12);
+  \coordinate (G) at (1.42,0);
+  \coordinate (F) at (2.12,1.12);
+  \coordinate (H) at (2.82,0);
+  \coordinate (D) at (3.62,1.12);
+  \coordinate (A) at (4.24,0);
+  \draw[given] (B) -- (C) -- (G) -- (F) -- (H) -- (D) -- (A);
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (G) {$G$};
+  \node[vlab, above] at (F) {$F$};
+  \node[vlab, below] at (H) {$H$};
+  \node[vlab, above] at (D) {$D$};
+  \node[vlab, right] at (A) {$A$};
+  \VItk{C}{F}{2}
+  \VItk{F}{D}{2}
+  % Exercise 11 gives CG = HD as well; the book marks that pair with a single
+  % tick, which an earlier draft left off.
+  \VItk{C}{G}{1}
+  \VItk{H}{D}{1}
+  % Angle 3 is the one BETWEEN the top line and FG (i.e. angle CFG), not the
+  % whole wedge GFH: the proof subtracts angle 1 from angle BCF to get angle
+  % GCF, and it is the pair CFG / DFH that S.A.S. then makes congruent.
+  \VIarc{B}{C}{G}{0.34cm}  \VInumb{B}{C}{G}{0.50cm}{1}
+  \VIarc{C}{F}{G}{0.34cm}  \VInumb{C}{F}{G}{0.56cm}{3}
+  \VIarc{H}{F}{D}{0.34cm}  \VInumb{H}{F}{D}{0.56cm}{4}
+  \VIarc{H}{D}{A}{0.34cm}  \VInumb{H}{D}{A}{0.50cm}{2}
+\end{tikzpicture}
+\figcap{6--25}
+
+\medskip
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  % Exercise 12 gives AE = CD and AB = BC, so the two peaks are mirror
+  % images about B and B is the midpoint of AC.  The draft had AB = 1.72
+  % against BC = 1.70 and AE = 1.46 against CD = 1.60.
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.42,0);
+  \coordinate (B) at ($(A)!0.5!(C)$);
+  \coordinate (E) at (0.62,1.32);
+  \coordinate (D) at (2.80,1.32);
+  \draw[given] (-0.28,0) -- (3.70,0);
+  \draw[given] (A) -- (E) -- (B) -- (D) -- (C);
+  \node[vlab] at ($(A)+(150:0.66)$) {$A$};
+  \node[vlab, below] at (B) {$B$};
+  \node[vlab] at ($(C)+(30:0.66)$) {$C$};
+  \node[vlab, above] at (E) {$E$};
+  \node[vlab, above] at (D) {$D$};
+  % 1 and 2 are the EXTERIOR angles at the ends of the line -- between the
+  % part of the line beyond A (resp. beyond C) and the side AE (resp. CD) --
+  % and the book strikes an arc across each.  Those arcs were missing.
+  \coordinate (Lx) at (-0.28,0);
+  \coordinate (Rx) at (3.70,0);
+  \VIarc{Lx}{A}{E}{0.30cm}   \VInum{A}{210}{0.52cm}{1}
+  \VIarc{Rx}{C}{D}{0.30cm}   \VInum{C}{330}{0.52cm}{2}
+\end{tikzpicture}
+\figcap{6--26}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.62,0);
+  \coordinate (C) at (1.32,1.72);
+  \coordinate (M) at ($(A)!0.5!(B)$);
+  % The book carries the base BEYOND A and beyond B, and angles 1 and 2 are
+  % the EXTERIOR angles struck against those stubs -- not the interior base
+  % angles an earlier draft marked (which, with AC = BC given, would have been
+  % congruent by inspection and left Exercise 13 with nothing to prove).
+  \coordinate (Lx) at (-0.52,0);
+  \coordinate (Rx) at (3.14,0);
+  \draw[given] (Lx) -- (Rx);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[given] (C) -- (M);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (M) {$M$};
+  \VIarc{A}{C}{M}{0.46cm}  \VInumb{A}{C}{M}{0.64cm}{3}
+  \VIarc{M}{C}{B}{0.46cm}  \VInumb{M}{C}{B}{0.64cm}{4}
+  \VIarc{Lx}{A}{C}{0.34cm} \VInumb{Lx}{A}{C}{0.60cm}{1}
+  \VIarc{Rx}{B}{C}{0.34cm} \VInumb{Rx}{B}{C}{0.60cm}{2}
+\end{tikzpicture}
+\figcap{6--27}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-28, 6-29
+% Book p.91.  6-28: parallelogram-shaped quadrilateral D C B A with diagonal
+%   D--B, angles 1 (at D) and 2 (at B).  6-29: triangle A B with apex B and
+%   cevian BD to the base, angles 1 and 2 at D.
+\newcommand{\FIGVITWENTYEIGHTTWENTYNINE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  % Proportions off scan06 p21 (book p.91): the book's parallelogram is
+  % width 1.8 x height, leaning right by 0.17 of its height.  The draft was
+  % 2.3 x height and leaned 0.29, which flattened the plate enough to push
+  % the two numerals into one another in the middle of the figure.
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.62,0);
+  \coordinate (D) at (0.25,1.45);
+  \coordinate (C) at (2.87,1.45);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (D) -- (B);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above right] at (C) {$C$};
+  \node[vlab, above left]  at (D) {$D$};
+  \VIarc{C}{D}{B}{0.42cm}  \VInumb{C}{D}{B}{0.92cm}{1}
+  \VIarc{A}{B}{D}{0.42cm}  \VInumb{A}{B}{D}{0.92cm}{2}
+\end{tikzpicture}
+\figcap{6--28}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.72,0);
+  % Exercise 15 gives AD = DC and angle 1 = angle 2.  Angles 1 and 2 are the
+  % two angles the downward stub of BD makes with AC, and they are
+  % supplementary, so congruent means each is a right angle: B must stand
+  % directly OVER the midpoint D, exactly as the book draws it.  The draft put
+  % B at 0.34 of the base, which made the plate contradict its own hypothesis.
+  \coordinate (B) at (1.36,1.62);
+  % Exercise 15 gives AD = DC: D is the MIDPOINT of AC, not a point 0.42
+  % along it, which is what the figure used to show.
+  \coordinate (D) at ($(A)!0.5!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, above right] at (D) {$D$};
+  % In the book BD is carried a little way BELOW the base, and the two
+  % numbered angles are the ones under the line, spanned by a single arc.
+  \draw[given] (D) -- ($(D)!-0.34!(B)$);
+  % ADC is a straight angle, so which way \VIarc would sweep is a coin toss:
+  % strike this one explicitly, below the base, as the book prints it.
+  \draw[fig, line width=0.55pt] ([shift=(180:0.40cm)]D)
+       arc[start angle=180, end angle=360, radius=0.40cm];
+  \VInum{D}{225}{0.62cm}{1}
+  \VInum{D}{315}{0.62cm}{2}
+\end{tikzpicture}
+\figcap{6--29}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-30, 6-31
+% Book p.91.  6-30: quadrilateral A B C D with E and F interior on the
+%   diagonals; angles 1..6.  6-31: quadrilateral A B C D with centre O.
+\newcommand{\FIGVITHIRTYTHIRTYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.58\linewidth}\centering
+% The book draws ONE diagonal here, A--C, and hangs two segments off it:
+% B--F and E--D, with F and E on AC.  (An earlier draft drew the second
+% diagonal B--D instead and left BF and ED out altogether, which made the
+% six numbered angles label things that were not in the picture.)
+% Exercise *16 gives AE = CF, so E and F sit symmetrically about the midpoint
+% of AC -- placed here by ratio, not by eye.
+\begin{tikzpicture}
+  \coordinate (A) at (0,0);
+  \coordinate (D) at (3.30,0);
+  \coordinate (B) at (0.75,1.45);
+  \coordinate (C) at (4.05,1.45);
+  \draw[given] (A) -- (D) -- (C) -- (B) -- cycle;
+  \draw[given] (A) -- (C);
+  \coordinate (F) at ($(A)!0.33!(C)$);
+  \coordinate (E) at ($(A)!0.67!(C)$);
+  \draw[given] (B) -- (F);
+  \draw[given] (E) -- (D);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (D) {$D$};
+  \node[vlab, above left]  at (B) {$B$};
+  \node[vlab, above right] at (C) {$C$};
+  % E above-left of its point as the book sets it; F sits low on AC, close
+  % to the edge AD, so its letter goes up into the wedge between AC and
+  % the segment F--B.
+  \node[vlab, above left] at (E) {$E$};
+  \node[vlab] at ($(F)+(60:0.38)$) {$F$};
+  % Radii are set per wedge: the two slivers at A and C (only about 20 degrees
+  % wide, because BC is parallel to AD) need the numeral pushed well out
+  % before it clears both sides, while the open wedges at F and E do not.
+  \VIarc{B}{A}{C}{0.36cm}   \VInumb{B}{A}{C}{0.78cm}{3}
+  \VIarc{C}{A}{D}{0.52cm}   \VInumb{C}{A}{D}{1.30cm}{6}
+  \VIarc{A}{F}{B}{0.26cm}   \VInumb{A}{F}{B}{0.44cm}{1}
+  \VIarc{C}{E}{D}{0.24cm}   \VInumb{C}{E}{D}{0.42cm}{2}
+  \VIarc{B}{C}{A}{0.42cm}   \VInumb{B}{C}{A}{1.30cm}{5}
+  \VIarc{A}{C}{D}{0.30cm}   \VInumb{A}{C}{D}{0.55cm}{4}
+\end{tikzpicture}
+\figcap{6--30}
+\end{minipage}\hfill
+\begin{minipage}{0.42\linewidth}\centering
+\begin{tikzpicture}[scale=1.30]
+  % Exercise *17 gives AB = AD and BO = OD, so B and D must sit symmetrically
+  % about the line AC: B and D share an x, and AC passes through their midpoint.
+  % Proportions off the plate: AO is about 2.5 times OC, and OB = OD is about
+  % 0.37 of AO -- the book's kite is much longer in the nose than a first
+  % draft suggests.
+  \coordinate (A) at (0,0.68);
+  \coordinate (B) at (1.85,1.36);
+  \coordinate (C) at (2.60,0.68);
+  \coordinate (D) at (1.85,0);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (B) -- (D);
+  \coordinate (O) at (intersection of A--C and B--D);
+  \draw[given] (A) -- (C);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, left] at ($(O)+(0.02,-0.20)$) {$O$};
+  \VItk{A}{B}{1}
+  \VItk{A}{D}{1}
+  \VItk{O}{B}{2}
+  \VItk{O}{D}{2}
+  % The pair of congruent angles at A, marked as the book marks them.  These
+  % arcs used to be omitted because the old pic-based mark wrapped to a full
+  % circle whenever the sides were named the other way round; the hand-struck
+  % \VIarc has no such failure mode.
+  \VIarc{B}{A}{C}{0.85cm}
+  \VIarc{C}{A}{D}{0.85cm}
+  % OC is only 0.75 long, so a numeral 0.68 out along the 45-degree bisector
+  % lands OUTSIDE the kite, across BC.  The book keeps 1 and 2 tucked in
+  % beside the double ticks, about 0.19 of AO from the crossing.
+  \VIarc{B}{O}{C}{0.18cm}   \VInum{O}{35}{0.36cm}{1}
+  \VIarc{C}{O}{D}{0.18cm}   \VInum{O}{-35}{0.36cm}{2}
+\end{tikzpicture}
+\figcap{6--31}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-32
+% Book p.92.  The isosceles triangle labelled two ways at once, which is the
+% whole trick of the Theorem 6-3 proof.
+\newcommand{\FIGVITHIRTYTWO}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  \coordinate (A) at (1.42,1.62);
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (2.84,0);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \node[vlab, above] at (A) {$A = A\VIpr$};
+  \node[vlab, below left]  at (B) {$B = C\VIpr$};
+  \node[vlab, below right] at (C) {$C = B\VIpr$};
+\end{tikzpicture}
+\figcap{6--32}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-33, 6-34, 6-35
+% Book p.92, Exercise Group 6-6.
+%  6-33: triangle P Q R.
+%  6-34: the kite A B C D with both diagonals drawn.
+%  6-35: triangle A D B with apex C and cevian CD, angles 1 and 2.
+\newcommand{\FIGVITHIRTYTHREETHIRTYFOURTHIRTYFIVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (Q) at (0,0);
+  \coordinate (R) at (2.62,0);
+  \coordinate (P) at (1.22,1.12);
+  \draw[given] (Q) -- (R) -- (P) -- cycle;
+  \node[vlab, left]  at (Q) {$Q$};
+  \node[vlab, right] at (R) {$R$};
+  \node[vlab, above] at (P) {$P$};
+\end{tikzpicture}
+\figcap{6--33}
+
+\medskip
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (1.32,2.02);
+  \coordinate (B) at (0,1.32);
+  \coordinate (C) at (2.64,1.32);
+  \coordinate (D) at (1.32,0);
+  \draw[given] (A) -- (B) -- (D) -- (C) -- cycle;
+  \draw[given] (B) -- (C);
+  \draw[given] (A) -- (D);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--34}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.82,0);
+  \coordinate (C) at (1.32,1.72);
+  \coordinate (D) at ($(A)!0.47!(B)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (C) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+  \VIarc{A}{C}{D}{0.46cm}  \VInumb{A}{C}{D}{0.76cm}{1}
+  \VIarc{D}{C}{B}{0.46cm}  \VInumb{D}{C}{B}{0.72cm}{2}
+\end{tikzpicture}
+\figcap{6--35}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-36, 6-37
+% Book p.93.  6-36: the "dart" A B C E D -- AD is the long spine, B interior.
+%             6-37: A B C D E F -- two triangles meeting at C/D, angles 1, 2.
+\newcommand{\FIGVITHIRTYSIXTHIRTYSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0.86);
+  \coordinate (C) at (1.02,1.62);
+  \coordinate (E) at (1.02,0);
+  \coordinate (D) at (2.72,0.86);
+  \coordinate (B) at ($(A)!0.42!(D)$);
+  \draw[given] (A) -- (D);
+  \draw[given] (C) -- (B) -- (E);
+  \draw[given] (C) -- (D) -- (E);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, below left] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--36}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0.72);
+  \coordinate (B) at (0.92,1.82);
+  \coordinate (F) at (2.92,0.72);
+  \coordinate (E) at (1.92,-0.22);
+  % AC = DF is given, so C and D sit symmetrically on A--F.
+  \coordinate (C) at ($(A)!0.35!(F)$);
+  \coordinate (D) at ($(A)!0.65!(F)$);
+  \draw[given] (A) -- (F);
+  \draw[given] (A) -- (B) -- (D);
+  \draw[given] (C) -- (E) -- (F);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, right] at (F) {$F$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, below left]  at (C) {$C$};
+  \node[vlab, above right] at (D) {$D$};
+  % Angle 2 is at D (between DB and DA), NOT at B: the S.A.S. pair the
+  % exercise builds is (AD, DB, angle 2) against (FC, CE, angle 1), so both
+  % marked angles sit on the line A--F.  The book strikes an arc on each; the
+  % draft put 2 at vertex B and left both arcs off.
+  \VIarc{A}{D}{B}{0.34cm}   \VInumb{A}{D}{B}{0.80cm}{2}
+  \VIarc{F}{C}{E}{0.34cm}   \VInumb{F}{C}{E}{0.80cm}{1}
+\end{tikzpicture}
+\figcap{6--37}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-38, 6-39
+% Book p.93.  6-38: triangle A B C with E and D on the base and cevians from B.
+%             6-39: triangle R S T with U inside, joined to S and T.
+\newcommand{\FIGVITHIRTYEIGHTTHIRTYNINE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.22,0);
+  % Exercise 7 gives AD = EC and BE = BD.  The first puts E and D
+  % symmetrically about the midpoint of AC; the second then puts B over that
+  % midpoint.  The draft had E at 0.36, D at 0.56 and B at 0.41 of the base,
+  % so neither hypothesis held in the drawing.
+  \coordinate (B) at (1.61,1.62);
+  \coordinate (E) at ($(A)!0.42!(C)$);
+  \coordinate (D) at ($(A)!0.58!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (E);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--38}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (S) at (0,0);
+  \coordinate (T) at (2.72,0);
+  % RS = RT and US = UT are both given, so R and U must stand on the
+  % perpendicular bisector of ST -- x = 1.36, not 1.22.
+  \coordinate (R) at (1.36,1.72);
+  \coordinate (U) at (1.36,0.92);
+  \draw[given] (S) -- (T) -- (R) -- cycle;
+  \draw[given] (S) -- (U) -- (T);
+  \node[vlab, left]  at (S) {$S$};
+  \node[vlab, right] at (T) {$T$};
+  \node[vlab, above] at (R) {$R$};
+  \node[vlab, below] at (U) {$U$};
+\end{tikzpicture}
+\figcap{6--39}
+\end{minipage}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-40, 6-41, 6-42
+% Book p.93.
+%  6-40: triangle A B with apex C; D and E on the sides, cevians AE and BD,
+%        angles 1 and 2 at D and E.
+%  6-41: triangle A D with apex E; B, F, C on the base, cevians from E.
+%  6-42: triangle A B with apex C; G, D, O, E, F interior, angles 1..4.
+\newcommand{\FIGVIFORTYFORTYONEFORTYTWO}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.92,0);
+  \coordinate (C) at (1.46,1.72);
+  \coordinate (D) at ($(A)!0.60!(C)$);
+  \coordinate (E) at ($(B)!0.60!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  % Angle 1 is CDB and angle 2 is CEA -- the pair the exercise asks about.
+  % Both go on their own bisector, which is what keeps them off DB and EA.
+  % The two bisectors point at EACH OTHER, so distance along them is what sets
+  % the gap between the numerals: at 0.48/0.46 they closed to 1.2pt and read as
+  % the single number "12".  Pulled back to 0.40 for the daylight the book
+  % leaves (about one digit width); still clear of the 0.26 arcs.
+  \VIarc{C}{D}{B}{0.26cm}   \VInumb{C}{D}{B}{0.40cm}{1}
+  \VIarc{C}{E}{A}{0.26cm}   \VInumb{C}{E}{A}{0.40cm}{2}
+\end{tikzpicture}
+\figcap{6--40}
+
+\medskip
+% Rebuilt against scan07 p1 (book p.93) at 150 dpi, cross-read with the photo
+% plate.  The earlier draft fanned every cevian from the APEX E, which cannot
+% satisfy Exercise 10 at all: its hypotheses are AO = OD, AF = FD, BO = OC,
+% BF = FC, so O and F are both distinct interior points joined to A, B, C, D.
+% The plate agrees -- at A and at D two lines leave the vertex (one to E, one
+% to O), and six lines meet at O (up to E, down to A, B, F, C, D).
+% Structure: base A-B-F-C-D collinear; F the MIDPOINT of AD (AF = FD) and of
+% BC (BF = FC); E directly above F, so the whole plate is mirror-symmetric
+% about FE and AO = OD, BO = OC hold exactly rather than by eye.
+% Proportions off the scan: base 825 px, F at 0.488 (drawn 0.5, as the
+% exercise demands), B at 0.228 and C at 0.737 (drawn symmetric at
+% 0.245/0.755), O 0.40 of the base above it, E 0.70 of the base above it.
+\begin{tikzpicture}[scale=1.10]
+  \coordinate (A) at (0,0);
+  \coordinate (D) at (3.22,0);
+  \coordinate (F) at ($(A)!0.5!(D)$);      % AF = FD
+  \coordinate (B) at ($(A)!0.245!(D)$);
+  \coordinate (C) at ($(A)!0.755!(D)$);    % BF = FC by symmetry about F
+  \coordinate (E) at (1.61,2.254);         % directly above F
+  \coordinate (O) at ($(F)!0.593!(E)$);    % on FE, so AO = OD and BO = OC
+  \draw[given] (A) -- (D) -- (E) -- cycle;
+  \draw[given] (E) -- (F);
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (B);
+  \draw[given] (O) -- (C);
+  \draw[given] (O) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, above] at (E) {$E$};
+  \node[vlab, below] at (B) {$B$};
+  \node[vlab, below] at (F) {$F$};
+  \node[vlab, below] at (C) {$C$};
+  % Six lines meet at O; the only clear quadrant is up-and-right, between OE
+  % and OD, which is exactly where the book sets the letter.
+  \node[vlab, above right, inner sep=1pt] at (O) {$O$};
+\end{tikzpicture}
+\figcap{6--41}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+% Rebuilt against scan07 p1 (book p.93) at 200 dpi.  The cevians the book
+% draws are A--F and B--G (F on CB, G on CA), crossing at O.  D and E are NOT
+% on the base -- an earlier draft put them there, which is the one structural
+% error the plate contradicts outright: the book marks D on the cevian A--F
+% and E on the cevian B--G, and joins each back to C.  Measured off the plate,
+% each sits 0.40 of the way from its base vertex along that cevian.
+% C is placed exactly over the midpoint of AB so that AC = BC holds, and G, F
+% are taken at the same ratio down the two sides so that CG = CF holds -- both
+% are hypotheses of Exercise 11.
+% Angles 1 and 2 sit at G and F; 3 and 4 where the cevians CD and CE cut
+% BG and AF, which is where the book strikes their arcs.
+% Drawn a little larger than the neighbouring plates: four numbered angles
+% share the narrow band between G, P, Q and F, and at the smaller scale their
+% bisector labels ran into one another in the middle of the triangle.
+\begin{tikzpicture}[scale=1.30]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4.30,0);
+  \coordinate (C) at (2.15,2.64);
+  \coordinate (G) at ($(C)!0.45!(A)$);
+  \coordinate (F) at ($(C)!0.45!(B)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (A) -- (F);
+  \draw[given] (B) -- (G);
+  % Measured off scan07 p1: D and E sit 0.47 of the way along their cevians,
+  % not 0.40.
+  \coordinate (D) at ($(A)!0.47!(F)$);
+  \coordinate (E) at ($(B)!0.47!(G)$);
+  \draw[given] (C) -- (D);
+  \draw[given] (C) -- (E);
+  \coordinate (O) at (intersection of A--F and B--G);
+  \coordinate (P) at (intersection of C--D and B--G);
+  \coordinate (Q) at (intersection of C--E and A--F);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below]  at (D) {$D$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, above left]  at (G) {$G$};
+  \node[vlab, above right] at (F) {$F$};
+  \node[vlab, below] at (O) {$O$};
+  \VIarc{C}{G}{B}{0.20cm}   \VInumb{C}{G}{B}{0.38cm}{1}
+  \VIarc{C}{F}{A}{0.20cm}   \VInumb{C}{F}{A}{0.38cm}{2}
+  % Same trap as 6-40, and worse here because scale=1.30 multiplies the cm
+  % distance too: the bisectors at P and Q aim straight at one another, so
+  % 0.48cm drove both numerals onto the figure's axis and they printed as "34"
+  % right on top of O.  0.36cm restores the gap the plate shows between them.
+  \VIarc{C}{P}{B}{0.22cm}   \VInumb{C}{P}{B}{0.36cm}{3}
+  \VIarc{C}{Q}{A}{0.22cm}   \VInumb{C}{Q}{A}{0.36cm}{4}
+\end{tikzpicture}
+\figcap{6--42}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-43
+% Book p.94.  The Theorem 6-4 proof picture: triangle ABC, and A'B'C' with the
+% constructed point D' on ray C'B' (dashed, since it is added in the proof).
+\newcommand{\FIGVIFORTYTHREE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.52,0);
+  \coordinate (B) at (1.02,1.42);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \VItk{A}{B}{1}  \VItk{A}{C}{2}  \VIarc{C}{A}{B}{0.46cm}
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, above right] at (C) {$C$};
+  \begin{scope}[xshift=3.65cm]
+   \coordinate (Ap) at (0,0);
+   \coordinate (Cp) at (2.52,0);
+   \coordinate (Bp) at (1.02,1.42);
+   \coordinate (Dp) at ($(Cp)!0.30!(Bp)$);
+   \draw[given] (Ap) -- (Cp) -- (Bp) -- cycle;
+   \draw[aux]   (Ap) -- (Dp);
+   \VItk{Ap}{Bp}{1}  \VItk{Ap}{Cp}{2}  \VIarc{Cp}{Ap}{Bp}{0.46cm}
+   \node[vlab, above left]  at (Ap) {$A\VIpr$};
+   \node[vlab, above] at (Bp) {$B\VIpr$};
+   \node[vlab, below right] at (Cp) {$C\VIpr$};
+   \node[vlab, above right] at (Dp) {$D\VIpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--43}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-44, 6-45
+% Book p.95, Exercise Group 6-8.
+%  6-44: the rhombus A B C D with diagonal BD, angles 1 and 2 at B.
+%  6-45: the parallelogram E F H G with diagonal E--H, angles 1 and 2.
+\newcommand{\FIGVIFORTYFOURFORTYFIVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  % Off scan07 p3 the book's rhombus is very nearly square-on-its-corner
+  % (half-width 117 against half-height 130); the draft was half again as
+  % wide as it was tall.
+  \coordinate (B) at (1.17,2.28);
+  \coordinate (A) at (0,1.08);
+  \coordinate (C) at (2.34,1.08);
+  \coordinate (D) at (1.17,0);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (B) -- (D);
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+  \VInumb{A}{B}{D}{0.56cm}{1}
+  \VInumb{D}{B}{C}{0.54cm}{2}
+\end{tikzpicture}
+\figcap{6--44}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (G) at (0,0);
+  \coordinate (H) at (2.62,0);
+  \coordinate (E) at (0.52,1.12);
+  \coordinate (F) at (3.14,1.12);
+  \draw[given] (G) -- (H) -- (F) -- (E) -- cycle;
+  \draw[given] (E) -- (H);
+  \node[vlab, below left]  at (G) {$G$};
+  \node[vlab, below right] at (H) {$H$};
+  \node[vlab, above left]  at (E) {$E$};
+  \node[vlab, above right] at (F) {$F$};
+  \VInumb{G}{E}{H}{0.38cm}{1}
+  \VInumb{F}{H}{E}{0.38cm}{2}
+\end{tikzpicture}
+\figcap{6--45}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-46, 6-47
+% Book p.95.  6-46: triangle C D with apex A and cevian AB to the base.
+%             6-47: triangle B D with apex A and cevian AC to the base.
+\newcommand{\FIGVIFORTYSIXFORTYSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (C) at (0,0);
+  \coordinate (D) at (2.72,0);
+  \coordinate (A) at (1.36,1.62);
+  \coordinate (B) at ($(C)!0.5!(D)$);
+  \draw[given] (C) -- (D) -- (A) -- cycle;
+  \draw[given] (A) -- (B);
+  \node[vlab, left]  at (C) {$C$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, below] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--46}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (B) at (0,0);
+  \coordinate (D) at (2.72,0);
+  % Exercise 4 gives AB = AD and BC = CD, so C is the MIDPOINT of BD and A
+  % stands directly over it -- which is how the book draws it.  The draft had
+  % C at 0.46 and A off to the left of it.
+  \coordinate (C) at ($(B)!0.5!(D)$);
+  \coordinate (A) at (1.36,1.62);
+  \draw[given] (B) -- (D) -- (A) -- cycle;
+  \draw[given] (A) -- (C);
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, below] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--47}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-48, 6-49
+% Book p.96.  6-48: triangle A B C with D, E on the sides and both cevians
+%             BE, CD drawn.  6-49: the kite B A D C with both diagonals.
+\newcommand{\FIGVIFORTYEIGHTFORTYNINE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (3.22,0);
+  \coordinate (A) at (1.61,1.62);
+  % Exercise 5 makes D and E the MIDPOINTS of AB and AC.
+  \coordinate (D) at ($(B)!0.5!(A)$);
+  \coordinate (E) at ($(C)!0.5!(A)$);
+  \draw[given] (B) -- (C) -- (A) -- cycle;
+  \draw[given] (B) -- (E);
+  \draw[given] (C) -- (D);
+  \draw[given] (D) -- (E);
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--48}
+\end{minipage}\hfill
+\begin{minipage}{0.42\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  % Off scan07 p3 the book's kite is TALL and narrow: half-width 0.85 of the
+  % short (upper) axis, against a lower axis twice the upper.  The draft was
+  % nearly twice as wide as the upper axis was long.
+  \coordinate (A) at (1.22,1.92);
+  \coordinate (B) at (0.68,1.28);
+  \coordinate (D) at (1.76,1.28);
+  \coordinate (C) at (1.22,0);
+  \draw[given] (B) -- (A) -- (D) -- (C) -- cycle;
+  \draw[given] (B) -- (D);
+  \draw[given] (A) -- (C);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, below] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--49}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-50, 6-51
+% Book p.96.  6-50: triangle A B C, D and E midpoints of AB and BC, with the
+%   crossing cevians AE and CD.  6-51: A B C on a line with peaks E and D.
+\newcommand{\FIGVIFIFTYFIFTYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.92,0);
+  % Exercise 7 gives AB = BC, so B stands over the midpoint of AC; the draft
+  % had it at 0.36 of the base and the drawing was not isosceles at all.
+  \coordinate (B) at (1.46,1.62);
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \coordinate (E) at ($(B)!0.5!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (A) -- (E);
+  \draw[given] (C) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--50}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.02,0);
+  % Exercise 8 makes B the midpoint of AC and gives EB = BD, so E and D must
+  % sit symmetrically about B.  The draft's E and D were 0.76 and 0.50 out.
+  \coordinate (B) at ($(A)!0.5!(C)$);
+  \coordinate (E) at (0.88,1.22);
+  \coordinate (D) at (2.14,1.22);
+  \draw[given] (A) -- (C);
+  \draw[given] (A) -- (E) -- (B);
+  \draw[given] (B) -- (D) -- (C);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, below] at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (E) {$E$};
+  \node[vlab, above] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--51}
+\end{minipage}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-52, 6-53, 6-54
+% Book p.96.
+%  6-52: quadrilateral D A B C with the crossing segments DB and AC.
+%  6-53: triangle A B C with E, D on the base and cevians from B.
+%  6-54: the farmer/barn word problem -- rectangle "Barn" with the dashed
+%        sight-line A..B above and the crossed lines A--E, B--D through C.
+\newcommand{\FIGVIFIFTYTWOFIFTYTHREEFIFTYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 9 gives angle DAB = angle CBA and AD = BC, so the quadrilateral
+  % is an ISOSCELES trapezoid; the draft's D and C were 0.42 and 0.50 in from
+  % the ends, which broke both hypotheses.
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.02,0);
+  \coordinate (D) at (0.46,1.22);
+  \coordinate (C) at (2.56,1.22);
+  \draw[given] (A) -- (B);
+  \draw[given] (D) -- (C);
+  \draw[given] (D) -- (A);
+  \draw[given] (C) -- (B);
+  \draw[given] (D) -- (B);
+  \draw[given] (A) -- (C);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--52}
+
+\medskip
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 10 gives AD = EC and BE = BD, the same pair of hypotheses as
+  % Fig. 6-38: E and D symmetric about the midpoint, B over that midpoint.
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.02,0);
+  \coordinate (B) at (1.51,1.62);
+  \coordinate (E) at ($(A)!0.42!(C)$);
+  \coordinate (D) at ($(A)!0.58!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (E);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--53}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,1.72);
+  \coordinate (B) at (3.42,1.72);
+  \coordinate (D) at (0.42,0);
+  \coordinate (E) at (3.02,0);
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \coordinate (C) at (intersection of A--E and B--D);
+  % the book's barn is drawn round the word with clear space; at the old
+  % height the label was as tall as the box and touched both long sides.
+  \draw[given] (1.02,1.42) rectangle (2.42,2.02);
+  \node[slab] at (1.72,1.72) {Barn};
+  \draw[aux] (A) -- (1.02,1.72);
+  \draw[aux] (2.42,1.72) -- (B);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, left]  at (D) {$D$};
+  \node[vlab, right] at (E) {$E$};
+  \node[vlab] at ($(C)+(0:0.66)$) {$C$};
+\end{tikzpicture}
+\figcap{6--54}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-55
+% Book p.97.  The A.S.A. proof picture -- triangles ABC and A'B'C' with
+% the constructed D' on ray A'B' (dashed), arcs at A/A' and C/C', tick on
+% AC/A'C'.
+% Fig 6-56 used to be bundled into this block and emitted beside Theorem 6-5.
+% It belongs to Exercise Group 6-9 #1, further down p.97, and is now its own
+% macro so it can be placed there.
+\newcommand{\FIGVIFIFTYFIVE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.62,0);
+  \coordinate (B) at (0.62,1.42);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \VItk{A}{C}{1}
+  \VIarc{C}{A}{B}{0.46cm}
+  \VIarcb{B}{C}{A}{0.46cm}
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  % C and A' face each other across the gap between the two triangles.  Set
+  % above the base line and with only 1.34cm of canvas between the panels they
+  % closed up and printed as one word, "CA'".  Both base vertices now take the
+  % same below-the-line placement A and C' already use, and the panels are
+  % 4.10cm apart, which is the daylight the book leaves.
+  \node[vlab, below right] at (C) {$C$};
+  \begin{scope}[xshift=4.10cm]
+   \coordinate (Ap) at (0,0);
+   \coordinate (Cp) at (2.62,0);
+   \coordinate (Bp) at (0.62,1.42);
+   \coordinate (Dp) at ($(Ap)!0.72!(Bp)$);
+   \draw[given] (Ap) -- (Cp) -- (Bp) -- cycle;
+   \draw[aux]   (Dp) -- (Cp);
+   \VItk{Ap}{Cp}{1}
+   \VIarc{Cp}{Ap}{Bp}{0.46cm}
+   \VIarcb{Bp}{Cp}{Ap}{0.46cm}
+   \node[vlab, below left]  at (Ap) {$A\VIpr$};
+   \node[vlab, above] at (Bp) {$B\VIpr$};
+   \node[vlab, below right] at (Cp) {$C\VIpr$};
+   \node[vlab, left] at (Dp) {$D\VIpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--55}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-56
+% Book p.97, Exercise Group 6-9 #1.  The kite A B C D with the spine B--D:
+% angles 1 and 2 under B, angles 3 and 4 over D.  Checked against scan07 p6
+% (book p.97): the book strikes an ARC across each of the four angles, which
+% the earlier draft left off, and every numeral sits inside its own arc on
+% that angle's bisector.
+\newcommand{\FIGVIFIFTYSIX}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (B) at (1.32,1.62);
+  \coordinate (D) at (1.32,0);
+  \coordinate (A) at (0,1.02);
+  \coordinate (C) at (2.64,1.02);
+  \draw[given] (A) -- (B) -- (C);
+  \draw[given] (A) -- (D) -- (C);
+  \draw[given] (B) -- (D);
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \VIarc{A}{B}{D}{0.34cm}   \VInumb{A}{B}{D}{0.54cm}{1}
+  \VIarc{D}{B}{C}{0.34cm}   \VInumb{D}{B}{C}{0.54cm}{2}
+  \VIarc{A}{D}{B}{0.34cm}   \VInumb{A}{D}{B}{0.62cm}{3}
+  \VIarc{B}{D}{C}{0.34cm}   \VInumb{B}{D}{C}{0.62cm}{4}
+\end{tikzpicture}
+\figcap{6--56}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-57, 6-58
+% Book p.98.  6-57: parallelogram A D C B with diagonal B--D, angles 1..4.
+%             6-58: triangle A C with apex B, E and D on the base, angles 1, 2.
+\newcommand{\FIGVIFIFTYSEVENFIFTYEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+% Rebuilt against scan07 p8 (book p.98).  The book draws ONE diagonal, B--D,
+% and all four numbered angles are the parts it cuts off: 3 = ABD and
+% 1 = DBC at B, 2 = ADB and 4 = BDC at D, each carrying its own arc.  The
+% earlier draft drew a second diagonal A--C that is not in the plate, put 3 at
+% vertex A, and stacked 2 and 4 on the SAME bisector at two radii -- which is
+% why the collision audit read them as one word "42".
+\begin{tikzpicture}[scale=1.20]
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (2.92,0);
+  \coordinate (A) at (0.42,1.22);
+  \coordinate (D) at (3.34,1.22);
+  \draw[given] (B) -- (C) -- (D) -- (A) -- cycle;
+  \draw[given] (B) -- (D);
+  \node[vlab, below left]  at (B) {$B$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab, above left]  at (A) {$A$};
+  \node[vlab, above right] at (D) {$D$};
+  \VIarc{A}{B}{D}{0.52cm}   \VInumb{A}{B}{D}{0.86cm}{3}
+  \VIarc{D}{B}{C}{0.34cm}   \VInumb{D}{B}{C}{1.05cm}{1}
+  \VIarc{A}{D}{B}{0.34cm}   \VInumb{A}{D}{B}{1.05cm}{2}
+  \VIarc{B}{D}{C}{0.52cm}   \VInumb{B}{D}{C}{0.86cm}{4}
+\end{tikzpicture}
+\figcap{6--57}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.02,0);
+  \coordinate (B) at (1.32,1.72);
+  \coordinate (E) at ($(A)!0.30!(C)$);
+  \coordinate (D) at ($(A)!0.62!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (E);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, below] at (D) {$D$};
+  \VInumb{C}{B}{A}{0.88cm}{1}
+  \VInumb{D}{B}{C}{1.10cm}{2}
+\end{tikzpicture}
+\figcap{6--58}
+\end{minipage}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-59, 6-60
+% Book p.98.  6-59: the "dart" A B C E D with the spine through A and B.
+%             6-60: triangle A B C with E, D on the sides and crossing cevians.
+\newcommand{\FIGVIFIFTYNINESIXTY}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.10]
+  \coordinate (A) at (0.32,0.92);
+  \coordinate (B) at (1.32,0.92);
+  \coordinate (C) at (0.92,1.72);
+  \coordinate (E) at (0.92,0.10);
+  \coordinate (D) at (2.62,0.92);
+  \draw[given] (0,0.92) -- (D);
+  \draw[given] (C) -- (B) -- (E);
+  \draw[given] (C) -- (D) -- (E);
+  \node[vlab, above left]  at (A) {$A$};
+  % B's letter used to sit up-and-left, straight along C--B; up-and-right
+  % runs into C--D, so it drops into the band between the spine and E--D.
+  \node[vlab] at ($(B)+(300:0.32)$) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, right] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--59}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.12,0);
+  \coordinate (B) at (1.42,1.62);
+  \coordinate (E) at ($(A)!0.52!(B)$);
+  \coordinate (D) at ($(C)!0.52!(B)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (A) -- (D);
+  \draw[given] (C) -- (E);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, above left]  at (E) {$E$};
+  \node[vlab, above right] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--60}
+\end{minipage}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-61, 6-62, 6-63
+% Book p.98.
+%  6-61: segments A--D and E--C crossing at B.
+%  6-62: the "kite" A F C D E -- F and C on the spine A--D, E below.
+%  6-63: parallelogram-ish B C A D with the base extended past D, angles 3, 4.
+\newcommand{\FIGVISIXTYONESIXTYTWOSIXTYTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,1.22);
+  \coordinate (D) at (3.02,0);
+  \coordinate (E) at (0,0);
+  \coordinate (C) at (3.02,1.22);
+  \draw[given] (A) -- (D);
+  \draw[given] (E) -- (C);
+  \coordinate (B) at (intersection of A--D and E--C);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, left]  at (E) {$E$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--61}
+
+\medskip
+\begin{tikzpicture}[scale=1.10]
+  \coordinate (A) at (0,0.72);
+  \coordinate (D) at (3.22,0.72);
+  \coordinate (B) at (1.12,1.62);
+  \coordinate (E) at (1.72,0);
+  \coordinate (F) at ($(A)!0.34!(D)$);
+  \coordinate (C) at ($(A)!0.66!(D)$);
+  \draw[given] (A) -- (D);
+  \draw[given] (A) -- (B) -- (C);
+  \draw[given] (F) -- (E) -- (D);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, below left]  at (F) {$F$};
+  % C is the foot of B--C on the spine; below-LEFT lay the letter along
+  % that segment, so it goes straight down into the band above E--D.
+  \node[vlab, below] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--62}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 10 gives AB = AD and "AC bisects angle BAD", so B and D are
+  % equidistant from A and C stands on the bisector of that angle.  The
+  % draft's AB was 1.33 against AD 2.12 and its AC missed the bisector
+  % altogether -- the plate showed neither hypothesis.
+  \coordinate (A) at (0,0);
+  \coordinate (D) at ($(A)+(0:1.55)$);
+  \coordinate (B) at ($(A)+(70:1.55)$);
+  \coordinate (C) at ($(A)+(35:2.30)$);
+  \coordinate (X) at (2.30,0);          % the base carried on past D
+  \draw[given] (A) -- (X);
+  \draw[given] (A) -- (B) -- (C);
+  \draw[given] (A) -- (C);
+  \draw[given] (C) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, above left]  at (B) {$B$};
+  \node[vlab, above right] at (C) {$C$};
+  % 4 is the angle between DC and the STUB of the base beyond D -- the book
+  % extends the base for exactly that purpose.  The draft aimed the numeral
+  % along DC itself.
+  \VIarc{A}{B}{C}{0.34cm}   \VInumb{A}{B}{C}{0.58cm}{3}
+  \VIarc{C}{D}{X}{0.30cm}   \VInumb{C}{D}{X}{0.54cm}{4}
+\end{tikzpicture}
+\figcap{6--63}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-64, 6-65
+% Book p.99.  6-64: triangle A B with apex C, D and E on the sides, crossing
+%   cevians AE and BD meeting at F, angles 3 and 4 at D and E.
+%  6-65: triangle A C with apex B and D below B, angles 1 and 2.
+\newcommand{\FIGVISIXTYFOURSIXTYFIVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.22,0);
+  \coordinate (C) at (1.61,1.72);
+  \coordinate (D) at ($(A)!0.62!(C)$);
+  \coordinate (E) at ($(B)!0.62!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \coordinate (F) at (intersection of A--E and B--D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  \node[vlab, below] at (F) {$F$};
+  % 3 is angle CDB at D and 4 is angle CEA at E, each on its own bisector and
+  % each carrying an arc.  The draft aimed them at fixed bearings that fell
+  % straight along DB and EA.
+  % The two bisectors aim at one another, so 0.58 drove the numerals together
+  % until they printed as "34" in a single heap; 0.44 gives them the book's gap
+  % and still clears the 0.26 arcs.
+  \VIarc{C}{D}{B}{0.26cm}   \VInumb{C}{D}{B}{0.44cm}{3}
+  \VIarc{C}{E}{A}{0.26cm}   \VInumb{C}{E}{A}{0.44cm}{4}
+\end{tikzpicture}
+\figcap{6--64}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 12 gives AB = BC and AD = DC, so B and D BOTH lie on the
+  % perpendicular bisector of AC, which is how the book draws them -- D
+  % directly under B, half its height.  The draft put B at 0.35 of the base
+  % and D off the axis, so neither hypothesis held.
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.92,0);
+  \coordinate (B) at (1.46,1.82);
+  \coordinate (D) at (1.46,0.91);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (A) -- (D) -- (C);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+  \VIarc{A}{B}{D}{0.40cm}   \VInumb{A}{B}{D}{0.72cm}{1}
+  \VIarc{D}{B}{C}{0.40cm}   \VInumb{D}{B}{C}{0.72cm}{2}
+\end{tikzpicture}
+\figcap{6--65}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-66, 6-67
+% Book p.99.  Both are the "cevian web" figures.
+%  6-66: triangle A B with apex C; D, E on the sides, H on AB; cevians AE, BD
+%        and CH concurrent at G; angles 3, 4 at D, E.
+%  6-67: triangle A B with apex C; D, E on the sides; F, G on AB; cevians
+%        crossing at H, I, J; angles 1, 2 at the base.
+\newcommand{\FIGVISIXTYSIXSIXTYSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.22,0);
+  \coordinate (C) at (1.61,1.82);
+  \coordinate (H) at ($(A)!0.5!(B)$);
+  \coordinate (D) at ($(A)!0.66!(C)$);
+  \coordinate (E) at ($(B)!0.66!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \draw[given] (C) -- (H);
+  \coordinate (G) at (intersection of A--E and B--D);
+  \draw[given] (D) -- (E);
+  % F is where C--H crosses D--E; the book letters it and the draft left it
+  % out altogether.
+  \coordinate (F) at (intersection of C--H and D--E);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (H) {$H$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  \node[vlab] at ($(F)+(225:0.44)$) {$F$};
+  \node[vlab] at ($(G)+(240:0.46)$) {$G$};
+  % 3 and 4 are the two halves of the vertex angle at C, and the book sets
+  % them at the SAME radius on either side of C--H.  The draft used 1.30 and
+  % 0.34, which threw both numerals onto the sides of the triangle.
+  \VIarc{A}{C}{H}{0.30cm}   \VInumb{A}{C}{H}{0.44cm}{3}
+  \VIarc{H}{C}{B}{0.30cm}   \VInumb{H}{C}{B}{0.44cm}{4}
+\end{tikzpicture}
+\figcap{6--66}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+% Rebuilt against the photo of book p.99 (PDF 113).  F and G are on the SIDES
+% CA and CB (below D and E), not on the base: the segment F--G runs across the
+% triangle, and the two lines drawn are the cevians A--E and B--D.  H is where
+% those cevians cross; I and J are where they cut F--G.  The earlier draft put
+% F and G on AB, drew D--G and E--F instead, and then placed I and J at
+% arbitrary ratios along F--G rather than deriving them, so the exercise's
+% triangle HIJ was not the one in the picture.
+% Exercise 14 gives AC = BC and DF = EG, and the plate is mirror-symmetric
+% about the altitude from C -- which is what makes triangle HIJ isosceles.
+\begin{tikzpicture}[scale=1.30]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.32,0);
+  \coordinate (C) at (1.66,2.70);
+  \coordinate (D) at ($(A)!0.55!(C)$);
+  \coordinate (E) at ($(B)!0.55!(C)$);
+  \coordinate (F) at ($(A)!0.30!(C)$);
+  \coordinate (G) at ($(B)!0.30!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (F) -- (G);
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \coordinate (H) at (intersection of A--E and B--D);
+  \coordinate (I) at (intersection of A--E and F--G);
+  \coordinate (J) at (intersection of B--D and F--G);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  \node[vlab, left]  at (F) {$F$};
+  \node[vlab, right] at (G) {$G$};
+  \node[vlab, above] at (H) {$H$};
+  \node[vlab] at ($(I)+(285:0.32)$) {$I$};
+  \node[vlab] at ($(J)+(255:0.32)$) {$J$};
+  % 1 is the angle at A between the side AC and the cevian AE; 2 its mirror
+  % image at B.
+  \VIarc{C}{A}{E}{0.40cm}   \VInumb{C}{A}{E}{0.72cm}{1}
+  \VIarc{C}{B}{D}{0.40cm}   \VInumb{C}{B}{D}{0.72cm}{2}
+\end{tikzpicture}
+\figcap{6--67}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-68
+% Book p.99.  Theorem 6-6: the same triangle labelled two ways, as in 6-32.
+\newcommand{\FIGVISIXTYEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (B) at (1.32,1.52);
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.64,0);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \node[vlab, above] at (B) {$B = B\VIpr$};
+  \node[vlab, below left]  at (A) {$A = C\VIpr$};
+  \node[vlab, below right] at (C) {$C = A\VIpr$};
+\end{tikzpicture}
+\figcap{6--68}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-69
+% Book p.100.  The S.S.S. proof: (a) triangle ABC, (b) triangle A'B'C' with the
+% arc at A', (c) the reflected copy with E and D below AC (ticks on AB, AE).
+\newcommand{\FIGVISIXTYNINE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  % (a)
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (1.92,0);
+  \coordinate (B) at (0.72,1.12);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, below left] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[slab, below] at (0.96,-0.28) {(a)};
+  % (b)
+  \begin{scope}[xshift=2.72cm]
+   \coordinate (Ap) at (0,0);
+   \coordinate (Cp) at (1.92,0);
+   \coordinate (Bp) at (0.72,1.12);
+   \draw[given] (Ap) -- (Cp) -- (Bp) -- cycle;
+   \VIarc{Cp}{Ap}{Bp}{0.42cm}
+   \node[vlab, below]  at (Ap) {$A\VIpr$};
+   % Set flush right, C' stacked under panel (c)'s A with 0.35pt between them.
+   % Below-right matches the placement A' already takes at the other end of the
+   % same base and drops it clear of the next panel.
+   \node[vlab, below right] at (Cp) {$C\VIpr$};
+   \node[vlab, above] at (Bp) {$B\VIpr$};
+   \node[slab, below] at (0.96,-0.28) {(b)};
+  \end{scope}
+  % (c)
+  \begin{scope}[xshift=5.44cm]
+   \coordinate (Ac) at (0,0.52);
+   \coordinate (Cc) at (1.72,0.52);
+   \coordinate (Bc) at (1.22,1.52);
+   \coordinate (Ec) at (1.22,-0.48);
+   \coordinate (Dc) at (1.46,-0.62);
+   \draw[given] (Ac) -- (Cc);
+   \draw[given] (Ac) -- (Bc) -- (Cc);
+   \draw[given] (Ac) -- (Ec) -- (Cc);
+   \draw[given] (Ac) -- (Dc);
+   \VItk{Ac}{Bc}{1}
+   \VItk{Ac}{Ec}{1}
+   \VIarc{Cc}{Ac}{Ec}{0.40cm}
+   \node[vlab, left]  at (Ac) {$A$};
+   \node[vlab, right] at (Cc) {$C$};
+   \node[vlab, above] at (Bc) {$B$};
+   \node[vlab, below]  at (Ec) {$E$};
+   \node[vlab, right] at (Dc) {$D$};
+   \node[slab, below] at (0.62,-0.92) {(c)};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--69}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-70
+% Book p.100.  The kite A B C E with both diagonals, angles 1..4 at B and E.
+\newcommand{\FIGVISEVENTY}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (B) at (1.32,1.72);
+  \coordinate (A) at (0,0.86);
+  \coordinate (C) at (2.64,0.86);
+  \coordinate (E) at (1.32,-0.32);
+  \draw[given] (A) -- (B) -- (C) -- (E) -- cycle;
+  \draw[given] (A) -- (C);
+  \draw[given] (B) -- (E);
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (E) {$E$};
+  \VInum{B}{-118}{0.42cm}{1}
+  \VInum{B}{-62}{0.42cm}{2}
+  \VInumb{B}{E}{A}{0.64cm}{3}
+  \VInumb{C}{E}{B}{0.64cm}{4}
+\end{tikzpicture}
+\figcap{6--70}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-71
+% Book p.101.  The two cases the S.S.S. proof tacitly assumed away: BE meets AC
+% inside the segment (a) or outside it (b).
+\newcommand{\FIGVISEVENTYONE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.88]
+  % (a) C between A and the crossing
+  \coordinate (A) at (0,0.62);
+  \coordinate (B) at (1.42,1.52);
+  \coordinate (E) at (1.42,-0.42);
+  \coordinate (C) at (0.92,0.62);
+  \draw[given] (A) -- (B) -- (E) -- cycle;
+  \draw[given] (A) -- (C);
+  \draw[given] (B) -- (E);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, right] at (C) {$C$};
+  \node[slab, below] at (0.86,-0.86) {(a)};
+  \begin{scope}[xshift=2.72cm]
+   \coordinate (A2) at (0,0.62);
+   \coordinate (B2) at (1.42,1.52);
+   \coordinate (E2) at (1.42,-0.42);
+   % C2 sat close enough to the vertical B2--E2 that its letter, set to the
+   % right, ran into that segment.
+   \coordinate (C2) at (0.88,0.62);
+   \draw[given] (A2) -- (B2) -- (E2) -- cycle;
+   \draw[given] (A2) -- (C2);
+   \draw[given] (B2) -- (C2) -- (E2);
+   \node[vlab, left]  at (A2) {$A$};
+   \node[vlab, above] at (B2) {$B$};
+   \node[vlab, below] at (E2) {$E$};
+   \node[vlab, right] at (C2) {$C$};
+   \node[slab, below] at (0.86,-0.86) {(b)};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--71}
+\end{bkfigure}}
+
+% ==================================================== Figs 6-72, 6-73, 6-74
+% Book p.101.  6-72: the braced gate (a picture, not a lettered diagram) --
+%   post at the left, rectangular gate, diagonal brace, ground hatching.
+%  6-73: kite A B C D with the diagonal B--D.
+%  6-74: parallelogram A B C D with the diagonal A--C.
+\newcommand{\FIGVISEVENTYTWOSEVENTYTHREESEVENTYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % post
+  \draw[given] (0.10,-0.12) rectangle (0.42,1.92);
+  % gate
+  \draw[given] (0.52,0.12) rectangle (3.02,1.62);
+  \draw[given] (0.66,0.26) rectangle (2.88,1.48);
+  % brace
+  \draw[given] (0.66,0.26) -- (2.88,1.48);
+  % hinges
+  \draw[given] (0.42,1.42) -- (0.66,1.42);
+  \draw[given] (0.42,0.36) -- (0.66,0.36);
+  % ground
+  \draw[given] (-0.10,-0.12) -- (3.32,-0.12);
+  \foreach \x in {-0.02,0.16,...,3.20}{
+    \draw[tick] (\x,-0.12) -- ($(\x,-0.12)+(-0.10,-0.14)$);}
+\end{tikzpicture}
+\figcap{6--72}
+\end{minipage}\hfill
+\begin{minipage}{0.22\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (B) at (0.92,1.72);
+  \coordinate (A) at (0,1.02);
+  \coordinate (C) at (1.84,1.02);
+  \coordinate (D) at (0.92,0);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (B) -- (D);
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--73}
+\end{minipage}\hfill
+\begin{minipage}{0.26\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (D) at (0,0);
+  \coordinate (C) at (2.12,0.22);
+  \coordinate (B) at (1.82,1.12);
+  \coordinate (A) at (0.32,1.02);
+  \draw[given] (D) -- (C) -- (B) -- (A) -- cycle;
+  \draw[given] (A) -- (C);
+  \node[vlab, below left]  at (D) {$D$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above right] at (B) {$B$};
+  \node[vlab, above left]  at (A) {$A$};
+\end{tikzpicture}
+\figcap{6--74}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-75, 6-76
+% Book p.102.  6-75: triangle A C with apex B and cevian BD.
+%   6-76: the kite A B C D with spine A--C through E, angles 1 and 2 at A.
+\newcommand{\FIGVISEVENTYFIVESEVENTYSIX}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 4 gives AB = BC and AD = DC, so D is the midpoint of AC and B
+  % stands over it, as the book draws it.
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.62,0);
+  \coordinate (B) at (1.31,1.72);
+  \coordinate (D) at ($(A)!0.5!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--75}
+\end{minipage}\hfill
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 5 gives AB = AD and BC = CD, so A and C both lie on the
+  % perpendicular bisector of BD: B and D must straddle the line AC evenly.
+  % They did not -- BD's midpoint sat 0.05 below AC -- and E was placed by a
+  % hand-picked ratio instead of being taken as the actual crossing.
+  \coordinate (A) at (0,0.86);
+  \coordinate (C) at (3.42,0.86);
+  \coordinate (B) at (1.22,1.72);
+  \coordinate (D) at (1.22,0);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (A) -- (C);
+  \draw[given] (B) -- (D);
+  \coordinate (E) at (intersection of A--C and B--D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  \VInumb{C}{A}{B}{0.86cm}{1}
+  \VInumb{D}{A}{C}{0.84cm}{2}
+\end{tikzpicture}
+\figcap{6--76}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-77, 6-78
+% Book p.102.  6-77: parallelogram A B C D with E on BC-side, F interior, and
+%   the segments A--C, B--D drawn.  6-78: triangle A C with apex B, E and D on
+%   the base.
+\newcommand{\FIGVISEVENTYSEVENSEVENTYEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (A) at (0,0);
+  \coordinate (D) at (2.62,0);
+  \coordinate (B) at (0.52,1.12);
+  \coordinate (C) at (3.14,1.12);
+  \draw[given] (A) -- (D) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (D);
+  \draw[given] (A) -- (C);
+  % AF = EC is given, so F and E sit symmetrically on the diagonal.
+  \coordinate (F) at ($(A)!0.30!(C)$);
+  \coordinate (E) at ($(A)!0.70!(C)$);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (D) {$D$};
+  \node[vlab, above left]  at (B) {$B$};
+  \node[vlab, above right] at (C) {$C$};
+  % E and F both sit ON the diagonal, so each letter goes on the side away
+  % from the long edge it is nearest.
+  \node[vlab, below right] at (E) {$E$};
+  \node[vlab, above left] at (F) {$F$};
+\end{tikzpicture}
+\figcap{6--77}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 7: triangle ABC isosceles with vertex B (so B stands over the
+  % midpoint of AC) and AD = EC (so E and D are symmetric about it).
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.92,0);
+  \coordinate (B) at (1.46,1.72);
+  \coordinate (E) at ($(A)!0.32!(C)$);
+  \coordinate (D) at ($(A)!0.68!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (E);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (E) {$E$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--78}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-79, 6-80
+% Book p.102.  6-79: the re-entrant "dart" A B C D.
+%   6-80: triangle A B with apex C, D on the base, E, G, F on the cevian rows,
+%   angles 1 and 2 at D.
+\newcommand{\FIGVISEVENTYNINEEIGHTY}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 8 gives AB = AD and BC = CD, so A and C lie on the perpendicular
+  % bisector of BD -- both at the height of BD's midpoint, 0.81.
+  \coordinate (A) at (0,0.81);
+  \coordinate (B) at (3.02,1.62);
+  \coordinate (D) at (3.02,0);
+  \coordinate (C) at (2.12,0.81);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, left] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--79}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.02,0);
+  \coordinate (C) at (1.51,1.72);
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \coordinate (E) at ($(A)!0.54!(C)$);
+  \coordinate (F) at ($(B)!0.54!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (C) -- (D);
+  \draw[given] (E) -- (F);
+  % G is where C--D cuts E--F; it was placed as the midpoint of EF instead of
+  % being derived, and its letter, set up-and-right, ran into the side CB.
+  \coordinate (G) at (intersection of C--D and E--F);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, above left]  at (E) {$E$};
+  \node[vlab, above right] at (F) {$F$};
+  \node[vlab] at ($(G)+(-45:0.42)$) {$G$};
+  % The book strikes ONE arc across the whole straight angle ADB and writes
+  % the two numerals inside it, either side of DC.
+  \draw[fig, line width=0.55pt] ([shift=(0:0.36cm)]D)
+       arc[start angle=0, end angle=180, radius=0.36cm];
+  \VInum{D}{145}{0.92cm}{2}
+  \VInum{D}{35}{0.92cm}{1}
+\end{tikzpicture}
+\figcap{6--80}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-81, 6-82
+% Book p.102.  6-81: triangle A B with D on AB and apex C below, E and F on the
+%   line through C; angles 1 and 2 at C.  6-82: segments C--B and D--A crossing.
+\newcommand{\FIGVIEIGHTYONEEIGHTYTWO}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,1.42);
+  \coordinate (B) at (2.82,1.42);
+  \coordinate (C) at (1.41,0);
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \draw[given] (A) -- (B);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[given] (C) -- (D);
+  \draw[given] (0.12,0) -- (2.70,0);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, below] at (C) {$C$};
+  \node[vlab, above] at (D) {$D$};
+  \node[vlab, left]  at (0.12,0) {$E$};
+  \node[vlab, right] at (2.70,0) {$F$};
+  % One arc across the whole straight angle ECF, numerals inside it either
+  % side of CD.  At 0.46 they sat on the line EF itself.
+  \draw[fig, line width=0.55pt] ([shift=(0:0.44cm)]C)
+       arc[start angle=0, end angle=180, radius=0.44cm];
+  \VInum{C}{112}{0.74cm}{1}
+  \VInum{C}{68}{0.74cm}{2}
+\end{tikzpicture}
+\figcap{6--81}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 11 gives AC = BD and AD = BC, so C and D must sit symmetrically
+  % over AB; the draft's D was 0.18 off, breaking both.
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.82,0);
+  \coordinate (C) at (0.72,1.32);
+  \coordinate (D) at (2.10,1.32);
+  \draw[given] (A) -- (B);
+  \draw[given] (A) -- (C);
+  \draw[given] (A) -- (D);
+  \draw[given] (C) -- (B);
+  \draw[given] (D) -- (B);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, above] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--82}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-83, 6-84
+% Book p.103.  6-83: A at the top with B, C at the ends and D, E crossing.
+%   6-84: triangle A B with apex C, D on the base, O interior.
+\newcommand{\FIGVIEIGHTYTHREEEIGHTYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 12 gives AB = BC, so A and C must be mirror images across the
+  % horizontal through B; the draft had them 0.80 and 1.02 from it.
+  \coordinate (A) at (2.02,1.82);
+  \coordinate (B) at (0,1.02);
+  \coordinate (C) at (2.02,0.22);
+  \coordinate (D) at ($(B)!0.52!(A)$);
+  \coordinate (E) at ($(B)!0.52!(C)$);
+  \draw[given] (B) -- (A);
+  \draw[given] (B) -- (C);
+  \draw[given] (A) -- (E);
+  \draw[given] (C) -- (D);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, below left]  at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--83}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.02,0);
+  \coordinate (C) at (1.51,1.72);
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (C) -- (D);
+  \coordinate (Pb) at ($(B)!0.42!(C)$);
+  \coordinate (Pa) at ($(A)!0.42!(C)$);
+  \draw[given] (A) -- (Pb);
+  \draw[given] (B) -- (Pa);
+  \coordinate (O) at (intersection of C--D and A--Pb);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+  % Six rays leave O; the only wide gap is the one opening to the right,
+  % between the two cevians.  "above right" lay along A--Pb.
+  \node[vlab] at ($(O)+(56:0.62)$) {$O$};
+\end{tikzpicture}
+\figcap{6--84}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-85, 6-86
+% Book p.103.  6-85: triangle A C with B above A, D and E on the cevians,
+%   angles 1 and 2 at A/B.  6-86: parallelogram D C A B with E, F on the sides
+%   and M the crossing of the two cevians.
+\newcommand{\FIGVIEIGHTYFIVEEIGHTYSIX}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 14 gives AC = BC, so C must sit on the perpendicular bisector of
+  % AB.  The draft's C gave AC = 3.08 against BC = 2.91.
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (0.22,1.42);
+  \coordinate (C) at (3.07,0.25);
+  \coordinate (D) at ($(A)!0.52!(C)$);
+  \coordinate (E) at ($(B)!0.52!(C)$);
+  \draw[given] (A) -- (B);
+  \draw[given] (A) -- (C);
+  \draw[given] (B) -- (C);
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \node[vlab, below] at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, above] at (E) {$E$};
+  % 1 sits at A (angle EAB) and 2 at B (angle ABD) -- opposite ends of the same
+  % short side, each pushed along a bisector that runs INTO the other.  AB is
+  % only 1.44 units, and 0.66 + 0.90 overshot it, so the two numerals crossed
+  % and printed as "12".  Measured off the plate, the book puts 1 about 0.31 of
+  % AB above A and 2 about 0.41 of AB below B, leaving a clear gap between them.
+  \VInumb{E}{A}{B}{0.45cm}{1}
+  \VInumb{A}{B}{D}{0.59cm}{2}
+\end{tikzpicture}
+\figcap{6--85}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.62,0);
+  \coordinate (D) at (0.52,1.22);
+  \coordinate (C) at (3.14,1.22);
+  % AM = MC is given, so M must be the midpoint of the diagonal -- which
+  % happens exactly when E and F are symmetric about the parallelogram's
+  % centre, i.e. when their two ratios add to 1.  The draft's 0.30 and 0.62
+  % did not, so the drawing contradicted its own hypothesis.
+  \coordinate (E) at ($(D)!0.38!(C)$);
+  \coordinate (F) at ($(A)!0.62!(B)$);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (A) -- (C);
+  \draw[given] (E) -- (F);
+  \coordinate (M) at (intersection of A--C and E--F);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (C) {$C$};
+  \node[vlab, above] at (E) {$E$};
+  \node[vlab, below] at (F) {$F$};
+  \node[vlab, above left] at (M) {$M$};
+\end{tikzpicture}
+\figcap{6--86}
+\end{minipage}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-87, 6-88
+% Book p.103.  6-87: triangle A B with apex C, D and E on the sides, crossing
+%   cevians AE and BD; angles 1..4.  6-88: the kite A B D C with E below.
+\newcommand{\FIGVIEIGHTYSEVENEIGHTYEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=1.30]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.32,0);
+  \coordinate (C) at (1.66,1.72);
+  \coordinate (D) at ($(A)!0.58!(C)$);
+  \coordinate (E) at ($(B)!0.58!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  % All four angles sit at the BASE vertices: the cevians split the angle at
+  % A into 1 (next to AB) and 3 (next to AC), and the angle at B into 2 and
+  % 4.  The draft put 3 at D and 4 at E, which is not what the plate shows
+  % and left Exercise 16 marking angles it never names.
+  \VIarc{B}{A}{E}{0.66cm}   \VInumb{B}{A}{E}{0.94cm}{1}
+  \VIarc{A}{B}{D}{0.66cm}   \VInumb{A}{B}{D}{0.94cm}{2}
+  \VIarc{E}{A}{C}{0.40cm}   \VInumb{E}{A}{C}{0.98cm}{3}
+  \VIarc{D}{B}{C}{0.40cm}   \VInumb{D}{B}{C}{0.98cm}{4}
+\end{tikzpicture}
+\figcap{6--87}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+% Proportions remeasured against scan07 p18 (book p.103) at 150 dpi.  The draft
+% kite was twice as wide for its height as the book's (height/width 0.96 against
+% the plate's 1.76) and put D barely below BC, which is what drove D's letter
+% into the numeral 2.  Measured off the plate, with BC as the unit: A sits 0.520
+% above BC, D 0.495 below it, E 1.244 below it.
+% Everything is mirror-symmetric about the vertical AE, so BE = CE and angle 1 =
+% angle 2 (the hypotheses) and angle 3 = angle 4 (the conclusion) all hold
+% exactly rather than by eye.
+\begin{tikzpicture}[scale=0.85]
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (2.44,0);
+  \coordinate (A) at (1.22,1.269);
+  \coordinate (D) at (1.22,-1.208);
+  \coordinate (E) at (1.22,-3.035);
+  \draw[given] (B) -- (A) -- (C);
+  \draw[given] (B) -- (D) -- (C);
+  \draw[given] (B) -- (E) -- (C);
+  \draw[given] (A) -- (E);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  % The plate letters D in the wedge between DA and DC, just up and right of the
+  % point -- the only quadrant at D that no stroke crosses.
+  \node[vlab, above right, inner sep=1pt] at (D) {$D$};
+  \node[vlab, below] at (E) {$E$};
+  % 3 and 4 are at B and C -- the angles ABD and ACD that Exercise 17 asks
+  % about -- not at D, where an earlier draft put them.  1 and 2 stay at E.
+  % Distances measured off the plate: numerals at 0.33 of BC from B and C, arcs
+  % at 0.21; at E the numerals sit 0.39 of BC out and the arcs at 0.28, so there
+  % the numeral is OUTSIDE its arc, as the book draws it.
+  \VIarc{A}{B}{D}{0.52cm}   \VInumb{A}{B}{D}{0.80cm}{3}
+  \VIarc{A}{C}{D}{0.52cm}   \VInumb{A}{C}{D}{0.80cm}{4}
+  \VIarc{B}{E}{A}{0.68cm}   \VInumb{B}{E}{A}{0.96cm}{1}
+  \VIarc{A}{E}{C}{0.68cm}   \VInumb{A}{E}{C}{0.96cm}{2}
+\end{tikzpicture}
+\figcap{6--88}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-89
+% Book p.103.  Parallelogram D C A B with E and F on the diagonal, angles 1, 2.
+\newcommand{\FIGVIEIGHTYNINE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.82,0);
+  \coordinate (D) at (0.52,1.22);
+  \coordinate (C) at (3.34,1.22);
+  % The book draws the diagonal A--C and hangs D--E and B--F off it, with E
+  % and F on that diagonal; there is no D--B.  Angle 1 = ADE at D and
+  % angle 2 = CBF at B are the pair Exercise 19 gives, and DE = BF is what it
+  % asks for -- so both of those segments have to be in the picture.  The
+  % draft drew D--B instead and left E and F unjoined to anything.
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (A) -- (C);
+  \coordinate (E) at ($(A)!0.30!(C)$);
+  \coordinate (F) at ($(A)!0.70!(C)$);
+  \draw[given] (D) -- (E);
+  \draw[given] (B) -- (F);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (C) {$C$};
+  \node[vlab] at ($(E)+(82:0.46)$) {$E$};
+  \node[vlab] at ($(F)+(262:0.46)$) {$F$};
+  \VIarc{A}{D}{E}{0.36cm}   \VInumb{A}{D}{E}{0.62cm}{1}
+  \VIarc{C}{B}{F}{0.36cm}   \VInumb{C}{B}{F}{0.62cm}{2}
+\end{tikzpicture}
+\figcap{6--89}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-90, 6-91
+% Book p.104.  6-90: trapezoid A B C D with both diagonals crossing at E.
+%   6-91: parallelogram D C A B with E, F on the diagonal, angles 1..4.
+\newcommand{\FIGVININETYNINETYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 20 gives AD = CB and BD = AC, so the trapezoid is isosceles;
+  % the draft's A and B were 0.52 and 0.50 in from the ends.
+  \coordinate (D) at (0,0);
+  \coordinate (C) at (2.92,0);
+  \coordinate (A) at (0.51,1.12);
+  \coordinate (B) at (2.41,1.12);
+  \draw[given] (D) -- (C) -- (B) -- (A) -- cycle;
+  \draw[given] (A) -- (C);
+  \draw[given] (D) -- (B);
+  \coordinate (E) at (intersection of A--C and D--B);
+  \node[vlab, below left]  at (D) {$D$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab, above left]  at (A) {$A$};
+  \node[vlab, above right] at (B) {$B$};
+  \node[vlab, below] at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--90}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.82,0);
+  \coordinate (D) at (0.52,1.22);
+  \coordinate (C) at (3.34,1.22);
+  % Same construction as Fig. 6-89, and checked against the same plate: the
+  % diagonal A--C with D--E and B--F hung off it, and NO D--B.  Exercise 21
+  % gives AB = CD, AE = CF and angle 3 = angle 4, and asks for angle 1 =
+  % angle 2, where 1 = ADE at D, 2 = CBF at B, 3 = BAC at A and 4 = DCA at C.
+  % The draft drew D--B, left E and F unjoined, and marked four different
+  % angles.
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (A) -- (C);
+  \coordinate (E) at ($(A)!0.30!(C)$);
+  \coordinate (F) at ($(A)!0.70!(C)$);
+  \draw[given] (D) -- (E);
+  \draw[given] (B) -- (F);
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (C) {$C$};
+  \node[vlab] at ($(E)+(70:0.34)$) {$E$};
+  \node[vlab] at ($(F)+(250:0.34)$) {$F$};
+  \VIarc{A}{D}{E}{0.36cm}   \VInumb{A}{D}{E}{0.62cm}{1}
+  \VIarc{C}{B}{F}{0.36cm}   \VInumb{C}{B}{F}{0.62cm}{2}
+  \VIarc{B}{A}{C}{0.36cm}   \VInumb{B}{A}{C}{1.24cm}{3}
+  \VIarc{D}{C}{A}{0.36cm}   \VInumb{D}{C}{A}{1.24cm}{4}
+\end{tikzpicture}
+\figcap{6--91}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-92
+% Book p.104, Exercise 22.  Rebuilt against scan07 p19 (book p.104).
+% The book draws the OUTER PENTAGON A B E D C as well as the five chords --
+% an earlier draft drew the bare five-pointed star, leaving the outer edges
+% A--B, B--E, E--D, D--C, C--A off the page even though the exercise's two
+% triangles ABC and ADE are built from them.
+% The pentagon is NOT regular: measured off the plate it is markedly wider
+% than tall (width 2.84 against height 2.37).  It IS mirror-symmetric about
+% the vertical through A, which is what makes AB = AC, AD = AE and
+% angle 1 = angle 2 hold exactly -- the hypotheses of Exercise 22.
+\newcommand{\FIGVININETYTWO}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.24]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (-1.42,1.214);
+  \coordinate (C) at (1.42,1.214);
+  \coordinate (E) at (-0.81,2.366);
+  \coordinate (D) at (0.81,2.366);
+  \draw[given] (A) -- (B) -- (E) -- (D) -- (C) -- cycle;   % outer pentagon
+  \draw[given] (B) -- (C);                                 % the five chords
+  \draw[given] (B) -- (D);
+  \draw[given] (C) -- (E);
+  \draw[given] (A) -- (D);
+  \draw[given] (A) -- (E);
+  % Inner pentagon: every vertex is the crossing of two chords, so each is
+  % derived, never placed by hand.
+  \coordinate (F) at (intersection of B--D and C--E);
+  \coordinate (G) at (intersection of B--D and A--E);
+  \coordinate (H) at (intersection of A--D and C--E);
+  \coordinate (I) at (intersection of A--E and B--C);
+  \coordinate (J) at (intersection of A--D and B--C);
+  \node[vlab, above left]  at (E) {$E$};
+  \node[vlab, above right] at (D) {$D$};
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (A) {$A$};
+  \node[vlab, below] at (F) {$F$};
+  \node[vlab, above left] at (G) {$G$};
+  \node[vlab, above right]  at (H) {$H$};
+  \node[vlab, below left]  at (I) {$I$};
+  \node[vlab, below right] at (J) {$J$};
+  % Angle 1 = BAE and angle 2 = DAC (the two given angles at the vertex);
+  % angle 3 = DBC and angle 4 = ECB (the pair to be proved congruent).
+  \VIarc{B}{A}{E}{0.52cm}   \VInumb{B}{A}{E}{1.00cm}{1}
+  \VIarc{D}{A}{C}{0.52cm}   \VInumb{D}{A}{C}{0.90cm}{2}
+  % The wedges at B and C are narrow, so a numeral 1.00 out along the
+  % bisector still grazed the chords BD and CE; 0.72 keeps it inside.
+  \VIarc{D}{B}{C}{0.46cm}   \VInumb{D}{B}{C}{0.72cm}{3}
+  \VIarc{E}{C}{B}{0.46cm}   \VInumb{E}{C}{B}{0.72cm}{4}
+\end{tikzpicture}
+\figcap{6--92}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-93
+% Book p.104.  Three copies of "a ray OA from a point O on a line l, with B on
+% l": the angle AOB acute, right, and obtuse.
+\newcommand{\FIGVININETYTHREE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.90]
+ \foreach \dx/\ax/\ay in {0/0.86/1.22, 2.62/0.32/1.32, 5.24/-0.32/1.28}{
+  \begin{scope}[xshift=\dx cm]
+   \coordinate (O) at (0.32,0);
+   \coordinate (B) at (1.12,0);
+   \draw[given] (-0.22,0) -- (1.62,0);
+   \draw[given] (O) -- ($(O)+(\ax,\ay)$);
+   \fill (O) circle (1.0pt);
+   \fill (B) circle (1.0pt);
+   \node[vlab, above right] at ($(O)+(\ax,\ay)$) {$A$};
+   \node[vlab, below] at (O) {$O$};
+   \node[vlab, above right] at (B) {$B$};
+   \node[slab, left] at (-0.22,0) {$l$};
+  \end{scope}}
+\end{tikzpicture}
+\figcap{6--93}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-94
+% Book p.105.  The three cases of the right-angle construction: C on the same
+% side of O as B; C = O; C on the opposite side.  A' is the reflection of A in
+% l, and AA' meets l at C.  The circular sweep is the book's arc marking the
+% two congruent angles at O.
+\newcommand{\FIGVININETYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  % Arcs rebuilt against scan07 p20 (book p.105) at 150 dpi.  The draft drew a
+  % full CIRCLE round O in all three panels; the book draws no circle anywhere
+  % here.  It strikes one arc from ray OA round to ray OA' on the side B lies
+  % on -- the two supplementary angles the proof pairs up -- which is a straight
+  % angle in case 2 and a reflex one in case 3, so \VIarc (always minor) cannot
+  % express it and \VIarcvia is used instead.  Case 3 carries a SECOND, smaller
+  % arc the other way round, through C's side, because there the proof pairs
+  % angle AOC with angle A'OC and those now lie opposite B.
+  % --- case 1: C between O and B
+  \begin{scope}
+   \coordinate (O) at (0.32,0);
+   % Measured off the scan, OB is 2.25 times OC; the draft had it at 1.86, which
+   % is what pushed B's letter up against C's.
+   \coordinate (B) at (1.78,0);
+   \coordinate (A) at (1.02,1.42);
+   \coordinate (Ap) at (1.02,-1.42);
+   \coordinate (C) at (intersection of A--Ap and O--B);
+   \draw[given] (-0.12,0) -- (1.96,0);
+   \draw[given] (O) -- (A);
+   \draw[given] (O) -- (Ap);
+   \draw[given] (A) -- (Ap);
+   \VIarcvia{A}{O}{Ap}{B}{0.60cm}
+   \fill (O) circle (1.0pt); \fill (B) circle (1.0pt);
+   \node[slab, left] at (-0.12,0) {$l$};
+   % Straight up from O is outside the arc's sector (it spans OA round to OA'
+   % through B), so the book's own "just above the point" placement is clear.
+   \node[vlab, above left, inner sep=0.6pt] at (O) {$O$};
+   \node[vlab, above right] at (C) {$C$};
+   % Centred, not above-right: set to the right it reached across the panel gap
+   % and came within 0.5pt of the NEXT panel's l.  The plate centres it too.
+   \node[vlab, above] at (B) {$B$};
+   \node[vlab, above left] at (A) {$A$};
+   \node[vlab, below left] at (Ap) {$A\VIpr$};
+  \end{scope}
+  % --- case 2: C = O
+  \begin{scope}[xshift=2.72cm]
+   \coordinate (O) at (0.42,0);
+   \coordinate (B) at (1.52,0);
+   \coordinate (A) at (0.42,1.42);
+   \coordinate (Ap) at (0.42,-1.42);
+   \draw[given] (-0.12,0) -- (1.92,0);
+   \draw[given] (A) -- (Ap);
+   \VIarcvia{A}{O}{Ap}{B}{0.62cm}
+   \fill (O) circle (1.0pt); \fill (B) circle (1.0pt);
+   \node[slab, left] at (-0.12,0) {$l$};
+   % O and C coincide here, so the book cannot letter the point in place: it
+   % sets the name clear of the drawing, up and to the left, and runs a leader
+   % arrow down to the point.  The old draft instead anchored this label
+   % south-EAST of a point already left of the panel's own left edge, so the
+   % text grew leftwards out of the panel and landed on top of Fig. 6-94's
+   % first panel -- which is where the "O=CB" and "C" pile-up came from.
+   % Kept clear of the B/C letter band the three panels share: at y = 0.72 this
+   % label's box still overlapped the neighbouring panel's B by 0.3pt.
+   \node[vlab, anchor=east] at ($(O)+(-0.10,1.02)$) {$O = C$};
+   \draw[fig, line width=0.5pt, ->] ($(O)+(-0.34,0.78)$) -- ($(O)+(-0.07,0.11)$);
+   \node[vlab, above right] at (B) {$B$};
+   \node[vlab, above left] at (A) {$A$};
+   \node[vlab, below left] at (Ap) {$A\VIpr$};
+  \end{scope}
+  % --- case 3: C on the far side of O from B
+  \begin{scope}[xshift=5.44cm]
+   \coordinate (O) at (1.42,0);
+   \coordinate (B) at (2.02,0);
+   \coordinate (A) at (0.52,1.42);
+   \coordinate (Ap) at (0.52,-1.42);
+   \coordinate (C) at (intersection of A--Ap and O--B);
+   \draw[given] (0.02,0) -- (2.32,0);
+   \draw[given] (O) -- (A);
+   \draw[given] (O) -- (Ap);
+   \draw[given] (A) -- (Ap);
+   % Measured off the scan: the inner arc crosses l at 0.72 of OC from O, the
+   % outer at 0.98 of it.
+   \VIarcvia{A}{O}{Ap}{C}{0.65cm}
+   \VIarcvia{A}{O}{Ap}{B}{0.88cm}
+   \fill (O) circle (1.0pt); \fill (B) circle (1.0pt);
+   \node[slab, left] at (0.02,0) {$l$};
+   \node[vlab, below right, inner sep=0.6pt] at (O) {$O$};
+   \node[vlab, above left]  at (C) {$C$};
+   \node[vlab, above right] at (B) {$B$};
+   \node[vlab, above left] at (A) {$A$};
+   \node[vlab, below left] at (Ap) {$A\VIpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--94}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-95, 6-96
+% Book p.105.  6-95: P at the left with Q, R, S stacked at the right.
+%   6-96: the kite B A D C with spine A--C through E.
+\newcommand{\FIGVININETYFIVENINETYSIX}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (P) at (0,0.72);
+  \coordinate (Q) at (2.62,1.44);
+  \coordinate (R) at (2.62,0.72);
+  \coordinate (S) at (2.62,0);
+  \draw[given] (P) -- (Q) -- (S) -- cycle;
+  \draw[given] (P) -- (R);
+  \draw[given] (Q) -- (S);
+  \node[vlab, left]  at (P) {$P$};
+  \node[vlab, right] at (Q) {$Q$};
+  \node[vlab, right] at (R) {$R$};
+  \node[vlab, right] at (S) {$S$};
+\end{tikzpicture}
+\figcap{6--95}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Off scan07 p20 the book's kite is narrower than the draft's: the
+  % half-width is about 0.6 of the upper axis, and the lower axis is about
+  % 1.7 times the upper.  E is taken as the actual crossing, not by ratio.
+  \coordinate (A) at (1.32,1.82);
+  \coordinate (B) at (0.57,0.92);
+  \coordinate (D) at (2.07,0.92);
+  \coordinate (C) at (1.32,-0.32);
+  \draw[given] (B) -- (A) -- (D) -- (C) -- cycle;
+  \draw[given] (B) -- (D);
+  \draw[given] (A) -- (C);
+  \coordinate (E) at (intersection of B--D and A--C);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, below] at (C) {$C$};
+  \node[vlab] at ($(E)+(250:0.42)$) {$E$};
+\end{tikzpicture}
+\figcap{6--96}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================= Fig 6-97
+% Book p.106.  The comparison picture for "less than": angle B has been moved
+% to the position B' with one side along the first side of A, and its second
+% side (dashed) falling interior to A.  A and B are drawn side by side.
+\newcommand{\FIGVININETYSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  % angle A, with the moved copy B' inside it
+  \coordinate (A) at (2.42,0);
+  \draw[given] (0.10,0) -- (A);
+  \draw[given] (A) -- ($(A)+(118:1.52)$);
+  \draw[aux]   (A) -- ($(A)+(146:1.32)$);
+  \node[vlab, below right] at (A) {$A$};
+  \node[slab, above] at ($(A)+(146:1.42)$) {$B\VIpr$};
+  % angle B, drawn separately to the right
+  \coordinate (B) at (5.62,0);
+  \draw[given] (2.92,0) -- (B);
+  \draw[given] (B) -- ($(B)+(132:1.62)$);
+  \node[vlab, below right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--97}
+\end{bkfigure}}
+
+% =========================================================== Figs 6-98, 6-99
+% Book p.106.  Definition 6-5: (a) second side of B' interior to A  => B < A;
+%   (b) second side of B' exterior to A  => B > A.
+\newcommand{\FIGVININETYEIGHTNINETYNINE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (2.02,0);
+  \draw[given] (0.10,0) -- (A);
+  \draw[given] (A) -- ($(A)+(112:1.42)$);
+  \draw[aux]   (A) -- ($(A)+(142:1.22)$);
+  \node[vlab, below right] at (A) {$A$};
+  \node[slab, above] at ($(A)+(142:1.32)$) {$B\VIpr$};
+  \coordinate (B) at (4.32,0);
+  \draw[given] (2.42,0) -- (B);
+  \draw[given] (2.42,0) -- ($(2.42,0)+(38:1.62)$);
+  \node[vlab, below right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--98}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (2.02,0);
+  \draw[given] (0.10,0) -- (A);
+  \draw[given] (A) -- ($(A)+(122:1.42)$);
+  \draw[aux]   (A) -- ($(A)+(96:1.52)$);
+  \node[vlab, below right] at (A) {$A$};
+  \node[slab, left] at ($(A)+(150:0.92)$) {$B\VIpr$};
+  \coordinate (B) at (4.42,0);
+  \draw[given] (2.52,0) -- (B);
+  \draw[given] (2.52,0) -- ($(2.52,0)+(28:1.72)$);
+  \node[vlab, below right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--99}
+\end{minipage}
+\end{bkfigure}}
+
+% ========================================================= Figs 6-100, 6-101
+% Book p.107.  6-100 shows B < A (B' interior to A); 6-101 shows the same pair
+% with A moved instead, so that A' is exterior to B.
+\newcommand{\FIGVIONEHUNDREDONEHUNDREDONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (2.22,0);
+  \draw[given] (0.10,0) -- (A);
+  \draw[given] (A) -- ($(A)+(118:1.42)$);
+  \draw[aux]   (A) -- ($(A)+(150:1.22)$);
+  \node[vlab, below right] at (A) {$A$};
+  \node[slab, above] at ($(A)+(150:1.34)$) {$B\VIpr$};
+  \coordinate (B) at (4.52,0);
+  \draw[given] (2.62,0) -- (B);
+  \draw[given] (2.62,0) -- ($(2.62,0)+(32:1.62)$);
+  \node[vlab, below right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--100}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (1.92,0);
+  \draw[given] (0.10,0) -- (A);
+  \draw[given] (A) -- ($(A)+(126:1.42)$);
+  \node[vlab, below right] at (A) {$A$};
+  \coordinate (B) at (4.42,0);
+  \draw[given] (2.32,0) -- (B);
+  \draw[given] (B) -- ($(B)+(152:1.62)$);
+  \draw[aux]   (B) -- ($(B)+(122:1.52)$);
+  \node[vlab, below right] at (B) {$B$};
+  \node[slab, above] at ($(B)+(122:1.62)$) {$A\VIpr$};
+\end{tikzpicture}
+\figcap{6--101}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================ Fig 6-102
+% Book p.107.  The Theorem 6-8 proof: on angle A, points D and E on the sides
+% with DE cutting the second side of B' at F; on angle A', the matching D', E'
+% with F' chosen so that DF = D'F'.  F is DERIVED as the crossing of DE with
+% the second side of B'.
+\newcommand{\FIGVIONEHUNDREDTWO}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.90]
+  % --- left: angle A with B' interior
+  \coordinate (A) at (2.42,0);
+  \coordinate (E) at ($(A)+(150:1.62)$);
+  \coordinate (D) at ($(A)+(212:1.62)$);
+  \draw[given] (A) -- ($(A)+(150:2.02)$);
+  \draw[given] (A) -- ($(A)+(212:2.02)$);
+  \draw[given] (D) -- (E);
+  \coordinate (Bs) at ($(A)+(174:2.02)$);
+  \draw[given] (A) -- (Bs);
+  \coordinate (F) at (intersection of D--E and A--Bs);
+  \node[vlab, below right] at (A) {$A$};
+  \node[vlab, above right] at (E) {$E$};
+  % D sits on the lower side of the angle, which runs on past it to
+  % 212:2.02 -- so the letter goes square off that ray, not along it.
+  \node[vlab] at ($(D)+(302:0.34)$) {$D$};
+  \node[vlab, above left] at (F) {$F$};
+  \node[slab, above right] at ($(A)+(120:1.13)$) {$B\VIpr$};
+  % --- right: angle A' with the matching construction
+  \begin{scope}[xshift=3.62cm]
+   \coordinate (B) at (2.42,0);
+   \coordinate (Ep) at ($(B)+(150:1.62)$);
+   \coordinate (Dp) at ($(B)+(212:1.62)$);
+   \draw[given] (B) -- ($(B)+(150:2.02)$);
+   \draw[given] (B) -- ($(B)+(212:2.02)$);
+   \draw[aux]   (Dp) -- (Ep);
+   \coordinate (As) at ($(B)+(174:2.02)$);
+   \draw[given] (B) -- (As);
+   \coordinate (Fp) at (intersection of Dp--Ep and B--As);
+   \node[vlab, below right] at (B) {$B$};
+   \node[vlab, above right] at (Ep) {$E\VIpr$};
+   \node[vlab] at ($(Dp)+(302:0.34)$) {$D\VIpr$};
+   \node[vlab, above left] at (Fp) {$F\VIpr$};
+   \node[slab, above right] at ($(B)+(132:1.22)$) {$A\VIpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--102}
+\end{bkfigure}}
+
+% ================================================================ Fig 6-103
+% Book p.109.  Theorem 6-11: (a) right angle A with supplement A'; (b) the same
+% for B and B'; (c) the comparison figure with B'' congruent to B, and B''' its
+% supplement, all at one vertex.
+\newcommand{\FIGVIONEHUNDREDTHREE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  % (a)
+  \begin{scope}
+   \coordinate (O) at (0.86,0);
+   \draw[given] (0.02,0) -- (1.72,0);
+   \draw[given] (O) -- (0.86,1.32);
+   \draw[tick] ($(O)+(180:0.52)$) arc[start angle=180, end angle=0, radius=0.52];
+   \node[slab] at ($(O)+(136:0.76)$) {$A$};
+   \node[slab] at ($(O)+(36:0.81)$)  {$A\VIpr$};
+   \node[slab, below] at (0.86,-0.28) {(a)};
+  \end{scope}
+  % (b)
+  \begin{scope}[xshift=2.32cm]
+   \coordinate (O) at (0.86,0);
+   \draw[given] (0.02,0) -- (1.72,0);
+   \draw[given] (O) -- (0.86,1.32);
+   \draw[tick] ($(O)+(180:0.52)$) arc[start angle=180, end angle=0, radius=0.52];
+   \node[slab] at ($(O)+(136:0.76)$) {$B$};
+   \node[slab] at ($(O)+(32:0.80)$)  {$B\VIpr$};
+   \node[slab, below] at (0.86,-0.28) {(b)};
+  \end{scope}
+  % (c)
+  \begin{scope}[xshift=4.64cm]
+   \coordinate (O) at (1.12,0);
+   \draw[given] (0.02,0) -- (2.22,0);
+   \draw[given] (O) -- ($(O)+(90:1.32)$);
+   \draw[given] (O) -- ($(O)+(62:1.32)$);
+   \draw[tick] ($(O)+(180:0.72)$) arc[start angle=180, end angle=0, radius=0.72];
+   \node[slab] at ($(O)+(142:1.00)$) {$B\VIppr$};
+   \node[slab] at ($(O)+(80:1.24)$) {$A$};
+   \node[slab] at ($(O)+(0:1.32)$)  {$A\VIpr$};
+   \node[slab] at ($(O)+(30:1.23)$)  {$B\VIpppr$};
+   \node[slab, below] at (1.12,-0.28) {(c)};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--103}
+\end{bkfigure}}
+
+% ================================================================ Fig 6-104
+% Book p.109.  (a) l perpendicular to m; (b) l the perpendicular bisector of AB.
+\newcommand{\FIGVIONEHUNDREDFOUR}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.90]
+  % (a)
+  \begin{scope}
+   \coordinate (O) at (0.92,0);
+   \coordinate (R) at (1.82,0);
+   \coordinate (U) at (0.92,1.32);
+   \draw[given] (0.02,0) -- (R);
+   \draw[given] (O) -- (U);
+   \VIrt{R}{O}{U}{6pt}
+   \node[slab, above left] at (U) {$l$};
+   \node[slab, right] at (R) {$m$};
+   \node[slab, below] at (0.92,-0.36) {(a)};
+  \end{scope}
+  % (b)
+  \begin{scope}[xshift=2.92cm]
+   \coordinate (A) at (0.02,0);
+   \coordinate (B) at (1.92,0);
+   \coordinate (M) at ($(A)!0.5!(B)$);
+   \coordinate (U) at ($(M)+(0,1.32)$);
+   \draw[given] (A) -- (B);
+   \draw[given] (M) -- (U);
+   \VIrt{B}{M}{U}{6pt}
+   \node[slab, above left] at (U) {$l$};
+   \node[vlab, left]  at (A) {$A$};
+   \node[vlab, right] at (B) {$B$};
+   \node[slab, below] at (0.96,-0.36) {(b)};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--104}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-105, 6-106
+% Book p.110.  6-105: rectangle A B C D with both diagonals.
+%   6-106: triangle A C with apex B and cevian BD.
+\newcommand{\FIGVIONEHUNDREDFIVEONEHUNDREDSIX}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (D) at (0,0);
+  \coordinate (C) at (2.92,0);
+  \coordinate (A) at (0,1.22);
+  \coordinate (B) at (2.92,1.22);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (A) -- (C);
+  \draw[given] (B) -- (D);
+  \node[vlab, above left]  at (A) {$A$};
+  \node[vlab, above right] at (B) {$B$};
+  \node[vlab, below left]  at (D) {$D$};
+  \node[vlab, below right] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--105}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.72,0);
+  \coordinate (B) at (1.02,1.62);
+  \coordinate (D) at ($(A)!0.44!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--106}
+\end{minipage}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-107, 6-108
+% Book p.110.  6-107: rectangle A B C D with E on the base and the two
+%   segments AE, BE.  6-108: triangle A C with apex B and cevian BD.
+\newcommand{\FIGVIONEHUNDREDSEVENONEHUNDREDEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (D) at (0,0);
+  \coordinate (C) at (3.02,0);
+  \coordinate (A) at (0,1.12);
+  \coordinate (B) at (3.02,1.12);
+  \coordinate (E) at ($(D)!0.5!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (E);
+  \node[vlab, above left]  at (A) {$A$};
+  \node[vlab, above right] at (B) {$B$};
+  \node[vlab, below left]  at (D) {$D$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab, below] at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--107}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.82,0);
+  \coordinate (B) at (1.22,1.62);
+  \coordinate (D) at ($(A)!0.5!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--108}
+\end{minipage}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-109, 6-110
+% Book p.110.  6-109: B--D and A--F crossing at C, with E above.
+%   6-110: right triangle D A C with B on DC and E on AD.
+\newcommand{\FIGVIONEHUNDREDNINEONEHUNDREDTEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (B) at (0.32,1.02);
+  \coordinate (D) at (2.62,0.62);
+  \coordinate (A) at (0,0);
+  \coordinate (E) at (2.92,1.42);
+  \draw[given] (B) -- (D);
+  \draw[given] (A) -- (E);
+  \coordinate (C) at (intersection of B--D and A--E);
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (E) {$E$};
+  \node[vlab, below] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--109}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.62,0);
+  \coordinate (D) at (0.42,1.72);
+  \coordinate (B) at ($(D)!0.52!(C)$);
+  \coordinate (E) at ($(A)!0.62!(D)$);
+  \draw[given] (A) -- (C) -- (D) -- cycle;
+  \draw[given] (A) -- (B);
+  \draw[given] (E) -- (B);
+  \VIrt{D}{B}{A}{5pt}
+  \node[vlab, below left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (D) {$D$};
+  \node[vlab, above right] at (B) {$B$};
+  \node[vlab, left]  at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--110}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================ Fig 6-111
+% Book p.111.  A, C, D, B with the right angles at C (AC perp CB) and at D
+% (AD perp DB); the two triangles share the hypotenuse-like segment A--B.
+\newcommand{\FIGVIONEHUNDREDELEVEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  % Exercise 11 gives AC = AD with AC perp CB and AD perp DB.  Two right
+  % angles on AB put C and D on the circle with diameter AB; AC = AD then
+  % makes them a mirror pair across AB.  These coordinates are that pair
+  % (circle centre (1.47,0.71), radius 1.03276, parameter 100 deg), not an
+  % eyeballed quadrilateral.
+  \coordinate (A) at (0.72,1.42);
+  \coordinate (D) at (2.0390,1.5719);
+  \coordinate (C) at (0.6405,0.0947);
+  \coordinate (B) at (2.22,0);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[given] (A) -- (D) -- (B);
+  \draw[given] (A) -- (B);
+  \VIrt{A}{C}{B}{5pt}
+  \VIrt{B}{D}{A}{5pt}
+  \VItk{A}{C}{1}
+  \VItk{A}{D}{1}
+  \node[vlab, above left]  at (A) {$A$};
+  \node[vlab, above right] at (D) {$D$};
+  \node[vlab, left]  at (C) {$C$};
+  \node[vlab, right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--111}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-112, 6-113
+% Book p.112.  6-112: the two angle-fans of Review exercise 3 -- R, S, T at one
+%   vertex and A_1, A_2 at the other, each with a sweeping arc.
+%  6-113: two parallels cut by two transversals, points A, B, C, D.
+\newcommand{\FIGVIONEHUNDREDTWELVEONEHUNDREDTHIRTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.48\linewidth}\centering
+% Rebuilt against scan08 p5 (book p.112).  Two corrections to an earlier
+% draft, both settled by Review Exercise 3 ("if angle A_1 = angle R and
+% angle A_2 = angle S, prove angle B = angle T"), which makes R, S the two
+% PARTS of T and A_1, A_2 the two parts of B:
+%   (a) the left fan is drawn VERTEX-UP in the book, its three rays running
+%       downward; the draft had it vertex-down like the right one.
+%   (b) every one of the six names is an ANGLE, marked by its own arc -- R
+%       and S on small arcs, T on a large one enclosing both, and likewise
+%       A_1, A_2 inside B.  The draft lettered B as a POINT at the tip of the
+%       middle ray, which is not what the plate shows.
+% Each numeral sits on its own angle's BISECTOR, just outside that angle's
+% arc, which is where the book puts them.
+\begin{tikzpicture}[scale=0.78]
+  % ---- left fan, vertex UP: rays at 238 / 267 / 306 degrees
+  \coordinate (V) at (0,0);
+  \draw[given] (V) -- ++(238:1.95);
+  \draw[given] (V) -- ++(267:1.95);
+  \draw[given] (V) -- ++(306:1.95);
+  \draw[tick] ([shift=(238:0.66)]V) arc[start angle=238, end angle=267, radius=0.66];
+  \draw[tick] ([shift=(267:0.58)]V) arc[start angle=267, end angle=306, radius=0.58];
+  \draw[tick] ([shift=(238:1.30)]V) arc[start angle=238, end angle=306, radius=1.30];
+  \node[slab] at ($(V)+(228.5:1.52)$) {$R$};
+  \node[slab] at ($(V)+(286.5:0.96)$) {$S$};
+  \node[slab] at ($(V)+(288:1.62)$)   {$T$};
+  % ---- right fan, vertex DOWN: rays at 124 / 87 / 54 degrees
+  \begin{scope}[xshift=3.20cm, yshift=-1.95cm]
+   \coordinate (W) at (0,0);
+   \draw[given] (W) -- ++(124:1.95);
+   \draw[given] (W) -- ++(87:1.95);
+   \draw[given] (W) -- ++(54:1.95);
+   \draw[tick] ([shift=(87:0.58)]W)  arc[start angle=87,  end angle=124, radius=0.58];
+   \draw[tick] ([shift=(54:0.66)]W)  arc[start angle=54,  end angle=87,  radius=0.66];
+   \draw[tick] ([shift=(54:1.30)]W)  arc[start angle=54,  end angle=124, radius=1.30];
+   \node[slab] at ($(W)+(77.5:1.59)$) {$A_1$};
+   \node[slab] at ($(W)+(42.5:1.61)$)  {$A_2$};
+   \node[slab] at ($(W)+(105.5:1.60)$) {$B$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{6--112}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.78]
+  \draw[given] (0.02,1.12) -- (3.22,1.12);
+  \draw[given] (0.02,0.42) -- (3.22,0.42);
+  \coordinate (P) at (0.62,-0.12);
+  \coordinate (Q) at (2.42,1.72);
+  \draw[given] (P) -- (Q);
+  \coordinate (A) at (intersection of P--Q and 0.02,0.42--3.22,0.42);
+  \coordinate (B) at (intersection of P--Q and 0.02,1.12--3.22,1.12);
+  \coordinate (C) at ($(B)+(0.42,0.16)$);
+  \coordinate (D) at ($(A)+(-0.30,-0.42)$);
+  \draw[given] (B) -- (C);
+  \node[vlab, above left]  at (B) {$B$};
+  \node[vlab, above left] at (C) {$C$};
+  \node[vlab, below right] at (A) {$A$};
+  \node[vlab, below] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--113}
+\end{minipage}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-114, 6-115
+% Book p.112.  6-114: A O C on a line with OB perpendicular.
+%   6-115: triangles E F G and R S T.
+\newcommand{\FIGVIONEHUNDREDFOURTEENONEHUNDREDFIFTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.62,0);
+  \coordinate (O) at ($(A)!0.5!(C)$);
+  \coordinate (B) at ($(O)+(0,1.52)$);
+  \draw[given] (A) -- (C);
+  \draw[given] (O) -- (B);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, below] at (O) {$O$};
+  \node[vlab, above] at (B) {$B$};
+\end{tikzpicture}
+\figcap{6--114}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (F) at (0,0);
+  \coordinate (G) at (1.62,0);
+  \coordinate (E) at (0.42,1.22);
+  \draw[given] (F) -- (G) -- (E) -- cycle;
+  \node[vlab, below left]  at (F) {$F$};
+  \node[vlab, below right] at (G) {$G$};
+  \node[vlab, above] at (E) {$E$};
+  \coordinate (S) at (1.82,0);
+  \coordinate (T) at (3.32,0.62);
+  \coordinate (R) at (2.32,1.42);
+  \draw[given] (S) -- (T) -- (R) -- cycle;
+  \node[vlab, below left]  at (S) {$S$};
+  \node[vlab, right] at (T) {$T$};
+  \node[vlab, above] at (R) {$R$};
+\end{tikzpicture}
+\figcap{6--115}
+\end{minipage}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-116, 6-117
+% Book p.112.  6-116: triangle R S T.
+%  6-117: the river-width figure -- P and Q on opposite banks (the banks drawn
+%  as the book's wavy lines), R off the line PQ, with U, S on the sight lines.
+\newcommand{\FIGVIONEHUNDREDSIXTEENONEHUNDREDSEVENTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (T) at (0,0);
+  \coordinate (S) at (2.72,0.32);
+  \coordinate (R) at (0.72,1.32);
+  \draw[given] (T) -- (S) -- (R) -- cycle;
+  \node[vlab, below left]  at (T) {$T$};
+  \node[vlab, right] at (S) {$S$};
+  \node[vlab, above] at (R) {$R$};
+\end{tikzpicture}
+\figcap{6--116}
+\end{minipage}\hfill
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (R) at (1.42,1.72);
+  \coordinate (U) at (0.32,-0.42);
+  \coordinate (T) at (0.02,0);
+  \coordinate (S) at (0.72,0);
+  \coordinate (P) at (1.72,0.42);
+  \coordinate (Q) at (2.92,0.12);
+  \draw[given] (R) -- (U);
+  \draw[given] (T) -- (P);
+  \draw[given] (R) -- (P);
+  \draw[aux]   (R) -- (Q);
+  \draw[given] (P) -- (Q);
+  % the river bank, drawn as the book's wavy rule
+  \draw[tick] (2.62,0.92) .. controls (2.82,0.72) and (2.62,0.52) ..
+              (2.82,0.32) .. controls (3.02,0.12) and (2.82,-0.08) .. (3.02,-0.28);
+  \node[vlab, above] at (R) {$R$};
+  \node[vlab, below] at (U) {$U$};
+  \node[vlab, left]  at (T) {$T$};
+  \node[vlab, below] at (S) {$S$};
+  \node[vlab, below] at (P) {$P$};
+  \node[vlab, right] at (Q) {$Q$};
+\end{tikzpicture}
+\figcap{6--117}
+\end{minipage}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-118, 6-119
+% Book p.113.  6-118: triangle A C with apex B and D interior joined to all
+%   three vertices.  6-119: triangle A C with apex B, D and E on the base.
+\newcommand{\FIGVIONEHUNDREDEIGHTEENONEHUNDREDNINETEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (2.62,0);
+  \coordinate (B) at (1.31,1.72);
+  \coordinate (D) at (1.31,0.62);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (A) -- (D) -- (C);
+  \draw[given] (B) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  % D sits low, so its letter has to share the gap with the base; the book
+  % crowds it the same way, and a tighter clearance is what keeps it off AC.
+  \node[vlab, below, outer sep=2.0pt] at (D) {$D$};
+\end{tikzpicture}
+\figcap{6--118}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.12,0);
+  % Exercise 13: ABC isosceles and angle ABD = angle EBC, so D and E are
+  % symmetric about the foot of the altitude.
+  \coordinate (B) at (1.56,1.62);
+  \coordinate (D) at ($(A)!0.32!(C)$);
+  \coordinate (E) at ($(A)!0.68!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (B) -- (D);
+  \draw[given] (B) -- (E);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, below] at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--119}
+\end{minipage}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-120, 6-121
+% Book p.113.  6-120: triangle A C with apex B, D on the base, E and F the
+%   midpoints of the sides, forming the medial triangle.
+%  6-121: Q S R on a line with PS perpendicular at S.
+\newcommand{\FIGVIONEHUNDREDTWENTYONEHUNDREDTWENTYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.02,0);
+  \coordinate (B) at (1.51,1.72);
+  \coordinate (D) at ($(A)!0.5!(C)$);
+  \coordinate (E) at ($(A)!0.5!(B)$);
+  \coordinate (F) at ($(B)!0.5!(C)$);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \draw[given] (E) -- (D) -- (F);
+  \draw[given] (E) -- (F);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, above left]  at (E) {$E$};
+  \node[vlab, above right] at (F) {$F$};
+\end{tikzpicture}
+\figcap{6--120}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (Q) at (0,0);
+  \coordinate (R) at (2.42,0);
+  \coordinate (S) at ($(Q)!0.5!(R)$);
+  \coordinate (P) at ($(S)+(0,1.62)$);
+  \draw[given] (Q) -- (R);
+  \draw[given] (S) -- (P);
+  \node[vlab, left]  at (Q) {$Q$};
+  \node[vlab, right] at (R) {$R$};
+  \node[vlab, below] at (S) {$S$};
+  \node[vlab, above] at (P) {$P$};
+\end{tikzpicture}
+\figcap{6--121}
+\end{minipage}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-122, 6-123
+% Book p.113.  6-122: A--B and C--D crossing at O (O bisects both).
+%   6-123: A with B, C, D, E -- the two isosceles triangles of exercise 19.
+\newcommand{\FIGVIONEHUNDREDTWENTYTWOONEHUNDREDTWENTYTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,1.22);
+  \coordinate (B) at (3.02,0);
+  % O bisects BOTH segments, so C--D's midpoint must land exactly on A--B's;
+  % D was 0.02 out.
+  \coordinate (C) at (1.92,1.22);
+  \coordinate (D) at (1.10,0);
+  \coordinate (O) at (intersection of A--B and C--D);
+  \draw[given] (A) -- (B);
+  \draw[given] (C) -- (D);
+  \draw[given] (A) -- (D);
+  \draw[given] (C) -- (B);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, below right] at (O) {$O$};
+\end{tikzpicture}
+\figcap{6--122}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % Exercise 19 gives AB = AD, BC = DE and AC = AE.  Those three hold exactly
+  % when the fan is struck with |AB| = |AD| = 1.90 and |AC| = |AE| = 1.35 and
+  % the two opening angles BAC and DAE are equal (40 degrees each): the rays
+  % run at -5, -45, -85 and -125 degrees from A.  The draft's five vertices
+  % were eyeballed and satisfied none of the three.
+  \coordinate (A) at (0.80,1.95);
+  \coordinate (B) at ($(A)+(-5:1.90)$);
+  \coordinate (C) at ($(A)+(-45:1.35)$);
+  \coordinate (D) at ($(A)+(-85:1.90)$);
+  \coordinate (E) at ($(A)+(-125:1.35)$);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- (E) -- cycle;
+  \draw[given] (A) -- (C);
+  \draw[given] (A) -- (D);
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab, below right] at (D) {$D$};
+  \node[vlab, left]  at (E) {$E$};
+\end{tikzpicture}
+\figcap{6--123}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================ Fig 6-124
+% Book p.113.  Equilateral triangle A with base C B, D, E, F the midpoints of
+% the sides -- the medial triangle EFD of exercise 20.
+\newcommand{\FIGVIONEHUNDREDTWENTYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (C) at (0,0);
+  \coordinate (B) at (2.82,0);
+  \coordinate (A) at ($(C)!0.5!(B)+(0,2.44)$);
+  \coordinate (D) at ($(C)!0.5!(B)$);
+  \coordinate (E) at ($(C)!0.5!(A)$);
+  \coordinate (F) at ($(A)!0.5!(B)$);
+  \draw[given] (C) -- (B) -- (A) -- cycle;
+  \draw[given] (E) -- (F);
+  \draw[given] (E) -- (D);
+  \draw[given] (F) -- (D);
+  \node[vlab, left]  at (C) {$C$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, below] at (D) {$D$};
+  \node[vlab, left]  at (E) {$E$};
+  \node[vlab, right] at (F) {$F$};
+\end{tikzpicture}
+\figcap{6--124}
+\end{bkfigure}}
+
+% ======================================================= Figs 6-125, 6-126
+% Book p.114.  6-125: A D with B, C above and the crossing segments AC, BD.
+%  6-126: the cevian web -- triangle A B with apex C; D, E on the sides;
+%  J, I, K on the base; F, G, H the interior crossings; angles 1, 2.
+\newcommand{\FIGVIONEHUNDREDTWENTYFIVEONEHUNDREDTWENTYSIX}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A) at (0,0);
+  \coordinate (D) at (3.02,0);
+  \coordinate (B) at (0.72,1.32);
+  \coordinate (C) at (2.02,1.32);
+  \draw[given] (A) -- (D);
+  \draw[given] (A) -- (B) -- (D);
+  \draw[given] (A) -- (C) -- (D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (D) {$D$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+\end{tikzpicture}
+\figcap{6--125}
+\end{minipage}\hfill
+\begin{minipage}{0.50\linewidth}\centering
+% Rebuilt against scan08 p8 (book p.114).  The book joins D--J and E--K, not
+% D--E.  That matters twice over: the draft's D--E left the exercise's
+% segments GJ and HK undrawn, and it made G and H DEGENERATE -- they were
+% asked for as (A--E cap D--E) and (B--D cap D--E), two pairs of lines that
+% already share an endpoint, so G landed exactly on E and H exactly on D and
+% the two letters printed on top of the other two.
+% Exercise 25 gives angle 1 = angle 2, AC = BC and IJ = IK, so the plate is
+% mirror-symmetric about CI: I is the MIDPOINT of AB (the draft had it at
+% 0.46, which broke IJ = IK), and J, K sit symmetrically either side of it.
+\begin{tikzpicture}[scale=1.42]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.22,0);
+  \coordinate (C) at (1.61,1.92);
+  \coordinate (I) at ($(A)!0.5!(B)$);
+  \coordinate (J) at ($(A)!0.39!(B)$);
+  \coordinate (K) at ($(A)!0.61!(B)$);
+  \coordinate (D) at ($(A)!0.45!(C)$);
+  \coordinate (E) at ($(B)!0.45!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (C) -- (I);
+  \draw[given] (A) -- (E);
+  \draw[given] (B) -- (D);
+  \draw[given] (D) -- (J);
+  \draw[given] (E) -- (K);
+  \coordinate (F) at (intersection of A--E and B--D);
+  \coordinate (G) at (intersection of D--J and A--E);
+  \coordinate (H) at (intersection of E--K and B--D);
+  \node[vlab, left]  at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, above] at (C) {$C$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  \node[vlab, below left] at (F) {$F$};
+  % G and H sit just above the base between J/I and I/K; "below" laid their
+  % letters straight across AB, so they go above their own points instead.
+  \node[vlab] at ($(G)+(160:0.30)$) {$G$};
+  \node[vlab] at ($(H)+(20:0.30)$) {$H$};
+  \node[vlab, below] at (J) {$J$};
+  \node[vlab, below] at (I) {$I$};
+  \node[vlab, below] at (K) {$K$};
+  \VIarc{B}{A}{E}{0.46cm}   \VInumb{B}{A}{E}{0.86cm}{1}
+  \VIarc{A}{B}{D}{0.46cm}   \VInumb{A}{B}{D}{0.86cm}{2}
+\end{tikzpicture}
+\figcap{6--126}
+\end{minipage}
+\end{bkfigure}}
+
+% ================================================================ Fig 6-127
+% Book p.115, Algebra Review 4.  Triangle B C with apex A; D on AB, E on AC,
+% and O the crossing of BE and CD.
+\newcommand{\FIGVIONEHUNDREDTWENTYSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (2.82,0);
+  \coordinate (A) at (1.41,1.92);
+  \coordinate (D) at ($(A)!0.46!(B)$);
+  \coordinate (E) at ($(A)!0.46!(C)$);
+  \draw[given] (B) -- (C) -- (A) -- cycle;
+  \draw[given] (B) -- (E);
+  \draw[given] (C) -- (D);
+  \draw[given] (D) -- (E);
+  \coordinate (O) at (intersection of B--E and C--D);
+  \node[vlab, left]  at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above] at (A) {$A$};
+  \node[vlab, above left]  at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  \node[vlab, below] at (O) {$O$};
+\end{tikzpicture}
+\figcap{6--127}
+\end{bkfigure}}

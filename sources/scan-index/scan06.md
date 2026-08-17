@@ -1,0 +1,26 @@
+# scan06.pdf — 24 pages
+
+- p1: book p.78 | Fig 5-6, Fig 5-7 segment-division diagrams, Exercise Groups 5-6/5-7 | good
+- p2: book p.78 (dup of p1) | Fig 5-6, Fig 5-7, same content, finger over top-left corner | finger
+- p3: book p.79 (+ facing 78, mid page-turn) | Theorem 5-1 proof, 5-5/5-6 headings, Exercise 5-8, motion-blurred | blurry
+- p4: book p.79 (+ facing 78, mid page-turn, dup of p3) | Theorem 5-1, Exercise 5-8, same shot different angle | blurry
+- p5: book p.79 | Completeness postulate, Theorem 5-1 + proof, Exercise Group 5-8 | good
+- p6: book p.80 | Fig 5-8 congruence diagram (A,B,A'',B''), Theorems 5-2/5-3, Exercise Group 5-9, finger top | finger
+- p7: book p.81 | Fig 5-9, Fig 5-10, Theorem 5-4, Exercise Group 5-10 | good
+- p8: book p.82 (partial dup of p9) | Review of Chapter 5 items 1-3, Algebra Review 1-5, bottom half cut black | partial
+- p9: book p.82 | Exercise Group 5-11, Review of Chapter 5 (1-3 + Note), Algebra Review 1-5, finger at bottom edge | good
+- p10: book p.83 | Review of Chapter 5 parts (b)(c) and items 6-10 | good
+- p11: book p.84 (top sliver only) | Ch.6 opener title, 6-1 Introduction, 6-2 Postulate V-1 start, mostly black | trash
+- p12: book p.85 (+ facing 84, mid page-turn) | 6-3 Postulate V-2 (existence postulate) text and exercises, blurry | blurry
+- p13: book p.86 (partial) | 6-4 Postulate V-3 addition postulate, angle figure, Fig 6-6 partial, bottom cut black | partial
+- p14: book p.86 | Fig 6-5, Fig 6-6, Fig 6-7 angle diagrams, Postulate V-3, Exercise Group 6-3, finger corner | good
+- p15: book p.87 (+ facing 86, mid page-turn, blue-ink underlining) | Fig 6-8, Fig 6-10, Theorem 6-1, Theorem 6-2, Definition 6-1 (right angle) | partial
+- p16: book p.88 (top sliver only) | Remark fragment, exercise stubs, 6-5 heading start, mostly black | trash
+- p17: book p.88 (partial) | Remark paragraph, Exercise items 1-3, Fig 6-13, Fig 6-14, 6-5 Postulate V-4 start | partial
+- p18: book p.89 (partial) | Fig 6-16, Fig 6-17, Fig 6-18 (triangle PQR + partial STU), S-A-S postulate exercises 1-3 | partial
+- p19: book p.90 (partial) | Fig 6-21, 6-22, 6-23, 6-24, 6-26, 6-27, exercises 8-13, bottom cut black | partial
+- p20: book p.90 | Fig 6-21 through Fig 6-27 (all complete incl. 6-25), exercises 8-13, finger bottom-left | good
+- p21: book p.91 | Definition 6-2 (isosceles), Theorem 6-3, Fig 6-28, 6-29, 6-30, 6-31, exercises 14-17 | good
+- p22: book p.92 (partial dup of p23) | Theorem 6-3 proof, Fig 6-32, Definition 6-3 (midpoint), Fig 6-33/6-34 partial, Exercise 6-6 | partial
+- p23: book p.92 | Fig 6-32, Definition 6-3, Fig 6-33, Fig 6-34, Fig 6-35, Exercise Group 6-6 items 1-5 | good
+- p24: book p.93 | Fig 6-36 through Fig 6-42 (7 triangle figures), isosceles-triangle exercises 6-11 | good

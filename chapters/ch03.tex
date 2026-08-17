@@ -1,0 +1,948 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures03}
+
+% ---- local macros (hoist into book preamble) ----
+% Unnumbered star footnote, same reasoning as ch02's \IIstarnote: \starnote in
+% brumfiel.sty emits a bare \footnotetext, which prints the footnote counter;
+% the book marks all three of this chapter's notes with "*" and no number.
+\newcommand{\IIIstarfn}[1]{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*#1}\endgroup}
+% Starred theorems. The book prints "*Theorem 3-4." for the optional theorems
+% of Section 3-6; this shares the `theorem' counter so numbering stays exact.
+\theoremstyle{bkplain}
+\newtheorem{IIIsthm}[theorem]{*Theorem}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{3}
+
+\chapter*{\raggedright\Huge CONCERNING LINES}
+\addcontentsline{toc}{chapter}{3.\ Concerning Lines}
+\markboth{CONCERNING LINES}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 3-1
+\section*{3--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{3--1\quad Introduction}
+
+We have seen in Chapter 1 how from our everyday experience it is natural to
+imagine the existence of things called points and lines. Even though one cannot
+``see'' a point or a line, the study of such imaginary objects turns out to be
+practically useful as well as interesting.
+
+Because the objects of study in geometry are inventions of the mind, we must
+state very carefully the properties we wish them to possess. Then if we start
+with enough information about points and lines, other properties of points and
+lines can be \emph{proved}. Many of these provable properties will be surprising,
+and not at all obvious at the beginning. It is, of course, impossible to prove
+anything about points and lines unless we agree in advance about some properties
+that they are to have. These agreed-upon properties, or assumed properties, are
+called \emph{postulates}, or \emph{axioms}.* We begin the proper study of plane
+geometry in this chapter when we list our beginning postulates in Section 3--3.
+The postulates should be simple enough to seem almost obvious and yet must be
+sufficient for us to prove geometric facts that seem to be true in our everyday
+life.%
+\IIIstarfn{~The word ``postulate'' is derived from a Latin word meaning
+``demand.'' ``Axiom'' comes from a Greek word meaning ``worthy.''}
+
+A different method of procedure would be to list all the known geometric facts
+and assume that they are true. Then when we had memorized all these facts, our
+study of geometry would be completed. There are at least three objections to
+such a plan. In the first place, we might not have listed all the facts needed
+and we would have no experience in finding new ones. In the second place, it
+would be a terrible strain upon the memory. To avoid memorizing everything, we
+need to study how different facts are related and how the more complicated ones
+depend upon other simpler ones. When we prove theorems from postulates or other
+theorems, we are studying the way the geometric facts are related to each other;
+this helps us to remember them. In the third place, we would lose the great
+amount of pleasure that we can get out of proving from very simple and obvious
+assumptions that certain other things are true. It is because of this pleasure
+that geometry has been so attractive to men since the time of Euclid. The fact
+that all geometry can be established from a small list of postulates gives to
+geometry a kind of beauty that has appealed to men as different as Abraham
+Lincoln and the Greek philosopher Plato.
+
+%========================================================= 3-2
+\section*{3--2\quad STRAIGHTNESS}
+\addcontentsline{toc}{section}{3--2\quad Straightness}
+
+Soon, when we list our postulates, we shall be talking about \emph{lines}, and of
+course what we have in mind are things which are like the familiar \emph{straight}
+lines of our experience. But we will call them simply \emph{``lines.''} There is
+really nothing to be gained by putting in the extra word ``straight'' because it
+would add nothing to our use of the postulates. It will turn out much later that
+our lines \emph{are} straight in the sense that any path between two points,
+other than a line, would be longer than the line.
+
+When we draw pictures of lines we will, of course, draw them to \emph{appear}
+straight, for this will help us see how the points and lines are related. But we
+will not be concerned with the straightness of the lines because the figures are
+meant to be only a guide to the proofs and to help us see what is going on.
+\emph{The proofs are all completely independent of the figures.} By this we mean
+that we must not say something is true because of the appearance of a figure;
+rather, we must give reasons for its truth. The things that are true in our
+geometry are only those things which can be proved by our use of our assumptions
+and laws of logic. But as we progress in our study of geometry we will gradually
+use figures more and more freely when it is quite clear how to fill in a complete
+argument.
+
+To understand why it is that we are not concerned with straightness at all, at
+least to begin with, we shall look at a plane in two different ways. First,
+imagine a sheet of paper with lines drawn on it so that some of the lines might
+look like Fig.~3--1. Now suppose you have a pane of uneven glass between your
+eyes and the paper, so that when you look at the drawing it looks like
+Fig.~3--2. Note that in looking at the drawing, with or without the glass, you
+are seeing the same lines. In one case they appear straight; in the other case
+they do not. In the first figure $A$ and $B$ may appear to be the same distance
+apart as $A'$ and $B'$, but this may not be so in the second figure. Therefore,
+\emph{if it were possible to see the plane only through the glass, you would have
+to be told which sets of points are ``straight'' lines, and whether or not $A$
+and $B$ are the same distance apart as $A'$ and $B'$.}
+
+\FIGIIIONETWO
+
+In our study of geometry we shall be talking about imaginary things---points and
+lines. We cannot really \emph{see} our lines. Hence we shall not call them
+``straight'' but refer to them only as \emph{lines}. All the properties that we
+need to know about these lines will be stated clearly in the postulates.
+
+%========================================================= 3-3
+\section*{3--3\quad THE POSTULATES}
+\addcontentsline{toc}{section}{3--3\quad The postulates}
+
+We imagine that there is a \emph{set} (or ``bunch,'' or ``collection'') of things
+which we call \emph{points}. This set of points will be called \emph{the plane}.
+In the plane certain other sets of points are called \emph{lines}. We represent
+points by capital letters and lines by small letters. When a point $P$ is one of
+the points of the line $l$ (Fig.~3--3), we say that ``$P$ is on $l$'' and also
+that the line ``goes through $P$,'' or ``passes through $P$,'' or ``$l$ contains
+$P$.'' If two lines $l$ and $m$ have a point $P$ in common (Fig.~3--4), that is,
+if $P$ is on both $l$ and $m$, then we say that the lines \emph{intersect}.
+Sometimes we will label two points with the same letter but different
+\emph{subscripts}, such as $P_1$ and $P_2$. We read $P_1$ as ``$P$ sub-one'' and
+$P_2$ as ``$P$ sub-two.''
+
+\FIGIIITHREEFOURFIVE
+
+The postulates will be divided into six groups, of which only the first group
+will be given in this section. We shall give the other groups as we need them.
+It is extremely important at the beginning of your study of geometry that you
+understand the relationship between our mathematical postulates and the real
+world. We decide \emph{what} we are going to assume about the imaginary points
+and lines of our geometry by \emph{looking} at the real world. As a matter of
+fact, in order to choose the postulates for our geometry, we need only to look at
+some simple drawings. For example, the postulates in our first group are
+suggested by Fig.~3--5. Study this figure to see if you can decide what these
+postulates will be.
+
+Of course, after we have decided what postulates to use, we must prove our
+theorems by \emph{using these postulates and not by looking at other figures}.
+
+\medskip
+\noindent\textbf{Postulate Group I.}\quad This group contains three postulates,
+indicated by I--1, I--2, and I--3.
+
+\medskip
+\noindent I--1 \emph{The three-point postulate}. There are at least three points
+which do not all lie on one line.
+
+\medskip
+\noindent I--2 \emph{The point-line postulate}. For any two different points
+there is exactly one line containing these points.
+
+\medskip
+\noindent I--3 \emph{The line-point postulate}. Every line contains at least two
+points.
+
+\medskip
+The point-line postulate tells us one way we want lines to behave. The
+line-point postulate \emph{starts} us on the way to getting points on a line. The
+three-point postulate tells us that not all points are on one line. It gets us
+off the line.
+
+With only these postulates we cannot as yet prove very much. The following two
+theorems are about all that can be formulated.
+
+\begin{theorem}
+Two different lines do not intersect in more than one point.
+\end{theorem}
+
+\noindent\emph{Proof.} The theorem is either true or false. We shall prove that
+it cannot be false. Hence it must be true. We therefore suppose that the lines
+intersect in at least two points and then show that this is impossible. Suppose
+the lines are $l$ and $m$ and that they intersect in the two points $A$ and $B$
+(Fig.~3--6). We would then have two different lines, $l$ and $m$, through $A$ and
+$B$. This contradicts the point-line postulate. Therefore our assumption that
+$l$ and $m$ intersect in more than one point is false and our theorem is true.
+
+\begin{remark}
+Several ideas from logic are involved in this proof. Comment on them.
+\end{remark}
+
+\begin{theorem}
+There are at least three lines in the plane.
+\end{theorem}
+
+\FIGIIISIXSEVEN
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{There are at least three points in the plane not all on one line. Call
+      them $A$, $B$, and $C$.}{Three-point postulate.}
+\step{Let $l$ be the line through $A$ and $B$, $m$ the line through $B$ and $C$,
+      and $n$ the line through $C$ and $A$.}{Point-line postulate.}
+\step{The three lines $l$, $m$, and $n$ are all different from one
+      another.}{If any two were the same line, all three points $A$, $B$, and
+      $C$ would be on one line, contrary to the way they were chosen.}
+\end{steps}
+
+The three points and lines are shown in Fig.~3--7. Of course, it looks just like
+the drawing (Fig.~3--5) that suggested our first postulates.
+
+\begin{remark}
+At this point we cannot prove from our postulates that there are any more points
+or lines than shown in Fig.~3--7.
+\end{remark}
+
+\exercisegroup{3--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item Restate the point-line and the three-point postulates in other words.
+\item Prove that if $l$ is any line, there is at least one point not on $l$.
+\item Explain why both $a$ and $b$ in Fig.~3--8 cannot represent lines if $P$ and
+      $Q$ represent points.
+\item Prove that if $l$ is a line and $P$ is on $l$ then there is another point
+      on $l$.
+\item Why can we not prove there are more than three lines in our plane?
+\item State what ``intersect'' means.
+\item Suppose that $l$ is a line. List all the things you can say about this line
+      and points of the plane. Give your reasons.
+\item Given Fig.~3--9, what can you conclude about $l$ and $m$? Why?
+\item A line $l$ contains the points $P$ and $Q$. The line $m$ also contains $P$
+      and $Q$. What can you conclude?
+\item Two lines have a point $A$ in common. What can you say about the lines?
+\item Prove that there are at least two lines on each point.
+\item Why, when looking at Fig.~3--10, can we not prove that there are at least
+      five points in the plane?
+\end{exlist}
+\end{multicols}
+
+\FIGIIIEIGHT
+
+\FIGIIININE
+
+\FIGIIITEN
+
+%========================================================= 3-4
+\section*{3--4\quad POSTULATES OF BETWEENNESS}
+\addcontentsline{toc}{section}{3--4\quad Postulates of betweenness}
+
+We come now to our assumptions about the order, or arrangement, of points on a
+line. It is interesting that Euclid did not state these assumptions, but used
+them, without comment, wherever necessary. It was the German mathematician
+Moritz Pasch (pronounced ``posh'') who first, in the latter part of the 19th
+century, made a study of the properties of betweenness actually needed in
+geometry. The postulates given below are a modification of those of Pasch. You
+will have observed that the postulates of Group I seemed very obvious, and
+perhaps those of Group II will also. But remember that we are trying to state
+clearly what we imagine to be true about a plane, and hence we must be careful to
+state \emph{everything} we are going to use.
+
+\medskip
+\noindent\textbf{Postulate Group II. Betweenness.}\quad There is a relation,
+called \emph{between}, such that one of three points is sometimes between the
+other two. Of course, if we consider \emph{any} three points, it does not
+\emph{have} to happen that any one is between the others. But if for three points
+$A$, $B$, and $C$ it is true that $B$ is between $A$ and $C$, we shall indicate
+this by writing ``$ABC$'' or ``$CBA$,'' that is, with $B$ in the middle.
+
+\medskip
+\noindent II--1 \emph{The ABC betweenness postulate}. If $ABC$, that is, if $B$
+is between $A$ and $C$, then $A$, $B$, and $C$ are three different (distinct)
+points on a line. (A drawing of the line and points might look like Fig.~3--11.)
+
+\FIGIIIELEVENTWELVE
+
+\medskip
+\noindent II--2 \emph{The three-point betweenness postulate}. For every three
+points on a line, exactly one of them is between the other two. That is, if $R$,
+$S$, and $T$ are on one line, then exactly one of the statements $RST$, $STR$,
+and $TRS$ is true.
+
+\medskip
+\noindent II--3 \emph{The four-point betweenness postulate}. Any four points on a
+line may be labeled $A_1$, $A_2$, $A_3$, $A_4$ so that the only betweenness
+relations are the same as the order of the subscript numbers. That is, the only
+betweenness relations are $A_1A_2A_3$, $A_1A_2A_4$, $A_1A_3A_4$, $A_2A_3A_4$. Of
+course these may all be reversed as $A_3A_2A_1$, $A_4A_2A_1$, $A_4A_3A_1$,
+$A_4A_3A_2$. A similar statement is to hold for any five points on a line, and in
+fact for any finite number of points on a line.
+
+\medskip
+\noindent II--4 \emph{The line-building postulate}. If $A$ and $B$ are two
+points, then there is at least one point $C$ such that $ABC$, and at least one
+point $D$ such that $ADB$. (See Fig.~3--12.)
+
+\medskip
+Before stating the last of the betweenness postulates, we need some definitions.
+
+\begin{definition}
+Two points not on a line $l$ are said to be \emph{on the same side of $l$} if no
+point of $l$ is between the two points. (See Fig.~3--13.) Two points not on a
+line $l$ are said to be \emph{on opposite sides of $l$} if there is a point of
+$l$ between the two points. (See Fig.~3--14.)
+\end{definition}
+
+\FIGIIITHIRTEENFOURTEEN
+
+\medskip
+\noindent II--5 \emph{The two-side postulate}. Each line separates the plane. By
+this we mean that all points of the plane not on the line are divided into two
+sets, called the two sides of the line, such that if $P$ and $Q$ belong to one of
+these sets, then $P$ and $Q$ are on the same side of the line, whereas if $P$
+belongs to one set and $Q$ belongs to the other, then $P$ and $Q$ are on opposite
+sides of the line. (Briefly, this says that a line has two sides.)
+
+\medskip
+Before using these postulates, let us first discuss their meaning in everyday
+life. If three men are standing in a line (Fig.~3--15) and $A$ cannot see $C$
+because $B$ is in the way, then we say that $B$ is between $A$ and $C$. On the
+other hand, $B$ and $C$ can see each other perfectly. Hence $A$ is not between
+$B$ and $C$. That is, we do not have $BAC$.
+
+\FIGIIIFIFTEEN
+
+The $ABC$ betweenness postulate says that to talk about betweenness, we must have
+the men ``lined up.'' The three-point betweenness postulate says that when three
+men are lined up, exactly one of them is between the other two.
+
+The four-point betweenness postulate gives a definite meaning to what we expect
+to see when we say, ``Line up these four people.'' It tells exactly who is
+between whom. An easy way to remember the content of this postulate is to observe
+that of four points on a line, two of them are never between any others. These
+are called the \emph{endpoints}. The other two points are between points exactly
+twice.
+
+The line-building postulate tells us first that there is always a point $C$
+``beyond'' $B$ from $A$. In fact, Euclid stated (vaguely) something very much
+like this as a postulate. But our postulate also tells us that there are points
+between any two. Euclid never stated this. It is this postulate that gives the
+existence of more than two points on a line, and therefore it is called the
+line-building postulate. You might think about the relation between this
+postulate and the real world. When you draw pictures of points, can you always
+mark a picture of a third point between any two?
+
+The two-side postulate says that a line has two sides. It merely expresses the
+way we tell whether or not two of us are on the same or different sides of a
+fence. If, when we look at each other, we see the fence between us, we know we
+are on opposite sides of it. If we do not see the fence between us, we are on the
+same side.
+
+Now, using these postulates, we can define some familiar geometric objects.
+
+\begin{definition}
+If $A$ and $B$ are any two points, then the set of points consisting of $A$ and
+$B$ and all the points between $A$ and $B$ will be called the \emph{line segment}
+(or \emph{segment}) determined by $A$ and $B$. The segment will be indicated by
+``$AB$.'' The points $A$ and $B$ are called the \emph{ends} of the segment. In
+Fig.~3--16, $P$ is a point of the segment $AB$.
+\end{definition}
+
+\FIGIIISIXTEENSEVENTEEN
+
+\begin{definition}
+If $A$, $B$, and $C$ are three points not all on one line,* the set of points of
+the segments $AB$, $BC$, $AC$ is called a \emph{triangle} (Fig.~3--17). We call
+the points $A$, $B$, and $C$ \emph{vertices} of the triangle and the segments
+$AB$, $AC$, $BC$ \emph{sides} of the triangle. To indicate ``triangle $ABC$,''
+we write ``$\tri{ABC}$.''
+\end{definition}
+\IIIstarfn{~Points all lying on a line are said to be \emph{collinear}. Hence in
+the definition we could have said, ``If $A$, $B$, and $C$ are not collinear
+\ldots{}''.}
+
+Before working the exercises, read all the postulates again to be sure that you
+understand them.
+
+\exercisegroup{3--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a line and mark five points on it. Write out all the betweenness
+      relations.
+\item If $ABC$ and $ACD$, prove that the four points $A$, $B$, $C$, and $D$ lie
+      on one line.
+\item Give in your own words the definitions of ``segment,'' ``triangle,'' and
+      ``two points are on the same side of a line.''
+\item If $A$, $B$, $C$, and $D$ are four points of a line and we know that $CAD$
+      and $ADB$, what are the other betweenness relations? Draw a picture. Is the
+      picture proof?
+\item[\stex 5.] If $A$, $B$, $C$, and $D$ are four points of a line and we know
+      that $CAD$ and $CAB$, what are the other betweenness relations?
+\item[6.] If $E$, $F$, $G$, and $H$ are four points on a line and we know that
+      $EFG$, how many possible positions are there for $H$ that can be described
+      in terms of our betweenness relations?
+\end{exlist}
+\end{multicols}
+
+\begin{exlist}[start=7]
+\item $A$ and $B$ are points on a line $l$. Write three true statements about
+      points either on $l$ or not on $l$. Give reasons, as below.
+\end{exlist}
+
+\begin{steps}
+\step{There is a point $C$ such that $ACB$.}{The line-building postulate.}
+\step{\rule{0.92\linewidth}{0.4pt}}{\rule{0.92\linewidth}{0.4pt}}
+\step{\rule{0.92\linewidth}{0.4pt}}{\rule{0.92\linewidth}{0.4pt}}
+\step{\rule{0.92\linewidth}{0.4pt}}{\rule{0.92\linewidth}{0.4pt}}
+\end{steps}
+
+\begin{multicols}{2}
+\begin{exlist}[start=8]
+\item If $RST$ and $VRS$, relabel the points $R$, $S$, $T$, and $V$ as $A_1$,
+      $A_2$, $A_3$, and $A_4$ (in some order) in accordance with II--3. If
+      $CAD$, $BDE$, and $BCA$, relabel the points $A_1$, $A_2$, $A_3$, $A_4$, and
+      $A_5$ in accordance with II--3.
+\item Prove that there are at least four lines on each point.
+\item If $DEF$ and $EGF$, then the four-point betweenness postulate implies that
+      \rule{2.2em}{0.4pt} and \rule{2.6em}{0.4pt}.
+\item If $RST$, then what postulate tells us that $R$, $S$, and $T$ are distinct
+      points on a line?
+\item[\stex 12.] Draw a line and choose two points on it, $A$ and $B$ (Postulate
+      I--3). Mark a point $C$ such that $ABC$ (Postulate II--4). Mark a point $D$
+      such that $BCD$ (Postulate II--4). Is it true that $ACD$? Why? Use II--3 to
+      prove that $ACD$.
+\item[\stex 13.] Draw a line and choose two points on it, $A$ and $B$. Choose a
+      point $C$ such that $ACB$ (Postulate II--4). Now choose a point $D$ such
+      that $CDB$. Is it true that $ACD$? that $ADB$? Use II--3 to prove this.
+      Now choose a point $E$ such that $DEB$. What are all the betweenness
+      relations between these five points? Can this process be indefinitely
+      repeated? Describe, in your own words, the meaning of ``this process.'' How
+      many points are there on a line segment?
+\item[\stex 14.] Draw a line and choose a point $A$ on one side and a point $B$ on
+      the other side. Now mark a point $C$ on the opposite side of the line from
+      $A$. Points $B$ and $C$ will be on the same side of the line. How does this
+      follow from II--5?
+\item[\stex 15.] A line $l$ (Fig.~3--18) does not contain any of the vertices of
+      a triangle. The line $l$ does intersect the side $AB$, but does not
+      intersect the side $BC$. Prove that $l$ must intersect $AC$.
+\item[\stex 16.] Draw a line and choose two points $A$ and $B$ on one side of the
+      line. Choose $C$ so that $ACB$. Can you prove that $C$ and $A$ are on the
+      same side of the line?
+\item[\stex 17.] If $A$ is on line $l$ and $B$ is not on $l$ and $ACB$, prove
+      that $C$ and $B$ are on the same side of $l$.
+\item[\stex 18.] Prove that for every line $l$ there is a point on each side of
+      $l$.
+\end{exlist}
+\end{multicols}
+
+\FIGIIIEIGHTEEN
+
+%========================================================= 3-5
+\section*{3--5\quad RAYS AND ANGLES}
+\addcontentsline{toc}{section}{3--5\quad Rays and angles}
+
+It is a familiar fact from experience that a point $O$ on a line $l$ divides the
+other points of the line into two sets---those on one side and those on the other
+side of the point $O$ on the line $l$. (See Fig.~3--19.) From our postulates on
+betweenness we can now make precise definitions of this observation. First we
+need to know that a point on a line separates the line.
+
+\FIGIIININETEEN
+
+\begin{theorem}
+{\normalfont The two-side theorem.} Let $O$ be any point of a line $l$. The
+points of $l$, different from $O$, are separated into two sets such that:
+(1) If $P$ and $Q$ are in the same set, then either $OPQ$ or $OQP$.
+(2) If $P$ is in one set and $Q$ is in the other set, then $POQ$.
+\end{theorem}
+
+\noindent*\emph{Proof.} Choose a point $A$ not on $l$ and consider the line $m$
+through $O$ and $A$ (see Fig.~3--20). We are using I--1 and I--2. By the two-side
+postulate, II--5, the line $m$ separates the plane into the two sides of $m$. Let
+one of the sets, which we seek, consist of the points of $l$ which are on one
+side of $m$, and let the other set consist of the points of $l$ on the other side
+of $m$.%
+\IIIstarfn{~Starred proofs are difficult and may be omitted. However, the meaning
+of the theorems must be understood.}
+
+If $P$ and $Q$ are in one of these sets, they are by definition on the same side
+of $m$, and therefore $O$ is not between them. Hence by II--2 we must have either
+$OPQ$ or $OQP$. This proves (1).
+
+Now suppose that $P$ is in one set and $Q$ in the other set (see Fig.~3--21).
+Then by definition of the sets, $P$ and $Q$ are on different sides of $m$. By the
+two-side postulate, II--5, there is a point of $m$ between $P$ and $Q$. But $l$
+and $m$ have only point $O$ in common. Hence the point between must be $O$, and
+we have $POQ$. This proves (2).
+
+\FIGIIITWENTYTWENTYONE
+
+\begin{remark}
+The two sets of the theorem are not dependent on how we choose the line $m$,
+because we end up with the same betweenness relations.
+\end{remark}
+
+\begin{definition}
+The two sets of Theorem 3--3 are called the two \emph{sides} of $O$ on the line
+$l$.
+\end{definition}
+
+\begin{definition}
+A \emph{ray} from $O$, or a ray with end $O$, is a set of points consisting of
+$O$ and all the points on one side of $O$ of a line $l$ through $O$ (see
+Fig.~3--22).
+\end{definition}
+
+If $P$ is any point of the ray, we may speak of ``ray $OP$.'' Note that we may
+describe the ray as the set of points consisting of $O$ and $P$ and all points
+$Q$ such that $OQP$ and all points $R$ such that $OPR$. Refer back to
+Theorem 3--3.
+
+\FIGIIITWENTYTWOTWENTYTHREE
+
+\exercise{3--3}
+Consider a line $l$ and a ray $r$, not on $l$, from a point $P$ on $l$, as in
+Fig.~3--23. What do we mean by ``$r$'s side of $l$''?
+
+\begin{definition}
+The set of all points on two rays from a point is called an \emph{angle}. The
+point is called the \emph{vertex} of the angle, and the two rays are called the
+\emph{sides} of the angle. If the two rays are on the same line, the angle is
+called a \emph{straight angle}. If $O$ is the vertex and $A$ and $B$ are points
+other than $O$ on the sides of the angle, we shall speak of ``angle $AOB$'' and
+write this as ``$\ang{AOB}$.'' (See Fig.~3--24.)
+\end{definition}
+
+\FIGIIITWENTYFOURTWENTYFIVE
+
+\begin{remark}
+Note that what we call the angle is the set of points in the \emph{sides} of the
+angle. Points ``between'' the rays are \emph{not} part of the angle. Later we
+discuss the inside and the outside of an angle. It will be convenient to have a
+way to clearly indicate the sides of the angles. This can be done as in
+Fig.~3--25(a), and the angle can be numbered. Since the arrowheads indicating the
+sides are not vital, we can as well use the simpler notation shown in
+Fig.~3--25(b) and (c). \emph{Remember that this notation is just a way of
+indicating the sides of the angle.}
+\end{remark}
+
+\begin{definition}
+If two lines $l$ and $m$ intersect at $O$ and the four rays from $O$ are as
+indicated in Fig.~3--26, then angles 1 and 2 are said to be \emph{vertical} with
+respect to each other. For brevity, we say that 1 and 2 are a pair of vertical
+angles. Angles 3 and 4 are also vertical to each other.
+\end{definition}
+
+\FIGIIITWENTYSIX
+
+\begin{definition}
+If two angles have a common vertex and a common side and if the other sides are
+on opposite sides of the line on the common side, then the angles are said to be
+\emph{adjacent} to each other (Fig.~3--27).
+\end{definition}
+
+\FIGIIITWENTYSEVEN
+
+\begin{definition}
+Two adjacent angles whose noncommon sides form a straight angle are said to be
+\emph{supplementary and adjacent} to each other (Fig.~3--28).
+\end{definition}
+
+\FIGIIITWENTYEIGHT
+
+\exercisegroup{3--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item State in your own words the definitions of ``ray,'' of ``angle,'' and of
+      ``straight angle.''
+\item How ``long'' are the sides of an angle?
+\item If $\ang{AOB}$ and $\ang{DOC}$ are vertical to each other with $B$, $O$,
+      $D$ collinear, what kind of angle is $\ang{AOC}$?
+\item If $\ang{AOC}$ is a straight angle and $OR$ is a ray from $O$, how are
+      angles $AOR$ and $ROC$ related?
+\item Two lines intersect at $O$. With the four rays from $O$, how many different
+      angles with vertex $O$ can be found? Pick out the pairs of vertical angles.
+\item Three lines intersect at $O$. With the six rays from $O$, how many
+      different angles with vertex $O$ can be formed? How many pairs of vertical
+      angles are there?
+\item Draw two angles with a common vertex but which are not adjacent to each
+      other.
+\item Draw two angles with a common vertex and side but which are not adjacent.
+\item State Definitions 3--7, 3--8, and 3--9 in your own words.
+\item If $\ang{AOB}$ is not a straight angle, how many angles are there that are
+      vertical with respect to $\ang{AOB}$?
+\item Why is it not sensible to say, ``$\ang{AOB}$ is a vertical angle''?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 3-6
+\section*{3--6\quad INTERIOR AND EXTERIOR}
+\addcontentsline{toc}{section}{3--6\quad Interior and exterior}
+
+When we draw a picture of an angle (not a straight angle) on a sheet of paper, we
+can tell by looking at it which points of the plane are inside and which are
+outside the \emph{picture} of the angle. But in our development of geometry
+starting from but a few postulates, we must \emph{define} what these sets are.
+(Why?) Definition 3--10 is one that can be understood by a blind person provided
+he knows what an angle is and that a line separates the plane. To appreciate the
+definition, consider Fig.~3--29. The point $D$ lies on one side of $l$, which
+side has been shaded with vertical lines. The point $C$ lies on one side of $m$,
+which side has been shaded with horizontal lines. The points in the plane which
+are shaded twice (i.e., where the vertical and horizontal lines cross) fill up
+the \emph{interior} of $\ang{COD}$.
+
+\FIGIIITWENTYNINETHIRTY
+
+\exercisegroup{3--5}
+\begin{multicols}{2}
+\begin{exlist}
+\item Copy the lines $l$ and $m$ and the points $A$, $B$, $C$, $D$ on a sheet of
+      paper and shade all the points of the plane which are (a) on the same side
+      of $l$ as $B$ and the same side of $m$ as $A$, (b) on the same side of $l$
+      as $B$ and on the same side of $m$ as $C$, (c) on the same side of $l$ as
+      $D$ and on the same side of $m$ as $A$.
+\item In each case name the angle whose interior has been described.
+\end{exlist}
+\end{multicols}
+
+\begin{definition}
+Consider an angle, not a straight angle, with vertex $O$ and whose sides are the
+rays $r_1$ and $r_2$ on the lines $l_1$ and $l_2$, respectively. The
+\emph{interior} of the angle is the set of all points on the same side of $l_1$
+as $r_2$ and on the same side of $l_2$ as $r_1$. The \emph{exterior} of the angle
+is the set of all points in the plane which are not points of the angle and are
+not in the interior of the angle. (Fig.~3--30.)
+\end{definition}
+
+There are several properties of the interior and exterior of angles that we can
+now prove. These properties are all quite obvious when we look at a figure. But
+even when something seems obvious from a picture, we must be sure that we have
+the right postulates so that our geometry agrees with our feelings about what
+should be true---that is, with the picture. It is really not at all obvious that
+our \emph{geometry} agrees with our \emph{picture}. Let us see that this is so by
+proving some ``obvious'' theorems.
+
+In all these theorems we shall be concerned with an angle whose vertex is $O$,
+which is not a straight angle, and whose sides are the rays $r_1$ and $r_2$.
+
+\begin{IIIsthm}
+If $P$ and $Q$ are both in the interior of $\ang{O}$, then the segment $PQ$ is in
+the interior of $\ang{O}$.
+\end{IIIsthm}
+
+\noindent\emph{Proof.} We must show that if $A$ is any point between $P$ and $Q$,
+then $A$ is in the interior of the angle (Fig.~3--31). This is easy if we use the
+result of Exercise 16 in Exercise Group 3--2. By that exercise, since $P$ and $Q$
+are on one side of $l_1$, then $A$ is also on that same side of $l_1$. Similarly,
+$A$ is on the same side of $l_2$, as are both $P$ and $Q$. Hence, by the
+definition of \emph{interior} of an angle, $A$ is in the interior of the angle
+formed by rays $r_1$ and $r_2$.
+
+\FIGIIITHIRTYONE
+
+\begin{IIIsthm}
+If $r$ is a ray from $O$ other than $r_1$ and $r_2$, then either all the points
+of $r$ other than $O$ lie in the interior of $\ang{O}$ or they lie in the
+exterior of $\ang{O}$.
+\end{IIIsthm}
+
+\noindent\emph{Proof.} Let $r_1'$ and $r_2'$ be the rays from $O$ on $l_1$ and
+$l_2$ other than $r_1$ and $r_2$. (See Fig.~3--32.) If $r = r_1'$ or
+$r = r_2'$, then $r$ is in the exterior. If $r$ is neither $r_1'$ nor $r_2'$,
+then $r$ lies on a definite side of $l_1$ and a definite side of $l_2$ because of
+the way a ray is defined. Hence $r$ is in either the interior or exterior of
+$\ang{O}$.
+
+\FIGIIITHIRTYTWO
+
+\begin{IIIsthm}
+If $P$ is in the interior of $\ang{O}$ and $Q$ is in the exterior of $\ang{O}$,
+then the segment $PQ$ contains a point of the angle.
+\end{IIIsthm}
+
+\noindent\emph{Proof.} There are five possible locations of the point $Q$,
+represented by the points $Q_1, \ldots, Q_5$ in Fig.~3--33. (Describe these
+positions in terms of sides of lines.) For positions $Q_1$, $Q_2$, $Q_4$, $Q_5$
+the proofs of the theorem are quite easy and are assigned as exercises below.
+Hence we restrict our attention here to the position $Q_3$.
+
+\FIGIIITHIRTYTHREE
+
+Since $Q_3$ is on opposite sides of both $l_1$ and $l_2$ from $P$ (why?), the
+segment $Q_3P$ must contain a point $R$ of $l_1$ and a point $S$ of $l_2$. We
+assert that either $R$ or $S$ is a point of the angle, that is, a point of either
+$r_1$ or $r_2$. If $R$ is on $r_1$, our segment contains a point of the angle.
+Suppose that $R$ is not on $r_1$. Then $R$ is on $r_1'$ and hence has the same
+relative position as $Q_4$. (Why?) But then the segment $RP$ contains a point of
+the angle which must be $S$. (Why?) Since $Q_3RP$ and $RSP$, we have $Q_3SP$.
+(Why?)
+
+\begin{definition}
+The \emph{interior} (or \emph{inside}) of a triangle is the set of all points
+which are interior to each of the angles of the triangle. The \emph{exterior} of
+a triangle is the set of points which are neither on the triangle nor in the
+interior.
+\end{definition}
+
+If the triangle is $ABC$ (see Fig.~3--34), an alternative definition of interior
+would be ``the set of all points on the same side of $AB$ as $C$, on the same
+side of $BC$ as $A$, and on the same side of $CA$ as $B$.'' Show that these two
+definitions say the same thing.
+
+We can prove the following remark by using Theorem 3--6. The remark is an
+``obvious'' theorem that is hard to prove. We will not need this result later.
+
+\begin{remark}
+If $P$ is in the interior of $\tri{ABC}$ and $Q$ is in the exterior, then the
+segment $PQ$ contains a point of the triangle (Fig.~3--35).
+\end{remark}
+
+\FIGIIITHIRTYFOURTHIRTYFIVE
+
+\exercisegroup{3--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Referring to Fig.~3--36, draw an angle with vertex $O$. Pick a point $A$ on
+      one side of $\ang{O}$. Draw an angle with vertex $A$ with one side the ray
+      $AO$ and the other side a ray intersecting the other side of $\ang{O}$ in
+      $B$. Shade the interior of $\ang{O}$ and the interior of $\ang{A}$. Are
+      points in both interiors also in the interior of $\tri{OBA}$?
+\item Draw a $\tri{ABC}$. If a point $P$ is on the same side of $AB$ as $C$ and
+      on the same side of $BC$ as $A$, show that $P$ is not necessarily on the
+      same side of $AC$ as $B$.
+\item Draw two angles whose interiors have no points in common.
+\item A straight angle does not have an interior. Tell why we do not try to
+      define interior for a straight angle.
+\item State in your own words the definitions of ``interior of an angle'' and
+      ``interior of a triangle.''
+\item For a $\tri{ABC}$, the point $P$ is in the interior of $\ang{A}$ and not in
+      the interior of $\ang{B}$. Can you be sure that $P$ is in the exterior of
+      $\tri{ABC}$?
+\item Consider the angle of Fig.~3--37, with sides $l_1$ and $m_1$ indicated on
+      lines $l$ and $m$. Tell where the point $P$ is if:
+      \begin{itemize}[label=,leftmargin=1.1em,itemsep=0pt,topsep=1pt]
+      \item (a) $P$ is on the opposite side of $m$ from $l_1$.
+      \item (b) $P$ is on the opposite side of $l$ from $m_1$.
+      \item (c) $P$ is on $l_1$.
+      \item (d) $P$ is on $m_1$.
+      \item (e) $P$ is on the same side of $l$ as $m_1$.
+      \item (f) $P$ is on the same side of $l$ as $m_1$ and on the same side of
+            $m$ as $l_1$.
+      \end{itemize}
+\item Prove that the following definition is equivalent to Definition 3--11: The
+      interior of $\tri{ABC}$ is the set of all points in the interior of
+      $\ang{A}$ and also in the interior of $\ang{B}$. (With this definition it
+      is not too difficult to prove the truth of the remark preceding this group
+      of exercises.)
+\item In $\ang{AOB}$, not a straight angle, point $P$ is between $A$ and $B$.
+      Prove that $P$ is in the interior of the angle.
+\item In triangle $ABC$ we have the relations $AXB$, $AYC$, and $XZY$. Prove
+      that $Z$ is in the interior of the triangle.
+\item If $\ang{AOB}$ is not a straight angle and we have the relations $XOB$ and
+      $XYA$, prove that $Y$ is in the exterior of $\ang{AOB}$.
+\item[\stex 12.] In Theorem 3--6 suppose $Q$ is in position $Q_1$, that is, on
+      the same side of $l_2$ as $r_1$ and on the opposite side of $l_1$ as $r_2$
+      (see Fig.~3--38). Show that there is a point $R$ of $r_1$ between $Q$ and
+      $P$. [\emph{Hint:} Certainly there is a point $R$ of $l_1$ between $Q$ and
+      $P$. Show that it is impossible that $R$ be on $r_1'$.]
+\item[\stex 13.] In Theorem 3--6 suppose $Q$ is in position $Q_2$, that is, on
+      $r_2'$ (see Fig.~3--39). Show that there is a point $R$ of $r_1$ between
+      $Q$ and $P$.
+\item[\stex 14.] Tell why the positions $Q_4$ and $Q_5$ of Fig.~3--33 are much
+      the same as positions $Q_2$ and $Q_1$, respectively. If you have done
+      positions $Q_1$ and $Q_2$, why are positions $Q_5$ and $Q_4$ easy?
+\end{exlist}
+\end{multicols}
+
+\FIGIIITHIRTYSIX
+
+\FIGIIITHIRTYSEVEN
+
+\FIGIIITHIRTYEIGHTTHIRTYNINE
+
+%========================================================= end matter
+\section*{REVIEW OF CHAPTER 3}
+\addcontentsline{toc}{section}{Review of Chapter 3}
+
+\begin{exlist}
+\item The fundamental relations of betweenness are expressed in the postulates.
+      Study them again to be sure you know them.
+\item Definitions of the following concepts were given in this chapter. Be sure
+      that you know all of them.
+\end{exlist}
+
+\begin{multicols}{2}
+\begin{itemize}[label=,leftmargin=1.2em,itemsep=0pt,topsep=2pt]
+\item two sides of a line (see II--5)
+\item segment
+\item triangle
+\item collinear (see footnote to Def.~3--3)
+\item two sides of a point on a line
+\item ray
+\item angle
+\item straight angle
+\item vertical angles
+\item adjacent angles
+\item supplementary angles
+\item interior of an angle
+\item exterior of an angle
+\item interior of a triangle
+\item exterior of a triangle
+\end{itemize}
+\end{multicols}
+
+\begin{exlist}[start=3]
+\item The following statements have been proved in this chapter. First re-read
+      them, and then study their proofs again.
+      \begin{itemize}[label=,leftmargin=1.4em,itemsep=1pt,topsep=2pt]
+      \item (a) Two different lines intersect in at most one point.
+      \item (b) There are at least three lines.
+      \item (c) A point $O$ on a line separates the line into two sides.
+      \item (d) If $P$ and $Q$ are in the interior of $\ang{O}$, then the segment
+            $PQ$ is in the interior of $\ang{O}$.
+      \item (e) A ray from the vertex of an angle lies, except for the vertex,
+            either in the interior or in the exterior of the angle.
+      \item (f) If $P$ is in the interior of $\ang{O}$ and $Q$ is in the
+            exterior, then the segment $PQ$ intersects the angle.
+      \end{itemize}
+\end{exlist}
+
+\begin{center}\bfseries Important Remark\end{center}
+
+By assuming a few properties of points and lines, we have been able to
+\emph{define} many familiar types of figures and to \emph{prove} that these
+figures have properties that may seem obvious. \emph{Therefore we have proved
+that some of our figures agree with our geometry.} From now on in the book, we
+will often determine properties of betweenness by just looking at figures. The
+definitions and theorems of this chapter will enable us to use our figures in the
+confident belief that we could always go back and supply proofs. Therefore, we
+have completed the first stage in our development of geometry. The theorems
+proved in this chapter need not be memorized because the facts are all familiar
+from drawings. However, the postulates and definitions of this chapter are very
+important, and therefore should be memorized.
+
+\begin{center}\bfseries Review Questions\end{center}
+
+\begin{exlist}
+\item If $A$ and $B$ are distinct points, what can you say about a point $P$
+      which is on the segment $AB$? Why?
+\item What postulate did we use to define the sides of a point on a line?
+\item A line $l$ contains the distinct points $R$ and $S$. A line $m$ also
+      contains these points. What do you conclude?
+\item If $ABC$, and $B$ is on line $l$ but $A$ is not on $l$, is the point $C$ on
+      $l$? Why?
+\item Tell whether the following statements are true or false, and give
+      explanations for your answers.
+      \begin{itemize}[label=,leftmargin=1.4em,itemsep=1pt,topsep=2pt]
+      \item (a) For $\tri{ABC}$, if the point $S$ is in the interior of $\ang{A}$,
+            $\ang{B}$, and $\ang{C}$, then it is a theorem that $S$ is in the
+            interior of the triangle.
+      \item (b) If $APB$, then $P$ belongs to the segment $AB$, by definition.
+      \item (c) If $ARQ$ and $AGR$, then $AGQ$.
+      \item (d) A point $P$ not on an angle must be in either the interior or
+            exterior.
+      \item (e) We postulate that a point on a line separates the line.
+      \item (f) If $AQB$, then $A$ and $B$ are on a ray from $Q$.
+      \item (g) A line segment contains a definite number of points.
+      \end{itemize}
+\item What does it mean to say that three or more points are noncollinear? How
+      can we be sure that there are such sets of points?
+\item If $ADB$ and $BAC$, what are the other betweenness relations?
+\item Lines $s$ and $t$ intersect at $Q$ forming rays $s_1$, $s_2$ and $t_1$,
+      $t_2$. Draw a figure and indicate the pairs of vertical angles. Which pairs
+      of angles are adjacent? supplementary?
+\item If $A$ and $B$ are on opposite sides of a line $l$, and $B$ and $C$ are on
+      opposite sides of $l$, then $A$ and $C$ are on the same side of $l$. Why is
+      this true?
+\item Explain in your own words what it means for a point to be in the interior
+      of an angle.
+\end{exlist}
+
+\begin{center}\bfseries Review Test\end{center}
+
+\begin{exlist}
+\item Define the following: (a) angle, (b) segment, (c) when two points are on
+      the same side of a line, (d) triangle.
+\item Tell whether true or false:
+      \begin{itemize}[label=,leftmargin=1.4em,itemsep=1pt,topsep=2pt]
+      \item (a) $A$, $B$, $C$ are three points on a line and $ABC$ and $CAB$.
+      \item (b) If $PRU$, then $P$, $R$, and $U$ are distinct points on a line.
+      \item (c) It is a theorem that a line separates the plane.
+      \item (d) It is a theorem that a point separates a line.
+      \item (e) It is a theorem that there is a point between any two points.
+      \item (f) Betweenness is an undefined relation.
+      \item (g) If $ABC$, then $CBA$.
+      \item (h) If $E$, $F$, $G$ are not on $l$ and such that the segment $EF$
+            does not intersect $l$, while the segment $FG$ does intersect $l$,
+            then the segment $EG$ intersects $l$.
+      \end{itemize}
+\item State in your own words:
+      \begin{itemize}[label=,leftmargin=1.4em,itemsep=1pt,topsep=2pt]
+      \item (a) The point-line postulate.
+      \item (b) The $ABC$ betweenness postulate.
+      \item (c) The line-building postulate.
+      \end{itemize}
+\end{exlist}
+
+\begin{center}\bfseries ALGEBRA REVIEW\end{center}
+
+In this review you are supposed to use the properties of addition and
+multiplication of numbers (both positive and negative), along with the
+definitions of subtraction and division, to make simple proofs. All letters here
+refer to rational numbers (fractions). These exercises show how definitions are
+used in algebra.
+
+\medskip
+\noindent\textbf{Definition.}\quad If $a = b + x$, then $x$ is called ``$a$
+\emph{minus} $b$'' and is written ``$x = a - b$.'' It is also called ``$b$
+\emph{subtracted from} $a$.''
+
+\begin{exlist}
+\item If $c = p - q$, what is $p$? Why?
+\item Why does $7 - 3 = 4$? Write $7 - 3 = x$, and ask what property $x$ must
+      have.
+\item Using the definition, what can you say about these numbers:
+      $\frac{9}{5} - \frac{3}{5}$? $\frac{1}{2} - \frac{1}{3}$?
+      $\frac{7}{8} - \frac{3}{4}$? $4.678 - 2.589$?
+\end{exlist}
+
+\medskip
+\noindent\textbf{Definition.}\quad $-b$ (called ``\emph{negative} $b$'') is
+defined to be $0 - b$. That is, $-b = 0 - b$ and is a number such that
+$b + (-b) = 0$.
+
+\begin{exlist}[start=4]
+\item Why does $-7 = 0 - 7$? $-3 = 0 - 3$?
+      $-\frac{1}{2} = 0 - \frac{1}{2}$?
+\item Show that $9 + (-3) = 9 - 3$, $11 + (-8) = 11 - 8$,
+      $\frac{5}{6} + (-\frac{1}{3}) = \frac{5}{6} - \frac{1}{3}$.
+\item[\stex 6.] Prove that $a + (-b) = a - b$. [\emph{Hint:} Let $a - b = x$ so
+      that $a = b + x$. Then $a + (-b) = b + x + (-b)$.]
+\item[7.] Show that $-(7 + 3) = (-7) + (-3)$, $-(2 + 7) = (-2) + (-7)$.
+\item[8.] Show that $-(a + b) = (-a) + (-b)$.
+\end{exlist}
+
+\medskip
+\noindent\textbf{Definition.}\quad If $a = bx$ and $b \neq 0$, then $x$ is called
+``$a$ \emph{divided by} $b$'' and is written ``$x = a \div b$'' or
+``$x = a/b$.''
+
+\begin{exlist}[start=9]
+\item Explain why in this last definition we required that $b \neq 0$.
+      [\emph{Hint:} Would $x$ be definite otherwise?]
+\item According to the definition, $\frac{1}{2}$ is a number such that
+      $1 = 2(\frac{1}{2})$. What then are the numbers $\frac{3}{4}$,
+      $-\frac{2}{3}$, $4/{-5}$, $\frac{7}{16}$, $\frac{5}{10}$, $\frac{1}{1}$,
+      $\frac{2}{2}$?
+\item Why does $b \cdot a/b = a$?
+\item Prove that $a/b + c/b = (a + c)/b$.
+\item Show that $\frac{1}{2} = \frac{2}{4}$. [\emph{Hint:} Let
+      $\frac{1}{2} = x$. Then $1 = 2 \cdot x$. Why? Hence $2 = 4x$. Why? Hence
+      $\frac{2}{4} = x$. Why?]
+\item Prove that if $b \neq 0$ and $c \neq 0$, then $a/b = ac/bc$.
+\end{exlist}
+
+\end{document}

@@ -1,0 +1,803 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures01}
+
+% ---- local macros (hoist into book preamble) ----
+% Halftone plates: the book prints full-page photographs facing several pages of
+% this chapter. They are reproduced as framed placeholders carrying the original
+% caption; see ch01-UNCERTAIN.md.
+\newcommand{\Iplate}[2]{%
+  \par\medskip
+  \begin{center}
+  \fbox{\begin{minipage}[c][0.42\textheight][c]{0.78\linewidth}\centering
+    \footnotesize\itshape [halftone photograph --- plate not reproduced]
+    \par\vspace{1.2em}
+    \normalfont\textsc{#1}\par
+    \smallskip
+    {\footnotesize #2}
+  \end{minipage}}
+  \end{center}
+  \par\medskip}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{1}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\chapter*{\raggedright\Huge INTRODUCTION}
+\addcontentsline{toc}{chapter}{1.\ Introduction}
+\markboth{INTRODUCTION}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+% The Hilbert plate (leaf facing book p.1) is typeset at the END of the front
+% matter (frontmatter.tex, p. xii slot), matching its physical position in the
+% book. It was duplicated here until the 2026-08-17 integration pass.
+
+%========================================================= 1-1
+\section*{1--1\quad WHY STUDY GEOMETRY?}
+\addcontentsline{toc}{section}{1--1\quad Why study geometry?}
+
+\setcounter{footnote}{0}
+There are at least four reasons why geometry is studied by so many students in
+the high schools of the United States and, in fact, throughout the world. The
+first of these reasons is that the logical beauty and precision of geometry has
+fascinated men since the time of the ancient Greeks. Geometry is one of the
+great achievements of the human mind, and for 2000 years men have regarded its
+study as a necessary part of the making of a truly educated person. The feeling
+has been that here is at least one thing whose truth is clear, because every
+statement can be demonstrated beyond a doubt. People also felt that because the
+reasoning in geometry had to be careful and accurate, the study of it would help
+one to be careful and accurate in other
+activities.\footnote{The Dutch philosopher Benedictus de Spinoza
+(1632--1677) was so impressed by the clarity of geometrical reasoning that he
+arranged his reasoning on religion in a ``geometric style.''}
+Because this great invention of the mind has value as an introduction to correct
+logical reasoning, geometry is a required subject for entrance to many colleges
+regardless of what one plans to study.
+
+A second important reason for studying geometry is its practical importance.
+People in all kinds of occupations have occasional need for a bit of geometry,
+and in some fields the study of geometry is a most important step in professional
+training. Fields in which it is required are physics, chemistry, engineering,
+pure mathematics, statistics, some of the biological sciences, and, more
+recently, certain branches of economics and psychology.
+
+Perhaps most students start the study of geometry because of its practical value
+or because they are told it is required. But a third reason is that after you
+have studied geometry you will have the knowledge that is necessary to give you a
+deeper insight into the wonderful details and complexities of our world, both the
+natural world and the constructions of mankind. It is this deeper understanding
+of the world which can be furthered by the study of geometry that makes its study
+important to all people, whether scientists or not. Nature abounds in geometric
+designs, and geometric knowledge gives the observer keener interest.
+
+A fourth reason for studying geometry is that we live in what is often called a
+scientific age, and even if you yourself are not planning on a career in science
+it will be necessary for you to have some understanding and appreciation for the
+ways in which a scientist thinks. The study of geometry is a big step toward
+getting such understanding.
+
+%========================================================= 1-2
+\section*{1--2\quad BRIEF HISTORY OF GEOMETRY}
+\addcontentsline{toc}{section}{1--2\quad Brief history of geometry}
+
+\setcounter{footnote}{0}
+Knowledge of isolated geometric facts goes back before the beginning of recorded
+history. Certainly the early Egyptians and Babylonians (4000--3000 B.C.) knew
+many practically useful geometric relations. The construction of the pyramids
+alone required considerable practical geometry.
+
+But it was the ancient Greeks who collected the known geometric facts, discovered
+new ones, and arranged them into a logically consistent system. (The word
+\emph{geometry} comes from two Greek words, \emph{ge} meaning ``earth,'' and
+\emph{metrei} meaning ``to measure,'' showing that originally it was thought of
+as ``earth measurement.'') This process of organization and discovery took
+centuries and occupied the minds of a long list of able men. Remember that the
+centuries just before, during, and after the period of greatest Greek political
+influence (4th and 5th centuries B.C.) were times of intense intellectual
+activity. The leading minds were interested in ideas of all kinds. Mathematics
+was but one of their interests.
+
+Some of these early geometers deserve special mention either because of their
+mathematical eminence or because of their influence on later men of
+philosophy\footnote{The word \emph{philosophy} comes from Greek words meaning
+``love of wisdom.'' Look this up in your dictionary. The early Greek
+philosophers tried to understand the entire world. More on philosophy will be
+found in Chapter 16 of this text.}
+or science. One of these early men was Thales of Miletos (6th century B.C.) who
+was considered one of the seven wise men of his day. He was the first Greek
+mathematician and the first Greek astronomer. Besides knowing some geometric
+facts, he probably knew proofs for many of them. The next important Greek for us
+was Pythagoras (late 6th century B.C.), who established a school, or brotherhood,
+in Croton, Sicily (a part of Greater Greece then). It is often hard to
+distinguish whether a discovery originated with Pythagoras or one of his
+followers. All ideas were communal property of the brotherhood. Besides the
+Pythagorean theorem concerning right triangles, he (or his school) made notable
+discoveries in music, astronomy, and arithmetic.
+
+\Iplate{Pythagoras}{From a fresco by Raphael.\\ Courtesy of \emph{Scripta Mathematica}.}
+
+\Iplate{The Death of Archimedes}{From a mosaic found in the ancient city of
+Pompeii.\\ Courtesy of \emph{Scripta Mathematica}.}
+
+\setcounter{footnote}{0}
+One Greek geometer in particular deserves mention here because his fame is so
+slight compared with his worth. This man is Eudoxus of Cnidus (4th century
+B.C.), one of the foremost mathematicians of all time. His fame rests upon his
+general theory of proportion, certain geometric constructions, and his ``method
+of exhaustion.'' He lived during the time of
+Plato.\footnote{Plato and Aristotle are the two most renowned of the Greek
+philosophers. Although Eudoxus is less well known, he was a much better
+mathematician than either of these men. However, both Plato and Aristotle have
+had tremendous influence on later thought. It is said that above the entrance to
+Plato's academy were inscribed the words, ``Let no one ignorant of geometry enter
+here.''}
+
+We find that the Greeks organized and extended geometry for their own mental
+enjoyment. Deductive geometry (that is, with proofs from simple assumptions) is
+truly a Greek invention. These men were not seeking practical applications at
+all; in fact, an educated Greek regarded applications of geometry as beneath his
+dignity. By the time of Plato (4th century B.C.), Greek scholars had a fairly
+well-organized body of geometry and perhaps even a geometric text written for
+members of Plato's academy.
+
+By far the best known of the ancient Greek geometers is Euclid, who wrote the
+\emph{Elements} about 300 B.C. This work is the most successful textbook of all
+time and was used throughout the world until well into the present century. It
+consists of 13 ``books,'' the first six of which are concerned with plane
+geometry. The others deal with arithmetic and solid geometry. The
+\emph{Elements} has not only been widely used as written (or as translated); it
+has also been the model for innumerable other books. Isaac Newton, the renowned
+English mathematician and physicist, wrote his great book, the \emph{Principia},
+in the ``geometric style'' even though this often tended to hide the path he took
+in making his discoveries. Most of the geometry books used in American high
+schools today are somewhat altered and simplified versions of Euclid's
+\emph{Elements}. It is astonishing, and a great tribute to Euclid, that this
+book has retained its value for over 2000 years.
+
+Little is known of Euclid's life except that he probably learned his mathematics
+from pupils of Plato's academy and that he later founded his own school at
+Alexandria.\footnote{The city of Alexandria was founded by Alexander the Great in
+332 B.C. Alexander was a supporter of learning, as was his successor, Ptolemy I.
+It was Ptolemy who started the great library at Alexandria, and it was during his
+rule that Euclid opened a school there.}
+Undoubtedly he made full use of earlier writings, but the organization of the
+\emph{Elements} is his own, as are many significant improvements.
+
+One of the many amusing stories concerning Euclid is the following. Upon being
+asked by a student of what profit was the study of geometry, Euclid directed a
+slave to ``give the man a coin that he may profit from what he learns.''
+
+\setcounter{footnote}{0}
+Many able Greek mathematicians followed Euclid, among whom were Apollonius (3rd
+century B.C.) and Archimedes (3rd century B.C.). Archimedes, who had perhaps the
+greatest mind of ancient times, did fine work in mathematics, physics, and
+engineering. He was employed as a kind of technical consultant in warfare by the
+king of Syracuse and was killed by a soldier in the siege of that city in 212
+B.C.
+
+With the rise of the Roman Empire, Greece declined as a political power but
+retained its eminence as a center of learning and culture well into the Christian
+era. Rome added little (compared with Greece) to the arts, science, or
+literature. It is in the realm of practical government, warfare, and architecture
+that the Romans made their contributions. But when Rome fell to the barbarians
+from the north in the 5th century A.D., the ``dark ages'' began. During the dark
+ages, mathematical research was largely in the hands of the Arabs. (Our word
+\emph{algebra} is of Arabic origin.) Serious scientific work in Europe was almost
+at a standstill until the Renaissance, or revival of learning, in the 14th
+century.
+
+Beginning with the 16th century, mathematical activity was primarily in fields
+other than classical geometry, particularly after the invention of
+calculus\footnote{Calculus is a powerful mathematical tool useful in solving
+certain kinds of problems. It is a subject required of most science majors in
+college.}
+by Newton and Leibniz in the 17th century. Nevertheless, significant studies in
+geometry were made which culminated in the discovery, in the 19th century by
+K.~F. Gauss, N.~Lobachevski, and J.~Bolyai, independently, that geometries other
+than Euclid's are possible and just as true (that is, logically correct). It was
+during the 19th century that men became aware that there were certain assumptions
+made by Euclid which he did not actually state. Therefore Euclidean geometry was
+re-examined and made complete and precise according to modern standards. The
+first really complete treatment of Euclidean geometry was published by the German
+mathematician David Hilbert in 1899. Our book is based upon Hilbert's treatment
+(with some simplifications). Thus you will be studying geometry that is almost
+2300 years old but dressed up in modern form.
+
+Hilbert (who died in 1943 at the age of 81) had wide-ranging mathematical
+interests and made outstanding contributions to many fields. His influence on
+American mathematics has been considerable, because at the time when American
+mathematicians were beginning to achieve eminence, during the latter part of the
+19th century, many of them studied under Hilbert at the University of
+G\"ottingen in Germany.
+
+\begin{center}\bfseries Suggested Discussion Topics\end{center}
+\nopagebreak
+\begin{multicols}{2}
+\begin{exlist}
+\item Discuss the four reasons listed for studying geometry. Can you think of
+      any others?
+\item What do you know about Greek civilization other than what has been
+      mentioned in this chapter?
+\item What were some of the major scientific developments of the 19th century?
+      In what countries did they occur?
+\item Look up and report on contributions of the Arabs to mathematics.
+\item Look up Euclid in an encyclopedia.
+\item Look up Pythagoras in an encyclopedia.
+\item Look up Archimedes in \emph{The World of Mathematics}, by J.~R. Newman.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 1-3
+\section*{1--3\quad FAMILIAR GEOMETRIC OBJECTS}
+\addcontentsline{toc}{section}{1--3\quad Familiar geometric objects}
+
+In your previous study of arithmetic and algebra you have met many ``geometric
+objects,'' such as the ones shown in Fig.~1--1, where the examples are all
+\emph{plane} figures. Some \emph{solid} figures that you may have encountered are
+pictured in Fig.~1--2.
+
+\FIGIONE
+
+\FIGITWO
+
+All these shapes are easily recognized as familiar; you would have no difficulty
+in recognizing one of them on sight. However, you may have noticed that we have
+not \emph{defined} the shapes, but only drawn them. Part of our job later in this
+book will be to give accurate definitions. As you study geometry, it will become
+more and more clear that we cannot prove anything without a clear definition. But
+in this chapter, we shall most often use drawings to introduce the things you
+will study later.
+
+We have used the words ``geometric object'' or ``geometric figure,'' but have
+only given examples by drawings on a page of the book. A precise definition is
+the following:
+
+\begin{definition}
+A geometric figure is any \emph{set of points}.
+\end{definition}
+
+Some explanation of the words ``set of points'' is necessary. A set of points is
+just a ``bunch'' of points (or ``collection'' of points, or ``aggregate'' of
+points). This definition allows some rather strange sets of points to be called
+geometric figures, for example those in Fig.~1--3. However, we usually deal with
+simpler sets of points than these, namely, with lines, line segments, triangles,
+circles, etc. A word of caution is necessary regarding our use of the word
+``line.'' By ``line'' we mean a \emph{straight line} indefinite in extent in both
+directions. We shall see in Chapter 3 exactly how to state what we need to know
+about lines in order to prove other things about them.
+
+\FIGITHREE
+
+\exercisegroup{1--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item Describe in your own words what is meant by a \emph{set} of points.
+\item Invent some geometric figures of your own and then describe these sets of
+      points.
+\item Mark a point on a sheet of paper and consider the set of all points on your
+      paper such that each point in the set is two inches from this first point.
+      Describe this set of points in another way.
+\item Some of the shapes drawn in Fig.~1--3 are intended to represent infinitely
+      many line segments or circles. Which are they? Can you invent other figures
+      with infinitely many segments or circles?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 1-4
+\section*{1--4\quad WHAT ARE POINTS?}
+\addcontentsline{toc}{section}{1--4\quad What are points?}
+
+Up to now we have been talking about points just as if we knew what they are. But
+no one has ever seen a point. The smallest dot you can make on a sheet of paper
+is certainly not a point. The dot would look huge to a microbe (if it could see),
+and the microbe, which can be seen under a microscope, is very large compared
+with the molecules of chemical substances of which it is composed. What, then, is
+a point? The answer is that points are an \emph{invention} of the human mind. We
+\emph{imagine} that there \emph{ought to be} points, which themselves cannot be
+split up into smaller pieces. A given ``hunk'' or portion of space can be split
+into two hunks. And each of these can be split in two, and so on indefinitely. A
+point is what \emph{should} be left when our hunk has no extension in space or,
+to use other words, when it is ``infinitely small.'' Euclid, in fact, gave
+something like that as a definition of a point. But such a ``definition'' is not
+really a help in geometry because from it we cannot derive anything more. All it
+does is make us feel more or less happy about the existence of the things we
+\emph{think} we are talking about. The modern point of view (and really Euclid's
+too) is that points are undefined. The things that we do define are certain
+relations between points or sets of points.
+
+It is essentially the same regarding lines and planes. No one has ever seen a
+line or a plane. A thin ray of light or a thin line on the page is only an
+approximation to what we imagine that a line should be like. And a very flat
+surface, like a mirror, is but an approximation to what we imagine a plane to be.
+Therefore right at the beginning of geometry we have to make a strong effort of
+the imagination. We must imagine a large set of things, called points, which we
+call a plane. Certain parts of this plane, that is, certain special sets of
+points in the plane, are called straight lines, or just lines. The study of
+geometry begins when we tell \emph{how these points and lines are related to each
+other}.
+
+\exercisegroup{1--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw two intersecting lines on the blackboard. You will then have some
+      chalk hanging on the board. How many reasons can you give to explain that
+      what you have drawn are not lines? Does the chalk on both your drawn lines
+      correspond to what you think of as a point?
+\item Mark two dots on the blackboard. Are they points? Is a ``blob'' of chalk a
+      point? How many lines do you feel there should be which lie on two given
+      points? If points were blobs of chalk, could you draw more than one line
+      through them?
+\item When you draw a figure to illustrate a geometric idea, what is the relation
+      of the drawn figure to the geometric idea you have in mind?
+\item Is it reasonable to expect a drawing to give a proof of something in
+      geometry?
+\item If an object had length or width, would you call it a point? Can you see
+      points and lines?
+\item Can you describe what you mean by straightness of a line?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 1-5
+\section*{1--5\quad TOOLS YOU WILL NEED}
+\addcontentsline{toc}{section}{1--5\quad Tools you will need}
+
+\setcounter{footnote}{0}
+Even though points and lines are creations of the mind it is necessary for us to
+draw pictures of them in order to see what is ``going on.'' Thus you will need a
+\emph{ruler} to draw pictures of straight lines. A ruler without a marked scale
+on it is called a \emph{straightedge}, and for the constructions we shall make
+this is all that is absolutely necessary. But it is very convenient to be able to
+\emph{measure} the length of a line segment, and for this reason an ordinary foot
+ruler, or a six-inch one, will do. However, we shall not actually deal with
+measurement\footnote{It is interesting and surprising that Euclid in his
+\emph{Elements} did not discuss measurement, that is, the process of getting a
+\emph{number} for the distance between two points.}
+of lengths until Chapter 4.
+
+Angles will be discussed more fully later, and we shall consider measurement of
+angles in Chapter 12. But you are already familiar with a device, called the
+\emph{protractor}, for measuring pictures of angles drawn on paper or on the
+blackboard.
+
+You will also need a device, called a \emph{compass}, for drawing pictures of
+circles. Undoubtedly you are familiar with its use.
+
+With these simple tools you can make a number of ``constructions.'' These
+constructions will seem to be obviously correct. However, we will prove later in
+the book that they actually are correct.
+
+You have learned in your previous mathematics how to use these tools. The
+exercises below are for review of definitions and practice in the use of ruler,
+compass, and protractor. However, throughout this course your best tool will be
+your ability to think straight.
+
+\exercisegroup{1--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a picture of a line, using your straightedge. Now if you sharpened
+      your pencil \emph{very} sharp, could you draw a picture of a line inside the
+      first one? Was your drawing really what you intended a line to be?
+\item Draw a picture of a circle with your compass. How many differences can you
+      find between your drawing and an imaginary perfect circle?
+\item Draw a picture of an angle. Measure it with your protractor. Have a friend
+      measure the angle. Do you get \emph{exactly} the same answers? How accurate
+      do you think your measurement is?
+\item How long are the sides of an angle? When you draw a picture of an angle,
+      you cannot draw the sides infinitely long because your straightedge and
+      paper are limited in size.
+\item Draw a picture of a ray from a point $A$. Draw another ray from $A$. What
+      we call the \emph{angle} consists of the points on the two rays. The points
+      between the rays form the \emph{interior} of the angle. The other points of
+      the plane form the \emph{exterior} of the angle. (Fig.~1--4.)
+\item A \emph{right angle} has a measure of $90^\circ$. Construct a right angle
+      with your protractor.
+\end{exlist}
+\end{multicols}
+
+\FIGIFOUR
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{6}
+\item Draw an angle of $37^\circ$, of $120^\circ$, of $85^\circ$.
+\item An angle is \emph{bisected} if a ray from the vertex splits the angle into
+      two angles of the same size. In Fig.~1--5, the ray $AC$ bisects
+      $\ang{BAD}$ because $\ang{CAB}$ and $\ang{DAC}$ are the same size. The ray
+      $AC$ is the bisector of the angle. Draw an angle of $45^\circ$ and bisect
+      it, using your protractor.
+\item Draw a picture of a triangle. Measure each of the angles of the triangle.
+      What is their sum? Repeat for several different triangles. Can you guess
+      something that is true for all triangles?
+\item As in Fig.~1--6, an \emph{acute angle} is an angle of less than
+      $90^\circ$; an \emph{obtuse angle} is an angle of more than $90^\circ$.
+      Draw two acute angles and two obtuse angles with your protractor.
+\item Draw a triangle and measure the sides and the angles. Which side is
+      opposite the largest angle? opposite the smallest angle? Draw another
+      triangle and repeat the measurements. Can you guess something which now
+      seems to be true for all triangles?
+\item A triangle that has one right angle is called a \emph{right triangle}. Draw
+      a picture of a right triangle, as in Fig.~1--7. Measure the two acute
+      angles of the triangle. What is their sum? Draw another right triangle and
+      make the same measurements. Is the sum of the two angles the same as
+      before?
+\end{exlist}
+\end{multicols}
+
+\FIGIFIVESIX
+
+\FIGISEVENEIGHT
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{12}
+\item One angle is said to be \emph{complementary} to another if their sum is
+      $90^\circ$. Construct two such angles with your protractor. In Fig.~1--8,
+      if $\ang{AOB}$ is a right angle, what can you say about $\ang{COA}$? about
+      $\ang{COB}$?
+\item One angle is said to be \emph{supplementary} to another if their sum is
+      $180^\circ$. Construct two such angles with your protractor. What can you
+      say about $\ang{AOB}$ and about $\ang{BOC}$ in Fig.~1--9?
+\item Two distinct rays $OA$ and $OB$ which lie on one straight line form a
+      \emph{straight angle} (Fig.~1--10). What is the measure of a straight
+      angle?
+\item A \emph{quadrilateral} (Fig.~1--11) is a figure with four sides, just as a
+      triangle is a figure with three sides. Draw a picture of a quadrilateral and
+      measure its angles. What is their sum?
+\end{exlist}
+\end{multicols}
+
+\FIGININETEN
+
+\FIGIELEVEN
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{16}
+\item Add the following:
+  \begin{enumerate}[label=(\alph*), leftmargin=1.9em, itemsep=1pt, topsep=2pt]
+  \item $12^\circ\ 10'\ 25''$, $31^\circ\ 48'\ 30''$, and $43^\circ\ 50'\ 40''$.
+  \item $17^\circ\ 18'\ 19''$, $90^\circ\ 9'\ 9''$, and $41^\circ\ 48'\ 48''$.
+  \item $121^\circ\ 18'\ 17''$, $40^\circ\ 40'\ 40''$, and $18^\circ\ 1'\ 3''$.
+  \item $66^\circ\ 55'\ 44''$, $55^\circ\ 44'\ 33''$, and $44^\circ\ 33'\ 22''$.
+  \end{enumerate}
+\item Subtract:
+  \begin{enumerate}[label=(\alph*), leftmargin=1.9em, itemsep=1pt, topsep=2pt]
+  \item $41^\circ\ 15'\ 13''$ from $63^\circ\ 28'\ 44''$.
+  \item $41^\circ\ 15'\ 13''$ from $50^\circ\ 18'\ 7''$.
+  \item $61^\circ\ 28'\ 37''$ from $80^\circ\ 18'\ 23''$.
+  \end{enumerate}
+\item What is the complement of an angle of
+  \begin{enumerate}[label=(\alph*), leftmargin=1.9em, itemsep=1pt, topsep=2pt]
+  \item $51^\circ\ 17'\ 18''$?
+  \item $42^\circ\ 38'\ 29''$?
+  \item $A^\circ$?
+  \end{enumerate}
+\item What is the supplement of an angle of
+  \begin{enumerate}[label=(\alph*), leftmargin=1.9em, itemsep=1pt, topsep=2pt]
+  \item $51^\circ\ 17'\ 18''$?
+  \item $138^\circ\ 4'\ 5''$?
+  \item $A^\circ$?
+  \end{enumerate}
+\item If an angle is twice as large as its complement, what is its degree
+      measure? [\emph{Hint}: Set up an equation to solve.]
+\item Two angles have a sum of $56^\circ\ 28'$ and a difference of
+      $8^\circ\ 46'$. Find the angles.
+\item Find the complement and supplement of an angle of $56^\circ\ 28'\ 31''$.
+      What is the difference between the supplement and complement? Can you guess
+      something that is true for all acute angles?
+\item What kind of angle is the supplement of an acute angle? of an obtuse angle?
+      Does an obtuse angle have a complement?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 1-6
+\section*{1--6\quad RULER AND COMPASS}
+\addcontentsline{toc}{section}{1--6\quad Ruler and compass}
+
+During their study of geometry, the ancient Greeks found that many interesting
+figures could be drawn with a straightedge and compass alone. Drawings needing
+only these tools are called \emph{ruler and compass constructions}. The Greeks
+tried to solve all construction problems using only these tools, but they
+encountered some that could not be done this way.
+
+The exercises below involve some simple ruler and compass constructions that the
+Greeks knew. Exercise 2, in fact, is the first proposition in Euclid's
+\emph{Elements}. We shall return to these constructions again in Chapter 7, where
+we shall \emph{prove} that some of them are correct.
+
+\exercisegroup{1--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item A triangle having two sides of equal length is called an \emph{isosceles
+      triangle}. Draw a picture of an isosceles triangle. Measure the angles
+      opposite the equal sides. Draw several isosceles triangles, each with the
+      equal sides three inches long.
+\item A triangle with all sides the same length is called an \emph{equilateral
+      triangle} (Fig.~1--12). Draw a picture of an equilateral triangle. This is
+      easy to do with your compass and straightedge. What is the degree measure of
+      each angle in an equilateral triangle? A triangle with all angles equal is
+      called an \emph{equiangular triangle}. Are equilateral triangles
+      equiangular? Are equiangular triangles equilateral?
+\item Draw an angle like that in Fig.~1--13. Use your compass to copy $\ang{AOB}$
+      as $\ang{A'O'B'}$ in the figure. Measure the two angles with your protractor
+      to see if they are the same size.
+\end{exlist}
+\end{multicols}
+
+\FIGITWELVETHIRTEEN
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{3}
+\item Draw the figures shown in Fig.~1--14.
+\item Use your straightedge and compass to draw and bisect an angle
+      (Fig.~1--15). Check your work by measurement with a protractor. State in
+      your own words why you think the construction is correct.
+\item Angles which have a common vertex and a common side and have no interior
+      points in common are said to be \emph{adjacent}. Thus, in Fig.~1--16,
+      $\ang{AOB}$ is adjacent to $\ang{BOC}$. Is $\ang{AOC}$ adjacent to
+      $\ang{BOC}$? Are the angles in Fig.~1--17 adjacent to one another?
+\item Draw a picture of a segment. From some point $A$ on a line, construct with
+      your compass a segment $AB$ as long as the segment you first drew. (See
+      Fig.~1--18.)
+\end{exlist}
+\end{multicols}
+
+\FIGIFOURTEEN
+
+\FIGIFIFTEENSIXTEEN
+
+\FIGISEVENTEENEIGHTEEN
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{7}
+\item Two lines are \emph{perpendicular} if they intersect at right angles.
+      Another way of defining perpendicular would be to say that all the adjacent
+      angles formed by the intersecting lines are the same size. To indicate that
+      $l$ and $m$ are perpendicular, we write $l \perp m$.
+
+      A line $l$ is called the \emph{perpendicular bisector} of the segment $AB$
+      if the line $l$ is perpendicular to $AB$ and intersects the segment $AB$ in
+      a point $C$ such that $AC$ and $CB$ have equal lengths. The point $C$ is
+      called the \emph{midpoint} of $AB$. (See Fig.~1--19.)
+
+      Draw a line segment and construct its perpendicular bisector with
+      straightedge and compass. Check by measurement. State why you think the
+      construction is correct.
+\item Draw a line $l$ and mark a point $O$ on it. With straightedge and compass,
+      construct a line $m \perp l$ and passing through $O$. (See Fig.~1--20.)
+\item Draw a line $l$ and mark a point $P$ not on the line. With your straightedge
+      and compass, construct a line $m$ through $P$ perpendicular to $l$. Check by
+      measurement with your protractor. State why you think the construction is
+      correct. (See Fig.~1--21.)
+\item A line segment drawn from a vertex of a triangle to the midpoint of the
+      opposite side is called a \emph{median} of the triangle. A triangle has
+      three medians that meet in one point $O$ (see Fig.~1--22). We shall prove
+      this later.
+
+      Draw a triangle and its medians. Can you describe where the medians
+      intersect? Try to find how to describe $O$ by measurement. Make this
+      construction for several triangles.
+\item Cut a triangle out of cardboard. Find where the medians intersect. If your
+      work is accurate you will find that the triangle will balance on your finger
+      at the place where the medians intersect (Fig.~1--23).
+\end{exlist}
+\end{multicols}
+
+\FIGININETEENTWENTY
+
+\FIGITWENTYONETWENTYTWO
+
+\FIGITWENTYTHREE
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{12}
+\item An \emph{altitude} of a triangle is a line segment drawn from a vertex
+      perpendicular to the line \emph{containing} the opposite side [see
+      Fig.~1--24, (a) and (b)]. A triangle has three altitudes. The lines
+      containing the altitudes of a triangle always intersect in one point [see
+      Fig.~1--24(c)]. Draw several triangles and their altitudes.
+\item Draw a triangle and bisect each of the angles of the triangle. The three
+      bisectors will meet in one point (Fig.~1--25).
+\end{exlist}
+\end{multicols}
+
+\FIGITWENTYFOUR
+
+\FIGITWENTYFIVE
+
+\begin{multicols}{2}
+\begin{exlist}\setcounter{exlisti}{14}
+\item Two lines, $l$ and $m$, are said to be \emph{parallel} if they do not
+      intersect. We indicate ``$l$ is parallel to $m$'' by writing $l \pll m$.
+      (Remember that lines are infinitely long.) If another line $n$ intersects
+      the parallel lines, then the angles 1 and 2 in Fig.~1--26 are the same size.
+      Conversely, if angles 1 and 2 are the same size, then the lines are
+      parallel.
+
+      As in Fig.~1--27, draw a line $l$ and a line $n$ intersecting it. Choose a
+      point $P$ on $n$ but not on $l$. At $P$, copy angle 2 in order to get a line
+      parallel to $l$. Make this construction with your protractor and then repeat
+      it with your straightedge and compass.
+
+      We shall prove later that this construction with straightedge and compass is
+      correct.
+\item Draw a line $l$ and mark a point $A$ not on $l$. Construct a line through
+      the point $A$ parallel to $l$.
+\item Draw a right triangle (Fig.~1--28). The side opposite the right angle is
+      called the \emph{hypotenuse}. The other two sides are called the \emph{legs}
+      of the triangle. Measure the lengths of the sides in your right triangle. If
+      $a$, $b$, and $c$ are the lengths of the sides, where $c$ is the hypotenuse,
+      you will find that $a^2 + b^2 = c^2$. This formula is called the
+      \emph{Pythagorean theorem}. It was discovered (probably) by the Greek
+      Pythagoras in the 6th century B.C. We will prove this important theorem
+      later in the book. Test the truth of the Pythagorean theorem by measuring
+      several different right triangles.
+\end{exlist}
+\end{multicols}
+
+\FIGITWENTYSIXTWENTYSEVEN
+
+\FIGITWENTYEIGHT
+
+%========================================================= Review
+\section*{REVIEW OF CHAPTER 1}
+\addcontentsline{toc}{section}{Review of Chapter 1}
+\markboth{REVIEW OF CHAPTER 1}{}
+
+\begin{exlist}
+\item Make sure that you are familiar with all the following terms:
+\end{exlist}
+
+\begin{center}
+\begin{tabular}{@{}p{0.42\linewidth}p{0.42\linewidth}@{}}
+line segment            & perpendicular    \\
+angle                   & right angle      \\
+angle bisector          & equilateral      \\
+triangle                & equiangular      \\
+degree, minute, second  & isosceles        \\
+midpoint                & median           \\
+complementary           & altitude         \\
+supplementary           & hypotenuse       \\
+straight angle          & diameter         \\
+obtuse angle            & radius           \\
+acute angle             & adjacent angles  \\
+ray                     & intersect        \\
+set                     & contain          \\
+\end{tabular}
+\end{center}
+
+\begin{exlist}\setcounter{exlisti}{1}
+\item Make sure that you can do the following straightedge and compass
+      constructions:
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=2pt]
+  \item Copy a segment.
+  \item Draw the bisector of a segment.
+  \item Draw a line $\perp$ to a given line from a point not on the given line.
+  \item Draw a line $\perp$ to a given line from a point on a given line.
+  \item Draw a line $\pll$ to a given line, through a point not on the line.
+  \item Bisect an angle.
+  \item Copy an angle.
+  \end{enumerate}
+\end{exlist}
+
+\begin{center}\bfseries Brief Review Tests\end{center}
+\nopagebreak
+
+Decide whether the following statements are true or false. If in doubt, look up
+the answer. Do not guess.
+
+\medskip
+\noindent\textbf{I.} \emph{History}
+\begin{exlist}
+\item Euclid lived before Pythagoras.
+\item Euclid collected, organized, and added to the geometry of his day.
+\item Euclid's geometry was incomplete as he wrote it. It was completed in the
+      19th century.
+\item Archimedes lived at the same time as Euclid.
+\item Thales lived before Euclid.
+\item Greece was superior to Rome in all ways.
+\item Rome was a great center for the study of geometry.
+\end{exlist}
+
+\medskip
+\noindent\textbf{II.} \emph{Geometry}
+\begin{exlist}
+\item A straightedge is used for measurement.
+\item A line may have finite length.
+\item A straight angle contains $90^\circ$.
+\item If angles have a common vertex and a common side, they are adjacent.
+\item Complementary angles have a sum of $180^\circ$.
+\item In a right triangle the side opposite the right angle is called the
+      hippopotamus.
+\item The altitude of a triangle is its distance from the center of the earth.
+\item If two lines intersect they are parallel.
+\end{exlist}
+
+\begin{center}\bfseries ARITHMETIC AND ALGEBRA REFRESHER\end{center}
+\nopagebreak
+
+\begin{exlist}
+\item Carry out the arithmetic operations indicated:
+  \begin{multicols}{2}
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=2pt]
+  \item $[(12)(8)] \div 6$
+  \item $2992 \div 68$
+  \item $326 + (-257)$
+  \item $\frac{1}{2} + \frac{1}{4}$
+  \item $\frac{1}{3} \div \frac{11}{3}$
+  \item $56789 \div 357$
+  \item $\frac{2}{3} - \frac{2}{5}$
+  \item $3.762 \div 5.7$
+  \item $\frac{1}{2} \cdot \frac{1}{3}$
+  \item $\frac{1}{2} \div \frac{1}{3}$
+  \item $(-24) \div (-6/5)$
+  \item $[(-6.1) + (-8.5)] - 2.7$
+  \item $3/7 \cdot 35/24$
+  \item $2.5679/0.1372$
+  \item $[3.4 - 8.5] + (-2.7)$
+  \item $(5 + \frac{1}{2})/33$
+  \end{enumerate}
+  \end{multicols}
+\item Write the answers to the following. If you take more than a minute and miss
+      any part of this problem, you need more review.
+  \begin{multicols}{3}
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=2pt]
+  \item $2 \times 2 =$
+  \item $2 \div 2 =$
+  \item $2 \times 0.2 =$
+  \item $2 \div 0.2 =$
+  \item $2 \div \frac{1}{2} =$
+  \item $2 \times \frac{1}{2} =$
+  \item $\frac{1}{2} + \frac{1}{3} =$
+  \end{enumerate}
+  \end{multicols}
+\item Write formulas for the following. Be sure that you tell what each letter
+      stands for. For example: If $A$ is the area of a rectangle $l$ its length
+      and $w$ its width, then $A = lw$.
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=2pt]
+  \item The volume of a box.
+  \item The area of a circle.
+  \item The circumference of a circle.
+  \item The area of a triangle.
+  \item The product of a number $z$, by one more than the number.
+  \item Twice a number plus 5 is equal to 13.
+  \item One number is 4 times another.
+  \end{enumerate}
+\item Find $x$ if
+  \begin{multicols}{2}
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=2pt]
+  \item $2x - 5 = 3$
+  \item $3x - 5 = x + 7$
+  \item $2x = 3$
+  \item $ax = b$, $a \neq 0$
+  \item $x^2 = 4$
+  \item $\frac{1}{3} \cdot (12x) = 44$
+  \item $2x/3 + 1 = 5$
+  \item $4x + 5x - x = 96$
+  \item $x \div 6 = 5 \div 24$
+  \item $6.4 = 2x - 0.4$
+  \end{enumerate}
+  \end{multicols}
+\item If $x$ and $y$ are numbers, what do we call $xy$? $x + y$?
+\item Write equations for the following statements:
+  \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=2pt]
+  \item The sum of two numbers is 17 and their difference is 7.
+  \item A number $z$ is equal to the sum of the product of $x$ and $y$, and the
+        product of $a$ and $b$.
+  \item The number $\pi$ is equal to the quotient of the circumference of a
+        circle divided by its diameter.
+  \item The volume of a sphere is equal to $\frac{4}{3}$ of the product of $\pi$
+        and the cube of the radius.
+  \item Einstein's famous formula for the equivalence of mass and energy is as
+        follows: If $E$ is the energy of a mass $m$, and $c$ is the velocity of
+        light, in suitable units, then $E$ is equal to the product of the mass by
+        the square of the velocity of light. Write this formula.
+  \end{enumerate}
+\end{exlist}
+
+% The Aristotle plate (book p.20) is NOT emitted here. It is the facing-page
+% plate for the Chapter 2 opener and ch02.tex already emits it immediately
+% before \chapter*{LOGIC}. Keeping it in both units printed it twice in the
+% assembled book. Ownership: ch02. See ch01-UNCERTAIN.md "Text review".
+
+\end{document}

@@ -1,0 +1,1120 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures09}
+
+% ---- local macros (hoist into book preamble) ----
+% Unnumbered star footnote, same reasoning as ch06's \VIstarnote: a bare
+% \footnotetext prints the footnote counter, but the book marks its footnotes
+% with "*" and no number.  Used for the "mean proportional" note on book p.171
+% (its in-text mark is \textsuperscript{*}, per ch14's convention).
+%
+% NOTE: no "Starred exercises ... are optional" note here.  Ch 9 has starred
+% exercises (Groups 9--3, 9--4, 9--5, 9--10, 9--13 and Review Exs. 3, 4, 15),
+% but the book prints that convention note only once, at its first book-wide
+% occurrence, which ch02 owns; pp.158--159 carry no footnote at all.  Same
+% call as ch05 and ch10.
+\newcommand{\IXstarnote}[1]{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{#1}%
+  \endgroup}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{9}
+
+\chapter*{\raggedright\Huge SIMILARITY OF\\TRIANGLES AND POLYGONS}
+\markboth{SIMILARITY OF TRIANGLES AND POLYGONS}{}
+\addcontentsline{toc}{chapter}{9.\ Similarity of Triangles and Polygons}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 9-1
+\section*{9--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{9--1\quad Introduction}
+
+In this chapter we study relations between two polygons that have ``the same
+shape.'' (Later on we explain precisely what we mean by ``the same shape,'' and
+say that such figures are \emph{similar to each other}.) Then we prove some
+theorems about similar triangles, and using these theorems we prove the
+Pythagorean theorem, which states that if $a$ and $b$ are lengths of the sides of
+a right triangle, and $c$ is the length of the hypotenuse, then $c^2 = a^2 + b^2$.
+We see as we study this chapter, that the theorems on similar triangles depend
+very much on the properties of parallel lines. For this reason, we first continue
+our study of parallel lines.
+
+%========================================================= 9-2
+\section*{9--2\quad TRANSVERSALS}
+\addcontentsline{toc}{section}{9--2\quad Transversals}
+
+The results of this chapter are based on the important theorem about parallel
+lines given below. In the theorem, one of the lines is \emph{between} the other
+two. You should be able to tell what this means in terms of the ideas of
+betweenness that you have studied.
+
+\exercise{9--1}
+If $l$, $l'$, and $l''$ are three parallel lines, what should it mean to say that
+$l'$ is between $l$ and $l''$?
+
+\begin{theorem}
+If $l$, $l'$, and $l''$ are parallel lines, and $m$ is a transversal intersecting
+the lines in points $A$, $B$, and $C$, respectively, such that
+$\sg{AB} \cong \sg{BC}$, and if $m'$ is any other transversal intersecting $l$,
+$l'$, and $l''$ in $A'$, $B'$, and $C'$, respectively, then
+$\sg{A'B'} \cong \sg{B'C'}$.
+\end{theorem}
+
+\begin{remark}
+A brief way of stating the theorem is to say that if parallel lines cut off
+congruent segments on one transversal, then they cut off congruent segments on
+every transversal.
+\end{remark}
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{Consider lines $m''$ and $m'''$ through $A$ and $B$, respectively, and
+      parallel to $m'$ in Fig.~9--1.}{Which postulate?}
+\step{$m''$ intersects $l'$ in $D$, and $m'''$ intersects $l''$ in $E$.}{Why?}
+\step{$A$, $A'$, $B'$, and $D$ are vertices of a parallelogram, as also are $B$,
+      $B'$, $C'$, and $E$.}{Since $l$, $l'$, and $l''$ are parallel, as also are
+      $m'$, $m''$, and $m'''$.}
+\step{$\sg{AD} \cong \sg{A'B'}$, $\sg{BE} \cong \sg{B'C'}$.}{Why?}
+\step{$\ang{ABD} \cong \ang{BCE}$,\newline $\ang{BAD} \cong \ang{CBE}$.}{Why?}
+\step{$\sg{AB} \cong \sg{BC}$.}{Given.}
+\step{$\tri{ABD} \cong \tri{BCE}$.}{A.S.A.}
+\step{$\sg{AD} \cong \sg{BE}$.}{Statement 7.}
+\step{$\sg{A'B'} \cong \sg{B'C'}$.}{Statements 4 and 8 and properties of
+      congruence.}
+\end{steps}
+
+\FIGIXONE
+
+\FIGIXTWOTHREE
+
+\begin{corollary}
+If a line is parallel to one side of a triangle and bisects another side, then it
+bisects the third side.
+\end{corollary}
+
+\begin{corollary}
+If a line bisects two sides of a triangle, it is parallel to the third side, and
+the segment formed is half as long as the third side. (In Fig.~9--2,
+$DE \pll AC$, and $\sg{DE} = \frac{1}{2}\sg{AC}$.)
+\end{corollary}
+
+\noindent\emph{Proof.} It is given that $\sg{AD} = \sg{DB}$, and
+$\sg{BE} = \sg{EC}$. Through $D$, let $m$ be a line parallel to $AC$, as in
+Fig.~9--3. By Corollary 9--1--1, $m$ meets $BC$ in a point $F$, which bisects
+$BC$. Since a segment has only one bisector, $F = E$. To see that
+$\sg{DE} = \frac{1}{2}\sg{AC}$, consider a line $m'$ through $E$, parallel to
+$AB$, as in Fig.~9--4. Then $m'$ meets $AC$ in $G$, which bisects $AC$. It is
+left for the student to show that $\sg{AC} = 2\sg{DE}$.
+
+\FIGIXFOUR
+
+\exercisegroup{9--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item The three sides of a triangle have lengths 5, 12, and 13. What are the
+      lengths of the segments joining the midpoints of the sides?
+\item In Fig.~9--5, $FC \cong CG$, $CD \pll EG$, and $DG \pll EF$. Prove that
+      $\sg{EG} = 2\sg{CD}$.
+\item Prove Corollary 9--1--1.
+\item In Fig.~9--6, if $\sg{AB} = 2\sg{BC}$, how are $\sg{A'B'}$ and
+      $\sg{B'C'}$ related? Suppose that $\sg{AB} = 3\sg{BC}$; $3\sg{AB} =
+      5\sg{BC}$. Prove your statements.
+\item In Fig.~9--6, suppose that $\sg{AC} = 10$ in., $\sg{BC} = 2$ in., and
+      $\sg{B'C'} = 3$ in. How long is $A'B'$?
+\item In Fig.~9--6, if $\sg{AB} = 6$ in., $\sg{A'B'} = 8$ in., and $\sg{AC} =
+      12$ in., what is $\sg{B'C'}$?
+\item In Fig.~9--7, if $\sg{EF} = 2$, $\sg{FG} = 3$, and $\sg{EP} = 3$, what is
+      $\sg{EQ}$?
+\item In the proof of Theorem 9--1, we assumed that $m$ was not parallel to
+      $m'$. Prove Theorem 9--1 if $m \pll m'$.
+\end{exlist}
+\end{multicols}
+
+\FIGIXFIVESEVEN
+
+%========================================================= 9-3
+\section*{9--3\quad A CONSTRUCTION}
+\addcontentsline{toc}{section}{9--3\quad A Construction}
+
+In this section we show how to divide a segment into any number of congruent
+segments. The construction can be made with ruler and compass.
+
+\FIGIXEIGHT
+
+\begin{construction}
+Given the segment $AB$, the problem is to divide it into a number of congruent
+segments. (In Fig.~9--8, the number is four.)
+\end{construction}
+
+\begin{steps}
+\step{Draw a ray $AC$, forming an angle with $AB$ that is not a straight
+      angle.}{How do you know that such a ray exists?}
+\step{With a compass, mark off points $D$, $E$, $F$, and $G$, in order $ADEFG$,
+      such that $\sg{AD} \cong \sg{DE} \cong \sg{EF} \cong \sg{FG}$.}{This can be
+      done because of the congruence postulate and betweenness postulates.}
+\step{Draw $BG$.}{Postulate I.}
+\step{Draw lines through $D$, $E$, and $F$, $\pll BG$.}{These lines exist by
+      Theorem 8--1. The construction is \RC. Why?}
+\step{The parallel lines through $D$, $E$, and $F$ intersect $AB$ in points $H$,
+      $I$, and $J$, respectively.}{Why?}
+\step{$\sg{AH} \cong \sg{HI} \cong \sg{IJ} \cong \sg{JB}$.}{Theorem 9--1 on
+      transversals.}
+\end{steps}
+
+\begin{remark}
+In discussing measurement in Chapter 5, we had to divide the unit segment into
+tenths, and then hundredths, etc. The above construction shows that, with the
+parallel postulate, such a division of the unit segment is possible. At no time
+between Chapter 5 and now have we needed measurement for the development of our
+geometry.
+\end{remark}
+
+\exercisegroup{9--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a segment, and divide it into three segments of equal length. This is
+      called \emph{trisecting} a segment.
+\item Draw a segment, and divide it into five congruent segments.
+\item In Fig.~9--8, suppose that points $I$ and $J$ have been found. State two
+      different ways to find $H$.
+\item Can you divide a segment into four equal parts without using the above
+      construction? eight equal parts? Is this an \RC\ construction?
+\item If, in Fig.~9--9, $\sg{AB} = 10$, $\sg{AD} = 2$, and $\sg{EC} = 3$, what is
+      $\sg{BC}$?
+\item If, in Fig.~9--9, $\sg{AD} = 6$, $\sg{DB} = 8$, and $\sg{EC} = 2$, what is
+      $\sg{BC}$?
+\item In Fig.~9--10, $\sg{AB} = 18$, $\sg{BC} = 3$, and $\sg{AD} = 24$. What is
+      $\sg{EF}$?
+\item Using Fig.~9--10, find $\sg{EF}$ if $\sg{BC} = 1$, $\sg{AB} = 2$, and
+      $\sg{AD} = 3$.
+\item In Fig.~9--11, if $BE \pll CF \pll DG$, and the lengths are as shown, how
+      long is $AG$?
+\item Solve Exercise 9 if everything is the same except that $\sg{AE} = 6$.
+\item In Fig.~9--12, how long is $AB$?
+\item[\stex 12.] In Fig.~9--13, $ABCD$ is a parallelogram, and $E$ and $F$ are
+      midpoints of $AB$ and $CD$, respectively. Prove that $AC$ intersects $ED$
+      and $BF$ in $G$ and $H$, and that $G$ and $H$ trisect $AC$. Prove also that
+      $\sg{EG} = \frac{1}{3}\sg{ED}$.
+\item[\stex 13.] In Fig.~9--14, $x$, $y$, $z$, and 1 refer to the lengths of the
+      segments. If $x$ is a whole number, show that $z = xy$.
+\end{exlist}
+\end{multicols}
+
+\FIGIXNINEFOURTEEN
+
+%========================================================= 9-4
+\section*{9--4\quad PROPORTION}
+\addcontentsline{toc}{section}{9--4\quad Proportion}
+
+Before discussing similar triangles, we recall some facts about proportions that
+you learned in arithmetic and algebra.
+
+\begin{definition}
+If $x$ and $y$ are numbers, with $y \neq 0$, the ratio of $x$ to $y$ is the
+number $x/y$, that is, $x$ divided by $y$. A \emph{proportion} is a statement
+that two (or more) ratios are equal. For example, $a/b = c/d$ is called a
+proportion. In this proportion, we say that $a$ and $c$ are proportional to $b$
+and $d$, respectively, and also that ``$a$ is to $b$ as $c$ is to $d$.'' More
+generally, the statement that $x$, $y$, $z$, $u$, \dots\ are proportional to
+$x'$, $y'$, $z'$, $u'$, \dots\ means that $x/x' = y/y' = z/z' = u/u' = \cdots$.
+In all proportions, we must require that the denominators are not zero, because
+division by zero is impossible.
+\end{definition}
+
+You may recall that in algebra you learned a number of theorems about
+proportions, some of which are troublesome to remember. All statements about
+proportions are simple consequences of the basic laws of algebra. The theorems on
+proportions in this chapter are not to be memorized, but rather their proofs are
+to be understood.
+
+\exercisegroup{9--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item Give other ratios equal to the following:\\
+      (a) $9/12$, (b) $2x^2/3x$, (c) $12abc/27c^2$, (d) $(x^2-x-6)/(4x^2+8x)$,
+      (e) $(x^2-5x+6)/(x^2-4)$.
+\item Are the following proportions true?\\
+      (a) $\dfrac{a}{b} = \dfrac{a^2}{ab}$,\quad (b) $\dfrac{x}{y} =
+      \dfrac{x^2}{y^2}$,\quad (c) $\dfrac{3}{4} = \dfrac{9}{16}$,\quad
+      (d) $x = \dfrac{6x}{6}$.
+\item Any number can be regarded as a ratio because $N = N/1$. Hence, can $x + 2$
+      be regarded as a ratio for every number $x$?
+\item Determine $x$, so that the following proportions are true:\\
+      (a) $\dfrac{2x}{8} = \dfrac{5}{3}$,\quad (b) $\dfrac{(3-x)}{x} =
+      \dfrac{5}{3}$,\quad (c) $\dfrac{2x+3}{5} = \dfrac{x-3}{2}$,\quad
+      (d) $\dfrac{ax}{5} = \dfrac{a}{10}$,\quad
+      \stex(e) $\dfrac{2x-7}{2} = \dfrac{3x-5}{3}$,\quad
+      (f) $\dfrac{9}{x} = \dfrac{24}{8}$,\quad (g) $\dfrac{3}{x} =
+      \dfrac{x}{12}$,\quad (h) $\dfrac{a}{x} = \dfrac{x}{b}$.
+\item Determine the ratio of $u$ to $v$ if (a) $4u = 5v$, (b) $v = 3u$,
+      (c) $au = bv$, (d) $u = 3v$, (e) $4u - 18v = 0$,
+      (f) $(2u - v)/(u + v) = \frac{1}{2}$.
+\item If $x$ is to 5 as 5 is to $x$, find $x$.
+\end{exlist}
+\end{multicols}
+
+We list below some theorems about proportions that are simple consequences of the
+laws of algebra. Since a ratio is a number obtained by division, we first recall
+the meaning of division.
+
+\begin{definition}
+If $b \neq 0$, then $a/b$ (or $a \div b$) is the number $q$, such that $a = qb$.
+In other words, for $b \neq 0$, $a/b = q$ if and only if $a = qb$.
+\end{definition}
+
+\begin{theorem}
+If $b \neq 0$, and $c \neq 0$, then $a/b = (ac/bc)$.
+\end{theorem}
+
+\noindent\emph{Proof.} If $q = a/b$, then $a = qb$. Therefore, $ac = q \cdot bc$.
+Whence $q = (ac/bc)$.
+
+\begin{theorem}
+If neither $b$ nor $d = 0$, $a/b = c/d$ if and only if $ad = bc$.
+\end{theorem}
+
+\noindent\emph{Proof.} The statement $a/b = c/d$ says that two numbers are equal,
+that is, they are the same number. Multiplying this number by $bd$, we have
+$bd \cdot a/b = bd \cdot c/d$, or $da = bc$. Conversely, if $ad = bc$ and
+$bd \neq 0$, then dividing this number by $bd$, we have $(ad/bd) = (bc/bd)$ or
+$a/b = c/d$.
+
+\begin{theorem}
+If $c \neq 0$, then $a/b = c/d$ if and only if $a/c = b/d$.
+\end{theorem}
+
+\noindent\emph{Proof.} Both proportions are equivalent to $ad = bc$, by
+Theorem 9--3.
+
+\exercisegroup{9--5}
+\begin{multicols}{2}
+\begin{exlist}
+\item If $dx = ey$, what is the ratio of $x$ to $y$?
+\item If $3u = 7v$, what is the ratio of $u$ to $v$? of $v$ to $u$?
+\item If $hx - ky = ry + ty$, what is the ratio of $x$ to $y$?
+\item[\stex 4.] Prove that if $x/y = u/v$, $x = u$, and $x \neq 0$, then $v = y$.
+\item[\stex 5.] Prove that if $a/b = c/d$, and $b + d \neq 0$, then
+      $a/b = (a+c)/(b+d)$.
+\item[\stex 6.] Prove that if $a/b = c/d$, then $(a+b)/b = (c+d)/d$.
+\item[7.] Use Exercise 6 to form a new proportion from $x/3 = z/7$.
+\item[8.] Use Exercise 5 to form a new proportion from $6/15 = 10/25$.
+\item[\stex 9.] State and prove the converse of Exercise 5.
+\item[\stex 10.] State and prove the converse of Exercise 6.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 9-5
+\section*{9--5\quad RATIO AND PROPORTION IN GEOMETRY}
+\addcontentsline{toc}{section}{9--5\quad Ratio and Proportion in Geometry}
+
+The objects of study in geometry are sets of points. Some of these objects have
+numbers attached to them; for example, a segment has a \emph{length}. Later, we
+also discuss area of polygons and measurement of angles. In geometry, when we
+speak of the ratio of two segments, we mean the \emph{ratio of the numbers} that
+are the lengths of the segments. It will be much the same when we speak of the
+ratio of any other geometric objects.
+
+\begin{definition}
+If $AB$ and $CD$ are segments, the ratio of $AB$ to $CD$ is the number
+$\sg{AB}/\sg{CD}$. The statement that the segments $AB$ and $CD$ are
+\emph{proportional} to the segments $A'B'$ and $C'D'$ means that
+$\sg{AB}/\sg{A'B'} = \sg{CD}/\sg{C'D'}$. We say that the sides of $\tri{ABC}$ are
+proportional to the sides of $\tri{A'B'C'}$ if $\sg{AB}/\sg{A'B'} =
+\sg{BC}/\sg{B'C'} = \sg{CA}/\sg{C'A'}$.
+\end{definition}
+
+\exercisegroup{9--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw two segments. By measurement, determine the ratio of one segment to
+      the other.
+\item In Fig.~9--15, the sides of $\tri{EFG}$ are proportional to the sides of
+      $\tri{E'F'G'}$. What is the ratio of $EG$ to $E'G'$, if $\sg{E'F'} = 2$,
+      and the lengths of the sides of $\tri{EFG}$ are as shown? What is the ratio
+      of $F'G'$ to $E'F'$?
+\item If $\sg{AB} = 5$, $\sg{CD} = 7$, and $\sg{EF} = 3$, what is the ratio of
+      $AB$ to $CD$? of $CD$ to $EF$? of $AB$ to $FE$?
+\item The sides of $\tri{ABC}$ are proportional to the sides of $\tri{A'B'C'}$
+      and $\sg{AB} = 5$, $\sg{BC} = 6$, $\sg{CA} = 8$. If $\sg{C'A'} = 9$, find
+      $\sg{A'B'}$.
+\item If the sides of $\tri{EFG}$ are proportional to the sides of $\tri{PQR}$
+      and $\sg{EF} = 7$, $\sg{FG} = 8$, $\sg{QR} = 6$, $\sg{RP} = 8$, find
+      $\sg{GE}$ and $\sg{PQ}$.
+\end{exlist}
+\end{multicols}
+
+\FIGIXFIFTEEN
+
+Before proceeding, we should observe that a question might be raised concerning
+Definition 9--3. The number that we get for the length of a segment depends on
+what we choose for a segment of unit length. Thus a foot ruler has length 1 if
+the unit length is one foot, but has length 12 if the unit is one inch. We now
+justify Definition 9--3 by proving that the ratio does not depend on the unit of
+length.
+
+\begin{theorem}
+No matter what unit of length is chosen for measuring two segments, the ratio of
+these segments is the same number.
+\end{theorem}
+
+\noindent\emph{Proof.} Suppose that the two segments are $AB$ and $A'B'$, and
+suppose that we have two different unit segments $CD$ and $EF$, as in Fig.~9--16.
+
+\FIGIXSIXTEEN
+
+\noindent Suppose the lengths of $AB$ and $A'B'$, when $CD$ is the unit, are $l$
+and $l'$ respectively, and their lengths, when $EF$ is the unit, are $L$ and $L'$
+respectively. We have seen, in Theorem 5--4, that changing the unit of measure
+just multiplies the length by a number. That is, if the length of $CD$, when $EF$
+is the unit, is $x$, then $L = l \cdot x$, and $L' = l' \cdot x$. Hence, if we
+form the ratio of $AB$ to $A'B'$ when $CD$ is the unit, we get $l/l'$; and if we
+form the ratio when $EF$ is the unit, we get
+\[
+  \frac{L}{L'} \;=\; \frac{l \cdot x}{l' \cdot x} \;=\; \frac{l}{l'}.
+\]
+Hence, the two ratios are the same, and the theorem is proved.
+
+\exercisegroup{9--7}
+\begin{multicols}{2}
+\begin{exlist}
+\item Write the ratios above when $CD$ is twice as long as $EF$; three times as
+      long.
+\item One inch is approximately 2.54 centimeters. What is the length of a foot
+      rule in centimeters?
+\item Two sides of a triangle have lengths 12 in. and 16 in. What would their
+      ratio be if the sides were measured in miles?
+\item If the ratio of segment $AB$ to segment $CD$ is 0.75, what is the ratio of
+      $CD$ to $AB$?
+\item Is the ratio of one segment to another ever the number zero?
+\end{exlist}
+\end{multicols}
+
+We have defined a ratio to be a number, and numbers can be either \emph{rational}
+or \emph{irrational}. When we encounter these two kinds of ratios in geometry, we
+use the words \emph{commensurable} and \emph{incommensurable}. We inherit this
+language from the Greeks, who discovered irrational numbers and were much
+disturbed by their discovery. We make the language clear in the following
+definition.
+
+\begin{definition}
+One segment is said to be \emph{commensurable} with another if the ratio of the
+first to the second is a rational number. They are said to be
+\emph{incommensurable} if this ratio is an irrational number.
+\end{definition}
+
+\begin{theorem}
+Two segments, $AB$ and $CD$, are commensurable with each other if and only if
+there is a segment $EF$ which, if used as a unit of measure, makes $\sg{AB}$ and
+$\sg{CD}$ whole numbers (integers).
+\end{theorem}
+
+\begin{remark}
+Such a segment $EF$ is a common unit of measure for the two segments, hence the
+word \emph{commensurable}.
+\end{remark}
+
+\noindent\emph{Proof.} We have to show that if such a segment $EF$ exists, then
+$\sg{AB}/\sg{CD}$ is a rational number, and conversely, that if
+$\sg{AB}/\sg{CD}$ is a rational number, then such a segment $EF$ exists.
+
+Suppose first that such a segment $EF$ exists. Then $\sg{AB} = m$, and
+$\sg{CD} = n$, where $m$ and $n$ are integers. Therefore $\sg{AB}/\sg{CD} = m/n$,
+and is a rational number.
+
+To prove the converse, suppose that $\sg{AB}/\sg{CD}$ is a rational number, that
+is, $\sg{AB}/\sg{CD} = m/n$, where $m$ and $n$ are integers. Divide the segment
+$CD$ into $n$ equal subintervals, and call one of these subintervals $EF$
+(Fig.~9--17). With $EF$ as a unit of measure, $\sg{CD} = n$, and $\sg{AB} = m$.
+
+\FIGIXSEVENTEEN
+
+\begin{note}
+In this book, our theorems deal only with commensurable pairs of segments, and we
+assume their truth for incommensurable cases. Proofs for incommensurable cases
+require some knowledge of \emph{limits}. The ideas involved are difficult and we
+avoid limits whenever possible.
+\end{note}
+
+\begin{histremark}
+Pythagoras (6th century B.C.) believed that all quantitative relations could be
+described by pure numbers. By this, he meant whole numbers, or integers. He was
+(so the story goes) profoundly shocked when he discovered that the side and
+diagonal of a square are incommensurable. Because of this discovery, later Greeks
+(notably Eudoxus and Euclid) invented an elaborate theory of ratio and
+proportion that is a model of ingenuity and precision. The interesting fact
+about this theory, from our point of view, is
+that \emph{there were no numbers in Greek geometry, that is, no measurement}, and
+hence the meaning of the words ``two ratios are equal'' had to be defined in a
+special way that we cannot consider here.
+\end{histremark}
+
+
+%========================================================= 9-6
+\section*{9--6\quad SIMILAR TRIANGLES AND POLYGONS}
+\addcontentsline{toc}{section}{9--6\quad Similar Triangles and Polygons}
+
+In this section we are primarily concerned with similar triangles, but we also
+define similarity for polygons, and solve some problems concerning pairs of
+similar polygons. Remember that we are trying to make precise what we mean when
+we say that two polygons \emph{have the same shape}.
+
+\begin{definition}
+Two \emph{triangles} are said to be \emph{similar} to each other if corresponding
+angles are congruent and corresponding sides are proportional. For example, in
+Fig.~9--18, $\tri{ABC}$ is similar to $\tri{A'B'C'}$ if $\ang{A} \cong \ang{A'}$,
+$\ang{B} \cong \ang{B'}$, $\ang{C} \cong \ang{C'}$, and $\sg{AB}/\sg{A'B'} =
+\sg{BC}/\sg{B'C'} = \sg{CA}/\sg{C'A'}$. To indicate that triangles are similar,
+we write $\tri{ABC} \simto \tri{A'B'C'}$.
+\end{definition}
+
+Two \emph{convex} polygons are said to be \emph{similar} to each other if the
+corresponding angles are congruent and the corresponding sides are proportional.
+For example, the polygons in Fig.~9--19 are similar if $\ang{A} \cong \ang{A'}$,
+$\ang{B} \cong \ang{B'}$, $\ang{C} \cong \ang{C'}$, $\ang{D} \cong \ang{D'}$,
+$\ang{E} \cong \ang{E'}$, and $\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'} =
+\sg{CD}/\sg{C'D'} = \sg{DE}/\sg{D'E'} = \sg{EA}/\sg{E'A'}$.
+
+\FIGIXEIGHTEENNINETEEN
+
+\exercisegroup{9--8}
+\begin{multicols}{2}
+\begin{exlist}
+\item Two triangles are similar, and two sides of one triangle are 7 and 11 in.
+      In the other triangle, the side corresponding to the 7-in.\ side has length
+      12 in. Find the length of the side corresponding to the 11-in.\ side.
+\item Two triangles are similar, and the sides of one triangle have lengths 4, 6,
+      and 8. In the other triangle, the shortest side has length 6. Find the
+      lengths of the other sides.
+\item If $\tri{ABC} \simto \tri{DEF}$ and $\sg{AC} = 21$, $\sg{DF} = 15$,
+      $\sg{FE} = 18$, and $\sg{DE} = 21$, find the lengths of the other sides of
+      $\tri{ABC}$.
+\item Two quadrilaterals are similar, and one quadrilateral has sides of 5, 7,
+      12, and 16 in. The other quadrilateral has its longest side 12 ft. How long
+      are the other sides?
+\item The sides of a triangle are 4, 5, and $x$ in. The corresponding sides of a
+      triangle similar to the first triangle are 6, $y$, and 8 in. What are the
+      sides of each triangle?
+\item A pentagon has sides 4, 6, 10, 15, and $x$ ft. In a pentagon similar to the
+      first pentagon, the corresponding sides are $u$, $v$, 8, $w$, and 16. Find
+      $u$, $v$, $w$, and $x$.
+\item Two right triangles are similar, and in the first, the ratio of the shorter
+      to the longer leg is $\frac{2}{3}$. In the other triangle, the shorter leg
+      is 13 in.\ long. How long is the longer leg of this triangle?
+\item Find as many examples of similar polygons from the everyday world as you
+      can.
+\item Prove that if $\tri{ABC} \simto \tri{DEF}$ and $\tri{DEF} \simto
+      \tri{PQR}$, then $\tri{ABC} \simto \tri{PQR}$.
+\item Are all squares similar? Why?
+\item Are all rectangles similar? Why?
+\item State conditions under which two parallelograms are similar.
+\item Prove that congruent polygons are similar polygons. Is the converse true?
+\item Prove that all equilateral triangles are similar.
+\item In Fig.~9--20, $E$ and $F$ are midpoints of $AB$ and $BC$. Prove that
+      $\tri{BEF} \simto \tri{BAC}$.
+\item If, in Fig.~9--21, $A'$, $B'$, $C'$, and $D'$ bisect the corresponding
+      segments from $O$, prove that the quadrilaterals $ABCD$ and $A'B'C'D'$ are
+      similar.
+\end{exlist}
+\end{multicols}
+
+\FIGIXTWENTYTWENTYONE
+
+%========================================================= 9-7
+\section*{9--7\quad THEOREMS ON SIMILAR TRIANGLES}
+\addcontentsline{toc}{section}{9--7\quad Theorems on Similar Triangles}
+
+In this section we give the fundamental theorems on similar triangles. They are
+extremely important because they have wide application in mathematics, other
+sciences, and engineering.
+
+\begin{theorem}
+If the angles of one triangle are congruent, respectively, to the angles of
+another triangle, then the triangles are similar.
+\end{theorem}
+
+\noindent\emph{Proof.} Suppose that the triangles are $\tri{ABC}$ and
+$\tri{A'B'C'}$, as in Fig.~9--22, and that $\ang{A} \cong \ang{A'}$,
+$\ang{B} \cong \ang{B'}$, and $\ang{C} \cong \ang{C'}$. We must prove that the
+sides are proportional, that is, $\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'} =
+\sg{CA}/\sg{C'A'}$.
+
+\FIGIXTWENTYTWO
+
+In forming the proof, we will suppose that the segments $AB$ and $A'B'$ are
+commensurable. In other words, $\sg{AB}/\sg{A'B'}$ is a rational number. The
+proof for the incommensurable case is difficult, since it involves knowing about
+\emph{limits}. We therefore suppose that, with a suitable unit, the lengths of
+$AB$ and $A'B'$ are positive integers. The figure is drawn with $\sg{AB} = 5$ and
+$\sg{A'B'} = 3$. We may suppose that $AB > A'B'$, for if $AB < A'B'$, the
+argument can be reversed, and if $AB \cong A'B'$, the triangles are congruent
+(why?), and hence similar.
+
+\begin{steps}
+\step{There is a point $A''$ on $AB$, such that $\sg{A''B} \cong \sg{A'B'}$, and
+      $\sg{A''B} = \sg{A'B'} = 3$.}{Congruence postulate.}
+\step{$A''$ is between $A$ and $B$.}{We have assumed that $AB > A'B'$.}
+\step{There is a line through $A''$ parallel to $AC$ which intersects $BC$ in
+      $C''$.}{Why?}
+\step{$\tri{BA''C''} \cong \tri{B'A'C'}$.}{A.S.A.}
+\step{$\sg{BC''} \cong \sg{B'C'}$.}{Statement 4.}
+\step{There are points $D$, $E$, and $F$, on $AB$, such that the points $A$, $F$,
+      $A''$, $E$, $D$, and $B$, in that order, are at unit distance from their
+      neighbors.}{It is given that $\sg{AB} = 5$. By Statement 1,
+      $\sg{A''B} = \sg{A'B'} = 3$.}
+\step{There are lines through $D$, $E$, and $F$, parallel to $AC$. These lines
+      intersect $BC$ in points $I$, $H$, and $G$, respectively.}{Why?}
+\stepx{8}{$\sg{CG} \cong \sg{GC''} \cong \sg{C''H} \cong \sg{HI} \cong
+      \sg{IB}$.}{Theorem 9--1 on transversals.}
+\stepx{9}{If $CG$ is chosen as unit of length, $\sg{BC} = 5$, and $\sg{BC''} =
+      \sg{B'C'} = 3$.}{Definition of length and Statement 5.}
+\stepx{10}{$\sg{BC}/\sg{B'C'} = 5/3$.}{Statement 9.}
+\stepx{11}{$\sg{AB}/\sg{A'B'} = 5/3$.}{Given.}
+\stepx{12}{$\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'}$.}{Statements 10 and 11.}
+\stepx{13}{In an analogous way, by considering a line parallel to $BC$, it may be
+      shown that $\sg{AB}/\sg{A'B'} = \sg{AC}/\sg{A'C'}$.}{Same reasons as in
+      Statements 1 through 12.}
+\stepx{14}{$\tri{ABC} \simto \tri{A'B'C'}$.}{Statements 12 and 13.}
+\end{steps}
+
+\begin{remark}
+It should be clear that the proof is essentially the same if $AB$ and $A'B'$ are
+any other positive integers besides 5 and 3.
+\end{remark}
+
+\begin{corollary}
+If two angles of one triangle are congruent to two angles of another triangle,
+then the triangles are similar.
+\end{corollary}
+
+\begin{corollary}
+If an acute angle of one right triangle is congruent to an acute angle of another
+right triangle, then the triangles are similar.
+\end{corollary}
+
+The proofs are left to the student.
+
+\exercisegroup{9--9}
+\begin{multicols}{2}
+\begin{exlist}
+\item If, in Fig.~9--23, $BE \pll CD$, $\sg{AE} = 4$, and $\sg{ED} = 6$, what is
+      $\sg{AB}/\sg{AC}$?
+\item A church steeple casts a shadow 100 ft long, and a 6-ft post casts, at the
+      same time, a shadow 7 ft long. How high is the steeple?
+\item A line from the top of a cliff to the ground just passes over the top of a
+      pole 8 ft high and meets the ground at a point 5 ft from the base of the
+      pole. If it is 60 ft from this point to the base of the cliff, how high is
+      the cliff?
+\item As in Fig.~9--24, a lake lies between $A$ and $C$. If lines $AB$ and $DE$
+      run north-south, $\sg{AB} = 8$ mi, $\sg{DE} = 1.2$ mi, and $\sg{DC} = 1.5$
+      mi, how far is it from $A$ to $C$?
+\item In Fig.~9--25, $DE \pll AC$. Prove that $\tri{ABC} \simto \tri{DBE}$.
+\item If in $\tri{DEF}$, $G$ and $H$ are points on sides $EF$ and $DF$,
+      respectively, and $\ang{GHF} \cong \ang{EDF}$, prove that $\tri{DEF} \simto
+      \tri{HGF}$.
+\item In Fig.~9--26, $AB \perp AE$, and $DE \perp AE$. Prove that (a)
+      $\sg{AB}/\sg{DE} = \sg{AC}/\sg{CE}$; (b) $\sg{AB}/\sg{BC} =
+      \sg{DE}/\sg{DC}$.
+\item In $\tri{ABC}$, let $E$, $F$, and $G$ be the midpoints of the sides $AB$,
+      $BC$, and $CA$, respectively. Prove that $\tri{ABC} \simto \tri{FGE}$.
+\item If $\tri{ABC} \simto \tri{A'B'C'}$, and $BD$ and $B'D'$ are the altitudes
+      from $B$ and $B'$ respectively, prove that $\sg{AC}/\sg{A'C'} =
+      \sg{BD}/\sg{B'D'}$.
+\item In Fig.~9--27, $l \pll m$. Prove that $\tri{EFG} \simto \tri{IHG}$.
+\item If, in Fig.~9--28, $\tri{PQR} \simto \tri{P'Q'R'}$, and $PS$ and $P'S'$
+      bisect angles $P$ and $P'$, prove that $\sg{PQ}/\sg{PS} =
+      \sg{P'Q'}/\sg{P'S'}$.
+\item In $\tri{ABC}$, $CD$ and $AE$ are altitudes, as in Fig.~9--29. Prove that
+      (a) $\tri{BEA} \simto \tri{BDC}$; (b) $\tri{ADF} \simto \tri{CEF}$.
+\end{exlist}
+\end{multicols}
+
+\FIGIXTWENTYTHREETWENTYNINE
+
+Before proving the next of the fundamental theorems on similar triangles, we
+prove a theorem that we need later and which is interesting in itself.
+
+\begin{theorem}
+A line that divides two sides of a triangle proportionally is parallel to the
+third side. This means that if $\sg{AD}/\sg{AB} = \sg{AE}/\sg{AC}$ in
+Fig.~9--30, then $DE \pll BC$.
+\end{theorem}
+
+\FIGIXTHIRTY
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{Let $DF$ be a line parallel to $BC$ and meeting $AC$ in a point $F$.}{Why
+      is there such a line?}
+\step{The point $F$ is on the segment $AC$.}{Why?}
+\step{$\tri{ABC} \simto \tri{ADF}$.}{Explain how Theorem 9--7 is used here.}
+\step{$\sg{AF}/\sg{AC} = \sg{AD}/\sg{AB}$.}{From the definition of similar
+      triangles.}
+\step{$\sg{AD}/\sg{AB} = \sg{AE}/\sg{AC}$.}{Given.}
+\step{$\sg{AF} = \sg{AE}$.}{Statements 4 and 5.}
+\step{$F = E$.}{$AF \cong AE$ and congruence postulates.}
+\step{$DE \pll BC$.}{Statements 7 and 1.}
+\end{steps}
+
+\begin{theorem}
+Given $\tri{ABC}$ and $\tri{A'B'C'}$ with $\ang{A} \cong \ang{A'}$ and
+$\sg{AB}/\sg{A'B'} = \sg{AC}/\sg{A'C'}$, then $\tri{ABC} \simto \tri{A'B'C'}$.
+\end{theorem}
+
+\noindent\emph{Proof.} We show that $\ang{B} \cong \ang{B'}$, and use
+Corollary 9--7--1. We may suppose that $AB > A'B'$. (Why?)
+
+\FIGIXTHIRTYONE
+
+\begin{steps}
+\step{In Fig.~9--31, there are points $B''$ on $AB$ and $C''$ on $AC$ such that
+      $\sg{A'B'} \cong \sg{AB''}$ and $\sg{A'C'} \cong \sg{AC''}$.}{Why?}
+\step{$\tri{AB''C''} \cong \tri{A'B'C'}$.}{Why?}
+\step{$\sg{AB}/\sg{AB''} = \sg{AC}/\sg{AC''}$.}{Why?}
+\step{$B''C'' \pll BC$.}{Theorem 9--8.}
+\step{$\ang{AB''C''} \cong \ang{B}$.}{Why?}
+\step{$\ang{B} \cong \ang{B'}$.}{Statements 2 and 5.}
+\step{$\tri{ABC} \simto \tri{A'B'C'}$.}{Why?}
+\end{steps}
+
+\exercisegroup{9--10}
+\begin{multicols}{2}
+\begin{exlist}
+\item Prove that if the legs of one right triangle are proportional to the legs
+      of another right triangle, then the triangles are similar.
+\item In Fig.~9--32, $\sg{AO} = 10$, $\sg{BO} = 12$, $\sg{OD} = 5$, and
+      $\sg{OC} = 6$. Show that $\tri{AOB} \simto \tri{DOC}$.
+\item Prove that two isosceles triangles are similar if their vertex angles are
+      congruent; likewise if their base angles are all congruent to one another.
+\item In Fig.~9--33, if $\sg{AD} = x \cdot \sg{AB}$, and $\sg{AE} = x \cdot
+      \sg{AC}$, prove that $\tri{ABC} \simto \tri{ADE}$.
+\item If $\tri{ABC}$ is a right triangle, with the right angle at $C$, and if, in
+      Fig.~9--34, $\sg{AD}/\sg{AC} = \sg{AC}/\sg{AB}$, prove that $CD \perp AB$.
+\item[\stex 6.] In Fig.~9--35, if $\tri{ABC}$ is a right triangle, with right
+      angle at $C$, and if $CD \perp AB$, prove that $\tri{ABC} \simto
+      \tri{ACD}$.
+\end{exlist}
+\end{multicols}
+
+\FIGIXTHIRTYTWOTHIRTYFIVE
+
+The next theorem is the last of the three basic theorems on similar triangles.
+
+\begin{theorem}
+If the sides of one triangle are proportional to the sides of another triangle,
+then the triangles are similar. In other words, referring to Fig.~9--36, if
+$\sg{AB}/\sg{A'B'} = \sg{AC}/\sg{A'C'} = \sg{BC}/\sg{B'C'}$, then
+$\tri{ABC} \simto \tri{A'B'C'}$.
+\end{theorem}
+
+\noindent\emph{Proof.} It is sufficient to show that $\ang{B} \cong \ang{B'}$.
+Why? We may assume that $AB > A'B'$, for if $AB < A'B'$, the argument can be
+reversed, and if $\sg{AB} = \sg{A'B'}$, then the triangles are congruent (why?),
+and hence similar.
+
+\FIGIXTHIRTYSIX
+
+\begin{steps}
+\step{Choose $A''$ on $AB$ and $C''$ on $BC$, such that $\sg{A''B} = \sg{A'B'}$
+      and $\sg{C''B} = \sg{C'B'}$.}{Why possible?}
+\step{$\sg{AB}/\sg{A''B} = \sg{BC}/\sg{BC''}$.}{The hypothesis of Theorem 9--10
+      and Statement 1.}
+\step{$\tri{ABC} \simto \tri{A''BC''}$.}{Theorem 9--9.}
+\step{$\sg{AC}/\sg{A''C''} = \sg{AB}/\sg{A''B} = \sg{AB}/\sg{A'B'}$.}{Statements
+      3 and 1.}
+\step{$\sg{AC}/\sg{A''C''} = \sg{AC}/\sg{A'C'}$.}{Statement 4 and the given fact
+      $\sg{AB}/\sg{A'B'} = \sg{AC}/\sg{A'C'}$.}
+\step{$\sg{A''C''} = \sg{A'C'}$.}{Statement 5.}
+\step{$\tri{A''BC''} \cong \tri{A'B'C'}$.}{Statements 1 and 6 and S.S.S.}
+\step{$\ang{B} \cong \ang{B'}$.}{Statement 7.}
+\step{$\tri{ABC} \simto \tri{A'B'C'}$.}{Theorem 9--9.}
+\end{steps}
+
+\exercisegroup{9--11}
+\begin{multicols}{2}
+\begin{exlist}
+\item State, in your own words, the three basic theorems on similar triangles,
+      Theorems 9--7, 9--9, and 9--10.
+\item In Fig.~9--37, the numbers are the lengths of the segments. How are the
+      lines $AB$ and $CD$ related? Why?
+\item If the hexagons of Fig.~9--38 are similar, prove that (a) $\tri{BCD} \simto
+      \tri{B'C'D'}$; (b) quadrilateral $ABCD \simto$ quadrilateral $A'B'C'D'$.
+\item In Fig.~9--39, $BE \perp AC$, and $CD \perp AB$. Find two similar
+      triangles. How many proportions can you write?
+\item If $\tri{ABC} \simto \tri{A'B'C'}$, and $AD$ and $A'D'$ are medians, prove
+      that the ratio of the medians is equal to the ratio of any two
+      corresponding sides. Restate this using the word \emph{proportion} (or
+      \emph{proportional}).
+\item Prove that if two triangles are similar, then the ratio of their perimeters
+      is the same as the ratio of two corresponding sides.
+\item Is a statement like that of Exercise 6 true for similar polygons? How would
+      you prove this?
+\end{exlist}
+\end{multicols}
+
+\FIGIXTHIRTYSEVENTHIRTYNINE
+
+%========================================================= 9-8
+\section*{9--8\quad THE PYTHAGOREAN THEOREM}
+\addcontentsline{toc}{section}{9--8\quad The Pythagorean Theorem}
+
+With our knowledge of similar triangles, we are able to prove a theorem
+associated with the Greek mathematician Pythagoras, who lived in the 6th century
+B.C. It is believed that he first gave a proof of the theorem that bears his
+name. First, we state a theorem that is useful for the proof of the Pythagorean
+theorem.
+
+\begin{theorem}
+The altitude to the hypotenuse of a right triangle forms two right triangles,
+which are similar to the given triangle. For example, in Fig.~9--40,
+$\tri{ABC} \simto \tri{ACD} \simto \tri{CBD}$.
+\end{theorem}
+
+\FIGIXFORTYFORTYONE
+
+\noindent\emph{Proof.} In the first place, a line through $C$ perpendicular to
+$AB$ must intersect the segment $AB$. This fact may be seen as follows: Consider
+lines $l$, $l'$, and $l''$ in Fig.~9--41, through $C$, $A$, and $B$, and
+perpendicular to $AB$. Then $l' \pll l \pll l''$. The point $C$ is between $l'$
+and $l''$, because angles $A$ and $B$ are acute angles. Therefore, $l$ is between
+$l'$ and $l''$, and hence $l$ intersects $AB$ in a point $D$. $\tri{ACD} \simto
+\tri{ABC}$, since each triangle has a right angle, and the triangles have the
+acute angle $A$ in common. By the same reasoning, $\tri{BCD} \simto \tri{BAC}$.
+
+\begin{corollary}
+The altitude to the hypotenuse is a mean proportional\textsuperscript{*}
+between the two segments formed on the hypotenuse.
+\end{corollary}
+\IXstarnote{*$x$ is a ``mean proportional'' between $a$ and $b$ if
+$a/x = x/b$, or, which is the same, $x^2 = ab$.}
+
+\noindent\emph{Proof.} We have to show that, using Fig.~9--40,
+$\sg{AD}/\sg{CD} = \sg{CD}/\sg{DB}$. Since $\tri{ADC} \simto \tri{CDB}$, this is
+an immediate consequence of the definition of similar triangles.
+
+\begin{corollary}
+A leg of a right triangle is the mean proportional between the hypotenuse and the
+adjacent segment on the hypotenuse formed by the altitude from the right angle.
+That is, in Fig.~9--40, $\sg{AC}^2 = \sg{AD} \cdot \sg{AB}$.
+\end{corollary}
+
+\exercisegroup{9--12}
+\begin{multicols}{2}
+\begin{exlist}
+\item In Fig.~9--42, $EF \perp FG$, and $FH \perp EG$. If $\sg{EF} = 8$, and
+      $\sg{FG} = 5$, what is $\sg{FH}/\sg{EH}$? $\sg{FH}/\sg{HG}$?
+\item In Fig.~9--43, the sides of a right triangle are 5, 12, and 13. How long is
+      the altitude on the hypotenuse?
+\item In Fig.~9--44, $Q$ is a right angle, and $QS \perp PR$. Find $\sg{PQ}$, if
+      $\sg{PS} = 4$, and $\sg{SR} = 5$.
+\item Using Fig.~9--44, if $\sg{QS} = 7$, what is the product
+      $\sg{PS} \cdot \sg{SR}$?
+\item In Fig.~9--45, $\ang{C}$ is a right angle, as is $\ang{ADC}$. Express $h$
+      in terms of lengths $a$, $b$, and $c$ of the sides. Obtain $\sg{AD}$ in
+      terms of $a$, $b$, and $c$.
+\end{exlist}
+\end{multicols}
+
+\FIGIXFORTYTWOFORTYFIVE
+
+\begin{theorem}[Pythagorean theorem]
+The square of the length of the hypotenuse of a right triangle is equal to the
+sum of the squares of the lengths of the legs.
+\end{theorem}
+
+If the triangle is $\tri{ABC}$, with the right angle at $C$, and if the lengths
+of the sides opposite angles $A$, $B$, and $C$ are $a$, $b$, and $c$,
+respectively, as in Fig.~9--46, then we are able to show that $c^2 = a^2 + b^2$.
+
+\FIGIXFORTYSIX
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{Let $CD$ be the altitude and $x = \sg{AD}$ and $y = \sg{DB}$. Then
+      $x/b = b/c$ and $y/a = a/c$.}{Corollary 9--11--2.}
+\step{$x + y = c$.}{Properties of length.}
+\step{$b^2/c + a^2/c = c$.}{Statements 1 and 2.}
+\step{$a^2 + b^2 = c^2$.}{Statement 3 and algebra.}
+\end{steps}
+
+\begin{theorem}[Converse to Pythagorean theorem]
+If a triangle has sides of length $a$, $b$, and $c$, such that $c^2 = a^2 + b^2$,
+then the triangle is a right triangle, and the side of length $c$ is the
+hypotenuse.
+\end{theorem}
+
+\noindent\emph{Proof.} The method of proof is to show that there is a right
+triangle that is congruent to the given triangle. Suppose that the given triangle
+is $\tri{ABC}$.
+
+\FIGIXFORTYSEVEN
+
+\begin{steps}
+\step{There is a segment $PQ \cong BC$, as in Fig.~9--47.}{Congruence
+      postulates.}
+\step{There is a ray perpendicular to $PQ$ at $P$.}{From the congruence
+      postulates, there is an angle at $P$ congruent to a right angle.}
+\step{There is a point $R$ on this ray such that $PR \cong AC$.}{Congruence
+      postulates.}
+\step{$\sg{PQ} = a$, and $\sg{PR} = b$.}{Statements 1 and 3.}
+\step{$\sg{RQ}^2 = a^2 + b^2$.}{Pythagorean theorem.}
+\step{$c^2 = a^2 + b^2$.}{Given.}
+\step{$\sg{RQ}^2 = c^2$, so $\sg{RQ} = c$.}{Statements 5 and 6 and algebra.}
+\step{$RP \cong AC$, $PQ \cong CB$, and $RQ \cong AB$.}{By construction and
+      Statement 7.}
+\step{$\tri{ABC} \cong \tri{RQP}$.}{S.S.S.}
+\step{$\ang{C}$ is a right angle.}{$\ang{P}$ is a right angle, by construction,
+      and $\ang{C} \cong \ang{P}$, by Statement 9.}
+\end{steps}
+
+\exercisegroup{9--13}
+\begin{multicols}{2}
+\begin{exlist}
+\item It is said that the ancient Egyptians constructed right angles for
+      surveying purposes by forming a triangle using ropes of length 3, 4, and 5
+      units. Why would this be correct? Can you think of other integers for the
+      sides of a right triangle?
+\item In a right triangle, the hypotenuse is 7 and one leg is 3. How long is the
+      other leg?
+\item Write a formula for the length of one leg of a right triangle in terms of
+      the lengths of the hypotenuse and other leg.
+\item[\stex 4.] In Fig.~9--48, $AB \pll CD$, $BC \pll AD$, and $AC \perp BD$. If
+      $\sg{BD} = 24$, and $\sg{AD} = 13$, find $\sg{AC}$.
+\item[5.] In a right triangle, the two legs are 6 ft and 9 ft. How long is the
+      hypotenuse?
+\item The two legs of a right triangle are equal, and the hypotenuse is 4 in.\
+      long. How long are the legs?
+\item The base of an isosceles triangle is 12 in.\ long. The two congruent sides
+      have a combined length of 13 in. How long is the altitude to the base?
+\item Point $A$ in Fig.~9--49 is 21 mi due north of $O$, while point $B$ is 20 mi
+      due east of $O$. What is the distance from $A$ to $B$, across the lake
+      shown?
+\item Find the altitude of an equilateral triangle, the length of whose side is
+      $a$.
+\item A rope 100 ft long reaches from the top of a pole to a point 40 ft from the
+      foot of the pole. How tall is the pole?
+\item Prove that the median to the hypotenuse of a right triangle is half as long
+      as the hypotenuse.
+\item Prove that in a $30^\circ$--$60^\circ$ right triangle, the shorter leg is
+      half as long as the hypotenuse.
+\item Prove that in an isosceles right triangle, the ratio of leg to hypotenuse
+      is $1/\sqrt{2}$.
+\item Construct a segment of length $\sqrt{5}$ in.
+\item What is the length of a diagonal of a square of side 1? of side $a$?
+\item Construct a segment of length $\sqrt{6}$.
+\item[\stex 17.] If $n$ is any positive integer, can you construct (\RC) a
+      segment of length $\sqrt{n}$?
+\end{exlist}
+\end{multicols}
+
+\FIGIXFORTYEIGHTFORTYNINE
+
+%========================================================= 9-9
+\section*{9--9\quad ON CONSTRUCTIONS}
+\addcontentsline{toc}{section}{9--9\quad On Constructions}
+
+In our previous study of \RC\ constructions, we assumed that two circles with
+equal radii would intersect if the distance between their centers were less than
+the sum of their radii. We can easily prove this by using the Pythagorean
+theorem. To do this, we first calculate where they \emph{should} intersect, and
+then prove that this point \emph{is} on both circles.
+
+\FIGIXFIFTYFIFTYONE
+
+Consider Fig.~9--50, where $r$ is the radius of the circles, and $d = \sg{AB}$ is
+the distance between their centers. If the circles intersect at $P$, and $C$ is
+the midpoint of $AB$, then
+$\tri{PAC} \cong \tri{PBC}$ (why?), and hence $\ang{C}$ is a right angle.
+Therefore, $r^2 = \sg{PC}^2 + \sg{AC}^2$, so that
+$\sg{PC} = \sqrt{r^2 - (\frac{1}{2}\sg{AB})^2}$. We now know ``where'' the point
+of intersection $P$ must be, and we can prove that such a point of intersection
+exists.
+
+\begin{theorem}
+Suppose that circles, with centers $A$ and $B$, have equal radii,
+$r > \frac{1}{2}AB$. These circles intersect.
+\end{theorem}
+
+\noindent\emph{Proof.} Let $C$ be the midpoint of $AB$. Through $C$ there is a
+line perpendicular to $AB$. On this line, let $P$ be a point at the distance
+$\sg{PC} = \sqrt{r^2 - (\frac{1}{2}\sg{AB})^2}$ from $C$. (How do we know there
+is such a point $P$?) Because $\tri{PAC}$ and $\tri{PBC}$ are right triangles, it
+follows from the Pythagorean theorem that $\sg{PA} = \sg{PB} = r$. Hence $P$ lies
+on both circles.
+
+\begin{remark}
+It also follows from the above proof that the two circles can intersect in two,
+and only two, points, for the following reason. On the line through $C$,
+perpendicular to $AB$, there are only two points at the correct distance from
+$C$, namely one on each side of the line $AB$.
+\end{remark}
+
+\begin{theorem}
+An angle inscribed in a semicircle is a right angle. That is, if in Fig.~9--51,
+$AB$ is a diameter of the circle, with center at $O$, and $C$ is any point on the
+circle other than $A$ and $B$, then $\ang{ACB}$ is a right angle.
+\end{theorem}
+
+\noindent\emph{Proof outline.} We drop a perpendicular from $C$ to $AB$, and
+prove that the right triangles $ADC$ and $CDB$ are similar. It then follows that
+$\ang{C}$ is a right angle.
+
+\begin{steps}
+\step{Let $CD$ be the perpendicular from $C$ to $AB$, and suppose that $D$ is
+      between $A$ and $O$.}{The point $D$ must be between $A$ and $B$. (Why?)
+      $D$, then, either is $O$, or is between $A$ and $O$, or $O$ and $B$. If
+      $D = O$, the proof is easy. We discuss only the case in which $D$ is
+      between $A$ and $O$. If $D$ is between $O$ and $B$, a similar proof can be
+      made.}
+\step{Let $x$, $y$, $z$, and $r$ be the lengths of the segments in Fig.~9--51.
+      Then $x = r - y$, and $z = \sqrt{r^2 - y^2}$.}{Why?}
+\step{$\dfrac{x}{z} = \dfrac{r-y}{\sqrt{r^2-y^2}} =
+      \sqrt{\dfrac{r-y}{r+y}}$.}{Statement 2 and algebra.}
+\step{$\dfrac{z}{r+y} = \dfrac{\sqrt{r^2-y^2}}{r+y} =
+      \sqrt{\dfrac{r-y}{r+y}}$.}{Statement 2 and algebra.}
+\step{$\tri{ACD}$ and $\tri{CDB}$ are right triangles.}{By construction.}
+\step{$\tri{ACD} \simto \tri{CDB}$.}{Statements 3, 4, and 5 and Theorem 9--9.}
+\step{$\ang{ACD} \cong \ang{CBD}$.}{Statement 6.}
+\step{$\ang{ACB}$ is a right angle.}{Why?}
+\end{steps}
+
+\exercisegroup{9--14}
+\begin{multicols}{2}
+\begin{exlist}
+\item A circle passes through the vertices of a right triangle whose sides are 3,
+      4, and 5 in. What is the radius of the circle?
+\item If $PQ$ is a diameter of a circle of radius 13, and $R$ is a point on the
+      circle, such that $\sg{PR} = 10$, how long is $\sg{RQ}$?
+\item In Fig.~9--52, $AB$ is a diameter of the circle, and $CD \perp AB$. If
+      $\sg{AB} = 30$ and $\sg{EO} = 12$, find $\sg{CD}$.
+\end{exlist}
+\end{multicols}
+
+\FIGIXFIFTYTWO
+
+%========================================================= review
+\section*{REVIEW OF CHAPTER 9}
+\addcontentsline{toc}{section}{Review of Chapter 9}
+
+Be sure you know the definitions given in this chapter of the following concepts:
+transversal, ratio, proportion, ratio of segments, proportional sides,
+commensurable, similar triangles.
+
+Some of the important theorems of the chapter were concerned with these
+definitions. Try to recall the theorems.
+
+The main ideas of the chapter are listed briefly below. Be sure that you know
+them, and review the proofs.
+
+\begin{exlist}
+\item If parallel lines cut off congruent segments on one transversal, they do so
+      on every transversal.\\
+      This theorem depended upon what facts about parallel lines and triangles?\\
+      This theorem enables one to divide a segment into $m$ congruent parts with
+      ruler and compass. Show how to do this.
+\item What is a proportion? What is the ratio of $x$ to $y$ if $x$ and $y$ are
+      numbers? if $x$ and $y$ are segments?\\
+      If neither $b$ nor $d$ is zero, $a/b = c/d$ if and only if $ad = bc$.
+      Illustrate this theorem by numerical examples.
+\item The ratio of two segments does not depend on the unit of length.\\
+      Illustrate this fact by getting the ratio of depth to width of your desk,
+      first measuring in feet and then in inches.\\
+      On what theorem about measurement of length does this fact depend?
+\item[\stex 4.] Two segments are defined to be commensurable with each other if
+      their ratio is a rational number. What is a rational number? Give an
+      example of one. Give an example of an irrational number. What are
+      incommensurable segments?\\
+      State a theorem concerning commensurable segments.
+\item[5.] What is the definition of similar triangles and polygons? Draw two
+      similar triangles; pentagons.\\
+      What do an architect's drawings have to do with similar figures?\\
+      What does a map have to do with similarity?
+\item[6.] Two triangles with corresponding angles congruent are similar.\\
+      Illustrate the proof of this theorem, using two similar triangles $ABC$
+      and $A'B'C'$, with $AB = 12$, and $A'B' = 8$.
+\item[7.] If two triangles have their corresponding sides proportional, they
+      are similar.\\
+      What must be established to prove this theorem?
+\item[8.] The Pythagorean theorem is proved, using a theorem about similar
+      triangles in a right triangle. State this theorem.\\
+      Prove the Pythagorean theorem.\\
+      State its converse.
+\end{exlist}
+
+%--------------------------------------------------------- Review Exercises
+\begin{center}\bfseries Review Exercises\end{center}
+\addcontentsline{toc}{section}{Review Exercises (Chapter 9)}
+
+\begin{exlist}
+\item $\sg{AB} = 24$, and $C$ is a point on the line $AB$. If the ratio of $AC$
+      to $CB = 3/5$, determine $\sg{AC}$ (a) if $C$ is between $A$ and $B$;
+      (b) if $A$ is between $C$ and $B$.
+\item Explain how to locate the point $C$ in Exercise 1(a) by an RC
+      construction.
+\item[\stex 3.] Can you give an RC construction for the point $C$ in Exercise
+      1(b)?
+\item[4.] A flagpole throws a 20-ft shadow when a yardstick throws a 10-in.
+      shadow. Determine the height of the flagpole.
+\item[5.] The length of the sides of a triangle are 4, 5, and 6. A triangle
+      similar to this one has a perimeter of 30 in. Give the length of each side
+      of this triangle.
+\item[6.] In $\tri{ABC}$, the altitude from vertex $A$ divides the triangle into
+      two similar triangles. $\tri{ABC}$ is not isosceles. What conclusion may
+      be drawn?
+\item[7.] In $\tri{ABC}$, $\ang{A} = 40^\circ$, and $\ang{B} = 80^\circ$. In
+      $\tri{A'B'C'}$, $\ang{B'} = 40^\circ$, and $\ang{C'} = 60^\circ$. Are the
+      two triangles similar?
+\item[8.] What is the mean proportional of 4 and 9? of 2 and 4? of 6 and 6?
+\item[9.] A triangle whose sides have lengths 3, 4, and 5 is a right triangle.
+      So also is the triangle with sides of 5, 12, and 13; 7, 24, and 25; 9, 40,
+      and 41; 11, 60, and 61; etc. Explain the pattern underlying the formation
+      of these triples of numbers.
+\item[10.] On a certain map, a distance of $\frac{5}{8}$ in. represents 80 mi.
+      On this map, the points representing two cities are $5\frac{7}{16}$ in.
+      apart. What is the airline distance between these cities?
+\item[11.] The parallel sides of a trapezoid have lengths 18 and 12, as in
+      Fig.~9--53. The altitude is 8, and one of the nonparallel sides has length
+      10. If the nonparallel sides are extended, a triangle is formed by these
+      extended sides and the greater base. (a) Show that this triangle is right.
+      (b) Compute the lengths of the sides of this triangle.
+\item[12.] If, in Exercise 11, the altitude is 6, rather than 8, and the other
+      dimensions are as given, compute the length of the altitude of the
+      triangle from the vertex opposite the side of length 18.
+\end{exlist}
+
+\FIGIXFIFTYTHREEFIFTYFOUR
+
+\begin{exlist}
+\item[13.] A parallelogram has adjacent sides of lengths 12 and 8, and these
+      sides form a $60^\circ$ angle. Find the lengths of the diagonals of the
+      parallelogram. Find the lengths of the diagonals, if the included angle is
+      $30^\circ$.
+\item[14.] Draw three segments, and label them $AB$, $CD$, and $EF$. Locate by a
+      ruler and compass construction a point $X$ on $AB$, such that the ratio of
+      $AX$ to $XB$ is equal to the ratio of $CD$ to $EF$.
+\item[\stex 15.] In Fig.~9--54, line $l$ cuts sides $AB$ and $BC$ of $\tri{ABC}$
+      in points $D$ and $E$, and cuts $AC$ extended in point $F$. Prove that the
+      product of the three ratios, $AD$ to $DB$, $BE$ to $EC$, and $CF$ to $FA$,
+      is 1. [\emph{Hint:} Consider perpendiculars $AX$, $BY$, and $CZ$ from $A$,
+      $B$, and $C$ to $l$. Then $\sg{AD}/\sg{DB} = \sg{AX}/\sg{BY}$, etc.]
+\item[16.] Construct a triangle similar to a given triangle and having a given
+      perimeter.
+\item[17.] Upon a given segment as side, construct a triangle similar to a given
+      triangle.
+\end{exlist}
+
+\FIGIXFIFTYFIVE
+
+\begin{exlist}
+\item[18.] In $\tri{ABC}$, $CD$ and $BE$ are altitudes, as in Fig.~9--55. Prove
+      that $\sg{CD}/\sg{EB} = \sg{AC}/\sg{AB}$.
+\item[19.] Prove that if, in triangles $ABC$ and $A'B'C'$, $AB \pll A'B'$,
+      $BC \pll B'C'$, and $CA \pll C'A'$, then $\tri{ABC} \simto \tri{A'B'C'}$.
+\item[20.] Prove that the line joining the midpoints of two opposite sides of a
+      parallelogram is parallel to the two other sides and passes through the
+      point of intersection of the diagonals.
+\end{exlist}
+
+\end{document}

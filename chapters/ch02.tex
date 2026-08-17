@@ -1,0 +1,1263 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+
+\begin{document}
+\setcounter{chapter}{2}
+
+% ---- local macros (hoist into book preamble) ----
+% Halftone photographic plate: framed placeholder, never redrawn (B&W pass).
+\newcommand{\IIplate}[2]{%
+  \par\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.72\linewidth}\centering\vspace{2.4cm}
+    {\footnotesize\itshape[halftone photographic plate --- not redrawn]}
+    \vspace{2.4cm}\end{minipage}}%
+  \par\smallskip
+  {\footnotesize\textsc{#1}\\ #2}
+  \end{center}
+  \par\medskip}
+% Unnumbered star footnote. \starnote in brumfiel.sty emits a bare
+% \footnotetext, which prints the footnote counter ("0"); the book marks this
+% note with the same "*" the starred exercises carry, and no number.
+\newcommand{\IIstarnote}{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*Starred exercises, sections, theorems, etc., are optional.}%
+  \endgroup}
+% Ch 2's eight "Problem." blocks. These are NOT the book's "Remark." blocks:
+% p.22 etc. print an italic "Problem." head and nothing else, so wrapping them
+% in {remark} (which emits "Remark.") printed a word the book never sets.
+% Same shape as brumfiel.sty's {remark}, with the correct head.
+\newenvironment{IIproblem}{\par\medskip\noindent\emph{Problem.}\ }{\par\medskip}
+% ---- end local macros ----
+
+% Facing-page plate for the chapter opener (book p.20, facing p.21).
+\IIplate{Aristotle}{A view of a statue in a Vienna museum.\\
+Courtesy of \emph{Scripta Mathematica}.}
+
+\chapter*{\raggedright\Huge LOGIC}
+\addcontentsline{toc}{chapter}{2.\ Logic}
+\markboth{LOGIC}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+
+%========================================================= 2-1
+\section*{2--1\quad STATEMENTS}
+\addcontentsline{toc}{section}{2--1\quad Statements}
+
+Everyone thinks he knows what a \emph{statement} is. A politician issues a
+\emph{statement} when he concedes defeat during an election. The plumber sends
+your father a \emph{statement} after installing a new sink. But in mathematics we
+use the term in a narrow technical sense. We mentioned in the first chapter that
+clear, precise definitions are necessary. Accordingly, we make the following
+definition, which turns out to be very useful.
+
+\begin{definition}
+A statement is a sentence which is either true or false, but not both.
+\end{definition}
+
+Consider the following:
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item Go back home.
+\item $2 \times 2 = 5$.
+\item $2 \times 2 = 4$.
+\item New York is a suburb of Los Angeles.
+\item Thursday up tar paper.
+\item The silliness of speedily.
+\end{enumerate}
+
+Some of the above are statements and some are not. Before reading on, decide for
+yourself which ones satisfy the definition.
+
+Let us look at some slightly different examples.
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item I am the most beautiful girl in town.
+\item If I don't get a good night's sleep, I can't pass the examination.
+\item $x + 2 = 5$.
+\end{enumerate}
+
+All of these are sensible sentences. The only question is whether or not they
+satisfy our condition of being either true or false but not both. Before we can
+decide whether (a) is a true statement or a false statement we must know who
+``I'' is and what town is meant. Then we can decide upon the truth or falsity.
+(We could hold a beauty contest!) In (c) if we replace the letter $x$ by ``3,''
+we have a true statement. If we replace $x$ by ``2'' the resulting statement is
+false. In statement (b), we must again know who ``I'' is and what examination is
+meant in order to decide whether it is a true or false statement.
+
+Besides rather simple statements, we can have more complicated ones, such as:
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item I cannot go to the dance because I have nothing to wear, my feet hurt, and
+      I can't dance.
+\item A triangle has three equal sides if and only if it has three equal angles.
+\item Jones is a mathematician and Smith is an engineer, while Brown doesn't work
+      at all.
+\item There is one and only one line through two points.
+\item Either I will marry you or get a new job.
+\item Two lines either intersect or are parallel.
+\end{enumerate}
+
+In some of these examples the full statement is made up of simpler statements. We
+see that statements may be combined to give more complicated statements. For
+example:
+
+\begin{center}
+``Mr.\ Baker is a barber,''\qquad ``Mr.\ Barber is a baker,''
+\end{center}
+
+\noindent are two statements. We can combine them into a single statement by
+joining them with ``and.''
+
+\begin{center}
+``Mr.\ Baker is a barber and Mr.\ Barber is a baker.''
+\end{center}
+
+Here are some examples of combining two statements. Make up some others of your
+own.
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item We are having a picnic and it is not raining.
+\item It is night and I can hear the wind.
+\item Mary is going with Fred and Suzie is going with John.
+\item I like spinach and I dislike candy.
+\item You are rich and I am poor.
+\item Thursday is April second and the moon is made of green cheese.
+\end{enumerate}
+
+To be perfectly clear about combining statements, we indicate statements by
+letters, using Greek letters like $\al$ (alpha), $\be$ (beta),
+$\ga$ (gamma). Now if we let $\al$ indicate the statement ``Mr.\ Barber is a
+baker'' and let $\be$ indicate ``Mr.\ Baker is a barber,'' then the statement
+``Mr.\ Barber is a baker and Mr.\ Baker is a barber'' may be written
+``$\al$ and $\be$.''
+
+\begin{IIproblem}
+In each of the combined statements (a) through (f) above, pick
+out the two statements which form it. Note that each statement has the form
+``$\al$ and $\be$.''
+\end{IIproblem}
+
+The combination of two statements with ``and'' to get a new statement has a name.
+We emphasize this by making the definition:
+
+\begin{definition}
+If $\al$ and $\be$ are statements, the statement ``$\al$ and $\be$'' is called the
+\emph{conjunction} of $\al$ and $\be$.
+\end{definition}
+
+You should not accept definitions blindly. It is possible to sneak a false
+statement into a definition! Such a definition would be worthless. From the way
+Definition 2--2 is worded it is clear that we have \emph{taken for granted} that
+``$\al$ and $\be$'' will always be a statement. But a sentence is not a statement
+(according to Definition 2--1) unless it is either true or false. Therefore, we
+must decide upon some \emph{rule} which will enable us to say when ``$\al$ and
+$\be$'' is true and when it is false. If we cannot agree upon such a rule,
+Definition 2--2 will be meaningless.
+
+The following statements are all of the form ``$\al$ and $\be$.'' Decide which
+ones are true and which ones are false, and then try to state a general rule for
+deciding upon the truth of such statements.
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item $2 \times 2 = 4$ and $2 + 2 = 5$.
+\item $3 + 2 = 5$ and there are at least 52 Sundays in every year.
+\item A triangle has three sides and a pentagon has six sides.
+\item Every rectangle is a square and all men have purple hair.
+\item The positive square root of 16 is 4 and the negative square root of 16 is
+      $-4$.
+\end{enumerate}
+
+You will probably have no trouble coming to the same conclusion that
+mathematicians have agreed upon. That is, ``$\al$ and $\be$'' is considered true
+when both $\al$ and $\be$ are true. If one of the statements is false (or both
+are), then ``$\al$ and $\be$'' is false. We can describe this rule most clearly by
+the \emph{truth table} below.
+
+\begin{truthtable}{ccc}
+\tth{\al} & \tth{\be} & \multicolumn{1}{c}{$\al$ and $\be$} \\[2pt]
+\TT & \TT & \TT \\
+\TT & \FF & \FF \\
+\FF & \TT & \FF \\
+\FF & \FF & \FF \\
+\end{truthtable}
+
+The table is self-explanatory. It points out that ``$\al$ and $\be$'' is true (T)
+in only one case and false (F) in all others.
+
+The next step in our development of logic will be harder. We can combine
+statements in another way by putting the word ``or'' between them. For example:
+
+\begin{quote}
+I will go to the movies \emph{or} I will stay home.\\
+I will receive an $A$ in geometry \emph{or} Latin.\\
+State University will not admit you unless you have had a year of Spanish
+\emph{or} a year of Latin.
+\end{quote}
+
+Study the three statements above carefully. Everyone would agree that in the
+first statement the speaker means that he will go to the movie \emph{or} he will
+stay home \emph{but he will not do both}. In the second statement does the
+speaker mean that he will get \emph{either} an $A$ in geometry \emph{or} an $A$
+in Latin \emph{but not both}? Or does he mean that he is sure of getting one $A$
+and perhaps he will get two? Of course there is no question about the last
+statement. State University will not refuse to admit you because you had one year
+of Spanish \emph{and} one year of Latin.
+
+We are pointing out that in everyday speech we use the word ``or'' ambiguously.
+Sometimes when we say ``$\al$ or $\be$'' we mean that \emph{one and only one} of
+the statements is true. Sometimes we mean that \emph{at least} one is true and
+possibly both are. We cannot use the word ``or'' with this double meaning in
+mathematics. We must explain precisely what we mean when we say ``$\al$ or
+$\be$.'' Mathematicians have agreed to call statements of the form ``$\al$ or
+$\be$'' true in all cases except when $\al$ and $\be$ are both false. Of course
+this differs from the ordinary usage of the word ``or.'' But we use everyday
+language too carelessly for our purpose in mathematics. We must be able to
+express ourselves precisely and know that our meaning will not be misunderstood.
+You must remember that when we say ``$\al$ or $\be$'' we mean that either $\al$
+is true and $\be$ is false, or $\al$ is false and $\be$ is true, or $\al$ is true
+and $\be$ is true. We make the following formal definition.
+
+\begin{definition}
+The statement ``$\al$ or $\be$'' is called the \emph{disjunction} of $\al$ and
+$\be$. It is false when both $\al$ and $\be$ are false and true in all other
+cases.
+\end{definition}
+
+\begin{IIproblem}
+Construct the truth table for the statement ``$\al$ or $\be$.''
+\end{IIproblem}
+
+\exercisegroup{2--1}
+
+In each exercise below there are two statements. Form their conjunction and
+disjunction. Discuss the resulting statements with respect to truth and falsity.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Some roses are red. Some violets are blue.
+\item September has 30 days. There are eight days in a week.
+\item 3 is less than 4. 4 is less than 3.
+\item Napoleon was an emperor of Japan. Marco Polo discovered America.
+\item $2 + 2 = 5$; \quad $6 + 3 = 9$.
+\item $7 + 4 = 11$; \quad $8 + 0 = 9$.
+\item $1 + 1 = 2$; \quad $1 \times 1 = 2$.
+\item $5 + 1 = 5$; \quad $5 \times 1 = 6$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 2-2
+\section*{2--2\quad NEGATION}
+\addcontentsline{toc}{section}{2--2\quad Negation}
+
+Sometimes we make statements about other statements. One of the simplest and most
+useful statements of this type has the form ``$\al$ is false.'' At times you may
+make a statement that you believe true, and someone else may show his
+disagreement by saying, ``That is not true.'' Just as we use the terms
+\emph{conjunction} and \emph{disjunction} to describe the statements ``$\al$ and
+$\be$'' and ``$\al$ or $\be$,'' so also we have a particular name for the
+statement ``$\al$ is false.''
+
+\begin{definition}
+The statement ``$\al$ is false'' is called the \emph{negation} of $\al$ (and will
+be written, and read, ``not $\al$'').
+\end{definition}
+
+\begin{IIproblem}
+State a rule for determining when ``not $\al$'' is true and when
+it is false. Make a truth table for ``not $\al$.''
+\end{IIproblem}
+
+When we form the negation of a statement in words we do not usually place ``not''
+in front of it. Logically it would be correct to do so, but the resulting
+sentence might sound awkward. For example, let $\al$ be ``a square is a
+rectangle.'' Anyone untrained in logic would have a right to complain that he did
+not understand our meaning if we said, ``not a square is a rectangle.'' The
+examples below indicate how negations may be formed. After studying these, make
+up several examples of your own.
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.6em, itemsep=3pt, topsep=3pt]
+\item $\al$: A square is a rectangle.\\
+      not $\al$: A square is not a rectangle.
+\item $\al$: $2 + 2 = 4$.\\
+      not $\al$: $2 + 2 \neq 4$.
+\item $\al$: A triangle has five sides.\\
+      not $\al$: A triangle does not have five sides.
+\item $\al$: It is false that my donkey has three legs.\\
+      not $\al$: My donkey has three legs.
+\end{enumerate}
+
+\exercisegroup{2--2}
+
+Form negations of the following statements.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item The grass in my yard is green.
+\item This rose is black.
+\item I am tired.
+\item The temperature of the sun is more than 1000 degrees.
+\item Geometry is interesting.
+\item $5 + 4 = 9$.
+\item $6 + 3 = 7$.
+\item[\stex 8.] $x = 2$ and $y = 3$.
+\item[\stex 9.] $x = 2$ or $y = 3$.
+\item[\stex 10.] All pigs are fat.
+\item[\stex 11.] Some Americans are liars.
+\end{exlist}
+\end{multicols}
+% p.25 carries the "*" footnote at the foot of the page holding the first
+% starred exercises (Ex. Group 2-2, nos. 8-11); anchor it here, not mid-prose.
+\IIstarnote{}
+
+Sometimes we wish to state the negation of a statement like ``All cats are
+black.'' If we can find \emph{one} cat which is not black we will have proved
+this statement false. Hence we form the negation of ``All cats are black'' by
+saying ``There is at least one cat which is not black'' or ``Some cat is not
+black.'' The most common error made in forming the negation of a
+statement like ``All students in this class like geometry'' is to say ``No
+student in this class likes geometry.'' These statements certainly do not agree
+but they are definitely not negations of each other. Why? Remember that if $\al$
+is false then ``not $\al$'' must be true, for ``not $\al$'' states that $\al$ is
+false. Show that the statements, ``All students in this class like geometry'' and
+``No student in this class likes geometry,'' could both be false.
+
+Another common error is to negate ``All cats are black'' by saying ``All cats are
+not black.'' Although in everyday speech this sentence might be understood to
+mean ``Not all cats are black,'' we do not interpret it so. If we say ``All cats
+are red,'' we mean \emph{every cat has the property of being red}. So we interpret
+``All cats are not black'' to mean \emph{every cat has the property of being not
+black}. This is a subtle distinction, and again it points out that the precise
+language of mathematics differs from careless, everyday speech.
+
+\exercisegroup{2--3}
+
+Give the negation of each statement.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item All men in Georgia are at least six feet tall.
+\item All students in France like geometry.
+\item All students in Russia hate geometry.
+\item Every rectangle is a square.
+\item Every triangle is equilateral.
+\item All gadgets are widgets.
+\item All miggles are maggles.
+\item[\stex 8.] For every pair of numbers $a$ and $b$, $a + b = b + a$.
+\item[9.] Every circle has a center.
+\end{exlist}
+\end{multicols}
+
+Consider the statement ``\emph{Some} cats are black.'' We usually understand the
+word ``some'' to mean ``more than one.'' But in logic it is more convenient to
+agree that it means ``one or more.'' (We must have precise definitions!) The
+negation of ``Some cats are black'' then becomes ``No cat is black.'' We could
+also say, ``Every cat is a color different from black'' or ``Every cat is not
+black.'' Notice again that this last statement, ``Every cat is not black,'' means
+something altogether different from ``Not every cat is black.''
+
+\exercisegroup{2--4}
+
+Give negations of the following statements. After doing this, make up some
+examples of your own.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Some men play golf.
+\item Some boys play football.
+\item There is at least one equilateral triangle.
+\item For some numbers $x$, $x^2 + 2 = 5$.
+\item There is at least one number $x$ such that $x + 3 = 7$.
+\item There is at least one number $x$ such that $x^2 + 2 = 0$.
+\item Some dogs have fewer than four legs.
+\item[\stex 8.] Some numbers are negative.
+\item[9.] Some fishermen always tell the truth.
+\item[10.] Some people work hard.
+\end{exlist}
+\end{multicols}
+
+When we have two statements, $\al$ and $\be$, and wish to form the \emph{negation}
+of their \emph{conjunction}, we must think a little harder than before. Thus if we
+wish to form the negation of ``Smith is a dentist and Jones is a teacher,'' we
+must say that the statement is false. By our agreement in Section 2--1, we must
+say that at least one of the statements ``Smith is a dentist'' and ``Jones is a
+teacher'' is false. We do this by saying, ``Smith is \emph{not} a dentist or Jones
+is \emph{not} a teacher.''
+
+As another illustration, suppose one student says, ``We will win our game with
+Lincoln \emph{and} we will win our game with Bay City.'' To call his statement
+false is to say, ``We will \emph{not} win our game with Lincoln \emph{or} we will
+\emph{not} win our game with Bay City.'' It should be clear now that the negation
+of ``$\al$ and $\be$'' is the statement ``not $\al$ or not $\be$.''
+
+\begin{IIproblem}
+Construct a truth table for each of the statements ``$\al$ and
+$\be$'' and ``not $\al$ or not $\be$.'' Show that when one statement is true the
+other is false, and vice versa.
+\end{IIproblem}
+
+\exercisegroup{2--5}
+
+Give the negations of the statements below. Make up some additional exercises of
+your own.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Today is Monday and the weather is cold.
+\item $x = 2$ and $y = 5$.
+\item $2 \times 2 = 4$ and $3 \times 5 = 15$.
+\item $\tri{ABC}$ is isosceles and $\tri{ABC}$ is a right triangle.
+\item The point $A$ is on the line $l$ and the point $B$ is on the line $m$.
+\item[\stex 6.] All cats are black and all men are mortal.
+\item[\stex 7.] All cats are black and some birds are blue.
+\item[\stex 8.] Some rectangles are squares and some triangles are equilateral.
+\item[\stex 9.] Some widgets are gadgets and no wiggles are waggles.
+\end{exlist}
+\end{multicols}
+
+We may wish to form the \emph{negation} of the \emph{disjunction} of two
+statements. For example, we may wish to deny the statement ``Johnson is a tailor
+or Brown is a doctor.'' You should have no trouble expressing the negation of this
+statement.
+
+\begin{IIproblem}
+State the general rule for forming the negation of the
+disjunction of two statements. Do so by completing the sentence, ``The negation of
+`$\al$ or $\be$' is \underline{\hspace{5em}}.'' Construct a truth table for each of
+the statements ``$\al$ or $\be$'' and ``not $\al$ \emph{and} not $\be$.''
+\end{IIproblem}
+
+\exercisegroup{2--6}
+
+Give the negation of each statement below. Invent some more examples.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item I will go to the game or I will go to the movie.
+\item I will study hard or I will fail.
+\item We will start at 6:30 or we will be late.
+\item A donkey has three legs or a rabbit has long ears.
+\item $2 + 2 = 5$ or $2 + 2 = 6$.
+\item $3 \times 7 = 21$ or $4 \times 5 = 20$.
+\item Billings is right or Jones is wrong.
+\item[\stex 8.] Some will work or all will starve.
+\item[\stex 9.] Every triangle is isosceles or every triangle is right.
+\item[\stex 10.] No roses are red or some violets are blue.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 2-3
+\section*{2--3\quad WHAT ARE PROOFS?}
+\addcontentsline{toc}{section}{2--3\quad What are proofs?}
+
+In everyday life when trying to convince a person that something is true, we may
+say, ``\emph{This} is true because \emph{that} is true.'' For such a statement to
+be convincing, both sides in the argument must agree that the \emph{that} is true
+and the \emph{this} must then \emph{necessarily} follow. In other words, there
+must be agreement as to what information we start with and how we draw
+conclusions from this information. \emph{Logic is the study of the rules for
+making correct statements.} Proof always consists of making statements of the
+following type: If so and so is true, then such and such must also be true. For
+example, consider the statement, ``If the sky is blue (no clouds at all), then it
+is not raining.'' Everyone would agree to this statement because from our
+experience we know that rain invariably comes from clouds. However, the following
+statement, which you might hear in a political speech, is not logically correct.
+``The United States is the best country because it is a democracy.'' That we are a
+democracy is true; that we are the best country (whatever that means) may be true
+although it would not be accepted by all. The logical error comes from the fact
+that there are other democratic countries, and hence they too by our careless
+reasoning should be best. Therefore, that the United States is best does not
+follow from the fact that we are a democracy.
+
+Here are simple examples from algebra:
+
+\begin{center}
+``If $3x = 4$, then $x = \tfrac{4}{3}$.''\\[2pt]
+``If $a = 2$ and $b = 3$, then $a^2 + ab = 10$.''
+\end{center}
+
+Both of these statements are correct and both are of the form, ``If $\al$ then
+$\be$.''
+\emph{All mathematical proofs employ statements of this type.} We express such a
+statement another way by saying
+
+\begin{center}
+$\al$ \emph{implies} $\be$.
+\end{center}
+
+For example, let $\al$ be the statement ``Today is Monday'' and let $\be$ be the
+statement ``Tomorrow is Tuesday.'' Then the statement ``if $\al$ then $\be$'' is
+certainly true. However, the statement ``If the sun comes up tomorrow, then it
+will not rise the next day'' is very probably false. At least we shall hope that
+it turns out to be false. It is fortunate that statements like ``If he takes her
+to the dance, then I'll never speak to him again'' and ``If our party loses the
+election, then the country will be ruined'' are usually false. It is convenient to
+have a symbolic way to indicate that $\al$ implies $\be$. We shall write this as
+
+\begin{center}
+$\al \imp \be$,
+\end{center}
+
+\noindent where you should read the arrow as the word ``implies.'' We call the
+statement ``$\al$ implies $\be$'' an \emph{implication}.
+
+\exercisegroup{2--7}
+
+Put the following statements in an ``if $\al$ then $\be$'' form so that $\al$
+implies $\be$.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item If I eat strawberries I get hives.
+\item The picnic will be canceled in case of rain.
+\item We will win the game if Jonesevitch plays.
+\item Numbers larger than 5 are positive.
+\item $x^2 = y^2$ because $x = y$.
+\item $3x^2 - 2 = 10$ when $x = 2$.
+\item A geometric figure which is a square is not a circle.
+\item Squares are rectangles.
+\item The area of a rectangle with sides of length $a$ and $b$ is $ab$.
+\item With a million dollars, I'd eat steak for breakfast.
+\item People who don't study mathematics don't have good sense.
+\item When it rains my rheumatism bothers me.
+\item When I study I do well in school.
+\item People who do not vote are poor citizens.
+\item Two lines which intersect are not parallel.
+\item I know that $x = 2$ because $3x = 6$.
+\item Satisfaction guaranteed or your money back.
+\item I know $3x = 6$ because $x = 2$.
+\item I will not go to the party if Jimmy is coming.
+\item This shirt will not shrink or your money will be refunded.
+\item This shirt will shrink or your money will be refunded.
+\item To remain free we must vote in elections.
+\item The crops will be saved if we have rain this week.
+\item The crops will be saved only if we have rain this week.
+\item I will go to the dance if Joe asks me.
+\item I will go to the dance only if Joe asks me.
+\item It will rain tomorrow if it turns cold.
+\item It will rain tomorrow only if it turns cold.
+\end{exlist}
+\end{multicols}
+
+Working with statements of the form ``$\al \imp \be$'' is called \emph{deductive
+reasoning} or, in everyday language, \emph{drawing conclusions}. The statement
+$\al$ is called the \emph{hypothesis} and the statement $\be$ is called the
+\emph{conclusion}. We use this method of reasoning in daily life when we try to
+prove to someone that some statement $\be$ is true. We try to find another
+statement $\al$ which implies $\be$, and which is true. Then we say, ``$\al$ is
+true, therefore $\be$ is true.''
+
+\exercisegroup{2--8}
+
+In Exercises 1 through 7, a statement $\al \imp \be$ is given which is to be
+accepted as true. What conclusion can you draw if (a) is true? if (b) is true?
+
+\begin{exlist}
+\item If Fred is on the team he must go to bed early.\\
+      (a) Fred goes to bed early.\qquad (b) Fred does not go to bed early.
+\item If a man is a postman he has foot trouble.\\
+      (a) This man has perfect feet.\qquad (b) That man has foot trouble.
+\item You will be given a ticket if you are a sophomore.\\
+      (a) Jim was not given a ticket.\qquad (b) Joe was given a ticket.
+\item You will be given a ticket only if you are a sophomore.\\
+      (a) Jean was given a ticket.\qquad (b) George is a sophomore.
+\item If two triangles have equal bases and heights then they have equal areas.\\
+      (a) These triangles have equal areas.\qquad (b) These triangles do not have
+      equal areas and they do have equal heights.
+\item The house will burn down if we don't get some water.\\
+      (a) We did not get any water.\qquad (b) We did get some water.
+\item If a man is beheaded in June then he will die before July 4.\\
+      (a) This man died before July 4.\qquad (b) Smith was not beheaded in June.
+\end{exlist}
+
+Is the reasoning in Exercises 8 through 18 correct? Invent some other examples
+illustrating both correct and incorrect reasoning.
+
+\begin{exlist}\setcounter{exlisti}{7}
+\item All men are mortal. Socrates is a man.\\
+      \emph{Conclusion:} Socrates is mortal.
+\item All widgets are gadgets. This is a gadget.\\
+      \emph{Conclusion:} This is a widget.
+\item All widgets are gadgets. This is not a gadget.\\
+      \emph{Conclusion:} This is not a widget.
+\item Only widgets are gadgets. This is a gadget.\\
+      \emph{Conclusion:} This is a widget.
+\item Only widgets are gadgets. This is a widget.\\
+      \emph{Conclusion:} This is a gadget.
+\item Every equilateral triangle is isosceles. $\tri{ABC}$ is isosceles.\\
+      \emph{Conclusion:} $\tri{ABC}$ is equilateral.
+\item Parallel lines do not intersect. Lines $r$ and $s$ intersect.\\
+      \emph{Conclusion:} Lines $r$ and $s$ are not parallel.
+\item All of these dresses will shrink if washed in hot water. This dress did
+      shrink.\\
+      \emph{Conclusion:} It was washed in hot water.
+\item All sweet food has honey in it. This food is sweet.\\
+      \emph{Conclusion:} It has honey in it.
+\item All sweet food has honey in it. This food doesn't have honey in it.\\
+      \emph{Conclusion:} It is not sweet.
+\item All sweet food has honey in it. This food is not sweet.\\
+      \emph{Conclusion:} It does not have honey in it.
+\end{exlist}
+
+%========================================================= 2-4
+\section*{2--4\quad THE TRUTH TABLE FOR IMPLICATION}
+\addcontentsline{toc}{section}{2--4\quad The truth table for implication}
+
+If $\al$ and $\be$ are statements, then ``$\al \imp \be$'' should be another
+statement. In other words, ``$\al \imp \be$'' must be either true or false. In
+that case we must agree on a way of determining whether ``$\al \imp \be$'' is true
+or false.
+
+The definition we give may seem a bit strange at first, but keep in mind two
+things that may help you. In the first place the definition below is precise. In
+the second place we want to use the implication $\al \imp \be$ only when the
+hypothesis $\al$ is presumed true.
+
+\begin{definition}
+$\al \imp \be$ is true whenever the statement ``(not $\al$) or $\be$'' is true. It
+is false when the statement ``(not $\al$) or $\be$'' is false.
+\end{definition}
+
+The truth table, then, is as follows.
+
+\begin{truthtable}{cccc}
+\tth{\al} & \tth{\be} & \multicolumn{1}{c}{$\al \imp \be$}
+          & \multicolumn{1}{c}{(not $\al$) or $\be$} \\[2pt]
+\TT & \TT & \TT & \TT \\
+\TT & \FF & \FF & \FF \\
+\FF & \FF & \TT & \TT \\
+\FF & \TT & \TT & \TT \\
+\end{truthtable}
+
+The last line may surprise you. Just remember that $\al \imp \be$ means that
+$\be$ is true or $\al$ is false and that $\be$ is true \emph{if} $\al$ is true.
+
+\exercisegroup{2--9}
+
+The exercises referred to below are those in Exercise Group 2--8.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Write each statement $\al \imp \be$ in Exercises 1 through 7 in the
+      ``(not $\al$) or $\be$'' form.
+\item Re-examine the validity of the conclusions in Exercises 8 through 18.
+\item A statement $\al \imp \be$ is also sometimes expressed as ``$\al$ is
+      sufficient for $\be$,'' or ``$\al$ suffices for $\be$,'' or again, ``for
+      $\be$ to be true it is sufficient that $\al$ be true.'' Thus for $x^2$ to
+      equal 4 it is sufficient that $x = -2$. Express the implications in
+      Exercises 1 through 7 in this language.
+\item A statement $\al \imp \be$ is also sometimes expressed as ``$\be$ is
+      necessary for $\al$'' or ``in order that $\al$ be true it is necessary that
+      $\be$ be true.'' Thus for $x$ to equal $-2$ it is necessary that $x^2 = 4$.
+      Express the implications in the Exercises 1 through 7 in this language.
+\end{exlist}
+\end{multicols}
+
+
+%========================================================= 2-5
+\section*{2--5\quad THE CONVERSE OF AN IMPLICATION}
+\addcontentsline{toc}{section}{2--5\quad The converse of an implication}
+
+From one implication ``$\al \imp \be$'' we can form others which may or may not be
+true. One way of doing this gives what we call the \emph{converse}.
+
+\begin{definition}
+The \emph{converse} of ``$\al \imp \be$'' is ``$\be \imp \al$.''
+\end{definition}
+
+\emph{Example 1.} $\al \imp \be$: If an animal is a man then it is a human being.\\
+\emph{Converse:} $\be \imp \al$: If an animal is a human being then it is a man.\\
+In this example ``$\al \imp \be$'' is true but ``$\be \imp \al$'' is false.
+
+\medskip
+\emph{Example 2.} $\al \imp \be$: If $\tri{ABC}$ is equilateral then $\tri{ABC}$
+is equiangular.\\
+\emph{Converse:} $\be \imp \al$: If $\tri{ABC}$ is equiangular, then $\tri{ABC}$
+is equilateral.\\
+In this example both ``$\al \imp \be$'' and ``$\be \imp \al$'' are true.
+
+\exercisegroup{2--10}
+
+Write the converses of the following statements. In each exercise decide whether
+the statement is true or false. Do the same thing for the converse.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Every man born in Indiana is an American citizen.
+\item If $x - y = 3$, then $x$ is greater than $y$.
+\item If two rectangles have equal bases and equal altitudes, they have equal
+      areas.
+\item If $x^2 = 9$, then $x = 3$ or $x = -3$.
+\item If a man is a Polynesian, he is at least six feet tall.
+\item If plants are green, they must have had sunshine.
+\item If a point is on the perpendicular bisector of a line segment, it is
+      equidistant from the endpoints of the segment.
+\item If I am sleeping, then I am breathing.
+\item If $2 + 4 = 5$, then $4 + 7 = 10$.
+\item If $2 + 4 = 5$, then $4 + 7 = 11$.
+\item If $2 + 4 = 6$, then $4 + 7 = 10$.
+\item If $2 + 4 = 6$, then $4 + 7 = 11$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 2-6
+\section*{2--6\quad EQUIVALENT STATEMENTS}
+\addcontentsline{toc}{section}{2--6\quad Equivalent statements}
+
+When two people give the same mathematical proof they probably will not make
+exactly the same statements. But it is very likely that at certain places in their
+proofs they will make statements which we say are \emph{equivalent} to one
+another. In order to understand precisely what this means we make the following
+definition.
+
+\begin{definition}
+Two statements $\al$, $\be$ are said to be \emph{equivalent} to one another if
+\emph{both} the statement $\al \imp \be$ and the converse $\be \imp \al$ are true.
+If $\al$ and $\be$ are equivalent statements, we indicate this by writing
+$\al \iffx \be$, which we read as ``$\al$ implies $\be$ and $\be$ implies $\al$.''
+\end{definition}
+
+This definition may be difficult to understand. An explanation is that
+``equivalent statements present the same information---they may simply be stated
+differently.''
+
+An example of a pair of equivalent statements is
+
+\begin{quote}
+$\al$: Line $l$ is perpendicular to line $m$.\\
+$\be$: Line $m$ is perpendicular to line $l$.
+\end{quote}
+
+\exercisegroup{2--11}
+
+In 1 through 7 below decide whether the statements are equivalent to one another.
+Invent a few examples of pairs of statements which are equivalent to one another
+and some which are not.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item $\al$: Point $P$ lies on the circle with center at $O$ and radius five
+      inches.\\
+      $\be$: The length of the line segment $OP$ is five inches.
+\item $\al$: Line $l$ is parallel to line $m$.\\
+      $\be$: Line $n$ is parallel to line $m$.
+\item $\al$: $x$ is greater than $y$.\\
+      $\be$: $y$ is less than $x$.
+\item $\al$: $2x + 3 = 17$.\\
+      $\be$: $x = 7$.
+\item $\al$: This geometric figure is a square.\\
+      $\be$: This geometric figure is a special kind of parallelogram.
+\item $\al$: $\tri{ABC}$ is equilateral.\\
+      $\be$: $\tri{ABC}$ is equiangular.
+\item $\al$: $x = 3$ or $x = -3$.\\
+      $\be$: $x^2 = 9$.
+\item[\stex 8.] A statement $\al \iffx \be$ is also sometimes expressed by
+      saying, ``In order that $\al$ be true it is necessary and sufficient that
+      $\be$ be true.'' In each of the above problems state the equivalence of
+      $\al$ and $\be$ in this language.
+\end{exlist}
+\end{multicols}
+
+Exercises 4 and 7 above illustrate that equivalent statements have an important
+place in algebra. See if you can prove that the following statement is true:
+
+\begin{quote}
+\emph{If two statements $\al$, $\be$ are equivalent to each other, then either
+both are true or both are false.}
+\end{quote}
+
+An easy way to prove this is to complete the following truth table. Can you
+understand how this table really presents a proof?
+
+\begin{truthtable}{ccccc}
+\tth{\al} & \tth{\be} & \multicolumn{1}{c}{$\al \imp \be$}
+          & \multicolumn{1}{c}{$\be \imp \al$}
+          & \multicolumn{1}{c}{$\al \iffx \be$} \\[2pt]
+\TT & \TT & \TT & \TT & ? \\
+\TT & \FF & \FF & \TT & ? \\
+\FF & \TT & \TT & \FF & ? \\
+\FF & \FF & \TT & \TT & ? \\
+\end{truthtable}
+
+This truth table must be used together with Definition 2--7. By this definition we
+know whether to mark $\al \iffx \be$ as true or false. Studying the table, we see
+that according to Definition 2--7, the statement $\al \iffx \be$ must be labeled
+true on lines 1 and 4 and labeled false on lines 2 and 3. It should be easy for
+you to complete the proof.
+
+\exercisegroup{2--12}
+
+Form statements equivalent to those listed below. If you are not sure of the
+equivalence, make a truth table and check your work.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item $x + y = 7$ and $x - y = 3$.
+\item $x$ is greater than $y$.
+\item Line segments $AB$ and $CD$ do not intersect.
+\item There is a point $P$ which lies on both of the lines $l$ and $m$.
+\item Whether you are a smoker or whether you are not, whether you are married or
+      single, whether you are a church member or not, you will like Dum-Dums.
+\item This geometric figure has four sides, and pairs of opposite sides are
+      parallel to one another.
+\item That figure is a triangle.
+\item This geometric figure consists of two points $A$ and $B$ and all the points
+      between $A$ and $B$.
+\item The points $A$ and $B$ lie on the same side of the line $l$.
+% p.33 prints "opposite lines of the line l" -- kept verbatim; see UNCERTAIN.
+\item The points $A$ and $B$ lie on opposite lines of the line $l$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 2-7
+\section*{2--7\quad THE CONTRAPOSITIVE OF AN IMPLICATION}
+\addcontentsline{toc}{section}{2--7\quad The contrapositive of an implication}
+
+A second important implication related to $\al \imp \be$ is its
+\emph{contrapositive}.
+
+\begin{definition}
+The statement ``not $\be \imp$ not $\al$'' is called the \emph{contrapositive} of
+the statement ``$\al \imp \be$.''
+\end{definition}
+
+\emph{Examples:}
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.6em, itemsep=3pt, topsep=3pt]
+\item $\al \imp \be$: $x = 3 \imp x^2 = 9$.\\
+      not $\be \imp$ not $\al$: $x^2 \neq 9 \imp x \neq 3$.
+\item $\al \imp \be$: If two lines intersect they are not parallel.\\
+      not $\be \imp$ not $\al$: If two lines are parallel they do not intersect.
+\item $\al \imp \be$: If I make an $A$ on the examination I will receive an $A$ in
+      the course.\\
+      not $\be \imp$ not $\al$: If I do not receive an $A$ in the course then I
+      will not have made an $A$ on the examination.
+\item $\al \imp \be$: If I go to the game I will not go to the movie.\\
+      not $\be \imp$ not $\al$: If I go to the movie I will not go to the game.
+\end{enumerate}
+
+The most interesting property of the statement ``not $\be \imp$ not $\al$'' is
+that it is equivalent to $\al \imp \be$. We can prove this by showing that these
+two implications have identical truth tables.
+
+\begin{IIproblem}
+Complete the following truth table and show that ``$\al \imp
+\be$'' and ``not $\be \imp$ not $\al$'' are equivalent to each other.
+\end{IIproblem}
+
+\begin{truthtable}{cccccc}
+\tth{\al} & \tth{\be} & \multicolumn{1}{c}{not $\al$}
+          & \multicolumn{1}{c}{not $\be$}
+          & \multicolumn{1}{c}{$\al \imp \be$}
+          & \multicolumn{1}{c}{not $\be \imp$ not $\al$} \\[2pt]
+\TT & \TT & \FF & \FF & --- & --- \\
+\TT & \FF & \FF & \TT & --- & --- \\
+\FF & \TT & \TT & \FF & --- & --- \\
+\FF & \FF & \TT & \TT & --- & --- \\
+\end{truthtable}
+
+\exercisegroup{2--13}
+
+Form the contrapositive of each statement in 1 through 8 below.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item If $2 \times 2 = 4$, then oranges are composed of uranium.
+\item If you can run the mile in four minutes, then I'll eat my hat.
+\item If the ground hog sees his shadow, then we will have a cold spring.
+\item If there is no atmosphere on Mars, then there is no life there.
+\item If point $P$ is on line $r$, then it is not on line $s$.
+\item If you are not satisfied, then your money will be returned.
+\item If food is sweet, then it has honey in it.
+\item If you always obey traffic laws, then you will not be given a ticket.
+\item[\stex 9.] Using the word \emph{necessary}, state the contrapositive of the
+      implication of Exercise 4.
+\item[\stex 10.] Using the word \emph{sufficient}, state the contrapositive of the
+      implication of Exercise 4.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 2-8
+\section*{2--8\quad ``IF AND ONLY IF''}
+\addcontentsline{toc}{section}{2--8\quad ``If and only if''}
+
+Consider the two statements ``$\al$ if $\be$'' and ``$\al$ only if $\be$.'' Our
+experience in working with statements like these tells us that ``$\al$ if $\be$''
+means ``$\be \imp \al$'' and that ``$\al$ only if $\be$'' means ``$\al \imp \be$.''
+If both of these statements are true, we have ``$\al \iffx \be$.'' If both of
+these statements are true, their conjunction is true.
+
+\begin{definition}
+``$\al$ if and only if $\be$'' means ``$\al \imp \be$ and $\be \imp \al$,'' that
+is, ``$\al \iffx \be$.''
+\end{definition}
+
+Consider the following two statements. ``Two lines are parallel if they do not
+intersect.'' ``Two lines do not intersect if they are parallel.'' According to
+Definition 2--9 we may write the conjunction of these two statements as ``Two
+lines are parallel if and only if they do not intersect.''
+
+\exercisegroup{2--14}
+
+In each exercise below there are two statements. Formulate a single statement,
+using ``if and only if,'' that has the same meaning as the conjunction of these
+statements.
+
+\begin{multicols}{2}
+\begin{exlist}
+\item If the weather is bad we will stay home. If we stay home the weather is bad.
+\item If you are a sophomore then you will get a ticket. If you get a ticket then
+      you are a sophomore.
+\item If the weather is bad we will stay home. If the weather is not bad we will
+      not stay home.
+\item Everyone who receives more than 50\% on this test will pass the course. All
+      others will fail.
+\item Your dog will obey you if you treat him well. If you do not treat him well
+      he will not obey you.
+\item I will marry you if you buy me a mink coat. If you don't buy me a mink coat
+      I won't marry you.
+\item If food is sweet then it has honey in it. Food with honey in it is sweet.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 2-9
+\section*{2--9\quad THEOREMS AND PROOFS}
+\addcontentsline{toc}{section}{2--9\quad Theorems and proofs}
+
+In Section 2--3 we said logic is a study of the rules for making correct
+statements. The Greek philosopher Aristotle was the first great student of logic.
+His work was not improved upon until modern times. In fact, all the logical
+concepts we have studied in this chapter belong to what we call
+\emph{Aristotelian logic}, which is over 2000 years old and is just as useful
+today as it ever was. The logical principles of this chapter are all that you will
+need for many years. If you have found these ideas interesting, you may wish to
+take courses in logic later on in college. Whether or not you continue your study
+of logic, the work of this chapter should help you become careful in both speech
+and writing. In particular, during the work in geometry this year, do not tolerate
+false statements. Remember that if one false statement is accepted as true then
+strange things can be proved. Let us strive then to express ourselves precisely.
+
+Most of our geometrical work will consist of \emph{proving theorems}. Theorems are
+statements. To \emph{prove a theorem} is to show that it follows logically from
+our assumptions. To do so we employ our principles of logic. For example, \emph{if}
+we know that the statement $\al \imp \be$ is true \emph{and if} we know that $\al$
+is true, \emph{then} we can infer that $\be$ is true. In symbols,
+
+\begin{center}
+$\al$ and $(\al \imp \be) \imp \be$.
+\end{center}
+
+Another technique of proof is the following: \emph{If} we know that $\al \imp \be$
+is true \emph{and if} we know that $\be$ is false, \emph{then} we can infer that
+$\al$ is false. Symbolically,
+
+\begin{center}
+not $\be$ and $(\al \imp \be) \imp$ not $\al$.
+\end{center}
+
+You need only look at the truth table for $\al \imp \be$ to realize that the two
+rules above are correct.
+
+\begin{truthtable}{ccc}
+\tth{\al} & \tth{\be} & \multicolumn{1}{c}{$\al \imp \be$} \\[2pt]
+\TT & \TT & \TT \\
+\TT & \FF & \FF \\
+\FF & \TT & \TT \\
+\FF & \FF & \TT \\
+\end{truthtable}
+
+\begin{IIproblem}
+Explain how this truth table justifies the two methods of proof
+described above.
+\end{IIproblem}
+
+Let us illustrate how these proof techniques may be employed (although you have
+already reasoned in this way in many exercises in this chapter).
+
+\medskip
+\emph{Example 1.} The notice said, ``If it rains on commencement day then the
+graduation ceremony will be held in the gymnasium.'' ($\al \imp \be$.) Today is
+commencement day and it is raining. ($\al$ is true.) Therefore, since both of the
+statements $\al$ and $\al \imp \be$ are true, we know that $\be$ is true. That is,
+the graduation ceremony will be held in the gymnasium.
+
+\medskip
+\emph{Example 2.} Jim says that $-3$ is a root of the equation $x^2 - x - 6 = 0$.
+If $-3$ is a root of the equation $x^2 - x - 6 = 0$, then $(-3)^2 - (-3) - 6 = 0$.
+($\al \imp \be$.) But, $(-3)^2 - (-3) - 6 = 6$. ($\be$ is false.) Now, since
+$\al \imp \be$ is true and $\be$ is false, I know that $\al$ is false and Jim was
+wrong. The number $-3$ is not a root of the equation $x^2 - x - 6 = 0$.
+
+\medskip
+In these examples we would say that we have proved the theorems,
+
+\begin{exlist}
+\item The graduation ceremony will be held in the gym.
+\item The number $-3$ is not a root of $x^2 - x - 6 = 0$.
+\end{exlist}
+
+We might have written out our proofs as follows, in a ``statement-reason'' form.
+
+\begin{steps}
+\step{Rain on commencement day $\imp$ ceremony in gym.}{Given.}
+\step{It is raining on commencement day.}{Given.}
+\step{The ceremony will be in the gym.}{Statements 1 and 2 and laws of logic.}
+\end{steps}
+
+\begin{steps}
+\step{$-3$ is a root of $x^2 - x - 6 = 0 \imp (-3)^2 - (-3) - 6 = 0$.}{Definition
+      of root.}
+\step{$(-3)^2 - (-3) - 6 \neq 0$.}{Arithmetic.}
+\step{$-3$ is not a root of $x^2 - x - 6 = 0$.}{Statements 1 and 2 and laws of
+      logic.}
+\end{steps}
+
+\exercisegroup{2--15}
+
+In each problem below you are given certain statements which we shall call true.
+Then a theorem is stated. In some cases the theorem may be false; in others there
+may not be enough information given to decide whether the theorem is true or
+false. Write out proofs. We refer to our given true statements in each problem as
+our \emph{hypothesis} (hyp).
+
+\begin{exlist}
+\item \begin{hyp}Uncle George will take us skating today if Mother says we may go.
+      Mother has said we may go.\end{hyp}
+      \begin{thmclaim}Uncle George will take us skating today.\end{thmclaim}
+\item \begin{hyp}If there is no oxygen upon the moon then there can be no animal
+      life there. Tests have shown conclusively that there is no oxygen upon the
+      moon.\end{hyp}
+      \begin{thmclaim}There is no animal life on the moon.\end{thmclaim}
+\item \begin{hyp}People with green eyes cannot be trusted. Joan has green
+      eyes.\end{hyp}
+      \begin{thmclaim}Joan cannot be trusted.\end{thmclaim}
+\item \begin{hyp}People with blue eyes are honest. Henry is dishonest.\end{hyp}
+      \begin{thmclaim}Henry does not have blue eyes.\end{thmclaim}
+\item \begin{hyp}If Joe parts his hair on the left then he does not like spinach.
+      Joe does not like spinach.\end{hyp}
+      \begin{thmclaim}Joe parts his hair on the left.\end{thmclaim}
+\item \begin{hyp}Cats with green whiskers have long tails. Cats who do not like
+      milk do not have long tails. Simba is a cat who does not like milk.\end{hyp}
+      \begin{thmclaim}Simba does not have green whiskers.\end{thmclaim}
+\item \begin{hyp}A student who attends M.I.T. will spend more than \$1200 during
+      the school year. Kate spent \$980 last year in school.\end{hyp}
+      \begin{thmclaim}Kate did not attend M.I.T. last year.\end{thmclaim}
+\item \begin{hyp}$x + y = 20$. $x - y = 4$.\end{hyp}
+      \begin{thmclaim}$x \neq 11$.\end{thmclaim}
+\item \begin{hyp}$2x - 3y = 7$. $x + 2y = 3$.\end{hyp}
+      \begin{thmclaim}$3x - y = 10$.\end{thmclaim}
+\item \begin{hyp}Joe has 11 marbles: four blue ones and seven yellow ones. Joe
+      gave his sister six marbles. Joe did not give all his blue marbles
+      away.\end{hyp}
+      \begin{thmclaim}Joe does not have more than four yellow marbles
+      left.\end{thmclaim}
+\item \begin{hyp}Only those students whose test grades average more than 90\% will
+      receive $A$'s for their semester's work in geometry. Jim's test grades have
+      been 89, 84, 92, 85, and 100. Sally's scores are 91, 90, 89, 94, and
+      87.\end{hyp}
+      \begin{thmclaim}Sally will receive an $A$ and Jim will not.\end{thmclaim}
+\item \begin{hyp}The lovely actress Amanda Thistle has promised to marry her
+      honest admirer Silas Moneybags only if he buys her a mink stole, a yacht,
+      and the great Calcutta Emerald. Silas has purchased for his Amanda these
+      items and many others. Amanda always keeps her promises.\end{hyp}
+      \begin{thmclaim}Amanda will wed Silas.\end{thmclaim}
+\item \begin{hyp}$x + y = 10$. $x$ and $y$ are positive whole numbers. $x$ is
+      greater than $y$. $y + 4$ is greater than $x$.\end{hyp}
+      \begin{thmclaim}$y = 4$.\end{thmclaim}
+\item \begin{hyp}The square of a positive number is positive. The square of a
+      negative number is positive. The square of zero is zero. Zero is neither
+      positive nor negative. $k$ is a number. $k^2 = -1$.\end{hyp}
+      \begin{thmclaim}There are numbers which are not positive or negative or
+      equal to zero.\end{thmclaim}
+\item \begin{hyp}The product of two positive numbers is positive. The number $a$
+      is positive. The product of numbers $a$ and $b$ is not positive.\end{hyp}
+      \begin{thmclaim}The number $b$ is negative.\end{thmclaim}
+\item[\stex 16.] \begin{hyp}If $a$ is any number, then $1 \cdot a = a$. If $a$,
+      $b$, $c$ are any numbers, then $ba + ca = (b + c)a$. $1 + 1 = 2$.\end{hyp}
+      \begin{thmclaim}For every number $a$, it is true that $a + a = 2 \cdot
+      a$.\end{thmclaim}
+\item[\stex 17.] \begin{hyp}$4 + (-4) = 0$. $6 = 2 + 4$. For all numbers $a$, $b$,
+      $c$, it is true that $(a + b) + c = a + (b + c)$. We always have $x + 0 =
+      x$.\end{hyp}
+      \begin{thmclaim}$6 + (-4) = 2$.\end{thmclaim}
+\item[\stex 18.] \begin{hyp}If $8 + x = 0$ then $x = -8$. $8 = 3 + 5$. Numbers can
+      be rearranged when we add them. $3 + (-3) = 0$. $5 + (-5) = 0$. $0 + 0 =
+      0$.\end{hyp}
+      \begin{thmclaim}$(-3) + (-5) = -8$.\end{thmclaim}
+\item[\stex 19.] \begin{hyp}If neither of two numbers is equal to zero then their
+      product is not zero. The product of the two numbers $a$ and $b$ is zero.
+      $b \neq 0$.\end{hyp}
+      \begin{thmclaim}$a = 0$.\end{thmclaim}
+\item[\stex 20.] \begin{hyp}Dogs with long ears have short tails. Dogs who chase
+      rabbits never get measles. Dogs who do not chase rabbits have long tails. My
+      dog Rover died of the measles.\end{hyp}
+      \begin{thmclaim}Rover did not have long ears.\end{thmclaim}
+\end{exlist}
+
+%========================================================= review
+\section*{REVIEW OF CHAPTER 2}
+\addcontentsline{toc}{section}{Review of Chapter 2}
+
+The ideas in this chapter are not to be memorized as you may have memorized the
+addition and multiplication tables when you studied arithmetic. It is very
+important that you realize that \emph{all} our complicated mathematical statements
+may be built up from simple statements using only the connectives ``and,'' ``or,''
+``not,'' and ``if \dots\ then.'' You should relate the precise meaning of other
+connectives like ``only if'' and ``if and only if'' to these four fundamental
+terms. \emph{Do not} make any effort to memorize the meanings of these latter
+terms. You should remember the meaning of conjunction, disjunction, negation,
+implication, and equivalence. You should be able to form the converse or
+contrapositive of an implication. You should be able to give examples showing that
+two statements, ``$\al \imp \be$,'' and the converse, ``$\be \imp \al$,'' are not
+necessarily equivalent to each other, that is, that one might be true and the
+other false. You should see clearly that the implication ``$\al \imp \be$'' and its
+contrapositive, ``not $\be \imp$ not $\al$,'' really assert the same thing; hence
+they are equivalent statements. You should understand and be able to use the
+important rules of logic employed so often in proofs, namely,
+
+\begin{exlist}
+\item $\al$ and $(\al \imp \be) \imp \be$.
+\item not $\be$ and $(\al \imp \be) \imp$ not $\al$.
+\end{exlist}
+
+You should understand how to set up and use truth tables. For example, to set up a
+truth table for the statement ``$\al$ and $\al \imp \be$,'' we could list the
+following:
+
+\begin{truthtable}{cccc}
+\tth{\al} & \tth{\be} & \multicolumn{1}{c}{$\al \imp \be$}
+          & \multicolumn{1}{c}{$\al$ and $(\al \imp \be)$} \\[2pt]
+\TT & \TT & \TT & ? \\
+\TT & \FF & \FF & ? \\
+\FF & \TT & \TT & ? \\
+\FF & \FF & \TT & ? \\
+\end{truthtable}
+
+\begin{IIproblem}
+Fill in the last column in the truth table above and show that
+when the statement ``$\al$ and $\al \imp \be$'' is true, then $\be$ is true also.
+Make a similar truth table to illustrate the second rule of logic listed above.
+Can you invent a rule of logic like these two and show that it is correct by
+setting up a truth table?
+\end{IIproblem}
+
+\subsection*{Review Exercises}
+
+\begin{exlist}
+\item Under what condition is ``$\al$ and $\be$'' a true statement? Give examples.
+\item Give an example to show why we call ``$\al$ or $\be$'' true when both $\al$
+      and $\be$ are true.
+\item What is the negation of not $\al$? Give examples.
+\item Make up a statement of the form ``$\al$ and $\be$.'' State its negation.
+\item Make up a statement of the form ``$\al$ or $\be$.'' State its negation.
+\item What is meant by ``$\al \imp \be$''? Give two statements having this form,
+      one of which is true and the other false.
+\item Why is the statement ``$\al$ or not $\al$'' true no matter whether $\al$ is
+      true or false? Give examples to illustrate this.
+\item[\stex 8.] Construct a truth table to show under what condition
+      ``($\al$ and $\be$) or $\ga$'' is a true statement. Invent an example of
+      this type.
+\item[9.] Give an example of an implication ``$\al \imp \be$'' whose converse is
+      true and one whose converse is false.
+\item Form the converse of:\\
+      (a) If a man is from Chicago then he is rich.\\
+      (b) If she sings in the choir then I will not go to church.\\
+      (c) If Smith is elected president he will get ulcers.\\
+      (d) You must be a sophomore if you are taking geometry.\\
+      (e) Only the brave are free.
+\item Form the contrapositive of each implication in Exercise 10.
+\item Write a statement equivalent to:\\
+      (a) Sweet food always has honey in it.\\
+      (b) My rheumatism never bothers me in warm weather.\\
+      (c) In order to be healthy you must drink milk.\\
+      (d) A grade of 80\% on the final examination will be sufficient to pass the
+      course.\\
+      (e) Sophomores may come to the dance, but no one else will be permitted to
+      do so.
+\item Write the negation of:\\
+      (a) Honesty is the best policy.\\
+      (b) All math teachers are brutes.\\
+      (c) The potato crop will fail and everyone will starve.\\
+      (d) Roses are red and violets are blue, sugar is sweet and I love you.\\
+      (e) Some cats can swim but no chickens can.
+\end{exlist}
+
+There are two statements in each exercise below. Calling the first statement $\al$
+and the second one $\be$, rewrite them in the symbolic form ``$\al$ and $\be$,''
+``$\al$ or $\be$,'' ``$\al \imp \be$,'' ``$\be \imp \al$,'' ``$\al \imp$ not
+$\be$,'' ``$\al \iffx \be$,'' etc., as the case may be. For example, the statement,
+``A man is honest if he has big feet'' would be written ``$\be \imp \al$,'' not
+``$\al \imp \be$.''
+
+\begin{exlist}\setcounter{exlisti}{13}
+\item Vacation begins May 12 but we are not going any place.
+\item A man on the faculty must park his car in the main parking lot.
+\item You will not receive an $A$ in geometry if you do not work this example
+      correctly.
+\item Mother will let me go to the dance if and only if I wash the dishes for a
+      week.
+\item Students who laugh at his jokes are the only ones who get good grades.
+\item It is necessary that we have rain this week if the melon crop is to be good.
+\item You will write a term paper or you will fail.
+\item This is the last exercise and I am glad that it is.
+\end{exlist}
+
+\subsection*{ALGEBRA REVIEW}
+
+In the exercises below we indicate some of the ways that logical reasoning is used
+in algebra. First we shall list some statements that we agree to call \emph{true}
+in algebra. Then we shall set up algebraic problems which provide opportunities to
+use these true statements and reason logically to correct conclusions. In what
+follows, all letters refer to integers, that is, whole numbers in the set
+$(\dots, -3, -2, -1, 0, 1, 2, \dots)$. Let us agree that the following statements
+are true:
+
+\begin{exlist}
+\item For all integers $a$, $b$, $c$ it is true that if $a + b = a + c$, then
+      $b = c$.
+\item For all integers $a$, $b$, $c$ it is true that if $ab = ac$ and $a \neq 0$,
+      then $b = c$.
+\end{exlist}
+
+Let us prove the theorem: \emph{If $x = 5$ then $3x + 4 = 19$.}
+
+\medskip
+\noindent\emph{Proof.} If $x = 5$ then $3x + 4 = 3 \cdot 5 + 4 = 15 + 4 = 19$.
+
+\medskip
+Let us prove the converse of the above theorem, namely: \emph{If $3x + 4 = 19$
+then $x = 5$.}
+
+\medskip
+\noindent\emph{Proof.} $3x + 4 = 19 \imp 3x + 4 = 15 + 4$. Now, by statement (1)
+above we know that $3x + 4 = 15 + 4 \imp 3x = 15$ and that $3x = 15 \imp 3x =
+3 \cdot 5$. Using statement (2) above, we have $3x = 3 \cdot 5 \imp x = 5$. We
+could present this proof briefly in the form:
+
+\begin{center}
+$3x + 4 = 19 \imp 3x + 4 = 3 \cdot 5 + 4 \imp 3x = 3 \cdot 5 \imp x = 5$.
+\end{center}
+
+\subsection*{Exercises}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Prove that if $x = 7$ then $4x + 5 = 33$.
+\item Prove the converse of the statement in Exercise 1.
+\item Prove that if $7x + 9 = 65$ then $x = 8$, and conversely.
+\item Prove that $5x + (-3) = 27$ only if $x = 6$.
+\item Prove that $x = 11$ is a necessary condition for $5x + 4 = 59$.
+\item Prove that if $x = 11$, $5x + 4 = 59$.
+\item Prove that $2x + 7 = 19$ if and only if $4x - 3 = 21$.
+\item Prove that there is no number $x$ such that $3x + 5 = 11$ and $4x - 1 = 3$.
+\item What can you infer if it is known that $a \neq 0$ and $a(3b - 8) = a$?
+\item What can you prove if it is known that $r(7b - 5) = r$?
+\item It is given that $(3a + 12)(2b - 8) = 0$ and $b \neq 4$. What can be proved?
+\item[\stex 12.] It is known that $(2a - 3)(b - 3) = 2a - 2$. Prove that if
+      $a = 1$ then $b = 3$. Prove that if $a \neq 1$ then $b \neq 3$. What are the
+      values of $a$ and $b$ if $a \neq 1$? (Remember that $a$ and $b$ are whole
+      numbers.)
+\end{exlist}
+\end{multicols}
+
+\end{document}

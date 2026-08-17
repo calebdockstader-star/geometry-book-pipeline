@@ -1,0 +1,16 @@
+# scan12.pdf — 14 pages
+
+- p1: book p.154-155 (?) | Figs 9-1, 9-2, 9-3 — transversal theorem (l/l'/l'', m/m'/m'''/m'') + two triangle-with-midline illustrations (D,E on AB/BC) | full page, tilted ~10°, top line "...of congruence" cut | good
+- p2: book p.156 | Fig 9-5 (partial, only vertex E), Fig 9-6 (two transversals m/m' crossing three parallels A,B,C/A',B',C'), Fig 9-7 (triangle EFG/P similar-triangle cut construction); exercises 1-3, 8; section heading "9-3 A CONSTRUCTION" | full page, tilted ~15° | good
+- p3: book p.156 | Fig 9-6 close-up (same figure as p2, zoomed) + opening text of "9-3 A CONSTRUCTION" | close-up crop, tilted | good
+- p4: book p.157 (header "A CONSTRUCTION 157" visible) | Fig 9-8 (triangle ABC with ray AC, points D,E,F,G, parallels to BG through H,I,J) — Construction 9-1 full statements/reasons table | full page, tilted | good
+- p5: book p.158 (header "SIMILARITY OF TRIANGLES AND POLYGONS 158" visible) | Fig 9-10 (two parallel transversal pairs, A/B/C, E/D, F w/ "Parallel" labels), Fig 9-12 (nested triangle 2/3/4/6 ratio labels), Fig 9-13 (quadrilateral ABCD w/ diagonals + E,F,G,H), partial Fig 9-11 at bottom (triangle A/B/C/D 4,8,3,2 to E,F,G, cut by page edge); exercises 6-9 reference Fig 9-9 (not drawn on this page) | full page, tilted, corner shadows | good
+- p6: book p.166-168 (?, similar-triangle exercise range after 9-7) | Fig 9-20 (triangle A,B,C/F/E midpoint similarity, "△BEF~△BAC"), Fig 9-21 (kite/quadrilateral ABCD with diagonals bisected at A',B',C',D',O) | close-up crop | good
+- p7: book p.165 (header "THEOREMS ON SIMILAR TRIANGLES 165" visible) | Theorem 9-7 opening line only ("If the angles of one triangl[e]...") | top ~12% strip readable, rest solid black frame | trash (text-only sliver usable)
+- p8: book p.159 (?, word-problem/proportion exercise) | organic lake/contour-map figure: point A, dashed line to D, three nested wavy contour rings, text "...run north... 1.2 mi, DC = 1.5 mi... from A to C?" | partial page (bottom half cut to black), figure itself fully visible and sharp | good
+- p9: book p.159 (?) | same lake/contour figure as p8, duplicate shot, closer/blurrier | partial (bottom cut black), out of focus | blurry
+- p10: book p.169-170 (?, pre-9-8 exercise range) | text ref to Fig 9-26 (AB⊥AE, prove AB/DE=..., AB/BC=DE/DC), start of Fig 9-28 caption + point B | top ~15% strip only, rest black | trash
+- p11: book p.169-170 (?) | triangle apex "C" labeled "14", word "angle[s]" cut off top-left; second unidentified figure fragment top-right (point near "P/B") | tiny top sliver (~8%), rest black | trash
+- p12: book p.170 or 172 (?) | running head "...OF TRIANGLES AND POLYGONS", bold subheading fragment (illegible, "...Group 9-1[3?]") | top ~10% strip only, rest black | trash
+- p13: book p.175 (header "ON CONSTRUCTIONS 175" visible) | section heading "9-9 ON CONSTRUCTIONS"; two construction figures — left: point P with radius r and dashed construction lines; right: point C with circle arc | top ~35% readable, bottom cut to black | partial (usable for text + fig outlines)
+- p14: book p.175-176 (?) | single letter "B" visible near top, otherwise blank/black | ~3% of frame readable, no other content | trash

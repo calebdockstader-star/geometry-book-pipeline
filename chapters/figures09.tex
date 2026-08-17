@@ -1,0 +1,1297 @@
+% figures09.tex -- Chapter 9 figures, rebuilt 2026-08-16 from the iPad scans.
+%
+% Every figure below was measured off a scan crop (50/100 px grid overlay,
+% tools/ + scratchpad/ch09/grid.py) rather than eyeballed from the photo PDF.
+% Constrained points are DERIVED, never placed by hand:
+%   parallels  -> equal ratios along the two sides   ($(X)!r!(Y)$)
+%   altitudes  -> foot of perpendicular              ($(X)!(P)!(Y)$)
+%   crossings  -> (intersection of A--B and C--D)
+%   bisectors  -> ratio from the angle-bisector theorem
+% so the hypothesis stated in the book holds exactly in the drawing.
+% Hypotheses are re-asserted numerically in tools/constraints/ch09.py.
+%
+% Macro names are chapter-prefixed: \FIGIX<NUMBERWORD>.
+%
+% Line treatment follows the book's own convention: solid where the book
+% prints solid (given), dashed where the book prints dashed (aux), and the
+% heavier `key' weight for the segment the surrounding text is about.
+
+\usetikzlibrary{decorations.pathreplacing}
+
+% Primed labels.  The math prime sits ~4pt above the letter, which makes the
+% collision audit read it as a separate word overlapping its own letter; a
+% 1.4pt drop keeps the pair in one word and is visually indistinguishable.
+\newcommand{\IXpr}{\raisebox{-1.3pt}{\ensuremath{{}^{\prime}}}}
+
+% Chapter-local label clearance.  brumfiel.sty sets outer sep = 3.4pt, which
+% is not quite enough when a labelled point lies ON a line: the line clips the
+% corner of the box.  4.8pt clears it without the labels drifting loose.
+\tikzset{
+  vlab/.append style={outer sep=4.8pt},
+  slab/.append style={outer sep=4.8pt},
+  klab/.append style={outer sep=4.8pt},
+}
+
+% Book-style dimension brace (Figs 9-14, 9-45, 9-46).
+\tikzset{
+  bkbrace/.style={fig, line width=0.5pt, decorate,
+                  decoration={brace, amplitude=3.2pt, raise=1pt}},
+  bkbracer/.style={fig, line width=0.5pt, decorate,
+                  decoration={brace, mirror, amplitude=3.2pt, raise=1pt}},
+}
+
+% ---------------------------------------------------------------- Fig 9-1
+% Three parallels l, l', l''; transversal m leans left going down, m' leans
+% right; m'' through A and m''' through B are parallel to m' (dashed in the
+% book).  Spacing of the parallels is equal because AB = BC on m.
+\newcommand{\FIGIXONE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  \foreach \y/\nm in {2.2/$l$, 1.1/$l\IXpr$, 0/$l\IXpr\IXpr$}
+    {\draw[given] (0.35,\y) -- (9.05,\y);
+     \node[vlab, right] at (9.05,\y) {\nm};}
+  % transversal m : dx/dy = -0.527
+  \coordinate (A) at (2.90,2.2);
+  \coordinate (B) at (2.32,1.1);
+  \coordinate (C) at (1.75,0);
+  \draw[given] (3.19,2.75) -- (1.57,-0.35);
+  % transversal m' : dx/dy = +0.341
+  \coordinate (Ap) at (6.90,2.2);
+  \coordinate (Bp) at (7.275,1.1);
+  \coordinate (Cp) at (7.65,0);
+  \draw[given] (6.71,2.75) -- (7.77,-0.35);
+  % m'' through A, m''' through B, both parallel to m'
+  \coordinate (D) at (3.275,1.1);
+  \coordinate (E) at (2.695,0);
+  \draw[aux] (A) -- (3.75,-0.30);
+  \draw[aux] (B) -- (2.80,-0.30);
+  \foreach \p/\n/\d in {A/A/above left, B/B/above left, C/C/above left,
+                        D/D/above right, E/E/above right,
+                        Ap/A\IXpr/above right, Bp/B\IXpr/above right, Cp/C\IXpr/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab, below] at (1.57,-0.35) {$m$};
+  \node[vlab, below] at (2.80,-0.30) {$m\IXpr\IXpr\IXpr$};
+  \node[vlab, below] at (3.75,-0.30) {$m\IXpr\IXpr$};
+  \node[vlab, below] at (7.77,-0.35) {$m\IXpr$};
+\end{tikzpicture}
+\figcap{9--1}
+\end{bkfigure}}
+
+% ------------------------------------------------------------ Fig 9-2, 9-3
+% Same construction twice: D, E midpoints of AB, BC.  In 9-3 the line m
+% through D parallel to AC is carried past E as a dashed ray.
+\newcommand{\FIGIXTWOTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.36\linewidth}\centering
+\begin{tikzpicture}[scale=0.70]
+  \coordinate (A) at (0,0); \coordinate (C) at (3.93,0);
+  \coordinate (B) at (1.87,1.75);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \coordinate (E) at ($(B)!0.5!(C)$);
+  \draw[key] (D) -- (E);
+  \foreach \p/\n/\d in {A/A/below left, C/C/below right, B/B/above,
+                        D/D/above left, E/E/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--2}
+\end{minipage}\hfill
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.70]
+  \coordinate (A) at (0,0); \coordinate (C) at (5.65,0);
+  \coordinate (B) at (1.83,1.73);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \coordinate (E) at ($(B)!0.5!(C)$);
+  \draw[key] (D) -- (E);
+  \draw[aux] (E) -- ($(D)!1.42!(E)$);
+  \node[vlab,right] at ($(D)!1.42!(E)$) {$m$};
+  \foreach \p/\n/\d in {A/A/below left, C/C/below right, B/B/above,
+                        D/D/above left, E/E/above}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--3}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 9-4
+% D, E, G are the midpoints of AB, BC, CA.  m' is the line through E parallel
+% to AB; it meets AC in G.
+\newcommand{\FIGIXFOUR}{\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (A) at (0,0); \coordinate (C) at (2.39,0);
+  \coordinate (B) at (0.69,0.98);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \coordinate (E) at ($(B)!0.5!(C)$);
+  \coordinate (G) at ($(A)!0.5!(C)$);
+  \coordinate (Mp) at ($(G)!1.60!(E)$);
+  \draw[key] (D) -- (E);
+  % m' is a LINE: the book runs it past G on the far side as well.
+  \draw[given] ($(E)!1.34!(G)$) -- (Mp);
+  \node[vlab,above right] at (Mp) {$m\IXpr$};
+  \foreach \p/\n/\d in {A/A/below left, C/C/right, B/B/above,
+                        D/D/above left, G/G/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at ($(E)+(0.41,0.13)$) {$E$};   % right of m', as in the book
+\end{tikzpicture}
+\figcap{9--4}
+\end{bkfigure}}
+
+% ------------------------------------------------------------ Fig 9-5..9-7
+\newcommand{\FIGIXFIVESEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.33\linewidth}\centering
+\begin{tikzpicture}[scale=0.42]
+  % 9-5: triangle EFG, C the midpoint of FG, D fixed by CD || EG and DG || EF,
+  % which forces CD = 1/2 EG exactly (the statement to be proved).
+  % Vertices measured off the p.156 figure at 400 dpi (E,F,G,C,D all checked:
+  % C is the midpoint of FG and D sits at C + (G-E)/2, as the two parallels
+  % require).  Do NOT draw to $(C)+(G)-(E)$ -- that is twice too far out and
+  % breaks DG || EF.
+  \coordinate (E) at (0,0); \coordinate (G) at (3.88,-0.12);
+  \coordinate (F) at (0.60,1.338);
+  \coordinate (C) at ($(F)!0.5!(G)$);
+  \coordinate (D) at ($(C)!0.5!($(C)+(G)-(E)$)$);
+  \draw[given] (E) -- (F) -- (G) -- cycle;
+  \draw[given] (G) -- (D);
+  \draw[key]   (C) -- (D);
+  \foreach \p/\n/\d in {E/E/left, F/F/above, G/G/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab,above] at (C) {$C$};
+  \node[vlab,above right] at (D) {$D$};
+\end{tikzpicture}
+\figcap{9--5}
+\end{minipage}\hfill
+\begin{minipage}{0.25\linewidth}\centering
+\begin{tikzpicture}[scale=0.56]
+  % 9-6: three parallels, unequal spacing (the exercises vary AB : BC),
+  % cut by transversals m (leaning left) and m' (leaning right).
+  % spacing AB : BC = 1.90 : 1, measured off the p.156 figure at 400 dpi.
+  \foreach \y in {0, 0.70, 2.03}{\draw[given] (-0.62,\y) -- (3.35,\y);}
+  \coordinate (C) at (0,0); \coordinate (B) at (0.0854,0.70);
+  \coordinate (A) at (0.2477,2.03);
+  \coordinate (Cp) at (2.85,0); \coordinate (Bp) at (2.7716,0.70);
+  \coordinate (Ap) at (2.6226,2.03);
+  \draw[given] (-0.0915,-0.75) -- (0.3577,2.95);
+  \draw[given] (2.934,-0.75)  -- (2.5136,2.95);
+  \node[vlab,above] at (0.3577,2.95) {$m$};
+  \node[vlab,above] at (2.5136,2.95) {$m\IXpr$};
+  \foreach \p/\n/\d in {A/A/above left, B/B/above left, C/C/below left,
+                        Ap/A\IXpr/above right, Bp/B\IXpr/above right, Cp/C\IXpr/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--6}
+\end{minipage}\hfill
+\begin{minipage}{0.22\linewidth}\centering
+\begin{tikzpicture}[scale=0.52]
+  % 9-7: F on EG and P on EQ at the same ratio 2/5, hence FP || GQ.
+  \coordinate (G) at (0,0); \coordinate (Q) at (2.35,0);
+  \coordinate (E) at (0.80,1.15);
+  \draw[given] (G) -- (Q) -- (E) -- cycle;
+  \coordinate (F) at ($(E)!0.4!(G)$);
+  \coordinate (P) at ($(E)!0.4!(Q)$);
+  \draw[key] (F) -- (P);
+  \foreach \p/\n/\d in {G/G/below left, Q/Q/below right, E/E/above,
+                        F/F/left, P/P/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--7}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 9-8
+% AD = DE = EF = FG on the ray AC; the parallels to BG through D, E, F cut AB
+% at its quarter points H, I, J -- so every crossing is derived, not placed.
+\newcommand{\FIGIXEIGHT}{\begin{bkfigure}[0.72\linewidth]
+\begin{tikzpicture}[scale=1.02]
+  \coordinate (A) at (0,0); \coordinate (C) at (5.30,0);
+  \coordinate (B) at (3.02,1.50);
+  \coordinate (G) at (4.22,0);
+  \draw[given] (A) -- (C);
+  \draw[given] (A) -- ($(A)!1.09!(B)$);
+  \draw[given] (B) -- (G);
+  \foreach \i in {1,2,3}{%
+     \coordinate (P\i) at ($(A)!\i/4!(G)$);
+     \coordinate (H\i) at ($(A)!\i/4!(B)$);
+     \draw[given] (H\i) -- (P\i);}
+  \node[vlab,left] at (A) {$A$};   \node[vlab,right] at (C) {$C$};
+  \node[vlab,above left] at (B) {$B$};
+  \node[vlab,below] at (P1) {$D$}; \node[vlab,below] at (P2) {$E$};
+  \node[vlab,below] at (P3) {$F$}; \node[vlab,below] at (G) {$G$};
+  \node[vlab,above=2.5pt] at (H1) {$H$}; \node[vlab,above=2.5pt] at (H2) {$I$};
+  \node[vlab,above=2.5pt] at (H3) {$J$};
+\end{tikzpicture}
+\figcap{9--8}
+\end{bkfigure}}
+
+% ----------------------------------------------------------- Fig 9-9..9-14
+\newcommand{\FIGIXNINEFOURTEEN}{%
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.38\linewidth}\centering
+\begin{tikzpicture}[scale=0.70]
+  % 9-9: D on AB, E on BC with BD/BA = BE/BC, hence DE || AC exactly.
+  \coordinate (A) at (0,0); \coordinate (C) at (4.12,0.42);
+  \coordinate (B) at (1.32,2.32);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (D) at ($(A)!0.172!(B)$);
+  \coordinate (E) at ($(B)!0.828!(C)$);
+  \draw[key] (D) -- (E);
+  \node[klab, above right] at (3.30,1.85) {Parallel};
+  % one arrow to DE, one to AC -- the two lines the note is about
+  \draw[\clB, line width=0.55pt, ->] (3.42,1.78) -- (2.86,0.74);
+  \draw[\clB, line width=0.55pt, ->] (3.62,1.74) -- (3.42,0.44);
+  \foreach \p/\n/\d in {A/A/below left, C/C/right, B/B/above,
+                        D/D/left, E/E/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--9}
+\end{minipage}\hfill
+\begin{minipage}{0.33\linewidth}\centering
+\begin{tikzpicture}[scale=0.58]
+  % 9-10: three parallels l1,l2,l3 (spacing 1.85 : 1, as drawn); the left
+  % transversal carries A,B,C; T1 runs A-D-l3; T2 is parallel to T1 and
+  % carries E (on l1) and F (on l3).  AD/DX = AB/BC by construction.
+  % The book draws the left transversal essentially vertical (measured 1.7 deg
+  % off at 400 dpi); only T1 and T2 lean.  The three-parallels ratio
+  % AD/DX = AB/BC holds for ANY transversal slope, so this is pure fidelity.
+  \def\sx{0.030}                      % dx per unit drop on the left transversal
+  \def\tx{0.252}                      % dx per unit drop on T1, T2
+  \coordinate (A)  at (0,2.05);
+  \coordinate (B)  at (-0.0398,0.725);
+  \coordinate (C)  at (-0.0615,0);
+  \coordinate (D)  at (0.3339,0.725);
+  \coordinate (X)  at (0.5166,0);
+  \coordinate (E)  at (2.55,2.05);
+  \coordinate (F)  at (3.0666,0);
+  \foreach \y in {2.05,0.725,0}{\draw[given] (-0.75,\y) -- (3.95,\y);}
+  \draw[given] (0.0210,2.75) -- (-0.0705,-0.30);   % left transversal
+  \draw[given] (0.2764,2.40) -- (0.6644,-0.50);    % T1  through A and D
+  \draw[given] (2.4618,2.40) -- (3.2426,-0.50);    % T2  through E and F
+  \draw[<->, \clB, line width=0.55pt] (3.72,2.00) -- (3.72,0.05);
+  \node[klab, above] at (3.60,2.62) {Parallel};
+  \draw[<->, \clB, line width=0.55pt] (0.80,-0.42) -- (2.34,-0.42);
+  \node[klab, below] at (1.57,-0.44) {Parallel};
+  \foreach \p/\n/\d in {A/A/above left, B/B/above left, C/C/below left,
+                        D/D/above right, E/E/above right, F/F/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--10}
+\end{minipage}
+\end{bkfigure}
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.5\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  % 9-11: AB : BC : CD = 4 : 3 : 2 down the left side; E and F sit on AG at
+  % the matching ratios, so BE || CF || DG exactly.  AE is marked 8.
+  \coordinate (A) at (0,3.15); \coordinate (D) at (0,0);
+  \coordinate (G) at (4.55,0);
+  \coordinate (B) at (0,1.75); \coordinate (C) at (0,0.70);
+  \coordinate (E) at ($(A)!4/9!(G)$);
+  \coordinate (F) at ($(A)!7/9!(G)$);
+  \draw[given] (A) -- (D) -- (G) -- cycle;
+  \draw[given] (B) -- (E); \draw[given] (C) -- (F);
+  \node[slab,left=0pt]  at (0,2.45) {4};
+  \node[slab,left=0pt]  at (0,1.225) {3};
+  \node[slab,left=0pt]  at (0,0.35) {2};
+  \node[slab,above] at (0.95,2.42) {8};
+  \foreach \p/\n/\d in {A/A/above, D/D/below left, G/G/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab,left=7pt] at (B) {$B$};
+  \node[vlab,left=7pt] at (C) {$C$};
+  \node[vlab,above right] at (E) {$E$};
+  \node[vlab,above right] at (F) {$F$};
+\end{tikzpicture}
+\figcap{9--11}
+\end{minipage}\hfill
+\begin{minipage}{0.43\linewidth}\centering
+\begin{tikzpicture}[scale=0.56]
+  % 9-12: parallels l1,l2,l3 with gaps 2 : 3; a zigzag of three transversals.
+  % 2 and 3 are the pieces of the first, 4 the lower piece of the second,
+  % 6 the lower piece of the third; AB is the piece asked for.
+  \coordinate (T)  at (0,0);           % foot of transversal 1 on l3
+  \coordinate (V1) at (1.189,1.886);   % apex, on l1
+  \coordinate (V2) at (3.156,-0.303);  % on l3
+  \coordinate (B)  at (6.411,1.3845);  % on l1
+  \coordinate (P)  at ($(T)!0.6!(V1)$);
+  \coordinate (Q)  at ($(V1)!0.4!(V2)$);
+  \coordinate (A)  at ($(V2)!0.6!(B)$);
+  \draw[given] (V1) -- (6.62,1.365);   % l1
+  \draw[given] (P)  -- (6.60,0.566);   % l2
+  \draw[given] (T)  -- (6.62,-0.635);  % l3
+  \draw[given] (T) -- (V1) -- (V2) -- (B);
+  \draw[<->, \clB, line width=0.55pt] (6.78,1.35) -- (6.78,-0.62);
+  \node[klab, above] at (6.60,2.15) {Parallel};
+  \node[slab,left=1pt]  at ($(P)!0.5!(V1)$) {2};
+  \node[slab,left]  at ($(T)!0.5!(P)$)  {3};
+  \node[slab,right] at ($(Q)!0.5!(V2)$) {4};
+  \node[slab] at ($(V2)!0.5!(A)+(-0.18,0.30)$) {6};
+  \node[vlab] at ($(A)+(-0.30,0.42)$) {$A$};
+  \node[vlab,above left] at (B) {$B$};
+\end{tikzpicture}
+\figcap{9--12}
+\end{minipage}
+\end{bkfigure}
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.43\linewidth}\centering
+\begin{tikzpicture}[scale=0.76]
+  % 9-13: parallelogram ABCD, E and F the midpoints of AB and CD; the only
+  % diagonal drawn is AC, cut by ED and BF at its trisection points G and H.
+  % vertices measured off the p.158 figure at 400 dpi: AD runs 1.5 deg BELOW
+  % the horizontal and AB stands at 77 deg, giving the book's upright shape.
+  \coordinate (A) at (0,0); \coordinate (D) at (3.70,-0.10);
+  \coordinate (B) at (0.60,2.55); \coordinate (C) at (4.30,2.45);
+  \draw[given] (A) -- (D) -- (C) -- (B) -- cycle;
+  \coordinate (E) at ($(A)!0.5!(B)$);
+  \coordinate (F) at ($(C)!0.5!(D)$);
+  \draw[given] (A) -- (C);
+  \draw[key] (E) -- (D); \draw[key] (B) -- (F);
+  \coordinate (G) at (intersection of A--C and E--D);
+  \coordinate (H) at (intersection of A--C and B--F);
+  \foreach \p/\n/\d in {A/A/below left, D/D/below right, C/C/above right,
+                        B/B/above, E/E/left, F/F/right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at ($(G)+(0,0.46)$) {$G$};
+  \node[vlab] at ($(H)+(0,0.46)$) {$H$};
+\end{tikzpicture}
+\figcap{9--13}
+\end{minipage}\hfill
+\begin{minipage}{0.33\linewidth}\centering
+\begin{tikzpicture}[scale=0.66]
+  % 9-14: D on LT and E on LR at the same ratio, so DE || TR; the braces mark
+  % x = LT, 1 = LD, y = LE, z = LR.  x : 1 = z : y is the point of the problem.
+  % Brace nesting follows the book: on BOTH sides the LONGER brace (x, z) is
+  % the outer one and the shorter (1, y) sits inside it.
+  \coordinate (L) at (0,0); \coordinate (R) at (4.66,0);
+  \coordinate (T) at (2.16,2.12);
+  \coordinate (D) at ($(L)!0.5!(T)$);
+  \coordinate (E) at ($(L)!0.5!(R)$);
+  \draw[given] (L) -- (R) -- (T) -- cycle;
+  \draw[key] (D) -- (E);
+  \draw[bkbrace] (T) -- (L);
+  \draw[bkbrace] ($(D)+(-0.30,0)$) -- ($(L)+(-0.30,0)$);
+  \draw[bkbracer] (L) -- (E);
+  \draw[bkbracer] ($(L)+(0,-0.34)$) -- ($(R)+(0,-0.34)$);
+  \node[slab] at (0.52,1.42) {$x$};
+  \node[slab] at (0.10,0.68) {1};
+  \node[slab] at (1.16,-0.80) {$y$};
+  \node[slab] at (2.33,-0.90) {$z$};
+  \node[klab, above right] at (3.05,1.60) {Parallel};
+  \draw[\clB, line width=0.55pt, ->] (3.16,1.54) -- (1.88,0.46);
+  \draw[\clB, line width=0.55pt, ->] (3.40,1.52) -- (3.60,0.95);
+\end{tikzpicture}
+\figcap{9--14}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-15
+% Sides 5, 6, 7 built exactly; the primed triangle is the same shape at 2/5.
+\newcommand{\FIGIXFIFTEEN}{\begin{bkfigure}[0.86\linewidth]
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (E) at (0,0); \coordinate (G) at (3.5,0);
+  \coordinate (F) at (1.357,2.099);
+  \draw[given] (E) -- (G) -- (F) -- cycle;
+  \node[slab,left]  at ($(E)!0.5!(F)$) {5};
+  \node[slab,right] at ($(F)!0.5!(G)$) {6};
+  \node[slab,below] at ($(E)!0.5!(G)$) {7};
+  \node[vlab,below left] at (E) {$E$}; \node[vlab,below right] at (G) {$G$};
+  \node[vlab,above] at (F) {$F$};
+  \begin{scope}[xshift=5.1cm, yshift=0.02cm]
+    \coordinate (Ep) at (0,0); \coordinate (Gp) at (1.4,0);
+    \coordinate (Fp) at (0.543,0.840);
+    \draw[given] (Ep) -- (Gp) -- (Fp) -- cycle;
+    \node[slab,left] at ($(Ep)!0.5!(Fp)$) {2};
+    \node[vlab,below left] at (Ep) {$E\IXpr$}; \node[vlab,below right] at (Gp) {$G\IXpr$};
+    \node[vlab,above] at (Fp) {$F\IXpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--15}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-16
+\newcommand{\FIGIXSIXTEEN}{\begin{bkfigure}[0.9\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  \draw[given] (0,0.62)   -- (2.75,0.62);
+  \draw[given] (0.10,0)   -- (2.40,0);
+  \draw[given] (4.35,0.62) -- (5.50,0.62);
+  \draw[given] (4.65,0)   -- (5.25,0);
+  \foreach \x/\y in {0/0.62, 2.75/0.62, 0.10/0, 2.40/0,
+                     4.35/0.62, 5.50/0.62, 4.65/0, 5.25/0}
+    {\fill (\x,\y) circle (1.2pt);}
+  \node[vlab,left]  at (0,0.62)    {$A$};
+  \node[vlab,right] at (2.75,0.62) {$B$};
+  \node[vlab,left]  at (0.10,0)    {$A\IXpr$};
+  \node[vlab,right] at (2.40,0)    {$B\IXpr$};
+  \node[vlab,left]  at (4.35,0.62) {$C$};
+  \node[vlab,right] at (5.50,0.62) {$D$};
+  \node[vlab,left]  at (4.65,0)    {$E$};
+  \node[vlab,right] at (5.25,0)    {$F$};
+\end{tikzpicture}
+\figcap{9--16}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-17
+% CD cut into four congruent subintervals; EF is one of them.
+\newcommand{\FIGIXSEVENTEEN}{\begin{bkfigure}[0.6\linewidth]
+\begin{tikzpicture}[scale=1.35]
+  \draw[given] (0,0) -- (2.28,0);
+  \foreach \x in {0,0.57,1.14,1.71,2.28}{\fill (\x,0) circle (1.3pt);}
+  \node[vlab,left]  at (0,0)    {$C$};
+  \node[vlab,right] at (2.28,0) {$D$};
+  \node[vlab,above] at (0.57,0) {$E$};
+  \node[vlab,above] at (1.14,0) {$F$};
+\end{tikzpicture}
+\figcap{9--17}
+\end{bkfigure}}
+
+% --------------------------------------------------------- Fig 9-18, 9-19
+\newcommand{\FIGIXEIGHTEENNINETEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.55]
+  \draw[given] (0,0) -- (3.6,0) -- (1.6,2.2) -- cycle;
+  \node[vlab,below left] at (0,0) {$A$}; \node[vlab,below right] at (3.6,0) {$C$};
+  \node[vlab,above] at (1.6,2.2) {$B$};
+  \begin{scope}[xshift=6.2cm, scale=0.55]
+    \draw[given] (0,0) -- (3.6,0) -- (1.0,2.28) -- cycle;
+    \node[vlab,below left] at (0,0) {$A\IXpr$}; \node[vlab,below right] at (3.6,0) {$C\IXpr$};
+    \node[vlab,above] at (1.6,2.2) {$B\IXpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--18}
+\end{minipage}\hfill
+\begin{minipage}{0.42\linewidth}\centering
+\begin{tikzpicture}[scale=0.57]
+  % 9-19: convex pentagon ABCDE.  Vertices measured off the p.163 figure at
+  % 400 dpi.  The cycle is A-B-C-D-E (an earlier draft joined E to B and D to
+  % A, i.e. it swapped A and E in the path, which put A almost on top of E).
+  \def\pentA{(0,1.38) (0.66,2.47) (2.25,1.67) (1.87,0.31) (0.05,0)}
+  \draw[given] plot coordinates {\pentA} -- cycle;
+  \node[vlab,left]  at (0,1.38)    {$A$};
+  \node[vlab,above] at (0.66,2.47) {$B$};
+  \node[vlab,right] at (2.25,1.67) {$C$};
+  \node[vlab,below right] at (1.87,0.31) {$D$};
+  \node[vlab,below left]  at (0.05,0)    {$E$};
+  \begin{scope}[xshift=4.15cm, yshift=0.30cm, scale=0.62]
+    \draw[given] plot coordinates {\pentA} -- cycle;
+    \node[vlab,left]  at (0,1.38)    {$A\IXpr$};
+    \node[vlab,above] at (0.66,2.47) {$B\IXpr$};
+    \node[vlab,right] at (2.25,1.67) {$C\IXpr$};
+    \node[vlab,below right] at (1.87,0.31) {$D\IXpr$};
+    \node[vlab,below left]  at (0.05,0)    {$E\IXpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--19}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------- Fig 9-20, 9-21
+\newcommand{\FIGIXTWENTYTWENTYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.30\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  % 9-20: E, F midpoints of AB and BC.
+  \coordinate (A) at (0,0); \coordinate (C) at (2.55,0);
+  \coordinate (B) at (1.68,1.10);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (E) at ($(A)!0.5!(B)$);
+  \coordinate (F) at ($(B)!0.5!(C)$);
+  \draw[key] (E) -- (F);
+  \foreach \p/\n/\d in {A/A/below left, C/C/below right, B/B/above,
+                        E/E/above left, F/F/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--20}
+\end{minipage}\hfill
+\begin{minipage}{0.64\linewidth}\centering
+\begin{tikzpicture}[scale=1.95]
+  % 9-21: A', B', C', D' are the midpoints of OA, OB, OC, OD.
+  % Spoke lengths and directions measured off the p.164 figure at 400 dpi:
+  % OA : OB : OC : OD = 428 : 190 : 275 : 200 px.  (An earlier draft had OD
+  % 30% longer than OB; the book draws them nearly equal.)
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (-1.72,0.01);  \coordinate (B) at (-0.05,0.76);
+  \coordinate (C) at (1.105,0.07);  \coordinate (D) at (0.30,-0.75);
+  \draw[given] (A) -- (B) -- (C) -- (D) -- cycle;
+  \foreach \p in {A,B,C,D}{\draw[given] (O) -- (\p);
+                           \coordinate (\p p) at ($(O)!0.5!(\p)$);}
+  \draw[key] (Ap) -- (Bp) -- (Cp) -- (Dp) -- cycle;
+  \node[vlab,left]  at (A) {$A$};   \node[vlab,above] at (B) {$B$};
+  \node[vlab,right] at (C) {$C$};   \node[vlab,below] at (D) {$D$};
+  \node[vlab] at ($(Ap)+(-0.08,0.19)$)  {$A\IXpr$};
+  \node[vlab] at ($(Bp)+(-0.24,0.08)$)  {$B\IXpr$};
+  \node[vlab] at ($(Cp)+(0.11,0.115)$)  {$C\IXpr$};
+  \node[vlab] at ($(Dp)+(-0.22,-0.10)$) {$D\IXpr$};
+  \node[vlab] at ($(O)+(0.13,0.14)$)    {$O$};
+\end{tikzpicture}
+\figcap{9--21}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-22
+% AB is cut into five unit pieces by F, A'', E, D; the parallels to AC through
+% them meet BC in G, C'', H, I.  The primed triangle is the same shape at 3/5.
+\newcommand{\FIGIXTWENTYTWO}{\begin{bkfigure}[0.9\linewidth]
+\begin{tikzpicture}[scale=1.30]
+  \coordinate (A) at (0,0); \coordinate (C) at (1.75,0);
+  \coordinate (B) at (1.02,1.87);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (F)   at ($(A)!1/5!(B)$);   \coordinate (G)   at ($(B)!4/5!(C)$);
+  \coordinate (App) at ($(A)!2/5!(B)$);   \coordinate (Cpp) at ($(B)!3/5!(C)$);
+  \coordinate (E)   at ($(A)!3/5!(B)$);   \coordinate (H)   at ($(B)!2/5!(C)$);
+  \coordinate (D)   at ($(A)!4/5!(B)$);   \coordinate (I)   at ($(B)!1/5!(C)$);
+  \draw[aux] (F) -- (G);
+  \draw[given] (App) -- (Cpp);
+  \draw[aux] (E) -- (H);
+  \draw[aux] (D) -- (I);
+  \node[vlab,left] at (F) {$F$};   \node[vlab,left] at (App) {$A\IXpr\IXpr$};
+  \node[vlab,left] at (E) {$E$};   \node[vlab,left] at (D) {$D$};
+  \node[vlab,right] at (G) {$G$};  \node[vlab,right] at (Cpp) {$C\IXpr\IXpr$};
+  \node[vlab,right] at (H) {$H$};  \node[vlab,right] at (I) {$I$};
+  \node[vlab,below left] at (A) {$A$}; \node[vlab,below right] at (C) {$C$};
+  \node[vlab,above] at (B) {$B$};
+  \begin{scope}[xshift=2.70cm, scale=0.6]
+    \draw[given] (0,0) -- (1.75,0) -- (1.02,1.87) -- cycle;
+    \node[vlab,below left] at (0,0) {$A\IXpr$};
+    \node[vlab,below right] at (1.75,0) {$C\IXpr$};
+    \node[vlab,above] at (1.02,1.87) {$B\IXpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--22}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 9-23..9-29
+\newcommand{\FIGIXTWENTYTHREETWENTYNINE}{%
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.19\linewidth}\centering
+\begin{tikzpicture}[scale=0.60]
+  % 9-23: AE = 4, ED = 6, so B and E sit at 0.4 along AC and AD; BE || CD.
+  \coordinate (C) at (0,0); \coordinate (D) at (2.10,0);
+  \coordinate (A) at (2.58,1.32);
+  \draw[given] (C) -- (D) -- (A) -- cycle;
+  \coordinate (B) at ($(A)!0.4!(C)$);
+  \coordinate (E) at ($(A)!0.4!(D)$);
+  \draw[key] (B) -- (E);
+  \foreach \p/\n/\d in {C/C/left, D/D/below right, A/A/above,
+                        B/B/above left, E/E/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--23}
+\end{minipage}\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=1.10]
+  % 9-24: AB and DE both run north-south; D at 0.85 along AC, E fixed by
+  % DE || AB, giving DE/AB = DC/AC = 0.15 as the exercise states.
+  % The lake is traced from the iPad scan (scan12 p8) and then placed against
+  % the triangle by matching its bounding box to the printed figure (measured
+  % at 400 dpi): the book runs AC straight through the lake and puts D on the
+  % lake's lower-right edge.  An earlier draft floated the lake ~0.5 units
+  % above the line, leaving D nowhere near the water.
+  \coordinate (B) at (0,0); \coordinate (A) at (-0.02,2.139);
+  \coordinate (C) at (2.377,0.025);
+  \coordinate (D) at ($(A)!0.85!(C)$);
+  \coordinate (E) at (intersection of B--C and D--{$(D)-(A)+(B)$});
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.636,2.336) (2.026,2.242) (2.307,2.055) (2.463,1.868) (2.588,1.727)
+      (2.666,1.540) (2.791,1.384) (2.806,1.197) (2.775,0.994) (2.650,0.791)
+      (2.494,0.635) (2.260,0.448) (2.026,0.339) (1.714,0.245) (1.480,0.191)
+      (1.246,0.229) (1.012,0.339) (0.841,0.526) (0.669,0.822) (0.466,0.947)
+      (0.334,1.150) (0.303,1.353) (0.334,1.509) (0.388,1.727) (0.513,1.914)
+      (0.700,2.070) (0.934,2.195) (1.246,2.289)};
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.558,2.070) (1.839,2.016) (2.058,1.922) (2.214,1.789) (2.292,1.634)
+      (2.284,1.478) (2.370,1.337) (2.370,1.150) (2.292,0.978) (2.167,0.838)
+      (1.995,0.729) (1.792,0.651) (1.574,0.604) (1.356,0.588) (1.153,0.620)
+      (0.966,0.697) (0.810,0.822) (0.700,0.978) (0.622,1.150) (0.576,1.321)
+      (0.544,1.493) (0.576,1.665) (0.669,1.821) (0.825,1.946) (1.028,2.024)
+      (1.293,2.062)};
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.558,1.556) (1.761,1.509) (1.855,1.384) (1.855,1.228) (1.792,1.087)
+      (1.636,0.978) (1.480,0.900) (1.309,0.838) (1.137,0.830) (1.012,0.900)
+      (0.934,1.010) (0.888,1.150) (0.864,1.290) (0.903,1.399) (1.012,1.478)
+      (1.184,1.524) (1.371,1.553)};
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.139,1.427) (1.337,1.460) (1.537,1.453) (1.696,1.400) (1.762,1.321)
+      (1.722,1.242) (1.563,1.202) (1.364,1.195) (1.191,1.228) (1.085,1.308)
+      (1.079,1.380)};
+  \draw[given] (A) -- (B) -- (3.265,0.075);
+  \draw[given] (A) -- (C);
+  \draw[key] (D) -- (E);
+  \node[vlab,above left]  at (A) {$A$};
+  \node[vlab,below left]  at (B) {$B$};
+  \node[vlab,below right] at (C) {$C$};
+  % The book tucks D's label into the lake just above and right of the point;
+  % this offset puts it at the widest clear point of the band between
+  % contour 1 and contour 2, on the same side as the book's.
+  \node[vlab] at ($(D)+(0.45,-0.02)$) {$D$};
+  \node[vlab,below left] at (E) {$E$};
+\end{tikzpicture}
+\figcap{9--24}
+\end{minipage}\hfill
+\begin{minipage}{0.19\linewidth}\centering
+\begin{tikzpicture}[scale=0.60]
+  % 9-25: D on BA and E on BC at the same ratio, so DE || AC.
+  \coordinate (A) at (0,0); \coordinate (C) at (2.40,0);
+  \coordinate (B) at (1.30,1.42);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (D) at ($(B)!0.53!(A)$);
+  \coordinate (E) at ($(B)!0.53!(C)$);
+  \draw[key] (D) -- (E);
+  \foreach \p/\n/\d in {A/A/below left, C/C/right, B/B/above,
+                        D/D/left, E/E/right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--25}
+\end{minipage}
+\end{bkfigure}
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.19\linewidth}\centering
+\begin{tikzpicture}[scale=0.72]
+  % 9-26: AE vertical; AB _|_ AE at A and DE _|_ AE at E, on opposite sides,
+  % so BD crosses AE at C with AC/CE = AB/DE.
+  \coordinate (A) at (0,1.54); \coordinate (E) at (0,0);
+  \coordinate (B) at (0.80,1.54); \coordinate (D) at (-0.50,0);
+  \draw[given] (A) -- (E); \draw[given] (A) -- (B); \draw[given] (E) -- (D);
+  \draw[key] (B) -- (D);
+  \coordinate (C) at (intersection of A--E and B--D);
+  \foreach \p/\n/\d in {A/A/above left, B/B/above right, E/E/below right,
+                        D/D/below left, C/C/left}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--26}
+\end{minipage}\hfill
+\begin{minipage}{0.25\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % 9-27: l and m are parallel (both of slope 2); EI and FH cross at G, so
+  % triangle EFG ~ triangle IHG.
+  \coordinate (F) at (0,0);    \coordinate (E) at (0.40,0.80);
+  \coordinate (I) at (1.98,0); \coordinate (H) at (2.454,0.948);
+  \draw[given] ($(F)!-0.35!(E)$) -- ($(F)!1.42!(E)$);
+  \draw[given] ($(I)!-0.35!(H)$) -- ($(I)!1.36!(H)$);
+  \draw[key] (E) -- (I); \draw[key] (F) -- (H);
+  \coordinate (G) at (intersection of E--I and F--H);
+  \node[vlab,below left]  at ($(F)!-0.60!(E)$) {$l$};
+  \node[vlab,above right] at ($(I)!1.36!(H)$)  {$m$};
+  \foreach \p/\n/\d in {I/I/below right, H/H/right, G/G/above}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at ($(E)+(-0.72,0.16)$) {$E$};
+  \node[vlab,left]       at (F) {$F$};
+\end{tikzpicture}
+\figcap{9--27}
+\end{minipage}\hfill
+\begin{minipage}{0.33\linewidth}\centering
+\begin{tikzpicture}[scale=0.52]
+  % 9-28: PS bisects angle P, so QS/SR = PQ/PR (ratio 0.468 for these sides).
+  \coordinate (P) at (0,0); \coordinate (R) at (1.80,0);
+  \coordinate (Q) at (0.96,1.26);
+  \draw[given] (P) -- (R) -- (Q) -- cycle;
+  \coordinate (S) at ($(Q)!0.468!(R)$);
+  \draw[key] (P) -- (S);
+  \foreach \p/\n/\d in {P/P/below left, R/R/below right, Q/Q/above, S/S/right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \begin{scope}[xshift=3.70cm, scale=0.583]
+    \coordinate (Pp) at (0,0); \coordinate (Rp) at (1.80,0);
+    \coordinate (Qp) at (0.96,1.26);
+    \draw[given] (Pp) -- (Rp) -- (Qp) -- cycle;
+    \coordinate (Sp) at ($(Qp)!0.468!(Rp)$);
+    \draw[key] (Pp) -- (Sp);
+    \foreach \p/\n/\d in {Pp/P\IXpr/below left, Rp/R\IXpr/below right,
+                          Qp/Q\IXpr/above, Sp/S\IXpr/right}
+      {\node[vlab,\d] at (\p) {$\n$};}
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--28}
+\end{minipage}
+\end{bkfigure}
+\begin{bkfigure}[0.46\linewidth]
+\begin{tikzpicture}[scale=1.18]
+  % 9-29: CD and AE are altitudes -- D and E are true perpendicular feet.
+  \coordinate (A) at (0,0); \coordinate (C) at (1.88,0);
+  \coordinate (B) at (1.15,1.45);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (D) at ($(A)!(C)!(B)$);
+  \coordinate (E) at ($(B)!(A)!(C)$);
+  \draw[key] (C) -- (D); \draw[key] (A) -- (E);
+  \coordinate (F) at (intersection of C--D and A--E);
+  \foreach \p/\n/\d in {A/A/below left, C/C/below right, B/B/above,
+                        D/D/above left, E/E/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at ($(F)+(0.00,0.42)$) {$F$};
+\end{tikzpicture}
+\figcap{9--29}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-30
+% AD/AB = AE/AC, so DE || BC.  DF is the auxiliary line of the proof, drawn
+% to a point F beyond E on AC -- the proof's job is to show F = E.
+\newcommand{\FIGIXTHIRTY}{\begin{bkfigure}[0.52\linewidth]
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (B) at (0,0); \coordinate (C) at (2.30,0.20);
+  \coordinate (A) at (1.20,1.30);
+  \draw[given] (B) -- (C) -- (A) -- cycle;
+  \coordinate (D) at ($(A)!0.50!(B)$);
+  \coordinate (E) at ($(A)!0.50!(C)$);
+  \coordinate (F) at ($(A)!0.68!(C)$);
+  \draw[key] (D) -- (E);
+  \draw[aux] (D) -- (F);
+  \foreach \p/\n/\d in {B/B/below left, C/C/right, A/A/above,
+                        D/D/left, E/E/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at ($(F)+(0.36,0.03)$) {$F$};
+\end{tikzpicture}
+\figcap{9--30}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-31
+% B'' on AB and C'' on AC at the same ratio, so B''C'' || BC (Statement 4).
+\newcommand{\FIGIXTHIRTYONE}{\begin{bkfigure}[0.84\linewidth]
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (A) at (0,0); \coordinate (C) at (1.63,0);
+  \coordinate (B) at (1.03,1.13);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (Bpp) at ($(A)!0.46!(B)$);
+  \coordinate (Cpp) at ($(A)!0.46!(C)$);
+  \draw[key] (Bpp) -- (Cpp);
+  \foreach \p/\n/\d in {A/A/left, C/C/right, B/B/above,
+                        Bpp/B\IXpr\IXpr/above left, Cpp/C\IXpr\IXpr/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \begin{scope}[xshift=2.85cm, scale=0.54]
+    \draw[given] (0,0) -- (1.63,0) -- (1.03,1.13) -- cycle;
+    \node[vlab,below left] at (0,0) {$A\IXpr$};
+    \node[vlab,below right] at (1.63,0) {$C\IXpr$};
+    \node[vlab,above] at (1.03,1.13) {$B\IXpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--31}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 9-32..9-35
+\newcommand{\FIGIXTHIRTYTWOTHIRTYFIVE}{%
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.21\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % 9-32: O divides both AD and BC in the ratio 2 : 1, matching AO = 10,
+  % OD = 5, BO = 12, OC = 6.
+  % AB : AD = 0.27 in the book (measured p.169 at 400 dpi); an earlier draft
+  % drew it at 0.44, which made the figure far too tall.
+  \coordinate (O) at (1.35,0);
+  \coordinate (A) at (0,-0.06);  \coordinate (B) at (-0.03,-0.60);
+  \coordinate (D) at ($(A)!1.5!(O)$);
+  \coordinate (C) at ($(B)!1.5!(O)$);
+  \draw[given] (A) -- (B); \draw[given] (C) -- (D);
+  \draw[given] (A) -- (D); \draw[given] (B) -- (C);
+  \foreach \p/\n/\d in {A/A/above left, B/B/below left, C/C/above right,
+                        D/D/right, O/O/above}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--32}
+\end{minipage}\hfill
+\begin{minipage}{0.23\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % 9-33: AE = x.AC and AD = x.AB with the same x, so ED || BC.
+  \coordinate (B) at (0,0); \coordinate (C) at (2.50,0);
+  \coordinate (A) at (1.03,1.44);
+  \draw[given] (B) -- (C) -- (A) -- cycle;
+  \coordinate (E) at ($(A)!0.44!(B)$);
+  \coordinate (D) at ($(A)!0.44!(C)$);
+  \draw[key] (E) -- (D);
+  \foreach \p/\n/\d in {B/B/below left, C/C/below right, A/A/above,
+                        E/E/left, D/D/right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--33}
+\end{minipage}\hfill
+\begin{minipage}{0.22\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % 9-34: D at 0.285 of AB, C at the height the right angle at C forces.
+  % NO right-angle marks: in Ex. 9-10 #5 both "angle C is right" and
+  % "CD perp AB" are what the reader has to PROVE, and the book draws the
+  % figure bare (checked on the p.169 plate at 400 dpi).
+  \coordinate (A) at (0,0); \coordinate (B) at (2.25,0);
+  \coordinate (D) at (0.64,0); \coordinate (C) at (0.64,1.0156);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[key] (C) -- (D);
+  \foreach \p/\n/\d in {A/A/below left, B/B/below right, C/C/above, D/D/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--34}
+\end{minipage}\hfill
+\begin{minipage}{0.22\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % 9-35: same construction with D at 0.712 of AB.  CD perp AB IS given here
+  % (Ex. 9-10 *#6), but the book still prints no right-angle mark -- checked
+  % on the p.169 plate at 400 dpi -- so none is drawn.
+  \coordinate (A) at (0,0); \coordinate (B) at (2.25,0);
+  \coordinate (D) at (1.602,0); \coordinate (C) at (1.602,1.0189);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[key] (C) -- (D);
+  \foreach \p/\n/\d in {A/A/below left, B/B/below right, C/C/above, D/D/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--35}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-36
+% A'' on BA and C'' on BC at the same ratio 0.60, matching the 0.60 scale of
+% the primed triangle; hence A''C'' || AC.
+\newcommand{\FIGIXTHIRTYSIX}{\begin{bkfigure}[0.84\linewidth]
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (A) at (0,0); \coordinate (C) at (1.65,0);
+  \coordinate (B) at (0.85,1.50);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (App) at ($(B)!0.60!(A)$);
+  \coordinate (Cpp) at ($(B)!0.60!(C)$);
+  \draw[key] (App) -- (Cpp);
+  \foreach \p/\n/\d in {A/A/below left, C/C/below right, B/B/above,
+                        App/A\IXpr\IXpr/left, Cpp/C\IXpr\IXpr/right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \begin{scope}[xshift=3.05cm, scale=0.60]
+    \draw[given] (0,0) -- (1.65,0) -- (0.85,1.50) -- cycle;
+    \node[vlab,below left] at (0,0) {$A\IXpr$};
+    \node[vlab,below right] at (1.65,0) {$C\IXpr$};
+    \node[vlab,above] at (0.85,1.50) {$B\IXpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--36}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 9-37..9-39
+\newcommand{\FIGIXTHIRTYSEVENTHIRTYNINE}{%
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.28\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  % 9-37: EA = 10, AC = 14, EB = 15, BD = 21, so EA/EC = EB/ED = 5/12 and
+  % AB || CD.  A and B are placed at that ratio, not by eye.
+  \coordinate (E) at (0,0); \coordinate (D) at (2.48,0);
+  \coordinate (C) at (1.32,1.00);
+  \coordinate (A) at ($(E)!5/12!(C)$);
+  \coordinate (B) at ($(E)!5/12!(D)$);
+  \draw[given] (E) -- (D) -- (C) -- cycle;
+  \draw[key] (A) -- (B);
+  \node[slab,left=2pt]  at ($(E)!0.5!(A)$) {10};
+  \node[slab,above] at ($(A)!0.5!(C)$) {14};
+  \node[slab,below] at ($(E)!0.5!(B)$) {15};
+  \node[slab,below] at ($(B)!0.5!(D)$) {21};
+  \node[vlab,below left]  at (E) {$E$};  \node[vlab,right] at (D) {$D$};
+  \node[vlab,above] at (C) {$C$};
+  \node[vlab,above left=1pt] at (A) {$A$}; \node[vlab,below] at (B) {$B$};
+\end{tikzpicture}
+\figcap{9--37}
+\end{minipage}\hfill
+\begin{minipage}{0.32\linewidth}\centering
+\begin{tikzpicture}[scale=0.50]
+  % 9-38: one hexagon, then the same hexagon rotated -30 and scaled 0.72,
+  % so the two really are similar.
+  \def\hexA{(-0.87,0.58) (0.41,0.81) (0.79,0.06) (0.39,-0.65)
+            (-0.09,-0.62) (-0.64,-0.18)}
+  \draw[given] plot coordinates {\hexA} -- cycle;
+  \node[vlab,left]  at (-0.87,0.58) {$A$};
+  \node[vlab,above] at (0.41,0.81)  {$B$};
+  \node[vlab,right] at (0.79,0.06)  {$C$};
+  \node[vlab,right] at (0.39,-0.65) {$D$};
+  \node[vlab,below] at (-0.09,-0.62){$E$};
+  \node[vlab,left]  at (-0.64,-0.18){$F$};
+  \begin{scope}[xshift=3.25cm]
+    \begin{scope}[rotate=-30, scale=0.72]
+      \draw[given] plot coordinates {\hexA} -- cycle;
+      \coordinate (ha) at (-0.87,0.58);  \coordinate (hb) at (0.41,0.81);
+      \coordinate (hc) at (0.79,0.06);   \coordinate (hd) at (0.39,-0.65);
+      \coordinate (he) at (-0.09,-0.62); \coordinate (hf) at (-0.64,-0.18);
+    \end{scope}
+    \node[vlab,above left]  at (ha) {$A\IXpr$};
+    \node[vlab,above right] at (hb) {$B\IXpr$};
+    \node[vlab,right]       at (hc) {$C\IXpr$};
+    \node[vlab,below left]  at (hd) {$D\IXpr$};
+    \node[vlab,below right] at (he) {$E\IXpr$};
+    \node[vlab,left]        at (hf) {$F\IXpr$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--38}
+\end{minipage}\hfill
+\begin{minipage}{0.22\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % 9-39: BE _|_ AC with E on AC produced, CD _|_ AB with D the true foot.
+  \coordinate (A) at (0,0); \coordinate (E) at (2.29,0);
+  \coordinate (C) at (1.55,0); \coordinate (B) at (2.29,1.55);
+  \draw[given] (A) -- (C) -- (B) -- cycle;
+  \coordinate (D) at ($(A)!(C)!(B)$);
+  \draw[key] (C) -- (D);
+  \draw[aux] (C) -- (E); \draw[aux] (B) -- (E);
+  \draw[fig, line width=0.5pt] (2.29,0.20) -- (2.09,0.20) -- (2.09,0);
+  \draw[fig, line width=0.5pt]
+    ($(D)!0.20!(A)$) -- ($($(D)!0.20!(A)$)!0.20!(C)$) -- ($(D)!0.20!(C)$);
+  \foreach \p/\n/\d in {A/A/below left, B/B/above right, C/C/below,
+                        D/D/above left, E/E/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--39}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------- Fig 9-40, 9-41
+\newcommand{\FIGIXFORTYFORTYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.33\linewidth}\centering
+\begin{tikzpicture}[scale=0.94]
+  % 9-40: right angle at C, D the foot of the altitude (CD^2 = AD.DB).
+  \coordinate (A) at (0,0); \coordinate (B) at (2.67,0);
+  \coordinate (D) at (1.95,0); \coordinate (C) at (1.95,1.1849);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[key] (C) -- (D);
+  % Both right angles ARE hypotheses of Theorem 9-11, and the book marks both.
+  % The foot's box sits on the A side of CD (checked at 400 dpi), and the mark
+  % at C is a full square, not an open chevron.
+  \draw[rmark] (1.73,0) -- (1.73,0.22) -- (1.95,0.22);
+  \draw[rmark] (1.762,1.0706) -- (1.876,0.8826) -- (2.064,0.9969);
+  \foreach \p/\n/\d in {A/A/below left, B/B/below right, C/C/above, D/D/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--40}
+\end{minipage}\hfill
+\begin{minipage}{0.31\linewidth}\centering
+\begin{tikzpicture}[scale=0.94]
+  % 9-41: the same triangle with l', l, l'' through A, D(=C) and B.
+  \coordinate (A) at (0,0); \coordinate (B) at (2.48,0);
+  \coordinate (D) at (1.83,0); \coordinate (C) at (1.83,1.0906);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[aux] (0,-0.38) -- (0,1.62);      \node[vlab,above] at (0,1.62) {$l\IXpr$};
+  \draw[aux] (1.83,-0.38) -- (1.83,1.62);
+  \draw[aux] (2.48,-0.38) -- (2.48,1.62); \node[vlab,above] at (2.48,1.62) {$l\IXpr\IXpr$};
+  \node[slab,left] at (1.83,0.30) {$l$};
+  \foreach \p/\n/\d in {A/A/below left, B/B/below right,
+                        C/C/above left, D/D/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--41}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 9-42..9-45
+\newcommand{\FIGIXFORTYTWOFORTYFIVE}{%
+\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.20\linewidth}\centering
+\begin{tikzpicture}[scale=0.56]
+  % 9-42: EF = 8, FG = 5, right angle at F; H the foot, so EH : HG = 64 : 25.
+  \coordinate (E) at (0,0); \coordinate (G) at (2.6412,0);
+  \coordinate (H) at (1.8996,0); \coordinate (F) at (1.8996,1.1873);
+  \draw[given] (E) -- (G) -- (F) -- cycle;
+  \draw[key] (F) -- (H);
+  \node[slab,above left]  at ($(E)!0.5!(F)$) {8};
+  \node[slab,above right] at ($(F)!0.5!(G)$) {5};
+  \foreach \p/\n/\d in {E/E/below left, G/G/below right, F/F/above, H/H/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--42}
+\end{minipage}\hfill
+\begin{minipage}{0.185\linewidth}\centering
+\begin{tikzpicture}[scale=0.60]
+  % 9-43: a true 5-12-13 right triangle; the altitude on the hypotenuse is
+  % 60/13, its foot 25/13 from the short leg.
+  \coordinate (A) at (0,0); \coordinate (B) at (2.73,0);
+  \coordinate (D) at (0.4038,0); \coordinate (C) at (0.4038,0.9692);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (C) -- (D);
+  \node[slab,left]  at ($(A)!0.5!(C)$) {5};
+  \node[slab,above right] at ($(C)!0.5!(B)$) {12};
+  \node[slab,below] at ($(A)!0.5!(B)$) {13};
+  \node[slab,right] at (0.42,0.50) {$h$};
+\end{tikzpicture}
+\figcap{9--43}
+\end{minipage}\hfill
+\begin{minipage}{0.21\linewidth}\centering
+\begin{tikzpicture}[scale=0.56]
+  % 9-44: PS = 4, SR = 5; right angle at Q, QS _|_ PR, so QS = sqrt(20).
+  \coordinate (R) at (0,0); \coordinate (P) at (2.52,0);
+  \coordinate (S) at (1.40,0); \coordinate (Q) at (1.40,1.2522);
+  \draw[given] (R) -- (P) -- (Q) -- cycle;
+  \draw[aux] (Q) -- (S);
+  \node[slab,below] at ($(R)!0.5!(S)$) {5};
+  \node[slab,below] at ($(S)!0.5!(P)$) {4};
+  \foreach \p/\n/\d in {R/R/below left, P/P/below right, Q/Q/above, S/S/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--44}
+\end{minipage}\hfill
+\begin{minipage}{0.27\linewidth}\centering
+\begin{tikzpicture}[scale=0.68]
+  % 9-45: right angle at C, right angle at D; b = 2.05, a = 1.50, c = 2.540,
+  % so AD = b^2/c and h = ab/c hold exactly.
+  \coordinate (A) at (0,0); \coordinate (B) at (2.540,0);
+  \coordinate (D) at (1.6545,0); \coordinate (C) at (1.6545,1.2106);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[aux] (C) -- (D);
+  % The book braces ALL THREE sides here (b along AC, a along CB, c along AB)
+  % and puts h on the B side of the dashed altitude.
+  \draw[bkbrace]  (A) -- (C);
+  \draw[bkbrace]  (C) -- (B);
+  \draw[bkbracer] (A) -- (B);
+  \node[slab] at (0.414,1.170) {$b$};
+  \node[slab] at (2.662,1.018) {$a$};
+  \node[slab] at (1.92,0.40) {$h$};
+  \node[slab,below=3pt] at (1.00,-0.10) {$c$};
+  \foreach \p/\n/\d in {A/A/left, B/B/right, C/C/above}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at ($(D)+(-0.30,0.45)$) {$D$};
+\end{tikzpicture}
+\figcap{9--45}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-46
+% Right angle at C; D the foot of the altitude, x = AD, y = DB, x.y = h^2.
+\newcommand{\FIGIXFORTYSIX}{\begin{bkfigure}[0.58\linewidth]
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (A) at (0,0); \coordinate (B) at (2.75,0);
+  \coordinate (D) at (1.05,0); \coordinate (C) at (1.05,1.3360);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[aux] (C) -- (D);
+  \node[slab,above left]  at ($(A)!0.5!(C)$) {$b$};
+  \node[slab,above right] at ($(C)!0.5!(B)$) {$a$};
+  \node[slab,above] at (0.44,0) {$x$};
+  \node[slab,above] at (1.94,0) {$y$};
+  \draw[bkbracer] (A) -- (B);
+  \node[slab,below=3pt] at (1.62,-0.10) {$c$};
+  \foreach \p/\n/\d in {A/A/left, B/B/right, C/C/above, D/D/above left}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--46}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-47
+% Two congruent right triangles, legs solid and hypotenuse dashed as printed.
+\newcommand{\FIGIXFORTYSEVEN}{\begin{bkfigure}[0.72\linewidth]
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (C) at (0,0); \coordinate (B) at (0.94,0);
+  \coordinate (A) at (0,1.60);
+  \draw[given] (C) -- (B); \draw[given] (C) -- (A); \draw[aux] (A) -- (B);
+  \node[slab,left]  at ($(C)!0.5!(A)$) {$b$};
+  \node[slab,below] at ($(C)!0.5!(B)$) {$a$};
+  \node[slab,right] at (0.62,0.85) {$c$};
+  \node[vlab,above] at (A) {$A$}; \node[vlab,below left] at (C) {$C$};
+  \node[vlab,below right] at (B) {$B$};
+  \begin{scope}[xshift=2.35cm]
+    \coordinate (P) at (0,0); \coordinate (Q) at (0.94,0);
+    \coordinate (R) at (0,1.60);
+    \draw[given] (P) -- (Q); \draw[given] (P) -- (R); \draw[aux] (R) -- (Q);
+    \node[slab,left]  at ($(P)!0.5!(R)$) {$b$};
+    \node[slab,below] at ($(P)!0.5!(Q)$) {$a$};
+    \node[vlab,above] at (R) {$R$}; \node[vlab,below left] at (P) {$P$};
+    \node[vlab,below right] at (Q) {$Q$};
+  \end{scope}
+\end{tikzpicture}
+\figcap{9--47}
+\end{bkfigure}}
+
+% --------------------------------------------------------- Fig 9-48, 9-49
+\newcommand{\FIGIXFORTYEIGHTFORTYNINE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.29\linewidth}\centering
+\begin{tikzpicture}[scale=1.05]
+  % 9-48: rhombus, diagonals perpendicular, BD : AC = 24 : 10 as the exercise
+  % gives; then every side is 13, matching AD = 13.
+  \coordinate (O) at (0,0);
+  \coordinate (B) at (-0.984,-0.689); \coordinate (D) at (0.984,0.689);
+  \coordinate (A) at (-0.287,0.410);  \coordinate (C) at (0.287,-0.410);
+  \draw[given] (A) -- (D) -- (C) -- (B) -- cycle;
+  \draw[key] (A) -- (C); \draw[key] (B) -- (D);
+  \foreach \p/\n/\d in {A/A/above left, D/D/above right,
+                        B/B/below left, C/C/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--48}
+\end{minipage}\hfill
+\begin{minipage}{0.29\linewidth}\centering
+\begin{tikzpicture}[scale=1.05]
+  % 9-49: OA = 21 north, OB = 20 east, right angle at O; AB dashed across the
+  % lake.  The four contours are traced from the iPad scan (scan11 p8).
+  \coordinate (O) at (0,0); \coordinate (A) at (0,2.10);
+  \coordinate (B) at (2.00,0);
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.025,2.024) (1.424,1.943) (1.833,1.736) (2.132,1.504) (2.309,1.246)
+      (2.324,1.029) (2.242,0.781) (2.051,0.562) (1.804,0.452) (1.560,0.397)
+      (1.312,0.372) (1.066,0.375) (0.848,0.431) (0.671,0.522) (0.520,0.659)
+      (0.398,0.829) (0.306,1.029) (0.276,1.224) (0.306,1.422) (0.368,1.599)
+      (0.464,1.777) (0.645,1.928) (0.823,2.002)};
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.015,1.847) (1.339,1.777) (1.627,1.629) (1.859,1.449) (2.025,1.271)
+      (2.107,1.079) (2.092,0.892) (1.996,0.740) (1.804,0.648) (1.586,0.603)
+      (1.368,0.589) (1.150,0.611) (0.944,0.670) (0.767,0.765) (0.630,0.902)
+      (0.528,1.068) (0.479,1.261) (0.516,1.437) (0.601,1.599) (0.782,1.750)};
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.025,1.573) (1.312,1.496) (1.560,1.353) (1.738,1.191) (1.833,1.029)
+      (1.812,0.877) (1.697,0.765) (1.519,0.710) (1.320,0.703) (1.136,0.748)
+      (0.985,0.829) (0.884,0.950) (0.845,1.101) (0.870,1.267) (0.929,1.422)};
+  \draw[given, line width=0.5pt]
+    plot[smooth cycle, tension=0.7] coordinates {
+      (1.150,1.271) (1.310,1.304) (1.428,1.267) (1.482,1.193) (1.457,1.120)
+      (1.361,1.075) (1.247,1.056) (1.150,1.095) (1.099,1.164) (1.111,1.230)};
+  \draw[given] (A) -- (O) -- (B);
+  \draw[aux] (A) -- (B);
+  \node[vlab,above] at (A) {$A$};
+  \node[vlab,below left] at (O) {$O$};
+  \node[vlab,right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{9--49}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------- Fig 9-50, 9-51
+\newcommand{\FIGIXFIFTYFIFTYONE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.27\linewidth}\centering
+\begin{tikzpicture}[scale=1.02]
+  % 9-50: C is the midpoint of AB, P at height sqrt(r^2 - (AB/2)^2); the two
+  % dashed arcs are the circles of radius r about A and B.
+  \coordinate (A) at (0,0); \coordinate (B) at (1.80,0);
+  \coordinate (C) at (0.90,0); \coordinate (P) at (0.90,1.17);
+  \draw[aux] ([shift=(-52.4:1.4763)]A) arc (-52.4:52.4:1.4763);
+  \draw[aux] ([shift=(127.6:1.4763)]B) arc (127.6:232.4:1.4763);
+  \draw[given] (A) -- (B);
+  \draw[given] (A) -- (P) -- (B);
+  \draw[key] (P) -- (C);
+  \node[slab,above left] at ($(A)!0.5!(P)$) {$r$};
+  \foreach \p/\n/\d in {A/A/below left, B/B/below right, C/C/below, P/P/above}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{9--50}
+\end{minipage}\hfill
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=1.45]
+  % 9-51: C on the semicircle, D the foot of the perpendicular from C, with
+  % x = AD = r - y, y = DO, z = CD = sqrt(r^2 - y^2), r the radius.
+  \def\R{1.40}
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (-\R,0); \coordinate (B) at (\R,0);
+  \coordinate (D) at (-0.637,0); \coordinate (C) at (-0.637,1.2464);
+  \draw[given] (A) -- (B);
+  \draw[given] (A) arc (180:0:\R);
+  \draw[given] (A) -- (C) -- (B);
+  \draw[key] (C) -- (D);
+  \draw[given] (C) -- (O);
+  \fill (O) circle (1.2pt);
+  \node[vlab,below left]  at (A) {$A$};
+  \node[vlab,below right] at (B) {$B$};
+  \node[vlab,above] at (C) {$C$};
+  \node[vlab,below] at (D) {$D$};
+  \node[vlab,below] at (O) {$O$};
+  \node[slab,above=1pt] at (-1.02,0) {$x$};
+  \node[slab,above=1pt] at (-0.32,0) {$y$};
+  \node[slab] at (-0.80,0.34) {$z$};
+  \node[slab,right=1pt] at (-0.3185,0.6232) {$r$};
+  \node[slab,above=1pt] at (0.70,0) {$r$};
+\end{tikzpicture}
+\figcap{9--51}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 9-52
+% AB a vertical diameter; CD _|_ AB at E, with EO = 12 and radius 15, so the
+% half-chord is 9.
+\newcommand{\FIGIXFIFTYTWO}{\begin{bkfigure}[0.46\linewidth]
+\begin{tikzpicture}[scale=1.05]
+  \draw[given] (0,0) circle (1.5);
+  \coordinate (A) at (0,1.5); \coordinate (B) at (0,-1.5);
+  \coordinate (E) at (0,1.2);
+  \coordinate (C) at (-0.9,1.2); \coordinate (D) at (0.9,1.2);
+  \draw[given] (A) -- (B);
+  \draw[key] (C) -- (D);
+  \fill (0,0) circle (1.2pt);
+  \node[vlab,above] at (A) {$A$};   \node[vlab,below] at (B) {$B$};
+  \node[vlab] at ($(C)+(-0.30,0.18)$) {$C$};
+  \node[vlab] at ($(D)+(0.30,0.18)$) {$D$};
+  \node[vlab,below right] at (E) {$E$};
+  \node[vlab,right] at (0,0) {$O$};
+\end{tikzpicture}
+\figcap{9--52}
+\end{bkfigure}}
+
+% ------------------------------------------ Figs 9-53/9-54, 9-55 (hoisted
+% from ch09.tex local block after the Review-Exercise transcription pass)
+% Figures 9-53, 9-54, 9-55 belong to the Review Exercises (book pp.178-179) and
+% did not exist when figures09.tex was reviewed; that file is owned by the
+% figure-review pass, so they are defined here per the "new local macro" rule.
+% HOIST: move these three into figures09.tex and add their hypotheses to
+% tools/constraints/ch09.py.  See chapters/ch09-UNCERTAIN.md sec. 3.
+%
+% 9-53: right trapezoid, bases 18 (bottom) and 12, altitude 8; the slant leg is
+% 10, so its run is 6 (6-8-10), which is exactly the 18-12 difference.  The
+% nonparallel sides extended meet at (18,24): the enclosing triangle is 18-24-30
+% with the right angle on the vertical side, which is what Ex. 11 asks students
+% to show.  Every vertex is forced by those numbers; nothing is placed by eye.
+\newcommand{\FIGIXFIFTYTHREEFIFTYFOUR}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.33\linewidth}\centering
+\begin{tikzpicture}[x=0.108cm,y=0.108cm]
+  \coordinate (A) at (0,0);   \coordinate (B) at (18,0);
+  \coordinate (P) at (18,24); \coordinate (D) at (6,8);
+  \coordinate (C) at (18,8);  \coordinate (H) at (6,0);
+  \draw[given] (A) -- (B) -- (P) -- cycle;
+  \draw[given] (D) -- (C);
+  \draw[given] (D) -- (H);
+  \node[slab,left]  at ($($(A)!0.5!(D)$)+(-0.9,0.7)$) {10};
+  \node[slab,right] at ($(D)!0.5!(H)$) {8};
+  \node[slab,above] at ($(D)!0.5!(C)$) {12};
+  \node[slab,below] at ($(A)!0.5!(B)$) {18};
+\end{tikzpicture}
+\figcap{9--53}
+\end{minipage}\hfill
+\begin{minipage}{0.62\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  % 9-54: Menelaus.  D is fixed at 2/3 of AB and F on ray AC beyond C; E is then
+  % the true intersection of DF with BC, so AD/DB . BE/EC . CF/FA = 1 holds
+  % exactly by construction.  X, Y, Z are projection feet, never eyeballed.
+  \coordinate (A) at (0,0); \coordinate (B) at (1.68,2.82);
+  \coordinate (C) at (3.18,0); \coordinate (F) at (4.985,0);
+  \coordinate (D) at ($(A)!2/3!(B)$);
+  \coordinate (E) at (intersection of D--F and B--C);
+  \coordinate (L) at ($(D)!-0.20!(F)$);
+  \coordinate (G) at ($(D)!1.07!(F)$);
+  \coordinate (X) at ($(D)!(A)!(F)$);
+  \coordinate (Y) at ($(D)!(B)!(F)$);
+  \coordinate (Z) at ($(D)!(C)!(F)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[aux]   (C) -- (F);
+  \draw[given] (L) -- (G);
+  \draw[aux]   (A) -- (X);
+  \draw[aux]   (B) -- (Y);
+  \draw[aux]   (C) -- (Z);
+  % Label offsets are taken along the bisector of the wedge each letter sits in,
+  % so every one clears both lines that meet there (l runs (0.899,-0.437); the
+  % three perpendiculars run along its normal (0.437,0.899)).
+  \node[vlab] at ($(L)+(-0.14,0.02)$) {$l$};
+  \node[vlab] at ($(X)+(-0.26,0.44)$) {$X$};
+  \node[vlab] at ($(D)+(-0.10,0.35)$) {$D$};
+  \node[vlab] at ($(Y)+(0.02,-0.36)$) {$Y$};
+  \node[vlab] at ($(E)+(0.26,0.27)$)  {$E$};
+  \node[vlab] at ($(Z)+(-0.12,0.36)$) {$Z$};
+  \node[vlab,above]      at (B) {$B$};
+  \node[vlab,below left] at (A) {$A$};
+  \node[vlab,below]      at (C) {$C$};
+  \node[vlab,below]      at (F) {$F$};
+\end{tikzpicture}
+\figcap{9--54}
+\end{minipage}
+\end{bkfigure}}
+%
+% 9-55: D and E are the feet of the altitudes from C and from B, placed with the
+% projection operator, so the two right angles are exact.
+\newcommand{\FIGIXFIFTYFIVE}{\begin{bkfigure}[0.5\linewidth]
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (A) at (0,0); \coordinate (B) at (3.43,0);
+  \coordinate (C) at (2.05,2.92);
+  \coordinate (D) at ($(A)!(C)!(B)$);
+  \coordinate (E) at ($(A)!(B)!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (C) -- (D);
+  \draw[given] (B) -- (E);
+  \draw[tick] ($(D)+(-0.15,0)$) -- ($(D)+(-0.15,0.15)$) -- ($(D)+(0,0.15)$);
+  \draw[tick] ($(E)!0.16!(A)$)
+           -- ($($(E)!0.16!(A)$)+($(E)!0.16!(B)$)-(E)$)
+           -- ($(E)!0.16!(B)$);
+  \node[vlab,above]       at (C) {$C$};
+  \node[vlab,below left]  at (A) {$A$};
+  \node[vlab,below right] at (B) {$B$};
+  \node[vlab,below]       at (D) {$D$};
+  \node[vlab,above left]  at (E) {$E$};
+\end{tikzpicture}
+\figcap{9--55}
+\end{bkfigure}}

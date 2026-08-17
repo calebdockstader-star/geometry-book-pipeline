@@ -1,0 +1,828 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures15}
+
+% ---- local macros (hoist into book preamble) ----
+% Starred (optional) theorems, as the book marks Theorems 15-2 and 15-3.
+% Shares the theorem counter so the numbering runs 15-1, 15-2, 15-3.
+\theoremstyle{bkplain}
+\newtheorem{XVstheorem}[theorem]{*Theorem}
+% Worked examples, set as the book sets them: italic lead-in, no number when
+% a section carries only one.
+\newenvironment{XVexample}[1][]{\par\medskip\noindent\emph{Example#1.}\ }{\par\medskip}
+% NUMBERED remarks. brumfiel.sty's `remark' hard-codes an unnumbered
+% "Remark."; book p.261 prints "Remark 1." and "Remark 2." in sequence, so the
+% numbered form needs its own environment. The unnumbered `remark' is still
+% used for the two lone remarks on pp.257 and 262.
+\newenvironment{XVremark}[1]{\par\medskip\noindent\emph{Remark #1.}\ }{\par\medskip}
+% Symbol-marked footnotes. The book marks this chapter's footnotes with * and
+% dagger, never with numbers; \footnotetext would print the footnote counter,
+% so the counter is blanked and the symbol is typed into the body text.
+% (Same device as ch02's \IIstarnote and ch09's \IXstarnote.)
+\newcommand{\XVnote}[1]{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{#1}\endgroup}
+% (No star-convention footnote here: ch15 has starred exercises and two starred
+% theorems, but none of book pp.251-265 carries the "*Starred exercises ... are
+% optional" note; ch02:311 owns the book-wide first use.)
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{15}
+
+\chapter*{\raggedright\Huge ANALYTIC GEOMETRY}
+\addcontentsline{toc}{chapter}{15.\ Analytic Geometry}
+\markboth{ANALYTIC GEOMETRY}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 15-1
+\section*{15--1\quad SOME HISTORY}
+\addcontentsline{toc}{section}{15--1\quad Some history}
+
+We have commented before on the fact that numbers, other than integers, did
+not occur explicitly in Greek geometry. One reason for this was that numbers
+were hard to work with at that time. Even after the introduction, during the
+Middle Ages, of Arabic numerals and the place value of the decimal system,
+geometry continued in the Greek spirit. As a result, it often happened that
+problems that we would handle naturally with algebra were solved by geometric
+constructions.
+
+Of course, as time passed, there was a gradual tendency toward the use of
+algebra in geometric problems, but there was nothing systematic in its use.
+And until there was sufficient algebraic machinery available and people became
+skilled in using numbers, there was little advantage in changing a geometric
+problem into an algebraic problem.
+
+By the beginning of the 17th century, considerable progress had been made in
+algebra and in algebraic notation;* in particular, quadratic, cubic, and
+quartic equations could be solved. Mathematicians were interested in studying
+tangents to curves, which is more easily done with a little analytic geometry.
+So it was that in the 17th century the times were right for something new.
+Indeed, many men had actually been using some analytic geometry without making
+it a definite system for attacking problems in geometry. Today, looking back
+on those times, it is hard to imagine why some ideas were so slow in coming.
+But we must remember that discovery is always much harder than understanding
+what has been discovered.%
+\XVnote{*The beginning student hardly realizes how much easier the shorthand
+notation of algebra makes his problems. The interested student is urged to
+read in the history of mathematics and to try working a problem in earlier
+notations.}
+
+It is universally agreed that the French philosopher Ren\'e Descartes
+(1596--1650) was the discoverer (inventor?) of analytic geometry, and the date
+is generally set as 1637, when his \emph{Geometry} was published. Descartes is
+also noted for his work in physics and in philosophy. In the latter, he
+aspired to write a philosophy that would be perfectly logical and free from
+objectionable assumptions. His efforts in philosophy include the book
+\emph{Discourse on Method}, which expounds what is referred to today as
+Cartesian philosophy, and which has been a source of dispute ever since! But
+his \emph{Geometry} is undisputed. Analytic geometry is today a part of a
+liberal education as well as a necessity for pure and applied science.
+
+Some brief remarks about Descartes' life may be of interest. Born in 1596, he
+started school in a Jesuit institution at the age of eight. Never a strong,
+healthy boy, he was allowed by his school to stay in bed mornings to do his
+studies, and later in life he did much of his writing in bed. He left school
+in 1612, studied law, and even spent some time in the Dutch army as a
+gentleman volunteer, leaving in 1619. It appears that by 1620 most of his
+great ideas had been established in outline. In other words, he had thought
+them over and had a fairly clear picture of how they should go. Much of his
+life thereafter was spent in Holland. A devout man, he nevertheless had
+troubles with the church over his philosophical ideas. By the time his
+\emph{Geometry} was published, he was a well-known figure. In 1649 he visited
+the court of Queen Christina of Sweden, after much urging, to teach her his
+system of philosophy. Assigned the outlandish hour of 5 a.m. three days a week
+for the instructions, he fell ill in February 1650 and died a few days later.
+
+\emph{Geometry} was his only book on mathematics and, in a sense, contained
+nothing totally new. What Descartes did was to show how a systematic use of
+coordinates helps to attack problems. He classified various kinds of curves
+and suggested further work. The book was suggestive and tremendously fruitful.
+We owe to him our convention of using the first letters of the alphabet
+($a$, $b$, $c$) for knowns and the last letters ($x$, $y$, $z$) for unknowns.
+
+It is not easy to give a concise definition of analytic geometry. In a sense,
+this entire chapter is such a definition, for a complete definition should
+include some of its uses. But for the moment, it may suffice to say that, in
+analytic geometry, geometric figures are studied by means of equations. Then,
+if we wish to know something concerning the geometric figure, it \emph{may} be
+easy to learn this by examining an equation. The equations that are used
+involve numbers called coordinates, which serve to locate points. But why the
+word ``analytic''? Analytic geometry does enable one to analyze geometric
+figures, but this is also done in regular Euclidean geometry. Perhaps a better
+description would be to call this new way of looking at geometry, plane
+\emph{coordinate} geometry, or plane \emph{Cartesian} geometry. Remember that
+it is the same plane we are studying all the time, no matter how we look at it.
+
+\exercisegroup{15--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item Read the history of mathematics during the 17th century.
+\item Read a biography of Descartes in an encyclopedia or in \emph{Men of
+  Mathematics}, by E. T. Bell.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 15-2
+\section*{15--2\quad EXAMPLES}
+\addcontentsline{toc}{section}{15--2\quad Examples}
+
+Although analytic geometry is distinguished by use of coordinates, the idea
+should already be familiar from some common situations. Some cities are laid
+out in squares, with the east-west and north-south roads called avenues and
+streets, respectively. The numbers of street and avenue fix any intersection.
+In the same way, you unconsciously use coordinates in describing a nearby town
+as, perhaps, 7 miles north and 5 miles west of ``here.''
+
+\exercisegroup{15--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item Try to think of other examples of coordinates, that is situations in
+  which position is determined by a pair of numbers.
+\item Discuss the need to have streets straight in order to ``coordinatize'' a
+  city.
+\end{exlist}
+\end{multicols}
+
+By far the most important example of coordinates is our method (Chapter 5) of
+putting coordinates on a line. We recall how this was done:
+
+Given a line $l$ and a unit of length, choose a point $O$ on the line $l$, as
+in Fig.~15--1. Now choose* a point $P_1$ on $l$ at a distance 1 from $O$. This
+choice determines which half of the line we will call the \emph{positive
+axis}, or \emph{positive direction}. For every positive real number $x$, there
+is exactly one point $P_x$ of $l$ on the same side of $O$ as the point $P_1$
+such that the length $\sg{OP_x} = x$. For every negative real number $x'$,
+there is exactly one point $P_{x'}$ of $l$ on the opposite side of $O$ from
+$P_1$ such that the length $\sg{OP_{x'}} = -x' = |x'|$.%
+\XVnote{*There are two ways of choosing this point, namely on either side of
+$O$. Which side is chosen is not important.}
+
+Each of the numbers $x$ and $x'$ is called the \emph{coordinate} of the
+corresponding point of the line.
+
+\FIGXVONE
+
+\exercisegroup{15--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item How are the points $P_{x_1}$, $P_{x_2}$, and $O$ related if $x_1 < 0$
+  and $x_2 > 0$? if $0 < x_2 < x_1$? if $x_1 < x_2 < 0$?
+\item If we agree that points with larger coordinates ``lie to the right'' of
+  points with lesser coordinates, how are we thinking of the drawn line $l$
+  and the chosen point $P_1$?
+\item Two points on the line have coordinates $-3$ and 7. What is the distance
+  between them? between 5 and 12? between $x_1$ and $x_2$?
+\end{exlist}
+\end{multicols}
+
+\begin{definition}
+We will refer to the above construction of coordinates as a coordinatization
+of the line $l$, with the point $O$ as \emph{origin of coordinates}.
+\end{definition}
+
+%========================================================= 15-3
+\section*{15--3\quad THE EXISTENCE OF COORDINATES}
+\addcontentsline{toc}{section}{15--3\quad The existence of coordinates}
+
+The construction of plane coordinates is best carried out in a number of
+simple steps. We assume that a unit of length has been selected in the plane.
+
+\begin{definition}
+Choose a point $O$ in the plane. Call this point the \emph{origin of
+coordinates}. Choose any two perpendicular lines through $O$. Call these lines
+\emph{coordinate axes}. Coordinatize each of the axes, with the point $O$ as
+origin of coordinates. Select one of these lines and call it the \emph{axis of
+abscissas}.* The other axis is called the \emph{axis of ordinates}.\dag\ See
+Fig.~15--2.%
+\XVnote{*This is not a fortunately chosen word. It would be better to say
+``first coordinates.'' In most drawings in textbooks, the axis of abscissas is
+drawn horizontally as the reader views it. There is nothing sacred about this,
+we just agree to consider one coordinate before we do the other (something
+must be first) and call this first coordinate by the strange name
+\emph{abscissa}.}%
+\XVnote{\dag\ This word is not much better, but the literature of mathematics
+is filled with this word too, so make the best of it and learn it. Of course
+``second coordinate'' is much better.}
+\end{definition}
+
+\FIGXVTWO
+
+\exercisegroup{15--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a figure, different from Fig.~15--2, illustrating Definition
+  15--2.
+\item Compare your figure with your neighbor's. Did you both choose the
+  ``same'' axis for abscissas? Turn your figure sideways. Do you have a
+  different opinion about which is the first coordinate?
+\item With the same drawing as in Exercise 1, reverse the coordinates on each
+  of the axes. Is this a possible way of satisfying Definition 15--2? Suppose
+  that we reversed the coordinates on only one of the axes.
+\end{exlist}
+\end{multicols}
+
+Perhaps you will have observed a certain arbitrariness in the definition, in
+that we \emph{choose} a point $O$ and \emph{choose} lines for axes. This is
+actually the way things operate in practice. In applying analytic geometry to
+problems in physics or engineering, it is usually necessary to \emph{choose}
+coordinates. \emph{There are no fixed coordinate systems inherent in nature.}
+Coordinate systems are convenient inventions that facilitate mathematical
+computations.
+
+Having set up our axes, we can make certain statements concerning them. We
+give some of these in a theorem.
+
+\begin{theorem}
+The coordinate axes separate the plane into four regions, called quadrants,
+such that if $P$ and $Q$ are points not on either axis and in the same
+quadrant, then the segment $PQ$ does not meet either axis, whereas if $P$ and
+$Q$ are in different quadrants, then $PQ$ meets at least one of the axes. See
+Fig.~15--3.
+\end{theorem}
+
+\FIGXVTHREE
+
+\noindent\emph{Proof.}
+Each axis separates the plane. (Why?) Consider any point $P$ not on any axis.
+The point $P$ is on one side of the axis of abscissas and one side of the axis
+of ordinates. Let $Q$ be any point on the same side of the axis of abscissas
+as $P$ and on the same side of the axis of ordinates as $P$. Then $PQ$ meets
+neither axis. (Why?) The set of all such points $Q$ is a quadrant. If $Q_1$
+and $Q_2$ are two points of that quadrant, then $Q_1Q_2$ does not intersect
+either axis. (Why?)
+
+There are four ways of choosing the point $P$, according to which sides of the
+axes it is on. This gives rise to the four quadrants.
+
+\exercisegroup{15--5}
+\begin{multicols}{2}
+\begin{exlist}
+\item Describe the four ways of choosing $P$ to get the four quadrants.
+\item Does the above proof require the axes to be perpendicular?
+\end{exlist}
+\end{multicols}
+
+\begin{definition}
+The half plane that contains the positive axis of abscissas will be called the
+\emph{right half plane}, and similarly for \emph{left half plane}.* The half
+plane that contains the positive axis of ordinates will be called the
+\emph{upper half plane}, and similarly for \emph{lower half plane}.%
+\XVnote{*This agrees with the way axes are conventionally drawn in textbooks.}
+\end{definition}
+
+\FIGXVFOUR
+
+The quadrant that is in the right half plane and in the upper half plane will
+be called the \emph{first quadrant;} the \emph{second quadrant} lies in the
+upper and left half planes; the \emph{third quadrant}, in the lower and left
+half planes; and the \emph{fourth quadrant}, in the lower and right half
+planes. See Fig.~15--4.
+
+\exercisegroup{15--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item In Fig.~15--5, which is quadrant I? quadrant II? quadrant III? quadrant
+  IV?
+\item[\stex 2.] Explain why Definition 15--3 does not require any previous
+  knowledge of what the words ``left'' and ``right'' mean.
+\item[\stex 3.] Has there been any use made of the fact that the axes have
+  been selected to be perpendicular? What changes would have to be made so far
+  if the axes were not at right angles?
+\end{exlist}
+\end{multicols}
+
+\FIGXVFIVE
+
+\begin{definition}
+Let $P$ be any point of the plane, and $l_1$ and $l_2$ the lines through $P$
+parallel, respectively, to the axis of ordinates and axis of abscissas. The
+line $l_1$ meets the first axis in a point $A$, with coordinate $x$. The line
+$l_2$ meets the second axis in a point $B$, with coordinate $y$. See
+Fig.~15--6. The two numbers $x$ and $y$ are called the \emph{coordinates} of
+$P$. We write them in parentheses, $(x, y)$, and refer to $(x, y)$ as a
+\emph{point}. The number $x$ is the \emph{abscissa} of $P$, and the number $y$
+is the \emph{ordinate} of $P$.
+\end{definition}
+
+Because the letters $x$ and $y$ are so frequently used for abscissa and
+ordinate, the axes are often called the \emph{x-axis} and the \emph{y-axis}.
+The plane then, when coordinatized in this way, is often called the
+\emph{xy-plane}.\dag%
+\XVnote{\dag\ Of course there is nothing really special about the letters $x$
+and $y$. Use of different letters, say $u$ and $v$, would give us a
+\emph{uv-plane}.}
+
+Given the coordinates of a point, if one marks that point in a figure, it is
+then said that the point has been \emph{plotted}.
+
+\begin{remark}
+The point $O$ has coordinates $(0, 0)$. (Why?)
+\end{remark}
+
+If $P$ does not lie on either axis, neither coordinate of $P$ can be 0. If the
+first coordinate of $P$ is 0, then $P$ is on the axis of ordinates. The
+converse is also true.
+
+\FIGXVSIX
+
+\exercisegroup{15--7}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw axes, and plot the points $(2, 4)$; $(-2, 4)$;
+  $(-3, -\tfrac{1}{2})$; $(0, -5)$; $(-4, 0)$; and $(7\tfrac{1}{2}, -3)$.
+\item A point $P$ lies in the first quadrant. The perpendicular distance from
+  the $x$-axis is $4\tfrac{1}{2}$ units; the distance from the $y$-axis is 3
+  units. What are the coordinates of $P$? What are the coordinates if
+  distances are the same but $P$ is in the second quadrant?
+\item[\stex 3.] Suppose that, using the same lines as axes, the unit of
+  distance is chosen twice as large. What would be the effect upon the
+  coordinates of points?
+\item[\stex 4.] Where are all the points in the plane with abscissa 0?
+  abscissa negative? ordinate positive?
+\item[\stex 5.] Where are all the points in the plane whose ordinates are
+  equal to their abscissas?
+\item[6.] Draw the line that passes through the points $(-1, 5)$ and
+  $(2, -1)$. Can you easily draw a line parallel to it, which passes through
+  the origin?
+\item[\stex 7.] Carry out the construction of coordinates when the axes are
+  not perpendicular.
+\item[8.] Both coordinates of the point $S$ are negative numbers. The points
+  $S$ and $T$ are on the same side of the $x$-axis, but on opposite sides of
+  the $y$-axis. What can you say about the coordinates of $T$?
+% Manual \item[...] labels do not advance the list counter; resync so the
+% plain items below number 9-17 instead of restarting at 3.
+\setcounter{exlisti}{8}
+\item The positive and negative $x$- and $y$-axes are rays from $O$. Describe
+  the four quadrants as interiors of angles formed by these rays.
+\item The abscissa of a point is 0. Where must it lie?
+\item The ordinate of a point is 0. Where can it be?
+\item What can you say about a point if the product of its coordinates is
+  negative? 0? positive?
+\item Plot five distinct points with first coordinate equal to 3. Describe the
+  set of all points in the plane such that the first coordinate of every point
+  of the set is 3.
+\item Consider the set of all points in the plane such that the sum of the
+  coordinates of each point is 10. Plot six such points, two in each of
+  quadrants I, II, and IV. Why are there no such points in quadrant III?
+\item Describe the set of all points $(x, y)$ such that $x + 1 < 0$.
+\item What is the perpendicular distance from $(3, -4)$ to the $x$-axis? to
+  the $y$-axis? from $(-5, -7)$ to each axis?
+\item How far is $(3, 4)$ from $(0, 0)$?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 15-4
+\section*{15--4\quad STRAIGHT LINES}
+\addcontentsline{toc}{section}{15--4\quad Straight lines}
+
+Having coordinates, we naturally ask how lines may be described by
+coordinates. In exercises we have already examined a few lines.
+
+For example, the set of all points $(x, y)$ with abscissa 3 is the line shown
+in Fig.~15--7, and every point on the line parallel to the $y$-axis, at a
+distance 3 to the right of the $y$-axis, has its $x$-coordinate equal to 3.
+Hence, this line can be specified briefly by writing just $x = 3$. We say then
+that ``$x = 3$'' is the \emph{equation} of this line.
+
+\FIGXVSEVEN
+
+Conversely, when we see the equation $x = 3$, we ask ourselves, ``What is the
+set of all points $(x, y)$ for which $x = 3$?''
+
+In the same way, all lines parallel to the $y$-axis have an equation $x = a$,
+where $a$ is some real number, positive or negative. (If $a = 0$, what is the
+line?)
+
+Likewise, lines parallel to the $x$-axis will have equations $y = b$.
+
+\exercisegroup{15--8}
+\begin{multicols}{2}
+\begin{exlist}
+\item A line is parallel to the $y$-axis and passes through the point
+  $(-3, 5)$. What is its equation? What if it is parallel to the $x$-axis?
+\item What is the equation of the line that bisects the first and third
+  quadrants? the second and fourth?
+\item[\stex 3.] Plot several points $(x, y)$ whose coordinates satisfy the
+  equation $x + y = 5$. Can you describe briefly the set of all points
+  $(x, y)$ whose coordinates satisfy this equation?
+\end{exlist}
+\end{multicols}
+
+We will prove shortly that every straight line has an equation of a simple
+kind. But first we see that such simple equations turn out to be straight
+lines.
+
+\begin{XVexample}[ 1]
+Consider the set of all points $(x, y)$ whose coordinates satisfy the equation
+$2x - 3y + 6 = 0$. We first find a few of these points, by choosing a value
+for $x$ (or $y$) and then solving for $y$ (or $x$). Thus, if $x = 0$, we have
+$0 - 3y + 6 = 0$, or $y = 2$. If $x = 3$, then $y = 4$. If $y = 0$, then
+$x = -3$.
+\par\medskip
+\begin{center}
+\begin{tabular}{c|c}
+\multicolumn{1}{c}{$x$} & \multicolumn{1}{c}{$y$} \\
+0 & 2 \\
+3 & 4 \\
+$-3$ & 0 \\
+\end{tabular}
+\end{center}
+\end{XVexample}
+
+\FIGXVEIGHTNINE
+
+When these points are plotted, we see (by looking at Fig.~15--8) that they
+apparently lie on a line.
+
+Find other points whose coordinates satisfy the equation, and plot them.
+
+\begin{XVexample}[ 2]
+Consider the set of all points $(x, y)$ whose coordinates satisfy the equation
+$-4y - 8 = 0$. From the equation, we see that $y = -2$, regardless of what $x$
+is. The set of all points $(x, -2)$ is the line parallel to the $x$-axis and a
+distance 2 units below. See Fig.~15--9.
+\end{XVexample}
+
+\exercisegroup{15--9}
+Plot several points $(x, y)$ whose coordinates satisfy the following
+equations:
+\begin{multicols}{2}
+\begin{exlist}
+\item $2x + 3y - 6 = 0$.
+\item $x - 2y + 4 = 0$.
+\item $3x - 9 = 0$.
+\item $-x - y + 4 = 0$.
+\item $2ax + 3ay - 6a = 0$; $a \neq 0$.
+\item $-3x + 5y - 15 = 0$.
+\item $y = 2x + 2$.
+\item $x = 3y - 6$.
+\end{exlist}
+\end{multicols}
+
+From the examples we observe that equations of the form $Ax + By + C = 0$,
+where $A$, $B$, and $C$ are given numbers, are satisfied by the coordinates of
+points on lines. We now prove this theorem.
+
+\begin{XVstheorem}
+If $A$, $B$, and $C$ are given numbers, with not both $A$ and $B$ zero, then
+all points $(x, y)$ whose coordinates satisfy the equation $Ax + By + C = 0$
+lie on a single line.
+\end{XVstheorem}
+
+\noindent\emph{Proof.}
+We separate the proof into three cases.
+
+\emph{Case} 1. $A = 0$. Then $B \neq 0$ (why?) and the equation is
+$By + C = 0$, or $y = -C/B$. Then all points with this $y$-coordinate lie on
+the line parallel to the $x$-axis and passing through $(0, -C/B)$.
+
+\emph{Case} 2. $B = 0$. In this case, the points lie on a line parallel to the
+$y$-axis.
+
+\emph{Case} 3. $A \neq 0$ and $B \neq 0$. It suffices to show that any two
+points $(x_1, y_1)$ and $(x_2, y_2)$ whose coordinates satisfy the equation
+lie on one line with the point $(0, -C/B)$. This will be the case if and only
+if the right triangles indicated in Fig.~15--10 are similar, where
+
+\begin{equation}\tag{15--1}
+y_1 = \frac{-Ax_1-C}{B}; \qquad y_2 = \frac{-Ax_2-C}{B}.
+\end{equation}
+
+\FIGXVTENELEVEN
+
+But these triangles are similar if and only if
+
+\begin{equation}\tag{15--2}
+\frac{y_2-(-C/B)}{x_2} = \frac{y_1-(-C/B)}{x_1}.
+\end{equation}
+
+From Eq.~(15--1) we see that
+\[
+\frac{y_2+C/B}{x_2} = \frac{-A}{B} = \frac{y_1+C/B}{x_1}.
+\]
+
+Hence we conclude that the triangles are similar and the points
+$[0, -(C/B)]$, $(x_1, y_1)$, and $(x_2, y_2)$ are collinear.
+
+\begin{XVstheorem}
+If $l$ is a line, then there are numbers $A$, $B$, and $C$, with not both $A$
+and $B$ zero, such that every point $(x, y)$ on $l$ has coordinates that
+satisfy the equation
+\begin{equation}\tag{15--3}
+Ax + By + C = 0.
+\end{equation}
+\end{XVstheorem}
+
+\noindent\emph{Proof.}
+As in the previous theorem, we consider three cases.
+
+\emph{Case} 1. $l$ is parallel to the $x$-axis. Then there is a point
+$(0, b)$ on $l$, and every point $(x, y)$ on $l$ satisfies $y = b$. This is of
+the form of Eq.~(15--3), with $A = 0$, $B = 1$, and $C = -b$.
+
+\emph{Case} 2. $l$ is parallel to the $y$-axis. This case is left to the
+student.
+
+\emph{Case} 3. $l$ is parallel to neither axis. Choose $(x_1, y_1)$ and
+$(x_2, y_2)$, distinct points on $l$. Then $x_1 \neq x_2$ and
+$y_1 \neq y_2$. (Why?) Let $(x, y)$ be any other point on $l$.
+
+As shown in Fig.~15--11, the points $(x_2, y_1)$ and $(x, y_1)$ form, with
+$(x_1, y_1)$, $(x_2, y_2)$, and $(x, y)$, two right triangles that are
+similar. Because of similarity,\dag
+
+\begin{equation}\tag{15--4}
+\frac{y-y_1}{y_2-y_1} = \frac{x-x_1}{x_2-x_1}
+\end{equation}
+\XVnote{\dag\ Figure 15--11 is drawn so that $x_1 < x_2 < x$, and
+$y_1 < y_2 < y$, but all orders can occur for different points and different
+lines. In every case, however, Eq.~(15--4) will be satisfied. Thus it makes no
+difference which point is considered as $(x_1, y_1)$, so long as one is
+consistent in its use.}
+
+\noindent or
+\[
+(y_2 - y_1)x - (x_2 - x_1)y + x_2y_1 - y_2x_1 = 0,
+\]
+which is of the form of Eq.~(15--3). This completes the proof.
+
+\begin{XVremark}{1}
+An equation equivalent to Eq.~(15--4) is
+\begin{equation}\tag{15--5}
+y - y_1 = \frac{y_2-y_1}{x_2-x_1}\,(x-x_1).
+\end{equation}
+This is a useful equation to remember because it enables one to write at once
+an equation satisfied by the coordinates of any point on a line through two
+given points.
+\end{XVremark}
+
+\begin{XVremark}{2}
+Two different equations may correspond to the same line. Thus for example,
+$x = 2$ and $2x - 4 = 0$ represent the same line. Such equations are said to
+be \emph{equivalent} equations. In arriving at equations for lines, we usually
+do not care which equivalent equation we obtain.
+\end{XVremark}
+
+\begin{definition}
+If $Ax + By + C = 0$ is an equation satisfied by the coordinates $(x, y)$ of
+all points on a line $l$, we say that $Ax + By + C = 0$ is the equation of
+$l$. We also speak of the \emph{``line $Ax + By + C = 0$.''} Such an equation
+of the first degree in $x$ and $y$ will be called a \emph{linear equation} in
+$x$ and $y$.
+\end{definition}
+
+\FIGXVTWELVE
+
+\begin{XVexample}
+Find the equation of the line through $(-2, 3)$ and $(1, 5)$ in Fig.~15--12,
+and draw the line. Using Eq.~(15--5), we have
+\[
+y - 3 = \frac{5-3}{1-(-2)}\,[x-(-2)]
+\qquad\text{or}\qquad
+y = \tfrac{2}{3}x + \tfrac{13}{3}.
+\]
+\end{XVexample}
+
+\exercisegroup{15--10}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw the lines
+  \begin{enumerate}[label=(\alph*),leftmargin=1.5em,itemsep=0pt,topsep=2pt,
+    parsep=0pt]
+  \item $3x - 4y = 12$,
+  \item $3x - 4y = 8$,
+  \item $4x + 3y = 0$,
+  \item $4x + 15 = 0$,
+  \item $-2x - 3y + 5 = 0$,
+  \item $y = \dfrac{-1}{2}\,x + 3$,
+  \item $y = \dfrac{-1}{2}\,x$,
+  \item $x = 3y + 3$,
+  \item[(k)] $5y - 12 = 0$,
+  \item[(l)] $2x + y = 7$.
+  \end{enumerate}
+\item Find the equations of the lines through the following pairs of points:
+  \begin{enumerate}[label=(\alph*),leftmargin=1.5em,itemsep=0pt,topsep=2pt,
+    parsep=0pt]
+  \item $(-1, 1)$ and $(3, -1)$,
+  \item $(2, 3)$ and $(-2, -3)$,
+  \item $(a, 0)$ and $(0, b)$,
+  \item $(-3, 0)$ and $(0, -5)$,
+  \item $(-2, -4)$ and $(-5, -5)$,
+  \item $(0, b)$ and $(1, m + b)$.
+  \end{enumerate}
+\item In Exercise 1, how many points did you plot to draw each line? Is there
+  a reason for plotting more than two?
+\item Find the coordinates of the point of intersection of the lines
+  $3x - 5y = 7$ and $2x + 3y = -1$.
+\item A line meets the $y$-axis in $(0, -3)$ and the $x$-axis in $(-4, 0)$.
+  Where does this line intersect the line $y = 7x - 19$?
+\item Show that the lines $2x + 3y = 0$ and $4x + 6y = 5$ are parallel.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 15-5
+\section*{15--5\quad DISTANCE}
+\addcontentsline{toc}{section}{15--5\quad Distance}
+
+The distance between any two points of the plane is easy to calculate from the
+coordinates of the points. It is particularly easy if the line through the
+points is parallel to one of the axes. Thus, $\sg{AB} = 1 - (-3) = 4$, and
+$\sg{CD} = |x_2 - x_1| = |x_1 - x_2|$ in Fig.~15--13.
+
+\FIGXVTHIRTEENFOURTEEN
+
+If the line through the points is not parallel to one of the axes, then with
+the point $Q$ $(x_2, y_1)$ a right triangle $P_1P_2Q$ is formed, as in
+Fig.~15--14, and the Pythagorean theorem asserts that
+$\sg{P_1P_2}^2 = \sg{P_1Q}^2 + \sg{P_2Q}^2 = |x_2 - x_1|^2 +
+|y_2 - y_1|^2$. Taking square roots, we obtain
+$\sg{P_1P_2} = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.
+
+\begin{remark}
+In using this formula it makes no difference which point is considered to be
+$(x_1, y_1)$ because $(x_1 - x_2)^2 = (x_2 - x_1)^2$ and
+$(y_1 - y_2)^2 = (y_2 - y_1)^2$.
+\end{remark}
+
+\exercisegroup{15--11}
+\begin{multicols}{2}
+\begin{exlist}
+\item Show that the triangle with vertices $(2, 6)$, $(5, 7)$, and
+  $(-8, -2)$ is a right triangle.
+\item What kind of triangle is the one with vertices $(3, 2)$, $(-4, 4)$, and
+  $(1, -5)$?
+\item[\stex 3.] Write an equation that states that the point $(x, y)$ is
+  equidistant from $(-3, 2)$ and $(2, 1)$. Show that this equation is
+  equivalent to a linear equation. Hence conclude that the set of all points
+  equidistant from $(-3, 2)$ and $(2, 1)$ is a straight line.
+\item[4.] Show that $(-1, -18)$, $(-13, -2)$, $(11, -8)$, and $(-1, 8)$ are
+  vertices of a parallelogram.
+% Manual \item[...] labels do not advance the list counter; resync so the
+% plain items below number 5-7 instead of restarting at 3.
+\setcounter{exlisti}{4}
+\item Show that if $(x, y)$ is a point on a circle whose center is $(-2, 1)$
+  and radius is 3, then $x^2 + y^2 + 4x - 2y = 4$.
+\item Show that the points $(2, 1)$, $(3, \tfrac{1}{2})$, and $(-2, 3)$ lie on
+  a line. What geometric theorems do you use?
+\item Show that the distance formula yields $|x_1 - x_2|$ if $y_1 = y_2$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 15-6
+\section*{15--6\quad MIDPOINT}
+\addcontentsline{toc}{section}{15--6\quad Midpoint}
+
+The midpoint of the segment $P_1P_2$ may be shown to have coordinates
+\[
+\left(\frac{x_1+x_2}{2},\ \frac{y_1+y_2}{2}\right).
+\]
+
+The proof is left to the student. If the line through the points is parallel
+to one of the axes, the proof is very simple. If $x_1 \neq x_2$ and
+$y_1 \neq y_2$, a right triangle may be formed as in Fig.~15--15, and
+parallels to the coordinate axes through the midpoint will bisect the sides in
+points whose coordinates are easily computed.
+
+\begin{XVexample}
+Show in Fig.~15--16 that the midpoint formula actually gives a point
+equidistant from $(-1, 3)$ and $(1, -1)$.
+\end{XVexample}
+
+\FIGXVFIFTEENSIXTEEN
+
+The point $M$ is
+$\left(\dfrac{-1+1}{2},\ \dfrac{3+(-1)}{2}\right) = (0, 1)$. Then
+\[
+\sg{P_1P_2} = \sqrt{2^2 + 4^2} = \sqrt{20} = 2\sqrt{5},
+\]
+\[
+\sg{P_1M} = \sqrt{1^2 + 2^2} = \sqrt{5},
+\]
+and
+\[
+\sg{MP_2} = \sqrt{1^2 + 2^2} = \sqrt{5}.
+\]
+Hence
+\[
+\sg{P_1P_2} = 2\sqrt{5} = \sqrt{5} + \sqrt{5} = \sg{P_1M} + \sg{MP_2}.
+\]
+
+\exercisegroup{15--12}
+\begin{multicols}{2}
+\begin{exlist}
+\item Find the midpoints of the sides, and the lengths of the medians, of the
+  triangle whose vertices are $(-4, 10)$, $(12, 10)$, and $(4, -2)$.
+\item Find the coordinates of the points that divide the segment $(-3, -7)$
+  $(11, 17)$ into fourths.
+\item[\stex 3.] Find the points that trisect the segment $(-3, -7)$
+  $(6, 11)$.
+\item[\stex 4.] Derive a formula for the coordinates of the points that
+  trisect the segment $(x_1, y_1)$ $(x_2, y_2)$.
+\item[\stex 5.] Show that the medians of the triangle with vertices
+  $(x_1, y_1)$, $(x_2, y_2)$, and $(x_3, y_3)$ intersect in the point
+  $[(x_1 + x_2 + x_3)/3, (y_1 + y_2 + y_3)/3]$.
+\item[6.] The point $(-3, 4)$ is the midpoint of a segment, one end of which
+  is $(5, 7)$. Find the other end.
+\item[\stex 7.] In Fig.~15--17, show that the line joining the midpoints of
+  the sides of a triangle is half as long as the third side, and parallel to
+  it. [\emph{Hint:} Choose your coordinate system so that one vertex is at the
+  origin and another is on the positive $x$-axis.]
+\item[\stex 8.] Prove that the diagonals of a parallelogram bisect each
+  other.
+\end{exlist}
+\end{multicols}
+
+\FIGXVSEVENTEEN
+
+%========================================================= 15-7
+\section*{15--7\quad CURVES AND EQUATIONS}
+\addcontentsline{toc}{section}{15--7\quad Curves and equations}
+
+We have seen that certain sets of points can be described by equations. Thus a
+straight line has a linear or first degree equation, in the sense that the
+coordinates of every point on the line satisfy an equation of first degree in
+$x$ and $y$ of the form $Ax + By + C = 0$, and conversely. In the same way,
+other sets of points can be described by different equations. Perhaps the
+simplest example of this is furnished by circles.
+
+\FIGXVEIGHTEENNINETEEN
+
+Suppose that $(x, y)$ in Fig.~15--18 is a point on the circle whose center is
+$(h, k)$ and whose radius is $r$, then
+\[
+\sqrt{(x-h)^2 + (y-k)^2} = r
+\]
+or, equivalently,
+
+\begin{equation}\tag{15--6}
+(x-h)^2 + (y-k)^2 = r^2.
+\end{equation}
+
+Conversely, a point $(x, y)$ whose coordinates satisfy Eq.~(15--6) will be at
+a distance $r$ from $(h, k)$ and therefore lies on the circle.
+
+We speak of Eq.~(15--6) as ``the'' equation of a circle, although any
+equivalent equation would also be called ``the'' equation. For example, the
+equation of the circle whose center is at $(-2, 3)$, and whose radius is 4, is
+\[
+(x + 2)^2 + (y - 3)^2 = 16
+\]
+or
+\[
+x^2 + y^2 + 4x - 6y = 3.
+\]
+
+Given an equation in the form of Eq.~(15--6), we can recognize it at once for
+the equation of a circle. Any equation equivalent to Eq.~(15--6) is the
+equation of a circle. For example, consider the equation
+\[
+x^2 + y^2 + 6x - 8y + 19 = 0.
+\]
+
+Rewrite the equation as
+\[
+(x^2 + 6x + \,?) + (y^2 - 8y + \,?) = -19 + \,? + \,?.
+\]
+
+By completing the squares of the expressions in parentheses, we have
+\[
+(x^2 + 6x + 9) + (y^2 - 8y + 16) = -19 + 9 + 16
+\]
+or
+\[
+(x + 3)^2 + (y - 4)^2 = 6,
+\]
+which is the equation of a circle whose center is at $(-3, 4)$ and whose
+radius is $\sqrt{6}$. See Fig.~15--19.
+
+Other curves (sets of points) will have other kinds of equations. The student
+is referred to books on analytic geometry for more detail.
+
+\exercisegroup{15--13}
+\begin{multicols}{2}
+\begin{exlist}
+\item Write the equation of the circle whose center is $(3, 5)$ and whose
+  radius is 6.
+\item Write the equation of the circle whose center is at $(-4, -3)$ and which
+  (a) is tangent to the $y$-axis, (b) passes through the origin.
+\item Find center and radius of the following circles:
+  \begin{enumerate}[label=(\alph*),leftmargin=1.5em,itemsep=0pt,topsep=2pt,
+    parsep=0pt]
+  \item $x^2 + y^2 + 8x - 9 = 0$,
+  \item $x^2 + y^2 - 6x - 10y = 2$,
+  \item $x^2 + y^2 - 7 = 0$,
+  \item $2x^2 + 2y^2 + 5x + 4y - 5 = 0$,
+  \item $x^2 + y^2 - 6x - 8y + 25 = 0$.
+  \end{enumerate}
+\item[\stex 4.] Find an equation satisfied by the coordinates of every point
+  $(x, y)$ whose distance from $(2, 0)$ is equal to its distance from the line
+  whose equation is $x + 2 = 0$.
+\item[\stex 5.] If the sum of the distances from $(x, y)$ to $(-3, 0)$ and
+  from $(x, y)$ to $(3, 0)$ is equal to 10, show that
+  $16x^2 + 25y^2 = 400$.
+\end{exlist}
+\end{multicols}
+
+\end{document}

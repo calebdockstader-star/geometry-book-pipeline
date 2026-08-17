@@ -1,0 +1,7 @@
+# huge source imagery — lives outside version control
+sources/Geometry.pdf
+scan docs/
+sources/copyright/nypl-data/
+# tectonic litter
+*.log
+build/*.aux

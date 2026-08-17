@@ -1,0 +1,467 @@
+% figures13.tex -- Chapter 13 (Loci and Sets) figures.
+%
+% Constrained points are DERIVED, never placed by hand:
+%   parallels    -> equal ratios along the two sides   ($(X)!r!(Y)$)
+%   perp. feet   -> ($(X)!(P)!(Y)$)
+%   crossings    -> (intersection of A--B and C--D)
+%   bisectors    -> ratio from the angle-bisector theorem
+%   midpoints    -> ($(X)!0.5!(Y)$)
+% so the hypothesis stated in the book holds exactly in the drawing.
+% Hypotheses are re-asserted numerically in tools/constraints/ch13.py.
+%
+% Macro names are chapter-prefixed: \FIGXIII<NUMBERWORD>.
+%
+% Line treatment follows the book's own convention: solid where the book
+% prints solid (given), dashed where the book prints dashed (aux).  In this
+% chapter the dashed role is doing double duty, exactly as the book does it:
+%   - a LOCUS that is being asserted rather than given (Figs 13-1, 13-2)
+%   - auxiliary/proof lines (Figs 13-5 ... 13-7, 13-11, 13-12, 13-14)
+%   - the second position of a rolling wheel (Fig 13-9)
+%   - the constructed outer triangle A'B'C' (Fig 13-16)
+% The book shades no region anywhere in this chapter, so no fill patterns.
+
+% Primed labels (Fig 13-16).  Same 1.3pt drop as ch09: keeps the prime in the
+% same "word" as its letter for the collision audit.
+\newcommand{\XIIIpr}{\raisebox{-1.3pt}{\ensuremath{{}^{\prime}}}}
+
+% Chapter-local label clearance, as ch09: 3.4pt clips when a labelled point
+% lies ON a drawn line.
+\tikzset{
+  vlab/.append style={outer sep=4.8pt},
+  slab/.append style={outer sep=4.8pt},
+}
+
+% The book marks the concurrency point in Figs 13-11, 13-12 and the centre in
+% Fig 13-14 with a small saltire/plus rather than a filled dot.
+\newcommand{\XIIIcross}[1]{%
+  \draw[fig,line width=0.5pt] ($(#1)+(-0.10,-0.10)$) -- ($(#1)+(0.10,0.10)$);
+  \draw[fig,line width=0.5pt] ($(#1)+(-0.10,0.10)$) -- ($(#1)+(0.10,-0.10)$);}
+\newcommand{\XIIIplus}[1]{%
+  \draw[fig,line width=0.5pt] ($(#1)+(-0.11,0)$) -- ($(#1)+(0.11,0)$);
+  \draw[fig,line width=0.5pt] ($(#1)+(0,-0.11)$) -- ($(#1)+(0,0.11)$);}
+
+% ---------------------------------------------------------------- Fig 13-1
+% Line l solid; the locus (a pair of parallels at distance d) dashed, one on
+% each side.  The d-tick is drawn from l up to the upper parallel.
+\newcommand{\FIGXIIIONE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \draw[given] (0,0) -- (6.10,0);
+  \node[vlab, right] at (6.10,0) {$l$};
+  \draw[aux] (0.28,0.82) -- (5.82,0.82);
+  \draw[aux] (0.28,-0.82) -- (5.82,-0.82);
+  % the distance tick, with the book's short cap at the top
+  \draw[given] (1.62,0) -- (1.62,0.82);
+  \draw[given] (1.50,0.82) -- (1.74,0.82);
+  \node[slab, right] at (1.66,0.42) {$d$};
+\end{tikzpicture}
+\figcap{13--1}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-2
+% Two given parallels solid; the locus (the midline) dashed.  P sits on the
+% midline, and the transversal tick carries d above and d below.
+\newcommand{\FIGXIIITWO}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (T) at (0,0.86);
+  \coordinate (Bm) at (0,-0.86);
+  \draw[given] (0,0.86) -- (6.00,0.86);
+  \draw[given] (0,-0.86) -- (6.00,-0.86);
+  \draw[aux] (0.22,0) -- (5.78,0);
+  % transversal: P is the midpoint of the cut, so the two d's are equal
+  \coordinate (Pt) at (3.46,0.86);
+  \coordinate (Pb) at (3.46,-0.86);
+  \coordinate (P)  at ($(Pt)!0.5!(Pb)$);
+  \draw[given] (Pt) -- (Pb);
+  \node[vlab, below left] at (P) {$P$};
+  \node[slab, right] at (3.50,0.43) {$d$};
+  \node[slab, right] at (3.50,-0.43) {$d$};
+\end{tikzpicture}
+\figcap{13--2}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-3
+% Ex 13-1 #2: a 3-unit segment, ticked into units, with the locus only
+% partly sketched -- five dots at height 1 over the segment, and one dot at
+% distance 1 measured radially off the right endpoint.  Reproduced as drawn.
+\newcommand{\FIGXIIITHREE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  \draw[given] (0,0) -- (3,0);
+  \foreach \x in {0,1,2,3} \draw[given] (\x,0) -- (\x,0.17);
+  % five dots, spacing measured from the print (0.19 unit); the arrow lands on
+  % the FOURTH dot, with three dots to its left and one to its right, as drawn
+  \foreach \x in {1.48,1.67,1.86,2.05,2.24} \fill (\x,1.0) circle (0.052);
+  \draw[given,<->] (2.05,0.06) -- (2.05,0.94);
+  \node[slab, left] at (2.01,0.50) {$1$};
+  % radial unit off the right end: 72 degrees, length exactly 1
+  \coordinate (R) at (3,0);
+  \coordinate (Rd) at ($(R)+(72:1)$);
+  \fill (Rd) circle (0.052);
+  \draw[given,<->] ($(R)!0.07!(Rd)$) -- ($(R)!0.93!(Rd)$);
+  \node[slab, right] at ($(R)!0.5!(Rd)$) {$1$};
+\end{tikzpicture}
+\figcap{13--3}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-4
+% Ex 13-1 #5: fixed base of 4 units, free vertex V.
+\newcommand{\FIGXIIIFOUR}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (L) at (0,0);
+  \coordinate (R) at (3.00,0);
+  % apex measured off the print: 0.741 of the base along, 0.463 of the base up
+  \coordinate (V) at (2.223,1.389);
+  \draw[given] (L) -- (R) -- (V) -- cycle;
+  \node[vlab, above] at (V) {$V$};
+  \node[slab, below] at ($(L)!0.5!(R)$) {$4$};
+\end{tikzpicture}
+\figcap{13--4}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-5
+% Thm 13-1.  C is the MIDPOINT of AB; the perpendicular bisector is solid and
+% runs through C to P; PA and PB are the dashed proof lines.
+\newcommand{\FIGXIIIFIVE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.40,0);
+  \coordinate (C) at ($(A)!0.5!(B)$);
+  \coordinate (P) at ($(C)+(0,1.56)$);
+  \draw[given] (A) -- (B);
+  % the bisector overshoots P by about 0.15 of AB in the print, and drops
+  % about 0.13 of AB below the segment
+  \draw[given] ($(C)+(0,-0.44)$) -- ($(C)+(0,2.06)$);
+  \draw[aux] (A) -- (P);
+  \draw[aux] (P) -- (B);
+  \fill (C) circle (0.055);
+  \node[vlab, below left] at (A) {$A$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above right] at (P) {$P$};
+\end{tikzpicture}
+\figcap{13--5}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-6
+% Thm 13-2.  The sides of the angle are solid; the bisector is dashed and
+% carries P.  A and B are the FEET of the perpendiculars from P, so they are
+% built with the projection operator -- never by eye.
+\newcommand{\FIGXIIISIX}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (O) at (0,0);
+  \coordinate (Uend) at (18:3.95);   % upper side of the angle
+  \coordinate (Lend) at (-18:4.05);  % lower side
+  \coordinate (P) at (2.90,0);       % on the bisector (the x-axis)
+  \coordinate (B) at ($(O)!(P)!(Uend)$);
+  \coordinate (A) at ($(O)!(P)!(Lend)$);
+  \draw[given] (O) -- (Uend);
+  \draw[given] (O) -- (Lend);
+  \draw[aux,<-] (0.06,0) -- (4.15,0);
+  \draw[aux] (B) -- (P);
+  \draw[aux] (P) -- (A);
+  \XIIIplus{P}
+  \node[vlab, left] at (O) {$O$};
+  \node[vlab, above left] at (B) {$B$};
+  \node[vlab, below] at (A) {$A$};
+  \node[vlab, above right] at (P) {$P$};
+\end{tikzpicture}
+\figcap{13--6}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-7
+% Thm 13-3.  AB is a DIAMETER (O the midpoint); P on the circle; PA, PB dashed
+% so that angle APB is the right angle in a semicircle.
+\newcommand{\FIGXIIISEVEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \def\rr{1.42}
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (-\rr,0);
+  \coordinate (B) at (\rr,0);
+  \coordinate (P) at (118:\rr);
+  \draw[given] (O) circle (\rr);
+  \draw[given] (A) -- (B);
+  \draw[aux] (P) -- (A);
+  \draw[aux] (P) -- (B);
+  \fill (O) circle (0.055);
+  \node[vlab, left] at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab, below] at (O) {$O$};
+  \node[vlab, above left] at (P) {$P$};
+\end{tikzpicture}
+\figcap{13--7}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-8
+% Ex 13-2 #4: A and B fixed on a dashed line; P below, on one side, with the
+% solid segments PA, PB subtending the 50-degree angle of the exercise.
+\newcommand{\FIGXIIIEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  % AB rises at 29 degrees, as measured off the print (PDF 244 at 200 dpi).
+  \coordinate (A) at (0.62,0.50);
+  \coordinate (B) at (2.3255,1.4454);
+  % P is placed on the 50-degree arc over AB, so that angle APB is EXACTLY the
+  % 50 degrees the exercise states.  Measured against the print, the drawn P
+  % already subtends 50.1 degrees, and it sits at 0.062 of AB along and 0.903
+  % of AB below the line -- the position reproduced here.
+  \coordinate (P) at (1.5799,-0.9823);
+  \draw[aux] ($(A)!-0.68!(B)$) -- ($(B)!-1.00!(A)$);
+  \draw[given] (A) -- (P);
+  \draw[given] (B) -- (P);
+  \fill (B) circle (0.055);
+  \node[vlab, above left] at (A) {$A$};
+  \node[vlab, above left] at (B) {$B$};
+  \node[vlab, below] at (P) {$P$};
+\end{tikzpicture}
+\figcap{13--8}\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 13-9
+% Ex 13-2 #6: the wheel in two positions -- the second dashed -- with the
+% tracing point P on the rim.  Equal radii; the centres sit at the same
+% height, which is what rolling on a (horizontal) line forces.
+\newcommand{\FIGXIIININE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \def\rr{0.98}
+  \coordinate (K) at (0.42,0);    % solid wheel, later position
+  \coordinate (Kp) at (0,0);      % dashed wheel, earlier position
+  \coordinate (P) at ($(K)+(222:\rr)$);
+  \draw[aux] (Kp) circle (\rr);
+  \draw[given] (K) circle (\rr);
+  % the short arc of the traced path between the two positions
+  \draw[given] ($(Kp)+(256:\rr)$) arc (256:222:\rr);
+  \node[vlab] at ($(P)+(42:0.34)$) {$P$};
+\end{tikzpicture}
+\figcap{13--9}\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 13-10
+% Ex 13-2 #8: a circle of radius R/4 rolling INSIDE a circle of radius R.
+% Internal tangency is forced: centre distance = R - R/4.
+\newcommand{\FIGXIIITEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \def\RR{1.40}
+  \coordinate (O) at (0,0);
+  \coordinate (Q) at (-32:0.75*\RR);   % = R - R/4 = 0.75 R
+  \draw[given] (O) circle (\RR);
+  \draw[given] (Q) circle (0.25*\RR);
+  \fill (O) circle (0.05);
+  \fill (Q) circle (0.05);
+\end{tikzpicture}
+\figcap{13--10}\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 13-11
+% Thm 13-4, INCENTER.  Each bisector foot is placed by the angle-bisector
+% theorem (ratio of the two adjacent sides), so the three dashed cevians are
+% genuinely the angle bisectors and genuinely concurrent.
+\newcommand{\FIGXIIIELEVEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.50,2.70);
+  \coordinate (C) at (3.30,0.10);
+  % |BC| = 2.6077, |CA| = 3.3015, |AB| = 4.4204
+  % foot on BC from A divides BC as AB : AC = 4.4204 : 3.3015
+  \coordinate (Da) at ($(B)!0.57243!(C)$);
+  % foot on CA from B divides AC as AB : BC = 4.4204 : 2.6077
+  \coordinate (Eb) at ($(A)!0.62896!(C)$);
+  % foot on AB from C divides AB as AC : BC = 3.3015 : 2.6077
+  \coordinate (Fc) at ($(A)!0.55871!(B)$);
+  \coordinate (O) at (intersection of A--Da and B--Eb);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[aux] (A) -- (Da);
+  \draw[aux] (B) -- (Eb);
+  \draw[aux] (C) -- (Fc);
+  \XIIIcross{O}
+  \node[vlab, below left] at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab] at ($(O)+(160:0.52)$) {$O$};
+\end{tikzpicture}
+\figcap{13--11}\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 13-12
+% Thm 13-5, CIRCUMCENTER.  NOTE: this figure is the circumcenter, not a second
+% incenter -- the dashed lines leave the MIDPOINTS of the sides, not the
+% vertices, and O falls outside the triangle because angle B is obtuse.
+% O is built as an intersection of two perpendicular bisectors.
+\newcommand{\FIGXIIITWELVE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.20,0);
+  \coordinate (C) at (3.75,2.75);
+  \coordinate (Mab) at ($(A)!0.5!(B)$);
+  \coordinate (Mbc) at ($(B)!0.5!(C)$);
+  \coordinate (Mac) at ($(A)!0.5!(C)$);
+  % perpendicular bisector of AB: through Mab, perpendicular to AB
+  \coordinate (Pab) at ($(Mab)+(0,1)$);
+  % perpendicular bisector of BC: through Mbc, perpendicular to BC
+  \coordinate (Pbc) at ($(Mbc)!1!90:(C)$);
+  \coordinate (O) at (intersection of Mab--Pab and Mbc--Pbc);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[aux] ($(Mab)+(0,-0.26)$) -- ($(O)+(0,0.58)$);
+  \draw[aux] (O) -- ($(O)!1.16!(Mbc)$);
+  % the perpendicular bisector of AC is drawn as ONE line in the print: it
+  % overshoots O to the upper left, then runs down through Mac into the
+  % triangle and dies on AB near B.
+  \coordinate (Kac) at (intersection of O--Mac and A--B);
+  \draw[aux] ($(O)!-0.62!(Mac)$) -- (Kac);
+  \XIIIcross{O}
+  \node[vlab, below left] at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
+  \node[vlab, above right] at (C) {$C$};
+  \node[vlab] at ($(O)+(39:0.44)$) {$O$};
+\end{tikzpicture}
+\figcap{13--12}\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 13-13
+% Ex 13-4 #1.  CD is PARALLEL to the base: C and D are taken at the SAME ratio
+% down the two sides, which forces CD || AB exactly.  P is the midpoint of CD.
+\newcommand{\FIGXIIITHIRTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (A) at (0,0);
+  \coordinate (Bs) at (3.64,-0.18);
+  \coordinate (T) at (0.73,2.09);
+  \coordinate (C) at ($(T)!0.4785!(A)$);
+  \coordinate (D) at ($(T)!0.4785!(Bs)$);
+  \coordinate (P) at ($(C)!0.5!(D)$);
+  \draw[given] (A) -- (Bs) -- (T) -- cycle;
+  \draw[given] (C) -- (D);
+  \fill (P) circle (0.055);
+  \node[vlab, left] at (C) {$C$};
+  \node[vlab, above right] at (D) {$D$};
+  \node[vlab, below] at (P) {$P$};
+\end{tikzpicture}
+\figcap{13--13}\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 13-14
+% Ex 13-4 #4.  O is the intersection of the perpendicular bisector of AB with
+% the perpendicular to BC at B -- so OB _|_ BC exactly, and |OA| = |OB|.
+% Built the other way round for stability: put O at the centre, take A and B
+% on the circle, then erect BC perpendicular to OB at B.
+\newcommand{\FIGXIIIFOURTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \def\rr{1.50}
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (203:\rr);
+  \coordinate (B) at (-19:\rr);
+  \coordinate (Q) at (59:\rr);
+  % C on the perpendicular to OB at B, on the far side from the centre
+  \coordinate (C) at ($(B)!1.05!90:(O)$);
+  \draw[given] (O) circle (\rr);
+  \draw[given] (A) -- (B);
+  \draw[given] (B) -- (C);
+  % perpendicular bisector of AB (through O), and the radius OB
+  \coordinate (Mab) at ($(A)!0.5!(B)$);
+  % drawn as in the print: a short overshoot above O, then down past the
+  % chord AB to the foot of the circle
+  \draw[aux] ($(O)!-0.89!(Mab)$) -- ($(O)!2.85!(Mab)$);
+  \draw[aux] (B) -- ($(O)!-0.62!(B)$);
+  \XIIIplus{O}
+  \fill (Q) circle (0.055);
+  \node[vlab, left] at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+  \node[vlab] at ($(O)+(216:0.34)$) {$O$};
+  \node[vlab, above right] at (Q) {$Q$};
+  \node[vlab, below] at (C) {$C$};
+\end{tikzpicture}
+\figcap{13--14}\end{bkfigure}}
+
+% ------------------------------------------------------- Figs 13-15, 13-16
+% Printed side by side on p.233.
+%
+% 13-15, Thm 13-6 CENTROID: D, E are midpoints of AB, BC; O is the crossing of
+% the medians CD and AE; G, F are the midpoints of OA, OC (so that D, E, F, G
+% are the parallelogram vertices of the proof outline).
+%
+% 13-16, Thm 13-7 ORTHOCENTER: through each vertex, the parallel to the
+% opposite side.  That makes A, B, C exactly the midpoints of the sides of
+% A'B'C', so A' = B+C-A, B' = C+A-B, C' = A+B-C -- computed, not eyeballed.
+% O is the orthocentre of ABC (= circumcentre of A'B'C').
+\newcommand{\FIGXIIIFIFTEENSIXTEEN}{\begin{bkfigure}[\linewidth]
+\hfill
+\begin{minipage}{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.00,2.14);
+  \coordinate (C) at (4.10,-0.10);
+  \coordinate (D) at ($(A)!0.5!(B)$);
+  \coordinate (E) at ($(B)!0.5!(C)$);
+  \coordinate (O) at (intersection of A--E and C--D);
+  \coordinate (G) at ($(A)!0.5!(O)$);
+  \coordinate (F) at ($(O)!0.5!(C)$);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[given] (A) -- (E);
+  \draw[given] (C) -- (D);
+  \draw[given] (D) -- (E);
+  \fill (G) circle (0.055);
+  \fill (F) circle (0.055);
+  \node[vlab, left] at (A) {$A$};
+  \node[vlab, above] at (B) {$B$};
+  \node[vlab, right] at (C) {$C$};
+  \node[vlab, above left] at (D) {$D$};
+  \node[vlab, above right] at (E) {$E$};
+  \node[vlab] at (1.38446,0.20798) {$G$};
+  \node[vlab] at (2.75246,0.16316) {$F$};
+  \node[vlab] at ($(O)+(269:0.32)$) {$O$};
+\end{tikzpicture}
+\figcap{13--15}
+\end{minipage}
+\hfill
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.84]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (1.10,0.95);
+  \coordinate (C) at (2.86,-0.05);
+  \coordinate (Ap) at ($(B)+(C)-(A)$);
+  \coordinate (Bp) at ($(C)+(A)-(B)$);
+  \coordinate (Cp) at ($(A)+(B)-(C)$);
+  % orthocentre: intersection of two altitudes, each a genuine perpendicular
+  \coordinate (Fa) at ($(B)!(A)!(C)$);
+  \coordinate (Fb) at ($(A)!(B)!(C)$);
+  \coordinate (O) at (intersection of A--Fa and B--Fb);
+  \draw[aux,<->] ($(Cp)!-0.06!(Ap)$) -- ($(Ap)!-0.06!(Cp)$);
+  \draw[aux] (Cp) -- (Bp);
+  \draw[aux] (Ap) -- (Bp);
+  \draw[given] (A) -- (B) -- (C) -- cycle;
+  \draw[aux,<-] ($(A)!0.03!(O)$) -- (O);
+  % the print carries a second arrowhead at O, on the altitude through B
+  \draw[aux,->] (Fb) -- (O);
+  % scan15 p.2 (book p.233) shows arrowheads at BOTH inner vertices, A and C,
+  % on the two slanted altitudes, plus the one at O on the altitude through B
+  \draw[aux,<-] ($(C)!0.03!(O)$) -- (O);
+  \node[vlab, below left] at (A) {$A$};
+  \node[vlab] at ($(B)+(44:0.40)$) {$B$};
+  \node[vlab, below right] at (C) {$C$};
+  \node[vlab] at ($(Ap)+(62:0.44)$) {$A\XIIIpr$};
+  \node[vlab, below] at (Bp) {$B\XIIIpr$};
+  \node[vlab] at ($(Cp)+(118:0.46)$) {$C\XIIIpr$};
+  \node[vlab, above] at (O) {$O$};
+\end{tikzpicture}
+\figcap{13--16}
+\end{minipage}
+\hfill
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 13-17
+% Ex 13-5 *3: the data for an SSA construction -- the angle at A, with the two
+% given lengths tick-marked.  Reproduced as the book draws it: the second side
+% of the angle at C runs free (the third vertex is not yet located), and the
+% triple-ticked segment is drawn across from that free side to CA.
+\newcommand{\FIGXIIISEVENTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (C) at (0,1.02);
+  \coordinate (A) at (0.98,0.20);
+  \coordinate (B) at (3.62,0.28);
+  % free end of the second ray from C: 14 degrees below horizontal, and it
+  % stops well short of B, as measured off the print (PDF 248)
+  \coordinate (Cf) at (1.825,0.561);
+  \draw[given] (C) -- (A);
+  \draw[given] (A) -- (B);
+  \draw[given] (C) -- (Cf);
+  % the cross-segment, from a point on the free ray down to CA (the print
+  % draws it very nearly perpendicular to the free ray)
+  \coordinate (S) at ($(C)!0.54!(Cf)$);
+  \coordinate (Sf) at ($(C)!0.85!(A)$);
+  \draw[given] (S) -- (Sf);
+  % ticks: single on CA, triple on the cross-segment, double on AB
+  \begin{scope}[tick]
+    \draw ($(C)!0.47!(A)$)+(115:0.11) -- +(-65:0.11);
+    \foreach \t in {0.40,0.50,0.60}
+      \draw ($(S)!\t!(Sf)$)+(20:0.11) -- +(200:0.11);
+    \foreach \t in {0.46,0.54}
+      \draw ($(A)!\t!(B)$)+(88:0.11) -- +(-92:0.11);
+  \end{scope}
+  \node[vlab, above left] at (C) {$C$};
+  \node[vlab, below] at (A) {$A$};
+  \node[vlab, right] at (B) {$B$};
+\end{tikzpicture}
+\figcap{13--17}\end{bkfigure}}

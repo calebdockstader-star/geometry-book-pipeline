@@ -1,0 +1,899 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures11}
+
+% ---- local macros (hoist into book preamble) ----
+% Theorem head carrying an unparenthesised note.  The book prints
+% "Theorem 11-4 Converse to Theorem 11-3." with no parentheses, but
+% brumfiel.sty's bkplain style wraps \thmnote in parentheses.  Shares the
+% `theorem' counter so the numbering stays in one sequence.
+\newtheoremstyle{XIplainnote}{1.1\topsep}{1.1\topsep}{\itshape}{}%
+  {\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont#3}}
+\theoremstyle{XIplainnote}
+\newtheorem{XIthmnote}[theorem]{Theorem}
+\theoremstyle{bkplain}
+% (No star-convention footnote here: ch11 has starred exercises -- Ex. Gp.
+% 11-3 #2, 11-8 ##8-10, 11-12 ##2-3, 11-13 #13 -- but the book prints no such
+% footnote on any page of the chapter, book pp. 196, 200, 205, 207.
+% ch02:311 owns the book-wide first use; same call as ch10.)
+% Numbered remarks. The book sets italic "Remark" + roman number with NO
+% period after the word ("Remark 1."), unlike the shared \begin{remark} in
+% brumfiel.sty, which prints "Remark." Verified against book pp. 196, 205.
+\newenvironment{XIremarkn}[1]{\par\medskip\noindent\emph{Remark} #1.\ }%
+  {\par\medskip}
+% Plural run-in label, as the book sets the note under Theorem 11-12
+% (book p. 201) -- same case as ch14's \XIVremarks.
+\newenvironment{XIremarks}{\par\medskip\noindent\emph{Remarks.}\ }%
+  {\par\medskip}
+% Footnotes marked with the book's symbols (* then \dag) rather than digits;
+% both fall on book p. 204.  Same device as ch12's \XIIsymfoot.
+\newcommand{\XIsymfoot}[1]{%
+  \begingroup\renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+  \footnote{#1}\endgroup}
+% The book sets "n >= 3" with the double-bar relation, not \geq.
+\newcommand{\XIgeqq}{\geqq}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{11}
+
+\chapter*{\raggedright\Huge CIRCLES AND\\REGULAR POLYGONS}
+\markboth{CIRCLES AND REGULAR POLYGONS}{}
+\addcontentsline{toc}{chapter}{11.\ Circles and Regular Polygons}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 11-1
+\section*{11--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{11--1\quad Introduction}
+
+In this chapter we define what we mean by the \emph{circumference} (or
+\emph{length}) of a \emph{circle} and then prove that the circumference $C$ of
+a circle of radius $r$ is given by the familiar formula, $C = 2\pi r$. This
+involves giving a definition of the number $\pi$. To do these things, we must
+learn a few facts about limits, because the study of circumference is made by
+approximating to the circle by polygons and considering polygons with a very
+large number of sides. It is therefore necessary, first, to prove some theorems
+about regular polygons.
+
+%========================================================= 11-2
+\section*{11--2\quad CIRCLES AND REGULAR POLYGONS}
+\addcontentsline{toc}{section}{11--2\quad Circles and regular polygons}
+
+Our study of the circle depends upon knowing about regular polygons inscribed
+in circles. We therefore study these matters first.
+
+\begin{definition}
+A regular polygon is \emph{inscribed} in a circle if all the vertices of the
+polygon are on the circle. We also say that the circle \emph{circumscribes the
+polygon}.
+\end{definition}
+
+\exercisegroup{11--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item With ruler and compass, inscribe a square in a given circle.
+\item Using Exercise 1, show how to construct regular inscribed polygons of
+      8 sides; 16 sides; 32 sides.
+\item With ruler and compass, inscribe a regular hexagon (6-sided polygon) in
+      a given circle.
+\item Using Exercise 3, show how to construct regular polygons of 3 sides;
+      12 sides; 24 sides; 48 sides.
+\end{exlist}
+\end{multicols}
+
+\begin{theorem}
+There is exactly one circle circumscribing a given triangle.
+\end{theorem}
+
+\noindent\emph{Proof.} In Fig.~11--1, suppose that the triangle is
+$\tri{ABC}$, and choose any two of the sides, say $AB$ and $BC$. Let $m$ and
+$n$ be the perpendicular bisectors of these sides. The lines $m$ and $n$ must
+intersect at a point $O$, for if $m$ and $n$ did not intersect, they would be
+parallel, $CB$ would be perpendicular to $m$, and the points $A$, $B$, and $C$
+would be collinear. The point $O$ is equidistant from $A$ and $B$, and also
+equidistant from $B$ and $C$. (Why?) Hence $\sg{OA} = \sg{OB} = \sg{OC}$, and
+the circle with center $O$ and radius $\sg{OA}$ passes through $A$, $B$, and
+$C$. This proves that there is at least one circle through $A$, $B$, and $C$.
+To see that there can be only one, we observe that the center of such a circle
+must be equidistant from $A$, $B$, and $C$, and hence must lie on the
+perpendicular bisectors of $AB$ and $BC$. These lines, $m$ and $n$, intersect
+in only one point. This completes the proof.
+
+\FIGXIONETWO
+
+\begin{theorem}
+There is exactly one circle that circumscribes a regular polygon.
+\end{theorem}
+
+\noindent\emph{Proof.} In Fig.~11--2, suppose the polygon has successive
+vertices $A$, $B$, $C$, $D,\ldots$. We show that the circle circumscribing
+$\tri{ABC}$ actually circumscribes the polygon. Let $O$ be the center of the
+circle circumscribing $\tri{ABC}$, and consider the segments $OA$, $OB$, $OC$,
+$OD$, $OE,\ldots$. By definition of circumscribing circle,
+$\sg{OA} = \sg{OB} = \sg{OC} = r$. We show that $\sg{OD} = r$. The same method
+can be used to prove that $\sg{OE} = \cdots = r$. Hence we need only show that
+$\sg{OD} = r$.
+
+\begin{steps}
+\step{$\ang{2} \cong \ang{3}$.}{Why?}
+\step{$\ang{ABC} \cong \ang{BCD}$, and $AB \cong BC$.}{The polygon is regular.}
+\step{$\ang{1} \cong \ang{4}$.}{Addition and subtraction of angles postulate.}
+\step{$\tri{OAB} \cong \tri{ODC}$.}{S.A.S.}
+\step{$OD \cong OA$.}{Statement 4.}
+\step{$\sg{OD} = r$.}{Statement 5.}
+\end{steps}
+
+\exercise{11--2}
+Suppose that in Theorem 11--1 we had considered the perpendicular bisectors of
+$AB$ and $AC$ instead of $AB$ and $BC$. Would the same point $O$ have been
+found? What does the theorem say about the perpendicular bisectors of the
+sides of a triangle?
+
+%========================================================= 11-3
+\section*{11--3\quad TANGENTS TO CIRCLES}
+\addcontentsline{toc}{section}{11--3\quad Tangents to circles}
+
+To talk about circles \emph{inscribed} in regular polygons, we need to know
+about tangents to circles.
+
+\begin{theorem}
+If $OP$ is a radius of a circle with center $O$, and a line $l$ passes through
+$P$ and is perpendicular to $OP$, then $l$ has exactly one point in common with
+the circle.
+\end{theorem}
+
+\noindent\emph{Proof.} In Fig.~11--3, let $A$ be any point on $l$ different
+from $P$. Then $\tri{OPA}$ is a right triangle, and $\sg{OA} > \sg{OP}$.
+(Why?) Hence $A$ is outside the circle, and $l$ intersects the circle only at
+the point $P$.
+
+\begin{definition}
+A line $l$ is \emph{tangent} to a circle if it has exactly one point in common
+with the circle; the point is called \emph{the point of tangency}.
+\end{definition}
+
+\FIGXITHREEFOUR
+
+\begin{XIthmnote}[Converse to Theorem 11--3]
+A line tangent to a circle at a point $P$ is perpendicular to the radius
+containing $P$.
+\end{XIthmnote}
+
+\noindent\emph{Proof.} We will prove the contrapositive, that is, if the line
+is not perpendicular to the radius at $P$, then it is not tangent to the
+circle. Consider a circle (Fig.~11--4) with center $O$ and a point $P$ on the
+circle. Let $l$ be a line through $P$, such that $l$ is not perpendicular to
+$OP$.
+
+\begin{steps}
+\step{Let $m$ be the line $\perp l$ passing through $O$. Let $A$ be the
+      intersection of $m$ and $l$.}{Why is there such a line?}
+\step{Let $B$ be the point on $l$ on the opposite side of $A$ from $P$, and
+      such that $\sg{AB} = \sg{AP}$.}{Why does such a point exist?}
+\step{$\sg{OB} = \sg{OP}$.}{Why? Several different arguments may be given.}
+\step{$B$ is on the circle and also on $l$.}{Statements 2 and 3 and definition
+      of a circle.}
+\step{$l$ intersects the circle twice, and hence $l$ is not tangent to the
+      circle. This completes the proof.}{Statement 4 and definition of
+      tangent.}
+\end{steps}
+
+\begin{XIremarkn}{1}
+In the above proof, the point $A$ had to be inside the circle because
+$\sg{OA} < \sg{OP}$, by the Pythagorean theorem. The Pythagorean theorem shows
+that the perpendicular distance from a point to a line is less than the
+distance to any other point on the line.
+\end{XIremarkn}
+
+\begin{XIremarkn}{2}
+An argument similar to the proof of Theorem 11--4, and using the Pythagorean
+theorem, can be made to show that a line can intersect a circle at most twice.
+Hence, a line will either be tangent to a circle, or intersect the circle in
+exactly two points, or fail to intersect the circle.
+\end{XIremarkn}
+
+\exercisegroup{11--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a circle, and construct (\RC) the line tangent to the circle at a
+      point of the circle.
+\item[\stex 2.] From a point outside a circle, construct a line tangent to the
+      circle.
+\item[3.] Prove that if $A$ is a point not on a line $l$, and $B$ and $C$ are
+      distinct points on $l$, with $AB \perp l$, then $\sg{AB} < \sg{AC}$.
+\end{exlist}
+\end{multicols}
+
+\begin{definition}
+A circle is said to be \emph{inscribed} in a polygon, if it is tangent to each
+of the sides of the polygon. We also say that the polygon \emph{circumscribes
+the circle}.
+\end{definition}
+
+\begin{theorem}
+There is a circle inscribed in every regular polygon.
+\end{theorem}
+
+\begin{steps}
+\step{Let $O$ be the center of the circle circumscribing the polygon
+      (Fig.~11--5).}{Theorem 11--2.}
+\step{Let $AB$ be a side of the polygon, and $C$ the midpoint of $AB$.}{$AB$
+      has one, and only one, midpoint.}
+\step{$OC \perp AB$.}{Why?}
+\step{The circle with center $O$ and radius $OC$ is tangent to $AB$ at
+      $C$.}{Theorem 11--4.}
+\step{Now let $BD$ be a side of the polygon adjacent to $AB$, and $E$ the
+      midpoint of $BD$. Then $OE \cong OC$.}{Why? This takes several steps.}
+\step{Hence the circle with radius $OC$ is also tangent to $BD$ at
+      $E$.}{Statement 5 and the fact that $OE \perp BD$.}
+\end{steps}
+
+\noindent 7. The above argument can be continued around the polygon to complete
+the proof.
+
+\FIGXIFIVESIX
+
+\exercise{11--4}
+Show that congruent chords in a circle are equidistant from the center of the
+circle.
+
+\begin{definition}
+The \emph{center} of a regular polygon is the center of the inscribed or
+circumscribed circle. The \emph{apothem} of a regular polygon is the length of
+the radius of the inscribed circle (that is, a number). The \emph{radius} of a
+regular polygon is the radius of the circumscribed circle. A \emph{central
+angle} of a regular polygon is an angle, with vertex at the center, whose sides
+contain adjacent vertices of the polygon. See Fig.~11--6.
+\end{definition}
+
+\exercisegroup{11--5}
+
+\FIGXISEVEN
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Inscribe a regular hexagon in a circle. Draw the circle inscribing the
+      hexagon.
+\item Using your experience in measuring angles in degrees (we will study this
+      topic in the next chapter), how many degrees in a central angle of a
+      regular pentagon? hexagon? $n$-gon?
+\item What is the sum of the degree measures of the angles of a regular
+      pentagon? hexagon? $n$-gon?
+\item If an exterior angle of a regular polygon is as shown in Fig.~11--7, how
+      many degrees in it if the polygon has 5 sides? 6 sides? $n$ sides?
+\item Prove that a central angle of a regular polygon is the supplement of any
+      angle of the polygon.
+\item Show that an exterior angle of a regular polygon is congruent to a
+      central angle.
+\item In Definition 11--4, how do we know that the center of the inscribed
+      polygon and the center of the circumscribed polygon are identical?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 11-4
+\section*{11--4\quad REGULAR POLYGONS AND SIMILARITY}
+\addcontentsline{toc}{section}{11--4\quad Regular polygons and similarity}
+
+All our proofs about area and circumference of circles depend upon the
+following theorem.
+
+\begin{theorem}
+Two regular polygons are similar if, and only if, they have the same number of
+sides.
+\end{theorem}
+
+\noindent\emph{Preliminary remark.} Recall that two polygons are similar if
+there is a correspondence between their angles and sides, such that
+corresponding angles are congruent and corresponding sides are proportional.
+Thus, if the polygons are similar, they necessarily have the same number of
+sides, and the ``only if'' part of the theorem is obvious. Therefore, we have
+only to prove that if they have the same number of sides, they must be similar.
+
+\noindent\emph{Proof.} Suppose that two regular polygons have consecutive
+vertices $A$, $B$, $C$, $D$, $E,\ldots$ and $A'$, $B'$, $C'$, $D'$,
+$E',\ldots$, respectively, as in Fig.~11--8. Suppose also that the polygons are
+not similar. Since they are regular,
+\[
+\frac{\sg{AB}}{\sg{A'B'}} = \frac{\sg{BC}}{\sg{B'C'}}
+= \frac{\sg{CD}}{\sg{C'D'}} = \frac{\sg{DE}}{\sg{D'E'}} = \cdots.
+\]
+It must be, then, that $\ang{A} \ncong \ang{A'}$, $\ang{B} \ncong \ang{B'}$,
+etc. If $\ang{A} \ncong \ang{A'}$, then $\ang{A} > \ang{A'}$ or
+$\ang{A} < \ang{A'}$. Suppose that $\ang{A} < \ang{A'}$. Since the polygons are
+regular, $\ang{B} < \ang{B'}$, $\ang{C} < \ang{C'}$, etc. The exterior angle at
+$A$ is greater than the exterior angle at $A'$. (Why?) This is true also for
+the exterior angles at $B$ and $B'$, $C$ and $C'$, etc. The sum of $n$ exterior
+angles in polygon $ABCDE\ldots$ is two straight angles. Clearly then, the sum
+of $n$ exterior angles in polygon $A'B'C'D'E'\ldots$ is not two straight
+angles. This contradiction completes the proof.
+
+\begin{remark}
+If we had studied measurement of angles, we could more easily have proved that
+$\ang{AOB} \cong \ang{A'O'B'}$, because the measure of these angles depends
+only upon the number of sides $n$. In degrees, the measure of $\ang{AOB}$ would
+be equal to $360/n$.
+\end{remark}
+
+\FIGXIEIGHTNINE
+
+\begin{theorem}
+The perimeters of regular polygons, with the same number of sides, are
+proportional to their radii (or apothems).
+\end{theorem}
+
+\noindent\emph{Proof.} Suppose that two polygons (of $n$ sides) are labeled as
+in Fig.~11--9, and have perimeters $p$ and $p'$. We must show that
+$p/p' = r/r' = a/a'$.
+
+\begin{steps}
+\step{$\tri{AOQ} \simto \tri{A'O'Q'}$.}{Why?}
+\step{$r/r' = a/a' = \sg{AQ}/\sg{A'Q'}$.}{Statement 1.}
+\step{$p' = n \cdot \sg{A'B'} = 2n \cdot \sg{A'Q'}$, and
+      $p = n \cdot \sg{AB} = 2n \cdot \sg{AQ}$.}{Definition of perimeter and
+      the fact that $Q$ and $Q'$ are midpoints.}
+\step{$p/p' = \sg{AQ}/\sg{A'Q'}$.}{Statement 3 and algebra.}
+\step{$p/p' = r/r' = a/a'$.}{Statements 2 and 4.}
+\end{steps}
+
+\begin{theorem}
+The area of a regular polygon is equal to one-half the product of apothem and
+perimeter; area $= \frac{1}{2}a \cdot p$.
+\end{theorem}
+
+\noindent The proof is left as an exercise.
+
+\begin{theorem}
+The areas of two regular polygons, with the same number of sides, are
+proportional to the squares of their radii (or the squares of their apothems,
+or the squares of their sides).
+\end{theorem}
+
+\noindent The proof is left as an exercise.
+
+\exercisegroup{11--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Two regular heptagons (7-gons) have sides 3 in. and 4 in., respectively.
+      What is the ratio of their perimeters? of their areas?
+\item A regular pentagon has twice the area of another regular pentagon. What
+      is the ratio of their perimeters?
+\item Find the radius and apothem of an equilateral triangle of side 2 in.
+\item Two regular polygons of the same number of sides have perimeters of 28
+      and 42 in. The radius of the first polygon is $x$ in. What is the radius
+      of the second?
+\item The apothems of two regular hexagons are 3 in. and 5 in. What is the
+      ratio of their areas?
+\item The area of a regular 17-gon is 16/9 times the area of a second 17-gon.
+      What is the ratio of their perimeters? radii?
+\item If a regular hexagon and an equilateral triangle are inscribed in a
+      circle, the side of the hexagon is twice the apothem of the triangle.
+      Show this.
+\item Find the areas of the squares inscribed in and circumscribed about a
+      circle of radius 1. Also find the perimeters of the squares.
+\item Repeat Exercise 8, using hexagons instead of squares.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 11-5
+\section*{11--5\quad LIMITS}
+\addcontentsline{toc}{section}{11--5\quad Limits}
+
+To investigate circumference and area of circles, it is necessary for us to
+discuss \emph{limits}. Precise definitions relating to limits are difficult to
+grasp, and a careful study is first made in college calculus courses. For our
+purposes, only a little information about limits is required. All our
+statements about limits are statements about \emph{numbers}. Therefore you may
+regard these statements as giving information about numbers that we will
+\emph{assume} or postulate.
+
+\begin{definition}
+Suppose that for each positive integer $n$, there is associated in some way, a
+number $x_n$. The numbers $x_1$, $x_2,\ldots, x_n,\ldots$ then form an infinite
+sequence. The number $x_n$ is called the $n$th term of the sequence. We shall
+indicate the sequence by $\{x_n\}$.
+\end{definition}
+
+For example, let the $n$th term of a sequence be given by $x_n = 2n$. The
+positive integer 1 gives the first term $2 \cdot 1$. The positive integer 2
+gives the second term $2 \cdot 2$. The third term is $2 \cdot 3$, and so on.
+The sequence given by $x_n = 2n$, then, would look like this:
+
+\begin{center}
+\begin{tabular}{r@{\hspace{1.2em}}ccccccc}
+Positive integers $\rightarrow$ & 1 & 2 & 3 & 4 & $\ldots$ & $n$ & $\ldots$\\[1pt]
+ & $\updownarrow$ & $\updownarrow$ & $\updownarrow$ & $\updownarrow$ & &
+   $\updownarrow$ & \\[1pt]
+Terms of the sequence $\rightarrow$ & 2 & 4 & 6 & 8 & $\ldots$ & $2n$ &
+   $\ldots$\,.
+\end{tabular}
+\end{center}
+
+\exercisegroup{11--7}
+\begin{multicols}{2}
+\begin{exlist}
+\item Write the first six terms of the sequence whose $n$th term is given by
+      $x_n = 1/n$; by $x_n = \frac{1}{2}n$; by $x_n = \frac{1}{5}n$.
+\item Write the 100th term for each of the sequences in Exercise 1. When $n$ is
+      very large, what number are the terms close to?
+\item Write the first 10 terms of the sequence whose $n$th term is
+      $x_n = (n+1)/n$. Write the 100th term; the 1000th. What number are these
+      terms close to when $n$ is extremely large?
+\item A sequence is given by $x_n = 2/(n+3)$. Write the first six terms; the
+      100th term; the millionth term. Is there a number that the terms of the
+      sequence are close to for large values of $n$?
+\item Consider a regular polygon of $n$ sides inscribed in a circle. Let $p_n$
+      be the perimeter of the polygon. Does this define a sequence?
+\item A sequence is given by $x_n = 2/\sqrt{n}$. Write the first six terms. Is
+      there a number that the terms of the sequence are close to for large
+      values of $n$?
+\item Imagine $\sqrt{2}$ written as an infinite decimal,
+      $\sqrt{2} = 1.4142\ldots$. Define a sequence $x_n$ as follows: $x_n =$
+      the decimal obtained by cutting off the decimal expansion of $\sqrt{2}$
+      after the $n$th decimal place. Then $x_1 = 1.4$, $x_2 = 1.41$, etc. What
+      is $x_4$? $x_5$? To what number is $x_n$ close when $n$ is large?
+\end{exlist}
+\end{multicols}
+
+We can now define the \emph{limit} of a sequence, an idea that should be clear
+from the above exercises. We shall be content with expressing this idea in an
+intuitive way, but it should be mentioned that a more complicated definition is
+necessary in order to \emph{prove} theorems about limits. We \emph{assume} that
+the theorems we need concerning limits are true.
+
+\begin{definition}
+The number $L$ is called the \emph{limit} of the sequence $\{x_n\}$ if, for
+large values of $n$, the term $x_n$ is necessarily arbitrarily close to $L$. We
+then say that $L$ is \emph{the limit of the sequence of terms $x_n$} and write
+``$L = \lim\,\{x_n\}$.''
+\end{definition}
+
+\exercisegroup{11--8}
+In each of the following problems, the $n$th term of a sequence is given. You
+are to decide by inspection what the limit of the sequence is. Note that a
+sequence does not have to possess a limit.
+\begin{multicols}{2}
+\begin{exlist}
+\item $x_n = 1/n$.
+\item $x_n = 1/10n$.
+\item $x_n = (n+1)/n$.
+\item $x_n = \sqrt{n}$.
+\item $x_n = 5$.
+\item $x_n = 2n/(n+1)$.
+\item $x_n = n + 2$.
+\item[\stex 8.] $x_n = (2n + 100)/(4n + 50)$.
+\item[\stex 9.] $x_n = (n + 1)/n^2$.
+\item[\stex 10.] $x_n = (n^2 + 5n + 6)/[2n(n + 2)]$.
+\end{exlist}
+\end{multicols}
+
+When we discuss the circumference and area of circles, we will need the
+following two theorems on limits. We assume that these theorems are true, and
+thus treat them as postulates. But they are not postulates about our
+\emph{geometry}; they are postulates about the \emph{number system}.
+
+\begin{theorem}
+Consider two sequences with $n$th terms $x_n$ and $y_n$, respectively, and
+suppose that $\lim\,\{x_n\} = X$ and $\lim\,\{y_n\} = Y$. Then the sequence
+whose $n$th term is $x_n y_n$ has a limit, and $\lim\,\{x_n y_n\} = XY$.
+\end{theorem}
+
+\begin{theorem}
+With the same notation as in Theorem 11--10, and the additional hypothesis that
+$y_n$ and $Y$ are not zero, then the sequence whose $n$th term is $x_n/y_n$ has
+a limit, and $\lim\,\{x_n/y_n\} = X/Y$.
+\end{theorem}
+
+\exercisegroup{11--9}
+\begin{exlist}
+\item Verify Theorem 11--10 if $x_n = (2n + 1)/n$ and $y_n = n/(n + 1)$.
+\item If $\lim\,\{x_n\} = 2$, what is $\lim\,\{(x_n)^2\}$?
+\item If $\lim\,\{x_n\} = 3$ and $\lim\,\{y_n\} = 4$, what is
+      $\lim\,\{x_n/y_n\}$? $\lim\,\{x_n y_n\}$? $\lim\,\{y_n/x_n\}$?
+\item If $x_n$ is ``very close'' to 5 and $y_n$ is ``very close'' to 7, what is
+      $x_n y_n$ close to? $x_n/y_n$? $y_n/x_n$?
+\end{exlist}
+
+%========================================================= 11-6
+\section*{11--6\quad CIRCUMFERENCE}
+\addcontentsline{toc}{section}{11--6\quad Circumference}
+
+From your everyday experience, you already have an idea of the perimeter or
+circumference of a circle. For example, if you were asked to find the
+circumference of a wheel, you might wrap a string around the wheel, then pull
+it out straight, and measure its length. But such a practical method is not
+adequate for geometry, since we cannot describe this process in our geometry.
+It is necessary that we first \emph{define} circumference. The definition must
+satisfy our intuition about what we \emph{feel} the circumference should be,
+and should be one that can readily be \emph{used} to prove theorems.
+
+Observe that we had no difficulty in defining the perimeter of a polygon,
+because the polygon consisted of a finite number of segments, each of which had
+a length. A circle contains no segment of a line, so we cannot define its
+perimeter so simply. To arrive at our definition, we need the following
+theorem, the truth of which we assume.
+
+\begin{theorem}
+For a given circle, let $p_n$ be the perimeter of a regular polygon of $n$
+sides inscribed in the circle. The numbers $p_n$ $(n = 3, 4, 5,\ldots)$ form a
+sequence that has a limit.
+\end{theorem}
+
+\begin{XIremarks}
+The proof of this theorem involves two steps. First, it is shown that the
+sequence is increasing, that is, each term is less than the one that follows
+it. Then it is shown that the sequence is \emph{bounded}, that is, the terms do
+not become indefinitely large. It then follows, as a fundamental property of
+real numbers, that such a sequence has a limit.
+\end{XIremarks}
+
+It is natural to ask how we know that regular polygons with $n$ sides exist for
+all positive integers $n \XIgeqq 3$. We do know that there are regular polygons
+with the number of sides equal to $2^2$, $2^3$, $2^4$, etc., for we can
+inscribe a square in the circle, and, by bisecting the central angles, we get a
+regular octagon, and then a regular 16-gon, and so on, as in Fig.~11--10.
+
+\FIGXITEN
+
+Therefore, the perimeters of these special regular polygons form a sequence
+$p_4$, $p_8$, $p_{16}$, $p_{32},\ldots$, and by Theorem 11--12 and the
+definition of limit, this sequence has a limit.
+
+We can now give a definition of circumference. Observe that in order to
+\emph{define} the circumference of a circle, we are \emph{necessarily forced}
+to use limits.
+
+\begin{definition}
+The \emph{circumference $C$} of a circle is the limit of the sequence of
+perimeters $p_n$ of regular inscribed polygons. $C = \lim\,\{p_n\}$.
+\end{definition}
+
+\exercisegroup{11--10}
+\begin{multicols}{2}
+\begin{exlist}
+\item For a given circle, show that the perimeter of an inscribed square is
+      less than that of an inscribed octagon.
+\item Find the perimeter of a square inscribed in a circle of radius 1. Hence
+      show that the circumference of the circle is more than $4\sqrt{2}$.
+\item By inscribing a regular hexagon in a circle of radius 1, show that the
+      circumference of the circle is more than 6.
+\end{exlist}
+\end{multicols}
+
+The fundamental result on the circumferences of circles is the following:
+
+\begin{theorem}
+The circumferences of two circles are proportional to their radii (or to their
+diameters). That is, if the circles have circumferences $C$ and $C'$, radii $r$
+and $r'$, and diameters $d$ and $d'$, then $C/C' = r/r' = d/d'$.
+\end{theorem}
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{$C/C' = \lim\,\{p_n\}/\lim\,\{p'_n\}$, where $p_n$, $p'_n$, are the
+      perimeters of the regular inscribed polygons of $n$ sides in the
+      circles.}{Definition 11--7.}
+\step{$C/C' = \lim\,\{p_n/p'_n\}$.}{Theorem 11--11 on limits.}
+\step{$p_n/p'_n = r/r' = d/d'$.}{Theorem 11--7.}
+\step{$\lim\,\{p_n/p'_n\} = \lim\,\{r/r'\}$.}{$p_n/p'_n = r/r'$ for all $n$.}
+\step{$\lim\,\{r/r'\} = r/r'$.}{$r$ and $r'$ are the same for all $n$.}
+\step{$\lim\,\{p_n/p'_n\} = r/r' = d/d'$.}{Statements 3, 4, and 5.}
+\step{$C/C' = r/r' = d/d'$.}{Statements 2 and 6.}
+\end{steps}
+
+\begin{remark}
+Observe that this theorem about circumferences is basically a theorem about
+similar polygons.
+\end{remark}
+
+\begin{theorem}
+If $C$ is the circumference of a circle, and $d$ is its diameter, the ratio
+$C/d$ is the same for all circles.
+\end{theorem}
+
+\noindent\emph{Proof.} This theorem is really just a corollary to Theorem
+11--13. But it is so important that it is given a place by itself. The proof is
+as follows. From Theorem 11--13, we have $C/C' = d/d'$. This proportion implies
+the proportion $C/d = C'/d'$. This last equality says that $C/d$ is the same
+number for any two circles. This completes the proof.
+
+\begin{definition}
+The number $C/d$, which is the same for all circles, will be denoted by the
+Greek letter $\pi$ (pi).
+\end{definition}
+
+\begin{corollary}
+$C = \pi d = 2\pi r$.
+\end{corollary}
+
+\begin{remark}
+The definition of $\pi$ does not immediately give its numerical
+value. So a problem remains---namely that of calculating $\pi$ to any desired
+degree of accuracy. We examine later a bit of the history of this number and
+methods for calculating its value. At the moment, and for purposes of the
+exercises, we mention two approximate values commonly used for $\pi$, namely
+22/7 and 3.1416.
+\end{remark}
+
+\exercisegroup{11--11}
+\begin{multicols}{2}
+\begin{exlist}
+\item Find, approximately, the circumference of a circle whose radius is 7 in.;
+      2.131 in.; 49 ft.
+\item Find, approximately, the radius of a circle whose circumference is 66 ft;
+      12.125 in.; 100.00 ft.
+\item Give an exact expression for the area of a square whose perimeter is
+      equal to the circumference of a circle of radius 1.
+\item Suppose that a circular steel band surrounds the earth at the equator
+      (radius $=$ 4000 mi). If the band is made longer by inserting a piece
+      1 ft long, about how far will the band be from its previous position?
+\item A tire on a car has a diameter of 26 in. If it revolves at 10 revolutions
+      per second, what is the approximate speed of the car in miles per hour?
+\item About how many revolutions per minute does a car wheel make (diameter
+      $=$ 28 in.) when the car is traveling at 60 mph?
+\item The radius of one circle is three times the radius of a second. How do
+      their circumferences compare?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 11-7
+\section*{11--7\quad COMPUTATION OF PI}
+\addcontentsline{toc}{section}{11--7\quad Computation of $\pi$}
+
+There are many ways of computing $\pi$, some much more convenient than others.
+The obvious way is to compute the perimeters $p_n$ of regular polygons with a
+large number of sides. Then $\pi$ would be given approximately by $p_n/d$. This
+is a rather tedious process, and we use it here to get a very rough estimate of
+$\pi$.
+
+\FIGXIELEVEN
+
+Consider a regular inscribed hexagon in a circle of radius 1, as shown in
+Fig.~11--11. The perimeter of the hexagon is 6. Increasing the number of sides
+will increase the perimeter. Hence $C > 6$, so that $\pi = C/d > 6/2 = 3$, and
+$\pi > 3$.
+
+If we consider a regular circumscribed hexagon, we find that its perimeter is
+$4\sqrt{3}$, and since $C$ is less than this perimeter,
+\[
+\pi = \frac{C}{d} < \frac{4\sqrt{3}}{2} = 2\sqrt{3} < 3.465,
+\]
+and $\pi < 3.465$.
+
+In this way, we have obtained a very rough value for $\pi$. It lies somewhere
+between 3 and 3.5. By these same methods, Archimedes (3rd century B.C.) showed
+that $\pi$ is between 3 1/7 and 3 10/71. The Babylonians used 3 as the value of
+$\pi$, and there is a verse in the Bible that implies that the writer believed
+$\pi = 3$.
+
+By far the most convenient and rapid methods for calculating $\pi$ are based on
+formulas derived in calculus.\XIsymfoot{A formula from calculus that can be
+used to calculate $\pi$ is
+\[
+\pi = 4\left(1 - \tfrac{1}{3} + \tfrac{1}{5} - \tfrac{1}{7} + \tfrac{1}{9}
+- \tfrac{1}{11} + \cdots\right).
+\]}
+We cannot take up these formulas here, but it is interesting to know that in
+the 17th century a Scot by the name of Shanks,\XIsymfoot{One of your authors
+makes no claim to be a descendant of this misguided computer.} using one of
+these formulas, computed $\pi$ to 707 decimal places. His reasons for doing
+this are at best obscure. More recently, a group working on one of the large
+electronic computers set up a program for the calculation of $\pi$ on the
+computer and obtained, in a few hours, $\pi$ to more than 2000 decimal places!
+This demonstrates the extreme speed of modern computing machines. The
+corresponding job by hand would take hundreds of years. The correct value of
+$\pi$ to 14 decimal places is 3.14159265358979.
+
+The number $\pi$ is an irrational number. A proof of this is not easy, and was
+given first by the German mathematician Johann Lambert in 1766.
+
+\exercisegroup{11--12}
+\begin{multicols}{2}
+\begin{exlist}
+\item By considering inscribed and circumscribed squares, show that
+      $2\sqrt{2} < \pi < 4$.
+\item[\stex 2.] By considering an inscribed regular octagon, show that
+      $\pi > 3.06$.
+\item[\stex 3.] Find the perimeter of a regular 12-gon in a circle of radius 1.
+      Hence find an approximate value for $\pi$. Can you continue to find the
+      perimeter of a regular 24-gon?
+\item[4.] What does the irrationality of $\pi$ imply about its decimal
+      representation?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 11-8
+\section*{11--8\quad AREA OF CIRCLES}
+\addcontentsline{toc}{section}{11--8\quad Area of circles}
+
+In studying area we first obtained the area of a rectangle by counting squares.
+Areas of triangles may be obtained by forming parallelograms and observing that
+the triangle is half the area of the parallelograms. Areas of polygons were
+obtained by cutting up the polygons into triangles. To define what we mean by
+the area of a circle, it is necessary to use again the idea of limit, just as it
+was necessary to use limits in order to define circumference. We all have a
+fairly clear idea of what we \emph{feel} the area of a circle should be, and we
+use this impression to define area. Since the area of the circle should be
+close to the area of the inscribed polygon with a large number of sides, we
+first need to know that the limit of the areas of inscribed polygons exists.
+This fact is explicitly stated as a theorem below, which we accept without
+proof.
+
+\begin{theorem}
+Given a circle $C$, let $S_n$ denote the area of an inscribed regular polygon
+of $n$ sides; then $\lim\,\{S_n\}$ exists. In other words, there is a number
+$S$, such that the term $S_n$ is arbitrarily close to $S$ for large $n$.
+\end{theorem}
+
+\begin{XIremarkn}{1}
+We know, from Section 11--6, that regular polygons exist with the number of
+sides equal to powers of 2. In using Theorem 11--15, we can consider only
+polygons that we know to exist.
+\end{XIremarkn}
+
+\begin{XIremarkn}{2}
+Theorem 11--15 is a theorem about numbers. It has little geometric content,
+so we need not feel that it is another geometric postulate. If we consider only
+polygons with 4, 8, 16, 32,\ldots\ sides, it is easy to show that each area in
+our sequence $S_4$, $S_8$, $S_{16}$, $S_{32},\ldots$ is less than the one that
+follows. On the other hand, we can see that each of these polygons has an area
+less than the area of a circumscribed square. This indicates that our sequence
+is not only increasing, but is ``bounded above.'' It is a theorem about numbers
+that such a sequence has a limit.
+\end{XIremarkn}
+
+\begin{definition}
+The area $S$ of a circle is the limit of the areas of inscribed regular
+polygons. That is, $S = \lim\,\{S_n\}$.
+\end{definition}
+
+We can now prove the main theorem about the area of a circle. But because the
+definition of area uses the idea of limit, we must use some theorems about
+limits. In particular, we need to know the following fact about the apothems of
+the inscribed polygons.
+
+\begin{theorem}
+Let $a_n$ be the apothem of an inscribed regular polygon of $n$ sides in a
+circle of radius $r$, then $\lim\,\{a_n\} = r$.
+\end{theorem}
+
+\FIGXITWELVE
+
+\noindent\emph{Proof.} In Fig.~11--12, $\sg{AC}$ is the length of a side of the
+polygon, and is a small number when the number of sides of the polygon is
+large. By the Pythagorean theorem, $a_n = \sqrt{r^2 - \sg{AB}^2}$. Thus, when
+$n$ is very large, $\sg{AB}^2$ is very small, and $r^2 - \sg{AB}^2$ is very
+near $r^2$. Hence $a_n$ will be near $r$. This is exactly what we mean when we
+say that $\lim\,\{a_n\} = r$.
+
+\begin{theorem}
+The area of a circle is equal to one-half the circumference times the radius.
+$S = \frac{1}{2}$ (circumference) $\times$ (radius).
+\end{theorem}
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{$S = \lim\,\{S_n\}$, where $S_n$ is the area of the regular inscribed
+      polygon of $n$ sides.}{Definition.}
+\step{$S_n = \frac{1}{2}p_n \cdot a_n$, where $p_n$ is the perimeter, and $a_n$
+      is the apothem, of the polygon.}{Theorem 11--8.}
+\step{$\lim\,\{S_n\} = \frac{1}{2}(\lim\,\{p_n\}) \cdot
+      (\lim\,\{a_n\})$.}{Statement 2 and Theorem 11--10 on limits.}
+\step{$\lim\,\{p_n\} = C =$ circumference.}{Definition of circumference.}
+\step{$\lim\,\{a_n\} = r =$ radius.}{Theorem 11--16.}
+\step{$\lim\,\{S_n\} = \frac{1}{2}C \cdot r$.}{Statements 3, 4, and 5.}
+\step{$S = \frac{1}{2}C \cdot r$.}{Statements 1 and 6.}
+\end{steps}
+
+\begin{corollary}
+The area of a circle of radius $r$ is $\pi r^2$.
+\end{corollary}
+
+\begin{corollary}
+The areas of two circles are proportional to the squares of their radii (or
+diameters).
+\end{corollary}
+
+\noindent The proofs are left to the student.
+
+\exercisegroup{11--13}
+\begin{multicols}{2}
+\begin{exlist}
+\item Two circles have radii of 5 in. and 2.5 in. Find their areas. What is the
+      ratio of their areas?
+\item An annular ring (Fig.~11--13) has inner radius 2 ft and outer radius
+      4 ft. Find its area.
+
+      \FIGXITHIRTEEN
+
+\item Figure 11--14 is composed of a circle and semicircles. If
+      $\sg{AB} = \sg{BC} = 2$, $B$ is the center of the circle, and $AC$ is a
+      diameter, find the area of the shaded portion.
+
+      \FIGXIFOURTEEN
+
+\item Show that the area of the inscribed circle is half the area of the
+      circumscribed circle of the square (Fig.~11--15).
+
+      \FIGXIFIFTEEN
+
+\item The area of a circle is 154 in\textsuperscript{2}. Find its radius.
+      (Use $\pi = 22/7$.)
+\item The area of a circle is 100 ft\textsuperscript{2}. Find its radius.
+\item Semicircles are constructed on the sides of a right triangle, as in
+      Fig.~11--16. Show that the area of the largest is the sum of the areas of
+      the other two.
+
+      \FIGXISIXTEEN
+
+\item A circle has its circumference equal to its area. What is its radius?
+\item A rectangular barn is 30 ft by 40 ft. A goat is tethered at one corner by
+      a rope 40 ft long. Over what area can he graze? Over what area can he
+      graze if the rope is 70 ft long?
+\item The circumference of a circle is 50 ft. What is its area?
+\item The area of a circle is 288 in\textsuperscript{2}. What is the area if
+      the unit of length is a foot?
+\item On Mars the standard unit of length is the \emph{pfutth}, which is 0.88
+      as long as our foot. A Martian states that the area of a circle is 16
+      square \emph{pfutths}. What is the area in square feet?
+\item[\stex 13.] Show that the area of a circle is the limit of the areas of
+      circumscribed regular polygons.
+\item[14.] The area of a circle is 49/4 times the area of another circle. What
+      is the ratio of their radii?
+\end{exlist}
+\end{multicols}
+
+%========================================================= review
+\section*{REVIEW OF CHAPTER 11}
+\addcontentsline{toc}{section}{Review of Chapter 11}
+
+The following definitions were given in this chapter. Be sure that you know
+them.
+
+\begin{center}
+\begin{minipage}{0.66\linewidth}
+inscribed polygon (circle)\\
+circumscribed polygon (circle)\\
+tangent\\
+center, radius, apothem of regular polygons\\
+sequence, limit\\
+circumference\\
+$\pi$\\
+area of a circle
+\end{minipage}
+\end{center}
+
+The following is a list of the more important theorems of the chapter. Give
+complete statements of these theorems. Then try to give a proof for each. Do
+not refer to the text until you need help.
+
+\begin{exlist}
+\item A regular polygon has a circumscribed circle.
+\item A line tangent to a circle is perpendicular to a radius.
+\item Converse of 2 (almost).
+\item Regular polygons are similar if and only if they have the same number of
+      sides.
+\item The perimeters of similar polygons are proportional to their radii.
+\item The area of a regular polygon is one half the product of apothem and
+      perimeter.
+\item The circumferences of two circles are proportional to their radii.
+\item The area of a circle is equal to one half the circumference times the
+      radius.
+\end{exlist}
+
+\begin{center}\bfseries Miscellaneous Questions\end{center}
+\nopagebreak
+
+\begin{exlist}
+\item Why is it important in this chapter to know that regular polygons of the
+      same number of sides are similar?
+\item Why is it important that circumference is proportional to the radius?
+      (Tell why this enables us to define $\pi$.) This theorem depends on what
+      theorems on similar polygons?
+\item Tell why we must \emph{define} circumference and area for circles.
+\item In proving that area $= \pi r^2$, what theorems about polygons did we
+      need? what theorems on limits?
+\end{exlist}
+
+\end{document}

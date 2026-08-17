@@ -1,0 +1,871 @@
+% figures12.tex -- Chapter 12 figures, built 2026-08-17 from the iPad scans
+% (scan14 pp. 8-21 = book pp. 210-226; every figure crop-checked at 150-200 dpi).
+%
+% Constrained points are DERIVED, never eyeballed:
+%   arc midpoints    -> half-angle arithmetic on the central angle
+%   angle bisectors  -> half-angle arithmetic
+%   crossings        -> (intersection of A--B and C--D)
+%   tangency         -> radius-perpendicular construction
+%   quoted lengths   -> solved exactly (Figs 12-28, 12-29, 12-30)
+% Hypotheses are re-asserted numerically in tools/constraints/ch12.py.
+%
+% Macro names are chapter-prefixed: \FIGXII<NUMBERWORD>.
+%
+% Line treatment follows the book's own convention: solid where the book
+% prints solid (given), dashed where the book prints dashed (aux).
+%
+% Labelling rule used throughout: a point ON the circle is labelled RADIALLY
+% OUTWARD, which is always clear of the chords and radii that meet it; interior
+% points are labelled along the bisector of the widest free wedge at that point.
+
+\usetikzlibrary{decorations.pathreplacing,arrows.meta}
+
+% Arc-measure bracket used in Figs 12-14, 12-15, 12-16, 12-17: an arc struck
+% outside the figure with short radial hooks at each end.
+\tikzset{
+  XIIhook/.style={fig, line width=0.5pt},
+}
+
+% Primes and degree marks carry a hair kern (1.3mu, about 0.65pt) so that the
+% label audit tokenises "A'" and "n^\circ" as single symbols instead of two
+% touching glyphs. The shift is well under a point and does not read on the page.
+\newcommand{\XIIp}{\mkern1.3mu'}
+\newcommand{\XIId}{\mkern1.3mu^\circ}
+
+%----------------------------------------------------------------- Fig 12-1
+% Diameter CB through O; A on the lower-left arc; radius OA.  The arc ABC is
+% the arc exterior to the central angle AOC.
+\newcommand{\FIGXIIONE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (C) at ($(O)+(180:\R)$);
+  \coordinate (B) at ($(O)+(0:\R)$);
+  \coordinate (A) at ($(O)+(227:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (C) -- (B);
+  \draw[given] (O) -- (A);
+  \node[vlab] at ($(O)+(180:\R+0.28)$) {$C$};
+  \node[vlab] at ($(O)+(0:\R+0.28)$) {$B$};
+  \node[vlab] at ($(O)+(227:\R+0.28)$) {$A$};
+  \node[vlab] at ($(O)+(80:0.32)$) {$O$};
+\end{tikzpicture}
+\figcap{12--1}
+\end{bkfigure}}
+
+%------------------------------------------------------- Figs 12-2 and 12-3
+% 12-2: rays OA, OC, OB with C interior to angle AOB, so angle AOB > angle COB.
+% 12-3: chord EF; P and P' are where rays OQ, OQ' cut EF -- both DERIVED as
+% intersections, never placed by hand.
+\newcommand{\FIGXIITWOTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.44\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.45}
+  \coordinate (A) at ($(O)+(78:\R)$);
+  \coordinate (C) at ($(O)+(47:\R)$);
+  \coordinate (B) at ($(O)+(0:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (C);
+  \draw[given] (O) -- (B);
+  \node[vlab] at ($(O)+(78:\R+0.28)$) {$A$};
+  \node[vlab] at ($(O)+(47:\R+0.28)$) {$C$};
+  \node[vlab] at ($(O)+(0:\R+0.28)$) {$B$};
+  \node[vlab] at ($(O)+(225:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--2}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.52\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.90}
+  \coordinate (E) at ($(O)+(75:\R)$);
+  \coordinate (F) at ($(O)+(0:\R)$);
+  \coordinate (Q) at ($(O)+(56:\R)$);
+  % Q' at 27 rather than the plate's 22: the wedge Q'OF has to hold the label
+  % P', and 22 degrees on this radius leaves it touching the ray.
+  \coordinate (Qp) at ($(O)+(27:\R)$);
+  \coordinate (P)  at (intersection of O--Q and E--F);
+  \coordinate (Pp) at (intersection of O--Qp and E--F);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (E);
+  \draw[given] (O) -- (F);
+  \draw[given] (E) -- (F);
+  \draw[given] (O) -- (Q);
+  \draw[given] (O) -- (Qp);
+  \node[vlab] at ($(O)+(75:\R+0.28)$) {$E$};
+  \node[vlab] at ($(O)+(56:\R+0.28)$) {$Q$};
+  \node[vlab] at ($(O)+(27:\R+0.30)$) {$Q\XIIp$};
+  \node[vlab] at ($(O)+(0:\R+0.28)$) {$F$};
+  \node[vlab] at ($(O)+(238:0.34)$) {$O$};
+  \node[vlab] at ($(P)+(271.75:0.36)$) {$P$};
+  % P' sits on the bisector of the wedge Q'OF, the one direction that clears
+  % both the ray OQ' and the chord EF, which cross at P' itself.
+  \node[vlab] at ($(Pp)+(250:0.46)$) {$P\XIIp$};
+\end{tikzpicture}
+\figcap{12--3}
+\end{minipage}
+\end{bkfigure}}
+
+%----------------------------------------------------------------- Fig 12-4
+% C is the midpoint of the arc EXTERIOR to central angle AOB: the exterior arc
+% runs A(118) counterclockwise to B(363), so C sits at (118+363)/2 = 240.5.
+\newcommand{\FIGXIIFOUR}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (A) at ($(O)+(118:\R)$);
+  \coordinate (B) at ($(O)+(3:\R)$);
+  \coordinate (C) at ($(O)+(240.5:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (B);
+  \draw[aux]   (O) -- (C);
+  \node[vlab] at ($(O)+(118:\R+0.28)$) {$A$};
+  \node[vlab] at ($(O)+(3:\R+0.28)$) {$B$};
+  \node[vlab] at ($(O)+(240.5:\R+0.28)$) {$C$};
+  \node[vlab] at ($(O)+(60:0.34)$) {$O$};
+  \node[slab] at ($(O)+(240.5:\R+0.78)$) {Midpoint};
+\end{tikzpicture}
+\figcap{12--4}
+\end{bkfigure}}
+
+%------------------------------------------------------- Figs 12-5 and 12-6
+% 12-5: A(135) and B(-11); C = midpoint of arc AB = 62.  Every later point is
+% the midpoint of the arc it bisects, so all nine positions are arithmetic:
+%   D = mid(A,C) = 98.5     E = mid(C,B) = 25.5
+%   F = mid(A,D) = 116.75   G = mid(D,C) = 80.25
+%   H = mid(C,E) = 43.75    I = mid(E,B) = 7.25
+% 12-6: same arc, showing an inscribed path against a circumscribed path whose
+% corners are the intersections of the tangents at A, C and at C, B --
+% distance R/cos(36.5) along the bisecting directions 98.5 and 25.5.
+\newcommand{\FIGXIIFIVESIX}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.52\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.5}
+  \coordinate (A) at ($(O)+(135:\R)$);
+  \coordinate (B) at ($(O)+(-11:\R)$);
+  \coordinate (C) at ($(O)+(62:\R)$);
+  \coordinate (D) at ($(O)+(98.5:\R)$);
+  \coordinate (E) at ($(O)+(25.5:\R)$);
+  \coordinate (F) at ($(O)+(116.75:\R)$);
+  \coordinate (G) at ($(O)+(80.25:\R)$);
+  \coordinate (H) at ($(O)+(43.75:\R)$);
+  \coordinate (I) at ($(O)+(7.25:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (A) -- (B);
+  \draw[aux] (A) -- (C) -- (B);
+  % the eight-side path is struck HEAVIER in the book, not dashed, so that it
+  % reads apart from the dashed two-side path it refines
+  \draw[key] (A) -- (F) -- (D) -- (G) -- (C) -- (H) -- (E) -- (I) -- (B);
+  \foreach \p/\a in {A/135, B/-11, C/62, D/98.5, E/25.5,
+                     F/116.75, G/80.25, H/43.75, I/7.25}
+    {\node[vlab] at ($(O)+(\a:\R+0.28)$) {$\p$};}
+  \node[vlab] at ($(O)+(250:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--5}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.42\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (O) at (0,0);
+  \def\R{1.3}
+  \coordinate (A) at ($(O)+(135:\R)$);
+  \coordinate (B) at ($(O)+(-11:\R)$);
+  \coordinate (C) at ($(O)+(62:\R)$);
+  % tangent-intersection corners of the circumscribed path
+  \coordinate (T) at ($(O)+(98.5:1.6172)$);
+  \coordinate (U) at ($(O)+(25.5:1.6172)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (A) -- (B);
+  \draw[aux] (A) -- (C) -- (B);
+  \draw[aux] (A) -- (T) -- (C) -- (U) -- (B);
+\end{tikzpicture}
+\figcap{12--6}
+\end{minipage}
+\end{bkfigure}}
+
+%------------------------------------------------------- Figs 12-7 and 12-8
+% 12-7: regular hexagon, A(120), C(60), B(0); radii OA, OC, OB drawn.
+% 12-8: angle AOC is a right angle and AOB = BOC, so B sits at 45.
+\newcommand{\FIGXIISEVENEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (A) at ($(O)+(120:\R)$);
+  \coordinate (C) at ($(O)+(60:\R)$);
+  \coordinate (B) at ($(O)+(0:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] ($(O)+(0:\R)$) -- ($(O)+(60:\R)$) -- ($(O)+(120:\R)$)
+            -- ($(O)+(180:\R)$) -- ($(O)+(240:\R)$) -- ($(O)+(300:\R)$) -- cycle;
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (C);
+  \draw[given] (O) -- (B);
+  \node[vlab] at ($(O)+(120:\R+0.30)$) {$A$};
+  \node[vlab] at ($(O)+(60:\R+0.30)$) {$C$};
+  \node[vlab] at ($(O)+(0:\R+0.30)$) {$B$};
+  \node[vlab] at ($(O)+(255:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--7}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (A) at ($(O)+(90:\R)$);
+  \coordinate (B) at ($(O)+(45:\R)$);
+  \coordinate (C) at ($(O)+(0:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (B);
+  \draw[given] (O) -- (C);
+  \draw[given] ($(O)+(45:0.40)$) arc[start angle=45, end angle=90, radius=0.40];
+  \draw[given] ($(O)+(0:0.58)$)  arc[start angle=0,  end angle=90, radius=0.58];
+  \node[vlab] at ($(O)+(90:\R+0.28)$) {$A$};
+  \node[vlab] at ($(O)+(45:\R+0.28)$) {$B$};
+  \node[vlab] at ($(O)+(0:\R+0.28)$) {$C$};
+  \node[vlab] at ($(O)+(230:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--8}
+\end{minipage}
+\end{bkfigure}}
+
+%----------------------------------------------------- Figs 12-9 and 12-10
+% 12-9: an IRREGULAR inscribed polygonal path in arc AB (Theorem 12-2 drops the
+% regularity requirement), so the vertex spacing is deliberately uneven.
+% 12-10: adjacent arcs AB and BC, sharing only B; both arcs struck heavier.
+\newcommand{\FIGXIININETEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (A) at ($(O)+(145:\R)$);
+  \coordinate (B) at ($(O)+(-8:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (B);
+  \draw[aux] (A)
+    -- ($(O)+(126:\R)$) -- ($(O)+(111:\R)$) -- ($(O)+(88:\R)$)
+    -- ($(O)+(62:\R)$)  -- ($(O)+(40:\R)$)  -- ($(O)+(15:\R)$) -- (B);
+  \node[vlab] at ($(O)+(145:\R+0.28)$) {$A$};
+  \node[vlab] at ($(O)+(-8:\R+0.28)$) {$B$};
+  \node[vlab] at ($(O)+(245:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--9}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (A) at ($(O)+(75:\R)$);
+  \coordinate (B) at ($(O)+(30:\R)$);
+  \coordinate (C) at ($(O)+(-15:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (B);
+  \draw[given] (O) -- (C);
+  \draw[key] ($(O)+(30:\R)$)  arc[start angle=30,  end angle=75, radius=\R];
+  \draw[key] ($(O)+(-15:\R)$) arc[start angle=-15, end angle=30, radius=\R];
+  \node[vlab] at ($(O)+(75:\R+0.28)$) {$A$};
+  \node[vlab] at ($(O)+(30:\R+0.28)$) {$B$};
+  \node[vlab] at ($(O)+(-15:\R+0.28)$) {$C$};
+  \node[vlab] at ($(O)+(215:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--10}
+\end{minipage}
+\end{bkfigure}}
+
+%----------------------------------------------------- Figs 12-11 and 12-12
+% 12-11: C interior to angle AOB, so angle AOB (93) > angle COB (80).
+%   Directions measured off the plate: A 104, C 90, B 10 (the book sets A and
+%   C only about 14 degrees apart, which is why their labels sit side by side).
+% 12-12: corresponding central angles congruent on both circles -- the same
+% four directions 148, 90, 48, 0 are used at each centre, which is exactly the
+% hypothesis of Theorem 12-7.
+\newcommand{\FIGXIIELEVENTWELVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.32\linewidth}\centering
+\begin{tikzpicture}[scale=0.95]
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (A) at ($(O)+(104:\R)$);
+  \coordinate (C) at ($(O)+(90:\R)$);
+  \coordinate (B) at ($(O)+(10:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (A);
+  \draw[given] (O) -- (C);
+  \draw[given] (O) -- (B);
+  \node[vlab] at ($(O)+(112:\R+0.32)$) {$A$};
+  \node[vlab] at ($(O)+(86:\R+0.32)$) {$C$};
+  \node[vlab] at ($(O)+(10:\R+0.30)$) {$B$};
+  \node[vlab] at ($(O)+(250:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--11}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.64\linewidth}\centering
+\begin{tikzpicture}[scale=0.88]
+  \coordinate (Op) at (0,0);
+  \def\Rp{1.35}
+  \coordinate (Ap) at ($(Op)+(148:\Rp)$);
+  \coordinate (Pp) at ($(Op)+(90:\Rp)$);
+  \coordinate (Qp) at ($(Op)+(48:\Rp)$);
+  \coordinate (Bp) at ($(Op)+(0:\Rp)$);
+  \draw[given] (Op) circle[radius=\Rp];
+  \draw[given] (Op) -- (Ap);
+  \draw[given] (Op) -- (Bp);
+  \draw[aux] (Op) -- (Pp);
+  \draw[aux] (Op) -- (Qp);
+  \draw[aux] (Ap) -- (Pp) -- (Qp) -- (Bp);
+  \node[vlab] at ($(Op)+(152:\Rp+0.40)$) {$A\XIIp$};
+  \node[vlab] at ($(Op)+(90:\Rp+0.34)$) {$P\XIIp$};
+  \node[vlab] at ($(Op)+(44:\Rp+0.40)$) {$Q\XIIp$};
+  \node[vlab] at ($(Op)+(0:\Rp+0.32)$) {$B\XIIp$};
+  \node[vlab] at ($(Op)+(250:0.48)$) {$O\XIIp$};
+  \node[slab] at ($(Op)+(0:0.68)+(0,-0.40)$) {$r\XIIp$};
+  %
+  \coordinate (Oo) at (3.75,0);
+  \def\Rr{0.85}
+  \coordinate (Aa) at ($(Oo)+(148:\Rr)$);
+  \coordinate (Pq) at ($(Oo)+(90:\Rr)$);
+  \coordinate (Qq) at ($(Oo)+(48:\Rr)$);
+  \coordinate (Bb) at ($(Oo)+(0:\Rr)$);
+  \draw[given] (Oo) circle[radius=\Rr];
+  \draw[given] (Oo) -- (Aa);
+  \draw[given] (Oo) -- (Bb);
+  \draw[aux] (Oo) -- (Pq);
+  \draw[aux] (Oo) -- (Qq);
+  \draw[aux] (Aa) -- (Pq) -- (Qq) -- (Bb);
+  \node[vlab] at ($(Oo)+(148:\Rr+0.30)$) {$A$};
+  \node[vlab] at ($(Oo)+(90:\Rr+0.30)$) {$P$};
+  \node[vlab] at ($(Oo)+(48:\Rr+0.30)$) {$Q$};
+  \node[vlab] at ($(Oo)+(0:\Rr+0.30)$) {$B$};
+  \node[vlab] at ($(Oo)+(250:0.36)$) {$O$};
+  \node[slab] at ($(Oo)+(0:0.44)+(0,-0.38)$) {$r$};
+\end{tikzpicture}
+\figcap{12--12}
+\end{minipage}
+\end{bkfigure}}
+
+%---------------------------------------------------- Figs 12-13 and 12-14
+% 12-13: OC bisects the right angle AOB, OD bisects BOC, OE bisects DOC.
+%   A = 0, B = 90, C = 45, D = 67.5, E = 56.25 -- pure halving, no eyeballing.
+% 12-14: quarter sector; L is a little greater than 5/8 of a quarter
+%   circumference, so P sits just past E's 56.25 (drawn at 60).
+\newcommand{\FIGXIITHIRTEENFOURTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.48\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.6}
+  \coordinate (A) at ($(O)+(0:\R)$);
+  \coordinate (B) at ($(O)+(90:\R)$);
+  \coordinate (C) at ($(O)+(45:\R)$);
+  \coordinate (D) at ($(O)+(67.5:\R)$);
+  \coordinate (E) at ($(O)+(56.25:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (B);
+  \draw[given] (O) -- (A);
+  \draw[aux] (O) -- (D);
+  \draw[aux] (O) -- (E);
+  \draw[aux] (O) -- (C);
+  \node[vlab] at ($(O)+(90:\R+0.28)$) {$B$};
+  \node[vlab] at ($(O)+(67.5:\R+0.28)$) {$D$};
+  \node[vlab] at ($(O)+(56.25:\R+0.28)$) {$E$};
+  \node[vlab] at ($(O)+(45:\R+0.28)$) {$C$};
+  \node[vlab] at ($(O)+(0:\R+0.28)$) {$A$};
+  \node[vlab] at ($(O)+(250:0.34)$) {$O$};
+  \node[slab] at ($(O)+(90:0.80)+(-0.28,0)$) {$r$};
+\end{tikzpicture}
+\figcap{12--13}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.44\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (O) at (0,0);
+  \def\R{1.7}
+  \coordinate (A) at ($(O)+(0:\R)$);
+  \coordinate (B) at ($(O)+(90:\R)$);
+  \coordinate (P) at ($(O)+(60:\R)$);
+  \draw[given] (O) -- (B);
+  \draw[given] (O) -- (A);
+  \draw[given] ($(O)+(0:\R)$) arc[start angle=0, end angle=90, radius=\R];
+  \draw[given] (O) -- (P);
+  \foreach \a in {33.75, 45, 56.25, 67.5}
+    {\draw[aux] (O) -- ($(O)+(\a:\R+0.30)$);}
+  % bracket marking the arc AP, of length l
+  \draw[XIIhook] ($(O)+(0:\R+0.22)$) arc[start angle=0, end angle=60, radius=\R+0.22];
+  \draw[XIIhook] ($(O)+(0:\R+0.22)$) -- ($(O)+(0:\R+0.10)$);
+  \draw[XIIhook] ($(O)+(60:\R+0.22)$) -- ($(O)+(60:\R+0.10)$);
+  \node[vlab] at ($(O)+(90:\R)+(-0.30,0.16)$) {$B$};
+  \node[vlab] at ($(O)+(0:\R)+(0.10,-0.30)$) {$A$};
+  \node[vlab] at ($(O)+(232:0.36)$) {$O$};
+  \node[slab] at ($(O)+(90:0.85)+(-0.28,0)$) {$r$};
+  \node[slab] at ($(O)+(30:\R+0.52)$) {$l$};
+\end{tikzpicture}
+\figcap{12--14}
+\end{minipage}
+\end{bkfigure}}
+
+%---------------------------------------------------------------- Fig 12-15
+% Successive 1-degree arcs counted from B toward A, exaggerated for legibility.
+% A(48) lies strictly between the n-degree ray (38) and the (n+1)-degree ray
+% (57), which is exactly the inequality the theorem asserts.
+\newcommand{\FIGXIIFIFTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.95}
+  \coordinate (B) at ($(O)+(0:\R)$);
+  \coordinate (A) at ($(O)+(48:\R)$);
+  \draw[given] (O) -- (B);
+  \draw[given] (O) -- (A);
+  \draw[given] ($(O)+(0:\R)$) arc[start angle=0, end angle=48, radius=\R];
+  \foreach \a in {10, 32, 57}
+    {\draw[aux] (O) -- ($(O)+(\a:\R+0.30)$);}
+  \draw[XIIhook] ($(O)+(0:\R+0.14)$) arc[start angle=0, end angle=32, radius=\R+0.14];
+  \draw[XIIhook] ($(O)+(0:\R+0.80)$) arc[start angle=0, end angle=57, radius=\R+0.80];
+  \draw[XIIhook, -{Stealth[length=3.4pt]}] (1.16,-0.40) -- (1.16,0.06);
+  \node[vlab] at ($(O)+(200:0.34)$) {$O$};
+  \node[vlab] at ($(O)+(0:\R)+(0.16,-0.26)$) {$B$};
+  \node[vlab] at ($(O)+(48:\R+0.34)$) {$A$};
+  \node[slab] at ($(O)+(32:1.45)+(-58:0.32)$) {$r$};
+  \node[slab] at ($(O)+(16:\R+0.44)$) {$n\XIId$};
+  \node[slab, anchor=west] at ($(O)+(24:\R+0.88)$) {$(n+1)\XIId$};
+  \node[slab] at (1.16,-0.88) {$1\XIId$};
+\end{tikzpicture}
+\figcap{12--15}
+\end{bkfigure}}
+
+%---------------------------------------------------------------- Fig 12-16
+% The primed twin of Fig 12-15: angle A'O'B' congruent to angle AOB, counted
+% the same way, so A' falls on the same (n+1)st arc.
+\newcommand{\FIGXIISIXTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.95}
+  \coordinate (B) at ($(O)+(0:\R)$);
+  \coordinate (A) at ($(O)+(48:\R)$);
+  \draw[given] (O) -- (B);
+  \draw[given] (O) -- (A);
+  \draw[given] ($(O)+(0:\R)$) arc[start angle=0, end angle=48, radius=\R];
+  \foreach \a in {10, 32, 57}
+    {\draw[aux] (O) -- ($(O)+(\a:\R+0.30)$);}
+  \draw[XIIhook] ($(O)+(0:\R+0.14)$) arc[start angle=0, end angle=32, radius=\R+0.14];
+  \draw[XIIhook] ($(O)+(0:\R+0.80)$) arc[start angle=0, end angle=57, radius=\R+0.80];
+  \draw[XIIhook, -{Stealth[length=3.4pt]}] (1.16,-0.40) -- (1.16,0.06);
+  \node[vlab] at ($(O)+(200:0.36)$) {$O\XIIp$};
+  \node[vlab] at ($(O)+(0:\R)+(0.20,-0.26)$) {$B\XIIp$};
+  \node[vlab] at ($(O)+(48:\R+0.34)$) {$A\XIIp$};
+  \node[slab] at ($(O)+(32:1.45)+(-58:0.32)$) {$r$};
+  \node[slab] at ($(O)+(16:\R+0.44)$) {$n\XIId$};
+  \node[slab, anchor=west] at ($(O)+(24:\R+0.88)$) {$(n+1)\XIId$};
+  \node[slab] at (1.16,-0.88) {$1\XIId$};
+\end{tikzpicture}
+\figcap{12--16}
+\end{bkfigure}}
+
+%--------------------------------------------------- Figs 12-17 and 12-18
+% 12-17: left, the arc subtended by a central angle of A degrees; right, the
+% arc EXTERIOR to a congruent central angle, of 360 - A degrees.  The two
+% central angles are drawn with the same opening (75 degrees).
+% 12-18: one radian -- the central angle whose subtended arc equals the radius,
+% so the opening is exactly 180/pi = 57.2958 degrees.
+\newcommand{\FIGXIISEVENTEENEIGHTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.62\linewidth}\centering
+\begin{tikzpicture}[scale=0.76]
+  % left circle: interior arc
+  \coordinate (P) at (0,0);
+  % 1.15, not 0.95: the interior A-degree numeral has to sit inside a 75-degree
+  % wedge, and on the smaller radius its box overhangs the upper ray.
+  \def\Ra{1.15}
+  \draw[given] (P) circle[radius=\Ra];
+  \draw[given] (P) -- ($(P)+(37.5:\Ra)$);
+  \draw[given] (P) -- ($(P)+(-37.5:\Ra)$);
+  \draw[given] ($(P)+(-37.5:0.26)$) arc[start angle=-37.5, end angle=37.5, radius=0.20];
+  \node[slab] at ($(P)+(0:0.70)$) {$A\XIId$};
+  \draw[XIIhook] ($(P)+(-37.5:\Ra+0.22)$)
+      arc[start angle=-37.5, end angle=37.5, radius=\Ra+0.22];
+  \draw[XIIhook] ($(P)+(37.5:\Ra+0.22)$) -- ($(P)+(37.5:\Ra+0.10)$);
+  \draw[XIIhook] ($(P)+(-37.5:\Ra+0.22)$) -- ($(P)+(-37.5:\Ra+0.10)$);
+  \node[slab] at ($(P)+(0:\Ra+0.58)$) {$A\XIId$};
+  % right circle: exterior arc
+  \coordinate (Q) at (3.95,0);
+  \def\Rb{1.2}
+  \draw[given] (Q) circle[radius=\Rb];
+  \draw[given] (Q) -- ($(Q)+(142.5:\Rb)$);
+  \draw[given] (Q) -- ($(Q)+(217.5:\Rb)$);
+  \draw[given] ($(Q)+(142.5:0.28)$) arc[start angle=142.5, end angle=217.5, radius=0.24];
+  \node[slab] at ($(Q)+(180:0.74)$) {$A\XIId$};
+  \draw[XIIhook] ($(Q)+(142.5:\Rb+0.24)$)
+      arc[start angle=142.5, end angle=-142.5, radius=\Rb+0.24];
+  \draw[XIIhook] ($(Q)+(142.5:\Rb+0.24)$) -- ($(Q)+(142.5:\Rb+0.12)$);
+  \draw[XIIhook] ($(Q)+(217.5:\Rb+0.24)$) -- ($(Q)+(217.5:\Rb+0.12)$);
+  \node[slab, right] at ($(Q)+(0:\Rb+0.34)$) {$(360\XIId-A\XIId\mkern1.3mu)$};
+\end{tikzpicture}
+\figcap{12--17}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.34\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (O) at (0,0);
+  \def\R{1.3}
+  \coordinate (U) at ($(O)+(50:\R)$);
+  \coordinate (V) at ($(O)+(-7.2958:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (U);
+  \draw[given] (O) -- (V);
+  \draw[given] ($(O)+(-7.2958:0.44)$)
+      arc[start angle=-7.2958, end angle=50, radius=0.38];
+  \node[slab] at ($(O)+(21.35:0.82)$) {$1$};
+  \node[slab] at ($(O)!0.58!(U)+(-0.30,0.18)$) {$r$};
+  \node[slab] at ($(O)+(21.35:\R+0.28)$) {$r$};
+\end{tikzpicture}
+\figcap{12--18}
+\end{minipage}
+\end{bkfigure}}
+
+%--------------------------------------------------- Figs 12-19 and 12-20
+% 12-19: two inscribed angles (vertex ON the circle) and one that is not
+% (vertex OUTSIDE the circle) -- the distinction the definition turns on.
+% 12-20: BC a diameter, so the inscribed angle B stands on the arc AC; OA is
+% the radius drawn for the lemma's isosceles triangle OAB.
+\newcommand{\FIGXIININETEENTWENTY}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.66\linewidth}\centering
+\begin{tikzpicture}[scale=0.74]
+  \def\Rc{0.95}
+  % (a) inscribed
+  \coordinate (Oa) at (0,0);
+  \coordinate (Ba) at ($(Oa)+(168:\Rc)$);
+  \coordinate (Aa) at ($(Oa)+(12:\Rc)$);
+  \coordinate (Ca) at ($(Oa)+(-55:\Rc)$);
+  \draw[given] (Oa) circle[radius=\Rc];
+  \draw[given] (Ba) -- (Aa);
+  \draw[given] (Ba) -- (Ca);
+  \node[vlab] at ($(Oa)+(168:\Rc+0.34)$) {$B$};
+  \node[vlab] at ($(Aa)+(48:0.36)$) {$A$};
+  \node[vlab] at ($(Oa)+(-55:\Rc+0.34)$) {$C$};
+  \node[slab] at ($(Oa)+(0,-1.85)$) {Inscribed};
+  % (b) inscribed
+  \coordinate (Ob) at (3.15,0);
+  \coordinate (Bb) at ($(Ob)+(232:\Rc)$);
+  \coordinate (Ab) at ($(Ob)+(119:\Rc)$);
+  \coordinate (Cb) at ($(Ob)+(-43:\Rc)$);
+  \draw[given] (Ob) circle[radius=\Rc];
+  \draw[given] (Bb) -- (Ab);
+  \draw[given] (Bb) -- (Cb);
+  \node[vlab] at ($(Ab)+(136:0.50)$) {$A$};
+  \node[vlab] at ($(Ob)+(232:\Rc+0.34)$) {$B$};
+  \node[vlab] at ($(Ob)+(-43:\Rc+0.34)$) {$C$};
+  \node[slab] at ($(Ob)+(0,-1.85)$) {Inscribed};
+  % (c) NOT inscribed.  Measured off scan14 p.17: the vertex B sits a whisker
+  % OUTSIDE the circle (1.08 r) and the side BA runs AWAY from it, so the whole
+  % ray BA misses the circle -- that is what fails the definition.  Side BC, by
+  % contrast, cuts straight across.  (Directions 215.6 / 111.8 / -45.3 and the
+  % 1.5 r length of BA are read straight off the plate.)
+  \coordinate (Oc) at (6.30,0);
+  \coordinate (Bc) at ($(Oc)+(215.6:1.08*\Rc)$);
+  \coordinate (Ac) at ($(Bc)+(111.8:1.50*\Rc)$);
+  \coordinate (Cc) at ($(Oc)+(-45.3:\Rc)$);
+  \draw[given] (Oc) circle[radius=\Rc];
+  \draw[given] (Ac) -- (Bc);
+  \draw[given] (Bc) -- (Cc);
+  \node[vlab] at ($(Ac)+(50:0.34)$) {$A$};
+  \node[vlab] at ($(Bc)+(205:0.34)$) {$B$};
+  \node[vlab] at ($(Cc)+(-40:0.34)$) {$C$};
+  \node[slab] at ($(Oc)+(0,-1.85)$) {Not inscribed};
+\end{tikzpicture}
+\figcap{12--19}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.30\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (B) at ($(O)+(180:\R)$);
+  \coordinate (C) at ($(O)+(0:\R)$);
+  \coordinate (A) at ($(O)+(79:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (B) -- (C);
+  \draw[given] (B) -- (A);
+  \draw[aux]   (A) -- (O);   % the book prints this radius DASHED
+  \node[vlab] at ($(O)+(79:\R+0.30)$) {$A$};
+  \node[vlab] at ($(O)+(180:\R+0.30)$) {$B$};
+  \node[vlab] at ($(O)+(0:\R+0.30)$) {$C$};
+  \node[vlab] at ($(O)+(255:0.36)$) {$O$};
+\end{tikzpicture}
+\figcap{12--20}
+\end{minipage}
+\end{bkfigure}}
+
+%--------------------------------------------------- Figs 12-21 and 12-22
+% 12-21 (Case 1): the centre is INTERIOR to angle ABC.  The diameter BP splits
+%   arc AC into AP(80) and PC(33), and angle ABC into x = 40 and y = 16.5.
+%   Directions read off scan14 p.18: A 80, C -33.  The two angle arcs at B are
+%   in the book and are what tie the letters x, y to the angles they name.
+% 12-22 (Case 2): the centre is EXTERIOR to angle ABC -- both rays BA, BC lie
+%   on the same side of the diameter BQ.  Measured: A 110, C 36.
+\newcommand{\FIGXIITWENTYONETWENTYTWO}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  % 1.6: y names a 16.5-degree wedge, and its numeral needs about 1.5 units of
+  % run from B before the wedge is tall enough to hold it clear of both sides.
+  \def\R{1.6}
+  \coordinate (B) at ($(O)+(180:\R)$);
+  \coordinate (P) at ($(O)+(0:\R)$);
+  \coordinate (A) at ($(O)+(80:\R)$);
+  \coordinate (C) at ($(O)+(-33:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (B) -- (A);
+  \draw[given] (A) -- (C);
+  \draw[given] (B) -- (C);
+  \draw[aux] (B) -- (P);
+  % angle arcs: x = angle ABP (40 deg), y = angle PBC (16.5 deg)
+  \draw[XIIhook] ($(B)+(0:0.60)$)     arc[start angle=0,     end angle=40, radius=0.60];
+  \draw[XIIhook] ($(B)+(-16.5:0.90)$) arc[start angle=-16.5, end angle=0,  radius=0.90];
+  \node[vlab] at ($(O)+(80:\R+0.30)$) {$A$};
+  \node[vlab] at ($(O)+(180:\R+0.30)$) {$B$};
+  \node[vlab] at ($(O)+(0:\R+0.30)$) {$P$};
+  \node[vlab] at ($(O)+(-33:\R+0.30)$) {$C$};
+  \node[vlab] at ($(O)+(90:0.30)$) {$O$};
+  \node[slab] at ($(B)+(20:1.00)$) {$x$};
+  \node[slab] at ($(B)+(-8.25:1.85)$) {$y$};
+\end{tikzpicture}
+\figcap{12--21}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.35}
+  \coordinate (B) at ($(O)+(180:\R)$);
+  \coordinate (Q) at ($(O)+(0:\R)$);
+  \coordinate (A) at ($(O)+(110:\R)$);
+  \coordinate (C) at ($(O)+(36:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (B) -- (A);
+  \draw[given] (B) -- (C);
+  \draw[given] (A) -- (C);
+  \draw[aux] (B) -- (Q);
+  \node[vlab] at ($(O)+(110:\R+0.30)$) {$A$};
+  \node[vlab] at ($(O)+(180:\R+0.30)$) {$B$};
+  \node[vlab] at ($(O)+(36:\R+0.30)$) {$C$};
+  \node[vlab] at ($(O)+(0:\R+0.30)$) {$Q$};
+  \node[vlab] at ($(O)+(265:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--22}
+\end{minipage}
+\end{bkfigure}}
+
+%---------------------------------------------------------------- Fig 12-23
+% Angle inscribed in a semicircle: BC is a diameter, so angle BAC is right.
+\newcommand{\FIGXIITWENTYTHREE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (B) at ($(O)+(180:\R)$);
+  \coordinate (C) at ($(O)+(0:\R)$);
+  \coordinate (A) at ($(O)+(105:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (B) -- (C);
+  \draw[given] (B) -- (A);
+  \draw[given] (A) -- (C);
+  \node[vlab] at ($(O)+(105:\R+0.30)$) {$A$};
+  \node[vlab] at ($(O)+(180:\R+0.30)$) {$B$};
+  \node[vlab] at ($(O)+(0:\R+0.30)$) {$C$};
+  \node[vlab] at ($(O)+(265:0.34)$) {$O$};
+\end{tikzpicture}
+\figcap{12--23}
+\end{bkfigure}}
+
+%--------------------------------------------------- Figs 12-24 and 12-25
+% 12-24: AB and CD are parallel secants.  Their offsets from the centre are
+%   DELIBERATELY unequal (0.55 r above, 0.68 r below -- both measured off the
+%   plate).  Equal offsets would make AB congruent to CD, a coincidence the
+%   exercise never grants; arc AC = arc BD holds for ANY pair of parallel
+%   chords, which is exactly what Exercise 7 asks the student to prove.
+% 12-25: AC is tangent at B (perpendicular to OB by construction); D and E are
+%   placed symmetrically about OB, which makes DE parallel to AC and the arcs
+%   BD and BE equal -- both facts the exercise's hint needs.
+\newcommand{\FIGXIITWENTYFOURTWENTYFIVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (A) at (-1.0440, 0.6875);
+  \coordinate (B) at ( 1.0440, 0.6875);
+  \coordinate (C) at (-0.9165,-0.8500);
+  \coordinate (D) at ( 0.9165,-0.8500);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (-1.52, 0.6875) -- (1.52, 0.6875);
+  \draw[given] (-1.44,-0.8500) -- (1.44,-0.8500);
+  \node[vlab] at ($(A)+(112:0.36)$) {$A$};
+  \node[vlab] at ($(B)+(68:0.36)$) {$B$};
+  \node[vlab] at ($(C)+(248:0.36)$) {$C$};
+  \node[vlab] at ($(D)+(292:0.36)$) {$D$};
+\end{tikzpicture}
+\figcap{12--24}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (O) at (0,0);
+  \def\R{1.05}
+  \coordinate (B) at ($(O)+(133:\R)$);
+  \coordinate (A) at ($(B)+(223:1.22)$);
+  \coordinate (C) at ($(B)+(43:1.06)$);
+  \coordinate (D) at ($(O)+(199:\R)$);
+  \coordinate (E) at ($(O)+(67:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (A) -- (C);
+  \draw[aux] (B) -- (D);
+  \draw[aux] (B) -- (E);
+  \draw[aux] (D) -- (E);
+  \node[vlab] at ($(A)+(223:0.34)$) {$A$};
+  \node[vlab] at ($(O)+(133:\R+0.36)$) {$B$};
+  \node[vlab] at ($(C)+(43:0.34)$) {$C$};
+  \node[vlab] at ($(O)+(199:\R+0.34)$) {$D$};
+  \node[vlab] at ($(O)+(67:\R+0.34)$) {$E$};
+\end{tikzpicture}
+\figcap{12--25}
+\end{minipage}
+\end{bkfigure}}
+
+%--------------------------------------------------- Figs 12-26 and 12-27
+% 12-26: two secants from the external point A.  A is DERIVED as the crossing
+%   of lines CB and DE, so A, B, C and A, E, D are exactly collinear.  The
+%   auxiliary chord is B--D, NOT C--D: the book draws BD, and both exercises
+%   that lean on this figure need triangle ABD -- Ex *10 gets angle A as the
+%   exterior angle of ABD at B, and Ex *14 proves ABD ~ AEC.  The upper secant
+%   runs on past C, as in the book, to show it is a line and not a segment.
+% 12-27: chords AC and BD crossing at E, again derived as an intersection;
+%   BC dashed is the hint line for Exercise 12.
+\newcommand{\FIGXIITWENTYSIXTWENTYSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.54\linewidth}\centering
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (O) at (0,0);
+  \def\R{1.1}
+  \coordinate (B) at ($(O)+(151.6:\R)$);
+  \coordinate (C) at ($(O)+(79.5:\R)$);
+  \coordinate (D) at ($(O)+(-31:\R)$);
+  \coordinate (E) at ($(O)+(213:\R)$);
+  \coordinate (A) at (intersection of C--B and D--E);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (A) -- ($(A)!1.12!(C)$);
+  \draw[given] (A) -- (D);
+  \draw[given] (B) -- (D);
+  \node[vlab] at ($(A)+(186:0.34)$) {$A$};
+  \node[vlab] at ($(B)+(88:0.50)$) {$B$};
+  \node[vlab] at ($(O)+(95:\R+0.36)$) {$C$};
+  \node[vlab] at ($(E)+(265:0.44)$) {$E$};
+  \node[vlab] at ($(O)+(-31:\R+0.34)$) {$D$};
+\end{tikzpicture}
+\figcap{12--26}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.42\linewidth}\centering
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (O) at (0,0);
+  \def\R{1.1}
+  \coordinate (A) at ($(O)+(190:\R)$);
+  \coordinate (B) at ($(O)+(135:\R)$);
+  \coordinate (C) at ($(O)+(10:\R)$);
+  \coordinate (D) at ($(O)+(-68:\R)$);
+  \coordinate (E) at (intersection of A--C and B--D);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (A) -- (C);
+  \draw[given] (B) -- (D);
+  \draw[aux] (B) -- (C);
+  \node[vlab] at ($(O)+(190:\R+0.34)$) {$A$};
+  \node[vlab] at ($(O)+(155:\R+0.36)$) {$B$};
+  \node[vlab] at ($(O)+(10:\R+0.34)$) {$C$};
+  \node[vlab] at ($(O)+(-68:\R+0.34)$) {$D$};
+  \node[vlab] at ($(E)+(247:0.36)$) {$E$};
+\end{tikzpicture}
+\figcap{12--27}
+\end{minipage}
+\end{bkfigure}}
+
+%---------------------------------------------------------------- Fig 12-28
+% Two chords crossing at O.  Solved so the drawing HONOURS the numbers quoted
+% in Exercise 15: AO:OB = 12:4 = 3 and CO:OD = 8:6 = 4/3.  (The book's own
+% cut is schematic and draws AO:OB nearer 2.2:1.)
+\newcommand{\FIGXIITWENTYEIGHT}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (Ctr) at (0,0);
+  \def\R{1.1}
+  \coordinate (A) at ($(Ctr)+(192.5:\R)$);
+  \coordinate (B) at ($(Ctr)+(31.1:\R)$);
+  \coordinate (C) at ($(Ctr)+(113.4:\R)$);
+  \coordinate (D) at ($(Ctr)+(354.1:\R)$);
+  \coordinate (X) at (intersection of A--B and C--D);
+  \draw[given] (Ctr) circle[radius=\R];
+  \draw[given] (A) -- (B);
+  \draw[given] (C) -- (D);
+  \node[vlab] at ($(Ctr)+(192.5:\R+0.30)$) {$A$};
+  \node[vlab] at ($(Ctr)+(31.1:\R+0.30)$) {$B$};
+  \node[vlab] at ($(Ctr)+(113.4:\R+0.30)$) {$C$};
+  \node[vlab] at ($(Ctr)+(354.1:\R+0.30)$) {$D$};
+  \node[vlab] at ($(X)+(263:0.46)$) {$O$};
+\end{tikzpicture}
+\figcap{12--28}
+\end{bkfigure}}
+
+%--------------------------------------------------- Figs 12-29 and 12-30
+% 12-29: solved from Exercise 16 -- AD = 6, DE = 10, AB = 8 forces BC = 4 by
+%   the power of the point, so the coordinates are exact, not sketched.
+% 12-30: solved from Exercises 17-18 -- AB tangent at B with AC = 8, CD = 10
+%   forces AB = 12.  OB is perpendicular to AB by construction.
+\newcommand{\FIGXIITWENTYNINETHIRTY}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (O) at (0,0);
+  \def\R{1.55}
+  \coordinate (A) at (-3.3064, 0);
+  \coordinate (D) at (-1.5328, 0.2303);
+  \coordinate (E) at ( 1.4232, 0.6141);
+  \coordinate (B) at (-1.1566,-1.0319);
+  \coordinate (C) at (-0.0817,-1.5478);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (A) -- (E);
+  \draw[given] (A) -- (C);
+  \node[vlab] at ($(A)+(184:0.44)$) {$A$};
+  \node[vlab] at ($(D)+(125:0.50)$) {$D$};
+  \node[vlab] at ($(O)+(23.34:\R+0.44)$) {$E$};
+  \node[vlab] at ($(O)+(221.74:\R+0.44)$) {$B$};
+  \node[vlab] at ($(O)+(266.98:\R+0.46)$) {$C$};
+\end{tikzpicture}
+\figcap{12--29}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (O) at (0,0);
+  \def\R{1.5}
+  \coordinate (A) at (-3.3541, 0);
+  \coordinate (B) at (-0.6708, 1.3416);
+  \coordinate (C) at (-1.4162,-0.4954);
+  \coordinate (D) at ( 1.0062,-1.1127);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (A) -- (B);
+  \draw[given] (A) -- (D);
+  \draw[aux] (B) -- (C);
+  \draw[aux] (B) -- (D);
+  \node[vlab] at ($(A)+(190:0.42)$) {$A$};
+  \node[vlab] at ($(O)+(116.57:\R+0.42)$) {$B$};
+  \node[vlab] at ($(C)+(200:0.44)$) {$C$};
+  \node[vlab] at ($(O)+(312.1:\R+0.56)$) {$D$};
+\end{tikzpicture}
+\figcap{12--30}
+\end{minipage}
+\end{bkfigure}}
+
+%---------------------------------------------------------------- Fig 12-31
+% A central right angle; the dashed chord is the segment of length sqrt(2) r
+% against which the arc is compared.
+\newcommand{\FIGXIITHIRTYONE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \def\R{1.25}
+  \coordinate (T) at ($(O)+(90:\R)$);
+  \coordinate (S) at ($(O)+(0:\R)$);
+  \draw[given] (O) circle[radius=\R];
+  \draw[given] (O) -- (T);
+  \draw[given] (O) -- (S);
+  \draw[aux] (T) -- (S);
+  \node[slab] at ($(O)+(90:0.62)+(-0.26,0)$) {$r$};
+\end{tikzpicture}
+\figcap{12--31}
+\end{bkfigure}}

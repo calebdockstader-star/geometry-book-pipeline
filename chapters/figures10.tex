@@ -1,0 +1,589 @@
+% figures10.tex -- Chapter 10 (AREA) figures redrawn in TikZ.
+% Proportions read off scans/scan13.pdf p1-p16 (book pp.180-192).
+% Every constrained point is constructed, never eyeballed; the stated
+% hypotheses are mirrored in tools/constraints/ch10.py.
+
+% ------------------------------------------------------------ Fig 10-1, 10-2
+% 10-1: unit-square counting -- 1x1, 2x1, 3x2.
+% 10-2: half-unit square inside a unit square; 2.5 x 3 grid.
+\newcommand{\FIGXONETWO}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.52\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % (a) single unit square.  Panels (a) and (b) sit on a band 0.5 units above
+  % the old one: their "below" labels used to run into the top edge of the
+  % 3x2 grid of panel (c), which the two panels overlap in x.
+  \draw[fig] (0,3.1) rectangle (1,4.1);
+  \node[slab] at (0.5,3.6) {1};
+  \node[slab,left] at (0,3.6) {1};  \node[slab,below] at (0.5,3.1) {1};
+  % (b) two unit squares side by side
+  \draw[fig] (2.4,3.1) rectangle (4.4,4.1);
+  \draw[fig] (3.4,3.1) -- (3.4,4.1);
+  \node[slab] at (2.9,3.6) {1}; \node[slab] at (3.9,3.6) {1};
+  \node[slab,left] at (2.4,3.6) {1}; \node[slab,right] at (4.4,3.6) {1};
+  \node[slab,below] at (2.9,3.1) {1}; \node[slab,below] at (3.9,3.1) {1};
+  % (c) 3 x 2 grid
+  \draw[fig] (0.7,0) rectangle (3.7,2);
+  \draw[fig] (1.7,0) -- (1.7,2); \draw[fig] (2.7,0) -- (2.7,2);
+  \draw[fig] (0.7,1) -- (3.7,1);
+  \foreach \x in {1.2,2.2,3.2}{\node[slab] at (\x,1.5) {1};
+                               \node[slab] at (\x,0.5) {1};
+                               \node[slab,below] at (\x,0) {1};}
+  \node[slab,left] at (0.7,1.5) {1}; \node[slab,left] at (0.7,0.5) {1};
+\end{tikzpicture}
+\figcap{10--1}
+\end{minipage}\hfill
+\begin{minipage}{0.46\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % (a) half-unit square inside a dashed unit square.  The book quarters the
+  % unit square: a dashed mid-vertical and mid-horizontal run right across it,
+  % and only the lower-left quarter is inked solid.  The two dashed halves of
+  % those medians were missing.
+  \draw[aux] (0,1.8) rectangle (2,3.8);
+  \draw[aux] (1,2.8) -- (1,3.8);          % upper half of the mid-vertical
+  \draw[aux] (1,2.8) -- (2,2.8);          % right half of the mid-horizontal
+  \draw[fig] (0,1.8) rectangle (1,2.8);
+  \node[slab,left] at (0,3.3) {$\tfrac{1}{2}$};
+  \node[slab,left] at (0,2.3) {$\tfrac{1}{2}$};
+  % (b) 2.5 wide x 3 tall grid
+  \draw[fig] (3.1,0) rectangle (5.6,3);
+  \draw[fig] (4.1,0) -- (4.1,3); \draw[fig] (5.1,0) -- (5.1,3);
+  \draw[fig] (3.1,1) -- (5.6,1); \draw[fig] (3.1,2) -- (5.6,2);
+  \node[slab,left] at (3.1,2.5) {1}; \node[slab,left] at (3.1,1.5) {1};
+  \node[slab,left] at (3.1,0.5) {1};
+  \node[slab,below] at (3.6,0) {1}; \node[slab,below] at (4.6,0) {1};
+  \node[slab,below] at (5.35,0) {$\tfrac{1}{2}$};
+\end{tikzpicture}
+\figcap{10--2}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-3
+% 1.4 by 2.3 rectangle, partly chopped into squares 0.1 on a side.
+\newcommand{\FIGXTHREE}{\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[scale=1.55]
+  \draw[fig] (0,0) rectangle (2.3,1.4);
+  \draw[fig] (1,0) -- (1,1.4);            % 1-unit divisions
+  \draw[fig] (2,0) -- (2,1.4);
+  \draw[fig] (0,1) -- (2.3,1);            % the 0.4 band
+  \foreach \y in {1.1,1.2,1.3} \draw[fig] (0,\y) -- (2.3,\y);
+  \foreach \x in {2.1,2.2} \draw[fig] (\x,0) -- (\x,1.4);
+  \node[slab,left] at (0,1.2) {0.4};  \node[slab,left] at (0,0.5) {1};
+  \node[slab,below] at (0.5,0) {1};   \node[slab,below] at (1.5,0) {1};
+  \node[slab,below] at (2.15,0) {0.3};
+\end{tikzpicture}
+\figcap{10--3}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-4
+% rectangle sqrt(2) by 1, the part past the whole unit divided into tenths.
+% Structure measured off scan13 p3 by tracking every vertical (solid lines
+% are 100% inked down the page, dashed ones 76-83%):
+%   left edge (solid) -- unit divider at exactly 1 unit (solid) -- five
+%   DASHED tenth-marks -- and the right edge, at sqrt(2) units, falls
+%   BETWEEN the fourth and fifth marks.  That is the whole point of the
+%   figure: it shows 1.4 < sqrt(2) < 1.5, which the text asserts two lines
+%   above it.  The old drawing put six dashed marks inside and ended the
+%   rectangle on a mark, so the reading was lost.  The top and bottom edges
+%   run past the right edge to the last mark, as they do in the book.
+\newcommand{\FIGXFOUR}{\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[scale=1.55]
+  % one unit = 1.6; the book's tenth-marks are slightly compressed (0.089
+  % unit apart) so that the sqrt(2) edge clears them -- keep that.
+  \def\uu{1.6}\def\tt{0.1425}\def\ww{2.2627}\def\hh{1.91}% w = sqrt2 * 1.6
+  \def\xe{2.3125}%                                        last tenth-mark
+  \draw[fig] (0,0) -- (\xe,0);                          % bottom, extended
+  \draw[fig] (0,\hh) -- (\xe,\hh);                      % top, extended
+  \draw[fig] (0,0) -- (0,\hh);                          % left edge
+  \draw[fig] (\ww,0) -- (\ww,\hh);                      % right edge = sqrt2
+  \draw[fig] (\uu,0) -- (\uu,\hh);                      % the whole unit
+  \foreach \k in {1,2,3,4,5}
+    \draw[aux] ({\uu+\k*\tt},0) -- ({\uu+\k*\tt},\hh);
+  \node[slab] at (0.81,1.74) {1};
+  \node[slab,left] at (0,0.955) {1};
+  \node[slab] at (1.42,2.18) {0.1};
+  \draw[fig,->] (1.60,2.10) -- (1.70,1.97);             % leader into a strip
+  % dimension line under the rectangle; the label sits in a break of it,
+  % as the book draws it.
+  \draw[fig,|<->|] (0,-0.40) -- node[slab,fill=white,inner sep=1.5pt]
+        {$\sqrt{2}$} (\ww,-0.40);
+\end{tikzpicture}
+\figcap{10--4}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-5
+% (a) isosceles triangle ABC and rectangle on the same base;
+% (b) parallelogram A'B'C'D' with A'B' = D'E';
+% (c) two parallelograms on the base A''D''.
+\newcommand{\FIGXFIVE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}[b]{0.31\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % height read off scan13 p4: h : BC = 570 : 535, i.e. 1.07 (was 0.73).
+  \coordinate (B) at (0,0); \coordinate (C) at (3,0);
+  \coordinate (E) at ($(B)!0.5!(C)$);
+  \coordinate (A) at ($(E)+(0,3.2)$);
+  \coordinate (D) at ($(B)+(0,3.2)$);
+  \draw[aux] (D) -- (A); \draw[aux] (D) -- (B);
+  \draw[fig] (B) -- (C) -- (A) -- cycle;
+  \draw[fig] (A) -- (E);
+  % the book marks AB and AC with DOUBLE ticks
+  \foreach \s/\t in {A/B, A/C}
+    {\foreach \f in {0.465,0.535}
+       {\draw[tick] ($(\s)!\f!(\t)!2.2pt!90:(\t)$) --
+                    ($(\s)!\f!(\t)!2.2pt!-90:(\t)$);}}
+  \foreach \p/\n/\d in {A/A/above, B/B/below left, C/C/below right,
+                        D/D/above left, E/E/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[slab,below=20pt] at (1.5,0) {(a)};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.31\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % re-measured on scan13 p4: A'B' rises at 61 degrees (the old 49 made the
+  % parallelogram far too flat), |A'B'| : |A'D'| = 0.54, and A'D' drops 6.7
+  % degrees left to right.
+  \coordinate (Ap) at (0,0.75); \coordinate (Bp) at (0.675,1.98);
+  \coordinate (Dp) at (2.586,0.446);
+  \coordinate (Cp) at ($(Dp)+(Bp)-(Ap)$);
+  \coordinate (Ep) at ($(Dp)-(Bp)+(Ap)$);
+  \draw[fig] (Ap) -- (Bp) -- (Cp) -- (Dp) -- cycle;
+  \draw[aux] (Bp) -- (Dp); \draw[aux] (Ap) -- (Ep); \draw[aux] (Ep) -- (Dp);
+  \foreach \p/\n/\d in {Ap/A'/left, Bp/B'/above left, Cp/C'/above right,
+                        Dp/D'/right, Ep/E'/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[slab,below=20pt] at (1.3,-0.5) {(b)};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.31\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % Re-measured on scan13 p4 (vertices, not label boxes): height = 1.46 x
+  % base (not 1.94), B'' at 0.42 of the base, E'' at 0.91.  Line weights
+  % corrected too: the book inks A''B''C''D'' and the top edge B''..F'',
+  % and draws the SECOND parallelogram's slant sides A''E'' and D''F''
+  % dashed, plus the cut E''D''.  There is no A''C'' diagonal in the book;
+  % the old drawing had one, and had A''E''F''D'' solid.
+  \coordinate (Aq) at (0,0);    \coordinate (Dq) at (1.6,0);
+  \coordinate (Bq) at (0.67,2.33);
+  \coordinate (Cq) at ($(Bq)+(Dq)-(Aq)$);
+  \coordinate (Eq) at (1.46,2.33);
+  \coordinate (Fq) at ($(Eq)+(Dq)-(Aq)$);
+  \draw[fig] (Aq) -- (Bq);            % first parallelogram, left side
+  \draw[fig] (Bq) -- (Fq);            % top edge, through E'' and C''
+  \draw[fig] (Dq) -- (Cq);            % first parallelogram, right side
+  \draw[fig] (Aq) -- (Dq);            % common base
+  \draw[aux] (Aq) -- (Eq); \draw[aux] (Dq) -- (Fq);
+  \draw[aux] (Eq) -- (Dq);
+  \foreach \p/\n/\d in {Aq/A''/below left, Dq/D''/below right,
+                        Bq/B''/above left, Cq/C''/above,
+                        Eq/E''/above, Fq/F''/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[slab,below=20pt] at (0.8,0) {(c)};
+\end{tikzpicture}
+\end{minipage}
+\figcap{10--5}
+\end{bkfigure}}
+
+% ------------------------------------------------------------ Fig 10-6, 10-7
+\newcommand{\FIGXSIXSEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.5\linewidth}\centering
+\begin{tikzpicture}[scale=0.8]
+  % the shared side DE is drawn dead vertical in the book (scan13 p5);
+  % the other six vertices are re-measured off that page relative to D and
+  % the length of DE.  A had been drawn too close to E, which crowded the
+  % two labels; in the book A sits well to the left of E.
+  \coordinate (D) at (1.6,0.3);  \coordinate (E) at (1.6,1.75);
+  \coordinate (A) at (0.464,2.389); \coordinate (B) at (-0.779,1.378);
+  \coordinate (C) at (0.365,-0.197);
+  \coordinate (F) at (4.004,2.389); \coordinate (G) at (4.335,-0.347);
+  \draw[fig] (A) -- (B) -- (C) -- (D) -- (G) -- (F) -- (E) -- cycle;
+  \draw[aux] (D) -- (E);
+  % E is lettered straight ABOVE its vertex in the book; anchoring the label
+  % "left" put it on the side EA, which runs up and to the left from E.
+  \foreach \p/\n/\d in {A/A/above, B/B/left, C/C/below left, D/D/below,
+                        E/E/above, F/F/above right, G/G/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--6}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.8]
+  % a : b = 0.43 on scan13 p5 (was 0.53)
+  \coordinate (C) at (0,0); \coordinate (A) at (3,0);
+  \coordinate (B) at (0,1.3); \coordinate (Cp) at (3,1.3);
+  \draw[aux] (B) -- (Cp) -- (A);
+  \draw[fig] (C) -- (A) -- (B) -- cycle;
+  \draw[rmark] (0,0.28) -- (0.28,0.28) -- (0.28,0);
+  \node[slab,left] at (0,0.65) {$a$};
+  \node[slab,below] at (1.5,0) {$b$};
+  \foreach \p/\n/\d in {B/B/above left, C/C/below left, A/A/below right,
+                        Cp/C'/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--7}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-8
+% parallelogram ABCD (base b = AD, height h) inside rectangle AECF; EB = x.
+\newcommand{\FIGXEIGHT}{\begin{bkfigure}[0.66\linewidth]
+% Proportions read off scan13 p6: x : b = 217 : 137 (1.58) and h : b = 143 : 137
+% (1.04).  The old drawing had x : b = 0.4 and h : b = 0.57 -- far too little
+% slant, which makes the x-strip of the proof almost invisible.
+\begin{tikzpicture}[scale=0.85]
+  \coordinate (A) at (0,0);   \coordinate (D) at (2,0);
+  \coordinate (B) at (3.1,2.05);
+  \coordinate (C) at ($(B)+(D)-(A)$);
+  \coordinate (E) at (0,2.05); \coordinate (F) at (5.1,0);
+  \draw[aux] (E) -- (C); \draw[aux] (A) -- (F); \draw[aux] (E) -- (A);
+  \draw[aux] (C) -- (F);
+  \draw[fig] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[rmark] (0,1.77) -- (0.28,1.77) -- (0.28,2.05);
+  \draw[rmark] (5.1,0.28) -- (4.82,0.28) -- (4.82,0);
+  \node[slab,above] at (1.55,2.05) {$x$};
+  \node[slab,below] at (1,0) {$b$};
+  \node[slab,right] at (5.1,1.02) {$h$};
+  \foreach \p/\n/\d in {E/E/above left, B/B/above, C/C/above right,
+                        A/A/below left, D/D/below, F/F/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--8}
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-9
+% triangle of base b and height h, completed to a parallelogram.
+\newcommand{\FIGXNINE}{\begin{bkfigure}[0.58\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  % re-measured on scan13 p7: apex at 0.56 of the base, height 0.54 x base
+  \coordinate (B) at (0,0); \coordinate (C) at (2.6,0);
+  \coordinate (A) at (1.46,1.41);
+  \coordinate (Bp) at ($(A)+(C)-(B)$);
+  \coordinate (H) at ($(B)!(A)!(C)$);
+  \draw[aux] (A) -- (Bp) -- (C);
+  \draw[fig] (B) -- (C) -- (A) -- cycle;
+  \draw[fig] (A) -- (H);
+  \node[slab,left] at ($(A)!0.5!(H)$) {$h$};
+  \node[slab,below] at (1.75,0) {$b$};
+  \foreach \p/\n/\d in {A/A/above left, Bp/B'/above right, B/B/below left}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--9}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 10-10, 10-11
+\newcommand{\FIGXTENELEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.5\linewidth}\centering
+% Ex. Group 10-5 no. 5 states l || m, 3 ft apart, and AB = CD = 5 ft; the book
+% draws it to that scale, with C directly over B and the zigzag standing for
+% the 1-mile gap from B to C.  The old drawing had AB = 1.4 and CD = 1.3 (not
+% congruent) and a 1.07 : 1 gap-to-AB ratio instead of 3 : 5.  One tikz unit
+% is now one foot.
+\begin{tikzpicture}[scale=0.40]
+  \draw[fig] (0,3) -- (11.6,3);  \node[vlab,right] at (11.6,3) {$l$};
+  \draw[fig] (0,0) -- (11.6,0);  \node[vlab,right] at (11.6,0) {$m$};
+  \coordinate (A) at (0.6,0);  \coordinate (B) at (5.6,0);
+  \coordinate (C) at (5.6,3);  \coordinate (D) at (10.6,3);
+  \draw[fig] (C) -- (6.05,2.45) -- (5.15,1.95) -- (6.05,1.45)
+             -- (5.15,0.95) -- (5.9,0.45) -- (B);
+  \foreach \p in {A,B,C,D} \fill (\p) circle (1.3pt);
+  \node[vlab,above] at (C) {$C$};  \node[vlab,above] at (D) {$D$};
+  \node[vlab,below] at (A) {$A$};  \node[vlab,below] at (B) {$B$};
+\end{tikzpicture}
+\figcap{10--10}
+\end{minipage}\hfill
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.48]
+  \coordinate (A) at (0,0);  \coordinate (D) at (4,0);
+  \coordinate (B) at (4,3);  \coordinate (C) at ($(B)+(D)-(A)$);
+  \draw[fig] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[fig] (B) -- (D);
+  \draw[rmark] (4,0.4) -- (3.6,0.4) -- (3.6,0);
+  \draw[rmark] (4,2.6) -- (4.4,2.6) -- (4.4,3);
+  % "above left" grazed AB; step 0.7 off the midpoint along AB's normal
+  \node[slab] at ($(A)!0.5!(B)!0.55!90:(B)$) {5};
+  \node[slab,below] at ($(A)!0.5!(D)$) {4};
+  \foreach \p/\n/\d in {A/A/below left, D/D/below, B/B/above left,
+                        C/C/above right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--11}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 10-12, 10-13
+\newcommand{\FIGXTWELVETHIRTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.5\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  \coordinate (B) at (0,0);    \coordinate (C) at (4.5,0);
+  \coordinate (A) at (1,3);    \coordinate (D) at (3.5,3);
+  \draw[fig] (B) -- (C) -- (D) -- (A) -- cycle;
+  \coordinate (T) at (2.25,3);
+  \draw[fig] (T) -- (2.25,0);
+  \draw[aux] (A) -- (C);
+  % plain "above" left the label's box touching the top side; lift it clear
+  \node[slab,above] at ($($(A)!0.5!(D)$)+(0,0.28)$) {$b' = 10$};
+  \node[slab,below] at ($(B)!0.5!(C)$) {$b = 18$};
+  % the book prints "h = 12" INSIDE the trapezoid, in the panel between the
+  % left side and the altitude, not out in the margin (scan13 p8)
+  \node[slab] at (1.40,1.5) {$h = 12$};
+  \foreach \p/\n/\d in {A/A/above left, D/D/above right, B/B/below left,
+                        C/C/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--12}
+\end{minipage}\hfill
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.48]
+  % measured on scan13 p8: b' : b = 0.563, h : b = 0.72 (the old drawing had
+  % 0.5 and 0.5).  Both b' and b - b' are printed INSIDE the trapezoid just
+  % above the base, and the b of the dimension line sits in a break of it.
+  \coordinate (B) at (0,0);   \coordinate (C) at (6,0);
+  \coordinate (A) at (1.2,4.3);
+  \coordinate (D) at ($(A)+(3.38,0)$);
+  \coordinate (P) at (3.38,0);
+  \draw[fig] (B) -- (C) -- (D) -- (A) -- cycle;
+  \draw[aux] (D) -- (P);
+  \node[slab,above] at ($($(A)!0.5!(D)$)+(0,0.30)$) {$b'$};
+  \node[slab] at ($($(B)!0.5!(P)$)+(0,0.50)$) {$b'$};
+  \node[slab] at ($($(P)!0.5!(C)$)+(0.15,0.50)$) {$b - b'$};
+  \draw[fig,|<->|] (0,-1.3) -- node[slab,fill=white,inner sep=1.5pt]
+        {$b$} (6,-1.3);
+\end{tikzpicture}
+\figcap{10--13}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 10-14
+\newcommand{\FIGXFOURTEEN}{\begin{bkfigure}[0.52\linewidth]
+\begin{tikzpicture}[scale=0.86]
+  % base : height = 1.75 and lean : height = 0.26 on scan13 p9
+  \coordinate (B) at (0,0); \coordinate (C) at (3,0);
+  \coordinate (A) at (0.45,1.72);
+  \coordinate (D) at ($(A)+(C)-(B)$);
+  \draw[fig] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[fig] (A) -- (C); \draw[fig] (B) -- (D);
+  \coordinate (O) at (intersection of A--C and B--D);
+  % "above right" put the label along diagonal BD.  The book sets O straight
+  % above the crossing, in the wedge between OA and OD.
+  \node[vlab,above] at ($(O)+(0,0.16)$) {$O$};
+  \foreach \p/\n/\d in {A/A/above left, D/D/above right, B/B/below left,
+                        C/C/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--14}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 10-15
+\newcommand{\FIGXFIFTEEN}{\begin{bkfigure}[0.52\linewidth]
+\begin{tikzpicture}[scale=0.9]
+  % apex at 0.30 of the base, h : b = 0.50 (scan13 p9)
+  \coordinate (A) at (0,0); \coordinate (C) at (3.4,0);
+  \coordinate (B) at (1.0,1.7);
+  \draw[fig] (A) -- (C) -- (B) -- cycle;
+  \node[slab,above left]  at ($(A)!0.5!(B)$) {$c$};
+  \node[slab,above right] at ($(B)!0.5!(C)$) {$a$};
+  \node[slab,below]       at ($(A)!0.5!(C)$) {$b$};
+  \foreach \p/\n/\d in {A/A/below left, C/C/below right, B/B/above}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--15}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 10-16, 10-17
+\newcommand{\FIGXSIXTEENSEVENTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.5\linewidth}\centering
+\begin{tikzpicture}[scale=0.8]
+  % Re-measured off scan13 p9 at 150 dpi (vertices A(232,65) D(700,82)
+  % B(145,342) C(620,335)): h : BC = 0.58 and lean : h = 0.31.  An earlier
+  % pass had 0.78 / 0.20, which stretched the parallelogram upright.
+  \coordinate (B) at (0,0);   \coordinate (C) at (3.5,0);
+  \coordinate (A) at (0.64,2.04);
+  \coordinate (D) at ($(A)+(C)-(B)$);
+  \coordinate (E) at ($(B)!0.25!(D)$);     % BE : ED = 2 : 6
+  \draw[fig] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[fig] (B) -- (D);
+  \draw[aux] (E) -- (C);
+  \foreach \p/\n/\d in {A/A/above left, D/D/above right, B/B/below left,
+                        C/C/below right, E/E/above left}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--16}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.72]
+  \coordinate (A) at (0,0); \coordinate (B) at (4.333,0);
+  \coordinate (C) at (0.641,1.538);        % AC = 5, CB = 12, AB = 13 (/3)
+  \coordinate (D) at ($(A)!(C)!(B)$);
+  \draw[fig] (A) -- (B) -- (C) -- cycle;
+  \draw[fig] (C) -- (D);
+  % No right-angle box: the book draws neither the one at C nor the one at D
+  % here, though it marks right angles freely in 10-7, 10-8, 10-11 and 10-20.
+  % Both facts are stated in the exercise text instead (scan13 p9).
+  \foreach \p/\n/\d in {A/A/below left, B/B/right, C/C/above, D/D/below}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--17}
+\end{minipage}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 10-18, 10-19
+% 10-18: squares on the three sides of a right triangle.
+% 10-19: the (a+b) square dissected into four right triangles and a c-square.
+\newcommand{\FIGXEIGHTEENNINETEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.5\linewidth}\centering
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (R) at (0,0); \coordinate (S) at (0,1.0); \coordinate (T) at (1.4,0);
+  \draw[fig] (R) -- (S) -- (T) -- cycle;
+  \draw[fig] (R) -- (-1.0,0) -- (-1.0,1.0) -- (S);          % square 1
+  \draw[fig] (R) -- (0,-1.4) -- (1.4,-1.4) -- (T);          % square 2
+  \coordinate (N) at (1.0,1.4);                              % normal (s1,s2)
+  \draw[fig] (S) -- ($(S)+(N)$) -- ($(T)+(N)$) -- (T);       % square 3
+  \node[slab] at (-0.5,0.5) {1};
+  \node[slab] at (0.7,-0.7) {2};
+  \node[slab] at (1.2,1.2)  {3};
+\end{tikzpicture}
+\figcap{10--18}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.62]
+  % In the book (scan13 p11, close-up) the SHORT piece of every side is the
+  % one lettered a and the long piece is b: going clockwise from the top-left
+  % corner the top edge reads a then b, the right edge a then b, the bottom
+  % edge b then a, the left edge b then a.  The letters were in the right
+  % places here but the two lengths were interchanged, which mirrored the
+  % inner square's tilt.  Swapping the values fixes both at once.
+  \def\aa{1.6}\def\bb{2.4}\def\ss{4.0}
+  \coordinate (P1) at (\bb,0);   \coordinate (P2) at (\ss,\bb);
+  \coordinate (P3) at (\aa,\ss); \coordinate (P4) at (0,\aa);
+  \draw[fig] (0,0) rectangle (\ss,\ss);
+  \draw[fig] (P1) -- (P2) -- (P3) -- (P4) -- cycle;
+  \node[slab,below] at (\bb/2,0)        {$b$};
+  \node[slab,below] at ({(\bb+\ss)/2},0){$a$};
+  \node[slab,right] at (\ss,\bb/2)      {$b$};
+  \node[slab,right] at (\ss,{(\bb+\ss)/2}) {$a$};
+  \node[slab,above] at (\aa/2,\ss)      {$a$};
+  \node[slab,above] at ({(\aa+\ss)/2},\ss) {$b$};
+  \node[slab,left]  at (0,\aa/2)        {$a$};
+  \node[slab,left]  at (0,{(\aa+\ss)/2}){$b$};
+  \node[slab] at (2.83,1.45) {$c$};
+  \node[slab] at (2.55,2.83) {$c$};
+  \node[slab] at (1.17,2.55) {$c$};
+  \node[slab] at (1.45,1.17) {$c$};
+\end{tikzpicture}
+\figcap{10--19}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 10-20
+% Bhaskara's dissection: square BAED of side c, four right triangles
+% (legs a, b) round a central square of side a - b.  DF || AC, EG || BC.
+\newcommand{\FIGXTWENTY}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.15]
+  \coordinate (B) at (0,0);   \coordinate (A) at (3,0);
+  \coordinate (E) at (3,3);   \coordinate (D) at (0,3);
+  \coordinate (C)  at (1.92,1.44);     % right angle at C, BC = a, CA = b
+  \coordinate (Cp) at (1.56,1.92);
+  \coordinate (G)  at (1.08,1.56);
+  \coordinate (F)  at (1.44,1.08);
+  \draw[aux] (B) -- (D) -- (E) -- (A);
+  \draw[fig] (B) -- (A);
+  \draw[fig] (B) -- (C) -- (A);
+  % The central square is NOT inked as a solid quadrilateral in the book
+  % (scan13 p14, close-up): three of its sides fall along lines already drawn
+  % -- GF lies on DF, C'G lies on EG, and FC lies on the solid leg BC -- and
+  % only CC' is added, dashed.  Drawing the square solid put ink on the page
+  % that the source does not have and broke the given/auxiliary convention.
+  \draw[aux] (D) -- (F); \draw[aux] (E) -- (G);
+  \draw[aux] (C) -- (Cp);
+  % right-angle marks at G and at C', as the book has them
+  \draw[rmark] (1.256,1.692) -- (1.388,1.516) -- (1.212,1.384);
+  \draw[rmark] (1.384,1.788) -- (1.516,1.612) -- (1.692,1.744);
+  % "a" stepped 0.25 units off BC along its normal (it was grazing the leg
+  % at 1.2pt); the book likewise floats it clear, above the midpoint of BC.
+  \node[slab] at (0.81,0.92) {$a$};
+  \node[slab] at (2.62,0.95) {$b$};
+  \node[slab,below] at (1.5,0) {$c$};
+  % C is lettered up and to the RIGHT of the vertex in the book; a plain
+  % "right" anchor slid the letter down onto the leg CA (0.5pt clearance).
+  \foreach \p/\n/\d in {B/B/below left, A/A/below right, D/D/above left,
+                        E/E/above right, C/C/above right, F/F/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at (1.38,2.10) {$G$};
+\end{tikzpicture}
+\figcap{10--20}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 10-21
+% quadrilateral ABCD; DE drawn parallel to the diagonal AC, E on line BC.
+\newcommand{\FIGXTWENTYONE}{\begin{bkfigure}[0.6\linewidth]
+\begin{tikzpicture}[scale=0.95]
+  % A and D re-measured on scan13 p14 against BC: A at (0.38, 0.68) and
+  % D at (0.97, 0.83) in units of BC.  The quadrilateral had been drawn
+  % noticeably taller than the book's.
+  \coordinate (B) at (0,0);   \coordinate (C) at (2.2,0);
+  \coordinate (A) at (0.84,1.50); \coordinate (D) at (2.13,1.83);
+  \coordinate (Dp) at ($(D)+(C)-(A)$);
+  \coordinate (Xf) at (6,0);
+  \coordinate (E) at (intersection of D--Dp and B--Xf);
+  % the base is drawn as the RAY BC extended, arrowhead at E (scan13 p14)
+  \draw[fig,->] (B) -- (E);
+  \draw[fig] (B) -- (A) -- (D) -- (C);
+  \draw[aux] (A) -- (C); \draw[aux] (A) -- (E); \draw[aux] (D) -- (E);
+  \foreach \p/\n/\d in {A/A/above left, D/D/above, B/B/below left,
+                        C/C/below, E/E/below right}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--21}
+\end{bkfigure}}
+
+% ---------------------------------------------------------- Fig 10-22, 10-23
+\newcommand{\FIGXTWENTYTWOTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.5\linewidth}\centering
+\begin{tikzpicture}[scale=0.9]
+  % vertices measured off scan13 p15 and rescaled on AB: the book's D sits
+  % almost straight above A and C just outside B, giving a much broader top
+  % than the drawing had.
+  \coordinate (A) at (0.9,0);   \coordinate (B) at (2.6,0);
+  \coordinate (C) at (2.74,2.52); \coordinate (D) at (0.96,2.78);
+  \coordinate (E) at (0.08,1.29);
+  \draw[fig] (A) -- (B) -- (C) -- (D) -- (E) -- cycle;
+  \foreach \p/\n/\d in {A/A/below left, B/B/below right, C/C/above right,
+                        D/D/above left, E/E/left}
+    {\node[vlab,\d] at (\p) {$\n$};}
+\end{tikzpicture}
+\figcap{10--22}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}\centering
+\begin{tikzpicture}[scale=0.72]
+  \coordinate (B) at (0,0); \coordinate (C) at (4,0);
+  \coordinate (A) at (2,3.464);            % equilateral
+  \coordinate (P) at (1.9,1.0);
+  \coordinate (L) at ($(B)!(P)!(C)$);
+  \coordinate (M) at ($(A)!(P)!(C)$);
+  \coordinate (N) at ($(A)!(P)!(B)$);
+  \draw[fig] (A) -- (B) -- (C) -- cycle;
+  \draw[aux] (P) -- (A); \draw[aux] (P) -- (B); \draw[aux] (P) -- (C);
+  \draw[aux] (P) -- (L); \draw[aux] (P) -- (M); \draw[aux] (P) -- (N);
+  \foreach \p/\n/\d in {A/A/above, B/B/below left, C/C/below right,
+                        L/L/below, M/M/right, N/N/left}
+    {\node[vlab,\d] at (\p) {$\n$};}
+  % the book sets P in the wedge between PL and PC; at our trim the label has
+  % to sit further out along that wedge's bisector to clear both dashed lines
+  \node[vlab] at (2.19,0.54) {$P$};
+\end{tikzpicture}
+\figcap{10--23}
+\end{minipage}
+\end{bkfigure}}
+
+% --------------------------------------------------------------- Fig 10-24
+\newcommand{\FIGXTWENTYFOUR}{\begin{bkfigure}[0.46\linewidth]
+\begin{tikzpicture}[scale=0.82]
+  % scan13 p16, deskewed by the 4.1 degree page rotation: apex at 0.56 of
+  % the base, height 0.72 x base (it had been a symmetric 0.5 / 0.5).
+  \coordinate (A) at (2.13,2.74); \coordinate (B) at (0,0);
+  \coordinate (C) at (3.8,0);
+  \draw[fig] (A) -- (B) -- (C) -- cycle;
+  \draw[aux] (A) -- ($(B)!0.5!(C)$);
+  \draw[aux] (B) -- ($(A)!0.5!(C)$);
+  \draw[aux] (C) -- ($(A)!0.5!(B)$);
+\end{tikzpicture}
+\figcap{10--24}
+\end{bkfigure}}

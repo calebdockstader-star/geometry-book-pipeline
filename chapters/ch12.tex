@@ -1,0 +1,910 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+\input{figures12}
+
+% ---- local macros (hoist into book preamble) ----
+% Arc accent, as the book sets it: a frown over the endpoint letters.
+\newcommand{\XIIarc}[1]{\overset{\raisebox{-0.25ex}{\scalebox{1.15}[0.85]{$\frown$}}}{#1}}
+% Equation numbers as (12--1), matching the book's en-dash style.
+\renewcommand{\theequation}{\thechapter--\arabic{equation}}
+% Numbered remarks. The book sets these as italic "Remark" + roman numeral,
+% with NO period after the word (e.g. "Remark 1."), unlike the unnumbered
+% \begin{remark} in brumfiel.sty, which prints "Remark." Verified against
+% book pp. 218, 221.
+\newenvironment{XIIremarkn}[1]{\par\medskip\noindent\emph{Remark} #1.\ }%
+  {\par\medskip}
+% Footnotes marked with * rather than a digit (the book's convention).
+\newcommand{\XIIsymfoot}[1]{%
+  \begingroup
+  \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+  \setcounter{footnote}{0}%
+  \footnote{#1}%
+  \endgroup}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{12}
+
+\chapter*{\raggedright\Huge MEASUREMENT OF\\ANGLES AND ARCS}
+\addcontentsline{toc}{chapter}{12.\ Measurement of Angles and Arcs}
+\markboth{MEASUREMENT OF ANGLES AND ARCS}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 12-1
+\section*{12--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{12--1\quad Introduction}
+
+In the first chapter of this book you used a protractor to measure
+representations of angles. Finally, at this late stage, we prove that the
+process of angle measurement can be made precise in our geometry. In order to
+discuss angle measurement, it is convenient first to define the measure of an
+arc of a circle. This definition is quite like the definition of circumference
+and really only makes precise the intuitive idea of \emph{length of arc} that
+you already have. We needed limits to discuss circumference, and of course we
+also need limits in order to discuss arc length.
+
+Once we know what is meant by arc length, it will be relatively easy to discuss
+measurement of angles. This discussion will go quite like Chapter 5 on
+measurement of length of segments.
+
+One reason that a precise description of measurement of angles in degrees is
+difficult is that describing a unit angle is troublesome. (Is there an angle of
+one degree?) Furthermore, how do we know that it is possible to divide a degree
+into 60 congruent angles (minutes) and a minute into successively smaller
+pieces? This chapter shows how to resolve these difficulties. Incidentally, it
+should become quite clear that what we choose as the \emph{unit angle} is quite
+arbitrary, and it is important for you to understand how measurements differ
+when different units are used. The idea that ties all this together is that of
+\emph{length of circular arc}.
+
+%========================================================= 12-2
+\section*{12--2\quad CIRCULAR ARCS}
+\addcontentsline{toc}{section}{12--2\quad Circular arcs}
+
+We have already described the interior and exterior of an angle (Chapter 3),
+and we use Definition 3--10 to describe an arc of a circle.
+
+\begin{definition}
+If $\ang{AOB}$ is a central angle of a circle, \emph{the arc $\XIIarc{AB}$ of
+the circle} subtended by $\ang{AOB}$ is defined to be the set of points of the
+circle which are \emph{interior} to $\ang{AOB}$ or are on the angle. The set of
+points of the circle which are \emph{exterior} to or on the angle is also called
+\emph{an arc of the circle} (for example, the arc $\XIIarc{ABC}$ in
+Fig.~12--1). If the central angle is a straight angle (like $\ang{COB}$ in
+Fig.~12--1), then it has no interior, but the set of points of the circle which
+are on one side of $CB$ or on $CB$ is called a \emph{semicircular arc} and is
+said to be subtended by $\ang{COB}$. Finally, when we speak simply of an
+\emph{arc of a circle}, we mean an arc subtended by a central angle or the arc
+exterior to some central angle.
+\end{definition}
+
+\FIGXIIONE
+
+\exercisegroup{12--1}
+\begin{multicols}{2}
+\begin{exlist}
+\item In Fig.~12--2, show that if $\ang{AOB} > \ang{COB}$, with $C$ in the
+      interior of $\ang{AOB}$, then every point of the arc $\XIIarc{CB}$ is a
+      point of the arc $\XIIarc{AB}$.
+\item If the arc $\XIIarc{AB}$ is subtended by the central angle $AOB$, define
+      the \emph{midpoint of the arc}, and show that such a point exists.
+\item Use the result of Exercise 2 to prove that there are infinitely many
+      points on the arc.
+\item In Fig.~12--3, the arc $\XIIarc{EF}$ is subtended by $\ang{EOF}$. Consider
+      the segment $EF$ and any point $P$ on $EF$. Show that there is, on the ray
+      $OP$, a point $Q$, which is on the arc $\XIIarc{EF}$. Show that if
+      $P \neq P'$, then $Q \neq Q'$. How many points are there on the arc
+      $\XIIarc{EF}$?
+\item Referring to Fig.~12--4, suppose that an arc is exterior to a central
+      angle $AOB$. Show how to define the midpoint of the arc. Why is
+      $\ang{AOC} \cong \ang{BOC}$?
+\end{exlist}
+\end{multicols}
+
+\FIGXIITWOTHREE
+
+\FIGXIIFOUR
+
+%========================================================= 12-3
+\section*{12--3\quad ARC LENGTH}
+\addcontentsline{toc}{section}{12--3\quad Arc length}
+
+In defining the length of a segment, we first had to choose a unit of length.
+So also in defining arc length, it will be understood that we have already
+chosen a segment of unit length. We shall also suppose that we have defined the
+midpoint of an arc as in Exercise Group 12--1.
+
+We describe how to construct a regular inscribed polygonal path in an arc, and
+indeed, polygonal paths of 2, 4, 8, 16,\ldots\ sides.
+
+In Fig.~12--5, let $AB$ be a circular arc, and let $C$ be the midpoint of the
+arc. (See Exercise Group 12--1.) The segments $AC$ and $CB$ form a regular
+inscribed polygonal path from $A$ to $B$, with two sides. There are now formed
+two congruent angles, $\ang{AOC}$ and $\ang{COB}$. Each of these angles subtends
+an arc. Let $D$ and $E$ be the midpoints of these arcs. We can now consider the
+regular inscribed polygonal path of four sides, $ADCEB$. We then consider each
+of the arcs $\XIIarc{AD}$, $\XIIarc{DC}$, $\XIIarc{CE}$, and $\XIIarc{EB}$ and
+their midpoints $F$, $G$, $H$, and $I$. Thus we obtain a regular inscribed path
+$AFDGCHEIB$ from $A$ to $B$, having eight sides. Continuing in this manner, for
+each positive integer we obtain a regular inscribed polygonal path from $A$ to
+$B$. That is to say, first we have a path of two sides, next a path of four
+sides, then a path of eight sides, and so on.
+
+\FIGXIIFIVESIX
+
+The following facts are clear from Fig.~12--6, and a complete proof is not
+difficult to give, although several steps are needed. We shall use these facts
+without proof. The \emph{length} of the circumscribed path in Fig.~12--6 will be
+denoted by $L$. The length of a regular inscribed path of 2, 4, 8,
+16,\ldots, sides will be denoted by $l_n$, where $n$ is used to denote the
+number of segments in the path.
+
+(a) \emph{For every $n$, $l_n < L$}; that is to say, the length of each regular
+inscribed path is less than the length of any circumscribed path.
+
+(b) The length of each regular inscribed path of 2, 4, 8, 16,\ldots\ sides is
+less than the one that follows, that is, $l_n < l_{2n}$.
+
+(c) From (a) and (b) and properties of real numbers, it follows that
+$\lim \{l_n\}$ exists.
+
+We are now able to define length of arc.
+
+\begin{definition}
+Given a circular arc, let $l_n$ be the length of a regular inscribed polygonal
+path of 2, 4, 8, 16, 32,\ldots, sides inscribed in the arc. The \emph{length $l$
+of the arc} is defined to be the following limit: $l = \lim \{l_n\}$.
+\end{definition}
+
+\exercisegroup{12--2}
+\begin{multicols}{2}
+\begin{exlist}
+\item A regular hexagon is inscribed in a circle of radius 1, as in
+      Fig.~12--7. Show that the length of the arc $\XIIarc{ACB}$ is greater
+      than 2.
+\item In a circle of radius 2, what is the length of arc subtended by a right
+      angle? by a straight angle?
+\item In Fig.~12--8, the central angles $AOB$ and $BOC$ are congruent, and
+      $\ang{AOC}$ is a right angle. What is the length of the arc $\XIIarc{AB}$
+      if $\sg{AO} = 5$?
+\item[\stex 4.] Prove that the length of any arc is a positive number which is
+      greater than the length of the line segment determined by the endpoints of
+      the arc.
+\end{exlist}
+\end{multicols}
+
+\FIGXIISEVENEIGHT
+
+\begin{theorem}
+If, in a circle, two central angles are congruent, they subtend arcs of equal
+length.
+\end{theorem}
+
+\noindent\emph{Proof.} Because the angles are congruent, the inscribed polygons
+at any stage are also congruent. Thus the lengths of the corresponding
+inscribed polygonal paths are the same. Hence the arc lengths are the same.
+
+\begin{remark}
+In the same way it follows that the arcs exterior to the central angles also
+have the same length.
+\end{remark}
+
+Having defined arc length, we now would like to prove some more theorems about
+arc lengths. Indeed, it would be possible to proceed at once to this task, but
+if we were to do so, our proofs would be quite troublesome. In constructing
+later proofs it will be most convenient for us to use a theorem (12--2 below)
+which tells us that in approximating to the circle by inscribed polygons, we
+need \emph{not} restrict ourselves to regular polygons. The proof of this
+``helping'' theorem is rather hard to make and involves greater knowledge of
+limits than is presupposed here. Nevertheless, the geometric significance of the
+theorem should be clear, and it should appeal to your intuition. We shall use
+this theorem without proof, so that actually we treat it like a postulate.
+
+\begin{theorem}
+Let $\{P_n\}$ be any sequence of polygonal paths inscribed in the arc
+$\XIIarc{AB}$ of a circle (Fig.~12--9), and let $\{l_n\}$ be the sequence of
+lengths of these polygonal paths; let $s_n$ be the length of the longest side of
+the path $P_n$. If $\lim \{s_n\} = 0$, then $\lim \{l_n\} = $ length
+$\XIIarc{AB} = l$.
+\end{theorem}
+
+\begin{remark}
+Evidently, when the length of the longest side of $P_n$ is small, the number of
+sides, $n$, must be large. We can now use this theorem to prove some facts about
+arc length.
+\end{remark}
+
+\begin{theorem}
+If $\XIIarc{AB}$ and $\XIIarc{BC}$ (Fig.~12--10) are adjacent arcs (that is, if
+they have only point $B$ in common), then length $\XIIarc{ABC} = $ length
+$\XIIarc{AB} + $ length $\XIIarc{BC}$.
+\end{theorem}
+
+\FIGXIININETEN
+
+\noindent\emph{Proof.} The length of $\XIIarc{ABC}$ is, according to
+Theorem 12--2, the limit of lengths of inscribed polygonal paths from $A$ to
+$C$. Let us always choose these paths so that $B$ is one of the vertices of the
+path. The path from $A$ to $C$ can then be separated into a path from $A$ to $B$
+and a path from $B$ to $C$. Let $l'_n$ be the length of the path from $A$ to
+$B$, and $l''_n$ be the length of the path from $B$ to $C$. Then, if $l_n$ is
+the length of the path from $A$ to $C$, we have $l_n = l'_n + l''_n$.
+
+Now we consider sequences of paths $\{P'_n\}$ and $\{P''_n\}$, with the
+sequences of lengths of longest sides approaching zero. Thus,
+\begin{equation}
+\left.
+\begin{aligned}
+\lim \{l_n\} &= \text{length } \XIIarc{ABC},\\
+\lim \{l'_n\} &= \text{length } \XIIarc{AB},\\
+\lim \{l''_n\} &= \text{length } \XIIarc{BC}.
+\end{aligned}
+\right\}
+\end{equation}
+But from a theorem on limits, we have
+\begin{equation}
+\lim \{l'_n + l''_n\} = \lim \{l'_n\} + \lim \{l''_n\}.
+\end{equation}
+From Eqs.~(12--1) and (12--2), we see that
+\begin{equation}
+\text{length } \XIIarc{ABC} = \text{length } \XIIarc{AB} + \text{length }
+\XIIarc{BC}.
+\end{equation}
+This completes the proof. The theorem might be stated briefly as ``the length of
+the `sum' is equal to the sum of the lengths.''
+
+\FIGXIIELEVENTWELVE
+
+\begin{theorem}
+If, in a circle, one central angle is greater than another central angle, the
+greater angle subtends the longer arc.
+\end{theorem}
+
+\noindent\emph{Proof.} Since congruent angles subtend arcs of equal length, we
+may suppose that the central angles are as in Fig.~12--11, and that
+$\ang{AOB} > \ang{COB}$. The remainder of the proof (using Theorem 12--3) is
+left to the student.
+
+\exercisegroup{12--3}
+\begin{multicols}{2}
+\begin{exlist}
+\item Apply Theorem 12--3 to the arcs subtended by a straight angle and two
+      adjacent right angles.
+\item State the form Theorem 12--3 would have for three adjacent arcs; for four
+      adjacent arcs; for $n$ adjacent arcs.
+\item Two adjacent arcs in a circle of radius $r$ have lengths $\pi r/3$ and
+      $2\pi r/3$. What angle subtends the two arcs together?
+\item Two arcs on a circle of radius $r$ have lengths $r$ and $\pi r/3$. Which
+      is subtended by the greater central angle?
+\end{exlist}
+\end{multicols}
+
+\refstepcounter{theorem}
+\par\medskip\noindent\textbf{Theorem \thetheorem} Converse to Theorem 12--4.\
+\emph{If one arc of a circle is longer than a second arc of the circle, the
+longer arc is subtended by the greater central angle.}\par\medskip
+
+The proof is left to the student.
+
+\begin{theorem}
+Two central angles of a circle are congruent if and only if they subtend arcs of
+equal length.
+\end{theorem}
+
+The proof is left to the student.
+
+%========================================================= 12-4
+\section*{12--4\quad ARCS ON DIFFERENT CIRCLES}
+\addcontentsline{toc}{section}{12--4\quad Arcs on different circles}
+
+So far we have compared arcs on the same circle. We now compare the lengths of
+arcs on different circles. Before studying Theorem 12--7, try to discover the
+relation between the lengths of two arcs in different circles if they are
+subtended by congruent angles.
+
+\begin{theorem}
+If $\XIIarc{AB}$ and $\XIIarc{A'B'}$ are arcs on two circles of radii $r$ and
+$r'$, respectively, and are subtended by congruent angles, then the arc lengths
+are proportional to the radii (Fig.~12--12). That is, if
+$\ang{AOB} \cong \ang{A'O'B'}$, then
+\[
+\frac{\text{length } \XIIarc{AB}}{\text{length } \XIIarc{A'B'}} =
+\frac{r}{r'}, \qquad \text{or} \qquad
+\frac{\text{length } \XIIarc{AB}}{r} =
+\frac{\text{length } \XIIarc{A'B'}}{r'}.
+\]
+\end{theorem}
+
+\noindent\emph{Proof.} The proof depends upon three things: (1) the definition
+of arc length, (2) a theorem on limits, and (3) properties of similar triangles.
+
+Suppose that $APQB$ is a polygonal path inscribed in the arc $AB$. Then there is
+a corresponding polygonal path $A'P'Q'B'$ inscribed in the arc $A'B'$ such that
+corresponding central angles are congruent, that is,
+$\ang{AOP} \cong \ang{A'O'P'}$, $\ang{POQ} \cong \ang{P'O'Q'}$, etc. (Why?)
+Hence, there is a one-to-one correspondence between polygonal paths inscribed in
+the two arcs. Let $L_n$ be the length of a polygonal path of $n$ sides inscribed
+in $\XIIarc{AB}$, and $L'_n$ be the length of the corresponding polygonal path
+inscribed in $\XIIarc{A'B'}$. Because the corresponding central angles in the
+two polygons are congruent, for example $\ang{AOP} \cong \ang{A'O'P'}$, the
+triangles formed are similar. (Why?) Since $\sg{AP}/r = \sg{A'P'}/r'$, etc., we
+have $L_n/r = L'_n/r'$ and $L_n/L'_n = r/r'$.
+
+From the definition of length of arc, length $\XIIarc{AB} = \lim \{L_n\}$ and
+length $\XIIarc{A'B'} = \lim \{L'_n\}$. From a theorem on limits,
+\[
+\frac{\text{length } \XIIarc{AB}}{\text{length } \XIIarc{A'B'}} =
+\frac{\lim \{L_n\}}{\lim \{L'_n\}} = \lim \left\{\frac{L_n}{L'_n}\right\} =
+\frac{r}{r'}.
+\]
+This completes the proof.
+
+\exercisegroup{12--4}
+\begin{multicols}{2}
+\begin{exlist}
+\item A central angle $B$ subtends an arc of length 5 in.\ on a circle of radius
+      4 in. A central angle $B' \cong \ang{B}$ subtends an arc of length 10 in.\
+      on another circle. What is the radius of the second circle?
+\item A central angle subtends an arc of 2 in.\ on a circle of radius 5 in. What
+      would be the length of an arc subtended by this same angle on a circle
+      with the same center but with a radius of 2 ft?
+\item The radii of two circles have a ratio of 3 to 5. If a central angle
+      subtends an arc of length 2.454 on the first circle, what length arc would
+      a central angle that is congruent to the first angle subtend on the second
+      circle?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 12-5
+\section*{12--5\quad MORE ABOUT ARC LENGTH}
+\addcontentsline{toc}{section}{12--5\quad More about arc length}
+
+In the preceding sections we learned that every arc has associated with it a
+number called its length. We shall not consider an exhaustive proof of the
+converse theorem: \emph{For every positive number, less than the circumference,
+there is an arc having this number as its length.} The complete proof of this
+theorem requires a rather difficult argument using limits, so we will limit our
+proof to certain special numbers. It will then be clear that the theorem is
+true.
+
+In proving the theorem, we confine ourselves to arcs of length not more than one
+quarter of the circumference, that is to arcs which are subtended by acute
+angles or right angles.
+
+\begin{theorem}
+Suppose that $L$ is a positive number less than or equal to one fourth of the
+circumference of a circle of radius $r$ $(L \leqq \pi r/2)$.\XIIsymfoot{Since
+the circumference of a circle is $2\pi r$, it follows that one fourth of the
+circumference is $\frac{1}{4} \times 2\pi r$, or $\pi r/2$.} Then there is an
+arc of the circle whose length is $L$.
+\end{theorem}
+
+\noindent``\emph{Proof}.'' If $L = \pi r/2$, then the required arc is subtended
+by a right angle. If $L = \frac{1}{2} \cdot \pi r/2$, then bisecting a central
+right angle will give two arcs $\XIIarc{AC}$ and $\XIIarc{BC}$, as in
+Fig.~12--13, of length $L$. If $L = \frac{3}{4} \cdot \pi r/2$, then the arc
+$AD$ of Fig.~12--13 has length $L$, where $OD$ bisects $\ang{BOC}$. Similarly,
+if $OE$ bisects $\ang{DOC}$, then length $\XIIarc{AE} = \frac{5}{8} \cdot
+\pi r/2$.
+
+Thus we see that if $L$ is a certain special fractional part of $\pi r/2$, then
+there is an arc of length $L$. (Try to describe these fractions.) The fractions
+for which arcs are easy to construct are 1/2, 1/4, 3/4, 1/8, 3/8, 5/8, 7/8,
+1/16,\ldots. In other words, the arc is easy to construct if its length is given
+simply in terms of halves, quarters, eighths, etc., of a quarter of the
+circumference.
+
+\FIGXIITHIRTEENFOURTEEN
+
+You are familiar with measuring lengths with a ruler whose scale is divided into
+halves, quarters, eighths, sixteenths, etc. Hence, if the number $L$ is not
+exactly expressible in halves, quarters, eighths, etc., we can still construct
+an arc whose length is very close to $L$.
+
+In Fig.~12--14, $L$ appears to be a little greater than $\frac{5}{8} \cdot
+\pi r/2$. It is plausible therefore, that for every $L < \pi r/2$, there is
+exactly one arc $AP$, as in the figure, with length $\XIIarc{AP} = L$.
+
+\exercisegroup{12--5}
+\begin{multicols}{2}
+\begin{exlist}
+\item In this section we gave a list of fractions whose associated arcs are easy
+      to construct. The list is computed according to a definite rule. Continue
+      the list to 20 more terms.
+\item On a circle of radius $r$, construct arcs of length
+      $7/8 \cdot \pi r/2$; $9/16 \cdot \pi r/2$; $7/4 \cdot \pi r/2$.
+\item Suppose that there is an arc of length 3 on a circle of radius 2 in. What
+      part (as a decimal) of $\pi r/2$ is 3? Show how to approximate this
+      decimal by a sum of halves, quarters, eighths, etc. Use the approximation
+      3.14 for $\pi$, and then rework using 3.1416.
+\item An arc of length $r$ on a circle of radius $r$ is what part of the
+      circumference? of one quarter of the circumference?
+\item On a circle of radius 32 in.\ is an arc of length 22 in. What part of a
+      right angle does it subtend? Use $\pi = 22/7$. Give a construction
+      approximating this arc.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 12-6
+\section*{12--6\quad MEASUREMENT OF ANGLES}
+\addcontentsline{toc}{section}{12--6\quad Measurement of angles}
+
+In the previous section we have in effect been measuring angles by measuring
+arcs. In fact we have expressed the arc length as a fraction of $\pi r/2$ that
+is as a fraction of one quarter of the circumference. In doing this we have
+measured the corresponding central angle in terms of the right angle as a unit
+of angle. In this section we shall define the measure of an angle in terms of
+other units.
+
+In deciding how to measure angles, we must first define the unit. This involves
+choosing some angle whose measure is 1. The choice is quite arbitrary, but there
+are some restrictions based on convenience. If the unit angle is small, the
+measures of common angles will be large numbers; whereas if the unit angle is
+large, the measures of common angles will be small numbers. It turns out that
+the familiar degree is a convenient size unit for ordinary measurement, because
+the numbers involved are a ``good'' size. Obviously, other unit angles could be
+selected. A natural one would be obtained by dividing the circle into 100 arcs
+of equal length, or perhaps the right angle into 100 congruent angles.
+
+How does it happen that we use that rather strange unit, the degree? We measure
+angles in degrees because the ancient Sumerians\XIIsymfoot{The Sumerians had a
+highly developed civilization in Mesopotamia, in the valleys of the Tigris and
+Euphrates rivers, more than 5000 years ago. Roughly contemporary with ancient
+Egypt, the Sumerian culture discovered much about arithmetic, geometry, and
+astronomy. We inherit many things from these gifted people. Their method of
+counting was based on 60 rather than our base of 10. Thus we divide the hour
+into 60 minutes, and the minute into 60 seconds. They also invented place value
+in number notation, although they had no ``zero.'' Many of our words go back to
+Sumerian roots. For more Sumerian history, see \emph{A History of Science}, by
+George Sarton, Harvard University Press, 1952, or your encyclopedia.} (2000
+B.C.\ and earlier) did. They divided the circle into 360 ``equal parts,''
+perhaps because they thought at one time that the year was 360 days long!
+
+\begin{definition}
+On a circle of radius $r$, an arc of length $1/360 \times 2\pi r$ is subtended
+by a central angle of one degree $(1^\circ)$.
+\end{definition}
+
+\begin{XIIremarkn}{1}
+The definition of degree is independent of the radius $r$, by
+Theorem 12--7.
+\end{XIIremarkn}
+
+\begin{XIIremarkn}{2}
+Any angle congruent to an angle of $1^\circ$ is also an angle of
+$1^\circ$, by Theorem 12--6.
+\end{XIIremarkn}
+
+\exercisegroup{12--6}
+\begin{multicols}{2}
+\begin{exlist}
+\item Write out the proof of Remark 1.
+\item Write out the proof of Remark 2.
+\item Define ``minute'' and ``second.''
+\item Define a new unit of angle, which we will call the \emph{centile}, by
+      dividing one quarter of the circumference into 100 equal arcs. Using this
+      unit, what is the measure of a $30^\circ$ angle? a $45^\circ$ angle? a
+      straight angle?
+\item Divide the circumference of a circle into two arcs of equal length. What
+      angle is subtended by each arc? Each arc is what part of the
+      circumference? What is the measure in degrees of the central angle that is
+      subtended by each arc?
+\item Divide the circumference of a circle into four arcs of equal length. What
+      kind of an angle is subtended by each of these arcs? Each arc is what part
+      of the circumference? What is the measure in degrees of each central
+      angle?
+\item Consider an arc whose length is one sixth of the circumference. What is
+      the measure in degrees of the central angle that is subtended by this arc?
+\item Consider an arc whose length is one sixth of the length of a semicircular
+      arc. What is the measure in degrees of the central angle that is subtended
+      by this arc?
+\item If a semicircular arc has length 8 in., and a second arc has length 2 in.,
+      what part is the length of the second arc of the first? What is the
+      measure in degrees of the central angle that is subtended by the second
+      arc?
+\item On a circle of radius 4, what is the length of an arc subtended by an
+      angle of $1^\circ$? of $2^\circ$? of $30^\circ$?
+\end{exlist}
+\end{multicols}
+
+\begin{definition}
+If, on a circle of radius $r$, a central angle subtends an arc of length $L$,
+then the measure of the angle in degrees is $L/\pi r \times 180$.
+\end{definition}
+
+\begin{XIIremarkn}{1}
+This definition agrees with Definition 12--3 for angles of $1^\circ$.
+\end{XIIremarkn}
+
+\begin{XIIremarkn}{2}
+By Theorem 12--7, the measure of an angle in degrees is independent of the
+radius.
+\end{XIIremarkn}
+
+\begin{XIIremarkn}{3}
+If $M$ is the measure of the central angle in degrees, we have from
+Definition 12--4 that $L = M\pi r/180$.
+\end{XIIremarkn}
+
+\exercisegroup{12--7}
+\begin{multicols}{2}
+\begin{exlist}
+\item If $\ang{AOB}$ and $\ang{BOC}$ are adjacent angles of $1^\circ$ each, show
+      that the measure of $\ang{AOC}$ is $2^\circ$.
+\item Show that a straight angle has measure $180^\circ$.
+\item On a circle of radius 6, find the number of degrees in a central angle
+      that subtends an arc of length 3; 6; $\pi$; $2\pi/3$.
+\item On a circle of radius 9, find the length of an arc subtended by an angle
+      of $30^\circ$; $180^\circ$; $60^\circ$; $(180/\pi)^\circ$.
+\item Show that bisecting a right angle gives an angle whose measure is
+      $45^\circ$.
+\item Prove Remark 3 under Definition 12--4.
+\end{exlist}
+\end{multicols}
+
+%========================================================= 12-7
+\section*{12--7\quad COUNTING DEGREES AND\\MEASURING ANGLES}
+\addcontentsline{toc}{section}{12--7\quad Counting degrees and measuring angles}
+
+Measurement of angles is quite similar to the counting process which led to the
+idea of length of a segment. In this section we give a description of this
+process and find that it gives the same measure of an angle as is given by
+Definition 12--4. Detailed proofs will be omitted. The following theorem shows
+how counting applies.
+
+\begin{theorem}
+Suppose that $\ang{AOB}$ is an acute angle, and we consider successive arcs
+subtending central angles of $1^\circ$ on the circle from $B$ to $A$ so that the
+point $A$ is a point of the $(n + 1)$st arc (Fig.~12--15). Then the measure of
+$\ang{AOB}$ in degrees is either equal to $n$, or $(n + 1)$, or is between $n$
+and $(n + 1)$; $n \leqq$ measure of $\ang{AOB} \leqq n + 1$.
+\end{theorem}
+
+\FIGXIIFIFTEEN
+
+\noindent\emph{Proof.} The length of the arc of $n^\circ$ is
+$n \cdot \pi r/180$; the length of the arc of $(n + 1)^\circ$ is
+$[(n + 1)\pi r]/180$. The length $L$ of the arc $\XIIarc{AB}$ is then between
+these two numbers, by Theorem 12--5.
+\begin{equation}
+n \cdot \frac{\pi r}{180} \leqq L \leqq \frac{(n + 1)\pi r}{180}.
+\end{equation}
+By Definition 12--4, the measure of $\ang{AOB}$ in degrees is
+$L \cdot 180/\pi r$. From Eq.~(12--4), we see that
+\[
+n \leqq L \cdot \frac{180}{\pi r} \leqq (n + 1),
+\]
+and this is what we wished to prove.
+
+\begin{remark}
+The measure to the nearest minute could be obtained by counting in a similar
+way.
+\end{remark}
+
+Consider an angle $A'O'B'$ (Fig.~12--16) that is congruent to $\ang{AOB}$ of
+Theorem 12--9. Consider also successive arcs subtending central angles of
+$1^\circ$ on arc $B'A'$, as described for arc $BA$. If the point $A$ is on the
+$(n + 1)$st arc, then the point $A'$ is on the $(n + 1)$st arc. This can be
+shown using the addition and subtraction of angles postulate and the definition
+of ``less than'' and ``greater than'' for angles. This proves the following
+theorem:
+
+\begin{theorem}
+If two angles are congruent, they have equal measures.
+\end{theorem}
+
+The converse of Theorem 12--10 can be proved, using the fact that
+$\ang{O} > \ang{O'}$, or $\ang{O} \cong \ang{O'}$, or $\ang{O} < \ang{O'}$.
+
+\FIGXIISIXTEEN
+
+\exercisegroup{12--8}
+\begin{center}Give your answers in terms of $\pi$.\end{center}
+\nopagebreak
+\begin{multicols}{2}
+\begin{exlist}
+\item If the radius of a circle is 14, what is the length of the arc subtended
+      by an angle of $30^\circ$?
+\item On a circle of radius 5 in.\ is an arc of length 6 in. What is the measure
+      in degrees of the central angle subtending the arc? What if the radius is
+      20 in.? 6 in.?
+\item A central angle of a circle subtends an arc of length equal to the radius.
+      How many degrees in the angle?
+\item An arc of length 8 in.\ on a circle of radius 6 in.\ subtends a central
+      angle of how many degrees? an arc of length 4 in.? an arc of length
+      6 in.?
+\item On a circle of radius $\pi$, there is an arc of length $\pi^2/4$. How many
+      degrees in the central angle?
+\item An arc of length $\pi r/2$ is subtended on a circle of radius $r$ by what
+      central angle?
+\item Find the length of arc on a circle of radius $r$ subtended by an angle of
+      $1^\circ$.
+\end{exlist}
+\end{multicols}
+
+We have been measuring arcs by their lengths. It is convenient to measure them
+by the measure in degrees of the central angles they subtend.
+
+\begin{definition}
+The measure in degrees of an arc subtended by a central angle is equal to the
+measure of the central angle. The measure in degrees of an arc exterior to a
+central angle is equal to 360 minus the measure of the central angle. (See
+Fig.~12--17.)
+\end{definition}
+
+\FIGXIISEVENTEENEIGHTEEN
+
+\exercisegroup{12--9}
+\begin{multicols}{2}
+\begin{exlist}
+\item An arc of length $\pi$ in.\ on a circle of radius 3 in.\ is of how many
+      degrees?
+\item An arc of length 4 in.\ on a circle of radius 6 in.\ has how many degrees?
+\item On a circle of radius 2 in., how long is an arc of $120^\circ$?
+      $240^\circ$?
+\item How many degrees has an arc of length 15 in.\ on a circle of radius 3?
+\end{exlist}
+\end{multicols}
+
+%========================================================= 12-8
+\section*{12--8\quad RADIAN MEASURE}
+\addcontentsline{toc}{section}{12--8\quad Radian measure}
+
+Besides the familiar unit of degree for measuring angles, there is another one
+which is of great importance in advanced mathematics. The reasons for using it
+cannot be given here, but the definition is quite simple, and you will meet it
+again if you study trigonometry. The unit is called the \emph{radian}.
+
+\begin{definition}
+An angle of one radian is one which subtends an arc of length $r$ on a circle of
+radius $r$ (Fig.~12--18).
+\end{definition}
+
+\begin{definition}
+The measure of an angle in radians is equal to $L/r$, where $L$ is the length of
+the arc subtended on a circle of radius $r$.
+\end{definition}
+
+\begin{XIIremarkn}{1}
+Definition 12--7 agrees with Definition 12--6 for angles of 1 rad.
+\end{XIIremarkn}
+
+\begin{XIIremarkn}{2}
+The measure in radians does not depend on the radius, by Theorem 12--7.
+\end{XIIremarkn}
+
+\exercisegroup{12--10}
+\begin{multicols}{2}
+\begin{exlist}
+\item On a circle of radius 2 is an arc of length 4. How many radians are there
+      in the central angle?
+\item How many radians are there in a right angle? in a straight angle?
+\item On a circle of radius 2, find the length of arc subtended by a central
+      angle of $30^\circ$. How many radians are there in this angle?
+\item How many degrees are there in one radian?
+\item How many radians are there in one degree?
+\item From Exercises 4 and 5, derive the formulas for changing measure in
+      degrees to measure in radians, and vice versa.
+\item What are the measures in radians of the following angles? $30^\circ$;
+      $45^\circ$; $60^\circ$; $90^\circ$; $120^\circ$; $135^\circ$;
+      $150^\circ$; $180^\circ$.
+\item The following numbers are measures of angles in radians. What are their
+      measures in degrees? $\pi/4$; $5\pi/4$; 3; 2; 1.5; $\pi/3$; $\pi/6$;
+      $\pi/2$.
+\item Which is the larger unit, radian or degree? For which unit will the
+      measure of an angle give the larger number?
+\item Consider a central angle of 1 radian on a circle of radius $r$. What is
+      the length of the arc subtended by this angle? an angle of 2 radians? an
+      angle of 3 radians? an angle of $n$ radians?
+\end{exlist}
+\end{multicols}
+
+\par\medskip\noindent\emph{Consequence of Definition} 12--7.\ If $R$ is the
+measure in radians of a central angle in a circle of radius $r$, then the angle
+subtends an arc of length $r \cdot R$.\par\medskip
+
+%========================================================= 12-9
+\section*{12--9\quad OTHER UNITS}
+\addcontentsline{toc}{section}{12--9\quad Other units}
+
+Units other than degrees and radians could be chosen. One which has some use in
+artillery is the \emph{mil}. It is approximately the angle which subtends an arc
+of 1 yd at a distance of 1000 yd. Apart from its military use, it is of little
+importance.
+
+%========================================================= 12-10
+\section*{12--10\quad INSCRIBED ANGLES}
+\addcontentsline{toc}{section}{12--10\quad Inscribed angles}
+
+Now that we have a measure for angles, it is easy to prove a theorem about the
+measure of angles \emph{inscribed} in a circle. We recall the definition.
+
+An angle is said to be \emph{inscribed} in a circle if its vertex and one point
+on each side of the angle, other than the vertex, lie on the circle. The arc of
+the circle interior to the angle is said to be subtended by the angle. (See
+Fig.~12--19.)
+
+\begin{theorem}
+The measure of an inscribed angle in degrees is equal to one half of the degree
+measure of the arc it subtends.
+\end{theorem}
+
+\FIGXIININETEENTWENTY
+
+First, we prove a special case of this theorem, which will enable us to prove
+the theorem easily.
+
+\par\medskip\noindent\textbf{Lemma 12--11--1.}\ \emph{If $\ang{ABC}$ is an
+inscribed angle and $BC$ is a diameter of the circle, then measure
+$\ang{B} = \frac{1}{2}$ measure $\XIIarc{AC}$.} (See Fig.~12--20.)\par\medskip
+
+\noindent\emph{Proof.}
+\begin{steps}
+\step{$\ang{OAB} \cong \ang{B}$.}{Why?}
+\step{Measure $\ang{OAB} + $ measure $\ang{OBA} = $ measure $\ang{COA}$.}{Why?}
+\step{2 (measure $\ang{B}$) $= $ measure $\ang{COA}$.}{Why?}
+\step{Measure $\ang{COA} = $ measure $\XIIarc{AC}$.}{Why?}
+\step{Measure $\ang{B} = \frac{1}{2}$ (measure $\XIIarc{AC}$).}{Why?}
+\end{steps}
+
+\noindent\emph{Proof of the theorem.} There are two cases to consider to
+complete the proof of the theorem. They are: \emph{Case} 1. The center of the
+circle is interior to $\ang{ABC}$ (Fig.~12--21). \emph{Case} 2. The center of
+the circle is exterior to $\ang{ABC}$ (Fig.~12--22).
+
+\FIGXIITWENTYONETWENTYTWO
+
+In Case 1 the diameter through $B$ divides $\XIIarc{AC}$ into arcs
+$\XIIarc{AP}$ and $\XIIarc{PC}$, and $\ang{ABC}$ into angles $x$ and $y$, as
+shown. By Lemma 12--11--1, measure $\ang{x} = \frac{1}{2}$ (measure
+$\XIIarc{AP}$), and measure $\ang{y} = \frac{1}{2}$ (measure $\XIIarc{PC}$).
+Hence measure $\ang{ABC} = $ measure $\ang{x} + $ measure
+$\ang{y} = \frac{1}{2}$ (measure $\XIIarc{AP}$) $+ \frac{1}{2}$ (measure
+$\XIIarc{PC}$) $= \frac{1}{2}$ (measure $\XIIarc{AC}$).
+
+The proof of Case 2 is left to the student.
+
+\exercisegroup{12--11}
+\begin{multicols}{2}
+\begin{exlist}
+\item If $\ang{ABC}$ is inscribed in a circle and measure
+      $\XIIarc{AC} = 80^\circ$, how many degrees in $\ang{B}$?
+\item An angle of $100^\circ$ is inscribed in a circle. How many degrees are
+      there in the arc it subtends?
+\item Prove that an angle ``inscribed in a semicircle'' is a right angle
+      (Fig.~12--23).
+\item How large can an angle be that is inscribed in a circle?
+\item Prove that two inscribed angles in one circle which subtend arcs of equal
+      measure are congruent.
+\item Prove that a parallelogram inscribed in a circle must be a rectangle. More
+      generally, prove that if a quadrilateral is inscribed in a circle, then the
+      opposite angles are supplementary.
+\item In Fig.~12--24 lines $AB$ and $CD$ are parallel. Prove that measure
+      $\XIIarc{AC} = $ measure $\XIIarc{BD}$.
+\item A trapezoid is inscribed in a circle. Prove that the base angles are
+      congruent. [\emph{Hint:} Use the result of Exercise 7.]
+\item[\stex 9.] In Fig.~12--25, $AC$ is tangent to the circle. Prove that
+      measure $\ang{ABD} = \frac{1}{2}$ measure $\XIIarc{BD}$. [\emph{Hint:}
+      Draw $DE \pll AC$. Show that arcs $\XIIarc{BD}$ and $\XIIarc{BE}$ have the
+      same measure. Then use $\ang{ABD} \cong \ang{BDE} \cong \ang{BED}$.]
+\item[\stex 10.] Prove, for Fig.~12--26, that measure
+      $\ang{A} = \frac{1}{2}$ (measure $\XIIarc{CD} - $ measure $\XIIarc{BE}$).
+      State this theorem in words.
+\item[\stex 11.] State and prove theorems similar to that of Exercise 10 for
+      cases in which either $AC$ or $AD$, or both, are tangent to the circle.
+\item[\stex 12.] Prove, for Fig.~12--27, that measure
+      $\ang{AEB} = \frac{1}{2}$ (measure $\XIIarc{AB} + $ measure
+      $\XIIarc{DC}$). [\emph{Hint:} Draw $BC$.] State this theorem in words.
+\item[13.] Using Fig.~12--27, prove that $\tri{AED} \simto \tri{BEC}$. Show that
+      $\sg{AE} \cdot \sg{EC} = \sg{BE} \cdot \sg{ED}$. State this last property
+      as a theorem.
+\item[\stex 14.] Using Fig.~12--26, prove that $\tri{AEC} \simto \tri{ABD}$.
+      Hence prove that $\sg{AB} \cdot \sg{AC} = \sg{AE} \cdot \sg{AD}$. State
+      this last property as a theorem.
+\item[15.] Two chords of a circle intersect as in Fig.~12--28. If
+      $\sg{AO} = 12$, $\sg{OB} = 4$, and $\sg{CO} = 8$, find $\sg{OD}$.
+      [\emph{Hint:} Use Exercise 13.]
+\item[\stex 16.] From point $A$ outside a circle, secants are drawn as in
+      Fig.~12--29. If $\sg{AD} = 6$, $\sg{DE} = 10$, and $\sg{AB} = 8$, find
+      $\sg{BC}$.
+\item[\stex 17.] In Fig.~12--30, $AB$ is tangent to the circle at $B$. Prove
+      that $\tri{ACB} \simto \tri{ABD}$. You will need the result of Exercise 9
+      for this. Prove also that $\sg{AB}^2 = \sg{AD} \cdot \sg{AC}$.
+\item[18.] If, in Fig.~12--30, $\sg{AC} = 8$ and $\sg{CD} = 10$, determine
+      $\sg{AB}$.
+\end{exlist}
+\end{multicols}
+
+\FIGXIITWENTYTHREE
+
+\FIGXIITWENTYFOURTWENTYFIVE
+
+\FIGXIITWENTYSIXTWENTYSEVEN
+
+\FIGXIITWENTYEIGHT
+
+\FIGXIITWENTYNINETHIRTY
+
+%========================================================= review
+\par\bigskip
+\begin{center}\bfseries\large REVIEW OF CHAPTER 12\end{center}
+\addcontentsline{toc}{section}{Review of Chapter 12}
+\nopagebreak
+
+In this chapter definitions have been given of the following terms; be sure that
+you can state them in your own words: arc, subtended arc, inscribed polygonal
+path, arc length, degree, measure of angle in degrees, measure of arc in
+degrees, radian, measure of angle in radians, inscribed angle.
+
+The following is an outline of the important definitions and theorems of the
+chapter. Study the outline so that you understand clearly how each step leads to
+the next.
+
+\par\smallskip\noindent\emph{Theorem:} The limit of the lengths of a sequence of
+regular inscribed polygons exists.
+
+\noindent\emph{Definition:} Arc length.
+
+\noindent\emph{Theorem:} Can use inscribed polygons other than regular ones to
+define arc length.
+
+\noindent\emph{Theorem:} Length of ``sum'' of two arcs equals sum of lengths.
+
+\noindent\emph{Theorem:} Greater angle subtends longer arc.
+
+\noindent\emph{Theorem:} Angles congruent if and only if arc lengths equal.
+
+\noindent\emph{Theorem:} Arc length is proportional to radius.
+
+\noindent\emph{Theorem:} For every positive number less than the circumference,
+there is an arc having length equal to the number.
+
+\noindent\emph{Definition:} Measure of angles in degrees.
+
+\noindent\emph{Definition:} Measure of angles in radians.
+
+\noindent\emph{Theorems:} Angle measurement and counting.
+
+\noindent\emph{Theorem:} Measure of inscribed angle is one half measure of
+subtended arc.
+
+\par\medskip
+\begin{center}\bfseries Important Remark\end{center}
+\nopagebreak
+
+The purpose of the chapter has been to define measurement of angles. To make the
+definition, we first defined \emph{arc length}, and then \emph{angle
+measurement} in terms of an arc length.
+
+\par\medskip
+\begin{center}\bfseries Review Exercises\end{center}
+\nopagebreak
+\begin{exlist}
+\item From the definition of arc length, show that the length of arc subtended
+      by a right angle (Fig.~12--31) is greater than $\sqrt{2}\,r$. Hence,
+      conclude that $\pi/2 > \sqrt{2}$.
+\end{exlist}
+
+\FIGXIITHIRTYONE
+
+\begin{exlist}\setcounter{exlisti}{1}
+\item Angles of $15^\circ$ subtend arcs of lengths 10 and 12 on two circles.
+      What is the ratio of the radii of the circles? Find the radii.
+\item Theorem 12--7 states that arc length is proportional to the radius. What
+      theorem about triangles is used in the proof of Theorem 12--7?
+\item State briefly what is involved in proving that the length of the ``sum''
+      of two adjacent arcs is equal to the sum of their lengths.
+\item Compute the length of an arc in a circle of radius 10 if it is subtended
+      by an angle of (a) 40 degrees, (b) 2 radians, (c) $\pi/4$ radians,
+      (d) $\frac{1}{2}$ degree.
+\item[\stex 6.] A sequence of points $A_1$, $A_2$, $A_3$, \ldots\ is marked on a
+      circle so that each pair of consecutive points determines a central angle
+      of 1 rad. The direction from $A_1$ to $A_2$ to $A_3$, etc., is
+      counterclockwise. Compute the approximate length of the arc from $A_{51}$
+      to $A_1$ in a counterclockwise sense if the radius of the circle is 10.
+      Use $\pi = 3.1416$.
+\end{exlist}
+
+\end{document}

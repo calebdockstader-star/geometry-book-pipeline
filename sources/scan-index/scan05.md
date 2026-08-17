@@ -1,0 +1,26 @@
+# scan05.pdf — 24 pages
+
+- p1: book p.60 | Review Questions 3(a)-(f), Important Remark, Review Questions 1-5 | blurry (dark duplicate of p2)
+- p2: book p.60 | same content as p1, sharp | good
+- p3: book p.61 | Review Questions 6-10, Review Test 1-3, start of Algebra Review | good
+- p4: book p.62 | Definition of -b, Definition of division, exercises 4-14 | finger (bottom-right corner, text unaffected)
+- p5: book p.62 | duplicate of p4, sharper, no finger | good
+- p6: book p.63 | Ch.4 opener "CONGRUENCE OF SEGMENTS", 4-1 Introduction, Fig 4-1 (hunter with marked spear) | good
+- p7: book p.64 | 4-1 cont'd, Exercise Group 4-1, 4-2 Congruence, 4-3 Postulate Group III start | good
+- p8: book p.65 | Fig 4-2 (existence postulate lines l,l'), Fig 4-3 (three-part segment ABC/A'B'C'), postulates III-1, III-2, III-3 | good
+- p9: book p.66 | Exercise Group 4-2, Fig 4-4 (triangle-ish figure ABCDEF), Fig 4-5(a)(b)(c) tick-mark segment diagrams | good
+- p10: book p.67 | 4-4 Comparing Segments, Definition 4-1, Fig 4-6 (A,B / A',B',B''), Theorem 4-1 | good
+- p11: book p.68 | Exercise Group 4-3, Fig 4-7, Fig 4-8, Fig 4-9 tick-mark segment pairs, Theorem 4-2 statement+proof start | good
+- p12: book p.69 | Fig 4-10 (arc diagram, "then/if"), Fig 4-11 (A,C,X points), Theorem 4-3, Fig 4-12, Fig 4-13, Definition 4-2, Theorem 4-4 | good
+- p13: book p.70 | Exercise Group 4-4 (14 problems), start of Review of Chapter 4 | good
+- p14: book p.71 | Review of Chapter 4 cont'd, true/false statements 1-20 | finger (bottom margin), fully readable
+- p15: book p.71 | duplicate of p14, no finger, sharp | good
+- p16: book p.72 | Algebra Review intro, exercises 1-10 | finger covers bottom third of page (exercises 6-10 legible around finger)
+- p17: book p.72 | duplicate of p16, full page visible, finger lower-right corner but text clear | good
+- p18: book p.73 | Ch.5 opener "MEASUREMENT OF SEGMENTS", 5-1 Introduction, Fig 5-1 (man pacing off building) | good
+- p19: book p.74 | 5-2 Numbers, Exercise 5-2, footnote on "irrational" | good
+- p20: book p.75 | Exercise Group 5-3, Exercise Group 5-4, 5-3 Inequalities intro | good
+- p21: book p.76 | Inequalities properties (a)-(f), Exercise Group 5-5, 5-4 Measurement, Fig 5-2 (points A,A1-A4 / C,1,D) | good
+- p22: book p.77 | Fig 5-3 (A,B,A1), Archimedes' postulate IV-1, Fig 5-4 (A=A0..A4=B), Fig 5-5 (A3 B between A3,A4) | good
+- p23: book p.77 | duplicate of p22, same content, sharp | good
+- p24: book p.78 | Exercise Group 5-6, Fig 5-6 (tenths tick marks C to D), Fig 5-7 (A,A1,A2,B / C..D tenths), Exercise Group 5-7 | good

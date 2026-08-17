@@ -1,0 +1,101 @@
+% figures17.tex -- Appendix figures redrawn in TikZ.
+%
+% The Appendix (book pp.275-282) contains exactly ONE figure: the unnumbered
+% and uncaptioned diagram on book p.277 that accompanies Postulate 16. It
+% shows two three-ray configurations, unprimed and primed, drawn congruent.
+% (Pages 275, 276, 278-281 are text only; 282 is blank. Verified page by page
+% against sources/Geometry.pdf pp.289-296.)
+%
+% GEOMETRY MEASURED off sources/Geometry.pdf p.291 rasterised at 600 dpi.
+% Method: threshold the ink, separate the heavy rays from the light arcs by
+% binary erosion (rays survive a 5x5 erosion, arcs do not), take the vertex as
+% the left end of the horizontal ray, then fit ray directions from the eroded
+% ray cores only. Reading the whole ink mask instead biases every direction
+% toward the arcs that run tangent to it -- that is what produced the earlier
+% 45.0/117.0 figures. Raw and de-skewed (photo tilt removed by subtracting the
+% measured tilt of the horizontal ray) results:
+%
+%     ray          raw unprimed  raw primed   de-skewed mean
+%     horizontal       +0.48        +0.67          0 (datum)
+%     diagonal         44.38        43.87        43.55
+%     upper-left      116.33       116.13       115.66
+%
+% Drawn at 0 / 43.6 / 115.7 deg. Ray lengths and arc radii as fractions of the
+% horizontal ray (mean of the two sub-figures):
+%
+%     horizontal ray 1.000   arc A 0.446   (drawn 3.30 / 1.47)
+%     diagonal ray   0.994   arc C 0.699   (drawn 3.28 / 2.31)
+%     upper-left ray 0.939   arc B 0.774   (drawn 3.10 / 2.55)
+%
+% The three arc radii are DISTINCT and ordered A < C < B, and each label sits
+% on its own arc in a gap in that arc. Arc spans read off the source by
+% scanning each arc's circle for ink (rays and label glyphs masked out):
+%
+%     arc A   4..60  and  78..114   gap 60..78, label at  69 deg
+%     arc B  47..77  and  87..114   gap 77..87, label at  81.5 deg
+%     arc C   4..16  and  30..42    gap 16..30, label at  23 deg
+%
+% The arrowhead ends below are the source's exactly; the GAP ends are opened a
+% few degrees wider (A 52..86, B 71.5..91.5, C 12..34) because our labels are
+% set with more padding than the book's tight hand lettering -- at the source's
+% own gap widths check_labels.py reports the glyph boxes touching the arcs.
+%
+% Arrowheads therefore land at 114 (upper-left ray), 47/42 (diagonal ray) and
+% 4 (horizontal ray) -- always just short of the ray they point at, and the two
+% hits on the horizontal ray (arc A at 1.47, arc C at 2.31) and the two on the
+% diagonal (arc B at 2.55, arc C at 2.31) are at different radii, as in the book.
+%
+% LINE WEIGHT: the book draws the three rays roughly 1.75x the weight of the
+% annotation arcs (measured 13.0 px vs 8.5 px of ink at 600 dpi on the same
+% photo). The rays keep the house `given' weight so the Appendix matches the
+% rest of the book; the arcs are dropped to 0.42pt to restore the contrast.
+%
+% What the postulate rests on: the diagonal ray is INTERIOR to angle A, so
+% angle A = angle B + angle C. See tools/constraints/ch17.py.
+
+% ------------------------------------------------ Appendix figure (p.277)
+\newcommand{\FIGAPPONE}{\begin{bkfigure}[0.52\linewidth]
+% --- unprimed configuration
+\begin{tikzpicture}[scale=0.72,
+    mk/.style={fig, line width=0.42pt},          % light annotation arcs
+    alab/.style={vlab, outer sep=1.5pt}]         % label sits in its arc's gap
+  \coordinate (O) at (0,0);
+  \draw[given] (O) -- (0:3.30);        % horizontal ray
+  \draw[given] (O) -- (43.6:3.28);     % diagonal ray, interior to angle A
+  \draw[given] (O) -- (115.7:3.10);    % upper-left ray
+  % angle A : upper-left ray <-> horizontal ray  (the whole angle)
+  \draw[mk,->] (86:1.47) arc[start angle=86, end angle=114, radius=1.47];
+  \draw[mk,->] (52:1.47) arc[start angle=52, end angle=4,   radius=1.47];
+  \node[alab] at (69:1.47) {$A$};
+  % angle B : upper-left ray <-> diagonal ray
+  \draw[mk,->] (91.5:2.55) arc[start angle=91.5, end angle=114, radius=2.55];
+  \draw[mk,->] (71.5:2.55) arc[start angle=71.5, end angle=47,  radius=2.55];
+  \node[alab] at (81.5:2.55) {$B$};
+  % angle C : diagonal ray <-> horizontal ray
+  \draw[mk,->] (34:2.31) arc[start angle=34, end angle=42, radius=2.31];
+  \draw[mk,->] (12:2.31) arc[start angle=12, end angle=4,  radius=2.31];
+  \node[alab] at (23:2.31) {$C$};
+\end{tikzpicture}
+
+\vspace{4mm}
+
+% --- primed configuration (drawn congruent to the unprimed one, as the book
+%     draws it; the postulate itself only supposes congruence of two pairs)
+\begin{tikzpicture}[scale=0.72,
+    mk/.style={fig, line width=0.42pt},
+    alab/.style={vlab, outer sep=1.5pt}]
+  \coordinate (O) at (0,0);
+  \draw[given] (O) -- (0:3.30);
+  \draw[given] (O) -- (43.6:3.28);
+  \draw[given] (O) -- (115.7:3.10);
+  \draw[mk,->] (86:1.47) arc[start angle=86, end angle=114, radius=1.47];
+  \draw[mk,->] (52:1.47) arc[start angle=52, end angle=4,   radius=1.47];
+  \node[alab] at (69:1.47) {$A'$};
+  \draw[mk,->] (91.5:2.55) arc[start angle=91.5, end angle=114, radius=2.55];
+  \draw[mk,->] (71.5:2.55) arc[start angle=71.5, end angle=47,  radius=2.55];
+  \node[alab] at (81.5:2.55) {$B'$};
+  \draw[mk,->] (34:2.31) arc[start angle=34, end angle=42, radius=2.31];
+  \draw[mk,->] (12:2.31) arc[start angle=12, end angle=4,  radius=2.31];
+  \node[alab] at (23:2.31) {$C'$};
+\end{tikzpicture}
+\end{bkfigure}}

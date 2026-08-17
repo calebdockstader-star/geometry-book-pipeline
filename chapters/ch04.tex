@@ -1,0 +1,510 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+
+% ---- local macros (hoist into book preamble) ----
+% The book's run-in "Problem." paragraphs.
+\newenvironment{IVproblem}{\par\medskip\noindent\emph{Problem.}\ }{\par\medskip}
+% Centred display headings ("REVIEW OF CHAPTER 4", "ALGEBRA REVIEW").
+\newcommand{\IVhead}[1]{%
+  \par\bigskip\begin{center}\bfseries\large\MakeUppercase{#1}\end{center}%
+  \par\nopagebreak\medskip}
+% ---- end local macros ----
+
+\input{figures04}
+
+\begin{document}
+\setcounter{chapter}{4}
+
+\chapter*{\raggedright\Huge CONGRUENCE OF SEGMENTS}
+\addcontentsline{toc}{chapter}{4.\ Congruence of Segments}
+\markboth{CONGRUENCE OF SEGMENTS}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+\figurekey
+
+%========================================================= 4-1
+\section*{4--1\quad INTRODUCTION}
+\addcontentsline{toc}{section}{4--1\quad Introduction}
+
+In this chapter we shall be concerned with comparing the ``sizes'' of segments.
+All of us have learned to understand the terms ``distance'' and ``length'' as
+used in everyday life. For example, we may say that it is 12 miles to the
+nearest town, or that a fence is 153 feet long. In each case we give a number to
+indicate a distance or length. To give a number is a most convenient means of
+describing the distance between two points or, in other words, of telling how far
+apart they are.
+
+But even before men learned to count, they must have wished at times to tell how
+far apart points were, or to decide if two objects had the same length. For
+example, a hunter visiting a friend in a neighboring village might have said to
+his friend, ``My son is as tall as this mark on my spear.'' Then the men could
+see, by comparing with the mark, whether the host's son was as tall as the
+visitor's son. In this example the marked spear served as a kind of
+``yardstick'' for comparing the height of the hunter's son with the height of
+others. Even in very primitive societies men must have had a means for comparing
+the sizes of objects.
+
+\FIGIVONE
+
+\begin{IVproblem}
+Describe other examples where objects are compared in size without the use of
+measurement, that is, a number. Some of your examples may use a marked stick (or
+``yardstick'') and some not.
+\end{IVproblem}
+
+We are so used to speaking of distance or of length in terms of numbers that it
+is hard for us to find other words to describe how far apart two points are.
+Although we usually associate numbers with the words ``distance'' and
+``length,'' what we study in this chapter is so simple that it would be
+understandable to a person who knew nothing of numbers at all. We will be talking
+about the ``size'' of a segment and whether two segments are ``the same size.''
+As we have seen with the example of the hunter, a practical method for comparing
+segments is to use a marked stick and to carry it from one place to another. We
+shall see in the Section 4--2 how in geometry we can avoid carrying such sticks.
+
+\exercisegroup{4--1}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Your foot is a natural ``yardstick'' you carry with you. Describe several
+      examples of using your foot for comparing lengths.
+\item Think of several ways to use your hands as ``yardsticks.''
+\end{exlist}
+\end{multicols}
+
+%========================================================= 4-2
+\section*{4--2\quad CONGRUENCE}
+\addcontentsline{toc}{section}{4--2\quad Congruence}
+
+In daily life we are often interested in size, and we have ways of testing
+whether or not two things are the same size. But our geometry so far has in it
+\emph{no notion of size at all}. Because our geometry deals with imaginary
+concepts (points and lines), to talk about size it is necessary to assume
+(postulate) properties that we desire. We do not wish to talk about ``carrying a
+segment around in the plane,'' because this involves the idea of movement, which
+is not a part of geometry proper. Consequently \emph{we will just suppose that by
+some means (it does not matter how) we can tell whether or not two segments are
+the same size.} In other words, we will assume that we can pick out all the
+segments of the same size.
+
+We have been using the words ``the same size.'' We now use another word which is
+to have exactly the same intuitive significance. The word is \emph{congruent},
+and whenever you see it you can, if you like, say to yourself, ``the same size.''
+Congruence refers to the \emph{relation} of being the same size. The word comes
+from a Latin word meaning ``agree'' or ``conform.''
+
+Euclid used the word ``equal'' instead of congruent. However, \emph{in this book
+we will use the word ``equal'' (and the sign ``$=$'') to mean ``identically the
+same.''} Thus, if we write $A = B$ we mean that $A$ and $B$ are one and the same
+point. Or, if $x$ and $y$ are numbers, $x = y$ means that they are one and the
+same number. And in dealing with segments, if we write $AB = CD$, we mean that
+$A = C$ and $B = D$ or $A = D$ and $B = C$, that is, $AB$ and $CD$ are one and
+the same segment.
+
+%========================================================= 4-3
+\section*{4--3\quad POSTULATE GROUP III. LINEAR CONGRUENCE}
+\addcontentsline{toc}{section}{4--3\quad Postulate Group III. Linear Congruence}
+
+We assume that there is a relation between segments called \emph{congruence}.
+This relation is to have the following properties.
+
+III--1 \emph{The existence postulate for segments.} Given points $A$ and $B$ on a
+line $l$ and a point $A'$ on a line $l'$ (Fig.~4--2), then on each side of $A'$
+on $l'$ there is exactly one point $B'$ such that $AB$ is congruent to $A'B'$. To
+indicate that $AB$ is congruent to $A'B'$, we write ``$AB \cong A'B'$.''
+
+\FIGIVTWOTHREE
+
+In congruence the order of the points does not matter, that is, if
+$AB \cong A'B'$, then also $AB \cong B'A'$, $BA \cong A'B'$, and
+$BA \cong B'A'$.
+
+III--2 \emph{The three-part segment postulate.} Congruence also satisfies the
+following:
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=2pt, topsep=3pt]
+\item $AB \cong AB$. (A segment is congruent to itself; that is, congruence of
+      segments is reflexive.)
+\item If $AB \cong A'B'$, then $A'B' \cong AB$. (Congruence of segments is
+      symmetric.)
+\item If $AB \cong A'B'$ and $A'B' \cong A''B''$, then $AB \cong A''B''$.
+      (Congruence of segments is transitive.)
+\end{enumerate}
+
+\begin{IVproblem}
+Prove that if $AB \cong CD$ and $EF \cong CD$, then $AB \cong EF$.
+[\emph{Hint:} Use parts (b) and (c) of III--2.]
+\end{IVproblem}
+
+III--3 \emph{The addition and subtraction of segments postulate.} Suppose that
+$B$ is between $A$ and $C$ on a line $l$, and that $B'$ is between $A'$ and $C'$
+on a line $l'$ (Fig.~4--3).
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item If $AB \cong A'B'$ and $BC \cong B'C'$, then $AC \cong A'C'$.
+\item If $AC \cong A'C'$ and $BC \cong B'C'$, then $AB \cong A'B'$.
+\end{enumerate}
+
+These postulates are somewhat like our earlier ones. They seem so obvious that
+you might feel they do not need to be stated. As before, however, you must
+remember that points and lines are inventions of the mind, and so we must state
+clearly what properties they are to have. Euclid did not state them as clearly as
+we have. The postulates given in this book are easier to use than those of Euclid
+because they tell you exactly what you can do. They are similar to ones given by
+David Hilbert (see Section 1--2).
+
+In less exact language, the postulates say the following things. The first says
+that on the line $l'$ there are two points $B'$ and $B''$, one on each side of
+$A'$, such that $AB$ is the same size as both $A'B'$ and $A'B''$. The second one
+says three things: that a segment is the same size as itself; that if $AB$ is the
+same size as $A'B'$, then $A'B'$ is the same size as $AB$; and that if two
+segments are the same size as a third segment, then the two segments are the same
+size. The third postulate tells how to combine segments by what we call
+\emph{addition and subtraction of segments}.
+
+\exercisegroup{4--2}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item What does it mean to say $RS = TU$?
+\item If $RS = TU$, is $RS \cong TU$? Justify your answer.
+\item Is it true for every pair of segments $RS$ and $TU$ that if
+      $RS \cong TU$ then $RS = TU$?
+\item Two segments $AB$ and $CD$ are not congruent to each other. (We write this
+      as $AB \ncong CD$.) Prove that $AB$ and $CD$ are not equal to each other
+      ($AB \neq CD$).
+\item If $ABC$, what postulates must you use to prove that $AB \ncong AC$?
+\item Is the following statement true or false? If $AB$ is any segment and $A'$
+      is any point on a line $l'$, then there is one and only one point $B'$ on
+      $l'$ such that $AB \cong A'B'$.
+\item In Fig.~4--4 the following congruences hold: $AB \cong BC$,
+      $CD \cong CE$, $CE \cong ED$, $EF \cong EB$. List all other congruences
+      that you recognize.
+\item The sign $=$ was defined in this section. State the definition in your own
+      words.
+\item State the three postulates of linear congruence in your own words, using
+      the phrase ``the same size'' instead of ``congruent.'' Then go back and
+      read again the paragraph preceding this group of exercises.
+\item Show (using postulates) that if $A$, $B$, $C$, $D$ are points, in this
+      order, on a line $l$, and if $A'$, $B'$, $C'$, $D'$ are points, in this
+      order, on a line $l'$, and if $AB \cong A'B'$, $BC \cong B'C'$,
+      $CD \cong C'D'$, then $AD \cong A'D'$. [\emph{Hint:} Draw a figure. You
+      will have to use part (a) of Postulate III--3 twice.]
+\item Assuming that the points have the same order as in Exercise 10, prove that
+      $(AD \cong A'D'$ and $CD \cong C'D'$ and
+      $BC \cong B'C') \rightarrow AB \cong A'B'$.
+\item Suppose $E$, $F$, $G$ and $E'$, $F'$, $G'$ are \emph{any} points on lines
+      $l$ and $l'$, respectively, such that $EF \cong E'F'$ and
+      $FG \cong F'G'$. Show, by drawing a figure, that it does not need to be
+      true that $EG \cong E'G'$. What do we need to know about the position of
+      the points? Does III--3 take care of this?
+\item[\stex 13.] Part (b) of Postulate III--3 can be \emph{proved} from the
+      other postulates. We have included this as a postulate to make things
+      easier. Try to prove (b). You will have to use (a) and Postulate III--1.
+\item[\stex 14.] Try to reword III--3 in terms of length.
+\item[15.] Each part of Fig.~4--5 indicates certain congruence relations. The
+      marks show which segments are congruent. What other relations can be
+      deduced? Point out how the postulates are used.
+\item[\stex 16.] Show how to relabel the points in parts (b) and (c) of
+      Fig.~4--5 as $A$, $B$, $C$ and $A'$, $B'$, $C'$ so that the application of
+      Postulate III--3 is clearly shown.
+\end{exlist}
+\end{multicols}
+
+\FIGIVFOUR
+
+\FIGIVFIVE
+
+%========================================================= 4-4
+\section*{4--4\quad COMPARING SEGMENTS}
+\addcontentsline{toc}{section}{4--4\quad Comparing Segments}
+
+The postulates in Group III tell us about segments that are the same size or
+congruent to each other. We can now \emph{define}, in terms of congruence and
+betweenness, the ideas of larger and smaller segments. The definition will simply
+describe what the hunter did when he compared the boy with the mark on the spear.
+
+We need a symbol to stand for ``is greater than'' and another symbol to stand for
+``is less than.'' These symbols are: $>$ and $<$. Whenever you see $>$, read
+``is greater than,'' and whenever you see $<$, read ``is less than.''
+
+\begin{definition}
+Let $AB$ be any segment and $A'B'$ any other segment on line $l'$ (Fig.~4--6). On
+the same side of $A'$ as $B'$, let $B''$ be the point such that
+$AB \cong A'B''$. If $A'B'B''$ (that is, if $B'$ is between $A'$ and $B''$), we
+say that $AB > A'B'$. If $A'B''B'$ (that is, $B''$ is between $A'$ and $B'$), we
+say that $AB < A'B'$.
+\end{definition}
+
+\FIGIVSIX
+
+\begin{remark}
+Because of III--1 there is only one point $B''$ on the same side of $A'$ as the
+point $B'$ and such that $AB \cong A'B''$. The three points $A'$, $B'$, and
+$B''$ are therefore in some definite order (unless $B' = B''$, in which case
+$AB \cong A'B'$). We cannot have $A'$ between $B'$ and $B''$ because $B'$ and
+$B''$ are on the same side of $A'$. Therefore if $AB \ncong A'B'$, we must have
+either $A'B'B''$ or $A'B''B'$. In other words, either $AB > A'B'$ or
+$AB < A'B'$. This remark proves the following theorem.
+\end{remark}
+
+\begin{theorem}
+If $AB$ and $A'B'$ are any two segments, then either $AB > A'B'$, or
+$AB \cong A'B'$, or $AB < A'B'$, and exactly one of these is true.
+\end{theorem}
+
+\exercisegroup{4--3}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Does Fig.~4--7 indicate that $AB < CD$ or that $CD > AB$? Read
+      Definition 4--1 again.
+\item What relationships are indicated by Fig.~4--8? Use Definition 4--1.
+\item What relationships are indicated by Fig.~4--9? Use Definition 4--1.
+\item If we know that $AB \cong CD$ and $ABX$, what can we conclude? Use
+      Definition 4--1.
+\item It is known that $RS \cong UT$ and $RVS$. What conclusion can be drawn?
+      Use Definition 4--1.
+\item Does Definition 4--1 say that if $AB > CD$ then $CD < AB$? Does looking at
+      a figure prove that this is so?
+\end{exlist}
+\end{multicols}
+
+\FIGIVSEVENEIGHTNINE
+
+The exercises above are meant to prepare you for the main theorem of this
+section, namely: if one segment is greater than a second, then the second is less
+than the first. Of course, we know that if we draw two pencil marks so that the
+first is longer than the second, then the second is shorter than the first. But
+we have not yet defined \emph{length of a segment}. As a matter of fact we shall
+need to introduce a new postulate into our geometry before length can be defined.
+Since our definitions of ``greater than'' and ``less than'' have been formulated
+in terms of betweenness, the truth of any statement about these relations
+(``greater than'' and ``less than'') must be established by using properties of
+betweenness.
+
+% Theorem 4-2 carries a dagger and a marker-less footnote in the book, so it is
+% set by hand rather than through the theorem environment; the counter is still
+% stepped so that Theorem 4-3 numbers correctly.
+\refstepcounter{theorem}%
+\par\medskip\noindent
+\textbf{$\dagger$Theorem \thetheorem.}\ \emph{If $AB > A'B'$ then
+$A'B' < AB$, and conversely, if $A'B' < AB$ then $AB > A'B'$.}%
+\begingroup\let\thefootnote\relax
+\footnotetext{$\dagger$ Although this theorem is intuitively obvious, its proof
+is quite difficult. If the teacher wishes, it may be treated as a postulate.}%
+\endgroup
+\par\medskip
+
+\noindent\emph{Proof.} Figure 4--10 illustrates what must be proved in order to
+establish the first part of the theorem.
+
+\begin{enumerate}[label=(\arabic*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
+\item $AB > A'B'$ means $AB \cong A'C'$ and $A'B'C'$.
+\item $A'B' < AB$ means $A'B' \cong AC$ and $ACB$.
+\end{enumerate}
+
+\FIGIVTENELEVEN
+
+To show that $AB > A'B' \rightarrow A'B' < AB$, we must prove that if $C'$ falls
+``beyond'' $B'$, then $C$ falls between $A$ and $B$.
+
+From (1) above we have $AB \cong A'C'$ and $A'B'C'$. We know also that on a
+given side of $A$ there is a point $C$ such that $AC \cong A'B'$. To establish
+that we do indeed have $ACB$, consider the point $X$ in Fig.~4--11 such that
+$ACX$ and $CX \cong B'C'$. Now, by addition of segments, $AX \cong A'C'$. But
+$AB \cong A'C'$, so $X = B$. (Why?) And since $ACX$, we have $ACB$; and from (2)
+above we have $A'B' < AB$.
+
+The proof of the converse is similar to the above proof and is left as an
+exercise.
+
+From now on we shall freely interchange the ``greater than'' and ``less than''
+terminology since the statements $AB > CD$ and $CD < AB$ are equivalent to each
+other.
+
+\begin{theorem}
+If $AC \cong A'C'$ and $A'B'C'$ and $B$ is the point on $C$'s side of $A$ such
+that $AB \cong A'B'$, then $ABC$ (Fig.~4--12).
+\end{theorem}
+
+\noindent\emph{Proof.} Since $AC > A'B'$, $A'B' < AC$, and so by Definition 4--1
+we have $B$ between $A$ and $C$.
+
+\medskip
+This theorem is proved at this time because we shall need it in the next chapter
+when we discuss the length of a segment. We can then show that congruent segments
+have the same length. It is also a very convenient tool to use in many subsequent
+proofs.
+
+\FIGIVTWELVETHIRTEEN
+
+\begin{definition}
+If we wish to say ``$AB \cong A'B'$ or $AB > A'B'$,'' we write
+``$AB \geqq A'B'$'' and read the symbol $\geqq$ as ``is greater than or
+congruent to.'' Similarly, if we wish to say ``$AB \cong A'B'$ or
+$AB < A'B'$,'' we write ``$AB \leqq A'B'$'' and read the symbol $\leqq$ as ``is
+less than or congruent to.''
+\end{definition}
+
+\begin{theorem}
+If $AB > CD$ and $CD \cong EF$, then $AB > EF$.
+\end{theorem}
+
+\noindent\emph{Proof.} Since $CD < AB$ (why?) there is a point $D'$
+(Fig.~4--13) on $AB$ such that $CD \cong AD'$. But then, by III--2,
+$EF \cong AD'$. Hence, by Definition 4--1, $EF < AB$ and $AB > EF$.
+
+\exercisegroup{4--4}
+
+\begin{multicols}{2}
+\begin{exlist}
+\item Using the definition of $>$, explain what must be done in order to prove
+      that $AB > CD$. Draw a figure to illustrate this.
+\item What must one show in order to prove $RS < TU$? Draw a figure to
+      illustrate this.
+\item What basic undefined relations are used to define the phrases ``is greater
+      than'' and ``is less than''?
+\item Is it correct to say that $AB \geqq CD \rightarrow AB \ncong CD$? Is the
+      converse of this implication true?
+\item Is it correct to say that $AB > CD \rightarrow AB \ncong CD$? State both
+      the converse and contrapositive of this statement. Which one of these
+      statements is true?
+\item What conclusion can you draw if you know that $A$, $B$, $C$, and $D$ are
+      points on line $l$ and that $AB > CD$ and $A = C$?
+\item If $AB$ is neither equal to nor greater than $CD$, can you conclude
+      $AB < CD$?
+\item If $AB$ is neither congruent to nor less than $CD$, can you conclude
+      $AB > CD$?
+\item[\stex 9.] Prove that if $AB < EF$ and $EF \cong CD$, then $AB < CD$.
+      State the converse and contrapositive of this theorem.
+\item[\stex 10.] Prove that if $AB > CD$ and $CD > EF$, then $AB > EF$.
+\item[\stex 11.] Prove that if $AB < CD$ and $CD < EF$, then $AB < EF$.
+\item[\stex 12.] Prove that if $B$ is between $A$ and $C$, and $B'$ is between
+      $A'$ and $C'$, and $AB \cong A'B'$, and $BC > B'C'$, then $AC > A'C'$.
+\item[13.] If $AB > CD$ and $CD < EF$, can you prove that $AB > EF$?
+\item[\stex 14.] Prove that if $ABC$ and $A'C'B'$ and $AC \cong A'C'$, then
+      $AB < A'B'$.
+\end{exlist}
+\end{multicols}
+
+%========================================================= Review
+\IVhead{Review of Chapter 4}
+\addcontentsline{toc}{section}{Review of Chapter 4}
+\markboth{REVIEW OF CHAPTER 4}{}
+
+Several important ideas have been developed in this chapter. You should realize
+that \emph{congruence} is really an undefined relation. Of course, you are so
+accustomed to comparing the sizes of things by comparing numbers that it is
+probably quite difficult to see clearly that numbers are not actually needed. We
+know that a $6'8''$ basketball center is taller than a
+$6'2''$ center. We know that a 240-lb football tackle is
+larger than a 180-lb tackle. But such comparisons as these can be made
+\emph{without using numbers at all}. Surely men were able to recognize
+differences in sizes long before they had a number system to measure them.
+Historically, the Greeks developed their geometry without the use of number
+concepts.
+
+In the next chapter, when we define what is meant by the length of a segment, it
+will naturally turn out that congruent segments have the same length. That is, if
+$AB \cong CD$, and $x$ and $y$ are numbers which are the lengths of these
+segments, then $x = y$.
+
+Again, the postulates of this chapter are so obvious to our intuition that you
+might wonder why we bother to make them. All we can say is that postulates should
+be obvious. The amazing thing about mathematics is that out of such simple
+assumptions as we are making in our study of geometry one can construct theorems
+of marvelous complexity which provide the foundation for all work in science.
+
+The proofs in this chapter are quite difficult. There is no need to memorize the
+results of the theorems since they merely show that our geometry agrees with the
+figures that we draw.
+
+In working with Definition 4--1, you should have learned an important
+mathematical lesson, namely, that definitions must be clearly understood. It
+would be very easy to read Definition 4--1 carelessly and to assume that if
+$AB > CD$ then $CD < AB$. This is not stated in the definition, but of course we
+were able to use the definition, our postulates, and the rules of logic to prove
+that it is indeed true.
+
+The exercises below will help you review the concepts of this chapter.
+
+\medskip
+Label the following statements true or false.
+
+\begin{exlist}
+\item If $AB \cong CD$, then $A = C$ and $B = D$.
+\item If $A = C$ and $B = D$, then $AB \cong CD$.
+\item If $AB \cong CD$ or $AB < CD$, then $AB \leqq CD$.
+\item If $A$, $B$, and $C$ are points on a line $l$ and $A'$, $B'$, and $C'$ are
+      points on a line $l'$, and $AB \cong A'B'$, and $BC \cong B'C'$, then
+      $AC \cong A'C'$.
+\item If $AB$ is any segment and $A'$ is any point on a line $l'$, then there are
+      exactly two points $B'$ and $B''$ on $l'$ such that $A'B'$ and $A'B''$ are
+      congruent to $AB$.
+\item If $AB$ is not less than $CD$, then it must be greater than $CD$.
+\item If $RS$ is neither greater than nor less than $TU$, then $RS \cong TU$.
+\item If $A$, $B$, $C$, and $D$ are points in this order on a line $l$ and
+      $AC \cong BD$, then $AB \cong CD$.
+\item If $A$, $B$, $C$, and $D$ are points in this order on a line $l$ and
+      $AC > BD$, then $AB < CD$.
+\item If $A$, $B$, $C$, and $D$ are points in this order on a line $l$ and
+      $AC < BD$, then $AB \leqq CD$.
+\end{exlist}
+
+\medskip
+This chapter has included three postulates, two definitions, and four theorems.
+The following statements are all true. Designate a postulate or definition or
+theorem which could be used in justifying each statement.
+
+\begin{exlist}[start=11]
+\item For every line segment $AB$, it is true that $AB \cong AB$.
+\item If $AB \cong CD$ and $ABX$, then $AX > CD$.
+\item If $AB$ is not less than $CD$, then $AB \geqq CD$.
+\item If $AB \cong CD$ and $CD \cong EF$ and $XY > AB$, then $XY > EF$.
+\item If $RS \cong TU$ and $XY \cong TU$, then $RS \cong XY$.
+\item If $ABC$ and $BCD$, then $AC < AD$.
+\item If $AB \leqq CD$, then there is no point $E$ such that $CDE$ and
+      $AB \cong CE$.
+\item If in triangle $ABC$ we have side $AC$ greater than side $AB$, then there
+      is a point $E$ on side $AC$ such that $AE \cong AB$.
+\item If $ABC$ and $AB \cong BC$ and $XYZ$ and $XY \cong YZ \cong AB$, then
+      $AC \cong XZ$.
+\item If $A = X$ and $B = Y$, then $AY \cong BX$.
+\end{exlist}
+
+%========================================================= Algebra review
+\IVhead{Algebra Review}
+\addcontentsline{toc}{section}{Algebra Review}
+
+In algebra the relations of ``greater than'' and ``less than'' are defined for
+pairs of numbers. We say that $5 > 3$ because $5 = 3 + 2$, and 2 is a positive
+number. More generally we make the following definitions:
+
+\begin{enumerate}[label=(\arabic*), leftmargin=2.2em, itemsep=2pt, topsep=3pt]
+\item If $a$, $b$, and $c$ are numbers and $a = b + c$ and $c$ is positive, then
+      we say that $a$ is greater than $b$ and write $a > b$.
+\item If $a$, $b$, and $c$ are numbers and $a = b - c$ and $c$ is a positive
+      number, then we say that $a$ is less than $b$ and write $a < b$.
+\end{enumerate}
+
+For example, since $-\frac{3}{2} = -\frac{5}{2} + \frac{2}{2}$, we say
+$-\frac{3}{2} > -\frac{5}{2}$; and since $0 = \frac{3}{4} - \frac{3}{4}$ we say
+that $0 < \frac{3}{4}$.
+
+\begin{exlist}
+\item Use the first definition above to prove that $0 > -\frac{4}{3}$.
+\item Use the second definition to prove that $-\frac{4}{3} < 0$.
+\item Use the two definitions to prove that if $a > b$ then $b < a$.
+\item If $a = b + 1$ and $b = c + 2$, prove that $a > c$.
+\item Prove that if $a > b$ and $b > c$, then $a > c$.
+\item If $a = b - 2$ and $b = c - 3$, then prove that $a < c$.
+\item Prove that if $a < b$ and $b < c$, then $a < c$.
+\item Show that if $a = b + 3$, then $3a > 3b$ and $-2a < -2b$.
+\item Prove that if $a > b$, then $ca > cb$ if $c$ is positive and $ca < cb$ if
+      $c$ is negative.
+\item Prove that if $a < b$, then $ca < cb$ if $c$ is positive and $ca > cb$ if
+      $c$ is negative.
+\end{exlist}
+
+\end{document}

@@ -1,0 +1,382 @@
+% figures04.tex -- Chapter 4 figures redrawn in TikZ.
+% Coordinates are reconstructions; every congruence the printed figure
+% asserts holds EXACTLY here (see tools/constraints/ch04.py).
+% Self-contained: congruence ticks are drawn as explicit strokes, sized so
+% that each prints at about 2.2pt half-length at the figure's own scale.
+
+% ------------------------------------------------------------- Fig 4-1
+% Pictorial vignette (boy beside a marked spear stuck in hatched ground).
+% Figurative line art, not a geometric diagram -> placeholder, per the
+% plate rule. See ch04-UNCERTAIN.md.
+\newcommand{\FIGIVONE}{\begin{bkfigure}[0.52\linewidth]
+\fbox{\begin{minipage}{0.92\linewidth}\centering\footnotesize
+\vspace{1.6em}
+\textit{[Illustration: a boy standing on hatched ground beside a\\
+marked spear planted upright, its point above his head.]}
+\vspace{1.6em}
+\end{minipage}}
+\figcap{4--1}
+\end{bkfigure}}
+
+% -------------------------------------------------------- Figs 4-2, 4-3
+% 4-2: III-1, the existence postulate.  AB congruent to A'B' (exact).
+% 4-3: III-3, addition/subtraction.  AB=A'B' and BC=B'C' (exact: the two
+%      lines carry identical parameter fractions over equal lengths).
+\newcommand{\FIGIVTWOTHREE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A)  at (1.00000,0.42000);
+  \coordinate (B)  at (4.20000,1.76000);
+  \coordinate (Ap) at (1.55000,-0.53479);
+  \coordinate (Bp) at (5.01280,-0.74609);
+  \draw[fig] (0.12371,0.05306) -- (5.21465,2.18488);
+  \draw[fig] (0.83242,-0.49100) -- (5.62546,-0.78347);
+  \foreach \p in {A,B,Ap,Bp} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above left]  at (A)  {$A$};
+  \node[vlab,above]       at (B)  {$B$};
+  \node[vlab,above left]  at (Ap) {$A'$};
+  \node[vlab,above]       at (Bp) {$B'$};
+  \node[vlab,right]       at (5.21465,2.18488) {$l$};
+  \node[vlab,right]       at (5.62546,-0.78347) {$l'$};
+\end{tikzpicture}
+\figcap{4--2}
+\end{minipage}\hfill
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.86]
+  \coordinate (A)  at (0.86972,0.09602);
+  \coordinate (B)  at (2.70855,0.29902);
+  \coordinate (C)  at (3.41923,0.37748);
+  \coordinate (Ap) at (1.09193,-1.07678);
+  \coordinate (Bp) at (2.93545,-0.92196);
+  \coordinate (Cp) at (3.64794,-0.86212);
+  \draw[fig] (0,0) -- (4.96981,0.54866);
+  \draw[fig] (0.22000,-1.15000) -- (5.20247,-0.73157);
+  \foreach \p in {A,B,C,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above]      at (A)  {$A$};
+  \node[vlab,above]      at (B)  {$B$};
+  \node[vlab,above]      at (C)  {$C$};
+  \node[vlab,above]      at (Ap) {$A'$};
+  \node[vlab,above]      at (Bp) {$B'$};
+  \node[vlab,above]      at (Cp) {$C'$};
+  \node[vlab,right]      at (4.96981,0.54866)  {$l$};
+  \node[vlab,right]      at (5.20247,-0.73157) {$l'$};
+\end{tikzpicture}
+\figcap{4--3}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------------- Fig 4-4
+% Exercise 4-2 #7.  AB=BC, CD=CE=ED (equilateral CDE), EF=EB.
+% Construction: A,C,D collinear; E is the equilateral apex on CD below AD;
+% B on ray EC beyond C with AB=BC (which forces ABC equilateral); F on ray
+% ED beyond D with EF=EB.
+\newcommand{\FIGIVFOUR}{\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[scale=0.53]
+  \coordinate (A) at (0,0);
+  \coordinate (C) at (3.60000,0);
+  \coordinate (D) at (6.50000,0);
+  \coordinate (E) at (5.05000,-2.51147);
+  \coordinate (B) at (1.80000,3.11769);
+  \coordinate (F) at (8.30000,3.11769);
+  \draw[fig] (A) -- (D);
+  \draw[fig] (A) -- (B) -- (E) -- (F);
+  \node[vlab,below left]  at (A) {$A$};
+  \node[vlab,above]       at (B) {$B$};
+  \node[vlab,below left]  at (C) {$C$};
+  \node[vlab,above left]  at (D) {$D$};
+  \node[vlab,below]       at (E) {$E$};
+  \node[vlab,above]       at (F) {$F$};
+\end{tikzpicture}
+\figcap{4--4}
+\end{bkfigure}}
+
+% ------------------------------------------------------------- Fig 4-5
+% Exercise 4-2 #15/#16.  (a) two congruent copies: AB=A'B' (double tick),
+% AC=A'C' (single tick on the arc).  (b) CA=BD.  (c) AC=BD.
+\newcommand{\FIGIVFIVE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.80]
+  % ---- (a) left copy
+  \begin{scope}[shift={(0.60,2.90)}]
+    \coordinate (A) at (0,0); \coordinate (B) at (1.95000,0);
+    \coordinate (C) at (2.85000,0);
+    \draw[fig] (A) -- (C);
+    \draw[fig] (A) .. controls +(0,-0.82667) and +(0,-0.82667) .. (C);
+    \draw[tick] (0.90000,-0.09700) -- (0.90000,0.09700);
+    \draw[tick] (1.05000,-0.09700) -- (1.05000,0.09700);
+    \draw[tick] (1.42500,-0.71700) -- (1.42500,-0.52300);
+    \foreach \p in {A,B,C} {\fill (\p) circle (1.5pt);}
+    \node[vlab,above] at (A) {$A$};
+    \node[vlab,above] at (B) {$B$};
+    \node[vlab,above] at (C) {$C$};
+  \end{scope}
+  % ---- (a) right copy
+  \begin{scope}[shift={(5.20,2.90)}]
+    \coordinate (Ap) at (0,0); \coordinate (Bp) at (1.95000,0);
+    \coordinate (Cp) at (2.85000,0);
+    \draw[fig] (Ap) -- (Cp);
+    \draw[fig] (Ap) .. controls +(0,-0.82667) and +(0,-0.82667) .. (Cp);
+    \draw[tick] (0.90000,-0.09700) -- (0.90000,0.09700);
+    \draw[tick] (1.05000,-0.09700) -- (1.05000,0.09700);
+    \draw[tick] (1.42500,-0.71700) -- (1.42500,-0.52300);
+    \foreach \p in {Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+    \node[vlab,above] at (Ap) {$A'$};
+    \node[vlab,above] at (Bp) {$B'$};
+    \node[vlab,above] at (Cp) {$C'$};
+  \end{scope}
+  \node[slab,left] at (0.20,2.90) {(a)};
+  % ---- (b)
+  \begin{scope}[shift={(0.60,1.45)}]
+    \coordinate (Cb) at (1.51900,0); \coordinate (Ab) at (2.26900,0);
+    \coordinate (Bb) at (4.67600,0); \coordinate (Db) at (5.42600,0);
+    \draw[fig] (0,0) -- (7.00000,0);
+    \draw[tick] (1.89400,-0.09700) -- (1.89400,0.09700);
+    \draw[tick] (5.05100,-0.09700) -- (5.05100,0.09700);
+    \foreach \p in {Cb,Ab,Bb,Db} {\fill (\p) circle (1.5pt);}
+    \node[vlab,below] at (Cb) {$C$};
+    \node[vlab,below] at (Ab) {$A$};
+    \node[vlab,below] at (Bb) {$B$};
+    \node[vlab,below] at (Db) {$D$};
+  \end{scope}
+  \node[slab,left] at (0.20,1.45) {(b)};
+  % ---- (c)
+  \begin{scope}[shift={(0.60,0)}]
+    \coordinate (Ac) at (0.75000,0); \coordinate (Bc) at (3.07000,0);
+    \coordinate (Cc) at (4.07000,0); \coordinate (Dc) at (6.39000,0);
+    \draw[fig] (0,0) -- (7.00000,0);
+    \draw[fig] (Ac) .. controls +(0,0.96000) and +(0,0.96000) .. (Cc);
+    \draw[fig] (Bc) .. controls +(0,0.96000) and +(0,0.96000) .. (Dc);
+    \draw[tick] (2.41000,0.62300) -- (2.41000,0.81700);
+    \draw[tick] (4.73000,0.62300) -- (4.73000,0.81700);
+    \foreach \p in {Ac,Bc,Cc,Dc} {\fill (\p) circle (1.5pt);}
+    \node[vlab,below] at (Ac) {$A$};
+    \node[vlab,below] at (Bc) {$B$};
+    \node[vlab,below] at (Cc) {$C$};
+    \node[vlab,below] at (Dc) {$D$};
+  \end{scope}
+  \node[slab,left] at (0.20,0) {(c)};
+\end{tikzpicture}
+\figcap{4--5}
+\end{bkfigure}}
+
+% ------------------------------------------------------------- Fig 4-6
+% Definition 4-1.  AB congruent to A'B'' (exact); B' between A' and B''.
+\newcommand{\FIGIVSIX}{\begin{bkfigure}[0.72\linewidth]
+\begin{tikzpicture}[scale=0.90]
+  \coordinate (A)   at (0.90000,1.32000);
+  \coordinate (B)   at (4.55000,2.28000);
+  \coordinate (Ap)  at (0.85000,0);
+  \coordinate (Bp)  at (3.32023,0.09490);
+  \coordinate (Bpp) at (4.62134,0.14489);
+  \coordinate (Le)  at (5.47071,0.17752);
+  \draw[fig] (A) -- (B);
+  \draw[fig] (Ap) -- (Le);
+  \foreach \p in {A,B,Ap,Bp,Bpp,Le} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above left]  at (A)   {$A$};
+  \node[vlab,above]       at (B)   {$B$};
+  \node[vlab,above left]  at (Ap)  {$A'$};
+  \node[vlab,above]       at (Bp)  {$B'$};
+  \node[vlab,above]       at (Bpp) {$B''$};
+  \node[vlab,above right] at (Le)  {$l'$};
+\end{tikzpicture}
+\figcap{4--6}
+\end{bkfigure}}
+
+% ------------------------------------------------ Figs 4-7, 4-8, 4-9
+% 4-7 (Ex 4-3 #1): AB congruent to CB', with C-B'-D.
+% 4-8 (Ex 4-3 #2): RS congruent to TS', with T-U-S'.
+% 4-9 (Ex 4-3 #3): AB=DE (single tick), BC=EC' (double tick).
+\newcommand{\FIGIVSEVENEIGHTNINE}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.31\linewidth}\centering
+\begin{tikzpicture}[scale=0.72]
+  \coordinate (A)  at (1.20000,0.95000);
+  \coordinate (B)  at (2.40000,0.95000);
+  \coordinate (C)  at (0.92000,0);
+  \coordinate (Bp) at (2.12000,0);
+  \coordinate (D)  at (3.34000,0);
+  \draw[fig] (0.30000,0.95000) -- (3.35000,0.95000);
+  \draw[fig] (0,0) -- (4.40000,0);
+  \draw[tick] (1.80000,0.84200) -- (1.80000,1.05800);
+  \draw[tick] (1.52000,-0.10800) -- (1.52000,0.10800);
+  \foreach \p in {A,B,C,Bp,D} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above] at (A)  {$A$};
+  \node[vlab,above] at (B)  {$B$};
+  \node[vlab,below] at (C)  {$C$};
+  \node[vlab,below] at (Bp) {$B'$};
+  \node[vlab,below] at (D)  {$D$};
+\end{tikzpicture}
+\figcap{4--7}
+\end{minipage}\hfill
+\begin{minipage}{0.31\linewidth}\centering
+\begin{tikzpicture}[scale=0.72]
+  \coordinate (R)  at (0.65000,1.30000);
+  \coordinate (S)  at (3.00000,1.30000);
+  \coordinate (T)  at (0.62000,0);
+  \coordinate (U)  at (2.32000,0);
+  \coordinate (Sp) at (2.97000,0);
+  \draw[fig] (0,1.30000) -- (3.60000,1.30000);
+  \draw[fig] (0,0) -- (3.65000,0);
+  \draw[fig] (R) .. controls +(0,0.64000) and +(0,0.64000) .. (S);
+  \draw[fig] (T) .. controls +(0,0.64000) and +(0,0.64000) .. (Sp);
+  \draw[tick] (1.82500,1.67200) -- (1.82500,1.88800);
+  \draw[tick] (1.79500,0.37200) -- (1.79500,0.58800);
+  \foreach \p in {R,S,T,U,Sp} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above left]  at (R)  {$R$};
+  \node[vlab,above right] at (S)  {$S$};
+  \node[vlab,below] at (T)  {$T$};
+  \node[vlab,below] at (U)  {$U$};
+  \node[vlab,below] at (Sp) {$S'$};
+\end{tikzpicture}
+\figcap{4--8}
+\end{minipage}\hfill
+\begin{minipage}{0.31\linewidth}\centering
+\begin{tikzpicture}[scale=0.72]
+  \coordinate (A)  at (0.75000,0.95000);
+  \coordinate (B)  at (2.60000,0.95000);
+  \coordinate (C)  at (3.40000,0.95000);
+  \coordinate (D)  at (0.75000,0);
+  \coordinate (E)  at (2.60000,0);
+  \coordinate (Cp) at (3.40000,0);
+  \draw[fig] (0,0.95000) -- (4.30000,0.95000);
+  \draw[fig] (0,0) -- (4.30000,0);
+  \draw[tick] (1.67500,0.84200) -- (1.67500,1.05800);
+  \draw[tick] (2.91700,0.84200) -- (2.91700,1.05800);
+  \draw[tick] (3.08300,0.84200) -- (3.08300,1.05800);
+  \draw[tick] (1.67500,-0.10800) -- (1.67500,0.10800);
+  \draw[tick] (2.91700,-0.10800) -- (2.91700,0.10800);
+  \draw[tick] (3.08300,-0.10800) -- (3.08300,0.10800);
+  \foreach \p in {A,B,C,D,E,Cp} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above] at (A)  {$A$};
+  \node[vlab,above] at (B)  {$B$};
+  \node[vlab,above] at (C)  {$C$};
+  \node[vlab,below] at (D)  {$D$};
+  \node[vlab,below] at (E)  {$E$};
+  \node[vlab,below] at (Cp) {$C'$};
+\end{tikzpicture}
+\figcap{4--9}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------ Figs 4-10, 4-11
+% 4-10 (Thm 4-2): AB=A'C' (double tick on the arcs), AC=A'B' (single tick).
+% 4-11: AC=A'B' (single tick), CX=B'C' (double tick).
+\newcommand{\FIGIVTENELEVEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A)  at (0.30000,1.15000);
+  \coordinate (C)  at (2.75000,1.15000);
+  \coordinate (B)  at (3.45000,1.15000);
+  \coordinate (Ap) at (0.30000,0);
+  \coordinate (Bp) at (2.75000,0);
+  \coordinate (Cp) at (3.45000,0);
+  \draw[fig] (0,1.15000) -- (4.30000,1.15000);
+  \draw[fig] (0,0) -- (4.30000,0);
+  \draw[fig] (A)  .. controls +(0,0.76000) and +(0,0.76000) .. (B);
+  \draw[fig] (Ap) .. controls +(0,-0.76000) and +(0,-0.76000) .. (Cp);
+  \draw[tick] (1.80000,1.62300) -- (1.80000,1.81700);
+  \draw[tick] (1.95000,1.62300) -- (1.95000,1.81700);
+  \draw[tick] (1.80000,-0.66700) -- (1.80000,-0.47300);
+  \draw[tick] (1.95000,-0.66700) -- (1.95000,-0.47300);
+  \draw[tick] (1.52500,1.05300) -- (1.52500,1.24700);
+  \draw[tick] (1.52500,-0.09700) -- (1.52500,0.09700);
+  \draw[fig,->,line width=0.55pt] (2.72000,0.14000)
+        to[bend right=28] (2.72000,1.01000);
+  \draw[fig,->,line width=0.55pt] (3.45000,1.01000)
+        to[bend right=28] (3.45000,0.14000);
+  \foreach \p in {A,C,B,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above left] at (A)  {$A$};
+  \node[vlab,above]      at (C)  {$C$};
+  \node[vlab,above]      at (B)  {$B$};
+  \node[vlab,below left] at (Ap) {$A'$};
+  \node[vlab,below]      at (Bp) {$B'$};
+  \node[vlab,below]      at (Cp) {$C'$};
+  \node[slab,left]  at (2.42000,0.57500) {then};
+  \node[slab,right] at (3.78000,0.57500) {if};
+\end{tikzpicture}
+\figcap{4--10}
+\end{minipage}\hfill
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A)  at (0.60000,0.95000);
+  \coordinate (C)  at (2.55000,0.95000);
+  \coordinate (X)  at (3.35000,0.95000);
+  \coordinate (Ap) at (0.60000,0);
+  \coordinate (Bp) at (2.55000,0);
+  \coordinate (Cp) at (3.35000,0);
+  \draw[fig] (0,0.95000) -- (4.20000,0.95000);
+  \draw[fig] (0,0) -- (4.20000,0);
+  \draw[tick] (1.57500,0.85300) -- (1.57500,1.04700);
+  \draw[tick] (2.87500,0.85300) -- (2.87500,1.04700);
+  \draw[tick] (3.02500,0.85300) -- (3.02500,1.04700);
+  \draw[tick] (1.57500,-0.09700) -- (1.57500,0.09700);
+  \draw[tick] (2.87500,-0.09700) -- (2.87500,0.09700);
+  \draw[tick] (3.02500,-0.09700) -- (3.02500,0.09700);
+  \foreach \p in {A,C,X,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above] at (A)  {$A$};
+  \node[vlab,above] at (C)  {$C$};
+  \node[vlab,above] at (X)  {$X$};
+  \node[vlab,below] at (Ap) {$A'$};
+  \node[vlab,below] at (Bp) {$B'$};
+  \node[vlab,below] at (Cp) {$C'$};
+\end{tikzpicture}
+\figcap{4--11}
+\end{minipage}
+\end{bkfigure}}
+
+% ------------------------------------------------------ Figs 4-12, 4-13
+% 4-12 (Thm 4-3): AB=A'B' (double tick), AC=A'C' (single tick on the arcs).
+% 4-13 (Thm 4-4): AD'=CD=EF.
+\newcommand{\FIGIVTWELVETHIRTEEN}{\begin{bkfigure}[\linewidth]
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A)  at (0.30000,1.25000);
+  \coordinate (B)  at (2.75000,1.25000);
+  \coordinate (C)  at (3.50000,1.25000);
+  \coordinate (Ap) at (0.30000,0);
+  \coordinate (Bp) at (2.75000,0);
+  \coordinate (Cp) at (3.50000,0);
+  \draw[fig] (0,1.25000) -- (4.10000,1.25000);
+  \draw[fig] (0,0) -- (4.10000,0);
+  \draw[fig] (A)  .. controls +(0,-0.60000) and +(0,-0.60000) .. (C);
+  \draw[fig] (Ap) .. controls +(0,-0.60000) and +(0,-0.60000) .. (Cp);
+  \draw[tick] (1.45000,1.15300) -- (1.45000,1.34700);
+  \draw[tick] (1.60000,1.15300) -- (1.60000,1.34700);
+  \draw[tick] (1.45000,-0.09700) -- (1.45000,0.09700);
+  \draw[tick] (1.60000,-0.09700) -- (1.60000,0.09700);
+  \draw[tick] (1.90000,0.70300) -- (1.90000,0.89700);
+  \draw[tick] (1.90000,-0.54700) -- (1.90000,-0.35300);
+  \draw[fig,->,line width=0.55pt] (2.75000,1.13000)
+        to[bend left=22] (2.82000,0.86000);
+  \foreach \p in {A,B,C,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above] at (A)  {$A$};
+  \node[vlab,above] at (B)  {$B$};
+  \node[vlab,above] at (C)  {$C$};
+  \node[vlab,below left] at (Ap) {$A'$};
+  \node[vlab,below]      at (Bp) {$B'$};
+  \node[vlab,below]      at (Cp) {$C'$};
+\end{tikzpicture}
+\figcap{4--12}
+\end{minipage}\hfill
+\begin{minipage}{0.47\linewidth}\centering
+\begin{tikzpicture}[scale=0.80]
+  \coordinate (A)  at (0,1.45000);
+  \coordinate (Dp) at (3.34012,1.70701);
+  \coordinate (B)  at (5.63333,1.88347);
+  \coordinate (C)  at (0,0.72000);
+  \coordinate (D)  at (3.33824,1.00033);
+  \coordinate (E)  at (0,0);
+  \coordinate (F)  at (3.34776,0.12274);
+  \draw[fig] (A) -- (B);
+  \draw[fig] (C) -- (D);
+  \draw[fig] (E) -- (F);
+  \foreach \p in {A,Dp,B,C,D,E,F} {\fill (\p) circle (1.5pt);}
+  \node[vlab,above left] at (A)  {$A$};
+  \node[vlab,above]      at (Dp) {$D'$};
+  \node[vlab,above]      at (B)  {$B$};
+  \node[vlab,above left] at (C)  {$C$};
+  \node[vlab,above]      at (D)  {$D$};
+  \node[vlab,above left] at (E)  {$E$};
+  \node[vlab,above]      at (F)  {$F$};
+\end{tikzpicture}
+\figcap{4--13}
+\end{minipage}
+\end{bkfigure}}

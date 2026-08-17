@@ -1,0 +1,447 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+
+% ---- local macros (hoist into book preamble) ----
+% Unnumbered star footnote, as the book sets its five notes in this chapter.
+% brumfiel.sty's \starnote emits a bare \footnotetext, which prints the
+% footnote counter ("0"); this chapter's notes carry a bare "*" and no number.
+\newcommand{\XVIstarnote}[1]{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{*#1}\endgroup}
+% In-text marker for those notes (a raised asterisk, as printed).
+\newcommand{\XVIstar}{\textsuperscript{*}}
+% ---- end local macros ----
+
+% This chapter is unbroken prose in a narrow measure, with several long
+% technical words; same allowance frontmatter.tex uses. Affects spacing only,
+% never wording.
+\emergencystretch=1.5em
+\hyphenation{non-math-e-mat-i-cal non-Eu-clid-e-an epis-te-mol-o-gy
+  math-e-ma-ti-cians char-ac-ter-is-tics grav-i-ta-tion-al phi-los-o-phers
+  con-tra-dic-to-ry in-tel-lec-tu-al sub-sci-ences}
+
+\begin{document}
+\setcounter{chapter}{16}
+
+\chapter*{\raggedright\Huge PHILOSOPHY OF\\MATHEMATICS}
+\addcontentsline{toc}{chapter}{16.\ Philosophy of Mathematics}
+\markboth{PHILOSOPHY OF MATHEMATICS}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+
+%========================================================= 16-1
+\section*{16--1\quad WHAT IS PHILOSOPHY?}
+\addcontentsline{toc}{section}{16--1\quad What is philosophy?}
+
+The word ``philosophy'' is a combination of two Greek words and means
+literally \emph{love of wisdom}. In the early Greek civilization, philosophy
+was the study of all branches of knowledge. As man's learning increased
+through the ages, certain disciplines grew until they split away from
+philosophy and became separate areas for study. We no longer think of
+medicine, law, mathematics, physics, chemistry, biology, economics, etc., as
+parts of philosophy, although philosophy was the father of all these sciences.
+That is, the first men who called attention to important concepts in
+mathematics, physics, chemistry, economics, political science, etc., were
+philosophers. It was philosophy that suggested how knowledge about these new
+areas should be collected and organized.
+
+Philosophy has always concerned itself with the unknown---with those
+situations in which man is not sure of himself. Because of this, many of the
+conclusions that philosophers reach cannot be checked by experiment, as we
+check physical laws, and consequently many people have the mistaken belief
+that time devoted to philosophical thought is largely wasted.
+
+It is impossible to describe briefly and clearly just what the subject matter
+of philosophy consists of today. Some of the branches into which philosophy is
+subdivided will be listed here, but we make no pretense of completeness.
+
+\emph{Moral philosophy}, or \emph{ethics}, investigates the nature of right
+and wrong. It is concerned with distinguishing between good and bad conduct.
+It raises questions like, ``Is an action to be judged good or bad according to
+its effect or its intent?'' ``What are \emph{good} and \emph{evil}?'' ``How
+shall we determine whether one action is better or worse than another?''
+
+\emph{Religious philosophy} is the study of concepts common to religions. On
+the other hand, \emph{theology} is concerned with the logical structure of a
+single religion.
+
+% NOTE (source oddity): the book jumps straight from "are constructed." into
+% the two quoted questions, with no "It raises questions like," lead-in of the
+% kind the moral-philosophy paragraph uses above. Verified at 300 dpi; it is
+% printed that way. Do not "repair" this.
+\emph{Political philosophy} does not consider details of government, but
+rather the principles upon which various systems of government are
+constructed. ``How much authority may the state exert over an individual?''
+``Are there fundamental human rights, which no state can usurp? If so, what
+are they?''
+
+\emph{Metaphysics} (``beyond'' physics) is sometimes described as the study of
+final or ultimate meanings. Much that is nonsense has been written in this
+area, but it includes many deep and fascinating insights.
+
+\emph{Epistemology} can be described briefly as the theory of knowledge. It
+considers the general questions, ``How do we learn?'' and, ``How shall we
+organize our knowledge?'' As a matter of fact, the philosophy of
+\emph{mathematics} is just a branch of epistemology; so you may think of this
+chapter as an introduction to a fragment of epistemology, which is itself a
+fragment of philosophy.
+
+It is impossible to discuss the philosophy of mathematics without considering
+the philosophy of science, for mathematics is used as a tool in every science
+to organize and interpret scientific knowledge. We shall mention how
+mathematics thus often leads to the discovery of new scientific facts.
+
+%========================================================= 16-2
+\section*{16--2\quad THE TASK OF SCIENCE}
+\addcontentsline{toc}{section}{16--2\quad The task of science}
+
+All information about what we call the \emph{real} or \emph{external} world is
+obtained from the five senses: sight, sound, taste, smell, and touch. Our
+sense organs, for example the eye, send messages to the brain. A newborn baby
+cannot do much with these messages, but as he grows older, he learns to
+interpret them. We are always amazed at the accomplishments of a person who is
+both blind and deaf (for example, Helen Keller), for it is difficult for us to
+grasp how such a person can have much understanding of the world. What we are
+inclined to forget is that all of us have learned how to interpret information
+from our sense organs so as to make useful responses. As you read this page,
+your eye receives impressions and sends messages to the brain. You have
+learned to interpret and respond to these messages.
+
+% NOTE (source oddity): "that is a touch" is printed without a comma after
+% "is" (modern usage would set "that is, a touch"). Verified at 300 dpi.
+% Reproduce as printed.
+\emph{Every scientific observation is, at first, a sense impression, that is a
+touch, smell, taste, sight, or sound, for some experimenter. It is the task of
+scientists to understand, explain, and predict happenings in the world of our
+sense impressions.}
+
+Some philosophers have suggested that because our only knowledge of the
+external world comes from sense perception, \emph{we cannot even prove that
+the external world has any existence apart from our sense perception of it;
+that perhaps the world that we believe we see, touch, and smell exists only as
+things exist in a dream.}
+
+% NOTE (source error, reproduce as printed): Berkeley is called a
+% "17th-century" philosopher. He is 18th-century (1685--1753). The error is
+% the book's --- see ch16-UNCERTAIN.md item 4. Do not silently correct.
+The story is told that the great 17th-century philosopher Bishop Berkeley was
+so convinced by this line of thought that one day, when he was walking and
+meditating upon philosophical ideas, he encountered a large stone in his path
+and so much doubted the actual existence of the stone that he drew back his
+foot and gave it a vigorous kick. We have no record of the good bishop's
+thoughts as he hobbled home.
+
+%========================================================= 16-3
+\section*{16--3\quad KINDS OF SCIENCE}
+\addcontentsline{toc}{section}{16--3\quad Kinds of science}
+
+The world is very complicated, and we have little understanding of it. To
+simplify the task of understanding our environment, certain topics that seem
+somewhat related are studied by themselves as separate sciences. For example,
+biology is the study of living organisms, and biology is itself separated into
+several subsciences, like zoology, the study of animal life, and botany, the
+study of plant life. To understand all aspects of biology, it is necessary to
+know some chemistry and physics. For this reason chemistry and physics are
+regarded as more basic, or more fundamental, than biology. Of the sciences
+concerned with the real world, the most fundamental is physics, which deals
+with the properties of matter.
+
+All sciences become \emph{quantitative} when they have progressed far enough.
+This means that measurements are made and numbers are introduced into the
+sciences. Those things which we measure, and to which we assign numbers, are
+called \emph{quantities}. As soon as numbers are introduced into a science,
+mathematics becomes necessary for its study. As a matter of fact, one needs
+geometry in order to discuss the physics of motion of bodies, even before one
+makes measurements. Even psychology and sociology, two of the newer sciences
+that have only recently split away from philosophy, need statistics in order
+to organize and interpret the huge number of facts with which they deal. Thus
+all the sciences depend upon mathematics, so that it has been termed ``the
+handmaiden of the sciences.''\XVIstar
+% NOTE (source oddity): the footnote names Baltimore twice. Verified at
+% 300 dpi --- the duplication is genuinely printed. Do not correct.
+\XVIstarnote{E.~T. \textsc{Bell}, \emph{The Handmaiden of the Sciences}.
+Baltimore: The Williams and Wilkins Co., Baltimore, 1937.}
+
+Sometimes mathematics itself is classified as one of the sciences; and
+sometimes one hears the phrase ``science \emph{and} mathematics.'' In any
+event, call it what you may, mathematics is different from the other sciences
+in that it is \emph{independent of experiments}. \emph{Mathematics is a
+creation of the mind alone.}
+
+%========================================================= 16-4
+\section*{16--4\quad IS PHYSICS TRUE?}
+\addcontentsline{toc}{section}{16--4\quad Is physics true?}
+
+We cannot give an acceptable definition of physics in a few words, but it will
+not take long to make the question of this section meaningful. You have
+studied a little physics previously, so you should know that physics is
+concerned with forces, motion, heat, sound, electricity, and much else. For
+example, in that part of physics called mechanics, it is learned that if at
+some instant we know the position and velocity of a ball, and if in addition
+we know the forces acting upon it, then we can \emph{calculate} where it will
+be at any later time.
+
+You need not concern yourself here with the exact method used to make this
+calculation. What is important is that \emph{given certain information, we can
+predict what will happen}. Physics, and indeed every science, is just as
+``true'' as its predictions are \emph{reliable}. As soon as a physical theory
+fails to predict what will happen, then it becomes necessary to construct a
+new theory that will predict more accurately. In physics, the final test of
+``truth'' is whether the predictions we get from our theory actually agree
+with our observations. As an example of this, Aristotle had written in his
+\emph{Physics} that heavier bodies would fall more rapidly than lighter ones.
+This prediction is a logical consequence of Aristotle's physical
+\emph{theories}, or \emph{laws}. Every school child knows how Galileo
+\emph{proved} these theories \emph{false} by dropping balls of various sizes
+and weights from the leaning tower of Pisa. Every observer who was open-minded
+enough to watch the experiment (and there were indeed some who were not)
+became convinced that Aristotle's laws of motion were false and that it was
+necessary to replace them by new laws that would come closer to predicting the
+events that were actually observed.
+
+The physical laws used by the physicist to make his predictions are actually
+\emph{assumptions} and are expressed in terms of mathematical formulas. If the
+mathematical calculations employed do not lead to correct predictions, this
+does not mean that the mathematics is incorrect.\XVIstar\ Instead it means
+that the physical laws do not agree well enough with reality, that the
+\emph{physical assumptions} are at fault.
+\XVIstarnote{Of course someone could make a computational mistake, but this is
+the fault of the computer, not of the mathematics he is using.}
+
+When the physicist defines physical concepts like force, weight, etc., and
+then gives physical laws that tell how these concepts are related, he is
+creating what we call a \emph{mathematical model}. What he is saying is that
+\emph{if} there are things in the real world that correspond to these
+concepts, and \emph{if} these things are related to one another according to
+the rules called physical laws, \emph{then} mathematics tells us what will
+happen in the real world.
+
+If the predictions come out wrong, then the physicist must construct a better
+mathematical model. Often it happens that the physicist cannot solve the
+mathematical problems that arise within the mathematical model. Then he calls
+upon the mathematician for help. In this way physics supplies mathematics with
+interesting problems.
+
+As an example of a simple mathematical model, consider our solar system. The
+physicist thinks of the sun and planets as points that are tracing out curves
+as they move through space. By using calculus and analytic geometry, these
+curves are described by mathematical equations that predict how the planets
+ought to move through the sky if the law of gravitation is valid.
+
+% NOTE (source error, reproduce as printed): the book dates the
+% Uranus/Neptune episode to "early in the 18th century". Adams and LeVerrier
+% worked in the 1840s, and Uranus was not discovered until 1781. The error is
+% the book's --- see ch16-UNCERTAIN.md item 4. Do not silently correct.
+It is most interesting that early in the 18th century, when astronomers
+calculated how the planets \emph{should} move according to the law of
+gravitation, it was noticed that one of the planets, Uranus, did not follow
+the exact path predicted for it by the mathematical model. The astronomers had
+so much faith in the mathematical model that they became sure that there must
+be an ``invisible'' planet, which was pulling Uranus off its course with its
+gravitational attraction. The Englishman John C. Adams and the Frenchman
+LeVerrier set about attempting to solve the problem of determining the path of
+the ``invisible'' planet.\XVIstar\ Working with the mathematical model, they
+computed where it \emph{ought} to be to affect the course of Uranus as it did.
+When observers focused their telescopes upon that part of the heavens, they
+saw the planet Neptune precisely where the mathematical model predicted that
+it would be found. This is but one of the many dramatic illustrations of how
+an \emph{abstract} mathematical model can lead us to the discovery of new
+facts about our universe.
+\XVIstarnote{A fascinating account of this work can be found in
+J.~R.~Newman's \emph{The World of Mathematics}. Vol.~2, pp.~822--839.}
+
+%========================================================= 16-5
+\section*{16--5\quad IS MATHEMATICS TRUE?}
+\addcontentsline{toc}{section}{16--5\quad Is mathematics true?}
+
+If by this question we mean, ``Does the real world behave like the
+mathematical models that we construct?'' then we are asking a nonmathematical
+question. The \emph{truth} of mathematics is independent of the real world.
+The \emph{usefulness} of one kind of mathematics or another does depend upon
+the real world.
+
+\emph{Pure mathematics is concerned with the logical consequences of postulate
+systems.} In pure mathematics, postulate systems are studied primarily because
+they are interesting, and often without regard to any future use. In the
+history of mathematics, there are many postulate systems that have been
+studied for their own sakes and only much later found to be applicable to the
+external world. For example, the non-Euclidean geometry needed in the theory
+of relativity was first studied many years before any physical application of
+it was made.
+
+\emph{Applied mathematics is concerned with those parts of pure mathematics
+that are of greatest use in the science of today.} Scientific applications
+often suggest the constructions of new postulate systems. Mathematics and
+science thus serve as stimuli to each other.
+
+We have not yet given a direct answer to the question, ``Is mathematics
+true?'' What is ``truth,'' anyway? Each of us has some sort of feeling about
+what ``truth'' means. Truth, for the physicist, is \emph{that which works},
+and this attitude is characteristic of science. Truth, in practical affairs,
+usually refers to \emph{whether some event actually took place}. Here, we
+often take the word of others whom we trust. Truth, in spiritual matters,
+depends upon \emph{faith}. In general, agreement among people regarding
+spiritual beliefs is difficult to obtain, for there is no test by experience
+that we can all agree upon.
+
+When we say that a system of mathematical postulates is ``true,'' we mean
+only, \emph{these postulates are free from contradiction}. That is, if it is
+impossible to prove from our postulates that a statement is true, and then
+also prove that the same statement is false, in this case and only in this
+case do we call our postulates true. Remember that we do not assert in
+mathematics that anything actually exists in the physical world. Rather, our
+theorems have the form: \emph{If} a set of things has so-and-so properties,
+\emph{then} it has such-and-such properties.
+
+We have developed our geometry this year from statements that dealt with a set
+of points that we called our plane. A mathematician is naturally pleased to
+encounter in the physical world a set of objects that actually has the
+properties he has postulated for one of his mathematical systems, for then he
+can be sure that the set he finds will have other properties that he has
+established by studying his abstract system. A natural question to ask at the
+close of this year's study of geometry is whether there actually exists in the
+real world a set of things that satisfies the postulates of our geometry. Does
+the space we live in actually have the properties of the Euclidean space we
+study in geometry?
+
+The answer will probably not satisfy you. The answer is, \emph{we do not know.
+Furthermore, no mathematician ever expects to know.} Our geometric plane
+consists of \emph{infinitely} many points. \emph{It will never be possible to
+determine whether our universe is finite or infinite in extent.} Although we
+have no assurance that any part of the real world actually fits our geometric
+postulates, experience has shown us that much of our geometric theory is
+applicable to the world around us; and we can indeed use our geometry to make
+very accurate predictions.
+
+%========================================================= 16-6
+\section*{16--6\quad FREEDOM FROM CONTRADICTION}
+\addcontentsline{toc}{section}{16--6\quad Freedom from contradiction}
+
+In this section we discuss a very deep question. When we have a postulate
+system before us, how do we know that these postulates are
+\emph{consistent}? How do we know that we shall never deduce from these
+postulates, by correct logical reasoning, two contradictory conclusions? Let
+us give an example, first given by Bertrand Russell,\XVIstar\ to illustrate
+what we mean.
+\XVIstarnote{An English philosopher who is interested in the foundations of
+mathematics. At about the turn of the century, he wrote \emph{Principia
+Mathematica} with A.~N. Whitehead. In the book they attempt to derive all
+mathematics from logic alone.}
+
+\emph{Russell's barber.} Let us assume that, in a certain small town, there is
+but one barber. We assume that this barber shaves everyone in the town who
+does not shave himself, and no one else.
+
+We now ask who shaves the barber.
+
+\emph{If} the barber does not shave himself, \emph{then} he is a person who
+does not shave himself, and therefore he is shaved by the barber---himself.
+Since this is impossible, we have proved that the statement \emph{``The barber
+does not shave himself''} is false. Hence, the barber shaves himself. But, by
+our assumptions, \emph{if} the barber shaves himself, \emph{then} he is one of
+the men who is not shaved by the barber---again himself. This proves that the
+statement \emph{``The barber shaves himself''} is false, and hence,
+\emph{``The barber does not shave himself,''} is true. But now we have arrived
+at a contradiction, having shown from our postulates that the statement
+\emph{``The barber does not shave himself'' is both true and false.}
+
+This example shows that in forming a set of postulates, we must be careful
+that our postulates are consistent; that is, that they do not lead to
+contradictory conclusions. When our postulate sets are very simple, it is
+sometimes possible to prove that no contradiction can ever be reached by
+logical reasoning. For more complicated postulate sets, this may not be
+possible.
+
+David Hilbert spent much of the latter portion of his life trying to prove the
+consistency of certain interesting mathematical systems. At about the same
+time that he wrote his \emph{Foundations of Geometry}, he showed that geometry
+is consistent if arithmetic is consistent. He accomplished this proof by using
+the ideas of Chapter 15. The details need not concern us here. All we need
+know is that our geometry is consistent if arithmetic is. We should remark
+that non-Euclidean geometries have also been proved to be consistent,
+providing that arithmetic is. Of course this has nothing to do with the
+question of whether the space we live in is Euclidean or non-Euclidean.
+
+% NOTE: "0 = 1" is set inline; the exclamation mark after it is rhetorical,
+% NOT a factorial. Do not typeset it as $0 = 1!$ in a way that reads as one.
+Now, how do we know that arithmetic is consistent? The answer may again seem
+disappointing, for the answer is, \emph{we do not know!} Perhaps we never will
+know! There is no proof that we can never be led to an impossible conclusion
+in arithmetic. For example, we do \emph{not} know that it is impossible to
+\emph{prove}, by a valid chain of logical arguments, that $0 = 1$!
+
+All mathematicians believe that arithmetic is consistent. This belief is based
+upon faith, not proof. Of course, arithmetic is useful. It works, and helps us
+reach conclusions that turn out to be correct. But here is the position in
+which the scientist finds himself. If an inconsistency is discovered in
+arithmetic, the postulates for arithmetic will have to be changed. The
+possibility seems to be remote, so it does not worry working mathematicians
+too much.
+
+%========================================================= 16-7
+\section*{16--7\quad MATHEMATICAL RESEARCH}
+\addcontentsline{toc}{section}{16--7\quad Mathematical research}
+
+Euclid's geometry is more than 2000 years old. The average person holds the
+erroneous opinion that all of mathematics was discovered long ago, and that
+today we study only old stuff. There are, however, many journals published
+throughout the world that are devoted primarily to \emph{new} mathematics. In
+fact, during the past fifty years, more new mathematics has been
+invented\XVIstar\ than in all previous history! Mathematical progress is
+stimulated by both intellectual curiosity and the needs of modern science.
+Because of the mathematical nature of modern science and engineering,
+mathematicians are in greater demand than ever before and command excellent
+salaries.
+\XVIstarnote{Is mathematics \emph{discovered} or \emph{invented}? The first
+word suggests that mathematics is ``sitting around waiting to be found.'' The
+second suggests that mathematics is created by the mind, that human activity
+is essential.}
+
+It is impossible to describe here the breadth and depth of current
+mathematical research. As yet, we have not undertaken enough elementary
+mathematics to appreciate such a description. However, in your study of plane
+geometry, you have made a fine beginning by studying a single mathematical
+system in some detail. The logical features of geometry are common to all
+mathematics, so that you have before you one example of a postulate system and
+some of its consequences.
+
+%========================================================= 16-8
+\section*{16--8\quad MATHEMATICS AND LIFE}
+\addcontentsline{toc}{section}{16--8\quad Mathematics and life}
+
+How may an understanding of the philosophy of mathematics affect you as an
+individual in your everyday life? Mathematicians are much like any other
+group. If you were to attend the International Congress of Mathematicians,
+which convenes once every four years, you would see a group of people
+differing widely in dress, speech, religious and political beliefs, and
+physical appearance. But you would, if you were observant enough, see many
+common characteristics. Everyone there would have a way to communicate with
+everyone else---not through English, French, German, or Russian, but through
+the universal symbolism of mathematics. You would soon realize that these
+folk, while actively interested in the real world, were still far more
+interested in the world of ideas.
+
+You would see that each one present had a tremendous respect for the
+personalities and intellectual capabilities of his neighbors.
+
+The philosophy of mathematics speaks to those who will listen and assures them
+that even more important than wresting food, shelter, and material riches from
+the earth is the acquisition of knowledge and understanding.
+
+%========================================================= Suggested Reading
+\par\medskip
+\begin{center}\bfseries SUGGESTED READING\end{center}
+\par\nopagebreak\medskip
+
+\noindent From \emph{The World of Mathematics}, by J.~R.~Newman.
+\begingroup\raggedright
+\begin{exlist}
+\item \textsc{Philip} E.~B. \textsc{Jourdain}, ``The Nature of Mathematics.''
+      Vol.~1, pp.~4--71.
+\item J.~W.~N. \textsc{Sullivan}, ``Mathematics as an Art.''
+      Vol.~3, pp.~2015--2021.
+\item \textsc{Raymond} L. \textsc{Wilder}, ``The Axiomatic Method.''
+      Vol.~3, pp.~1647--1667.
+\end{exlist}
+\endgroup
+
+\end{document}

@@ -1,0 +1,256 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+
+% ---- local macros (hoist into book preamble) ----
+% Halftone photographs in the original are reproduced as PLATES: a framed
+% placeholder carrying the original caption. Never redrawn.
+%   #1 = placeholder height, #2 = caption block (already formatted)
+\newcommand{\FMplate}[2]{%
+  \par\medskip
+  \begin{center}
+  \fbox{\begin{minipage}[c][#1][c]{0.68\linewidth}\centering\footnotesize\itshape
+    halftone photograph\\ not reproduced in this edition
+  \end{minipage}}%
+  \par\smallskip
+  {\footnotesize #2}
+  \end{center}
+  \par\medskip}
+
+% Title-page author line: name in letterspaced caps, affiliation in italic.
+\newcommand{\FMauthor}[2]{%
+  \par\medskip
+  {\large\scshape #1}\par
+  {\footnotesize\itshape #2}\par}
+% Narrow measure (145 mm trim) + Palatino: give TeX a little slack so the
+% justified prose paragraphs set without overfull lines.
+\emergencystretch=1.5em
+
+% Blank versos forced by \chapter* (openright) must carry no folio or head.
+\makeatletter
+\def\cleardoublepage{\clearpage
+  \if@twoside\ifodd\c@page\else
+    \null\thispagestyle{empty}\newpage
+    \if@twocolumn\hbox{}\newpage\fi
+  \fi\fi}
+\makeatother
+% ---- end local macros ----
+
+\begin{document}
+\pagenumbering{roman}
+
+%========================================================= half title
+\thispagestyle{empty}
+\begin{center}
+  \vspace*{0.28\textheight}
+  {\Huge GEOMETRY}
+\end{center}
+\clearpage
+
+%========================================================= p. i  series page
+\thispagestyle{empty}
+\null\vfill
+\begin{center}
+  {\footnotesize This book is in the}\par\smallskip
+  {\normalsize ADDISON-WESLEY SCIENCE EDUCATION SERIES}\par
+  \rule{0.28\linewidth}{0.4pt}\par\smallskip
+  {\footnotesize\itshape Consulting Editors}\par\smallskip
+  {\footnotesize
+   \begin{tabular}{@{}ll@{}}
+   \textsc{Richard S. Pieters} \quad & \textsc{Paul Rosenbloom}\\
+   \textsc{George B. Thomas, Jr.} \quad & \textsc{John Wagner}
+   \end{tabular}}
+\end{center}
+\vfill
+\clearpage
+
+%========================================================= p. ii  frontispiece
+% Euclid frontispiece: engraved/halftone portrait plate facing the title page.
+\thispagestyle{empty}
+\null\vspace*{0.06\textheight}
+\FMplate{52mm}{%
+  \textsc{Euclid}\\
+  Courtesy of\\
+  \textit{Scripta Mathematica}}
+\vfill
+\clearpage
+
+%========================================================= p. iii  title page
+\thispagestyle{empty}
+\null\vspace*{0.10\textheight}
+\begin{center}
+  {\Huge GEOMETRY}\par
+  \vspace{2.2em}
+  \FMauthor{Charles F. Brumfiel}{Ball State Teachers College}
+  \FMauthor{Robert E. Eicholz}{Ball State Teachers College, Burris Laboratory School}
+  \FMauthor{Merrill E. Shanks}{Purdue University}
+  \vspace{3.2em}
+
+  {\normalsize ADDISON-WESLEY PUBLISHING COMPANY, INC.}\par
+  {\footnotesize READING, MASSACHUSETTS, U.S.A.}\par
+  {\footnotesize LONDON, ENGLAND}
+\end{center}
+\vfill
+\clearpage
+
+%========================================================= p. iv  copyright
+% Original copyright statement, transcribed as printed in the 1961 second
+% printing. Reproduced as a historical record of the source edition.
+\thispagestyle{empty}
+\null\vspace*{0.22\textheight}
+\begin{center}
+  {\itshape Copyright \textcopyright\ 1960}\par
+  {\normalsize ADDISON-WESLEY PUBLISHING COMPANY, INC.}\par
+  \rule{0.30\linewidth}{0.4pt}\par
+  {\itshape Printed in the United States of America}\par
+  \vspace{1.1em}
+  {\footnotesize\textsc{All rights reserved. This book, or parts thereof,
+   may not be reproduced in any form without written permission of the
+   publisher.}}\par
+  \vspace{0.9em}
+  {\itshape Library of Congress Catalog Card No. 60-8336}\par
+  \vspace{1.4em}
+  {\normalsize Second printing, February, 1961}
+\end{center}
+\vfill
+\clearpage
+
+%========================================================= contents
+% The printed book's CONTENTS list (book pp. v--viii) is deliberately NOT
+% transcribed: the assembled edition generates its own table of contents from
+% the \addcontentsline entries in each unit. The integration agent places
+% \tableofcontents here.
+
+%========================================================= PREFACE  (p. ix)
+\chapter*{\centering\Large PREFACE}
+\addcontentsline{toc}{chapter}{Preface}
+\markboth{PREFACE}{PREFACE}
+
+It is a common belief that plane geometry was completed by Euclid 2000 years ago
+and that nothing has been added to it or taken from it since. This is simply not
+true. That there are logical gaps in Euclid's presentation has been known for a
+long time. Means to remedy these deficiencies have been known for about sixty
+years, but strangely enough a mathematically adequate and yet elementary
+treatment of plane geometry in the spirit of Euclid has not appeared in print.
+This text represents an earnest effort to do just this. The current interest in
+improvement of the secondary school curriculum makes this an appropriate time
+for such an attempt.
+
+This book, in earlier unpublished versions, has been taught to \emph{normal}
+classes in \emph{average} high schools for five years. Many of the classes were
+taught by one of us in the Burris School, the laboratory school of Ball State
+Teachers College, but the material has been taught in other schools by teachers
+who had had no previous special training in geometry. Our experience is that
+both student and teacher find this treatment of geometry stimulating. The good
+students become excited about mathematics and the students of average ability
+learn the basic geometric facts.
+
+Besides its mathematical completeness, an attribute that makes for clarity and
+ease of understanding, there are several features which we think important.
+
+There is a full chapter on logic early in the text. It pays the teacher to
+return to this logic again and again in order to clarify the principles
+underlying deductive proof. For the nonscience student, this chapter on logic
+may be the item of greatest permanent value.
+
+The postulates are presented in groups, as needed, with a resulting gain in
+clarity and simplicity. Although it is true that at the start most students are
+hardly ``provers,'' by the end of the year a considerable part of the class will
+exhibit real mathematical perception. In the early stages the small number of
+postulates makes proofs easier to construct.
+
+Definitions are given explicitly; that is, they are formally labeled as such. It
+is one of our prime objectives to get the student to see that precise
+definitions are necessary for proofs.
+
+There is plenty of material for a full year's work for all kinds of classes.
+More difficult sections, theorems, or exercises are marked with an asterisk, and
+some of the more difficult theorems may be treated as postulates. The chapters
+on analytic geometry, locus, solid geometry, and philosophy of mathematics
+provide supplementary material beyond the standard course. The chapter on solid
+geometry alone could occupy a good portion of a semester if desired.
+
+There is a review of important concepts at the end of each chapter. In addition,
+there are algebra review sections, designed not only to refresh skills but also
+to bring out the logical structure of algebra.
+
+The Appendix lists all the postulates, plus the principal definitions and
+theorems. Besides being a convenient reference, the Appendix is worth studying
+during the year, for it gives, in brief, the step-by-step construction of the
+full geometry.
+
+We believe that the text raises students' reading ability. There is little
+verbiage. Each section has a definite purpose, and the text is directed to this
+purpose. Good classroom discussion, with careful attention to the use of words,
+will add much to each student's ability to express himself clearly.
+
+A separate Teachers' Manual gives greater detail on selection of topics,
+emphasis, and time schedule. There is also an Answer Book for the exercises.
+
+It is a great pleasure to thank all those who have helped us with encouragement
+or constructive criticism. Special thanks are due to Dr.\ Curtis Howd, Principal
+of the Burris Laboratory School, who encouraged us and made possible the
+experimental sections; to Professor Jack Forbes, who observed many of the
+classes in various schools and who insisted that the mathematics be correct; to
+teachers at the Burris School, and many others, who by teaching the material
+have improved the exposition; to The National Science Foundation, which, through
+a grant for in-service institutes at Ball State, enabled us to reach a wider
+audience and see the text taught by many teachers in a variety of school
+situations; and finally, to our wives, who have waited impatiently for the
+publication day.
+
+\vspace{1.2em}
+\noindent
+\begin{minipage}[t]{0.45\linewidth}
+\itshape January 1960
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\raggedleft C.\,B., R.\,E., M.\,S.
+\end{minipage}
+
+%========================================================= FOREWORD  (p. xi)
+\chapter*{\centering\Large FOREWORD TO THE STUDENT}
+\addcontentsline{toc}{chapter}{Foreword to the Student}
+\markboth{FOREWORD TO THE STUDENT}{FOREWORD TO THE STUDENT}
+
+Mathematics is much more than a collection of interesting facts and useful tools
+for solving special problems. Mathematics is primarily concerned with the
+\emph{development} of important ideas. Frequently mathematicians develop an
+interesting mathematical theory that is apparently useless so far as the
+solution of practical problems is concerned. Later someone finds that this
+mathematics fits very nicely into the pattern of some complicated practical
+problem. The mathematical theory then becomes a useful tool.
+
+As a branch of mathematics, geometry is first of all concerned with the
+development of geometrical theory. As you study geometry you will see again and
+again how the geometrical concepts fit into patterns in the real world and
+become helpful in the solution of practical problems.
+
+Mathematics requires thought, and thinking deserves your best effort. Do not
+hesitate to ask questions.
+
+\vspace{1.0em}
+\noindent
+\begin{flushright}
+Good luck,\par
+\textit{The Authors}
+\end{flushright}
+
+%========================================================= p. xii  Hilbert plate
+% Halftone photograph on book p. xii, facing the Chapter 1 opener (book p. 1).
+% Kept here because p. xii falls inside the front-matter page range; if the
+% ch01 unit also carries it, drop one copy at integration.
+\clearpage
+\thispagestyle{empty}
+\null\vspace*{0.05\textheight}
+\FMplate{58mm}{%
+  \textsc{David Hilbert}\\
+  \textit{(1862--1943)}\\
+  Professor of Mathematics,\\
+  University of G\"ottingen, Germany\\[2pt]
+  Perhaps the world's foremost mathematician during the\\
+  first half of the twentieth century.\\[2pt]
+  \textit{Courtesy of the New York Public Library.}}
+\vfill
+
+\end{document}
