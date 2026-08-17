@@ -42,8 +42,4 @@ python3 tools/check_labels.py chapters/figures06.tex 6   # label/geometry collis
 
 This repo carries what builds the edition, and nothing else. The source
 photographs and scans of the physical book, the page map and scan indexes,
-and the project's working notes are all local-only — they matter for
-*revising* figures, not for producing the PDF. One consequence:
-`tools/build_index.py` reads a page map that isn't here, so the index can't
-be regenerated from a fresh clone. The generated `chapters/bookindex.tex` is
-committed, so the book still builds.
+and the project's working notes are all local-only. 
