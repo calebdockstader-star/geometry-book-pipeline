@@ -279,3 +279,92 @@ I needed no fallback to the scans. Questions #2 (printer's slips) and #3
 (overline normalisation) in §7 remain genuinely open, but they are editorial
 policy for the whole book, not ch07 uncertainties. Figure debts in §6 were out
 of scope and are untouched.
+
+---
+
+## 9. Figure repair pass — 2026-08-17 (`feedback/FIX-SPEC.md`)
+
+Second pass, figures only. Text untouched (signed off). Gates re-run:
+compiles twice clean · constraints **95/95** · `check_labels` **0 COLLIDE**
+(32 TIGHT, all eyeballed) · all 29 rendered pages rasterised and inspected.
+
+### §2 — exercise-group figures moved inline
+
+**15 figures inlined** with `\exfig{}`, each directly after the exercise that
+cites it, and `multicols` dropped from the five exercise groups that carry
+figures (7-2, 7-3, 7-4, 7-5, 7-7, 7-8 and the Review Exercises). Exercise
+groups 7-1, 7-6 and the Algebra Review have no figures and keep their two
+columns, as the spec requires.
+
+| group | figures now inline after |
+|---|---|
+| 7-2 | 7-5 (ex. 4) |
+| 7-3 | 7-7 (ex. 1), 7-8 (ex. 3) |
+| 7-4 | 7-11 (\*4), 7-12 (\*5), 7-13 (\*7), 7-14 (ex. 9) |
+| 7-5 | 7-16 (ex. 3) |
+| 7-7 | 7-29 (ex. 4) |
+| 7-8 | 7-31 (\*8), 7-32 (\*9) |
+| Review | 7-33 (16), 7-34 (17), 7-35 (18), 7-36 (19) |
+
+**6 combined macros split** into 12 full-width ones, `minipage`/`\hfill`
+scaffolding dropped and each picture re-fitted by hand (the spec forbids
+running `measure_figures.py` in a parallel pass):
+`\FIGVIISEVENEIGHT` → `\FIGVIISEVEN` + `\FIGVIIEIGHT`;
+`\FIGVIITHIRTEENFOURTEEN` → `\FIGVIITHIRTEEN` + `\FIGVIIFOURTEEN`;
+`\FIGVIITWENTYNINETHIRTY` → `\FIGVIITWENTYNINE` + `\FIGVIITHIRTY`;
+`\FIGVIITHIRTYONETHIRTYTWO` → `\FIGVIITHIRTYONE` + `\FIGVIITHIRTYTWO`;
+`\FIGVIITHIRTYTHREETHIRTYFOUR` → `\FIGVIITHIRTYTHREE` + `\FIGVIITHIRTYFOUR`;
+`\FIGVIITHIRTYFIVETHIRTYSIX` → `\FIGVIITHIRTYFIVE` + `\FIGVIITHIRTYSIX`.
+
+Fig 7-30 is **not** an exercise figure — it belongs to Construction 7-7 — so
+splitting it out of the 7-29/7-30 pair let it move to the body, beside that
+construction, exactly where the book prints it (p.129).
+
+Left combined on purpose (the book prints each pair/triple as one captioned
+unit on one line, and none is cited by an exercise): 7-2/7-3, 7-9/7-10,
+7-15 (two panels under a single figure number), 7-18/7-19, 7-20/7-21,
+7-22/7-23, 7-24/7-25, 7-26/7-27/7-28.
+
+### §3 — figures corrected
+
+| fig | what was wrong → what was done |
+|---|---|
+| 7-8 | both angle arcs at *Q* missing, leaving two stray ticks that read as segment marks → struck the two graduated arcs (∠*PQS* inner, ∠*SQR* outer) with one radial tick each |
+| 7-17 | blunt parallel legs, under-drawn hinge, square bracket → redrawn: collar band, capsule hinge over the pivot circle, rounded shoulders, tapered legs, solid needle point, pencil clamp (sleeve + thumb-screw tab) with protruding lead, and a true curly brace with a cusp, *r* tucked under it |
+| 7-18 | three small arcs at *B*, *C*, *D* missing so the labels floated → struck all three at graduated radii (0.70 / 0.82 / 0.94) and moved *B*, *C*, *D* to just outside their own arcs |
+| 7-21 | *E* and *H* dragged together into the gap between the two constructions → *E* set tight under its point, the two constructions separated (A raised 1.75 → 1.95); also added the arc of radius *DE* about *E* that the book strikes at *D*, and stopped both compass arcs **on** the horizontal ray as the book does |
+| 7-22 | *C*′ drawn as a solid tick → dashed compass arc crossing the ray; *B*′ arc lengthened so its dashes show |
+| 7-23 | *B*′ a plain solid ×, *C*′ a straight solid tick → both are now dashed construction arcs (arc spans 20° → 30°, which is what makes the dash pattern read); *B*′ label moved above-right of the crossing |
+| 7-26 | *P*'s label sat on its own dot → lifted clear |
+| 7-28 | one merged arc at *A*, *l* extended left of the apex, rays stopping dead at *P*/*P*′, tick-like marks at *B*/*C* → two equal-radius arcs with a break at *l*; *l* now begins at *A*; both rays and the perpendicular overshoot their crossings so *P* and *P*′ read as ×'s; *B*/*C* spaced wider with their labels clear of the dots |
+| 7-29 | no angle arcs, ray *AP*′ stopping dead, no dots at *P*/*P*′, over-long left stub of *l* → arcs for ∠1 and ∠2 at 30 % of *AP*, ray *AP*′ runs 22 % past *P*′, *AP* overshoots by a hair, `\dt` at both points, stub shortened and *l*'s right-hand tail lengthened so *PP*′ crosses at 42 % of *l* (the book's proportion) |
+| 7-30 | **bisector ray *AQ* missing entirely**, construction arcs shrunk to a `( • )`, no tick at *B* → ray *AQ* drawn through *Q* and just past it; the two equal-radius arcs about *B* and *C* now cross in an X at *Q*; tick added at *B*; proportions rebuilt from the source (side *AC* short and near-vertical, side *AB* long at −28.9°, *r* = *AB* = *AC*) |
+| 7-31 | *P*'s label thrown 0.4 units down-**left** of the crossing it names → moved immediately right of the dot, as the book sets it; *C*′ label to below-right |
+| 7-32 | all four angle arcs missing, numerals halfway out along the rays, both fans rotated above the horizontal, *E*/*D* colliding → four arcs struck near the vertex with each numeral hugging its own arc; fans now straddle the horizontal (28° / 13° / −2°); ray lengths follow the book (top ray shortest); *D* and *E* now 1.26 cm apart |
+| 7-13 | *D*'s label lay on segment *ADE* → moved to the free quadrant |
+
+Sweep of the rest of the chapter turned up no further missing arcs: 7-2, 7-3,
+7-6, 7-9, 7-11 (double arcs), 7-24, 7-25 and 7-27 already carry every mark the
+book draws, checked figure by figure against pp.130–146.
+
+### Open / unsettled
+
+1. **Fig 7-32 numeral radius.** The book sets its numerals at ~33 % of the ray
+   length; ours sit at ~41 %. Going closer makes the glyph box touch the
+   middle ray and `check_labels` reports COLLIDE — the printed digits are
+   physically larger relative to our figure than the book's are. The arcs sit
+   just inside the numerals, so each still reads as "arc + its number", which
+   was the substance of the complaint. Flagging in case Caleb wants the
+   numerals tighter at the cost of a TIGHT/COLLIDE entry.
+2. **Fig 7-17 is pictorial, not geometric**, so it carries no constraints and
+   cannot be verified numerically — only by eye against p.123. It is much
+   closer now (hinge, taper, tips, brace) but the hinge assembly is an
+   interpretation, not a trace. If Caleb wants it exact it should become a
+   scan crop like the other pictorial line art in §4 of the spec.
+3. **Page 24 of the standalone chapter render is loosely filled** (Fig 7-31
+   now stands full width between exercises \*8 and \*9). That is chapter-level
+   pagination only; it will re-flow when `book.tex` is assembled, so I have
+   not fought it here.
+4. `figures07.tex` now loads `decorations.pathreplacing` (for Fig 7-17's
+   curly brace). Harmless and idempotent, but the integration agent may prefer
+   to hoist that `\usetikzlibrary` into `style/brumfiel.sty`.

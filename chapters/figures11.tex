@@ -255,10 +255,17 @@
 % with C at 0 deg).  11-9 adds Q, the midpoint of the top side AB, so that
 % OQ is the apothem a and OA the radius r.
 \newcommand{\FIGXIEIGHTNINE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.44\linewidth}\centering
-% 0.70 here against 0.90 in 11-9: the two blocks share one text line, and 11-9
-% needs the larger scale to keep r', a' off the radii it sets them between.
-\begin{tikzpicture}[scale=0.70]
+\begin{minipage}{0.50\linewidth}\centering
+% The two figures are drawn at ONE size.  They used to be 0.70 here against
+% 0.90 in 11-9, so 11-9's hexagons printed 20% larger than 11-8's although the
+% book (p.198, photo PDF p.212) draws the two big hexagons the same width --
+% 440 px against 450 px measured at 220 dpi.  The scales are now in the ratio
+% of the two radii (0.842 x 1.55 = 0.90 x 1.45 = 1.305 cm), which makes the
+% drawn hexagons identical.  11-9 keeps its old 0.90 -- r', a' live in a
+% 30-degree wedge only a couple of points wider than the letters themselves,
+% and that wedge does not survive a smaller scale -- so 11-8 comes UP to meet
+% it and the minipages are re-split to pay for the extra width.
+\begin{tikzpicture}[scale=0.842]
   \def\Ra{1.55}\def\Rb{1.10}
   \begin{scope}
     \coordinate (O) at (0,0);
@@ -292,15 +299,19 @@
     \node[vlab, right]       at (Cp) {$C\XIpr$};
     \node[vlab, below right] at (Dp) {$D\XIpr$};
     \node[vlab, below left]  at (Ep) {$E\XIpr$};
-    \node[vlab, below]       at (Op) {$O\XIpr$};
+    % O' sits directly under its own centre dot, and the prime inflates the
+    % label's reported box, so at the chapter's 2.9pt clearance the box just
+    % touched the 3.2pt dot.  4.6pt here, on this label only.
+    \node[vlab, below, outer sep=4.6pt] at (Op) {$O\XIpr$};
   \end{scope}
 \end{tikzpicture}
 \figcap{11--8}
 \end{minipage}\hfill
-\begin{minipage}{0.52\linewidth}\centering
-% 0.90, not 0.80.  r, a, r' and a' are set inside the wedge between two
-% radii, and on the smaller polygon that wedge is only a few points wider
-% than the letters themselves; the extra 12% is what keeps them off the lines.
+\begin{minipage}{0.49\linewidth}\centering
+% 0.90, paired with 0.842 in 11-8 so the two figures come out the same size
+% (see the note there).  r, a, r' and a' are set inside the wedge between two
+% radii, and on the smaller polygon that wedge is only a few points wider than
+% the letters themselves, so their coordinates are solved, not anchored.
 \begin{tikzpicture}[scale=0.90]
   \def\Ra{1.45}\def\Rb{1.02}
   \begin{scope}
@@ -339,7 +350,10 @@
     \node[vlab, above]       at (Qp) {$Q\XIpr$};
     \node[vlab, above right] at (Bp) {$B\XIpr$};
     \node[vlab, right]       at (Cp) {$C\XIpr$};
-    \node[vlab, below]       at (Op) {$O\XIpr$};
+    % O' sits directly under its own centre dot, and the prime inflates the
+    % label's reported box, so at the chapter's 2.9pt clearance the box just
+    % touched the 3.2pt dot.  4.6pt here, on this label only.
+    \node[vlab, below, outer sep=4.6pt] at (Op) {$O\XIpr$};
     % On the smaller hexagon the corridors these two letters live in -- r'
     % between side A'(180-deg vertex) and radius O'A', a' between O'Q' and
     % O'B' -- are only a couple of points wider than the primed letter boxes
@@ -381,6 +395,19 @@
 % and the circumscribed hexagon (dashed, vertices at k*60, circumradius
 % R/cos 30) -- so the dashed hexagon's sides are tangent to the circle at the
 % solid hexagon's vertices, exactly as the book draws it.
+%
+% The 30-degree offset between the two hexagons is CORRECT and was re-verified
+% 2026-08-17 against two independent straight-on sources -- the photo PDF
+% p.218 (book p.204) at 220 dpi and iPad scan14 p4 at 150 dpi.  In both, the
+% solid hexagon has a vertex at 12 o'clock lying ON the dashed hexagon's flat
+% top edge, and the dashed hexagon's points fall at 3 and 9 o'clock.  That is
+% tangency at the inscribed vertices, i.e. a 30-degree offset.  Feedback asked
+% for the two hexagons to be put in the SAME orientation; the book does not
+% draw them that way.  See chapters/ch11-UNCERTAIN.md.
+%
+% The radius, however, is corrected: the book runs it PAST the circle, out to
+% the circumscribed hexagon's vertex at 0 degrees, and the arrowhead sits
+% there.  It used to stop at the circle.
 \newcommand{\FIGXIELEVEN}{\begin{bkfigure}[0.52\linewidth]
 \begin{tikzpicture}[scale=1.365]
   \def\R{1.30}
@@ -391,7 +418,7 @@
   \draw[aux] (0:{\R/cos(30)})   -- (60:{\R/cos(30)})  -- (120:{\R/cos(30)})
           -- (180:{\R/cos(30)}) -- (240:{\R/cos(30)}) -- (300:{\R/cos(30)})
           -- cycle;
-  \draw[bkarr] (O) -- (0:\R);
+  \draw[bkarr] (O) -- (0:{\R/cos(30)});
   \dt{O}
   \node[slab, below] at (0:{\R*0.55}) {1};
 \end{tikzpicture}

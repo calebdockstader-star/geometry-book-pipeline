@@ -196,11 +196,16 @@
   \coordinate (F) at (4.004,2.389); \coordinate (G) at (4.335,-0.347);
   \draw[fig] (A) -- (B) -- (C) -- (D) -- (G) -- (F) -- (E) -- cycle;
   \draw[aux] (D) -- (E);
-  % E is lettered straight ABOVE its vertex in the book; anchoring the label
-  % "left" put it on the side EA, which runs up and to the left from E.
+  % E is lettered ABOVE its vertex in the book, but the wedge at E is bounded
+  % by EA (rising left at 151 deg) and EF (rising right at 15 deg), and a
+  % 9pt letter box set at the anchor's 2.2pt clearance lands on EA: the
+  % collision audit read "E" as touching it at 0.00pt.  Step the letter out
+  % along the wedge's bisector far enough that the whole box clears both
+  % sides -- 2.4pt off EA, 4.3pt off EF -- which is where the book has it.
   \foreach \p/\n/\d in {A/A/above, B/B/left, C/C/below left, D/D/below,
-                        E/E/above, F/F/above right, G/G/below right}
+                        F/F/above right, G/G/below right}
     {\node[vlab,\d] at (\p) {$\n$};}
+  \node[vlab] at ($(E)+(0.10,0.42)$) {$E$};
 \end{tikzpicture}
 \figcap{10--6}
 \end{minipage}\hfill
@@ -268,29 +273,51 @@
 \figcap{10--9}
 \end{bkfigure}}
 
-% ---------------------------------------------------------- Fig 10-10, 10-11
-\newcommand{\FIGXTENELEVEN}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.5\linewidth}\centering
+% ---------------------------------------------------------------- Fig 10-10
 % Ex. Group 10-5 no. 5 states l || m, 3 ft apart, and AB = CD = 5 ft; the book
-% draws it to that scale, with C directly over B and the zigzag standing for
-% the 1-mile gap from B to C.  The old drawing had AB = 1.4 and CD = 1.3 (not
-% congruent) and a 1.07 : 1 gap-to-AB ratio instead of 3 : 5.  One tikz unit
-% is now one foot.
-\begin{tikzpicture}[scale=0.40]
-  \draw[fig] (0,3) -- (11.6,3);  \node[vlab,right] at (11.6,3) {$l$};
-  \draw[fig] (0,0) -- (11.6,0);  \node[vlab,right] at (11.6,0) {$m$};
+% draws it to that scale, with C directly over B and the break symbol standing
+% for the 1-mile gap from B to C.  One tikz unit is one foot.
+%
+% The break is TWO irregular freehand zigzag lines, not the single mechanical
+% sawtooth drawn here before (Caleb: "it reads as a spring").  Both polylines
+% are traced off the book's own drawing -- photo PDF p.200 at 220 dpi (book
+% p.186), cross-checked against the printed page -- and rescaled onto the
+% foot grid.  Note that the band between the two zigzags is CUT OUT of both
+% l and m, exactly as the book cuts it: that is what makes the symbol read as
+% a break rather than as a drawn object standing between the lines.
+% Line ends also follow the book: A sits close to the left end of m, D close
+% to the right end of l, and m runs on well past the point where l stops.
+\newcommand{\FIGXTEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.62]
   \coordinate (A) at (0.6,0);  \coordinate (B) at (5.6,0);
   \coordinate (C) at (5.6,3);  \coordinate (D) at (10.6,3);
-  \draw[fig] (C) -- (6.05,2.45) -- (5.15,1.95) -- (6.05,1.45)
-             -- (5.15,0.95) -- (5.9,0.45) -- (B);
+  % l and m, each cut where the break band crosses it
+  \draw[fig] (0,3) -- (4.67,3);   \draw[fig] (5.19,3) -- (11.3,3);
+  \draw[fig] (0,0) -- (6.25,0);   \draw[fig] (6.70,0) -- (13.2,0);
+  \node[vlab,right] at (11.3,3) {$l$};
+  \node[vlab,right] at (13.2,0) {$m$};
+  % the two hand-drawn break lines, l down to m
+  \draw[fig] (4.67,3) -- (4.74,2.11) -- (4.82,1.49) -- (5.26,1.41)
+          -- (5.51,1.74) -- (5.77,1.35) -- (6.02,1.33) -- (6.15,1.02)
+          -- (6.25,0);
+  \draw[fig] (5.19,3) -- (5.28,2.01) -- (5.59,2.25) -- (5.74,2.03)
+          -- (5.95,2.08) -- (6.09,1.98) -- (6.33,1.46) -- (6.51,1.49)
+          -- (6.55,1.60) -- (6.61,1.51) -- (6.70,0);
   \foreach \p in {A,B,C,D} {\dt{\p}}
-  \node[vlab,above] at (C) {$C$};  \node[vlab,above] at (D) {$D$};
-  \node[vlab,below] at (A) {$A$};  \node[vlab,below] at (B) {$B$};
+  % Each letter stands over (or under) its own 3.2pt dot, so the global 2.2pt
+  % clearance leaves the label box just touching the dot.  3.8pt on these four
+  % only -- the book likewise sets the letters clear of the dots, not on them.
+  \node[vlab,above,outer sep=3.8pt] at (C) {$C$};
+  \node[vlab,above,outer sep=3.8pt] at (D) {$D$};
+  \node[vlab,below,outer sep=3.8pt] at (A) {$A$};
+  \node[vlab,below,outer sep=3.8pt] at (B) {$B$};
 \end{tikzpicture}
 \figcap{10--10}
-\end{minipage}\hfill
-\begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=0.48]
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-11
+\newcommand{\FIGXELEVEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.68]
   \coordinate (A) at (0,0);  \coordinate (D) at (4,0);
   \coordinate (B) at (4,3);  \coordinate (C) at ($(B)+(D)-(A)$);
   \draw[fig] (A) -- (B) -- (C) -- (D) -- cycle;
@@ -305,13 +332,13 @@
     {\node[vlab,\d] at (\p) {$\n$};}
 \end{tikzpicture}
 \figcap{10--11}
-\end{minipage}
 \end{bkfigure}}
 
-% ---------------------------------------------------------- Fig 10-12, 10-13
-\newcommand{\FIGXTWELVETHIRTEEN}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=0.734]
+% ---------------------------------------------------------------- Fig 10-12
+% Split out of the old \FIGXTWELVETHIRTEEN: 10-12 belongs to Ex. Group 10-5
+% no. 18 and 10-13 to no. 20, so they sit inline after different exercises.
+\newcommand{\FIGXTWELVE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.05]
   \coordinate (B) at (0,0);    \coordinate (C) at (4.5,0);
   \coordinate (A) at (1,3);    \coordinate (D) at (3.5,3);
   \draw[fig] (B) -- (C) -- (D) -- (A) -- cycle;
@@ -329,9 +356,11 @@
     {\node[vlab,\d] at (\p) {$\n$};}
 \end{tikzpicture}
 \figcap{10--12}
-\end{minipage}\hfill
-\begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=0.568]
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-13
+\newcommand{\FIGXTHIRTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=0.80]
   % measured on scan13 p8: b' : b = 0.563, h : b = 0.72 (the old drawing had
   % 0.5 and 0.5).  Both b' and b - b' are printed INSIDE the trapezoid just
   % above the base, and the b of the dimension line sits in a break of it.
@@ -348,7 +377,6 @@
         {$b$} (6,-1.3);
 \end{tikzpicture}
 \figcap{10--13}
-\end{minipage}
 \end{bkfigure}}
 
 % --------------------------------------------------------------- Fig 10-14
@@ -387,10 +415,11 @@
 \figcap{10--15}
 \end{bkfigure}}
 
-% ---------------------------------------------------------- Fig 10-16, 10-17
-\newcommand{\FIGXSIXTEENSEVENTEEN}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=0.873]
+% ---------------------------------------------------------------- Fig 10-16
+% Split out of the old \FIGXSIXTEENSEVENTEEN: 10-16 belongs to Ex. Group 10-5
+% no. 35 and 10-17 to no. 38.
+\newcommand{\FIGXSIXTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.20]
   % Re-measured off scan13 p9 at 150 dpi (vertices A(232,65) D(700,82)
   % B(145,342) C(620,335)): h : BC = 0.58 and lean : h = 0.31.  An earlier
   % pass had 0.78 / 0.20, which stretched the parallelogram upright.
@@ -406,9 +435,11 @@
     {\node[vlab,\d] at (\p) {$\n$};}
 \end{tikzpicture}
 \figcap{10--16}
-\end{minipage}\hfill
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.786]
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-17
+\newcommand{\FIGXSEVENTEEN}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.10]
   \coordinate (A) at (0,0); \coordinate (B) at (4.333,0);
   \coordinate (C) at (0.641,1.538);        % AC = 5, CB = 12, AB = 13 (/3)
   \coordinate (D) at ($(A)!(C)!(B)$);
@@ -421,7 +452,6 @@
     {\node[vlab,\d] at (\p) {$\n$};}
 \end{tikzpicture}
 \figcap{10--17}
-\end{minipage}
 \end{bkfigure}}
 
 % ---------------------------------------------------------- Fig 10-18, 10-19
@@ -493,9 +523,15 @@
   % that the source does not have and broke the given/auxiliary convention.
   \draw[aux] (D) -- (F); \draw[aux] (E) -- (G);
   \draw[aux] (C) -- (Cp);
-  % right-angle marks at G and at C', as the book has them
-  \draw[rmark] (1.256,1.692) -- (1.388,1.516) -- (1.212,1.384);
-  \draw[rmark] (1.384,1.788) -- (1.516,1.612) -- (1.692,1.744);
+  % Right-angle marks at G and at C', as the book has them.  Both are struck
+  % at 0.22 of the inner square's side (it was 0.3667), because at the old
+  % size the two marks -- they sit at the two ENDS of the same short side
+  % GC' -- covered 73% of it between them and merged into an unreadable
+  % double box.  Caleb: "the two right-angle squares near G/C collide ...
+  % this is the most visible defect."  The book strikes them small and leaves
+  % better than half the side clear between them; 0.22 leaves 56%.
+  \draw[rmark] (1.1856,1.6392) -- (1.2648,1.5336) -- (1.1592,1.4544);
+  \draw[rmark] (1.4544,1.8408) -- (1.5336,1.7352) -- (1.6392,1.8144);
   % "a" stepped 0.25 units off BC along its normal (it was grazing the leg
   % at 1.2pt); the book likewise floats it clear, above the midpoint of BC.
   \node[slab] at (0.81,0.92) {$a$};
@@ -506,7 +542,11 @@
   \foreach \p/\n/\d in {B/B/below left, A/A/below right, D/D/above left,
                         E/E/above right, C/C/above right, F/F/below right}
     {\node[vlab,\d] at (\p) {$\n$};}
-  \node[vlab] at (1.38,2.10) {$G$};
+  % G stepped further up the wedge between the two dashed diagonals: at
+  % (1.38,2.10) the letter grazed EG (Caleb: "the G label sits on top of the
+  % dashed diagonal").  At (1.30,2.18) it clears EG by 0.36 units (15.5pt at
+  % this scale) and DF by 0.55 units, still in the quadrant the book sets it.
+  \node[vlab] at (1.30,2.18) {$G$};
 \end{tikzpicture}
 \figcap{10--20}
 \end{bkfigure}}
@@ -534,10 +574,11 @@
 \figcap{10--21}
 \end{bkfigure}}
 
-% ---------------------------------------------------------- Fig 10-22, 10-23
-\newcommand{\FIGXTWENTYTWOTHREE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=1.048]
+% ---------------------------------------------------------------- Fig 10-22
+% Split out of the old \FIGXTWENTYTWOTHREE: 10-22 belongs to Ex. Group 10-7
+% no. 1 and 10-23 to no. 10.
+\newcommand{\FIGXTWENTYTWO}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.45]
   % vertices measured off scan13 p15 and rescaled on AB: the book's D sits
   % almost straight above A and C just outside B, giving a much broader top
   % than the drawing had.
@@ -550,9 +591,11 @@
     {\node[vlab,\d] at (\p) {$\n$};}
 \end{tikzpicture}
 \figcap{10--22}
-\end{minipage}\hfill
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.839]
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 10-23
+\newcommand{\FIGXTWENTYTHREE}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.15]
   \coordinate (B) at (0,0); \coordinate (C) at (4,0);
   \coordinate (A) at (2,3.464);            % equilateral
   \coordinate (P) at (1.9,1.0);
@@ -570,7 +613,6 @@
   \node[vlab] at (2.19,0.54) {$P$};
 \end{tikzpicture}
 \figcap{10--23}
-\end{minipage}
 \end{bkfigure}}
 
 % --------------------------------------------------------------- Fig 10-24

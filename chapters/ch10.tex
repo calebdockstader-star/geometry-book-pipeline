@@ -321,8 +321,15 @@ triangles provides us with a tool for determining areas of polygons in general,
 for the area of any polygon can be computed as the sum of the areas of certain
 triangles.
 
+% Exercise Group 10-5 carries eight figures (10-10 ... 10-17).  Each one now
+% sits inline, immediately after the exercise that names it, and the group
+% runs full measure rather than in two columns -- a figure set in a 52 mm
+% column would print smaller than the book's own.  (Caleb, 2026-08-17: "for
+% the exercise groups, the figures were not placed inline with the text like
+% they should be.")  The list was in two \begin{exlist} blocks with an
+% explicit \setcounter across the old figure dump; it is now one list, so the
+% numbering runs 1-38 by itself.
 \exercisegroup{10--5}
-\begin{multicols}{2}
 \begin{exlist}
 \item A triangle has an area of 30 and a base of 6. Determine its height.
 \item Two adjacent sides of a parallelogram have lengths of 12 and 8 in. These
@@ -333,8 +340,10 @@ triangles.
 \item In Fig.~10--10, $l$ and $m$ are parallel and 3 ft apart.
   $\sg{AB} = \sg{CD} = 5$ ft. If the distance from $B$ to $C$ is 1 mi, what is
   the area of the quadrilateral $ABDC$?
+\exfig{\FIGXTEN}
 \item What is the area of $\Xrect ABCD$ if the sides are as shown in
   Fig.~10--11 and $BD \perp AD$?
+\exfig{\FIGXELEVEN}
 \item The area of a triangle is $A$, and its base is $x$. Find the altitude in
   terms of $A$ and $x$.
 \item The base of a parallelogram can be expressed in terms of its area and
@@ -366,21 +375,19 @@ triangles.
 \item[17.] Find the area of an isosceles right triangle if one leg is 20 ft
   long.
 \item[18.] In Fig.~10--12, $AD \pll BC$. Compute the area of the figure.
+\exfig{\FIGXTWELVE}
 \item[\stex 19.] Generalize Exercise 18, designating the lengths of the
   parallel sides, or bases, by $b$ and $b'$ and the height by $h$. Of course,
   you are developing a formula for the area of a trapezoid.
 \item[20.] Besides the proof suggested by the dotted line in Fig.~10--12,
   Fig.~10--13 also suggests a proof. Here, it is assumed that $b > b'$. Make a
   proof.
-\end{exlist}
-\end{multicols}
-
-\FIGXTENELEVEN
-
-\FIGXTWELVETHIRTEEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{20}
+\exfig{\FIGXTHIRTEEN}
+% Items 11-20 carry explicit labels, which do not advance exlisti, so the
+% automatic counter is still at 10 here.  The old two-block layout restored it
+% with a \setcounter on the second \begin{exlist}; merging the blocks into one
+% list means the same correction has to be made in place.
+\setcounter{exlisti}{20}
 \item The bases of a trapezoid are 3 and 12, and the altitude is 6. What is
   its area?
 \item The area of a trapezoid of height 6 in.\ is 39 in$^2$. If one base is
@@ -393,6 +400,7 @@ triangles.
   side?
 \item In Fig.~10--14, $ABCD$ is a parallelogram. Prove that the four small
   triangles, $\tri{AOB}$, $\tri{BOC}$, etc., all have equal areas.
+\exfig{\FIGXFOURTEEN}
 \item The areas of two similar triangles are 360 and 250 square units. If a
   side of the first triangle is 8 units, how long is the corresponding side of
   the second triangle?
@@ -406,6 +414,7 @@ triangles.
   \[ A = \sqrt{s(s\!-\!a)(s\!-\!b)(s\!-\!c)}. \]
   This is ``Heron's formula,'' named after an Alexandrian Greek by that name of
   about 100 B.C., possibly later. Show that this formula is correct.
+\exfig{\FIGXFIFTEEN}
 \item[31.] The sides of a triangle are 8, 11, and 13 in. Find its area.
 \item[32.] The sides of a triangle are 17, 25, and 26 ft. Find its area. Find
   the height to the 25-ft side.
@@ -415,6 +424,7 @@ triangles.
 \item[35.] If, in Fig.~10--16, $ABCD$ is a parallelogram, with $\sg{BE} = 2$
   and $\sg{ED} = 6$, what is the number
   \[ \frac{\text{Area } (BEC)}{\text{Area } (ABCD)}\,? \]
+\exfig{\FIGXSIXTEEN}
 \item[36.] A square has a diagonal of length 12 in. Compute the area of the
   square. Determine a formula for the area of a square in terms of the length
   $d$ of its diagonal.
@@ -424,14 +434,8 @@ triangles.
   and $\sg{CB} = 12$. Compute the areas of triangles $ABC$, $ACD$, and $BCD$.
   Check your work by verifying that the sum of the area of the latter two
   triangles is equal to the area of $\tri{ABC}$.
+\exfig{\FIGXSEVENTEEN}
 \end{exlist}
-\end{multicols}
-
-\FIGXFOURTEEN
-
-\FIGXFIFTEEN
-
-\FIGXSIXTEENSEVENTEEN
 
 %========================================================= 10-5
 \section*{10--5\quad AREA PROOF OF THE\\PYTHAGOREAN THEOREM}
@@ -471,8 +475,9 @@ From algebra then,
 There are many more proofs of this theorem. Your teacher can show you some if
 you are interested.
 
+% multicols dropped: this group carries Fig 10-20, which now sits inline after
+% the exercise (no. 8) that names it.
 \exercisegroup{10--6}
-\begin{multicols}{2}
 \begin{exlist}
 \item Triangles $ABC$ and $A'B'C'$ are similar. $\sg{AB} = 3$,
   $\sg{A'B'} = 5$, and area $(ABC) = 18$. Compute area $(A'B'C')$.
@@ -494,10 +499,8 @@ you are interested.
   figure like that in Fig.~10--20 with the single word, ``Behold.'' Give a
   proof. In Fig.~10--20 $DF \pll AC$, and $EG \pll BC$.
   [\emph{Hint:} $\sg{FC} = a - b$.]
+\exfig{\FIGXTWENTY}
 \end{exlist}
-\end{multicols}
-
-\FIGXTWENTY
 
 %========================================================= 10-6
 \section*{*10--6\quad CONSTRUCTION PROBLEMS}
@@ -512,12 +515,14 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
 
 \FIGXTWENTYONE
 
+% multicols dropped: this group carries Figs 10-22 and 10-23, now inline after
+% exercises 1 and 10 respectively.
 \exercisegroup{10--7}
-\begin{multicols}{2}
 \begin{exlist}
 \item Construct a triangle whose area is equal to that of pentagon $ABCDE$
   (Fig.~10--22). Use the method employed above to construct a triangle equal in
   area to a given quadrilateral.
+\exfig{\FIGXTWENTYTWO}
 \item Show how to construct a square whose area is equal to the sum of the
   areas of two given squares.
 \item Solve Exercise 2 with ``sum'' replaced by ``difference.''
@@ -537,10 +542,8 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
   perpendiculars from $P$ to the sides of the triangle is equal to the length
   of an altitude of the triangle. [\emph{Hint:} Consider the areas of triangles
   $APB$, $APC$, and $BPC$.]
+\exfig{\FIGXTWENTYTHREE}
 \end{exlist}
-\end{multicols}
-
-\FIGXTWENTYTWOTHREE
 
 %========================================================= review
 \section*{REVIEW OF CHAPTER 10}
@@ -571,6 +574,7 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
   areas.
 \item[\stex 3.] Prove that the medians divide a triangle into six triangles of
   equal areas (Fig.~10--24).
+\exfig{\FIGXTWENTYFOUR}
 \item[4.] Prove that the area of a square is half the area of a square whose
   side is the diagonal of the given square.
 \item[5.] Two similar triangles have areas of 108 and 48 ft$^2$. The first has
@@ -591,8 +595,6 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
   From the foot of the altitude to a vertex is 8 in. How long is the
   hypotenuse?
 \end{exlist}
-
-\FIGXTWENTYFOUR
 
 \par\medskip\begin{center}\bfseries Review Test\end{center}\par\nopagebreak
 \begin{exlist}

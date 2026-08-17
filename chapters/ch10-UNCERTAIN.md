@@ -392,3 +392,81 @@ appears anywhere**.
 - **"Area 1 + area 2 = area 3."** sits under Fig. 10-18 in the book, inside the
   figure's own caption area; here it is a centred line after the 10-18/10-19
   block. Typographic, not geometric — left for the integration pass.
+
+***
+
+## Figure-repair pass, 2026-08-17 (FIX-SPEC §2, §3)
+
+### Exercise-group figures are now inline (spec §2)
+
+Every figure cited by an exercise now sits inside the list, immediately after
+the exercise that names it, wrapped in `\exfig{}`; `multicols` is dropped from
+each group that carries one. Ten figures moved, four combined macros split:
+
+| was | now | sits after |
+|---|---|---|
+| `\FIGXTENELEVEN` | `\FIGXTEN`, `\FIGXELEVEN` | Ex. 10-5 nos. 5, 6 |
+| `\FIGXTWELVETHIRTEEN` | `\FIGXTWELVE`, `\FIGXTHIRTEEN` | Ex. 10-5 nos. 18, 20 |
+| `\FIGXSIXTEENSEVENTEEN` | `\FIGXSIXTEEN`, `\FIGXSEVENTEEN` | Ex. 10-5 nos. 35, 38 |
+| `\FIGXTWENTYTWOTHREE` | `\FIGXTWENTYTWO`, `\FIGXTWENTYTHREE` | Ex. 10-7 nos. 1, 10 |
+| `\FIGXFOURTEEN` (unchanged) | inline | Ex. 10-5 no. 26 |
+| `\FIGXFIFTEEN` (unchanged) | inline | Ex. 10-5 no. 30 |
+| `\FIGXTWENTY` (unchanged) | inline | Ex. 10-6 no. 8 |
+| `\FIGXTWENTYFOUR` (unchanged) | inline | Review Ex. no. 3 |
+
+`\FIGXEIGHTEENNINETEEN` stays combined: 10-18 and 10-19 are body figures cited
+by the §10-5 prose, not by any exercise, so spec rule 5 leaves them alone.
+
+Each split picture's `scale=` was set by hand for its new full-measure slot
+(roughly ×1.4 on the old column value); `measure_figures.py` was NOT run, per
+spec §5.
+
+**Numbering trap, recorded for whoever merges another list.** Ex. Group 10-5
+used to be two `exlist` blocks with `\setcounter{exlisti}{20}` on the second.
+Items 11–20 carry explicit `\item[...]` labels, which do not advance `exlisti`,
+so merging the blocks silently renumbered 21–27 as 11–17. The `\setcounter` is
+now made in place, after no. 20. Verified: the group prints 1–38.
+
+### Figures corrected (spec §3)
+
+- **10-10** — the break symbol was a single regular sawtooth that read as a
+  spring. It is now the book's **two** irregular freehand zigzags, traced off
+  the photo PDF p.200 at 220 dpi and rescaled onto the foot grid, with the band
+  between them **cut out of both `l` and `m`** (that cut is what makes it read
+  as a break). Line ends also follow the book: `A` near the left end of `m`,
+  `D` near the right end of `l`, and `m` running on past where `l` stops.
+  Caleb's "the heavy dots at A, B, C, D are missing" was already fixed by the
+  global `\dt{}` change (spec §1) — the dots are present; their labels were
+  raised to 3.8 pt clearance so the letters no longer touch them.
+- **10-20** — the two right-angle marks at `G` and `C'` were struck at 0.367 of
+  the inner square's side. They sit at the two ends of the *same* short side,
+  so between them they covered 73% of it and merged into the double-box knot
+  Caleb flagged. Now 0.22, leaving 56% clear. `G` stepped from (1.38, 2.10) to
+  (1.30, 2.18): it clears the dashed `EG` by 0.36 units (15.5 pt) instead of
+  grazing it.
+- **10-6** — `E` was reported by the collision audit as touching the side `EA`
+  at 0.00 pt (the old note above says 0.62 pt; the global clearance cut to
+  2.2 pt closed that). Stepped out along the wedge bisector to clear `EA` by
+  2.4 pt and `EF` by 4.3 pt, still where the book letters it.
+
+### Settled against the sources — do not "fix" these back
+
+- **10-20's quadrilateral `BAED` is a true axis-aligned square.** The feedback
+  index read it as a slanted parallelogram, but flagged that the photo was
+  taken at an angle. The straight-on photo PDF p.204 shows `DE` horizontal and
+  `BD`, `AE` vertical. Left square.
+- **10-20 has no arrowheads at `D` and `E`.** The index read the converging
+  dash ends as arrowheads; at 220 dpi they are three dashed runs meeting at a
+  corner. Left plain, per spec §3 defect class 3.
+
+### Gates
+
+`tectonic` twice clean (warnings are underfull boxes only, all pre-existing);
+`verify_figures.py 10` → 199/199; `check_labels.py figures10.tex 10` → **0
+collisions**, 13 TIGHT (all eyeballed at 110 dpi and legible; the tightest are
+the sub-point letters already listed above). Every changed page rasterised and
+looked at.
+
+### Still open for Caleb
+
+Nothing new. The residual doubts listed further up this file stand.

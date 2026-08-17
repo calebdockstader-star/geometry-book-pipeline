@@ -459,3 +459,81 @@ circumscribed side 2r/sqrt3, and the 30-deg offset between the two hexagons.
 
 Nothing here needs Caleb's input except item 1, and only if he wants the
 Fig. 11-8/11-9 pair drawn at one size.
+
+***
+
+## Figure-repair pass, 2026-08-17 (FIX-SPEC §2, §3)
+
+### Items 1 and 2 above are now CLOSED
+
+Both open questions in the previous list are resolved by this pass; the text
+above is kept for the record but is superseded here.
+
+**1. Figs 11-8 / 11-9 are now drawn at one size.** 11-8 comes up from 0.70 to
+0.842 and 11-9 keeps its 0.90, so `0.842 × 1.55 = 0.90 × 1.45 = 1.305 cm` and
+the two big hexagons are identical, as the book draws them (measured on photo
+PDF p.212 / book p.198: 440 px against 450 px at 220 dpi). The minipages are
+re-split 0.50 / 0.49 to pay for the width. No smaller figure font was needed —
+11-9 keeps the scale its tight `r'`/`a'` wedge requires, and 11-8 rises to meet
+it rather than 11-9 dropping.
+
+**2. Fig 11-11's radius now runs to the hexagon vertex,** as the book draws it
+and as Caleb asked. The arrowhead sits at the circumscribed hexagon's vertex at
+0°, not on the circle.
+
+### Settled against the sources — do not "fix" these back
+
+Caleb's note on 11-11 asked for two further changes that the book does not
+support. Both were checked against **two independent straight-on sources** —
+the photo PDF p.218 (book p.204) at 220 dpi and iPad scan14 p4 at 150 dpi — and
+against Caleb's own photograph once it was de-rotated. All three agree:
+
+- **The two hexagons are 30° apart, and that is correct.** The solid inscribed
+  hexagon has a vertex at 12 o'clock lying *on* the dashed hexagon's flat top
+  edge, and the dashed hexagon's points fall at 3 and 9 o'clock. Measured on
+  the photo PDF: circle radius 472 px, dashed circumradius 547 px = 472/cos30,
+  dashed apothem 477 px = the circle's radius. That is tangency at the
+  inscribed vertices, i.e. a 30° offset. The request was to put both hexagons
+  in the *same* orientation, corners on the same rays; the book does not draw
+  them that way, so the drawing is unchanged. **Caleb — if your copy really
+  does show the corners aligned, that would mean the printings differ and I
+  should see a photo of that page; otherwise this one is settled.**
+- **The radius does carry an arrowhead, and it is horizontal (3 o'clock).**
+  Caleb's note asked for a plain line at 4–5 o'clock with `1` to its left. All
+  three sources show a filled arrowhead at the outer end, the line level at
+  3 o'clock, and `1` set *below* it. Unchanged. (The de-rotated phone photo
+  reads as up-and-right only because the page is curled and photographed at an
+  angle; the flat scan settles it.)
+
+### Exercise-group figures are now inline (spec §2)
+
+- **Ex. Group 11-5** — `\FIGXISEVEN` was hoisted *above* the whole list; it now
+  sits after no. 4, the exercise that names it. `multicols` dropped.
+- **Ex. Group 11-13** — Figs 11-13, 11-14, 11-15, 11-16 were already beside
+  their exercises but inside a 52 mm column, which printed them smaller than
+  the book's own. `multicols` dropped and each is now an `\exfig` on the full
+  measure. Nos. 2, 3, 4 and 7 respectively.
+
+No macro needed splitting in this chapter: every combined block
+(`\FIGXIONETWO`, `\FIGXITHREEFOUR`, `\FIGXIFIVESIX`, `\FIGXIEIGHTNINE`) is a
+pair of *body* figures cited by the running proofs, not by any exercise, so
+spec rule 5 leaves them where they are.
+
+### Label clearance
+
+The chapter-local override is 2.9 pt (spec §1) and nothing clips at that value.
+Two labels needed hand work rather than a chapter-wide raise, as instructed:
+both `O'` nodes (11-8 and 11-9) stand directly under their own centre dot, and
+the prime inflates the audit's box, so they carry `outer sep=4.6 pt` locally.
+
+### Gates
+
+`tectonic` twice clean; `verify_figures.py 11` → 134/134; `check_labels.py
+figures11.tex 11` → **0 collisions**, 5 TIGHT. The tightest is `a'` in 11-9 at
+0.60 pt — legible, and the book crowds that letter just as hard (see the
+p.198 crop). Every changed page rasterised and looked at.
+
+### Still open for Caleb
+
+Only the 11-11 hexagon-orientation question above, and only if his copy really
+differs from both scans.
