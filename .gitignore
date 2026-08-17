@@ -18,3 +18,8 @@ RESUME-STATE.md
 STATUS.md
 CLAUDE.md
 OPEN-QUESTIONS.md
+
+# reference material -- local only, not needed to build
+sources/
+scans/
+feedback/

@@ -13,7 +13,7 @@ copyright renewal due in calendar 1988; a sweep of the Copyright Office's
 electronic renewal records finds no renewal under any author, the title, or
 Addison-Wesley — while the same dataset does contain other Addison-Wesley
 renewals from the period, confirming the search was sound. Full evidence and
-reproduction commands: [`sources/copyright/renewal-search.md`](sources/copyright/renewal-search.md).
+reproduction commands: [`COPYRIGHT.md`](COPYRIGHT.md).
 
 This is a US determination. Elsewhere the term may differ.
 
@@ -40,9 +40,10 @@ python3 tools/check_labels.py chapters/figures06.tex 6   # label/geometry collis
 
 ## Not included
 
-The source photographs and scans of the physical book are local-only, so the
-symlinks in `scans/` are dead in a fresh clone. Everything needed to *build*
-the edition is here; the sources are only needed to revise figures.
-
-Working notes (build status, open questions, agent conventions) are kept
-locally and are not part of this repo.
+This repo carries what builds the edition, and nothing else. The source
+photographs and scans of the physical book, the page map and scan indexes,
+and the project's working notes are all local-only — they matter for
+*revising* figures, not for producing the PDF. One consequence:
+`tools/build_index.py` reads a page map that isn't here, so the index can't
+be regenerated from a fresh clone. The generated `chapters/bookindex.tex` is
+committed, so the book still builds.
