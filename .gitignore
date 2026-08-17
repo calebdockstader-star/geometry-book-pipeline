@@ -12,3 +12,9 @@ geometry figures-*.zip
 build/sheets/
 build/probe/
 build/figure-widths.tsv
+
+# working notes -- kept local, not published
+RESUME-STATE.md
+STATUS.md
+CLAUDE.md
+OPEN-QUESTIONS.md

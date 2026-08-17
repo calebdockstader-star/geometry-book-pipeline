@@ -44,5 +44,5 @@ The source photographs and scans of the physical book are local-only, so the
 symlinks in `scans/` are dead in a fresh clone. Everything needed to *build*
 the edition is here; the sources are only needed to revise figures.
 
-See [`STATUS.md`](STATUS.md) for what the last pass changed and
-[`CLAUDE.md`](CLAUDE.md) for conventions.
+Working notes (build status, open questions, agent conventions) are kept
+locally and are not part of this repo.
