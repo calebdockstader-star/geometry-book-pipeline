@@ -211,8 +211,12 @@ Run from the project root unless noted.
 cd chapters && tectonic -Z search-path=../style --outdir ../build chNN.tex   # twice, clean
 python3 tools/verify_figures.py NN          # must be 100%
 python3 tools/check_labels.py chapters/figuresNN.tex NN   # must be 0 COLLIDE
-python3 tools/measure_figures.py --fit      # only if you split/reshaped figures
 ```
+
+**Do not run `tools/measure_figures.py` — it rewrites every chapter's figure
+file and would collide with the other chapter agents.** If splitting a
+combined macro leaves a figure looking undersized, set that one picture's
+`scale=` by hand; the integration pass re-fits the whole book at the end.
 
 Then **rasterise every page you changed and LOOK at it** —
 `pdftoppm -r 130 -png -f P -l P build/chNN.pdf out` and Read the image.

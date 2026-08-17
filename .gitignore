@@ -8,3 +8,7 @@ build/*.aux
 feedback/
 geometry figures-*.zip
 !feedback/FIX-SPEC.md
+# regenerable working output
+build/sheets/
+build/probe/
+build/figure-widths.tsv
