@@ -12,6 +12,10 @@
 \RequirePackage{tabularx}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
+% Plates and pictorial line art live in plates/.  Chapter files compile from
+% chapters/ while the assembled book compiles from the project root, so give
+% graphicx both roots and let it find the file either way.
+\graphicspath{{../plates/}{plates/}}
 \usetikzlibrary{calc,angles,quotes,decorations.markings,patterns}
 
 % ---------------------------------------------------------------- palette

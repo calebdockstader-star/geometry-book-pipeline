@@ -3,17 +3,17 @@
 \usepackage{brumfiel}
 
 % ---- local macros (hoist into book preamble) ----
-% Halftone photographs in the original are reproduced as PLATES: a framed
-% placeholder carrying the original caption. Never redrawn.
-%   #1 = placeholder height, #2 = caption block (already formatted)
-\newcommand{\FMplate}[2]{%
+% Halftone photographs are reproduced as PLATES, never redrawn.
+% Caleb, 2026-08-17: "I WANT THE ACTUAL HALFTONE PICTURES IN THERE".  The
+% plates now carry the real image, cut from his own iPad scans of his copy
+% (see plates/MANIFEST.md for the source page and processing of each).
+%   #1 = image file in plates/, #2 = printed height, #3 = caption block
+\newcommand{\FMplate}[3]{%
   \par\medskip
   \begin{center}
-  \fbox{\begin{minipage}[c][#1][c]{0.68\linewidth}\centering\footnotesize\itshape
-    halftone photograph\\ not reproduced in this edition
-  \end{minipage}}%
+  \includegraphics[height=#2]{#1}%
   \par\smallskip
-  {\footnotesize #2}
+  {\footnotesize #3}
   \end{center}
   \par\medskip}
 
@@ -68,7 +68,7 @@
 % Euclid frontispiece: engraved/halftone portrait plate facing the title page.
 \thispagestyle{empty}
 \null\vspace*{0.06\textheight}
-\FMplate{52mm}{%
+\FMplate{plate-euclid}{52mm}{%
   \textsc{Euclid}\\
   Courtesy of\\
   \textit{Scripta Mathematica}}
@@ -253,7 +253,7 @@ Good luck,\par
 \clearpage
 \thispagestyle{empty}
 \null\vspace*{0.05\textheight}
-\FMplate{58mm}{%
+\FMplate{plate-hilbert}{58mm}{%
   \textsc{David Hilbert}\\
   \textit{(1862--1943)}\\
   Professor of Mathematics,\\

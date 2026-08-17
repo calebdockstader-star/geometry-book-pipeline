@@ -7,14 +7,15 @@
 
 % ---- local macros (hoist into book preamble) ----
 % Halftone photographic plate: framed placeholder, never redrawn (B&W pass).
-\newcommand{\IIplate}[2]{%
+% Carries the real plate since 2026-08-17 (Caleb: "I WANT THE ACTUAL HALFTONE
+% PICTURES IN THERE"), cut from scan02 p.16 -- see plates/MANIFEST.md.
+%   #1 = image file in plates/, #2 = name, #3 = caption
+\newcommand{\IIplate}[3]{%
   \par\medskip
   \begin{center}
-  \fbox{\begin{minipage}{0.72\linewidth}\centering\vspace{2.4cm}
-    {\footnotesize\itshape[halftone photographic plate --- not redrawn]}
-    \vspace{2.4cm}\end{minipage}}%
+  \includegraphics[height=62mm]{#1}%
   \par\smallskip
-  {\footnotesize\textsc{#1}\\ #2}
+  {\footnotesize\textsc{#2}\\ #3}
   \end{center}
   \par\medskip}
 % Unnumbered star footnote. \starnote in brumfiel.sty emits a bare
@@ -31,7 +32,7 @@
 % ---- end local macros ----
 
 % Facing-page plate for the chapter opener (book p.20, facing p.21).
-\IIplate{Aristotle}{A view of a statue in a Vienna museum.\\
+\IIplate{plate-aristotle}{Aristotle}{A view of a statue in a Vienna museum.\\
 Courtesy of \emph{Scripta Mathematica}.}
 
 \chapter*{\raggedright\Huge LOGIC}

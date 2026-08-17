@@ -4,16 +4,15 @@
 \input{figures08}
 
 % ---- local macros (hoist into book preamble) ----
-% Plate placeholder: a halftone photograph in the original, never redrawn.
-\newcommand{\VIIIplate}[2]{%
+% Halftone plate, never redrawn.  Carries the real image since 2026-08-17
+% (Caleb: "I WANT THE ACTUAL HALFTONE PICTURES IN THERE"), cut from scan09
+% pp.12-13 -- see plates/MANIFEST.md.
+%   #1 = image file in plates/, #2 = caption block, #3 = figure number
+\newcommand{\VIIIplate}[3]{%
   \begin{bkfigure}[0.78\linewidth]
-  \setlength{\fboxsep}{10pt}%
-  \fbox{\begin{minipage}{0.80\linewidth}\centering\footnotesize
-    \textsc{plate}\par\medskip
-    #1\par\medskip
-    \emph{Halftone photograph in the original; not redrawn.}
-  \end{minipage}}
-  \figcap{#2}
+  \includegraphics[height=62mm]{#1}\par\smallskip
+  {\footnotesize #2}
+  \figcap{#3}
   \end{bkfigure}}
 % Two unnumbered "*" footnotes belonging to this chapter (book pp.135 and 139).
 % \starnote in brumfiel.sty emits a bare \footnotetext, which prints the
@@ -266,12 +265,12 @@ appropriate to ask which house is better adapted to one's living requirements.
 And so it is also appropriate to ask which geometry is most convenient to
 describe the universe.*\VIIIgaussnote
 
-\VIIIplate{\textsc{Karl Friedrich Gauss}\\(1777--1855)\\
+\VIIIplate{plate-gauss}{\textsc{Karl Friedrich Gauss}\\(1777--1855)\\
   Probably the first mathematician to recognize the\\
   existence of non-Euclidean geometries.\\
   Courtesy of \emph{Scripta Mathematica}.}{--- (book p.~137)}
 
-\VIIIplate{\textsc{Nicolai Ivanovich Lobachevsky}\\(1793--1856)\\
+\VIIIplate{plate-lobachevsky}{\textsc{Nicolai Ivanovich Lobachevsky}\\(1793--1856)\\
   Co-inventor, with Johann Bolyai, of\\
   non-Euclidean geometry.\\
   Courtesy of \emph{Scripta Mathematica}.}{--- (book p.~138)}
