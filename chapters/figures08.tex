@@ -4,8 +4,8 @@
 % at a point that two or three drawn lines pass through, so the shared
 % 3.4pt outer sep is not enough.  Raised here only (brumfiel.sty untouched).
 \tikzset{
-  vlab/.style = {font=\footnotesize\itshape, inner sep=1.2pt, outer sep=5.2pt},
-  slab/.style = {font=\scriptsize, inner sep=1.2pt, outer sep=5.2pt},
+  vlab/.style = {font=\footnotesize\itshape, inner sep=1.2pt, outer sep=3.0pt},
+  slab/.style = {font=\scriptsize, inner sep=1.2pt, outer sep=3.0pt},
 }
 % Geometry read off the photo pages (book pp.133-153 = PDF 147-167) and the
 % iPad scans (scan09 pp.7-23 = book pp.133-148; scan10 pp.1-4 = book
@@ -17,7 +17,7 @@
 % Two rays with the same direction: r1 || r2, both on the same side of the
 % line through their vertices (Definition 8-2).
 \newcommand{\FIGVIIIONE}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=0.9]
+\begin{tikzpicture}[scale=1.170]
   \coordinate (V1) at (0.62,1.15);          % vertex of r1
   \coordinate (V2) at (0.16,0.0);           % vertex of r2
   \draw[aux] ($(V2)!-0.30!(V1)$) -- ($(V2)!1.55!(V1)$);   % line of vertices
@@ -37,7 +37,7 @@
 % and the two corresponding angles numbered 1 and 2.
 \newcommand{\FIGVIIITWOTHREE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.88]
+\begin{tikzpicture}[scale=0.939]
   \coordinate (B) at (1.1470,0.0000);      \coordinate (A) at (1.9220,1.4756);
   \coordinate (C) at (2.1993,2.0035);      % on n, beyond A
   \coordinate (D) at (3.0194,1.4756);      % on m
@@ -52,7 +52,7 @@
   % the two congruent angles of the construction
   \draw[tick] ($(A)+(0:0.30)$)  arc (0:62.29:0.30);
   \draw[tick] ($(B)+(0:0.36)$)  arc (0:62.29:0.36);
-  \foreach \p in {C,D,E}{\fill (\p) circle (1.0pt);}
+  \foreach \p in {C,D,E}{\dt{\p}}
   \node[vlab] at (1.5100,1.8700) {$A$};
   \node[vlab,right] at (C) {$C$};
   \node[vlab,above] at (D) {$D$};
@@ -66,7 +66,7 @@
 \figcap{8--2}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.88]
+\begin{tikzpicture}[scale=0.939]
   \coordinate (A) at (1.5190,1.4756);   \coordinate (B) at (0.7750,0.0000);
   \draw[fig] (-0.0250,-0.0594) -- (3.1950,0.1796);            % l through B
   \draw[fig] (0.7990,1.6310)  -- (3.5690,1.0332);             % m through A
@@ -95,7 +95,7 @@
 % Fig 8-2.  That is what makes the two arced angles at A and B congruent, as
 % the third proof requires; m must not be tilted off l.
 \newcommand{\FIGVIIIFOUR}{\begin{bkfigure}[0.66\linewidth]
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=1.118]
   \coordinate (B) at (2.0460,0.0000);  \coordinate (A) at (2.8830,1.6244);
   \coordinate (P) at (4.5880,0.9424);
   % Q on m, with m || l through A and AQ = BP = 2.7111 exactly
@@ -128,7 +128,7 @@
 % 8-6: l || m and transversal n through P on l.
 \newcommand{\FIGVIIIFIVESIX}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.931]
   \draw[fig] (0.30,1.90) -- (2.55,1.90);                  % l
   \draw[fig] (0.30,1.12) -- (2.55,1.12);                  % n
   \draw[fig] (0.30,0.34) -- (2.55,0.34);                  % m
@@ -144,12 +144,12 @@
 \figcap{8--5}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.931]
   \draw[fig] (0.20,1.70) -- (3.70,1.70);                  % l
   \draw[fig] (0.20,0.42) -- (3.70,0.42);                  % m
   \coordinate (P) at (1.72,1.70);
   \draw[fig] ($(P)!-0.28!(2.86,0.10)$) -- (2.86,0.10);    % n
-  \fill (P) circle (1.0pt);
+  \dt{P}
   \node[vlab,above right] at (P) {$P$};
   \node[vlab,right] at (3.70,1.70) {$l$};
   \node[vlab,right] at (3.70,0.42) {$m$};
@@ -164,7 +164,7 @@
 % 8-8: AB = CD, angles at B and C right, hence AD || BC.
 \newcommand{\FIGVIIISEVENEIGHT}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.885]
   \coordinate (A) at (0,0);    \coordinate (B) at (1.72,0);
   \coordinate (C) at (2.52,0.86);
   \coordinate (D) at ($(C)+(1.72,0)$);
@@ -177,7 +177,7 @@
 \figcap{8--7}
 \end{minipage}\hfill
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.885]
   \coordinate (B) at (0,0);    \coordinate (C) at (3.05,0);
   \coordinate (A) at (0,1.72); \coordinate (D) at (3.05,1.72);
   \draw[fig] (A) -- (B) -- (C) -- (D) -- cycle;
@@ -205,7 +205,7 @@
 % off l1 on purpose -- the proof concludes that G must in fact lie on l1).
 \newcommand{\FIGVIIININETEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=1.30]
+\begin{tikzpicture}[scale=1.384]
   \coordinate (L1a) at (-0.0620,1.1036);  \coordinate (L1b) at (3.0380,1.0745);
   \coordinate (L2a) at ( 0.0620,0.1240);  \coordinate (L2b) at (3.0380,0.3887);
   \coordinate (La)  at ( 1.3640,1.5047);  \coordinate (Lb)  at (2.3355,0.0000);
@@ -227,7 +227,7 @@
 \figcap{8--9}
 \end{minipage}\hfill
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.92]
+\begin{tikzpicture}[scale=0.980]
   \coordinate (A) at (1.62,1.42);  \coordinate (B) at (1.34,0.30);
   \draw[fig] (-0.20,1.42) -- (3.60,1.42);                 % l1
   \draw[fig] (-0.20,0.30) -- (3.60,0.30);                 % l2
@@ -239,7 +239,7 @@
   % G on the ray from A that the proof compares with l1
   \coordinate (G) at (2.60,1.86);
   \draw[aux] (A) -- (G);
-  \foreach \p in {C,F,D,G,E}{\fill (\p) circle (1.0pt);}  % book dots E too
+  \foreach \p in {C,F,D,G,E}{\dt{\p}}  % book dots E too
   \node[vlab,above] at (C) {$C$};
   \node[vlab] at (1.374,1.735) {$A$};
   \node[vlab,above] at (F) {$F$};
@@ -258,7 +258,7 @@
 % --------------------------------------------------------------- Fig 8-11
 % Bowtie: AO = CO and BO = OD, so AB || CD and BC || AD.
 \newcommand{\FIGVIIIELEVEN}{\begin{bkfigure}[0.56\linewidth]
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=1.118]
   \coordinate (O) at (2.05,0.92);
   \coordinate (A) at (1.15,0);      \coordinate (C) at ($(A)!2!(O)$);
   \coordinate (B) at (0,0.72);      \coordinate (D) at ($(B)!2!(O)$);
@@ -278,7 +278,7 @@
 % --------------------------------------------------------------- Fig 8-12
 % Adjacent angles AOB and BOC: OB interior to angle AOC.
 \newcommand{\FIGVIIITWELVE}{\begin{bkfigure}[0.48\linewidth]
-\begin{tikzpicture}[scale=0.90]
+\begin{tikzpicture}[scale=1.170]
   \coordinate (O) at (0,0);
   \coordinate (A) at (76:2.15);
   \coordinate (B) at (48:1.80);
@@ -297,7 +297,7 @@
 % --------------------------------------------------------------- Fig 8-13
 % Thm 8-5: l through A parallel to BC; D and E on l, one on each side of AB.
 \newcommand{\FIGVIIITHIRTEEN}{\begin{bkfigure}[0.58\linewidth]
-\begin{tikzpicture}[scale=0.88]
+\begin{tikzpicture}[scale=1.144]
   \coordinate (B) at (0,0);  \coordinate (C) at (3.35,0);
   \coordinate (A) at (1.675,1.90);
   \draw[fig] (B) -- (C) -- (A) -- cycle;
@@ -305,7 +305,7 @@
   \coordinate (D) at ($(A)+(-1.15,0)$);
   \coordinate (E) at ($(A)+(1.15,0)$);
   \draw[fig] ($(A)+(-1.72,0)$) -- ($(A)+(1.72,0)$);
-  \fill (D) circle (1.0pt); \fill (E) circle (1.0pt);
+  \dt{D} \dt{E}
   \node[vlab,above] at (D) {$D$};
   \node[vlab,above] at (A) {$A$};
   \node[vlab,above] at (E) {$E$};
@@ -321,7 +321,7 @@
 % angle C congruent to angle C'.  The book sets the primed triangle up and to
 % the right, overlapping the first in x, and mirrored in sense.
 \newcommand{\FIGVIIIFOURTEEN}{\begin{bkfigure}[0.66\linewidth]
-\begin{tikzpicture}[scale=0.95]
+\begin{tikzpicture}[scale=1.235]
   \coordinate (A) at (0,1.35);  \coordinate (B) at (0.39,0);
   \coordinate (C) at (2.34,0.78);
   \draw[fig] (A) -- (B) -- (C) -- cycle;
@@ -346,7 +346,7 @@
 % 8-16: D the midpoint of BC, with BD congruent to AD.
 \newcommand{\FIGVIIIFIFTEENSIXTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.908]
   % right angle at A: put A on the circle with diameter BC
   \coordinate (B) at (0,0);  \coordinate (C) at (3.45,0);
   \coordinate (M) at ($(B)!0.5!(C)$);
@@ -362,7 +362,7 @@
 \figcap{8--15}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.908]
   \coordinate (B) at (0,0);  \coordinate (C) at (3.45,0);
   \coordinate (D) at ($(B)!0.5!(C)$);       % midpoint of BC
   % A on the circle centred D through B, so that BD = AD
@@ -382,7 +382,7 @@
 % 8-17: a polygonal path P1 ... Pn.  8-18: a six-sided path that crosses itself.
 \newcommand{\FIGVIIISEVENTEENEIGHTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.74]
+\begin{tikzpicture}[scale=0.885]
   \coordinate (P1) at (0,0.30);
   \coordinate (P2) at (1.15,0.92);
   \coordinate (P3) at (0.62,2.62);
@@ -399,7 +399,7 @@
 \figcap{8--17}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.74]
+\begin{tikzpicture}[scale=0.885]
   \coordinate (P1) at (0,0.62);
   \coordinate (P2) at (3.35,1.42);
   \coordinate (P3) at (1.05,2.62);
@@ -425,7 +425,7 @@
 % pentagon (the notch at P2).
 \newcommand{\FIGVIIININETEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.31\linewidth}\centering
-\begin{tikzpicture}[scale=0.66]
+\begin{tikzpicture}[scale=0.681]
   % measured off the book crop: both uprights vertical, top edge rising to
   % the right (the earlier version had it falling to the right)
   \coordinate (P1) at (0,0);       \coordinate (P4) at (2.350,0.044);
@@ -438,7 +438,7 @@
 \end{tikzpicture}
 \end{minipage}\hfill
 \begin{minipage}{0.31\linewidth}\centering
-\begin{tikzpicture}[scale=0.66]
+\begin{tikzpicture}[scale=0.681]
   \coordinate (P1) at (0,0);   \coordinate (P3) at (2.62,0);
   \coordinate (P2) at (1.01,1.82);   % apex at 0.386 of the base, as measured
   \draw[fig] (P1) -- (P3) -- (P2) -- cycle;
@@ -448,7 +448,7 @@
 \end{tikzpicture}
 \end{minipage}\hfill
 \begin{minipage}{0.31\linewidth}\centering
-\begin{tikzpicture}[scale=0.66]
+\begin{tikzpicture}[scale=0.681]
   % measured off the book crop: P1P2 nearly level, notch (reflex vertex) at P2
   \coordinate (P1) at (0,1.275);   \coordinate (P2) at (1.214,1.213);
   \coordinate (P3) at (1.565,2.418); \coordinate (P4) at (2.621,1.803);
@@ -473,7 +473,7 @@
 % 8-21: convex and non-convex.
 \newcommand{\FIGVIIITWENTYTWENTYONE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.60\linewidth}\centering
-\begin{tikzpicture}[scale=0.836]
+\begin{tikzpicture}[scale=0.877]
   % left quadrilateral: two consecutive angles marked with arcs
   \coordinate (a1) at (0,0);       \coordinate (a2) at (2.42,0);
   \coordinate (a3) at (2.42,1.42); \coordinate (a4) at (0.55,1.42);
@@ -504,7 +504,7 @@
 \figcap{8--20}
 \end{minipage}\hfill
 \begin{minipage}{0.36\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.651]
   \coordinate (c1) at (0,0);   \coordinate (c2) at (1.86,0);
   \coordinate (c3) at (2.05,1.42); \coordinate (c4) at (0.42,1.62);
   \draw[fig] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
@@ -527,7 +527,7 @@
 % four diagonals from one vertex, with two exterior angles suggested.
 \newcommand{\FIGVIIITWENTYTWOTHREE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.88]
+\begin{tikzpicture}[scale=1.057]
   % Vertex ratios measured off a 400 dpi crop of the book figure with a 50 px
   % grid (book p.147): side v1v2 horizontal, side v2v3 vertical, v4 nearly
   % above v1.  The earlier coordinates were noticeably taller and narrower.
@@ -560,7 +560,7 @@
 \figcap{8--22.\ \ Pentagon\\(three triangles).}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.88]
+\begin{tikzpicture}[scale=1.057]
   \coordinate (w1) at (0.0000,1.6150);   % the vertex the diagonals come from
   \coordinate (w2) at (0.3610,2.6980);
   \coordinate (w3) at (0.8740,2.7930);
@@ -580,7 +580,7 @@
 % --------------------------------------------------------------- Fig 8-24
 % Regular five-pointed star: the points are the vertices of a regular pentagon.
 \newcommand{\FIGVIIITWENTYFOUR}{\begin{bkfigure}[0.42\linewidth]
-\begin{tikzpicture}[scale=0.90]
+\begin{tikzpicture}[scale=1.170]
   \foreach \i in {0,...,4}{\coordinate (s\i) at ({90+72*\i}:1.72);}
   \draw[fig] (s0) -- (s2) -- (s4) -- (s1) -- (s3) -- cycle;
 \end{tikzpicture}
@@ -590,7 +590,7 @@
 % --------------------------------------------------------------- Fig 8-25
 % Parallelogram, rectangle, square, rhombus.
 \newcommand{\FIGVIIITWENTYFIVE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.70]
+\begin{tikzpicture}[scale=0.910]
   % parallelogram
   \begin{scope}
     \draw[fig] (0,0) -- (1.42,0) -- (1.86,1.72) -- (0.44,1.72) -- cycle;
@@ -619,7 +619,7 @@
 % 8-26: DE || AC and DF || AB.   8-27: regular hexagon ABCDEF, diagonal FD.
 \newcommand{\FIGVIIITWENTYSIXSEVEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.934]
   \coordinate (B) at (0,0);  \coordinate (C) at (3.45,0);
   \coordinate (A) at (1.72,1.86);
   \coordinate (D) at ($(B)!0.52!(C)$);
@@ -639,7 +639,7 @@
 \figcap{8--26}
 \end{minipage}\hfill
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.934]
   \foreach \i in {0,...,5}{\coordinate (h\i) at ({-60+60*\i}:1.42);}
   \draw[fig] (h0) -- (h1) -- (h2) -- (h3) -- (h4) -- (h5) -- cycle;
   \draw[aux] (h4) -- (h2);
@@ -663,7 +663,7 @@
 % 8-29: AB = BC, BE = BD, angle CBD = 40 degrees; angle B obtuse as drawn.
 \newcommand{\FIGVIIITWENTYEIGHTNINE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.05]
+\begin{tikzpicture}[scale=1.107]
   % Ratios measured off a 400 dpi crop of the book figure (book p.151):
   % Q at 0.369 and R at 0.620 of BC, apex almost exactly over Q so that AQ
   % reads as vertical.  A is nudged 0.04 left of Q so that angle AQC is
@@ -693,7 +693,7 @@
 \figcap{8--28}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.844]
   \coordinate (B) at (0,0);  \coordinate (C) at (3.05,0);
   % AB = BC: A on the circle centred B with radius BC, at 110 deg as drawn
   \coordinate (A) at ($(B)+(110:3.05)$);
@@ -720,11 +720,11 @@
 % --------------------------------------------------------------- Fig 8-30
 % AB congruent to A'B', with B between A and C.
 \newcommand{\FIGVIIITHIRTY}{\begin{bkfigure}[0.66\linewidth]
-\begin{tikzpicture}[scale=0.90]
+\begin{tikzpicture}[scale=1.170]
   \draw[fig] (-0.20,0) -- (2.20,0);
   \coordinate (A) at (0,0); \coordinate (B) at (1.05,0);
   \coordinate (C) at (1.86,0);
-  \foreach \p in {A,B,C}{\fill (\p) circle (1.0pt);}
+  \foreach \p in {A,B,C}{\dt{\p}}
   \draw[tick] ($(A)!0.5!(B)+(0,-0.13)$) -- ($(A)!0.5!(B)+(0,0.13)$);
   \node[vlab,above] at (A) {$A$};
   \node[vlab,above] at (B) {$B$};
@@ -732,7 +732,7 @@
   \begin{scope}[shift={(3.05,0)}]
     \draw[fig] (-0.20,0) -- (1.60,0);
     \coordinate (Ap) at (0,0); \coordinate (Bp) at (1.05,0);
-    \fill (Ap) circle (1.0pt); \fill (Bp) circle (1.0pt);
+    \dt{Ap} \dt{Bp}
     \draw[tick] ($(Ap)!0.5!(Bp)+(0,-0.13)$) -- ($(Ap)!0.5!(Bp)+(0,0.13)$);
     \node[vlab,above] at (Ap) {$A'$};
     \node[vlab,above] at (Bp) {$B'$};
@@ -746,7 +746,7 @@
 % 8-32: X and Y on one side of AB; rays AX and BY meet at P.
 \newcommand{\FIGVIIITHIRTYONETWO}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.952]
   \coordinate (A) at (0,0);      \coordinate (B) at (3.05,0);
   \coordinate (C) at (0,1.62);   \coordinate (D) at (3.05,1.62);
   \coordinate (M) at ($(C)!0.5!(D)$);
@@ -772,7 +772,7 @@
 \figcap{8--31}
 \end{minipage}\hfill
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.952]
   \coordinate (A) at (0,1.72);  \coordinate (B) at (0,0);
   \coordinate (P) at (3.05,1.02);
   \coordinate (X) at ($(A)!0.55!(P)$);
@@ -783,7 +783,7 @@
   \draw[aux] (X) -- (P);
   \draw[aux] (Y) -- (P);
   \draw[fig] ($(P)+(0.17,0.20)$) -- (P) -- ($(P)+(0.17,-0.20)$);
-  \fill (X) circle (1.0pt); \fill (Y) circle (1.0pt);
+  \dt{X} \dt{Y}
   \node[vlab,above] at (A) {$A$};
   \node[vlab,below] at (B) {$B$};
   \node[vlab,above] at (X) {$X$};

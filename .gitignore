@@ -5,3 +5,6 @@ sources/copyright/nypl-data/
 # tectonic litter
 *.log
 build/*.aux
+feedback/
+geometry figures-*.zip
+!feedback/FIX-SPEC.md

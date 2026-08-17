@@ -31,9 +31,9 @@
 % needs a little more outer sep than brumfiel.sty's 3.4pt or the rule clips
 % the corner of the label box.
 \tikzset{
-  vlab/.append style={outer sep=4.8pt},
-  slab/.append style={outer sep=4.8pt},
-  klab/.append style={outer sep=4.8pt},
+  vlab/.append style={outer sep=2.9pt},
+  slab/.append style={outer sep=2.9pt},
+  klab/.append style={outer sep=2.9pt},
   bkarr/.style={fig, -{Stealth[length=3.6pt,width=3pt]}},
   bkarrb/.style={fig, {Stealth[length=3.6pt,width=3pt]}-{Stealth[length=3.6pt,width=3pt]}},
   % Fig 11-6's four callouts are drawn in the book as ARROWS from the word to
@@ -51,7 +51,7 @@
 % own sub-angle (the 0.33 construction reproduces the book's placement).
 \newcommand{\FIGXIONETWO}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.52\linewidth}\centering
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=0.947]
   \coordinate (A) at (0,0);
   \coordinate (B) at (2.20,0);
   \coordinate (C) at (4.45,2.00);
@@ -74,7 +74,7 @@
 \figcap{11--1}
 \end{minipage}\hfill
 \begin{minipage}{0.44\linewidth}\centering
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=0.947]
   \def\R{1.55}
   \coordinate (O) at (0,0);
   \coordinate (C) at (0:\R);   \coordinate (D) at (60:\R);
@@ -83,7 +83,7 @@
   \draw[given] (O) circle (\R);
   \draw[given] (C) -- (D) -- (E) -- (F) -- (A) -- (B) -- cycle;
   \foreach \p in {A,B,C,D,E} {\draw[given] (O) -- (\p);}
-  \fill (O) circle (1.3pt);
+  \dt{O}
   \node[vlab, above left]  at (E) {$E$};
   \node[vlab, above right] at (D) {$D$};
   \node[vlab, right]       at (C) {$C$};
@@ -110,7 +110,7 @@
 % Both halves at 1.30, not 0.86: in 11-4 the letter A has to sit in the wedge
 % between OP and l, and at the original scale that wedge was narrower than the
 % 9pt letter box.  Same scale on 11-3 so the pair still matches in size.
-\begin{tikzpicture}[scale=1.30]
+\begin{tikzpicture}[scale=1.361]
   \def\R{1.25}
   \coordinate (O) at (0,0);
   \coordinate (P) at (-19:\R);
@@ -118,9 +118,9 @@
   \draw[given] (O) circle (\R);
   \draw[given] (O) -- (P);
   \draw[given] ($(P)+(71:-0.50)$) -- ($(P)+(71:1.84)$);
-  \fill (O) circle (1.2pt);
-  \fill (A) circle (1.2pt);
-  \fill (P) circle (1.2pt);
+  \dt{O}
+  \dt{A}
+  \dt{P}
   \node[vlab, left]        at (O) {$O$};
   \node[vlab, below right] at (P) {$P$};
   \node[vlab, right]       at (A) {$A$};
@@ -129,7 +129,7 @@
 \figcap{11--3}
 \end{minipage}\hfill
 \begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=1.30]
+\begin{tikzpicture}[scale=1.361]
   \def\R{1.25}
   \coordinate (O) at (0,0);
   \coordinate (A) at (0,-0.39);
@@ -139,8 +139,8 @@
   \draw[aux]   (0,1.58) -- (0,-1.58);
   \draw[given] (-1.72,-0.39) -- (1.68,-0.39);
   \draw[given] (O) -- (P);
-  \fill (O) circle (1.2pt); \fill (A) circle (1.2pt);
-  \fill (B) circle (1.2pt); \fill (P) circle (1.2pt);
+  \dt{O} \dt{A}
+  \dt{B} \dt{P}
   \node[vlab, right]       at (0,0.80) {$m$};
   \node[vlab, above right] at (O) {$O$};
   % A sits in the narrow wedge between OP and l, exactly as the book sets it
@@ -166,7 +166,7 @@
 % of lettering inside the outline (C, E here; four whole words in 11-6), and
 % node text does not scale with the picture, so at 0.86 the letters were
 % bigger relative to the drawing than the book sets them.
-\begin{tikzpicture}[scale=1.15]
+\begin{tikzpicture}[scale=1.258]
   \def\R{1.45}
   \coordinate (O) at (0,0);
   \coordinate (A)  at (84:\R);   \coordinate (B)  at (24:\R);
@@ -182,7 +182,7 @@
   \draw[aux]   (O) -- (B);
   \draw[given] (O) -- (E);
   \draw[aux]   (O) -- (D);
-  \fill (O) circle (1.2pt);
+  \dt{O}
   \node[vlab, above]       at (A) {$A$};
   \node[vlab, above right] at (B) {$B$};
   % C and E are tangency points: they sit ON the inscribed circle, so an
@@ -197,7 +197,7 @@
 \figcap{11--5}
 \end{minipage}\hfill
 \begin{minipage}{0.52\linewidth}\centering
-\begin{tikzpicture}[scale=1.15]
+\begin{tikzpicture}[scale=1.258]
   \def\R{1.30}
   \coordinate (O) at (0,0);
   \coordinate (Vr) at (0:\R);
@@ -234,7 +234,7 @@
 % Exterior angle of a regular polygon.  The side DC is produced beyond C; the
 % marked angle is between that extension and the next side CB.
 \newcommand{\FIGXISEVEN}{\begin{bkfigure}[0.92\linewidth]
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=1.040]
   \def\R{1.35}
   \coordinate (Cv) at (0:\R);
   \coordinate (Bv) at (60:\R);
@@ -269,7 +269,7 @@
               -- (240:\Ra) -- (300:\Ra) -- cycle;
     \draw[aux] (O) -- (A);
     \draw[aux] (O) -- (B);
-    \fill (O) circle (1.2pt);
+    \dt{O}
     \node[vlab, above left]  at (A) {$A$};
     \node[vlab, above right] at (B) {$B$};
     \node[vlab, right]       at (C) {$C$};
@@ -286,7 +286,7 @@
               -- (240:\Rb) -- (300:\Rb) -- cycle;
     \draw[aux] (Op) -- (Ap);
     \draw[aux] (Op) -- (Bp);
-    \fill (Op) circle (1.2pt);
+    \dt{Op}
     \node[vlab, above left]  at (Ap) {$A\XIpr$};
     \node[vlab, above right] at (Bp) {$B\XIpr$};
     \node[vlab, right]       at (Cp) {$C\XIpr$};
@@ -313,7 +313,7 @@
     \draw[aux, bkarr] (A) -- (O);
     \draw[aux, bkarr] (Q) -- (O);
     \draw[aux, bkarr] (B) -- (O);
-    \fill (O) circle (1.2pt);
+    \dt{O}
     \node[vlab, above left]  at (A) {$A$};
     \node[vlab, above]       at (Q) {$Q$};
     \node[vlab, above right] at (B) {$B$};
@@ -334,7 +334,7 @@
     \draw[aux, bkarr] (Ap) -- (Op);
     \draw[aux, bkarr] (Qp) -- (Op);
     \draw[aux, bkarr] (Bp) -- (Op);
-    \fill (Op) circle (1.2pt);
+    \dt{Op}
     \node[vlab, above left]  at (Ap) {$A\XIpr$};
     \node[vlab, above]       at (Qp) {$Q\XIpr$};
     \node[vlab, above right] at (Bp) {$B\XIpr$};
@@ -360,7 +360,7 @@
 % the octagon vertex at 45 deg, and the two dashed chords are the octagon
 % sides there.  The bisection is exact (45 = 90/2), not drawn by eye.
 \newcommand{\FIGXITEN}{\begin{bkfigure}[0.56\linewidth]
-\begin{tikzpicture}[scale=0.92]
+\begin{tikzpicture}[scale=1.196]
   \def\R{1.50}
   \coordinate (O) at (0,0);
   \draw[given] (O) circle (\R);
@@ -382,7 +382,7 @@
 % R/cos 30) -- so the dashed hexagon's sides are tangent to the circle at the
 % solid hexagon's vertices, exactly as the book draws it.
 \newcommand{\FIGXIELEVEN}{\begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=1.05]
+\begin{tikzpicture}[scale=1.365]
   \def\R{1.30}
   \coordinate (O) at (0,0);
   \draw[given] (O) circle (\R);
@@ -392,7 +392,7 @@
           -- (180:{\R/cos(30)}) -- (240:{\R/cos(30)}) -- (300:{\R/cos(30)})
           -- cycle;
   \draw[bkarr] (O) -- (0:\R);
-  \fill (O) circle (1.2pt);
+  \dt{O}
   \node[slab, below] at (0:{\R*0.55}) {1};
 \end{tikzpicture}
 \figcap{11--11}
@@ -402,7 +402,7 @@
 % A and C are ends of a side of the inscribed polygon; B is its midpoint, so
 % OB is the apothem a_n and OB is perpendicular to the chord AC.
 \newcommand{\FIGXITWELVE}{\begin{bkfigure}[0.50\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \def\R{1.40}
   % A and C at +-45 deg (was +-40): measured off scan14 p5, where the chord
   % subtends ~90 deg and the drawn apothem is 0.69 r, not 0.77 r.
@@ -415,7 +415,7 @@
   \draw[given] (O) -- (B);
   \draw[given] (O) -- (C);
   \draw[given] (A) -- (C);
-  \fill (O) circle (1.2pt);
+  \dt{O}
   \node[vlab, above right] at (A) {$A$};
   % B lies on the chord AC with the circle close behind it: the chapter-wide
   % 4.8pt outer sep pushed the letter onto the arc, so this one label uses the
@@ -432,7 +432,7 @@
 % --------------------------------------------------------------- Fig 11-13
 % Annular ring.  Radii 2 and 4 as in Exercise 11-13.2, i.e. inner = outer/2.
 \newcommand{\FIGXITHIRTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \def\Ro{1.30}
   \path[pattern=vertical lines, even odd rule]
         (0,0) circle (\Ro) (0,0) circle ({\Ro/2});
@@ -450,7 +450,7 @@
 % everything inside the big circle below that curve, which is why its area is
 % exactly half the disc (Exercise 11-13.3).
 \newcommand{\FIGXIFOURTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.95]
+\begin{tikzpicture}[scale=1.235]
   \def\R{1.40}
   \coordinate (A) at (-\R,0);
   \coordinate (B) at (0,0);
@@ -462,7 +462,7 @@
   \draw[given] (B) circle (\R);
   \draw[given] (A) arc[start angle=180, end angle=0,   radius={\R/2}];
   \draw[given] (B) arc[start angle=180, end angle=360, radius={\R/2}];
-  \fill (A) circle (1.3pt); \fill (B) circle (1.3pt); \fill (C) circle (1.3pt);
+  \dt{A} \dt{B} \dt{C}
   % A stands inside the hatched region; the book clears a small white patch of
   % hatching around the letter rather than printing it over the ruling.
   \node[vlab, right, fill=white, inner sep=1.6pt] at (A) {$A$};
@@ -476,7 +476,7 @@
 % Square with both its circles: the circumscribed circle through the vertices
 % (radius R) and the inscribed circle touching the sides (radius R/sqrt 2).
 \newcommand{\FIGXIFIFTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \def\R{1.30}
   \coordinate (O) at (0,0);
   \draw[given] (O) circle (\R);
@@ -491,7 +491,7 @@
 % right angle is at the lower-left vertex, so the two legs are the vertical
 % and horizontal sides and the hypotenuse carries the largest semicircle.
 \newcommand{\FIGXISIXTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=1.118]
   \coordinate (L) at (0,0);
   \coordinate (T) at (0,1.60);
   \coordinate (R) at (2.52,0);

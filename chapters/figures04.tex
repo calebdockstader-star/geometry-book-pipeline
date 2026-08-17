@@ -31,7 +31,7 @@ marked spear planted upright, its point above his head.]}
   \coordinate (Bp) at (5.01280,-0.74609);
   \draw[fig] (0.12371,0.05306) -- (5.21465,2.18488);
   \draw[fig] (0.83242,-0.49100) -- (5.62546,-0.78347);
-  \foreach \p in {A,B,Ap,Bp} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,B,Ap,Bp} {\dt{\p}}
   \node[vlab,above left]  at (A)  {$A$};
   \node[vlab,above]       at (B)  {$B$};
   \node[vlab,above left]  at (Ap) {$A'$};
@@ -51,7 +51,7 @@ marked spear planted upright, its point above his head.]}
   \coordinate (Cp) at (3.64794,-0.86212);
   \draw[fig] (0,0) -- (4.96981,0.54866);
   \draw[fig] (0.22000,-1.15000) -- (5.20247,-0.73157);
-  \foreach \p in {A,B,C,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,B,C,Ap,Bp,Cp} {\dt{\p}}
   \node[vlab,above]      at (A)  {$A$};
   \node[vlab,above]      at (B)  {$B$};
   \node[vlab,above]      at (C)  {$C$};
@@ -71,7 +71,7 @@ marked spear planted upright, its point above his head.]}
 % B on ray EC beyond C with AB=BC (which forces ABC equilateral); F on ray
 % ED beyond D with EF=EB.
 \newcommand{\FIGIVFOUR}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=0.53]
+\begin{tikzpicture}[scale=0.689]
   \coordinate (A) at (0,0);
   \coordinate (C) at (3.60000,0);
   \coordinate (D) at (6.50000,0);
@@ -94,7 +94,7 @@ marked spear planted upright, its point above his head.]}
 % Exercise 4-2 #15/#16.  (a) two congruent copies: AB=A'B' (double tick),
 % AC=A'C' (single tick on the arc).  (b) CA=BD.  (c) AC=BD.
 \newcommand{\FIGIVFIVE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=1.040]
   % ---- (a) left copy
   \begin{scope}[shift={(0.60,2.90)}]
     \coordinate (A) at (0,0); \coordinate (B) at (1.95000,0);
@@ -104,7 +104,7 @@ marked spear planted upright, its point above his head.]}
     \draw[tick] (0.90000,-0.09700) -- (0.90000,0.09700);
     \draw[tick] (1.05000,-0.09700) -- (1.05000,0.09700);
     \draw[tick] (1.42500,-0.71700) -- (1.42500,-0.52300);
-    \foreach \p in {A,B,C} {\fill (\p) circle (1.5pt);}
+    \foreach \p in {A,B,C} {\dt{\p}}
     \node[vlab,above] at (A) {$A$};
     \node[vlab,above] at (B) {$B$};
     \node[vlab,above] at (C) {$C$};
@@ -118,7 +118,7 @@ marked spear planted upright, its point above his head.]}
     \draw[tick] (0.90000,-0.09700) -- (0.90000,0.09700);
     \draw[tick] (1.05000,-0.09700) -- (1.05000,0.09700);
     \draw[tick] (1.42500,-0.71700) -- (1.42500,-0.52300);
-    \foreach \p in {Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+    \foreach \p in {Ap,Bp,Cp} {\dt{\p}}
     \node[vlab,above] at (Ap) {$A'$};
     \node[vlab,above] at (Bp) {$B'$};
     \node[vlab,above] at (Cp) {$C'$};
@@ -131,7 +131,7 @@ marked spear planted upright, its point above his head.]}
     \draw[fig] (0,0) -- (7.00000,0);
     \draw[tick] (1.89400,-0.09700) -- (1.89400,0.09700);
     \draw[tick] (5.05100,-0.09700) -- (5.05100,0.09700);
-    \foreach \p in {Cb,Ab,Bb,Db} {\fill (\p) circle (1.5pt);}
+    \foreach \p in {Cb,Ab,Bb,Db} {\dt{\p}}
     \node[vlab,below] at (Cb) {$C$};
     \node[vlab,below] at (Ab) {$A$};
     \node[vlab,below] at (Bb) {$B$};
@@ -147,7 +147,7 @@ marked spear planted upright, its point above his head.]}
     \draw[fig] (Bc) .. controls +(0,0.96000) and +(0,0.96000) .. (Dc);
     \draw[tick] (2.41000,0.62300) -- (2.41000,0.81700);
     \draw[tick] (4.73000,0.62300) -- (4.73000,0.81700);
-    \foreach \p in {Ac,Bc,Cc,Dc} {\fill (\p) circle (1.5pt);}
+    \foreach \p in {Ac,Bc,Cc,Dc} {\dt{\p}}
     \node[vlab,below] at (Ac) {$A$};
     \node[vlab,below] at (Bc) {$B$};
     \node[vlab,below] at (Cc) {$C$};
@@ -161,7 +161,7 @@ marked spear planted upright, its point above his head.]}
 % ------------------------------------------------------------- Fig 4-6
 % Definition 4-1.  AB congruent to A'B'' (exact); B' between A' and B''.
 \newcommand{\FIGIVSIX}{\begin{bkfigure}[0.72\linewidth]
-\begin{tikzpicture}[scale=0.90]
+\begin{tikzpicture}[scale=1.170]
   \coordinate (A)   at (0.90000,1.32000);
   \coordinate (B)   at (4.55000,2.28000);
   \coordinate (Ap)  at (0.85000,0);
@@ -170,7 +170,7 @@ marked spear planted upright, its point above his head.]}
   \coordinate (Le)  at (5.47071,0.17752);
   \draw[fig] (A) -- (B);
   \draw[fig] (Ap) -- (Le);
-  \foreach \p in {A,B,Ap,Bp,Bpp,Le} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,B,Ap,Bp,Bpp,Le} {\dt{\p}}
   \node[vlab,above left]  at (A)   {$A$};
   \node[vlab,above]       at (B)   {$B$};
   \node[vlab,above left]  at (Ap)  {$A'$};
@@ -197,7 +197,7 @@ marked spear planted upright, its point above his head.]}
   \draw[fig] (0,0) -- (4.40000,0);
   \draw[tick] (1.80000,0.84200) -- (1.80000,1.05800);
   \draw[tick] (1.52000,-0.10800) -- (1.52000,0.10800);
-  \foreach \p in {A,B,C,Bp,D} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,B,C,Bp,D} {\dt{\p}}
   \node[vlab,above] at (A)  {$A$};
   \node[vlab,above] at (B)  {$B$};
   \node[vlab,below] at (C)  {$C$};
@@ -219,7 +219,7 @@ marked spear planted upright, its point above his head.]}
   \draw[fig] (T) .. controls +(0,0.64000) and +(0,0.64000) .. (Sp);
   \draw[tick] (1.82500,1.67200) -- (1.82500,1.88800);
   \draw[tick] (1.79500,0.37200) -- (1.79500,0.58800);
-  \foreach \p in {R,S,T,U,Sp} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {R,S,T,U,Sp} {\dt{\p}}
   \node[vlab,above left]  at (R)  {$R$};
   \node[vlab,above right] at (S)  {$S$};
   \node[vlab,below] at (T)  {$T$};
@@ -244,7 +244,7 @@ marked spear planted upright, its point above his head.]}
   \draw[tick] (1.67500,-0.10800) -- (1.67500,0.10800);
   \draw[tick] (2.91700,-0.10800) -- (2.91700,0.10800);
   \draw[tick] (3.08300,-0.10800) -- (3.08300,0.10800);
-  \foreach \p in {A,B,C,D,E,Cp} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,B,C,D,E,Cp} {\dt{\p}}
   \node[vlab,above] at (A)  {$A$};
   \node[vlab,above] at (B)  {$B$};
   \node[vlab,above] at (C)  {$C$};
@@ -261,7 +261,7 @@ marked spear planted upright, its point above his head.]}
 % 4-11: AC=A'B' (single tick), CX=B'C' (double tick).
 \newcommand{\FIGIVTENELEVEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.901]
   \coordinate (A)  at (0.30000,1.15000);
   \coordinate (C)  at (2.75000,1.15000);
   \coordinate (B)  at (3.45000,1.15000);
@@ -282,7 +282,7 @@ marked spear planted upright, its point above his head.]}
         to[bend right=28] (2.72000,1.01000);
   \draw[fig,->,line width=0.55pt] (3.45000,1.01000)
         to[bend right=28] (3.45000,0.14000);
-  \foreach \p in {A,C,B,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,C,B,Ap,Bp,Cp} {\dt{\p}}
   \node[vlab,above left] at (A)  {$A$};
   \node[vlab,above]      at (C)  {$C$};
   \node[vlab,above]      at (B)  {$B$};
@@ -295,7 +295,7 @@ marked spear planted upright, its point above his head.]}
 \figcap{4--10}
 \end{minipage}\hfill
 \begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.901]
   \coordinate (A)  at (0.60000,0.95000);
   \coordinate (C)  at (2.55000,0.95000);
   \coordinate (X)  at (3.35000,0.95000);
@@ -310,7 +310,7 @@ marked spear planted upright, its point above his head.]}
   \draw[tick] (1.57500,-0.09700) -- (1.57500,0.09700);
   \draw[tick] (2.87500,-0.09700) -- (2.87500,0.09700);
   \draw[tick] (3.02500,-0.09700) -- (3.02500,0.09700);
-  \foreach \p in {A,C,X,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,C,X,Ap,Bp,Cp} {\dt{\p}}
   \node[vlab,above] at (A)  {$A$};
   \node[vlab,above] at (C)  {$C$};
   \node[vlab,above] at (X)  {$X$};
@@ -327,7 +327,7 @@ marked spear planted upright, its point above his head.]}
 % 4-13 (Thm 4-4): AD'=CD=EF.
 \newcommand{\FIGIVTWELVETHIRTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.833]
   \coordinate (A)  at (0.30000,1.25000);
   \coordinate (B)  at (2.75000,1.25000);
   \coordinate (C)  at (3.50000,1.25000);
@@ -346,7 +346,7 @@ marked spear planted upright, its point above his head.]}
   \draw[tick] (1.90000,-0.54700) -- (1.90000,-0.35300);
   \draw[fig,->,line width=0.55pt] (2.75000,1.13000)
         to[bend left=22] (2.82000,0.86000);
-  \foreach \p in {A,B,C,Ap,Bp,Cp} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,B,C,Ap,Bp,Cp} {\dt{\p}}
   \node[vlab,above] at (A)  {$A$};
   \node[vlab,above] at (B)  {$B$};
   \node[vlab,above] at (C)  {$C$};
@@ -357,7 +357,7 @@ marked spear planted upright, its point above his head.]}
 \figcap{4--12}
 \end{minipage}\hfill
 \begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=0.833]
   \coordinate (A)  at (0,1.45000);
   \coordinate (Dp) at (3.34012,1.70701);
   \coordinate (B)  at (5.63333,1.88347);
@@ -368,7 +368,7 @@ marked spear planted upright, its point above his head.]}
   \draw[fig] (A) -- (B);
   \draw[fig] (C) -- (D);
   \draw[fig] (E) -- (F);
-  \foreach \p in {A,Dp,B,C,D,E,F} {\fill (\p) circle (1.5pt);}
+  \foreach \p in {A,Dp,B,C,D,E,F} {\dt{\p}}
   \node[vlab,above left] at (A)  {$A$};
   \node[vlab,above]      at (Dp) {$D'$};
   \node[vlab,above]      at (B)  {$B$};

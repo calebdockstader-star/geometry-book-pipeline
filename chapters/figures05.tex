@@ -17,16 +17,16 @@
 % (measured at 0.36 of that gap, giving AB about 3.36 units).
 \newcommand{\FIGVTWO}{%
 \begin{bkfigure}[0.92\linewidth]
-\begin{tikzpicture}[x=1.75cm,y=1cm]
+\begin{tikzpicture}[x=1.75cm,y=1cm,scale=1.257]
   \draw[given] (-0.20,0) -- (4.40,0);
   \foreach \x/\lb in {0/A,1/{A_1},2/{A_2},3/{A_3},3.36/B,4/{A_4}}{%
-    \fill (\x,0) circle (1.5pt);
+    \dt{\x,0}
     \node[vlab,above] at (\x,0) {$\lb$};}
   \node[vlab,right] at (4.40,0) {$l$};
   % unit segment CD, drawn below, spanning 0.52u to 1.52u.  Drop measured
   % from the book plate: gap between the two lines is 0.35 of the unit.
   \draw[given] (0.52,-0.61) -- (1.52,-0.61);
-  \fill (0.52,-0.61) circle (1.5pt); \fill (1.52,-0.61) circle (1.5pt);
+  \dt{0.52,-0.61} \dt{1.52,-0.61}
   \node[vlab,above,xshift=-2pt] at (0.52,-0.61) {$C$};
   \node[vlab,above,xshift=2pt] at (1.52,-0.61) {$D$};
   \node[slab,above] at (1.02,-0.63) {1};
@@ -39,10 +39,10 @@
 % plate: B sits at 0.32 of AA1 (not 0.45), and the line runs on to 1.71 u.
 \newcommand{\FIGVTHREE}{%
 \begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[x=1.75cm,y=1cm]
+\begin{tikzpicture}[x=1.75cm,y=1cm,scale=1.300]
   \draw[given] (-0.26,0) -- (1.71,0);
   \foreach \x/\lb in {0/A,0.32/B,1/{A_1}}{%
-    \fill (\x,0) circle (1.5pt);
+    \dt{\x,0}
     \node[vlab,above] at (\x,0) {$\lb$};}
 \end{tikzpicture}
 \figcap{5--3}
@@ -54,22 +54,22 @@
 % -- there is no stub to the left of A, unlike Fig. 5-2.
 \newcommand{\FIGVFOURFIVE}{%
 \begin{bkfigure}[0.94\linewidth]
-\begin{tikzpicture}[x=1.75cm,y=1cm]
+\begin{tikzpicture}[x=1.75cm,y=1cm,scale=1.274]
   \draw[given] (0,0) -- (4.40,0);
   \foreach \x/\lb in {0/{A=A_0},1/{A_1},2/{A_2},3/{A_3},4/{A_4=B}}{%
-    \fill (\x,0) circle (1.5pt);
+    \dt{\x,0}
     \node[vlab,above] at (\x,0) {$\lb$};}
   \draw[given] (0.52,-0.61) -- (1.52,-0.61);
-  \fill (0.52,-0.61) circle (1.5pt); \fill (1.52,-0.61) circle (1.5pt);
+  \dt{0.52,-0.61} \dt{1.52,-0.61}
   \node[vlab,above,xshift=-2pt] at (0.52,-0.61) {$C$};
   \node[vlab,above,xshift=2pt] at (1.52,-0.61) {$D$};
 \end{tikzpicture}
 \figcap{5--4}
 \end{bkfigure}%
 \begin{bkfigure}[0.94\linewidth]
-\begin{tikzpicture}[x=1.75cm,y=1cm]
+\begin{tikzpicture}[x=1.75cm,y=1cm,scale=1.274]
   \draw[given] (0,0) -- (4.40,0);
-  \foreach \x in {0,1,2,3,3.18,4}{\fill (\x,0) circle (1.5pt);}
+  \foreach \x in {0,1,2,3,3.18,4}{\dt{\x,0}}
   \foreach \x/\lb in {0/A,1/{A_1},2/{A_2},4/{A_4}}{%
     \node[vlab,above] at (\x,0) {$\lb$};}
   % A3 and B sit 0.18 u apart, as in the book; the labels are nudged apart
@@ -86,9 +86,9 @@
 % 5-7: AB measured as about 2.3 units; the tenth-scale unit CD alongside.
 \newcommand{\FIGVSIXSEVEN}{%
 \begin{bkfigure}[0.90\linewidth]
-\begin{tikzpicture}[x=7.5cm,y=1cm]
+\begin{tikzpicture}[x=7.5cm,y=1cm,scale=1.300]
   \draw[given] (0,0) -- (1,0);
-  \fill (0,0) circle (1.5pt); \fill (1,0) circle (1.5pt);
+  \dt{0,0} \dt{1,0}
   \node[vlab,above,xshift=-2pt] at (0,0) {$C$};
   \node[vlab,above,xshift=2pt] at (1,0) {$D$};
   \foreach \k in {1,...,9}{\draw[tick] ({\k/10},-0.085) -- ({\k/10},0.085);}
@@ -96,14 +96,14 @@
 \figcap{5--6}
 \end{bkfigure}%
 \begin{bkfigure}[0.90\linewidth]
-\begin{tikzpicture}[x=1.9cm,y=1cm]
+\begin{tikzpicture}[x=1.9cm,y=1cm,scale=1.300]
   \draw[given] (0,0) -- (2.30,0);
   \foreach \x/\lb in {0/A,1/{A_1},2/{A_2},2.30/B}{%
-    \fill (\x,0) circle (1.5pt);
+    \dt{\x,0}
     \node[vlab,above] at (\x,0) {$\lb$};}
   % the unit CD alongside, itself divided into tenths
   \draw[given] (2.64,0) -- (3.64,0);
-  \fill (2.64,0) circle (1.5pt); \fill (3.64,0) circle (1.5pt);
+  \dt{2.64,0} \dt{3.64,0}
   \node[vlab,above,xshift=-2pt] at (2.64,0) {$C$};
   \node[vlab,above,xshift=2pt] at (3.64,0) {$D$};
   \foreach \k in {1,...,9}{\draw[tick] ({2.64+\k/10},-0.075) -- ({2.64+\k/10},0.075);}
@@ -119,16 +119,16 @@
 % off the book plate.
 \newcommand{\FIGVEIGHT}{%
 \begin{bkfigure}[0.72\linewidth]
-\begin{tikzpicture}[x=4.6cm,y=1cm]
+\begin{tikzpicture}[x=4.6cm,y=1cm,scale=1.300]
   \draw[given] (0,0.80) -- (1,0.80);
-  \fill (0,0.80) circle (1.5pt); \fill (1,0.80) circle (1.5pt);
+  \dt{0,0.80} \dt{1,0.80}
   \node[vlab,above] at (0,0.80) {$A'$};
   \node[vlab,above] at (1,0.80) {$B'$};
   \draw[given] (0,0) -- (1,0);
   \foreach \x/\lb in {0/A,1/B}{%
-    \fill (\x,0) circle (1.5pt);
+    \dt{\x,0}
     \node[vlab,above] at (\x,0) {$\lb$};}
-  \fill (0.77,0) circle (1.5pt);
+  \dt{0.77,0}
   \node[vlab,above,yshift=1.2pt] at (0.77,0) {$B''$};
 \end{tikzpicture}
 \figcap{5--8}
@@ -139,14 +139,14 @@
 % (measured at 0.66 of CE).
 \newcommand{\FIGVNINE}{%
 \begin{bkfigure}[0.72\linewidth]
-\begin{tikzpicture}[x=4.6cm,y=1cm]
+\begin{tikzpicture}[x=4.6cm,y=1cm,scale=1.300]
   \draw[given] (0,0.75) -- (1,0.75);
-  \fill (0,0.75) circle (1.5pt); \fill (1,0.75) circle (1.5pt);
+  \dt{0,0.75} \dt{1,0.75}
   \node[vlab,above] at (0,0.75) {$A$};
   \node[vlab,above] at (1,0.75) {$B$};
   \draw[given] (0,0) -- (1,0);
   \foreach \x/\lb in {0/C,0.66/D,1/E}{%
-    \fill (\x,0) circle (1.5pt);
+    \dt{\x,0}
     \node[vlab,above] at (\x,0) {$\lb$};}
 \end{tikzpicture}
 \figcap{5--9}
@@ -159,10 +159,10 @@
 % at 5.15..5.65.  The earlier 2.24/5.24/5.92/6.42 spread the plate too wide.
 \newcommand{\FIGVTEN}{%
 \begin{bkfigure}[0.96\linewidth]
-\begin{tikzpicture}[x=1.25cm,y=1cm]
+\begin{tikzpicture}[x=1.25cm,y=1cm,scale=1.300]
   % unit CD with midpoint E, braced and labelled 1
   \draw[given] (0,0) -- (1,0);
-  \fill (0,0) circle (1.5pt); \fill (1,0) circle (1.5pt);
+  \dt{0,0} \dt{1,0}
   \draw[tick] (0.5,-0.09) -- (0.5,0.09);
   \node[vlab,below] at (0,-0.02) {$C$};
   \node[vlab,below] at (0.5,-0.02) {$E$};
@@ -172,7 +172,7 @@
   \node[slab,above,yshift=2.6pt] at (0.5,0.19) {1};
   % AB, three units long; the "1" sits under its first third
   \draw[given] (1.55,0.55) -- (4.55,0.55);
-  \fill (1.55,0.55) circle (1.5pt); \fill (4.55,0.55) circle (1.5pt);
+  \dt{1.55,0.55} \dt{4.55,0.55}
   \node[vlab,above] at (1.55,0.55) {$A$};
   \node[vlab,above] at (4.55,0.55) {$B$};
   \draw[tick] (2.55,0.46) -- (2.55,0.64);
@@ -180,7 +180,7 @@
   \node[slab,below,yshift=-2.2pt] at (2.05,0.53) {1};
   % the half-unit ED alongside
   \draw[given] (5.15,0.30) -- (5.65,0.30);
-  \fill (5.15,0.30) circle (1.5pt); \fill (5.65,0.30) circle (1.5pt);
+  \dt{5.15,0.30} \dt{5.65,0.30}
   \node[vlab,above] at (5.15,0.30) {$E$};
   \node[vlab,above] at (5.65,0.30) {$D$};
 \end{tikzpicture}

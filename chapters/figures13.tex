@@ -27,8 +27,8 @@
 % Chapter-local label clearance, as ch09: 3.4pt clips when a labelled point
 % lies ON a drawn line.
 \tikzset{
-  vlab/.append style={outer sep=4.8pt},
-  slab/.append style={outer sep=4.8pt},
+  vlab/.append style={outer sep=2.9pt},
+  slab/.append style={outer sep=2.9pt},
 }
 
 % The book marks the concurrency point in Figs 13-11, 13-12 and the centre in
@@ -44,7 +44,7 @@
 % Line l solid; the locus (a pair of parallels at distance d) dashed, one on
 % each side.  The d-tick is drawn from l up to the upper parallel.
 \newcommand{\FIGXIIIONE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \draw[given] (0,0) -- (6.10,0);
   \node[vlab, right] at (6.10,0) {$l$};
   \draw[aux] (0.28,0.82) -- (5.82,0.82);
@@ -60,7 +60,7 @@
 % Two given parallels solid; the locus (the midline) dashed.  P sits on the
 % midline, and the transversal tick carries d above and d below.
 \newcommand{\FIGXIIITWO}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (T) at (0,0.86);
   \coordinate (Bm) at (0,-0.86);
   \draw[given] (0,0.86) -- (6.00,0.86);
@@ -82,7 +82,7 @@
 % partly sketched -- five dots at height 1 over the segment, and one dot at
 % distance 1 measured radially off the right endpoint.  Reproduced as drawn.
 \newcommand{\FIGXIIITHREE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.92]
+\begin{tikzpicture}[scale=1.196]
   \draw[given] (0,0) -- (3,0);
   \foreach \x in {0,1,2,3} \draw[given] (\x,0) -- (\x,0.17);
   % five dots, spacing measured from the print (0.19 unit); the arrow lands on
@@ -102,7 +102,7 @@
 % ---------------------------------------------------------------- Fig 13-4
 % Ex 13-1 #5: fixed base of 4 units, free vertex V.
 \newcommand{\FIGXIIIFOUR}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.92]
+\begin{tikzpicture}[scale=1.196]
   \coordinate (L) at (0,0);
   \coordinate (R) at (3.00,0);
   % apex measured off the print: 0.741 of the base along, 0.463 of the base up
@@ -117,7 +117,7 @@
 % Thm 13-1.  C is the MIDPOINT of AB; the perpendicular bisector is solid and
 % runs through C to P; PA and PB are the dashed proof lines.
 \newcommand{\FIGXIIIFIVE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (A) at (0,0);
   \coordinate (B) at (3.40,0);
   \coordinate (C) at ($(A)!0.5!(B)$);
@@ -141,7 +141,7 @@
 % carries P.  A and B are the FEET of the perpendiculars from P, so they are
 % built with the projection operator -- never by eye.
 \newcommand{\FIGXIIISIX}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (O) at (0,0);
   \coordinate (Uend) at (18:3.95);   % upper side of the angle
   \coordinate (Lend) at (-18:4.05);  % lower side
@@ -165,7 +165,7 @@
 % Thm 13-3.  AB is a DIAMETER (O the midpoint); P on the circle; PA, PB dashed
 % so that angle APB is the right angle in a semicircle.
 \newcommand{\FIGXIIISEVEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \def\rr{1.42}
   \coordinate (O) at (0,0);
   \coordinate (A) at (-\rr,0);
@@ -187,7 +187,7 @@
 % Ex 13-2 #4: A and B fixed on a dashed line; P below, on one side, with the
 % solid segments PA, PB subtending the 50-degree angle of the exercise.
 \newcommand{\FIGXIIIEIGHT}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=1.118]
   % AB rises at 29 degrees, as measured off the print (PDF 244 at 200 dpi).
   \coordinate (A) at (0.62,0.50);
   \coordinate (B) at (2.3255,1.4454);
@@ -211,7 +211,7 @@
 % tracing point P on the rim.  Equal radii; the centres sit at the same
 % height, which is what rolling on a (horizontal) line forces.
 \newcommand{\FIGXIIININE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \def\rr{0.98}
   \coordinate (K) at (0.42,0);    % solid wheel, later position
   \coordinate (Kp) at (0,0);      % dashed wheel, earlier position
@@ -228,7 +228,7 @@
 % Ex 13-2 #8: a circle of radius R/4 rolling INSIDE a circle of radius R.
 % Internal tangency is forced: centre distance = R - R/4.
 \newcommand{\FIGXIIITEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \def\RR{1.40}
   \coordinate (O) at (0,0);
   \coordinate (Q) at (-32:0.75*\RR);   % = R - R/4 = 0.75 R
@@ -244,7 +244,7 @@
 % theorem (ratio of the two adjacent sides), so the three dashed cevians are
 % genuinely the angle bisectors and genuinely concurrent.
 \newcommand{\FIGXIIIELEVEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (A) at (0,0);
   \coordinate (B) at (3.50,2.70);
   \coordinate (C) at (3.30,0.10);
@@ -274,7 +274,7 @@
 % vertices, and O falls outside the triangle because angle B is obtuse.
 % O is built as an intersection of two perpendicular bisectors.
 \newcommand{\FIGXIIITWELVE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (A) at (0,0);
   \coordinate (B) at (3.20,0);
   \coordinate (C) at (3.75,2.75);
@@ -306,7 +306,7 @@
 % Ex 13-4 #1.  CD is PARALLEL to the base: C and D are taken at the SAME ratio
 % down the two sides, which forces CD || AB exactly.  P is the midpoint of CD.
 \newcommand{\FIGXIIITHIRTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (A) at (0,0);
   \coordinate (Bs) at (3.64,-0.18);
   \coordinate (T) at (0.73,2.09);
@@ -328,7 +328,7 @@
 % Built the other way round for stability: put O at the centre, take A and B
 % on the circle, then erect BC perpendicular to OB at B.
 \newcommand{\FIGXIIIFOURTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \def\rr{1.50}
   \coordinate (O) at (0,0);
   \coordinate (A) at (203:\rr);
@@ -437,7 +437,7 @@
 % of the angle at C runs free (the third vertex is not yet located), and the
 % triple-ticked segment is drawn across from that free side to CA.
 \newcommand{\FIGXIIISEVENTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (C) at (0,1.02);
   \coordinate (A) at (0.98,0.20);
   \coordinate (B) at (3.62,0.28);

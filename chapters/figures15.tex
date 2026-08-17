@@ -43,7 +43,7 @@
   \draw[fig] (-0.3,0) -- (10.3,0);
   \foreach \x/\below/\above in {0.6/{P'_{x'}}/{x'}, 3.5/{O}/{},
                                 5.9/{P_1}/{1}, 9.6/{P_x}/{x}}
-    {\fill (\x,0) circle (1.3pt);
+    {\dt{\x,0}
      \node[vlab,below=2pt] at (\x,0) {$\below$};}
   \foreach \x/\above in {0.6/{x'}, 5.9/{1}, 9.6/{x}}
     {\node[vlab,above=2pt] at (\x,0) {$\above$};}
@@ -61,7 +61,7 @@
 % numerals on the 30 deg side, and each -1 thrown to the far side of its own
 % axis so the two do not crowd the 0.
 \newcommand{\FIGXVTWO}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=1.040]
   % unit vectors
   \def\ax{-0.86603} \def\ay{-0.5}      % abscissa positive (210 deg)
   \def\ox{0.5}      \def\oy{-0.86603}  % ordinate positive (300 deg)
@@ -96,7 +96,7 @@
 % Theorem 15-1: P,Q in the SAME quadrant => PQ meets neither axis;
 % P,Q in DIFFERENT quadrants => PQ meets at least one axis.
 \newcommand{\FIGXVTHREE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.78]
+\begin{tikzpicture}[scale=1.014]
   \draw[fig] (-4.3,0) -- (3.9,0);
   \draw[fig] (0,2.9) -- (0,-1.5);
   % same quadrant (I): segment meets neither axis
@@ -114,7 +114,7 @@
   \draw[key] (P3) -- (Q3);
   \node[vlab,above=1pt] at (P3) {$P$};
   \node[vlab,right=1pt] at (Q3) {$Q$};
-  \foreach \p in {P1,Q1,Q2,P2,P3,Q3} \fill (\p) circle (1.4pt);
+  \foreach \p in {P1,Q1,Q2,P2,P3,Q3} {\dt{\p}}
 \end{tikzpicture}
 \figcap{15--3}
 \end{bkfigure}}
@@ -123,7 +123,7 @@
 % The four quadrants, numbered.  The book leaves this pair of axes unlettered
 % (no x, no y) and runs the left branch longer than the right.
 \newcommand{\FIGXVFOUR}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.72]
+\begin{tikzpicture}[scale=0.936]
   \XVaxesnl{-3.6}{2.9}{-1.2}{2.7}
   \XVxticks{1}{2}
   \XVyticks{1}{2}
@@ -147,13 +147,13 @@
 % Branch lengths follow the plate: the ordinate axis runs 1.8 units forward
 % and 3.9 back, the abscissa 2.05 forward and 1.95 back.
 \newcommand{\FIGXVFIVE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=1.040]
   \def\ox{-0.86603} \def\oy{0.5}       % ordinate positive (150 deg)
   \def\ax{-0.5}     \def\ay{-0.86603}  % abscissa positive (240 deg)
   \draw[fig,-latex] (3.9*-\ox,3.9*-\oy) -- (1.8*\ox,1.8*\oy);
   \draw[fig,-latex] (1.95*-\ax,1.95*-\ay) -- (2.05*\ax,2.05*\ay);
-  \fill (\ox,\oy) circle (1.4pt);
-  \fill (\ax,\ay) circle (1.4pt);
+  \dt{\ox,\oy}
+  \dt{\ax,\ay}
   \node[slab,above] at (\ox,\oy) {$1$};
   \node[slab,right] at (\ax,\ay) {$1$};
   \node[slab,above] at (2.0*\ox,2.0*\oy) {Ordinates};
@@ -168,14 +168,14 @@
 % second axis in B.  A sits on the positive abscissa axis and B on the
 % negative ordinate axis, so P falls in quadrant IV, as in the book.
 \newcommand{\FIGXVSIX}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=1.040]
   \XVaxes{-1.6}{2.8}{-3.2}{1.65}
   \coordinate (A) at (1.55,0);
   \coordinate (B) at (0,-1.70);
   \coordinate (P) at (1.55,-1.70);
   \draw[aux] (1.55,1.55) -- (1.55,-3.5);
   \draw[aux] (-1.65,-1.70) -- (3.2,-1.70);
-  \foreach \p in {A,B,P} \fill (\p) circle (1.4pt);
+  \foreach \p in {A,B,P} {\dt{\p}}
   \node[vlab,above left=-1pt and 0pt] at (0,0) {$O$};
   \node[vlab,above right=1pt and 1pt] at (A) {$A$};
   \node[vlab,above left=1pt and 1pt]  at (B) {$B$};
@@ -191,7 +191,7 @@
 % ticks only 1 and 2 -- the line itself stands in for the third mark -- and
 % sets the label to the RIGHT of the line.
 \newcommand{\FIGXVSEVEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.70]
+\begin{tikzpicture}[scale=0.910]
   \XVaxes{-0.9}{4.3}{-1.7}{3.55}
   \XVxticks{1}{2}
   \draw[key] (3,-1.65) -- (3,3.48);
@@ -215,7 +215,7 @@
   \XVyticks{-2}{4}
   % the line 2x - 3y + 6 = 0, i.e. y = (2/3)x + 2 -- endpoints computed
   \draw[aux] (-4.2,-0.8) -- (5.4,5.6);
-  \foreach \p in {(-3,0),(0,2),(3,4)} \fill \p circle (2.2pt);
+  \foreach \p in {(-3,0),(0,2),(3,4)} {\node[bkdot] at \p {};}
 \end{tikzpicture}
 \figcap{15--8}
 \end{minipage}\hfill
@@ -258,7 +258,7 @@
   \draw[fig] (P1) -- (F1);
   \draw[fig] (P2) -- (F2);
   \draw[aux] (O) -- (P2);
-  \foreach \p in {O,P1,P2} \fill (\p) circle (1.4pt);
+  \foreach \p in {O,P1,P2} {\dt{\p}}
   \node[slab,left]  at (O)  {$(0,-C/B)$};
   \node[slab,anchor=south east,xshift=-1pt,yshift=3pt] at (P1) {$(x_1,y_1)$};
   \node[slab,anchor=south east,xshift=9pt,yshift=3pt]  at (P2) {$(x_2,y_2)$};
@@ -283,7 +283,7 @@
   \draw[fig] (P2) -- (F2);
   \draw[fig] (P3) -- (F3);
   \draw[fig] (P1) -- (P3);
-  \foreach \p in {P1,P2,P3} \fill (\p) circle (1.4pt);
+  \foreach \p in {P1,P2,P3} {\dt{\p}}
   \node[slab,left] at (P1) {$(x_1,y_1)$};
   \node[slab] at ($(P2)+(-0.34,0.48)$) {$(x_2,y_2)$};
   \node[slab] at ($(P3)+(0.10,0.50)$)  {$(x,y)$};
@@ -299,14 +299,14 @@
 % the book sets (-2,3) above-left of its point and (1,5) below-right of its
 % own, which also keeps both clear of the line.
 \newcommand{\FIGXVTWELVE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.52]
+\begin{tikzpicture}[scale=0.676]
   \XVaxes{-5.0}{5.6}{-1.2}{6.9}
   \XVxticks{-4}{5}
   \XVyticks{1}{5}
   % slope 2/3 through (-2,3) and (1,5) -- endpoints computed, not eyeballed
   \draw[key] (-4.1,1.6) -- (3.45,6.63333);
-  \fill (-2,3) circle (2.0pt);
-  \fill (1,5)  circle (2.0pt);
+  \dt{-2,3}
+  \dt{1,5}
   \XVzero
   \node[vlab,above left=0pt and 0pt]  at (-2,3) {$(-2,3)$};
   \node[vlab,below right=0pt and 0pt] at (1,5)  {$(1,5)$};
@@ -331,17 +331,17 @@
   \node[slab,above left=-1pt and 0pt] at (0,0) {$0$};
   % horizontal pair (2,3)-(6,3)
   \draw[aux] (2,3) -- (6,3);
-  \fill (2,3) circle (2.2pt); \fill (6,3) circle (2.2pt);
+  \dt{2,3} \dt{6,3}
   \node[slab,above] at (2,3.1) {$(2,3)$};
   \node[slab,above] at (6,3.1) {$(6,3)$};
   % horizontal pair (-2,2)-(3,2)
   \draw[aux] (-2,2) -- (3,2);
-  \fill (-2,2) circle (2.2pt); \fill (3,2) circle (2.2pt);
+  \dt{-2,2} \dt{3,2}
   \node[slab,left]  at (-2.1,2) {$(-2,2)$};
   \node[slab,right] at (3.1,2)  {$(3,2)$};
   % vertical pair A(1,1)-B(1,-3)
   \draw[aux] (1,1) -- (1,-3);
-  \fill (1,1) circle (2.2pt); \fill (1,-3) circle (2.2pt);
+  \dt{1,1} \dt{1,-3}
   \node[slab,left]  at (0.88,1)  {$A$};
   \node[slab,right] at (1.12,1)  {$(1,1)$};
   \node[slab,left]  at (0.88,-3) {$B$};
@@ -350,7 +350,7 @@
   % Dropped to y = -1.5: at this trim a label set above a point at y = -1
   % would run back over the axis of abscissas.
   \draw[aux] (-1,-1.5) -- (2,-1.5);
-  \fill (-1,-1.5) circle (2.2pt); \fill (2,-1.5) circle (2.2pt);
+  \dt{-1,-1.5} \dt{2,-1.5}
   \node[slab,above] at (-1,-1.4) {$C$};
   \node[slab,above] at (2,-1.4)  {$D$};
   \node[slab,left]  at (-1.12,-1.5) {$(x_1,y_1)$};
@@ -371,7 +371,7 @@
   \draw[key] (P1) -- (P2);
   \draw[aux] (P1) -- (Q);
   \draw[aux] (Q)  -- (P2);
-  \foreach \p in {P1,P2,Q} \fill (\p) circle (1.5pt);
+  \foreach \p in {P1,P2,Q} {\dt{\p}}
   \node[vlab,above,xshift=-2pt] at (P1) {$P_1$};
   \node[vlab,anchor=south east,xshift=-1pt] at (P2) {$P_2$};
   \node[vlab,right,yshift=5pt] at (Q) {$Q$};
@@ -391,7 +391,7 @@
 % 15-16: the worked example -- M(0,1) is the midpoint of (-1,3) and (1,-1).
 \newcommand{\FIGXVFIFTEENSIXTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.52\linewidth}\centering
-\begin{tikzpicture}[scale=0.72]
+\begin{tikzpicture}[scale=0.756]
   \draw[fig,-latex] (-0.40,0) -- (3.60,0);
   \node[vlab,right] at (3.60,0) {$x$};
   \draw[fig,-latex] (0,-0.35) -- (0,3.90);
@@ -407,7 +407,7 @@
   \draw[aux] (P1) -- (C) -- (P2);
   \draw[aux] (M) -- (Mh);
   \draw[aux] (M) -- (Mv);
-  \foreach \p in {P1,P2,M} \fill (\p) circle (1.5pt);
+  \foreach \p in {P1,P2,M} {\dt{\p}}
   \node[slab,anchor=north west,xshift=-9pt,yshift=-3pt] at (P1) {$P_1\,(x_1,y_1)$};
   \node[slab,right] at (P2) {$P_2\,(x_2,y_2)$};
   \node[vlab,above left=-3pt and -1pt] at (M) {$M$};
@@ -421,12 +421,12 @@
 \figcap{15--15}
 \end{minipage}\hfill
 \begin{minipage}{0.44\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.651]
   \XVaxes{-2.0}{3.2}{-1.95}{3.5}
   \node[slab,below left=-1pt and 0pt] at (0,0) {$0$};
-  \fill (-1,3) circle (1.5pt);
-  \fill (0,1)  circle (1.5pt);
-  \fill (1,-1) circle (1.5pt);
+  \dt{-1,3}
+  \dt{0,1}
+  \dt{1,-1}
   \node[slab,left]  at (-1.15,3) {$P_1\,(-1,3)$};
   \node[slab,right] at (0.18,1)  {$M\,(0,1)$};
   \node[slab,right] at (1.18,-1) {$P_2\,(1,-1)$};
@@ -441,7 +441,7 @@
 % draws b barely larger than a, so the right side is all but vertical, and
 % the midline is a plain dashed segment with no arrowhead.
 \newcommand{\FIGXVSEVENTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.72]
+\begin{tikzpicture}[scale=0.936]
   \draw[fig,-latex] (-0.70,0) -- (3.70,0);
   \node[vlab,right] at (3.70,0) {$x$};
   \draw[fig,-latex] (0,-0.60) -- (0,2.75);
@@ -453,7 +453,7 @@
   \coordinate (M1) at ($(A)!0.5!(C)$);
   \coordinate (M2) at ($(B)!0.5!(C)$);
   \draw[aux] (M1) -- (M2);
-  \foreach \p in {M1,M2} \fill (\p) circle (1.3pt);
+  \foreach \p in {M1,M2} {\dt{\p}}
   \node[slab,below right=-1pt and 0pt] at (A) {$(0,0)$};
   \node[slab,below] at (B) {$(a,0)$};
   \node[slab,right] at (C) {$(b,c)$};
@@ -486,7 +486,7 @@
   % construction, so the drawn radius really has length r.
   \coordinate (X) at ($(K)+(148.5:\rr)$);
   \draw[fig] (K) -- (X);
-  \fill (K) circle (1.5pt);
+  \dt{K}
   \node[slab,right] at (K) {$(h,k)$};
   \node[slab,left=1pt]  at (X) {$(x,y)$};
   % r set off the radius along the perpendicular, so it does not sit on the line
@@ -504,7 +504,7 @@
   \XVxticks{-5}{-1}
   \XVyticks{1}{5}
   \draw[key] (-3,4) circle (2.4494897);
-  \fill (-3,4) circle (2.4pt);
+  \dt{-3,4}
   \node[slab,below=3pt] at (-3,4) {$(-3,4)$};
 \end{tikzpicture}
 \figcap{15--19}

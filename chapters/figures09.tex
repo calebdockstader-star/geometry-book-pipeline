@@ -27,9 +27,9 @@
 % is not quite enough when a labelled point lies ON a line: the line clips the
 % corner of the box.  4.8pt clears it without the labels drifting loose.
 \tikzset{
-  vlab/.append style={outer sep=4.8pt},
-  slab/.append style={outer sep=4.8pt},
-  klab/.append style={outer sep=4.8pt},
+  vlab/.append style={outer sep=2.9pt},
+  slab/.append style={outer sep=2.9pt},
+  klab/.append style={outer sep=2.9pt},
 }
 
 % Book-style dimension brace (Figs 9-14, 9-45, 9-46).
@@ -45,7 +45,7 @@
 % right; m'' through A and m''' through B are parallel to m' (dashed in the
 % book).  Spacing of the parallels is equal because AB = BC on m.
 \newcommand{\FIGIXONE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=1.133]
   \foreach \y/\nm in {2.2/$l$, 1.1/$l\IXpr$, 0/$l\IXpr\IXpr$}
     {\draw[given] (0.35,\y) -- (9.05,\y);
      \node[vlab, right] at (9.05,\y) {\nm};}
@@ -116,7 +116,7 @@
 % D, E, G are the midpoints of AB, BC, CA.  m' is the line through E parallel
 % to AB; it meets AC in G.
 \newcommand{\FIGIXFOUR}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=1.15]
+\begin{tikzpicture}[scale=1.667]
   \coordinate (A) at (0,0); \coordinate (C) at (2.39,0);
   \coordinate (B) at (0.69,0.98);
   \draw[given] (A) -- (C) -- (B) -- cycle;
@@ -201,7 +201,7 @@
 % AD = DE = EF = FG on the ray AC; the parallels to BG through D, E, F cut AB
 % at its quarter points H, I, J -- so every crossing is derived, not placed.
 \newcommand{\FIGIXEIGHT}{\begin{bkfigure}[0.72\linewidth]
-\begin{tikzpicture}[scale=1.02]
+\begin{tikzpicture}[scale=1.479]
   \coordinate (A) at (0,0); \coordinate (C) at (5.30,0);
   \coordinate (B) at (3.02,1.50);
   \coordinate (G) at (4.22,0);
@@ -226,7 +226,7 @@
 \newcommand{\FIGIXNINEFOURTEEN}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}{0.38\linewidth}\centering
-\begin{tikzpicture}[scale=0.70]
+\begin{tikzpicture}[scale=0.510]
   % 9-9: D on AB, E on BC with BD/BA = BE/BC, hence DE || AC exactly.
   \coordinate (A) at (0,0); \coordinate (C) at (4.12,0.42);
   \coordinate (B) at (1.32,2.32);
@@ -245,7 +245,7 @@
 \figcap{9--9}
 \end{minipage}\hfill
 \begin{minipage}{0.33\linewidth}\centering
-\begin{tikzpicture}[scale=0.58]
+\begin{tikzpicture}[scale=0.422]
   % 9-10: three parallels l1,l2,l3 (spacing 1.85 : 1, as drawn); the left
   % transversal carries A,B,C; T1 runs A-D-l3; T2 is parallel to T1 and
   % carries E (on l1) and F (on l3).  AD/DX = AB/BC by construction.
@@ -278,7 +278,7 @@
 \end{bkfigure}
 \begin{bkfigure}[\linewidth]
 \begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=0.92]
+\begin{tikzpicture}[scale=0.670]
   % 9-11: AB : BC : CD = 4 : 3 : 2 down the left side; E and F sit on AG at
   % the matching ratios, so BE || CF || DG exactly.  AE is marked 8.
   \coordinate (A) at (0,3.15); \coordinate (D) at (0,0);
@@ -302,7 +302,7 @@
 \figcap{9--11}
 \end{minipage}\hfill
 \begin{minipage}{0.43\linewidth}\centering
-\begin{tikzpicture}[scale=0.56]
+\begin{tikzpicture}[scale=0.408]
   % 9-12: parallels l1,l2,l3 with gaps 2 : 3; a zigzag of three transversals.
   % 2 and 3 are the pieces of the first, 4 the lower piece of the second,
   % 6 the lower piece of the third; AB is the piece asked for.
@@ -331,7 +331,7 @@
 \end{bkfigure}
 \begin{bkfigure}[\linewidth]
 \begin{minipage}{0.43\linewidth}\centering
-\begin{tikzpicture}[scale=0.76]
+\begin{tikzpicture}[scale=0.553]
   % 9-13: parallelogram ABCD, E and F the midpoints of AB and CD; the only
   % diagonal drawn is AC, cut by ED and BF at its trisection points G and H.
   % vertices measured off the p.158 figure at 400 dpi: AD runs 1.5 deg BELOW
@@ -354,7 +354,7 @@
 \figcap{9--13}
 \end{minipage}\hfill
 \begin{minipage}{0.33\linewidth}\centering
-\begin{tikzpicture}[scale=0.66]
+\begin{tikzpicture}[scale=0.481]
   % 9-14: D on LT and E on LR at the same ratio, so DE || TR; the braces mark
   % x = LT, 1 = LD, y = LE, z = LR.  x : 1 = z : y is the point of the problem.
   % Brace nesting follows the book: on BOTH sides the LONGER brace (x, z) is
@@ -384,7 +384,7 @@
 % --------------------------------------------------------------- Fig 9-15
 % Sides 5, 6, 7 built exactly; the primed triangle is the same shape at 2/5.
 \newcommand{\FIGIXFIFTEEN}{\begin{bkfigure}[0.86\linewidth]
-\begin{tikzpicture}[scale=0.80]
+\begin{tikzpicture}[scale=1.160]
   \coordinate (E) at (0,0); \coordinate (G) at (3.5,0);
   \coordinate (F) at (1.357,2.099);
   \draw[given] (E) -- (G) -- (F) -- cycle;
@@ -407,14 +407,14 @@
 
 % --------------------------------------------------------------- Fig 9-16
 \newcommand{\FIGIXSIXTEEN}{\begin{bkfigure}[0.9\linewidth]
-\begin{tikzpicture}[scale=0.95]
+\begin{tikzpicture}[scale=1.377]
   \draw[given] (0,0.62)   -- (2.75,0.62);
   \draw[given] (0.10,0)   -- (2.40,0);
   \draw[given] (4.35,0.62) -- (5.50,0.62);
   \draw[given] (4.65,0)   -- (5.25,0);
   \foreach \x/\y in {0/0.62, 2.75/0.62, 0.10/0, 2.40/0,
                      4.35/0.62, 5.50/0.62, 4.65/0, 5.25/0}
-    {\fill (\x,\y) circle (1.2pt);}
+    {\dt{\x,\y}}
   \node[vlab,left]  at (0,0.62)    {$A$};
   \node[vlab,right] at (2.75,0.62) {$B$};
   \node[vlab,left]  at (0.10,0)    {$A\IXpr$};
@@ -430,9 +430,9 @@
 % --------------------------------------------------------------- Fig 9-17
 % CD cut into four congruent subintervals; EF is one of them.
 \newcommand{\FIGIXSEVENTEEN}{\begin{bkfigure}[0.6\linewidth]
-\begin{tikzpicture}[scale=1.35]
+\begin{tikzpicture}[scale=1.958]
   \draw[given] (0,0) -- (2.28,0);
-  \foreach \x in {0,0.57,1.14,1.71,2.28}{\fill (\x,0) circle (1.3pt);}
+  \foreach \x in {0,0.57,1.14,1.71,2.28}{\dt{\x,0}}
   \node[vlab,left]  at (0,0)    {$C$};
   \node[vlab,right] at (2.28,0) {$D$};
   \node[vlab,above] at (0.57,0) {$E$};
@@ -527,7 +527,7 @@
 % AB is cut into five unit pieces by F, A'', E, D; the parallels to AC through
 % them meet BC in G, C'', H, I.  The primed triangle is the same shape at 3/5.
 \newcommand{\FIGIXTWENTYTWO}{\begin{bkfigure}[0.9\linewidth]
-\begin{tikzpicture}[scale=1.30]
+\begin{tikzpicture}[scale=1.885]
   \coordinate (A) at (0,0); \coordinate (C) at (1.75,0);
   \coordinate (B) at (1.02,1.87);
   \draw[given] (A) -- (C) -- (B) -- cycle;
@@ -559,7 +559,7 @@
 \newcommand{\FIGIXTWENTYTHREETWENTYNINE}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}{0.19\linewidth}\centering
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.489]
   % 9-23: AE = 4, ED = 6, so B and E sit at 0.4 along AC and AD; BE || CD.
   \coordinate (C) at (0,0); \coordinate (D) at (2.10,0);
   \coordinate (A) at (2.58,1.32);
@@ -574,7 +574,7 @@
 \figcap{9--23}
 \end{minipage}\hfill
 \begin{minipage}{0.44\linewidth}\centering
-\begin{tikzpicture}[scale=1.10]
+\begin{tikzpicture}[scale=0.897]
   % 9-24: AB and DE both run north-south; D at 0.85 along AC, E fixed by
   % DE || AB, giving DE/AB = DC/AC = 0.15 as the exercise states.
   % The lake is traced from the iPad scan (scan12 p8) and then placed against
@@ -628,7 +628,7 @@
 \figcap{9--24}
 \end{minipage}\hfill
 \begin{minipage}{0.19\linewidth}\centering
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.489]
   % 9-25: D on BA and E on BC at the same ratio, so DE || AC.
   \coordinate (A) at (0,0); \coordinate (C) at (2.40,0);
   \coordinate (B) at (1.30,1.42);
@@ -645,7 +645,7 @@
 \end{bkfigure}
 \begin{bkfigure}[\linewidth]
 \begin{minipage}{0.19\linewidth}\centering
-\begin{tikzpicture}[scale=0.72]
+\begin{tikzpicture}[scale=0.587]
   % 9-26: AE vertical; AB _|_ AE at A and DE _|_ AE at E, on opposite sides,
   % so BD crosses AE at C with AC/CE = AB/DE.
   \coordinate (A) at (0,1.54); \coordinate (E) at (0,0);
@@ -660,7 +660,7 @@
 \figcap{9--26}
 \end{minipage}\hfill
 \begin{minipage}{0.25\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.506]
   % 9-27: l and m are parallel (both of slope 2); EI and FH cross at G, so
   % triangle EFG ~ triangle IHG.
   \coordinate (F) at (0,0);    \coordinate (E) at (0.40,0.80);
@@ -679,7 +679,7 @@
 \figcap{9--27}
 \end{minipage}\hfill
 \begin{minipage}{0.33\linewidth}\centering
-\begin{tikzpicture}[scale=0.52]
+\begin{tikzpicture}[scale=0.424]
   % 9-28: PS bisects angle P, so QS/SR = PQ/PR (ratio 0.468 for these sides).
   \coordinate (P) at (0,0); \coordinate (R) at (1.80,0);
   \coordinate (Q) at (0.96,1.26);
@@ -703,7 +703,7 @@
 \end{minipage}
 \end{bkfigure}
 \begin{bkfigure}[0.46\linewidth]
-\begin{tikzpicture}[scale=1.18]
+\begin{tikzpicture}[scale=0.963]
   % 9-29: CD and AE are altitudes -- D and E are true perpendicular feet.
   \coordinate (A) at (0,0); \coordinate (C) at (1.88,0);
   \coordinate (B) at (1.15,1.45);
@@ -724,7 +724,7 @@
 % AD/AB = AE/AC, so DE || BC.  DF is the auxiliary line of the proof, drawn
 % to a point F beyond E on AC -- the proof's job is to show F = E.
 \newcommand{\FIGIXTHIRTY}{\begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=1.05]
+\begin{tikzpicture}[scale=1.522]
   \coordinate (B) at (0,0); \coordinate (C) at (2.30,0.20);
   \coordinate (A) at (1.20,1.30);
   \draw[given] (B) -- (C) -- (A) -- cycle;
@@ -744,7 +744,7 @@
 % --------------------------------------------------------------- Fig 9-31
 % B'' on AB and C'' on AC at the same ratio, so B''C'' || BC (Statement 4).
 \newcommand{\FIGIXTHIRTYONE}{\begin{bkfigure}[0.84\linewidth]
-\begin{tikzpicture}[scale=1.15]
+\begin{tikzpicture}[scale=1.667]
   \coordinate (A) at (0,0); \coordinate (C) at (1.63,0);
   \coordinate (B) at (1.03,1.13);
   \draw[given] (A) -- (C) -- (B) -- cycle;
@@ -835,7 +835,7 @@
 % A'' on BA and C'' on BC at the same ratio 0.60, matching the 0.60 scale of
 % the primed triangle; hence A''C'' || AC.
 \newcommand{\FIGIXTHIRTYSIX}{\begin{bkfigure}[0.84\linewidth]
-\begin{tikzpicture}[scale=1.15]
+\begin{tikzpicture}[scale=1.667]
   \coordinate (A) at (0,0); \coordinate (C) at (1.65,0);
   \coordinate (B) at (0.85,1.50);
   \draw[given] (A) -- (C) -- (B) -- cycle;
@@ -1039,7 +1039,7 @@
 % --------------------------------------------------------------- Fig 9-46
 % Right angle at C; D the foot of the altitude, x = AD, y = DB, x.y = h^2.
 \newcommand{\FIGIXFORTYSIX}{\begin{bkfigure}[0.58\linewidth]
-\begin{tikzpicture}[scale=1.05]
+\begin{tikzpicture}[scale=1.522]
   \coordinate (A) at (0,0); \coordinate (B) at (2.75,0);
   \coordinate (D) at (1.05,0); \coordinate (C) at (1.05,1.3360);
   \draw[given] (A) -- (B) -- (C) -- cycle;
@@ -1059,7 +1059,7 @@
 % --------------------------------------------------------------- Fig 9-47
 % Two congruent right triangles, legs solid and hypotenuse dashed as printed.
 \newcommand{\FIGIXFORTYSEVEN}{\begin{bkfigure}[0.72\linewidth]
-\begin{tikzpicture}[scale=1.05]
+\begin{tikzpicture}[scale=1.522]
   \coordinate (C) at (0,0); \coordinate (B) at (0.94,0);
   \coordinate (A) at (0,1.60);
   \draw[given] (C) -- (B); \draw[given] (C) -- (A); \draw[aux] (A) -- (B);
@@ -1168,7 +1168,7 @@
   \draw[given] (A) -- (C) -- (B);
   \draw[key] (C) -- (D);
   \draw[given] (C) -- (O);
-  \fill (O) circle (1.2pt);
+  \dt{O}
   \node[vlab,below left]  at (A) {$A$};
   \node[vlab,below right] at (B) {$B$};
   \node[vlab,above] at (C) {$C$};
@@ -1188,14 +1188,14 @@
 % AB a vertical diameter; CD _|_ AB at E, with EO = 12 and radius 15, so the
 % half-chord is 9.
 \newcommand{\FIGIXFIFTYTWO}{\begin{bkfigure}[0.46\linewidth]
-\begin{tikzpicture}[scale=1.05]
+\begin{tikzpicture}[scale=1.522]
   \draw[given] (0,0) circle (1.5);
   \coordinate (A) at (0,1.5); \coordinate (B) at (0,-1.5);
   \coordinate (E) at (0,1.2);
   \coordinate (C) at (-0.9,1.2); \coordinate (D) at (0.9,1.2);
   \draw[given] (A) -- (B);
   \draw[key] (C) -- (D);
-  \fill (0,0) circle (1.2pt);
+  \dt{0,0}
   \node[vlab,above] at (A) {$A$};   \node[vlab,below] at (B) {$B$};
   \node[vlab] at ($(C)+(-0.30,0.18)$) {$C$};
   \node[vlab] at ($(D)+(0.30,0.18)$) {$D$};
@@ -1220,7 +1220,7 @@
 % to show.  Every vertex is forced by those numbers; nothing is placed by eye.
 \newcommand{\FIGIXFIFTYTHREEFIFTYFOUR}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.33\linewidth}\centering
-\begin{tikzpicture}[x=0.108cm,y=0.108cm]
+\begin{tikzpicture}[x=0.108cm,y=0.108cm,scale=1.108]
   \coordinate (A) at (0,0);   \coordinate (B) at (18,0);
   \coordinate (P) at (18,24); \coordinate (D) at (6,8);
   \coordinate (C) at (18,8);  \coordinate (H) at (6,0);
@@ -1235,7 +1235,7 @@
 \figcap{9--53}
 \end{minipage}\hfill
 \begin{minipage}{0.62\linewidth}\centering
-\begin{tikzpicture}[scale=0.92]
+\begin{tikzpicture}[scale=1.020]
   % 9-54: Menelaus.  D is fixed at 2/3 of AB and F on ray AC beyond C; E is then
   % the true intersection of DF with BC, so AD/DB . BE/EC . CF/FA = 1 holds
   % exactly by construction.  X, Y, Z are projection feet, never eyeballed.
@@ -1275,7 +1275,7 @@
 % 9-55: D and E are the feet of the altitudes from C and from B, placed with the
 % projection operator, so the two right angles are exact.
 \newcommand{\FIGIXFIFTYFIVE}{\begin{bkfigure}[0.5\linewidth]
-\begin{tikzpicture}[scale=1.15]
+\begin{tikzpicture}[scale=1.667]
   \coordinate (A) at (0,0); \coordinate (B) at (3.43,0);
   \coordinate (C) at (2.05,2.92);
   \coordinate (D) at ($(A)!(C)!(B)$);

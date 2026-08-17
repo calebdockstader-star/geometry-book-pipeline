@@ -11,16 +11,16 @@
 % Plane figures. Freeform illustrative shapes traced from scan01 p24 (book p.7).
 \newcommand{\FIGIONE}{%
 \begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.92, every node/.style={font=\scriptsize}]
+\begin{tikzpicture}[scale=1.030, every node/.style={font=\scriptsize}]
   % --- row 1
   \draw[given] (0,0) -- (2.0,0);
-  \fill (0,0) circle (1.1pt) (2.0,0) circle (1.1pt);
+  \dt{0,0}\dt{2.0,0}
   \node[vlab, above] at (0,0.02) {$A$};
   \node[vlab, above] at (2.0,0.02) {$B$};
   \node[below=5pt] at (1.0,-0.05) {Line segment};
 
   \draw[given] (3.3,0) -- (5.3,0);
-  \fill (3.3,0) circle (1.1pt);
+  \dt{3.3,0}
   \node[vlab, above] at (3.3,0.02) {$O$};
   \node[below=5pt] at (4.3,-0.05) {Ray from $O$};
 
@@ -70,7 +70,7 @@
 % Solid figures. Hidden edges dashed, as the book draws them.
 \newcommand{\FIGITWO}{%
 \begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.92, every node/.style={font=\scriptsize},
+\begin{tikzpicture}[scale=1.019, every node/.style={font=\scriptsize},
                     hid/.style={fig, dashed, dash pattern=on 2pt off 1.6pt}]
   % ---- cube
   \begin{scope}
@@ -180,7 +180,7 @@
 % face built from circles.
 \newcommand{\FIGITHREE}{%
 \begin{bkfigure}[0.92\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   % ---- damped zigzag: amplitude falls geometrically left to right
   \begin{scope}[shift={(0,3.05)}]
     % the path must OPEN with a coordinate -- starting it with "--" emits a
@@ -229,7 +229,7 @@
 % Angle: vertex, interior, exterior.
 \newcommand{\FIGIFOUR}{%
 \begin{bkfigure}[0.60\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (A) at (0,0);
   \draw[given] (A) -- (2.35,1.20);
   \draw[given] (A) -- (2.35,-1.20);
@@ -247,7 +247,7 @@
 \newcommand{\FIGIFIVESIX}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.103]
   \coordinate (A) at (0,0);
   \coordinate (D) at (2.30,0);
   \coordinate (B) at (58:2.30);
@@ -263,7 +263,7 @@
 \figcap{1--5}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.103]
   % acute: vertex bottom-left, 32 degrees
   \draw[given] (0,0) -- (1.55,0);
   \draw[given] (0,0) -- (32:1.55);
@@ -284,7 +284,7 @@
 \newcommand{\FIGISEVENEIGHT}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.294]
   \coordinate (R) at (0,0);
   \coordinate (T) at (0,1.75);
   \coordinate (S) at (2.15,0);
@@ -295,7 +295,7 @@
 \figcap{1--7}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.294]
   \coordinate (O) at (0,0);
   \coordinate (A) at (0,1.75);
   \coordinate (B) at (1.85,0);
@@ -303,7 +303,7 @@
   \draw[given] (O) -- (A);
   \draw[given] (O) -- (B);
   \draw[given] (O) -- (C);
-  \fill (A) circle (1.2pt) (B) circle (1.2pt) (C) circle (1.2pt);
+  \dt{A}\dt{B}\dt{C}
   \node[vlab, above] at (A) {$A$};
   \node[vlab, right] at (B) {$B$};
   \node[vlab, right] at (C) {$C$};
@@ -319,14 +319,14 @@
 \newcommand{\FIGININETEN}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.142]
   \coordinate (A) at (-1.55,0);
   \coordinate (O) at (0,0);
   \coordinate (C) at (1.55,0);
   \coordinate (B) at (38:1.62);
   \draw[given] (A) -- (C);
   \draw[given] (O) -- (B);
-  \fill (A) circle (1.2pt) (O) circle (1.2pt) (C) circle (1.2pt) (B) circle (1.2pt);
+  \dt{A}\dt{O}\dt{C}\dt{B}
   \node[vlab, left]  at (A) {$A$};
   \node[vlab, right] at (C) {$C$};
   \node[vlab, above right] at (B) {$B$};
@@ -336,12 +336,12 @@
 \figcap{1--9}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.142]
   \coordinate (A) at (-1.45,0);
   \coordinate (O) at (0,0);
   \coordinate (B) at (1.45,0);
   \draw[given] (A) -- (B);
-  \fill (A) circle (1.2pt) (O) circle (1.2pt) (B) circle (1.2pt);
+  \dt{A}\dt{O}\dt{B}
   \node[vlab, above] at (A) {$A$};
   \node[vlab, above] at (B) {$B$};
   \node[vlab, below] at (O) {$O$};
@@ -353,7 +353,7 @@
 %--------------------------------------------------------------- Fig 1-11
 \newcommand{\FIGIELEVEN}{%
 \begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   % vertex ratios measured off the book's own quadrilateral
   \draw[given] (0,0.310) -- (0.558,1.565) -- (2.200,0.558) -- (1.270,0) -- cycle;
 \end{tikzpicture}
@@ -366,7 +366,7 @@
 \newcommand{\FIGITWELVETHIRTEEN}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.122]
   \def\s{2.05}
   \coordinate (A) at (0,0);
   \coordinate (B) at (\s,0);
@@ -383,7 +383,7 @@
 \figcap{1--12}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.122]
   \foreach \x/\lo/\lb/\la in {0/{O}/{B}/{A}, 2.75/{O\mkern2mu'}/{B\mkern2mu'}/{A\mkern2mu'}} {
     \begin{scope}[xshift=\x cm]
       \coordinate (V) at (0,0);
@@ -409,7 +409,7 @@
 % point; (right) the six-petal rosette inscribed in a circle.
 \newcommand{\FIGIFOURTEEN}{%
 \begin{bkfigure}[0.86\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   % four-circle design
   \begin{scope}
     \def\r{0.78}
@@ -434,7 +434,7 @@
 \newcommand{\FIGIFIFTEENSIXTEEN}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.281]
   \coordinate (V) at (0,0);
   \draw[given] (V) -- (26:2.15);
   \draw[given] (V) -- (-26:2.15);
@@ -451,7 +451,7 @@
 \figcap{1--15}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.281]
   \coordinate (O) at (0,0);
   \coordinate (A) at (36:2.05);
   \coordinate (B) at (-2:2.05);
@@ -477,7 +477,7 @@
 \newcommand{\FIGISEVENTEENEIGHTEEN}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.56\linewidth}\centering
-\begin{tikzpicture}[scale=0.95]
+\begin{tikzpicture}[scale=1.034]
   % (a) two nearby but distinct vertices
   \begin{scope}
     \coordinate (V) at (0,0);
@@ -512,11 +512,11 @@
 \figcap{1--17}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.40\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.088]
   \draw[given] (0.28,0.52) -- (2.05,0.52);        % the given segment
   \draw[given] (0,0) -- (2.30,0);                  % the line
   \coordinate (A) at (0.28,0);
-  \fill (A) circle (1.2pt);
+  \dt{A}
   \draw[fig] (2.05,-0.13) -- (2.05,0.13);          % compass mark at B
   \node[vlab, below left, xshift=2pt, yshift=-0pt] at (A) {$A$};
   \node[vlab, above right, xshift=-3pt, yshift=0pt] at (2.05,0.02) {$B$};
@@ -551,7 +551,7 @@
     \draw[fig] (-0.12,\y+0.12) -- (0.12,\y-0.12);}
   % where the arcs cut AB (x = -1.89+2.45 and 1.89-2.45)
   \foreach \x in {-0.56,0.56} \draw[fig] (\x,-0.15) -- (\x,0.15);
-  \fill (A) circle (1.2pt) (B) circle (1.2pt);
+  \dt{A}\dt{B}
   \node[vlab, left]  at (A) {$A$};
   \node[vlab, right] at (B) {$B$};
   \node[vlab] at (0.20,-0.33) {$C$};
@@ -589,7 +589,7 @@
 \newcommand{\FIGITWENTYONETWENTYTWO}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.153]
   \coordinate (P) at (0,1.30);
   \draw[given] (-1.60,0) -- (1.60,0);
   \draw[given] (0,-1.15) -- (0,1.55);
@@ -608,7 +608,7 @@
 \figcap{1--21}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.153]
   % proportions from the book: apex at 0.64 of the base, height 0.627 of the base
   \coordinate (A) at (0,0);
   \coordinate (B) at (3.40,0);
@@ -635,7 +635,7 @@
 % against scan02 p12 (book p.16). The medians are exact; the hand is stylised.
 \newcommand{\FIGITWENTYTHREE}{%
 \begin{bkfigure}[0.50\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   % triangle seen almost edge-on, balanced at its centroid
   \coordinate (A) at (-1.55,0.18);
   \coordinate (B) at (1.62,0.30);
@@ -670,7 +670,7 @@
 % projections ($(X)!(P)!(Y)$).
 \newcommand{\FIGITWENTYFOUR}{%
 \begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.237]
   % Proportions measured off the book: all three panels are about the same width
   % (100 : 106 : 110) and grow in height (64 : 92 : 113).
   % ---- (a) apex left of centre, foot inside, right-angle box right of the altitude
@@ -724,7 +724,7 @@
 % vertex through the exact incentre to the opposite side.
 \newcommand{\FIGITWENTYFIVE}{%
 \begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   % proportions from the book: apex at 0.775 of the base, height 0.667 of the base
   \coordinate (A) at (0,0);
   \coordinate (B) at (2.95,0);
@@ -751,7 +751,7 @@
 \newcommand{\FIGITWENTYSIXTWENTYSEVEN}{%
 \begin{bkfigure}[\linewidth]
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.134]
   % l and m share the direction (3.2, 0.9); n is the transversal
   \coordinate (l1) at (0.10,0.95);  \coordinate (l2) at (3.30,1.85);
   \coordinate (m1) at (0.10,0.30);  \coordinate (m2) at (3.30,1.20);
@@ -773,7 +773,7 @@
 \figcap{1--26}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.134]
   \coordinate (l1) at (0,1.35);  \coordinate (l2) at (3.10,1.35);
   \coordinate (n1) at (0.72,0);  \coordinate (n2) at (2.02,2.10);
   \draw[given] (l1) -- (l2);
@@ -781,7 +781,7 @@
   \coordinate (Q) at (intersection of l1--l2 and n1--n2);
   \coordinate (P) at ($(n1)!0.30!(n2)$);
   \draw[aux] ($(P)+(-0.66,0)$) -- ($(P)+(1.22,0)$);   % the copied parallel
-  \fill (P) circle (1.2pt);
+  \dt{P}
   % as in the book: 2 is the lower-left angle at Q, 1 the upper-right angle at P
   % (alternate interior angles). n rises at 58.24 deg.
   \node[slab] at ($(Q)+(209.12:0.55)$) {2};
@@ -798,7 +798,7 @@
 % Right triangle: right angle at C, hypotenuse c, legs a and b.
 \newcommand{\FIGITWENTYEIGHT}{%
 \begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (A) at (0,0);
   \coordinate (C) at (2.45,0);
   \coordinate (B) at (2.45,1.70);

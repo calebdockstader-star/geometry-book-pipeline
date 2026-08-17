@@ -27,7 +27,7 @@
   % Both slid down L3 past its crossing with L6 (t=0.658) so the labels have
   % clear air on the right-hand side of the line.
   \coordinate (Ap) at ($(p3)!0.83489!(q3)$); \coordinate (Bp) at ($(p3)!0.72000!(q3)$);
-  \foreach \p in {A,B,Ap,Bp} \fill (\p) circle (1.5pt);
+  \foreach \p in {A,B,Ap,Bp} {\dt{\p}}
   \node[vlab,above] at (A) {$A$};   \node[vlab,above] at (B) {$B$};
   \node[vlab,right,yshift=4pt] at (Ap) {$A'$};
   \node[vlab] at ($(Bp)+(47.3:0.45)$) {$B'$};
@@ -52,7 +52,7 @@
   % same two pairs as Fig 3-1, at the same fractions along their curves
   \coordinate (A) at (0.83,0.775);  \coordinate (B) at (1.28,0.79);
   \coordinate (Ap) at (6.681,1.359); \coordinate (Bp) at (6.319,1.664);
-  \foreach \p in {A,B,Ap,Bp} \fill (\p) circle (1.5pt);
+  \foreach \p in {A,B,Ap,Bp} {\dt{\p}}
   \node[vlab,above] at (A) {$A$};   \node[vlab,above] at (B) {$B$};
   \node[vlab,right,yshift=4pt] at (Ap) {$A'$};
   \node[vlab] at ($(Bp)+(49.8:0.50)$) {$B'$};
@@ -66,7 +66,7 @@
 \begin{minipage}{0.30\linewidth}\centering
 \begin{tikzpicture}[scale=0.62]
   \draw[fig] (0,0) -- (5.0,0.55); \node[vlab,right] at (5.0,0.55) {$l$};
-  \coordinate (P) at (2.0,0.22); \fill (P) circle (1.4pt);
+  \coordinate (P) at (2.0,0.22); \dt{P}
   \node[vlab,above] at (P) {$P$};
 \end{tikzpicture}
 \figcap{3--3}
@@ -78,7 +78,7 @@
   \draw[fig] (la) -- (lb); \node[vlab,right] at (lb) {$l$};
   \draw[fig] (ma) -- (mb); \node[vlab,right] at (mb) {$m$};
   \coordinate (P) at (intersection of la--lb and ma--mb);
-  \fill (P) circle (1.4pt); \node[vlab,below] at (P) {$P$};
+  \dt{P} \node[vlab,below] at (P) {$P$};
 \end{tikzpicture}
 \figcap{3--4}
 \end{minipage}\hfill
@@ -103,7 +103,7 @@
 % 3-6: two CURVED "lines" l and m meeting at A and B (the impossible picture).
 \newcommand{\FIGIIISIXSEVEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.714]
   \coordinate (A) at (0.45,0.55); \coordinate (B) at (4.65,1.15);
   \draw[fig] (A) .. controls (1.7,1.55) and (3.3,1.75) .. (B);
   \draw[fig] (A) .. controls (1.7,0.10) and (3.3,0.35) .. (B);
@@ -113,7 +113,7 @@
   \draw[fig] ($(A)!-0.09!(1.7,0.10)$) -- (A);
   \draw[fig] (B) -- ($(B)!-0.09!(3.3,1.75)$);
   \draw[fig] (B) -- ($(B)!-0.09!(3.3,0.35)$);
-  \fill (A) circle (1.4pt); \fill (B) circle (1.4pt);
+  \dt{A} \dt{B}
   \node[vlab,left] at (A) {$A$}; \node[vlab] at ($(B)+(100:0.50)$) {$B$};
   \node[vlab,above right] at (3.92,1.50) {$l$};
   \node[vlab,below right] at (4.55,0.88) {$m$};
@@ -121,7 +121,7 @@
 \figcap{3--6}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.714]
   \coordinate (C) at (2.55,2.60); \coordinate (A) at (0.55,0.35);
   \coordinate (B) at (4.35,0.62);
   \draw[fig] ($(A)!-0.18!(B)$) -- ($(B)!-0.16!(A)$);
@@ -141,7 +141,7 @@
 
 % ============================================================ Fig 3-8, 3-9
 \newcommand{\FIGIIIEIGHT}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \coordinate (P) at (0.40,0.35); \coordinate (Q) at (4.55,1.35);
   \draw[fig] (P) .. controls (1.7,1.35) and (3.2,1.70) .. (Q);
   \draw[fig] (P) .. controls (1.8,0.05) and (3.4,0.55) .. (Q);
@@ -149,7 +149,7 @@
   \draw[fig] ($(P)!-0.10!(1.8,0.05)$) -- (P);
   \draw[fig] (Q) -- ($(Q)!-0.10!(3.2,1.70)$);
   \draw[fig] (Q) -- ($(Q)!-0.10!(3.4,0.55)$);
-  \fill (P) circle (1.4pt); \fill (Q) circle (1.4pt);
+  \dt{P} \dt{Q}
   \node[vlab,left] at (P) {$P$}; \node[vlab,above left] at (Q) {$Q$};
   \node[vlab,above right] at (4.30,1.60) {$a$};
   \node[vlab,below right] at (4.55,1.12) {$b$};
@@ -159,7 +159,7 @@
 
 % 3-9: figure-eight -- two curved "lines" l and m crossing twice, A..E marked.
 \newcommand{\FIGIIININE}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \coordinate (A) at (0.30,1.05); \coordinate (B) at (2.45,1.05);
   \coordinate (C) at (4.60,0.92);
   % D and E sit ON the right lobe: Bezier midpoints of the two arcs B..C
@@ -173,7 +173,7 @@
   \draw[fig] ($(A)!-0.12!(0.95,0.05)$) -- (A);
   \draw[fig] (C) -- ($(C)!-0.14!(4.10,1.95)$);
   \draw[fig] (C) -- ($(C)!-0.14!(4.10,0.15)$);
-  \foreach \p in {A,B,C,D,E} \fill (\p) circle (1.4pt);
+  \foreach \p in {A,B,C,D,E} {\dt{\p}}
   \node[vlab,above left] at (A) {$A$}; \node[vlab] at ($(B)+(90:0.58)$) {$B$};
   \node[vlab,below] at (C) {$C$};
   \node[vlab,above] at (D) {$D$}; \node[vlab,below] at (E) {$E$};
@@ -185,14 +185,14 @@
 
 % =============================================================== Fig 3-10
 \newcommand{\FIGIIITEN}{\begin{bkfigure}[0.55\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \coordinate (A) at (2.45,2.85); \coordinate (B) at (0.35,0.30);
   \coordinate (C) at (4.55,0.55);
   \draw[fig] (A)--(B)--(C)--cycle;
   % D on AB, E on AC; the drawn line DE extended both ways
   \coordinate (D) at ($(A)!0.52!(B)$); \coordinate (E) at ($(A)!0.52!(C)$);
   \draw[fig] ($(D)!-0.30!(E)$) -- ($(E)!-0.22!(D)$);
-  \foreach \p in {A,B,C,D,E} \fill (\p) circle (1.3pt);
+  \foreach \p in {A,B,C,D,E} {\dt{\p}}
   \node[vlab,above] at (A) {$A$}; \node[vlab,below left] at (B) {$B$};
   \node[vlab,right] at (C) {$C$};
   \node[vlab,above left] at (D) {$D$}; \node[vlab,above right] at (E) {$E$};
@@ -203,22 +203,22 @@
 % ========================================================= Fig 3-11, 3-12
 \newcommand{\FIGIIIELEVENTWELVE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.762]
   \draw[fig] (0,0) -- (4.6,0.62);
   \coordinate (A) at (0.85,0.115); \coordinate (B) at (2.95,0.398);
   \coordinate (C) at (3.55,0.478);
-  \foreach \p in {A,B,C} \fill (\p) circle (1.4pt);
+  \foreach \p in {A,B,C} {\dt{\p}}
   \node[vlab,above] at (A) {$A$}; \node[vlab,above] at (B) {$B$};
   \node[vlab,above] at (C) {$C$};
 \end{tikzpicture}
 \figcap{3--11}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.762]
   \draw[fig] (0,0) -- (4.6,0.62);
   \coordinate (A) at (0.60,0.081); \coordinate (D) at (2.05,0.276);
   \coordinate (B) at (2.60,0.350); \coordinate (C) at (4.05,0.546);
-  \foreach \p in {A,D,B,C} \fill (\p) circle (1.4pt);
+  \foreach \p in {A,D,B,C} {\dt{\p}}
   \node[vlab,above] at (A) {$A$}; \node[vlab,above] at (D) {$D$};
   \node[vlab,above] at (B) {$B$}; \node[vlab,above] at (C) {$C$};
 \end{tikzpicture}
@@ -229,25 +229,25 @@
 % ========================================================= Fig 3-13, 3-14
 \newcommand{\FIGIIITHIRTEENFOURTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.741]
   \draw[fig] (0,0) -- (4.6,1.55); \node[vlab,right] at (4.6,1.55) {$l$};
   \coordinate (P) at (0.55,1.95); \coordinate (Q) at (2.25,1.95);
   \draw[fig] (P) -- (Q);
-  \fill (P) circle (1.4pt); \fill (Q) circle (1.4pt);
+  \dt{P} \dt{Q}
   \node[vlab,above] at (P) {$P$}; \node[vlab,above] at (Q) {$Q$};
   \node[slab,below] at ($(P)!0.5!(Q)$) {Same side};
 \end{tikzpicture}
 \figcap{3--13}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.741]
   \coordinate (P) at (1.25,2.10); \coordinate (Q) at (2.85,0.20);
   \coordinate (la) at (0.30,0.05); \coordinate (lb) at (4.30,2.30);
   \draw[fig] (la) -- (lb); \node[vlab,right] at (lb) {$l$};
   \draw[fig] (P) -- (Q);
   % R is where PQ meets l -- by construction, never by eye
   \coordinate (R) at (intersection of la--lb and P--Q);
-  \foreach \p in {P,Q,R} \fill (\p) circle (1.4pt);
+  \foreach \p in {P,Q,R} {\dt{\p}}
   \node[vlab,above] at (P) {$P$}; \node[vlab,below] at (Q) {$Q$};
   \node[vlab] at ($(R)+(170:0.80)$) {$R$};
   \node[slab,right,align=left] at (3.05,1.14) {Opposite\\sides};
@@ -271,18 +271,18 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % ========================================================= Fig 3-16, 3-17
 \newcommand{\FIGIIISIXTEENSEVENTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.768]
   \coordinate (A) at (0.20,0.15); \coordinate (B) at (3.55,2.20);
   \draw[fig] (A) -- (B);
   \coordinate (P) at ($(A)!0.46!(B)$);
-  \foreach \p in {A,B,P} \fill (\p) circle (1.4pt);
+  \foreach \p in {A,B,P} {\dt{\p}}
   \node[vlab,below left] at (A) {$A$}; \node[vlab,above] at (B) {$B$};
   \node[vlab,above left] at (P) {$P$};
 \end{tikzpicture}
 \figcap{3--16}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.768]
   \coordinate (A) at (2.05,2.45); \coordinate (B) at (0.25,0.20);
   \coordinate (C) at (3.75,0.05);
   \draw[fig] (A)--(B)--(C)--cycle;
@@ -296,7 +296,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % =============================================================== Fig 3-18
 % l meets side AB and misses BC; C is the apex. l passes through no vertex.
 \newcommand{\FIGIIIEIGHTEEN}{\begin{bkfigure}[0.55\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \coordinate (C) at (1.85,2.60); \coordinate (B) at (0.20,0.30);
   \coordinate (A) at (4.30,0.35);
   \draw[fig] (C)--(B)--(A)--cycle;
@@ -315,9 +315,9 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 
 % =============================================================== Fig 3-19
 \newcommand{\FIGIIININETEEN}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \draw[fig] (0,0) -- (5.4,0); \node[vlab,right] at (5.4,0) {$l$};
-  \coordinate (O) at (2.55,0); \fill (O) circle (1.5pt);
+  \coordinate (O) at (2.55,0); \dt{O}
   \node[vlab,below] at (O) {$O$};
   \draw[fig,line width=0.5pt] (0.35,0.30) -- (0.35,0.46) -- (2.45,0.46) -- (2.45,0.30);
   \draw[fig,line width=0.5pt] (2.65,0.30) -- (2.65,0.46) -- (4.95,0.46) -- (4.95,0.30);
@@ -330,7 +330,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % ========================================================= Fig 3-20, 3-21
 \newcommand{\FIGIIITWENTYTWENTYONE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.751]
   \coordinate (la) at (0,0.55);     \coordinate (lb) at (4.35,0.55);
   \coordinate (ma) at (1.05,-0.45); \coordinate (mb) at (2.95,2.40);
   \draw[fig] (la) -- (lb); \node[vlab,right] at (lb) {$l$};
@@ -338,13 +338,13 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   % O is the point l and m have in common; A is a point of m, not of l
   \coordinate (O) at (intersection of la--lb and ma--mb);
   \coordinate (A) at ($(ma)!0.79!(mb)$);
-  \fill (O) circle (1.4pt); \fill (A) circle (1.4pt);
+  \dt{O} \dt{A}
   \node[vlab] at ($(O)+(298:0.55)$) {$O$}; \node[vlab,right] at (A) {$A$};
 \end{tikzpicture}
 \figcap{3--20}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.751]
   \coordinate (la) at (0,0.55);     \coordinate (lb) at (4.35,0.55);
   \coordinate (ma) at (1.05,-0.45); \coordinate (mb) at (2.95,2.40);
   \draw[fig] (la) -- (lb); \node[vlab,right] at (lb) {$l$};
@@ -353,7 +353,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \coordinate (A) at ($(ma)!0.79!(mb)$);
   % P and Q are points of l on opposite sides of O:  POQ
   \coordinate (Q) at ($(la)!0.138!(lb)$); \coordinate (P) at ($(la)!0.655!(lb)$);
-  \foreach \p in {O,A,P,Q} \fill (\p) circle (1.4pt);
+  \foreach \p in {O,A,P,Q} {\dt{\p}}
   \node[vlab] at ($(O)+(298:0.55)$) {$O$}; \node[vlab,right] at (A) {$A$};
   \node[vlab,below] at (Q) {$Q$}; \node[vlab,below] at (P) {$P$};
 \end{tikzpicture}
@@ -364,24 +364,24 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % ========================================================= Fig 3-22, 3-23
 \newcommand{\FIGIIITWENTYTWOTWENTYTHREE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.755]
   \coordinate (O) at (1.05,0.35); \coordinate (lend) at (4.35,1.32);
   % the part of l that is NOT in the ray, dashed: the exact opposite ray
   \draw[fig,dashed,dash pattern=on 3pt off 2.4pt] ($(O)!-0.318!(lend)$) -- (O);
   \draw[fig] (O) -- (lend); \node[vlab,right] at (lend) {$l$};
   \coordinate (P) at ($(O)!0.394!(lend)$);
-  \fill (O) circle (1.4pt); \fill (P) circle (1.4pt);
+  \dt{O} \dt{P}
   \node[vlab,above] at (O) {$O$}; \node[vlab,above] at (P) {$P$};
   \node[slab,below] at (1.90,0.52) {Ray};
 \end{tikzpicture}
 \figcap{3--22}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.755]
   \coordinate (P) at (2.05,0.30);
   \draw[fig] (0.15,0.30) -- (4.35,0.30); \node[vlab,right] at (4.35,0.30) {$l$};
   \draw[fig] (P) -- (3.35,2.55); \node[vlab,above] at (3.35,2.55) {$r$};
-  \fill (P) circle (1.4pt); \node[vlab,above left] at (P) {$P$};
+  \dt{P} \node[vlab,above left] at (P) {$P$};
 \end{tikzpicture}
 \figcap{3--23}
 \end{minipage}
@@ -390,31 +390,31 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % ========================================================= Fig 3-24, 3-25
 \newcommand{\FIGIIITWENTYFOURTWENTYFIVE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.52\linewidth}\centering
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.780]
   % (i) angle at O, upper left
   \coordinate (O1) at (0.30,2.05);
   \draw[fig] (O1) -- (1.85,2.95); \draw[fig] (O1) -- (1.85,2.05);
-  \fill (O1) circle (1.3pt); \node[vlab,left] at (O1) {$O$};
+  \dt{O1} \node[vlab,left] at (O1) {$O$};
   % (ii) angle at O, lower left
   \coordinate (O2) at (0.62,1.35);
   \draw[fig] (O2) -- (2.05,1.05); \draw[fig] (O2) -- (-0.15,0.20);
-  \fill (O2) circle (1.3pt); \node[vlab,left] at (O2) {$O$};
+  \dt{O2} \node[vlab,left] at (O2) {$O$};
   % (iii) angle AOB, right
   \coordinate (O3) at (3.55,2.20); \coordinate (A3) at (2.55,3.10);
   \coordinate (B3) at (2.85,1.25);
   \draw[fig] (O3) -- (A3); \draw[fig] (O3) -- (B3);
-  \fill (O3) circle (1.3pt); \fill (A3) circle (1.3pt); \fill (B3) circle (1.3pt);
+  \dt{O3} \dt{A3} \dt{B3}
   \node[vlab,right] at (O3) {$O$}; \node[vlab,above] at (A3) {$A$};
   \node[vlab,below] at (B3) {$B$};
   % (iv) straight angle
   \draw[fig] (0.85,0.00) -- (3.35,0.00);
-  \coordinate (O4) at (2.05,0.00); \fill (O4) circle (1.3pt);
+  \coordinate (O4) at (2.05,0.00); \dt{O4}
   \node[vlab,below] at (O4) {$O$};
 \end{tikzpicture}
 \figcap{3--24}
 \end{minipage}\hfill
 \begin{minipage}{0.44\linewidth}\centering
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.780]
   % (a) the arrowheads are on the ENDS OF THE ARC, pointing at the two sides;
   % the sides themselves carry no arrows.  Verified on scans/scan04.pdf p18
   % (book p.54), where both arrowheads are plainly on the arc.
@@ -446,12 +446,12 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % =============================================================== Fig 3-26
 % Two lines l, m crossing at O; four rays l1,l2,m1,m2; angles 1,2,3,4.
 \newcommand{\FIGIIITWENTYSIX}{\begin{bkfigure}[0.66\linewidth]
-\begin{tikzpicture}[scale=0.70]
+\begin{tikzpicture}[scale=0.910]
   \coordinate (L1) at (4.85,2.05); \coordinate (L2) at (0.35,0.15);
   \coordinate (M1) at (4.85,0.35); \coordinate (M2) at (0.35,1.95);
   \draw[fig] (L2) -- (L1); \draw[fig] (M2) -- (M1);
   \coordinate (O) at (intersection of L2--L1 and M2--M1);
-  \fill (O) circle (1.4pt);
+  \dt{O}
   \node[vlab,right] at (L1) {$l_1$}; \node[vlab,left]  at (L2) {$l$};
   \node[vlab,right] at (M1) {$m_1$}; \node[vlab,left]  at (M2) {$m$};
   % ray labels offset perpendicular to their own line, so they sit beside it
@@ -478,7 +478,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % =============================================================== Fig 3-27
 % Three drawings of a pair of angles sharing a vertex and one side.
 \newcommand{\FIGIIITWENTYSEVEN}{\begin{bkfigure}[0.82\linewidth]
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.780]
   % (i) narrow pair
   % the narrowest of the three pairs; opened from 18/24 deg to 23/25 so the
   % numerals clear both rays at this type size (the book's own fan is tight)
@@ -490,7 +490,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \node[slab] at ($(O)+(22.5:1.62)$) {1};
   \node[slab] at ($(O)+(-1.5:1.62)$) {2};
 \end{tikzpicture}\hspace{1.6em}
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.780]
   % (ii) the book's middle drawing: ONE ray straight up, TWO rays down-left and
   % down-right (an inverted Y), the vertical being the common side.  The two
   % arcs bulge out either side of it -- measured off the printed figure.
@@ -503,7 +503,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \node[slab] at ($(O)+(161.15:1.14)$) {1};
   \node[slab] at ($(O)+(19.65:1.14)$)  {2};
 \end{tikzpicture}\hspace{1.6em}
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.780]
   % (iii) wide pair over a base line
   \coordinate (O) at (1.25,0.25);
   \draw[fig] (O) -- (0.05,1.35); \draw[fig] (O) -- (1.55,2.05);
@@ -518,7 +518,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 
 % =============================================================== Fig 3-28
 \newcommand{\FIGIIITWENTYEIGHT}{\begin{bkfigure}[0.55\linewidth]
-\begin{tikzpicture}[scale=0.66]
+\begin{tikzpicture}[scale=0.858]
   \coordinate (O) at (2.05,0.20);
   \draw[fig] (0.20,0.20) -- (4.15,0.20);
   \draw[fig] (O) -- (3.55,1.70);          % common side, at 45 degrees
@@ -536,7 +536,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % which are hatched (vertical / horizontal) so their overlap reads doubly hatched.
 \newcommand{\FIGIIITWENTYNINETHIRTY}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.730]
   % The book's picture: A B C D at the corners of a rectangle, l = AC and
   % m = BD crossing at O.  VERTICAL rules shade the side of l that contains D;
   % HORIZONTAL rules shade the side of m that contains C.  The two families
@@ -560,7 +560,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \node[vlab,right] at ($(A)!1.10!(Cc)$) {$l$};
   \draw[fig] ($(B)!-0.07!(D)$) -- ($(B)!1.10!(D)$);
   \node[vlab,right] at ($(B)!1.10!(D)$) {$m$};
-  \foreach \p in {A,B,Cc,D,O} \fill (\p) circle (1.3pt);
+  \foreach \p in {A,B,Cc,D,O} {\dt{\p}}
   % A and B sit clear of the tails the two lines now carry past them
   \node[vlab] at ($(A)+(150:0.50)$) {$A$};  \node[vlab] at ($(B)+(95:0.58)$) {$B$};
   \node[vlab,above left] at (Cc) {$C$}; \node[vlab,below left] at (D) {$D$};
@@ -569,7 +569,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 \figcap{3--29}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.730]
   % r_1 lies on l_1 and r_2 on l_2, so each dashed piece is the ray OPPOSITE
   % its solid one: built as a reflection through O, never placed by eye.
   \coordinate (O) at (2.30,1.35);
@@ -580,7 +580,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \draw[aux] (O) -- (L2); \draw[aux] (O) -- (L1);
   \node[vlab,right] at (R1) {$r_1$}; \node[vlab,right] at (R2) {$r_2$};
   \node[vlab,left] at (L2) {$l_2$};  \node[vlab,left] at (L1) {$l_1$};
-  \fill (O) circle (1.4pt); \node[vlab] at ($(O)+(90:0.62)$) {$O$};
+  \dt{O} \node[vlab] at ($(O)+(90:0.62)$) {$O$};
 \end{tikzpicture}
 \figcap{3--30}
 \end{minipage}
@@ -588,7 +588,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 
 % =============================================================== Fig 3-31
 \newcommand{\FIGIIITHIRTYONE}{\begin{bkfigure}[0.70\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \coordinate (O) at (2.05,1.35);
   \coordinate (R1) at (4.05,2.45); \coordinate (R2) at (3.95,0.15);
   \coordinate (L1) at ($(O)!-0.85!(R1)$);   % opposite ray of r_1
@@ -599,12 +599,12 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   % are not sides of the angle are dashed -- checked on scans/scan04.pdf p20.
   \draw[fig] (O) -- (L2); \node[vlab,left] at (L2) {$l_2$};
   \draw[fig] (O) -- (L1); \node[vlab,left] at (L1) {$l_1$};
-  \fill (O) circle (1.4pt); \node[vlab] at ($(O)+(90:0.62)$) {$O$};
+  \dt{O} \node[vlab] at ($(O)+(90:0.62)$) {$O$};
   % the separate segment PQ with A between; it runs a little past Q
   \coordinate (P) at (5.15,0.60); \coordinate (Q) at (7.15,0.60);
   \draw[fig] (P) -- ($(P)!1.14!(Q)$);
   \coordinate (Aa) at ($(P)!0.5!(Q)$);
-  \foreach \p in {P,Q,Aa} \fill (\p) circle (1.3pt);
+  \foreach \p in {P,Q,Aa} {\dt{\p}}
   \node[vlab,above] at (P) {$P$}; \node[vlab,above] at (Q) {$Q$};
   \node[vlab,above] at (Aa) {$A$};
 \end{tikzpicture}
@@ -613,7 +613,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 
 % =============================================================== Fig 3-32
 \newcommand{\FIGIIITHIRTYTWO}{\begin{bkfigure}[0.60\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \node[vlab,left] at (0.20,2.45) {$r_2'$};
   \node[vlab,left] at (0.25,0.20) {$r_1'$};
   % the two full lines through O; r1' / r2' are the rays opposite r1 / r2
@@ -624,7 +624,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \coordinate (O) at (intersection of ta--tb and ua--ub);
   \draw[fig] (O) -- (4.20,1.34); \node[vlab,right] at (4.20,1.34) {$r$};
   \node[vlab,right] at (4.15,2.35) {$r_1$}; \node[vlab,right] at (4.05,0.30) {$r_2$};
-  \fill (O) circle (1.4pt); \node[vlab] at ($(O)+(90:0.52)$) {$O$};
+  \dt{O} \node[vlab] at ($(O)+(90:0.52)$) {$O$};
   % the two arcs mark angle(r_1,r) and angle(r,r_2): centred on O, ending on
   % the rays (O = (2.2524,1.3039); r_1 at 28.88, r at 1.06, r_2 at -29.18 deg)
   \draw[fig,line width=0.5pt] ($(O)+(28.88:1.40)$) arc (28.88:1.06:1.40);
@@ -635,7 +635,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 
 % =============================================================== Fig 3-33
 \newcommand{\FIGIIITHIRTYTHREE}{\begin{bkfigure}[0.72\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   % l2 : the shallow line, carrying r2 to the right and r2' to the left
   \coordinate (L2R) at (5.75,1.95); \coordinate (L2L) at (0.30,1.75);
   \draw[fig] (L2L) -- (L2R);
@@ -655,7 +655,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \draw[fig] (Qc) -- (P);
   \coordinate (R) at (intersection of Qc--P and L1B--L1T);
   \coordinate (S) at (intersection of Qc--P and L2L--L2R);
-  \foreach \p in {O,P,S,R} \fill (\p) circle (1.3pt);
+  \foreach \p in {O,P,S,R} {\dt{\p}}
   \node[vlab] at ($(O)+(118.8:0.55)$) {$O$};
   \node[vlab,above right] at (P) {$P$};
   \node[vlab] at ($(S)+(60:0.75)$) {$S$};
@@ -667,7 +667,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \coordinate (Qb) at ($(L2L)!0.22!(L2R)$);           % Q_2, on r_2'
   \coordinate (Qd) at ($(L1B)!0.12!(L1T)$);           % Q_4, on r_1'
   \coordinate (Qe) at (4.30,0.80);                    % Q_5
-  \foreach \p in {Qa,Qb,Qc,Qd,Qe} \fill (\p) circle (1.3pt);
+  \foreach \p in {Qa,Qb,Qc,Qd,Qe} {\dt{\p}}
   \node[vlab,above] at (Qa) {$Q_1$}; \node[vlab,above] at (Qb) {$Q_2$};
   \node[vlab] at ($(Qc)+(235:0.55)$) {$Q_3$};
   \node[vlab,right] at (Qd) {$Q_4$}; \node[vlab,above] at (Qe) {$Q_5$};
@@ -678,7 +678,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % ========================================================= Fig 3-34, 3-35
 \newcommand{\FIGIIITHIRTYFOURTHIRTYFIVE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.749]
   \coordinate (B) at (1.75,2.35); \coordinate (A) at (0.20,0.25);
   \coordinate (C) at (3.75,0.25);
   \draw[fig] (A)--(B)--(C)--cycle;
@@ -688,13 +688,13 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 \figcap{3--34}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.749]
   \coordinate (B) at (1.55,2.35); \coordinate (A) at (0.20,0.25);
   \coordinate (C) at (3.55,0.25);
   \draw[fig] (A)--(B)--(C)--cycle;
   \coordinate (P) at (1.45,1.05); \coordinate (Q) at (3.55,2.20);
   \draw[fig] (P) -- (Q);
-  \fill (P) circle (1.3pt); \fill (Q) circle (1.3pt);
+  \dt{P} \dt{Q}
   \node[vlab,above] at (B) {$B$}; \node[vlab,left] at (A) {$A$};
   \node[vlab,right] at (C) {$C$};
   \node[vlab,above,yshift=2pt] at (P) {$P$}; \node[vlab,above right] at (Q) {$Q$};
@@ -705,7 +705,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 
 % =============================================================== Fig 3-36
 \newcommand{\FIGIIITHIRTYSIX}{\begin{bkfigure}[0.50\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \coordinate (O) at (0.75,0.35); \coordinate (A) at (3.85,0.15);
   \coordinate (Ot) at (2.55,2.85); \coordinate (At) at (1.55,2.75);
   \draw[fig,dashed,dash pattern=on 3pt off 2.4pt] ($(O)!-0.23!(A)$) -- (O);
@@ -714,7 +714,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \draw[fig] (A) -- (At);
   % B is where the ray from O meets the other side of the angle at A
   \coordinate (B) at (intersection of O--Ot and A--At);
-  \fill (O) circle (1.3pt); \fill (A) circle (1.3pt); \fill (B) circle (1.3pt);
+  \dt{O} \dt{A} \dt{B}
   \node[vlab,above left] at (O) {$O$}; \node[vlab,right] at (A) {$A$};
   \node[vlab] at ($(B)+(93:0.80)$) {$B$};
 \end{tikzpicture}
@@ -723,7 +723,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 
 % =============================================================== Fig 3-37
 \newcommand{\FIGIIITHIRTYSEVEN}{\begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.806]
   \coordinate (V) at (1.35,0.65);
   \coordinate (M1) at (3.35,2.75);
   \draw[fig] (V) -- (3.95,0.65); \node[vlab,right] at (3.95,0.65) {$l_1$};
@@ -742,7 +742,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
 % ========================================================= Fig 3-38, 3-39
 \newcommand{\FIGIIITHIRTYEIGHTTHIRTYNINE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.58]
+\begin{tikzpicture}[scale=0.675]
   % sides of the angle solid, the opposite rays r_1' and r_2' dashed
   \coordinate (l2L) at (0.30,1.05); \coordinate (l2R) at (4.55,1.25);
   \coordinate (ka) at (1.65,0.15);  \coordinate (kb) at (3.35,2.85);
@@ -759,14 +759,14 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \coordinate (P) at (4.05,2.10); \coordinate (Q) at (1.35,2.45);
   \draw[fig] (Q) -- (P);
   \coordinate (R) at (intersection of Q--P and ka--kb);
-  \foreach \p in {P,Q,R} \fill (\p) circle (1.3pt);
+  \foreach \p in {P,Q,R} {\dt{\p}}
   \node[vlab,right] at (P) {$P$}; \node[vlab,left] at (Q) {$Q_1$};
   \node[vlab] at ($(R)+(299.5:0.55)$) {$R$};
 \end{tikzpicture}
 \figcap{3--38}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.58]
+\begin{tikzpicture}[scale=0.675]
   \coordinate (l2L) at (0.30,1.05); \coordinate (l2R) at (4.55,1.25);
   \coordinate (ka) at (1.65,0.15);  \coordinate (kb) at (3.35,2.85);
   \coordinate (O) at (intersection of l2L--l2R and ka--kb);
@@ -782,7 +782,7 @@ $A$, $B$, $C$, with the sight line from $A$ blocked at $B$.\\[2pt]
   \coordinate (P) at (4.05,2.10); \coordinate (Q) at ($(l2L)!0.16!(l2R)$);
   \draw[fig] (Q) -- (P);
   \coordinate (R) at (intersection of Q--P and ka--kb);
-  \foreach \p in {P,Q,R} \fill (\p) circle (1.3pt);
+  \foreach \p in {P,Q,R} {\dt{\p}}
   \node[vlab,right] at (P) {$P$}; \node[vlab,above] at (Q) {$Q_2$};
   \node[vlab] at ($(R)+(126:0.60)$) {$R$};
 \end{tikzpicture}

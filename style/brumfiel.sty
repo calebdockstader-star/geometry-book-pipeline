@@ -36,18 +36,46 @@
 %   key    red solid     - the thing being proved, measured, or asked about
 %   region yellow wash   - a area being identified as a whole
 \tikzset{
-  fig/.style    = {line width=0.7pt, line cap=round, line join=round, draw=bkInk},
+  % Stroke weights, retuned 2026-08-17 against the photographs Caleb sent.  The
+  % book draws its diagrams at ONE weight; our 0.7pt base read too light beside
+  % it while the 1.15pt `key' read too heavy (his reviewers flagged both, on the
+  % same page in ch09).  Now that the colour edition is off, the semantic roles
+  % survive only as solid vs dashed -- which is the book's own convention -- so
+  % the two solid weights converge.
+  fig/.style    = {line width=0.9pt, line cap=round, line join=round, draw=bkInk},
   given/.style  = {fig},
-  aux/.style    = {fig, draw=\clA, dashed, dash pattern=on 3pt off 2pt},
-  key/.style    = {fig, line width=1.15pt, draw=\clB},
-  keyb/.style   = {fig, line width=1.15pt, draw=\clA},
+  aux/.style    = {fig, draw=\clA, dashed, dash pattern=on 3.4pt off 2.4pt},
+  key/.style    = {fig, line width=1.0pt, draw=\clB},
+  keyb/.style   = {fig, line width=1.0pt, draw=\clA},
   region/.style = {draw=none, fill=\clC, fill opacity=0.22},
   rmark/.style  = {fig, line width=0.6pt, draw=\clB},   % right-angle box on a key
-  vlab/.style   = {font=\footnotesize\itshape, inner sep=1.2pt, outer sep=3.4pt},
-  slab/.style   = {font=\scriptsize, inner sep=1.2pt, outer sep=3.4pt},
-  klab/.style   = {font=\scriptsize, inner sep=1.2pt, outer sep=3.4pt, text=\clB},
+  vlab/.style   = {font=\footnotesize\itshape, inner sep=1.2pt, outer sep=2.2pt},
+  slab/.style   = {font=\scriptsize, inner sep=1.2pt, outer sep=2.2pt},
+  klab/.style   = {font=\scriptsize, inner sep=1.2pt, outer sep=2.2pt, text=\clB},
   tick/.style   = {fig, line width=0.6pt},
 }
+
+% ------------------------------------------------------------- figure sizing
+% Caleb, 2026-08-17: the drawings read small beside their lettering, and the
+% ch09 diagrams especially are hard to see.  His instruction was to grow the
+% DIAGRAM rather than shrink the labels, so the bump goes on the tikz unit
+% vectors rather than on `scale='.  Two reasons:
+%   * every figure already carries its own `scale=', which would OVERRIDE an
+%     `every picture' scale but MULTIPLIES on top of the unit vectors;
+%   * unit vectors move only the coordinates, so label type, line weights and
+%     the pt-radius arc marks keep their absolute sizes -- the geometry grows
+%     and the lettering stays where it was.
+% Per-chapter overrides append to this (ch09 grows further; see figures09.tex).
+\newcommand{\figunit}{1.00}
+\tikzset{every picture/.append style={x=\figunit cm, y=\figunit cm}}
+
+% Point dots.  A `\fill (A) circle (1.5pt)' is a PATH, so a picture drawn at
+% scale=0.62 rendered its dots at 0.93pt -- which is why the points read faint.
+% A node's minimum size ignores the coordinate transform, so every point in the
+% book now prints at the same size no matter how its figure is scaled.
+\tikzset{bkdot/.style={circle, fill=bkInk, draw=none, inner sep=0pt,
+                       minimum size=3.2pt}}
+\newcommand{\dt}[1]{\node[bkdot] at (#1) {};}
 % back-compat aliases used by the first draft
 \tikzset{emph/.style={key}, emphb/.style={keyb}}
 
@@ -71,9 +99,15 @@
 \newtheoremstyle{bkdefn}{1.1\topsep}{1.1\topsep}{\normalfont}{}%
   {\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont(#3)}}
 
+% The book sets corollary heads in italic, not in the bold it gives theorems.
+\newtheoremstyle{bkcoro}{1.1\topsep}{1.1\topsep}{\itshape}{}%
+  {\itshape}{.}{ }{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont(#3)}}
+
 \theoremstyle{bkplain}
 \newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{bkcoro}
 \newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{bkplain}
 \renewcommand{\thetheorem}{\thechapter--\arabic{theorem}}
 \renewcommand{\thecorollary}{\thetheorem--\arabic{corollary}}
 
@@ -114,6 +148,19 @@
 
 % starred (harder) exercises, as the book marks them
 \newcommand{\stex}{\makebox[0pt][r]{*}}
+
+% A figure belonging to a particular exercise sits immediately AFTER that
+% exercise, the way the book sets it -- not batched at the end of the group.
+% (Caleb, 2026-08-17: "for the exercise groups, the figures were not placed
+% inline with the text like they should be ... it needs to be the same way in
+% the exercise groups according to how it is in the book for all chapters.")
+% The figure is pulled back out of the list indent so it centres on the full
+% measure rather than on the indented text block.
+\newcommand{\exfig}[1]{%
+  \par\nopagebreak\smallskip
+  \noindent\hspace*{-\leftmargin}%
+  \begin{minipage}{\dimexpr\linewidth+\leftmargin\relax}#1\end{minipage}%
+  \par\smallskip}
 
 % ------------------------------------------------------------- figure caption
 % Book style: small caps "FIGURE 9-1" centred beneath.

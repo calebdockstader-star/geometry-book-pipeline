@@ -8,7 +8,7 @@
 % 10-2: half-unit square inside a unit square; 2.5 x 3 grid.
 \newcommand{\FIGXONETWO}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.52\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.706]
   % (a) single unit square.  Panels (a) and (b) sit on a band 0.5 units above
   % the old one: their "below" labels used to run into the top edge of the
   % 3x2 grid of panel (c), which the two panels overlap in x.
@@ -33,7 +33,7 @@
 \figcap{10--1}
 \end{minipage}\hfill
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.706]
   % (a) half-unit square inside a dashed unit square.  The book quarters the
   % unit square: a dashed mid-vertical and mid-horizontal run right across it,
   % and only the lower-left quarter is inked solid.  The two dashed halves of
@@ -60,7 +60,7 @@
 % ---------------------------------------------------------------- Fig 10-3
 % 1.4 by 2.3 rectangle, partly chopped into squares 0.1 on a side.
 \newcommand{\FIGXTHREE}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=1.55]
+\begin{tikzpicture}[scale=2.015]
   \draw[fig] (0,0) rectangle (2.3,1.4);
   \draw[fig] (1,0) -- (1,1.4);            % 1-unit divisions
   \draw[fig] (2,0) -- (2,1.4);
@@ -86,7 +86,7 @@
 %   rectangle on a mark, so the reading was lost.  The top and bottom edges
 %   run past the right edge to the last mark, as they do in the book.
 \newcommand{\FIGXFOUR}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=1.55]
+\begin{tikzpicture}[scale=2.015]
   % one unit = 1.6; the book's tenth-marks are slightly compressed (0.089
   % unit apart) so that the sqrt(2) edge clears them -- keep that.
   \def\uu{1.6}\def\tt{0.1425}\def\ww{2.2627}\def\hh{1.91}% w = sqrt2 * 1.6
@@ -185,7 +185,7 @@
 % ------------------------------------------------------------ Fig 10-6, 10-7
 \newcommand{\FIGXSIXSEVEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.868]
   % the shared side DE is drawn dead vertical in the book (scan13 p5);
   % the other six vertices are re-measured off that page relative to D and
   % the length of DE.  A had been drawn too close to E, which crowded the
@@ -205,7 +205,7 @@
 \figcap{10--6}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.868]
   % a : b = 0.43 on scan13 p5 (was 0.53)
   \coordinate (C) at (0,0); \coordinate (A) at (3,0);
   \coordinate (B) at (0,1.3); \coordinate (Cp) at (3,1.3);
@@ -228,7 +228,7 @@
 % Proportions read off scan13 p6: x : b = 217 : 137 (1.58) and h : b = 143 : 137
 % (1.04).  The old drawing had x : b = 0.4 and h : b = 0.57 -- far too little
 % slant, which makes the x-strip of the proof almost invisible.
-\begin{tikzpicture}[scale=0.85]
+\begin{tikzpicture}[scale=1.105]
   \coordinate (A) at (0,0);   \coordinate (D) at (2,0);
   \coordinate (B) at (3.1,2.05);
   \coordinate (C) at ($(B)+(D)-(A)$);
@@ -251,7 +251,7 @@
 % ---------------------------------------------------------------- Fig 10-9
 % triangle of base b and height h, completed to a parallelogram.
 \newcommand{\FIGXNINE}{\begin{bkfigure}[0.58\linewidth]
-\begin{tikzpicture}[scale=0.95]
+\begin{tikzpicture}[scale=1.235]
   % re-measured on scan13 p7: apex at 0.56 of the base, height 0.54 x base
   \coordinate (B) at (0,0); \coordinate (C) at (2.6,0);
   \coordinate (A) at (1.46,1.41);
@@ -283,7 +283,7 @@
   \coordinate (C) at (5.6,3);  \coordinate (D) at (10.6,3);
   \draw[fig] (C) -- (6.05,2.45) -- (5.15,1.95) -- (6.05,1.45)
              -- (5.15,0.95) -- (5.9,0.45) -- (B);
-  \foreach \p in {A,B,C,D} \fill (\p) circle (1.3pt);
+  \foreach \p in {A,B,C,D} {\dt{\p}}
   \node[vlab,above] at (C) {$C$};  \node[vlab,above] at (D) {$D$};
   \node[vlab,below] at (A) {$A$};  \node[vlab,below] at (B) {$B$};
 \end{tikzpicture}
@@ -311,7 +311,7 @@
 % ---------------------------------------------------------- Fig 10-12, 10-13
 \newcommand{\FIGXTWELVETHIRTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.734]
   \coordinate (B) at (0,0);    \coordinate (C) at (4.5,0);
   \coordinate (A) at (1,3);    \coordinate (D) at (3.5,3);
   \draw[fig] (B) -- (C) -- (D) -- (A) -- cycle;
@@ -331,7 +331,7 @@
 \figcap{10--12}
 \end{minipage}\hfill
 \begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=0.48]
+\begin{tikzpicture}[scale=0.568]
   % measured on scan13 p8: b' : b = 0.563, h : b = 0.72 (the old drawing had
   % 0.5 and 0.5).  Both b' and b - b' are printed INSIDE the trapezoid just
   % above the base, and the b of the dimension line sits in a break of it.
@@ -353,7 +353,7 @@
 
 % --------------------------------------------------------------- Fig 10-14
 \newcommand{\FIGXFOURTEEN}{\begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=0.86]
+\begin{tikzpicture}[scale=1.118]
   % base : height = 1.75 and lean : height = 0.26 on scan13 p9
   \coordinate (B) at (0,0); \coordinate (C) at (3,0);
   \coordinate (A) at (0.45,1.72);
@@ -373,7 +373,7 @@
 
 % --------------------------------------------------------------- Fig 10-15
 \newcommand{\FIGXFIFTEEN}{\begin{bkfigure}[0.52\linewidth]
-\begin{tikzpicture}[scale=0.9]
+\begin{tikzpicture}[scale=1.170]
   % apex at 0.30 of the base, h : b = 0.50 (scan13 p9)
   \coordinate (A) at (0,0); \coordinate (C) at (3.4,0);
   \coordinate (B) at (1.0,1.7);
@@ -390,7 +390,7 @@
 % ---------------------------------------------------------- Fig 10-16, 10-17
 \newcommand{\FIGXSIXTEENSEVENTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.873]
   % Re-measured off scan13 p9 at 150 dpi (vertices A(232,65) D(700,82)
   % B(145,342) C(620,335)): h : BC = 0.58 and lean : h = 0.31.  An earlier
   % pass had 0.78 / 0.20, which stretched the parallelogram upright.
@@ -408,7 +408,7 @@
 \figcap{10--16}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.72]
+\begin{tikzpicture}[scale=0.786]
   \coordinate (A) at (0,0); \coordinate (B) at (4.333,0);
   \coordinate (C) at (0.641,1.538);        % AC = 5, CB = 12, AB = 13 (/3)
   \coordinate (D) at ($(A)!(C)!(B)$);
@@ -429,7 +429,7 @@
 % 10-19: the (a+b) square dissected into four right triangles and a c-square.
 \newcommand{\FIGXEIGHTEENNINETEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.187]
   \coordinate (R) at (0,0); \coordinate (S) at (0,1.0); \coordinate (T) at (1.4,0);
   \draw[fig] (R) -- (S) -- (T) -- cycle;
   \draw[fig] (R) -- (-1.0,0) -- (-1.0,1.0) -- (S);          % square 1
@@ -443,7 +443,7 @@
 \figcap{10--18}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.62]
+\begin{tikzpicture}[scale=0.736]
   % In the book (scan13 p11, close-up) the SHORT piece of every side is the
   % one lettered a and the long piece is b: going clockwise from the top-left
   % corner the top edge reads a then b, the right edge a then b, the bottom
@@ -476,7 +476,7 @@
 % Bhaskara's dissection: square BAED of side c, four right triangles
 % (legs a, b) round a central square of side a - b.  DF || AC, EG || BC.
 \newcommand{\FIGXTWENTY}{\begin{bkfigure}[0.56\linewidth]
-\begin{tikzpicture}[scale=1.15]
+\begin{tikzpicture}[scale=1.495]
   \coordinate (B) at (0,0);   \coordinate (A) at (3,0);
   \coordinate (E) at (3,3);   \coordinate (D) at (0,3);
   \coordinate (C)  at (1.92,1.44);     % right angle at C, BC = a, CA = b
@@ -514,7 +514,7 @@
 % --------------------------------------------------------------- Fig 10-21
 % quadrilateral ABCD; DE drawn parallel to the diagonal AC, E on line BC.
 \newcommand{\FIGXTWENTYONE}{\begin{bkfigure}[0.6\linewidth]
-\begin{tikzpicture}[scale=0.95]
+\begin{tikzpicture}[scale=1.235]
   % A and D re-measured on scan13 p14 against BC: A at (0.38, 0.68) and
   % D at (0.97, 0.83) in units of BC.  The quadrilateral had been drawn
   % noticeably taller than the book's.
@@ -537,7 +537,7 @@
 % ---------------------------------------------------------- Fig 10-22, 10-23
 \newcommand{\FIGXTWENTYTWOTHREE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.5\linewidth}\centering
-\begin{tikzpicture}[scale=0.9]
+\begin{tikzpicture}[scale=1.048]
   % vertices measured off scan13 p15 and rescaled on AB: the book's D sits
   % almost straight above A and C just outside B, giving a much broader top
   % than the drawing had.
@@ -552,7 +552,7 @@
 \figcap{10--22}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.72]
+\begin{tikzpicture}[scale=0.839]
   \coordinate (B) at (0,0); \coordinate (C) at (4,0);
   \coordinate (A) at (2,3.464);            % equilateral
   \coordinate (P) at (1.9,1.0);
@@ -575,7 +575,7 @@
 
 % --------------------------------------------------------------- Fig 10-24
 \newcommand{\FIGXTWENTYFOUR}{\begin{bkfigure}[0.46\linewidth]
-\begin{tikzpicture}[scale=0.82]
+\begin{tikzpicture}[scale=1.066]
   % scan13 p16, deskewed by the 4.1 degree page rotation: apex at 0.56 of
   % the base, height 0.72 x base (it had been a symmetric 0.5 / 0.5).
   \coordinate (A) at (2.13,2.74); \coordinate (B) at (0,0);
