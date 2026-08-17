@@ -674,6 +674,23 @@ def build(check):
     # recorded here so the plate cannot drift away from its own text again.
     # =====================================================================
 
+    # -------- Fig 6-117 (Review Ex. 9): the river-width survey.  RU is sighted
+    # so that angle URP = angle PRQ, and PT so that angle TPR = angle QPR;
+    # S is where PT and RU meet, and PS is then the width PQ.
+    Pp, R, Q, S, T, U = P('6-117', 'P', 'R', 'Q', 'S', 'T', 'U')
+    check('6-117', 'angle URP = angle PRQ',
+          abs(angdeg(U, R, Pp) - angdeg(Pp, R, Q)))
+    check('6-117', 'angle TPR = angle QPR',
+          abs(angdeg(T, Pp, R) - angdeg(Q, Pp, R)))
+    check('6-117', 'S on PT', on_seg(Pp, T, S))
+    check('6-117', 'S on RU', on_seg(R, U, S))
+    check('6-117', 'PS = PQ (the measurement the figure makes)',
+          rel(dist(Pp, S), dist(Pp, Q)))
+    check('6-117', 'R lies up and to the right of P',
+          0.0 if R[0] > Pp[0] and R[1] > Pp[1] else 1.0)
+    check('6-117', 'Q lies below and to the right of P',
+          0.0 if Q[0] > Pp[0] and Q[1] < Pp[1] else 1.0)
+
     # -------- Fig 6-113 (Review Ex. 4): two parallels cut by one transversal.
     # A..D name the four ANGLES the book strikes an arc on, so what has to
     # hold is the parallelism and that each crossing really is on both lines.

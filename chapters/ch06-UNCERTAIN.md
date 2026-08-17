@@ -332,3 +332,112 @@ the gates:
 §4(d) and §4(e) above are SUPERSEDED by this state. The agent's scan-crop
 working files are in the session scratchpad (`ch06fin/`, `sm/`, `f6*.png`)
 for anyone wanting its measurement trail.
+
+---
+
+## Figure-repair pass 2 — inline placement + photo review (2026-08-17, ch06 agent)
+
+Worked from `feedback/FIX-SPEC.md` and Caleb's photos in `feedback/index_aa.md`,
+`index_ab.md`, `index_ac.md`, `index_ad.md`. Files touched: `chapters/ch06.tex`,
+`chapters/figures06.tex`, `tools/constraints/ch06.py`.
+
+### §2 — exercise-group figures are now inline
+
+104 figures moved out of the post-list dumps and into their exercise lists as
+`\exfig{\FIG…}`, directly after the exercise that first cites them. 45 combined
+macros were split into 106 single-figure macros (e.g. `\FIGVISEVENTEENEIGHTEEN`
+→ `\FIGVISEVENTEEN` + `\FIGVIEIGHTEEN`). Every exercise group that has figures
+lost its `multicols` wrapper; the two groups with no figures (6-2 and 6-13) keep
+it. Chapter-body figures (6-1, 6-5, 6-10/11/12, 6-16, 6-32, 6-43, 6-55, 6-68,
+6-69, 6-70, 6-71, 6-93, 6-94, 6-97, 6-98/99, 6-100/101, 6-102, 6-103, 6-104)
+were left where they already stood, per spec rule 5.
+
+### Deliberate departures from the book's own drawing
+
+The project rule is that every hypothesis the exercise states must hold exactly
+in the drawing. In three places the book's plate does not satisfy its own text,
+and the drawing was made exact rather than copied:
+
+1. **Fig 6-21.** Caleb: "the book's figure is a deliberately irregular
+   quadrilateral with … non-parallel end edges." But `AB ≅ CD` together with
+   `∠CBA ≅ ∠BCD` are equal alternate interior angles across BC, which forces
+   `BA ∥ CD`, so the four points *must* form a parallelogram. It is now drawn
+   as a sheared, tilted parallelogram — no right angle anywhere, the book's
+   2.6:1 aspect — which removes the rectangle Caleb objected to while keeping
+   the hypotheses true. Flagging it because the end edges are parallel and the
+   book's are not.
+2. **Fig 6-127.** Caleb wanted the triangle "clearly scalene — A well left of
+   centre". `AB ≅ AC` is given, so A must sit on the perpendicular bisector of
+   BC. The base is now tilted instead, which puts A about a third of the way
+   along BC visually and reads scalene, while the congruence still holds.
+   The related note that "the two cevians cross too far below DE" could not be
+   fixed: with `AD ≅ AE` and `AB ≅ AC`, the gap between DE and O is fixed by
+   the ratio AD/AB and stays near 0.17 of the height for any ratio the book's
+   proportions allow. Left as is.
+3. **Fig 6-109.** The book's own plate has AB about 11° off perpendicular to
+   BD; the exercise gives `AB ⊥ BD`, so ours is exactly perpendicular.
+
+### Question for Caleb (text, not figure — not changed)
+
+Exercise Group 6-14 #8: our text reads "Prove: `DE ≅ AC`", but the book photo
+`feedback/small/20260817_100626.jpg` shows the Prove line as **`DE ≅ EC`**.
+The spec says the text is signed off and this pass touches figures only, so
+nothing was changed. If `EC` is right, Fig 6-110 may want a segment EC drawn
+(the book's plate does not show one). Worth a look.
+
+### Figures corrected (photo-flagged)
+
+| Fig | What was wrong → what was done |
+|---|---|
+| 6-2  | r′ was fused to the angle and the r-side had a spurious kink; rebuilt as the book's two disjoint pieces, A on the outward bisector |
+| 6-3  | s/r floated off their tips, r′ segment too low and short; letters on the tips, segment moved to apex height and lengthened to the Λ's span |
+| 6-4  | drawn as one bent polyline; rebuilt as two separate strokes (straight angle with a dot at A, detached ray A′→r′) |
+| 6-16 | two arcs where the book nests three; new `\VIarct`, apex to 0.38 of the base, labels tucked in, inter-triangle gap 40 % → hairline |
+| 6-20 | closing sides DA and CB missing (bare X); rebuilt as the book's 4:1 bow-tie with O the midpoint of both diagonals |
+| 6-21 | perfect rectangle → sheared, tilted parallelogram (see note above) |
+| 6-25 | top chords C–F and F–D missing, so the double ticks marked nothing and ∠3/∠4 had one arm; chords drawn, arch reproportioned, ∠1/∠2 arcs widened |
+| 6-26 | below-line stubs missing and ∠1/∠2 struck above the line as 140° sweeps; stubs drawn, arcs moved to the acute angles below the line, base given the book's slope |
+| 6-71 | machine-symmetric arrowheads; both halves made scalene/tilted, C in (a) pulled clear of side BE |
+| 6-74 | squat 2.5:1 quadrilateral; rebuilt as the book's strongly sheared parallelogram, labels levelled |
+| 6-93 | no dots at O/A, panel 2's "right angle" leaned 14°, panel 3 too steep, l too short; dots added, panel 2 exactly vertical, panel 3 to ~68°, l extended past B |
+| 6-97 | arc for ∠B′ missing, horizontal broken at A, angles too shallow, B′ exiled; one continuous line, arc struck, B′ inside it, book's 80°/47° pair |
+| 6-98 | ∠B mirrored, no arc, halves butted together, B′ outside; apex-right, arc struck, white space restored |
+| 6-99 | same as 6-98 plus ∠B set lower on the page as the book sets it |
+| 6-100 | ∠B mirrored, no arc, B′ thin wedge drawn at 30° instead of hugging the lower side; rebuilt (wedge opened 16°→22° only so the letter clears both rays) |
+| 6-101 | no arc on the exterior A′; struck, A′ moved inside by the vertex |
+| 6-102 | line styles inverted (B–E′ was solid, E′D′ dashed), no arcs, B′/A′ parked beside E/E′; all three fixed |
+| 6-103(c) | one arc where the book draws two concentric semicircles; inner arc added and A/A′ moved from ray labels to angle labels on it |
+| 6-108 | apex 0.59 of base and BD leaning 9°; back to the book's 0.52 and near-vertical BD |
+| 6-109 | closing sides AB and ED missing (bare X); bowtie rebuilt, AB ⊥ BD and DE ⊥ BD exact, C above the crossing |
+| 6-110 | **escalated finding** — right angle marked at B that the coordinates did not satisfy (∠ABC ≈ 66°), E invented on AD with a segment EB; rebuilt from the book: B is the derived foot of the perpendicular from A to DC, TWO right-angle squares at B, E on AB beside A, left side D–E, no A–D and no E–B |
+| 6-111 | drawn almost square; rebuilt as the book's long thin dart (∠CAD 150°, ∠B 30°, A directly above C) |
+| 6-112 | R and A₂ outside their fans, A₁ on the wrong side of the vertical, arc radii crowded; all six labels moved into the wedge they name, two-tier arc spacing restored |
+| 6-113 | all four angle arcs missing and three labels on the wrong side of their parallel; four arcs struck, labels placed, transversal to ~33° and overshooting both lines; spurious B–C segment removed |
+| 6-117 | T–S–P drawn as a bowed curve running on into Q, P–Q solid, P–R mirrored, Q nearly level with P, river a single squiggle; rebuilt with S as the mirror of Q in PR (so the two sighted angle pairs are exact), P–Q dashed, five-stroke river band |
+| 6-120 | spurious segment E–F turned the figure into a parallelogram; removed, labels tightened |
+| 6-123 | five rays fanned round A with a spurious C–D, the two triangles overlapping; rebuilt as the book's two hinged, non-overlapping triangles |
+| 6-127 | too regular, labels ~3× the book's stand-off; base tilted (see note above), labels pulled in |
+
+### Label clearance (spec §6)
+
+The chapter-local `outer sep` stays at the global 2.9 pt — it was not raised.
+The reduction exposed 19 collisions (13 of them in figures nobody had flagged:
+6-4, 6-31, 6-50, 6-67, 6-94 ×2, 6-122 …). All were fixed by moving the
+individual label — usually onto the free bisector of the vertex it names —
+never by changing the chapter-wide value.
+
+### Constraints added to `tools/constraints/ch06.py`
+
+6-19, 6-20, 6-21, 6-93 (panel 2's right angle, panels 1/3 acute/obtuse),
+6-109, 6-110 (`AB ⊥ DC` — the hole this pass was escalated to close),
+6-113, 6-117. The coordinate reader also learned tikz's projection syntax
+`($(A)!(P)!(B)$)`; without it every dropped perpendicular in the chapter was
+unparseable, which is part of why 6-110's right angle could drift unnoticed.
+
+### Gates
+
+- `tectonic … ch06.tex` twice, clean (68 pp.)
+- `python3 tools/verify_figures.py 6` → **278/278**
+- `python3 tools/check_labels.py chapters/figures06.tex 6` → **0 COLLIDE**, 36 TIGHT
+- every page rasterised at 96 dpi and read as 12 six-page contact sheets
+- `tools/measure_figures.py` NOT run, per spec §5
