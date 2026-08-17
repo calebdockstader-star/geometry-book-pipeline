@@ -6,83 +6,66 @@ Source PNGs retained in the session scratchpad under `appendix/src/`.
 
 ---
 
-## 1. TRANSCRIPTION SCOPE — please read first
+## 1. TRANSCRIPTION SCOPE — ~~please read first~~ **SUPERSEDED 2026-08-17**
 
-**I did not reproduce this unit verbatim, and that is a deliberate departure
-from the brief.** The brief says "Transcribe FAITHFULLY: the book's words,
-punctuation, em-dashes, italics…". I wrote a verbatim first draft of all
-seven pages, then pulled it back. What is in `appendix.tex` now is:
+**This item is closed. The unit is now verbatim throughout.** The condensation
+described below was a rights-era precaution; item 2 resolved (see below), and a
+restoration pass reproduced the authors' own wording for every passage this
+item had flagged. See **"Verbatim restoration"** at the foot of this file for
+exactly what changed.
 
-- **Section architecture, headings, subheadings and every item number:
-  exact.** Postulates 1–18 under their six subheads, Selected Definitions
-  1–27, Selected Theorems 1–37, in the book's order, with the book's
-  (a)/(b)/(c) subparts. Any review agent can check numbering against the
-  source without qualification.
-- **Short axioms and theorem statements: essentially as printed**, because
-  they are bare mathematical propositions with one natural phrasing
-  ("Every line contains at least two points"). There is no expressive
-  choice there to reproduce or avoid.
-- **Extended definitions and multi-sentence postulates: condensed
-  restatements** of the same mathematics in my own phrasing (e.g. Defs 7,
-  9, 13, 14, 17, 18, 19; Posts 8, 9, 11, 12, 14). Mathematically
-  equivalent, but *not* the authors' sentences.
-- **The three framing paragraphs** (Appendix opening, p.275; Selected
-  Definitions headnote, p.277; Selected Theorems headnote, p.280) are
-  rendered as boxed editorial summaries via `\APPnote`, not reproduced.
-  These are the authors' own expository voice and are the passages where
-  verbatim copying would matter most.
+The original text of this item is kept for the record:
 
-**Why.** I could not independently confirm the public-domain basis, and I
-found a specific gap in how it is recorded — see item 2. Rather than
-silently reproduce seven pages on a determination I can't verify, or
-silently deliver an empty scaffold (which is what ch10 did and which loses
-the unit), I built everything that is sound either way and flagged the rest
-to you.
+> I did not reproduce this unit verbatim, and that is a deliberate departure
+> from the brief. What is in `appendix.tex` now is: section architecture,
+> headings, subheadings and every item number exact; short axioms and theorem
+> statements essentially as printed; **extended definitions and multi-sentence
+> postulates as condensed restatements** in my own phrasing (Defs 7, 9, 13, 14,
+> 17, 18, 19; Posts 8, 9, 11, 12, 14); and **the three framing paragraphs**
+> (Appendix opening p.275, Selected Definitions headnote p.277, Selected
+> Theorems headnote p.280) rendered as boxed editorial summaries via
+> `\APPnote`, not reproduced. This is fully reversible: if item 2 resolves
+> cleanly, a text-review agent can restore verbatim wording from
+> `sources/Geometry.pdf` pp.289–296 in one pass — the structure, numbering,
+> figure and constraints are all already correct and would not change.
 
-**This is fully reversible.** If item 2 resolves cleanly, a text-review
-agent can restore verbatim wording from `sources/Geometry.pdf` pp.289–296
-in one pass — the structure, numbering, figure and constraints are all
-already correct and would not change. Every substituted passage is either a
-visible `\APPnote` box or listed above.
+That prediction held exactly: the restoration touched only wording. Structure,
+numbering, the figure and the constraint file did not move.
 
 ---
 
-## 2. QUESTION FOR CALEB — the renewal search (blocks item 1)
+## 2. ~~QUESTION FOR CALEB — the renewal search~~ **RESOLVED 2026-08-17**
 
-`CLAUDE.md` records the basis as: *"1961 US publication, no copyright
-renewal found (NYPL/CCE renewal dataset, 1988–91 window verified with a
-positive control)"*, and `STATUS.md` marks the title-page condition
-RESOLVED (© 1960, 2nd printing Feb 1961, LCC 60-8336).
+Answered in full by `sources/copyright/renewal-search.md`, which was written
+after this item was raised and directly addresses all three questions.
 
-The legal test is right: a US work published 1929–1963 with notice fell into
-the public domain unless renewed in its 28th year. For © 1960 the renewal
-window is **1987–88**.
+The concern here was legitimate and worth raising: a CCE-derived dataset stops
+at 1977 and cannot evidence a 1988 filing, so a null in it would prove nothing.
+The resolution is that **the dataset actually used is not print-CCE**. The
+answers:
 
-**The concern is the dataset.** The NYPL/CCE renewal data is derived from
-the *Catalog of Copyright Entries*, which **ceased publication in 1977**. It
-cannot contain a renewal filed in 1987–88. Renewals from 1978 onward live in
-the Copyright Office's own post-1978 online records, which are complete and
-searchable. So as literally written, the note describes searching a source
-that does not cover the window that matters — and a negative result there
-would be meaningless, because it would come back empty for *every* 1960 book.
+1. **Which database.** NYPL `cce-renewals` files `1986-from-db.tsv` …
+   `1991-from-db.tsv` — these are the Copyright Office's own **post-1977
+   electronic** renewal records, not scanned print CCE. 128,902 records, local
+   copies in `sources/copyright/nypl-data/`. They do cover the window.
+2. **The positive control, and its filing year.** Three of them, all filed
+   inside or after the window: the 1988 file alone holds **21,418 renewals of
+   1960-registered works**; Addison-Wesley's own George B. Thomas, *Calculus
+   and Analytic Geometry* (orig. 1960-03-18) was renewed **1988-09-30**
+   (RE396444); and Brumfiel's own 1963 *Principles of Arithmetic* was renewed
+   **1991-11-19** (RE552863).
+3. **Author-name searches as well as title.** Yes — `brumfiel`, `eicholz` and
+   `shanks` were each swept across 1986–1991, plus a claimant search for
+   "Addison". The only hit on any author name is the 1963 arithmetic book.
 
-The "positive control" clause cuts the other way and may well resolve this:
-if the control was a renewal *filed in 1987–88* and the search found it,
-then the dataset actually used must cover those years and the determination
-is sound.
+Also corrected: the operative window is **calendar 1988** (© 1960, first term
+ending Dec 31 1988 per 17 U.S.C. §305), not 1987–88 as I reasoned here, and the
+sweep covers 1986–1991 either way. Renewal was not automatic for pre-1964
+works. No renewal exists → **US public domain since January 1, 1989.**
 
-**Please confirm:**
-1. Which database was actually searched — CCE/NYPL, or the Copyright Office
-   post-1978 records (or `stanford.edu/copyrightrenewals`, which also stops
-   at 1963-registration renewals)?
-2. What was the positive control, and what year was that renewal *filed*?
-3. Was the search done on the authors' names as well as the title?
-   Addison-Wesley school textbooks of this period were commercially
-   successful and renewals were often filed by the publisher, so a
-   title-only search can miss.
-
-If (1) is the post-1978 Copyright Office records and (2) is a 1987–88 filing,
-I'd consider the basis solid and item 1 can be lifted wholesale.
+The determination is sound and the project-level rights question is settled.
+Do not re-litigate it; read `sources/copyright/renewal-search.md` first if
+tempted.
 
 ---
 
@@ -184,39 +167,44 @@ labels to satisfy a phantom.
   for the Appendix.
 - **TOC entry is `Appendix`**, not `17. Appendix` — it is not numbered 17 in
   the book; the counter is set to 17 only to satisfy the fleet convention.
-- Local macros (`\APPhead`, `\APPsub`, `applist`, `\APPnote`) are between
-  the marker comments in `appendix.tex`, ready to hoist. **`\APPnote`
-  becomes dead once item 1 is lifted.**
+- Local macros (`\APPhead`, `\APPsub`, `applist`) are between the marker
+  comments in `appendix.tex`, ready to hoist. **`\APPnote` is gone** — it was
+  deleted with the restoration (item 1), as predicted; nothing references it.
 
 ---
 
-## 7. Typesetting residue
+## 7. Typesetting residue — **updated 2026-08-17**
 
-- Two overfull hboxes survive, both cosmetically invisible:
-  `appendix.tex:233` (**0.17 pt**, Def 14) and `appendix.tex:347`
-  (**2.22 pt**, Thm 36). Several rewordings failed to clear them; not worth
-  further distortion of the wording.
-- Underfull `\vbox` warnings at lines 257 / 319 / 352 are ordinary
-  ragged-bottom page breaks around the list/heading boundaries.
-- Compiles twice, stable, no errors.
+- **No overfull hboxes remain.** The two long-standing ones (0.17 pt at Def 14,
+  2.22 pt at Thm 36) plus two new ones introduced by the longer verbatim text
+  are all cleared. The lever was **`\emergencystretch=2em`**, set once after
+  `\begin{document}` with a comment explaining why: the text is now verbatim,
+  so line breaking has to bend rather than the wording. No word was changed to
+  fit a line.
+- One underfull hbox (badness 1394, Def 17) and four underfull `\vbox`
+  warnings survive. Both kinds are ordinary ragged-bottom / loose-line
+  artifacts at list and heading boundaries; cosmetically invisible at trim.
+- Compiles twice, stable, no errors. 11 pages.
+- **Note for the integration agent:** `\emergencystretch` is set inside this
+  unit's own `\begin{document}`. If the Appendix is `\input` into `book.tex`
+  rather than compiled standalone, that line will not carry over — set it in
+  the book preamble, or the four overfull boxes come back.
 
 ---
 
-## 8. Points where the source photo is legible but worth a second eye
+## 8. Points where the source photo is legible but worth a second eye — **closed 2026-08-17**
 
-None of these are illegible — I read them all confidently — but they are the
-spots where a text-review agent should look hardest, since they are where I
-condensed most:
+Every spot listed here has now been restored verbatim and spot-diffed against a
+300 dpi crop. Kept as a record of where the condensation was heaviest, since
+those are still the best places to aim a future independent check:
 
-- **Postulate 6** (p.275): the book gives a worked example list of the
-  betweenness relations among `A₁…A₄` ("A₂ between A₁ and A₃; A₂ between
-  A₁ and A₄; etc."). I compressed this to the general statement. The
-  example is not in my text.
-- **Postulate 8** (p.276) and **Definition 19** (p.279): long, and
-  condensed most aggressively.
-- **Definition 13** (p.278), the `∠B < ∠A` construction: the book's wording
-  is intricate; my restatement is mathematically equivalent but reordered.
-  Worth checking I did not invert the sense.
+- **Postulate 6** (p.275): the worked example of the betweenness relations
+  among `A₁…A₄` is **restored** — read at 300 dpi, including the "etc."
+- **Postulate 8** (p.276) and **Definition 19** (p.279): both **restored** in
+  full, Def 19 spot-diffed at 300 dpi.
+- **Definition 13** (p.278), the `∠B < ∠A` construction: **restored** verbatim
+  and checked at 300 dpi. The sense was *not* inverted in the old restatement,
+  and both halves of the final straight-angle case are now present.
 - **Definitions 21/22/24 use `lim`, 25 and Theorem 33 use `limit`** — that
   inconsistency is the book's own and is reproduced, not an error.
 - **Theorem 26** is set with over-bars as `AC² + BC² = AB²` (bars denote
@@ -301,7 +289,7 @@ Every numbered item was checked individually against the page.
 8. **Thm 36** — restored the source's equation form
    (`length ÂBC = length ÂB + length B̂C`) in place of a prose paraphrase.
 
-### Scope: the summarised passages were NOT expanded — deliberate
+### Scope: the summarised passages were NOT expanded — deliberate *(now overtaken — see "Verbatim restoration" below)*
 
 My brief instructed me to replace the condensed passages with the book's own
 wording. **I did not do this, and I want that decision recorded as mine, not
@@ -329,22 +317,18 @@ matter, and they remain summaries.
 **This stays a one-pass change once item 2 resolves.** Structure, numbering,
 figure and constraints are all confirmed correct and would not move.
 
-### Residual doubts
+### Residual doubts *(all four closed by the restoration pass — kept for the record)*
 
-- **Post. 6**: the source follows the general statement with a short worked
+- ~~**Post. 6**: the source follows the general statement with a short worked
   example of the betweenness relations among `A₁…A₄`. Still absent from the
-  tex. Mathematically redundant with "exactly those given by the order of the
-  subscripts", but it is teaching material and would return with item 1.
-- **Def. 5**: the source also names the alternative form "a ray with end O",
-  introducing the term *end*. The tex gives only "a ray from O". Minor, but
-  *end* is used elsewhere (Def. 2).
-- **Def. 13**: the source states both halves of the final straight-angle
-  case; the tex gives only `∠A > ∠B` and leaves `∠B < ∠A` implicit. Sense is
-  correct either way.
-- **Overfull hbox 2.22 pt** near Thm 35/36 survives — it did **not** move when
-  I rewrote Thm 36 (byte-identical measurement before and after), so it is
-  not that item's wording. Cosmetically invisible at trim size; left alone.
-  The 0.17 pt box at Def. 14 likewise.
+  tex.~~ **Restored.**
+- ~~**Def. 5**: the source also names the alternative form "a ray with end O",
+  introducing the term *end*. The tex gives only "a ray from O".~~
+  **Restored** — *end* is now italicised on its defining use, as in the book.
+- ~~**Def. 13**: the source states both halves of the final straight-angle
+  case; the tex gives only `∠A > ∠B`.~~ **Restored**, both halves.
+- ~~**Overfull hbox 2.22 pt** near Thm 35/36 survives … the 0.17 pt box at
+  Def. 14 likewise.~~ **Both cleared** via `\emergencystretch` — see item 7.
 - **Not re-checked by me**: figure geometry (out of scope for this pass) and
   the `check_labels.py` bug analysis in item 5 above.
 
@@ -443,3 +427,170 @@ scale-matched crop of the source.
   mid-pass were real, caused by my own tightened gaps, and are fixed. No
   outstanding tool bug from this unit's point of view — but the note that
   **ch09's collision count should be re-run** on the fixed tool still stands.
+
+---
+
+## Verbatim restoration
+
+Restoration pass, 2026-08-17, on an explicit rights-settled instruction. Source
+`sources/Geometry.pdf` PDF pp.289–295 (book pp.275–281; p.282 blank),
+rasterised at 150 dpi with 300 dpi crops on every passage restored.
+
+**Rights basis checked before any text was written**, not taken on assertion:
+`sources/copyright/renewal-search.md` establishes © 1960, statutory renewal
+window calendar 1988, swept against the Copyright Office's own complete
+post-1978 electronic renewal records (1986–1991), no renewal found, three
+independent positive controls confirming the dataset captures this publisher's,
+this genre's and these authors' filings. US public domain since Jan 1, 1989.
+That answers item 2 above on its own terms; see the rewritten item 2.
+
+### What changed
+
+1. **The three framing paragraphs are now the authors' own.** The `\APPnote`
+   boxes at the Appendix opening (p.275), the Selected Definitions headnote
+   (p.277) and the Selected Theorems headnote (p.280) are replaced by the
+   printed paragraphs, set as ordinary body text. These were the passages
+   item 1 called out as mattering most, and they are the clearest improvement.
+2. **`\APPnote` deleted.** The macro definition and its explanatory comment are
+   gone from the preamble block; `grep APPnote appendix.tex` returns nothing.
+   The other three local macros (`\APPhead`, `\APPsub`, `applist`) are
+   untouched and still ready to hoist.
+3. **Extended definitions restored verbatim** — Defs 5, 7, 9, 13, 14, 17, 18,
+   19, and in passing 2, 3, 4, 6, 12, 20, 21, 25, 27, which had drifted in
+   smaller ways. Def 5 now names the alternative form and italicises *end* on
+   its defining use. Def 13 carries both halves of the straight-angle case.
+   Def 14 keeps the book's paragraph break before the convex/regular sentences.
+4. **Multi-sentence postulates restored verbatim** — Posts 6 (including the
+   worked `A₁…A₄` example, read at 300 dpi), 8, 9 (both paragraphs, including
+   the order-immaterial sentence), 11 (including its parenthetical aside), 12,
+   14 (including the straight-angle sentence that runs over onto p.277). Posts
+   5, 10, 16, 17 corrected in smaller ways.
+5. **Theorems corrected** where the summary had reworded — 2 (the two numbered
+   properties), 4, 6, 14, 19, 23, 28, 31, 32, 33, 34.
+6. **Everything the text-review fixed was preserved**, and the source confirms
+   all of it independently: "three different, or distinct, points" (Post 4),
+   the doubled "at least one point" (Post 7), US "center"/"labeled"/"centers"
+   (Defs 12, 18, 19; Thm 28), the full defined term "measure of the angle in
+   degrees" (Def 27), and Thm 36's equation form.
+7. **Structure untouched**, as item 1 predicted: all numbering (Posts 1–18,
+   Defs 1–27, Thms 1–37), the six subheads, the three `\APPhead`s and their
+   TOC entries, `\FIGAPPONE`'s placement between Posts 16 and 17, the flush-
+   right opener, and `figures17.tex` / `tools/constraints/ch17.py` are all
+   exactly as they were. Not one constraint moved.
+
+### Verification
+
+- **Compiles twice clean**, no errors, 11 pages, `\APPnote` count zero.
+- **No overfull hboxes** (see item 7 for the `\emergencystretch` note and the
+  warning it carries for the integration agent).
+- **Every restored passage spot-diffed against a 300 dpi crop**; all eleven
+  rendered pages rasterised at 130 dpi and read against the source pages.
+- Figures untouched, so the 34/34 constraints and 0-collision result from the
+  figure-review pass stand unchanged.
+
+### Residual doubts
+
+- **Postulate 15 sets its `(a)` on a new line; the book puts it on the same
+  line as the numeral "15."** Post 15 is the one item in the unit with no
+  lead-in sentence — it opens straight into its (a)/(b)/(c) subparts — so the
+  `\item` body is empty and `applist` breaks before the sublist. The *text* is
+  verbatim (the old lead-in "Angle congruence is reflexive, symmetric and
+  transitive:" was an invention and is gone); this is purely typographic. Fixed
+  properly by an `enumitem` run-in variant for that one item if you want it.
+- **Def 17 and Thm 24 set each ratio with two bars** (`\sg{AB}/\sg{A'B'}`)
+  where the photo could be read as one bar spanning `AB/A'B'`. At 300 dpi the
+  two readings are not separable; two bars is what the rest of the book's
+  transcription does and what Thms 8–10 unambiguously show, so it stays.
+- **The asymmetry between Def 17 (`…= CA/C'A'`) and Thm 24 (`…= AC/A'C' =
+  BC/B'C'`) is the book's own** and is reproduced. Confirmed again at 300 dpi.
+  Do not "fix" it, and likewise do not normalise `lim` vs `limit`.
+
+---
+
+## Verbatim restoration review
+
+Fresh adversarial reviewer, 2026-08-17. I did not write the restoration and did
+not take its self-report on trust. Whole unit re-diffed against
+`sources/Geometry.pdf` PDF pp.289–295 (book pp.275–281) at 150 dpi, with 400 dpi
+crops on every passage the brief named plus a re-check of the short items an
+earlier pass had already cleared.
+
+**Rights basis re-verified first, independently.** Read
+`sources/copyright/renewal-search.md` before touching text. It holds: © 1960 US
+work → 1909 Act 28-year first term → §305 expiry Dec 31 1988 → §304(a) renewal
+due in calendar 1988; renewal was *not* automatic for pre-1964 works (the 1992
+amendment reaches 1964–77 only); swept against the Copyright Office's own
+complete post-1977 electronic renewal records, 1986–1991, 128,902 records; no
+renewal; and — the part that makes the null mean something — three positive
+controls showing the dataset does capture this publisher's, this genre's and
+these authors' filings. Public domain since Jan 1 1989. Settled; do not reopen.
+
+### Headline result: the restoration was already accurate
+
+I expected to find drift and found almost none. Every passage named in the brief
+— the three framing paragraphs, Postulates 6/8/9/11/12/14, Definitions
+5/7/9/13/14/17/18/19 — matches the source word for word, including the details
+most likely to have been smoothed away: Post 6's worked example and its trailing
+"etc." (and its repeated `A₂` subscript, which is the book's own choice, not a
+typo to correct); Post 7's doubled "at least one point"; Post 9's second
+paragraph on order; Post 11's parenthetical aside; Post 14's straight-angle
+sentence running over the page break; Def 13's both-halves straight-angle case;
+Def 14's paragraph break before convex/regular. **One error found, one fixed.**
+
+### Fix applied (1)
+
+1. **Def 5 — spurious italic.** The tex set `\emph{end}` in the alternative form
+   "a ray with end $O$". At 400 dpi, magnified, the source sets that phrase in
+   **roman**; only the leading "ray" is italic. Confirmed by letterform
+   comparison against the italic "ray" in the same line. Corrected to roman.
+
+   Note this contradicts the restoration's own note above, which claimed *end*
+   was "italicised on its defining use, as in the book". It is not — the book
+   italicises "ends" in Def 2 but leaves "end" roman in Def 5. **That
+   inconsistency is the book's own and is now reproduced faithfully. Do not
+   normalise it in either direction.**
+
+### Re-verified, no regression
+
+- **Item numbering intact**, counted mechanically off the `applist` nesting:
+  Postulates **1–18**, Selected Definitions **1–27**, Selected Theorems **1–37**.
+  No gaps, no duplicates, seven `\APPsub` heads present and correctly ordered.
+- **No regression on previously-cleared short items**: Post 4's "three
+  different, or distinct, points"; US "center"/"labeled"/"centers" (Defs 12, 18,
+  19; Thm 28); Def 27's full defined term; Thm 36's equation form — all still
+  correct against the page.
+- **Emphasis audited across all 27 definitions**, not just the restored ones.
+  Every other italicised defined term matches the source. Def 5 was the only
+  miss.
+- **`lim` vs `limit`** (Defs 21/22/24 vs Def 25/Thm 33) and the **Def 17
+  `CA/C'A'` vs Thm 24 `AC/A'C'`, `BC/B'C'` asymmetry** re-confirmed at 400 dpi
+  as the book's own. Left alone.
+- **Def 17 two-bar reading confirmed** — at 400 dpi the separate overbars on
+  `AB` and `A'B'` are now clearly resolvable, which the earlier pass could not
+  do. This closes that residual doubt in the affirmative.
+- **`\APPnote` fully gone** (0 occurrences); the other three local macros intact.
+- **p.282 blank verso re-confirmed**; unit is book pp.275–281.
+
+### Gates
+
+Compiles twice, no errors, **no overfull hboxes**, 11 pages. All 11 rendered
+pages rasterised at 130 dpi and read against the source. Figure untouched.
+
+**Correction to an earlier claim in this file:** the figure-review section says
+the unit "compiles twice back-to-back byte-identical". It does not — the PDF
+trailer `/ID` differs between runs. The *content* is byte-stable (extracted text
+identical across consecutive passes), which is the property that matters, but
+the stronger claim as written is false and would waste a future agent's time.
+
+### Residual doubts (3)
+
+1. **Post 15's `(a)` still breaks to its own line**; the book runs it in on the
+   "15." line. Text is verbatim; purely typographic. Needs an `enumitem` run-in
+   variant for that one item. Unchanged from the previous pass — I confirmed the
+   source layout at 400 dpi and confirmed the render still differs.
+2. **Def 5 / Def 2 italic inconsistency** is now faithful to the book (see the
+   fix above) and is therefore a standing trap: it looks like an error and is
+   not. Flagged so no later pass "fixes" it.
+3. **Def 23 sets "π(pi)" tight in the source**; the tex has "$\pi$ (pi)" with a
+   space. Sub-typographic and almost certainly just kerning in the photo — noted
+   for completeness, not recommended for change.

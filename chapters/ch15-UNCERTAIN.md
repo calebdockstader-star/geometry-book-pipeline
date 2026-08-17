@@ -473,3 +473,96 @@ looks like an omission but it is consistent across all three items.
 5. This unit still owes the **second text review** the earlier review asked
    for: a fresh agent should diff the finished prose, not just its structure,
    against the source pages.
+
+---
+
+## Text review
+
+Second (post-transcription) text review — the one §5 above says the unit owed.
+Fresh adversarial agent, no part in writing this chapter. Diffed the finished
+prose of `chapters/ch15.tex` line by line against PDF pp. 265–279 (book
+pp. 251–265), rasterized at 200 dpi for reading and 600 dpi for every disputed
+glyph. Every paragraph opening was read against the source, every definition,
+theorem, proof and footnote read verbatim, and every number in all thirteen
+exercise groups checked individually.
+
+### Fixes applied (1)
+
+1. **The René Descartes opener plate was orphaned — now emitted by ch15.**
+   Book p. 250 (PDF 264) is the verso facing the chapter-15 opener. It carried
+   no owner: `ch14-UNCERTAIN.md` §17 handed it to ch15, and §5 + §4 of this
+   file handed it back to ch14 / the front matter, so **no unit emitted it and
+   the plate was silently missing from the book.** The established rule is
+   already set by ch01 and ch02 — `ch01.tex:798` explicitly declines the
+   Aristotle plate *because* it faces the ch02 opener, and `ch02.tex:33` emits
+   it. Same rule applies here. Added `\XVplate` (identical in shape to
+   `\Iplate` / `\IIplate`) and emitted it immediately before `\chapter*`,
+   captioned as the book prints it: small-caps `RENÉ DESCARTES (1596–1650)` /
+   `Courtesy of Scripta Mathematica.` Halftone — placeholder frame, not
+   redrawn, per the B&W-pass rule. §4 above is now superseded.
+
+### Verified correct — no change needed
+
+The transcription is faithful; no wording, number or symbol error was found.
+Checked and confirmed against the source:
+
+- **All prose**, §§15-1 … 15-7, including the Descartes biography paragraph
+  (dates 1596, 1612, 1619, 1620, 1637, 1649, February 1650; "5 a.m. three days
+  a week"), and the closing pointer to books on analytic geometry.
+- **Definitions 15-1 … 15-5** and **Theorems 15-1, \*15-2, \*15-3**, verbatim,
+  with the star carried on 15-2 and 15-3 only. `XVstheorem` shares the
+  `theorem` counter, so the printed run really is 15-1, 15-2, 15-3.
+- **Both proofs**, all three cases each, including every parenthetical "(Why?)"
+  and "This case is left to the student."
+- **All six numbered display equations** (15-1)…(15-6), re-checked sign by sign
+  and subscript by subscript, plus the two unnumbered displays on pp. 260–261
+  and the completing-the-square chain on p. 265.
+- **Every number in every exercise**, all thirteen groups. Counts confirmed:
+  15-1 (2), 15-2 (2), 15-3 (3), 15-4 (3, item 3 spanning the p. 254/255 break),
+  15-5 (2), 15-6 (3), 15-7 (17), 15-8 (3), 15-9 (8), 15-10 (6), 15-11 (7),
+  15-12 (8), 15-13 (5).
+- **Star placement**: 15-6 {2,3} · 15-7 {3,4,5,7} · 15-8 {3} · 15-11 {3} ·
+  15-12 {3,4,5,7,8} · 15-13 {4,5}. Matches the source exactly; the manual
+  `\item[...]` labels and the two `\setcounter{exlisti}` resyncs render 1–17
+  and 1–7 continuously (verified in the raster, not just the source).
+- **Exercise Group 15-10 #1 letter run** (a)–(h), then (k), (l) — the book's
+  (i)/(j) skip is real and preserved.
+- **Fractions** kept as set: (−3, −½), (7½, −3), 4½ units, (3, ½).
+- **No `\starnote`.** Confirmed by eye on all fifteen pages: the only footnotes
+  in this range are the `*`/`†` pairs on pp. 251, 254, 256 and the lone `†` on
+  p. 260. None is the "starred items are optional" note; `ch02.tex:311` still
+  owns the book-wide first use.
+- **`\addcontentsline`** present after `\chapter*` and after all seven
+  `\section*`; headings, wording and order all match the printed TOC.
+- All 19 figure macros used are defined in `figures15.tex`, and every
+  `Fig. 15-N` reference in the prose resolves.
+
+Compiles twice clean after the fix.
+
+### Residual doubts (2)
+
+1. **Exercise 15-11 #1 does not describe a right triangle — and the fault is
+   the book's, not the transcription's.** The printed vertices are (2, 6),
+   (5, 7), (−8, −2); I re-read them at 600 dpi and the tex matches the page
+   exactly. But the squared sides are 10, 164 and 250, and 10 + 164 = 174 ≠ 250;
+   no vertex gives a zero dot product. I also solved for what a single mistyped
+   coordinate would have to be, and no variant yields a right triangle with
+   integer values — so this is not a one-digit misprint I can reconstruct.
+   (Cross-check: #2 in the same group, (3, 2), (−4, 4), (1, −5), *is* clean —
+   53 + 53 = 106, right isosceles — so the method is sound.) **Left exactly as
+   printed**, per the faithful-transcription rule. Caleb's call whether the
+   re-typeset edition carries a corrigendum note.
+2. **Exercise 15-7 #16, the "(−5, −7)" glyph, is still unresolved** (open from
+   the transcription pass). At 600 dpi the disputed digit is shaped like the
+   **6** of "16." on the same line — a curved top-left stroke into a closed
+   bowl, where this face's 5 has a flat top bar — so my reading leans **(−6, −7)**,
+   against the builder's (−5, −7). It is not decisive: the photo is soft at
+   that point, and `sources/scan-index/` has **no scan of book p. 257** (ch 15
+   coverage stops at p. 254), so there is no second witness. Both values are
+   mathematically fine, so nothing internal disambiguates. **Left as (−5, −7)**
+   rather than flipped on ambiguous evidence — one glance at the physical copy
+   settles it.
+
+Items 2 and 3 of the transcription pass's list (the Fig 15-14 doubled label,
+and the p. 25 widow) are unchanged and remain open; both are out of a text
+review's scope.

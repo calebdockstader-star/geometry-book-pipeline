@@ -104,6 +104,9 @@ def main():
             out.extend(lines)
     out.append('% short pages end short instead of stretching inter-para glue')
     out.append('\\raggedbottom')
+    out.append('% several units relied on standalone-body emergencystretch; the')
+    out.append('% narrow 145mm measure needs it book-wide (appendix flag, 2026-08-17)')
+    out.append('\\emergencystretch=2em')
     out.append('\\begin{document}')
     fm = bodies['frontmatter'].replace('% \\tableofcontents here.',
                                        '\\tableofcontents')

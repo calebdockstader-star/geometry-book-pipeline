@@ -1105,10 +1105,20 @@
 %  6-42: triangle A B with apex C; G, D, O, E, F interior, angles 1..4.
 \newcommand{\FIGVIFORTYFORTYONEFORTYTWO}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+% Measured off the plate on book p.93 (photo PDF p.107): base 645 px, apex over
+% the midpoint (AC = BC, as Exercise 9 requires), height/base = 0.674, D and E
+% about 0.60 of the way up their sides.  The book sets D level with its point
+% on the LEFT and E level with its point on the RIGHT -- not above them -- and
+% leaves a clear digit's width between the numerals 1 and 2.
+% Drawn at 1.05 rather than 0.80: D and E are only 1.17 units apart, and the
+% two bisector-placed numerals aim at each other, so at the old scale the
+% numerals had to sit so close to their vertices that both grazed the cevians
+% (0.27 pt).  Widening the plate buys the clearance without moving either
+% numeral off its own bisector.
+\begin{tikzpicture}[scale=1.05]
   \coordinate (A) at (0,0);
   \coordinate (B) at (2.92,0);
-  \coordinate (C) at (1.46,1.72);
+  \coordinate (C) at (1.46,1.97);
   \coordinate (D) at ($(A)!0.60!(C)$);
   \coordinate (E) at ($(B)!0.60!(C)$);
   \draw[given] (A) -- (B) -- (C) -- cycle;
@@ -1117,8 +1127,8 @@
   \node[vlab, left]  at (A) {$A$};
   \node[vlab, right] at (B) {$B$};
   \node[vlab, above] at (C) {$C$};
-  \node[vlab, above left]  at (D) {$D$};
-  \node[vlab, above right] at (E) {$E$};
+  \node[vlab, left]  at (D) {$D$};
+  \node[vlab, right] at (E) {$E$};
   % Angle 1 is CDB and angle 2 is CEA -- the pair the exercise asks about.
   % Both go on their own bisector, which is what keeps them off DB and EA.
   % The two bisectors point at EACH OTHER, so distance along them is what sets
@@ -1143,14 +1153,15 @@
 % Proportions off the scan: base 825 px, F at 0.488 (drawn 0.5, as the
 % exercise demands), B at 0.228 and C at 0.737 (drawn symmetric at
 % 0.245/0.755), O 0.40 of the base above it, E 0.70 of the base above it.
-\begin{tikzpicture}[scale=1.10]
+\begin{tikzpicture}[scale=1.28]
   \coordinate (A) at (0,0);
   \coordinate (D) at (3.22,0);
   \coordinate (F) at ($(A)!0.5!(D)$);      % AF = FD
   \coordinate (B) at ($(A)!0.245!(D)$);
   \coordinate (C) at ($(A)!0.755!(D)$);    % BF = FC by symmetry about F
   \coordinate (E) at (1.61,2.254);         % directly above F
-  \coordinate (O) at ($(F)!0.593!(E)$);    % on FE, so AO = OD and BO = OC
+  % Re-measured on the plate: O sits 0.636 of the way from F up to E, not 0.593.
+  \coordinate (O) at ($(F)!0.636!(E)$);    % on FE, so AO = OD and BO = OC
   \draw[given] (A) -- (D) -- (E) -- cycle;
   \draw[given] (E) -- (F);
   \draw[given] (O) -- (A);
@@ -1164,8 +1175,13 @@
   \node[vlab, below] at (F) {$F$};
   \node[vlab, below] at (C) {$C$};
   % Six lines meet at O; the only clear quadrant is up-and-right, between OE
-  % and OD, which is exactly where the book sets the letter.
-  \node[vlab, above right, inner sep=1pt] at (O) {$O$};
+  % and OD, which is exactly where the book sets the letter.  That quadrant is
+  % a wedge closing toward E -- bounded on the left by the vertical EF and on
+  % the right by the side ED -- so the letter has to hug the vertical and stay
+  % LOW, which is exactly what the plate does (its O starts about 2.5% of the
+  % base to the right of the axis).  The default 4.6pt outer sep pushed the
+  % box out along the 45-degree diagonal instead, straight into ED.
+  \node[vlab, above right, inner sep=1pt, outer sep=2.4pt] at (O) {$O$};
 \end{tikzpicture}
 \figcap{6--41}
 \end{minipage}\hfill
@@ -1226,6 +1242,11 @@
 % ================================================================= Fig 6-43
 % Book p.94.  The Theorem 6-4 proof picture: triangle ABC, and A'B'C' with the
 % constructed point D' on ray C'B' (dashed, since it is added in the proof).
+% The plate sets all four base-vertex letters BELOW the base line -- A and C
+% under the first triangle, A' and C' under the second.  The draft lifted C and
+% A' ABOVE it, which put them at the same height in the gap between the two
+% triangles, where they read as one floating pair "C A'" belonging to neither.
+% Panels also pulled 0.4cm further apart for the daylight the plate shows.
 \newcommand{\FIGVIFORTYTHREE}{\begin{bkfigure}[\linewidth]
 \begin{tikzpicture}[scale=0.95]
   \coordinate (A) at (0,0);
@@ -1235,8 +1256,8 @@
   \VItk{A}{B}{1}  \VItk{A}{C}{2}  \VIarc{C}{A}{B}{0.46cm}
   \node[vlab, below left]  at (A) {$A$};
   \node[vlab, above] at (B) {$B$};
-  \node[vlab, above right] at (C) {$C$};
-  \begin{scope}[xshift=3.65cm]
+  \node[vlab, below right] at (C) {$C$};
+  \begin{scope}[xshift=4.05cm]
    \coordinate (Ap) at (0,0);
    \coordinate (Cp) at (2.52,0);
    \coordinate (Bp) at (1.02,1.42);
@@ -1244,7 +1265,7 @@
    \draw[given] (Ap) -- (Cp) -- (Bp) -- cycle;
    \draw[aux]   (Ap) -- (Dp);
    \VItk{Ap}{Bp}{1}  \VItk{Ap}{Cp}{2}  \VIarc{Cp}{Ap}{Bp}{0.46cm}
-   \node[vlab, above left]  at (Ap) {$A\VIpr$};
+   \node[vlab, below left]  at (Ap) {$A\VIpr$};
    \node[vlab, above] at (Bp) {$B\VIpr$};
    \node[vlab, below right] at (Cp) {$C\VIpr$};
    \node[vlab, above right] at (Dp) {$D\VIpr$};
@@ -1806,13 +1827,19 @@
 %        crossing at H, I, J; angles 1, 2 at the base.
 \newcommand{\FIGVISIXTYSIXSIXTYSEVEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.15]
+% Re-measured on the plate (book p.99, photo PDF p.113) at 4x: base 700 px,
+% apex 610 px above it -- height/base 0.871, NOT the 0.565 the draft drew.
+% Flattening the triangle is what squeezed the band between D--E and the
+% cevian crossing G, and that is the band the letters F and G live in: F was
+% pushed 13.7% of the base out from its point to find room and landed on A--E.
+% D and E measured at 0.60 of the way up their sides (draft had 0.66).
+\begin{tikzpicture}[scale=1.50]
   \coordinate (A) at (0,0);
   \coordinate (B) at (3.22,0);
-  \coordinate (C) at (1.61,1.82);
+  \coordinate (C) at (1.61,2.80);
   \coordinate (H) at ($(A)!0.5!(B)$);
-  \coordinate (D) at ($(A)!0.66!(C)$);
-  \coordinate (E) at ($(B)!0.66!(C)$);
+  \coordinate (D) at ($(A)!0.60!(C)$);
+  \coordinate (E) at ($(B)!0.60!(C)$);
   \draw[given] (A) -- (B) -- (C) -- cycle;
   \draw[given] (A) -- (E);
   \draw[given] (B) -- (D);
@@ -1828,8 +1855,11 @@
   \node[vlab, below] at (H) {$H$};
   \node[vlab, above left]  at (D) {$D$};
   \node[vlab, above right] at (E) {$E$};
-  \node[vlab] at ($(F)+(225:0.44)$) {$F$};
-  \node[vlab] at ($(G)+(240:0.46)$) {$G$};
+  % Offsets measured off the plate, as a fraction of the base: F sits about
+  % 5% out from its point and G about 9%, both down-and-left.  The draft used
+  % 13.7% and 14.3%, which is what carried F across the cevian A--E.
+  \node[vlab] at ($(F)+(225:0.227)$) {$F$};
+  \node[vlab] at ($(G)+(247:0.33)$) {$G$};
   % 3 and 4 are the two halves of the vertex angle at C, and the book sets
   % them at the SAME radius on either side of C--H.  The draft used 1.30 and
   % 0.34, which threw both numerals onto the sides of the triangle.
@@ -2326,7 +2356,13 @@
 %   and M the crossing of the two cevians.
 \newcommand{\FIGVIEIGHTYFIVEEIGHTYSIX}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.80]
+% Drawn at 1.05, not 0.80.  Both numerals hang off the SAME short side AB --
+% 1 in the wedge at A, 2 in the wedge at B -- and each wedge is only about 56
+% degrees wide, so the numeral has to sit far enough out to clear both its
+% rays while staying clear of the other numeral coming the other way.  At 0.80
+% there was no such distance: 1 grazed A--E (0.00 pt).  Enlarging the plate
+% buys the room without moving either numeral off its bisector.
+\begin{tikzpicture}[scale=1.05]
   % Exercise 14 gives AC = BC, so C must sit on the perpendicular bisector of
   % AB.  The draft's C gave AC = 3.08 against BC = 2.91.
   \coordinate (A) at (0,0);
@@ -2421,7 +2457,7 @@
 % Everything is mirror-symmetric about the vertical AE, so BE = CE and angle 1 =
 % angle 2 (the hypotheses) and angle 3 = angle 4 (the conclusion) all hold
 % exactly rather than by eye.
-\begin{tikzpicture}[scale=0.85]
+\begin{tikzpicture}[scale=1.00]
   \coordinate (B) at (0,0);
   \coordinate (C) at (2.44,0);
   \coordinate (A) at (1.22,1.269);
@@ -2435,8 +2471,11 @@
   \node[vlab, left]  at (B) {$B$};
   \node[vlab, right] at (C) {$C$};
   % The plate letters D in the wedge between DA and DC, just up and right of the
-  % point -- the only quadrant at D that no stroke crosses.
-  \node[vlab, above right, inner sep=1pt] at (D) {$D$};
+  % point -- the only quadrant at D that no stroke crosses.  That wedge is only
+  % 45 degrees wide (DA runs at 90, DC at 44.7), so "above right" -- the 45
+  % degree diagonal -- laid the letter exactly along DC.  Measured on the plate
+  % the letter sits at 67.7 degrees, which is the bisector; place it there.
+  \node[vlab] at ($(D)+(70:0.58)$) {$D$};
   \node[vlab, below] at (E) {$E$};
   % 3 and 4 are at B and C -- the angles ABD and ACD that Exercise 17 asks
   % about -- not at D, where an earlier draft put them.  1 and 2 stay at E.
@@ -2575,15 +2614,27 @@
   \node[vlab, left]  at (B) {$B$};
   \node[vlab, right] at (C) {$C$};
   \node[vlab, below] at (A) {$A$};
-  \node[vlab, below] at (F) {$F$};
-  \node[vlab, above left] at (G) {$G$};
-  \node[vlab, above right]  at (H) {$H$};
+  % Label sides re-measured on scan07 p19 (book p.104) at 4x, by solving each
+  % crossing from the plate's own vertices rather than eyeballing it:
+  %   F point (568,266), letter (565,210) -> directly ABOVE   (draft: below)
+  %   G point (369,357), letter (413,383) -> down and RIGHT   (draft: above left)
+  %   H point (742,363), letter (680,390) -> down and LEFT    (draft: above right)
+  % G and H both lean INWARD, into the wedge under the chord that makes them;
+  % the draft had all three on the opposite side of their own point.
+  \node[vlab] at ($(F)+(90:0.30)$) {$F$};
+  \node[vlab] at ($(G)+(330:0.32)$) {$G$};
+  \node[vlab] at ($(H)+(205:0.34)$) {$H$};
   \node[vlab, below left]  at (I) {$I$};
   \node[vlab, below right] at (J) {$J$};
   % Angle 1 = BAE and angle 2 = DAC (the two given angles at the vertex);
   % angle 3 = DBC and angle 4 = ECB (the pair to be proved congruent).
-  \VIarc{B}{A}{E}{0.52cm}   \VInumb{B}{A}{E}{1.00cm}{1}
-  \VIarc{D}{A}{C}{0.52cm}   \VInumb{D}{A}{C}{0.90cm}{2}
+  % Measured on the plate: the numerals at A sit 0.205 of BC out from the
+  % vertex, just outside their arcs (0.16 of BC).  The draft put them at 0.35
+  % and 0.32 of BC, which carried numeral 1 up into the letter I -- the two
+  % then printed as "I_1" and the collision audit merged them into one word
+  % and reported nothing.  See the note on stacked labels in ch06-UNCERTAIN.
+  \VIarc{B}{A}{E}{0.46cm}   \VInumb{B}{A}{E}{0.78cm}{1}
+  \VIarc{D}{A}{C}{0.46cm}   \VInumb{D}{A}{C}{0.78cm}{2}
   % The wedges at B and C are narrow, so a numeral 1.00 out along the
   % bisector still grazed the chords BD and CE; 0.72 keeps it inside.
   \VIarc{D}{B}{C}{0.46cm}   \VInumb{D}{B}{C}{0.72cm}{3}
@@ -2683,11 +2734,16 @@
   % --- case 3: C on the far side of O from B
   \begin{scope}[xshift=5.44cm]
    \coordinate (O) at (1.42,0);
-   \coordinate (B) at (2.02,0);
+   % B must lie OUTSIDE both arcs.  Measured on the plate (book p.105, photo
+   % PDF p.119, panel 3 at 5x): OC = 217 px and OB = 270 px, so OB = 1.244*OC,
+   % while the outer arc's radius is 218 px -- it passes essentially through C
+   % and B sits clear beyond it.  The draft had OB = 0.667*OC, which put B
+   % INSIDE the arc and drove its letter onto the arc stroke.
+   \coordinate (B) at (2.54,0);
    \coordinate (A) at (0.52,1.42);
    \coordinate (Ap) at (0.52,-1.42);
    \coordinate (C) at (intersection of A--Ap and O--B);
-   \draw[given] (0.02,0) -- (2.32,0);
+   \draw[given] (0.02,0) -- (2.76,0);
    \draw[given] (O) -- (A);
    \draw[given] (O) -- (Ap);
    \draw[given] (A) -- (Ap);
@@ -2699,7 +2755,7 @@
    \node[slab, left] at (0.02,0) {$l$};
    \node[vlab, below right, inner sep=0.6pt] at (O) {$O$};
    \node[vlab, above left]  at (C) {$C$};
-   \node[vlab, above right] at (B) {$B$};
+   \node[vlab, above] at (B) {$B$};
    \node[vlab, above left] at (A) {$A$};
    \node[vlab, below left] at (Ap) {$A\VIpr$};
   \end{scope}

@@ -117,29 +117,34 @@ off its length.]}
 % The book's stacked "Given: / Prove:" exercise layout (Exercise Groups 6--5,
 % 6--11, 6--14 and the review exercises).  Each argument may hold its own
 % \\-separated lines.
+% The leading break must NOT be taken when \VIgp is the first thing in an
+% \item.  LaTeX's \@endpe machinery (armed by any list/center environment that
+% just ended -- e.g. the centred display closing Ex. 6-6 #3) hands the NEXT
+% paragraph an \everypar that removes its last box, and that box is the item
+% label.  The label is then eaten and re-emitted on the following item, which
+% printed "4" and "5" on top of each other in Exercise Group 6-6.  Entering
+% horizontal mode with \leavevmode when we are still in vertical mode lays the
+% label down first and puts "Given:" on the same line, which is how every
+% correctly-set item in this chapter already reads.
 \newcommand{\VIgp}[2]{%
-  \par\smallskip\noindent
+  \ifvmode\leavevmode\else\par\smallskip\noindent\fi
   \begin{tabular}[t]{@{}l@{\hspace{0.6em}}l@{}}
     Given: & \begin{tabular}[t]{@{}l@{}}#1\end{tabular}\\[2pt]
     Prove: & \begin{tabular}[t]{@{}l@{}}#2\end{tabular}
   \end{tabular}\par\smallskip}
 % ================= local macros from ch07 =================
-% Marks a span whose wording is still to be transcribed from the source photos.
-% See chapters/ch07-UNCERTAIN.md, item 1: the verbatim text pass for this unit
-% is held pending confirmation of the copyright-renewal finding.
-\newcommand{\VIItodo}[1]{\textbf{[\,to transcribe: #1\,]}}
 % Numbered remark head. Sections 7-4 (pp.122) and 7-5 (pp.123-124) print
 % "Remark 1.", "Remark 2." ... as running heads; brumfiel.sty's {remark}
 % emits a bare "Remark." and would drop the book's numbering.
 % Same shape as {remark}, with the number restored.
 \newenvironment{VIIremarkn}[1]%
   {\par\medskip\noindent\emph{Remark #1.}\ }{\par\medskip}
-% Unnumbered star footnote. \starnote in brumfiel.sty emits a bare
-% \footnotetext, which prints the footnote counter instead of the "*" the
-% book uses. Same workaround as ch02's \IIstarnote.
-\newcommand{\VIIstarnote}{\begingroup\renewcommand{\thefootnote}{}%
-  \footnotetext{*Starred exercises, sections, theorems, etc., are optional.}%
-  \endgroup}
+% No \VIIstarnote: ch07 has starred exercises (7-2 #3, 7-4 #4-7, 7-7 #3,
+% 7-8 #8-9, Algebra Review #7-9) but the book prints NO star footnote on any
+% of pp.116-132 -- verified against the source pages, incl. the foot of
+% p.118 where the chapter's first "*3." falls. ch02 owns the book-wide first
+% use of the convention note (\IIstarnote); ch05 and ch10 omit it for the
+% same reason.
 % ================= local macros from ch08 =================
 % Plate placeholder: a halftone photograph in the original, never redrawn.
 \newcommand{\VIIIplate}[2]{%
@@ -299,11 +304,32 @@ off its length.]}
 % Worked examples, set as the book sets them: italic lead-in, no number when
 % a section carries only one.
 \newenvironment{XVexample}[1][]{\par\medskip\noindent\emph{Example#1.}\ }{\par\medskip}
-% Placeholder for source text not yet transcribed. Visible on purpose: an
-% untranscribed passage must never look like a finished one.
-\newcommand{\XVtodo}[1]{\par\medskip
-  \begin{center}\fbox{\begin{minipage}{0.88\linewidth}\footnotesize\itshape
-  \raggedright [text not transcribed --- #1]\end{minipage}}\end{center}\par\medskip}
+% NUMBERED remarks. brumfiel.sty's `remark' hard-codes an unnumbered
+% "Remark."; book p.261 prints "Remark 1." and "Remark 2." in sequence, so the
+% numbered form needs its own environment. The unnumbered `remark' is still
+% used for the two lone remarks on pp.257 and 262.
+\newenvironment{XVremark}[1]{\par\medskip\noindent\emph{Remark #1.}\ }{\par\medskip}
+% Symbol-marked footnotes. The book marks this chapter's footnotes with * and
+% dagger, never with numbers; \footnotetext would print the footnote counter,
+% so the counter is blanked and the symbol is typed into the body text.
+% (Same device as ch02's \IIstarnote and ch09's \IXstarnote.)
+\newcommand{\XVnote}[1]{\begingroup\renewcommand{\thefootnote}{}%
+  \footnotetext{#1}\endgroup}
+% Halftone photographic plate: framed placeholder, never redrawn (B&W pass).
+% Same shape as ch01's \Iplate and ch02's \IIplate.
+\newcommand{\XVplate}[2]{%
+  \par\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.72\linewidth}\centering\vspace{2.4cm}
+    {\footnotesize\itshape[halftone photographic plate --- not redrawn]}
+    \vspace{2.4cm}\end{minipage}}%
+  \par\smallskip
+  {\footnotesize\textsc{#1}\\ #2}
+  \end{center}
+  \par\medskip}
+% (No star-convention footnote here: ch15 has starred exercises and two starred
+% theorems, but none of book pp.251-265 carries the "*Starred exercises ... are
+% optional" note; ch02:311 owns the book-wide first use.)
 % ================= local macros from ch16 =================
 % Unnumbered star footnote, as the book sets its five notes in this chapter.
 % brumfiel.sty's \starnote emits a bare \footnotetext, which prints the
@@ -328,14 +354,11 @@ off its length.]}
                     itemsep=2.5pt, topsep=4pt, parsep=0pt}
 \setlist[applist,2]{label=(\alph*), leftmargin=1.9em, labelsep=0.4em,
                     itemsep=1.5pt, topsep=2.5pt, parsep=0pt}
-% Editorial summary standing in for a passage of the authors' connective
-% prose that has NOT been reproduced verbatim -- see appendix-UNCERTAIN.md,
-% item 1, which lists every one of these and the reason they are here.
-\newcommand{\APPnote}[1]{%
-  \par\medskip\noindent\fbox{\begin{minipage}{0.94\linewidth}\footnotesize
-  \itshape #1\end{minipage}}\par\medskip}
 % short pages end short instead of stretching inter-para glue
 \raggedbottom
+% several units relied on standalone-body emergencystretch; the
+% narrow 145mm measure needs it book-wide (appendix flag, 2026-08-17)
+\emergencystretch=2em
 \begin{document}
 \pagenumbering{roman}
 
@@ -2487,10 +2510,10 @@ setting up a truth table?
       one of which is true and the other false.
 \item Why is the statement ``$\al$ or not $\al$'' true no matter whether $\al$ is
       true or false? Give examples to illustrate this.
-\item[\stex 8.] Construct a truth table to show under what condition
+\item[\stex 8.]\stepcounter{exlisti} Construct a truth table to show under what condition
       ``($\al$ and $\be$) or $\ga$'' is a true statement. Invent an example of
       this type.
-\item[9.] Give an example of an implication ``$\al \imp \be$'' whose converse is
+\item[9.]\stepcounter{exlisti} Give an example of an implication ``$\al \imp \be$'' whose converse is
       true and one whose converse is false.
 \item Form the converse of:\\
       (a) If a man is from Chicago then he is rich.\\
@@ -5810,19 +5833,25 @@ The third congruence theorem (S.S.S.).
 \section*{7--1\quad INTRODUCTION}
 \addcontentsline{toc}{section}{7--1\quad Introduction}
 
-\VIItodo{p.\,116, section 7--1: one paragraph previewing the two halves of the
-chapter --- the triangle inequalities, and the verification of the ruler-and-compass
-constructions of Chapter 1.}
+In this chapter we do two things. In the first part we prove several
+inequalities involving sides and angles of a triangle, ending up with the
+\emph{triangle inequality}. This enables us to prove that a line segment is
+the shortest path between two points. In the second part we prove that some of
+the constructions we made with ruler and compass in Chapter 1 are correct.
 
 %========================================================= 7-2
 \section*{7--2\quad EXTERIOR ANGLES}
 \addcontentsline{toc}{section}{7--2\quad Exterior angles}
 
-\VIItodo{p.\,116, opening paragraph of 7--2.}
+In this section we prove a theorem about triangles which Euclid found to be
+very useful. We need a definition.
 
 \begin{definition}
-\VIItodo{p.\,116, Definition 7--1: exterior angle and opposite interior angles,
-with the $\ang{DBC}$ example keyed to Fig.~7--1.}
+If an angle is adjacent and supplementary to an angle of a triangle, it is
+called an \emph{exterior angle} of the triangle. The other two angles of the
+triangle are called the \emph{opposite interior angles}. For example,
+$\ang{DBC}$ in Fig.~7--1 is an exterior angle and $\ang{A}$ and $\ang{C}$ are
+interior angles and opposite to $\ang{DBC}$.
 \end{definition}
 
 \FIGVIIONE
@@ -5830,47 +5859,84 @@ with the $\ang{DBC}$ example keyed to Fig.~7--1.}
 \exercisegroup{7--1}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,116, Ex.\ 1 --- exterior angles at vertex $B$ of $\tri{ABC}$.}
-\item \VIItodo{p.\,116, Ex.\ 2 --- how many exterior angles a triangle has.}
-\item \VIItodo{p.\,116, Ex.\ 3 --- whether \emph{opposite}, \emph{interior},
-      \emph{exterior} name properties or relations.}
+\item In $\tri{ABC}$, how many exterior angles are there having vertex $B$?
+  How are these exterior angles related to $\ang{B}$?
+\item How many exterior angles does a triangle have?
+\item Do the words \emph{opposite}, \emph{interior}, and \emph{exterior}, used
+  in Definition 7--1, refer to properties or to relations?
 \end{exlist}
 \end{multicols}
 
 \begin{theorem}
-\VIItodo{p.\,117, Theorem 7--1: an exterior angle of a triangle compared with
-either opposite interior angle.}
+An exterior angle of a triangle is greater than either opposite interior angle.
 \end{theorem}
 
-\VIItodo{p.\,117, the paragraph noting that two proofs follow, the first after
-Hilbert and the second after Euclid.}
+We give two separate proofs of this theorem. The first proof may be found in
+Hilbert's work, the second in Euclid's \emph{Elements}.
 
 \noindent\emph{First Proof.}\quad
-\VIItodo{p.\,117, first proof, keyed to Figs.\ 7--2 and 7--3 --- the trichotomy
-argument ruling out $\cong$ and $<$ in turn.}
+We know that, for any two angles, the first angle is either $>$, or $<$, or
+$\cong$ the second. Therefore, we need only show that the exterior angle
+cannot be $\cong$ or $<$ an opposite interior angle, and it must follow that
+the exterior angle is $>$ an opposite interior angle. Suppose that the triangle
+is labeled as in Fig.~7--2.
 
 \FIGVIITWOTHREE
 
+We first show that the exterior angle cannot be congruent to $\ang{C}$. Choose
+$D$, as in the figure, such that $BD \cong AC$, and suppose that
+$\ang{DBC} \cong \ang{C}$. Then $\tri{ACB} \cong \tri{DBC}$ because of the
+S.A.S. theorem. Hence $\ang{CBA} \cong \ang{BCD}$. Therefore, because of the
+addition of angles postulate, $\ang{ACD} \cong \ang{ABD}$. But $\ang{ABD}$ is
+a straight angle, and so $\ang{ACD}$ is a straight angle. This is impossible.
+(Why?) Hence $\ang{DBC}$ is \emph{not} congruent to $\ang{C}$.
+
+We now show that it is impossible that $\ang{DBC} < \ang{ACB}$. Assume that
+$\ang{DBC} < \ang{ACB}$. With $C$ as a vertex, let $\ang{ECB}$ be the angle, as
+drawn in Fig.~7--3, that is congruent to $\ang{DBC}$. (Why is there such an
+angle?) Then the ray $CE$ is in the interior of $\ang{ACB}$. (Why?) Hence the
+segment $AB$ contains a point $F$ in the ray $CE$. (This is obvious from the
+figure, and it may be proved with what we know about betweenness and interior
+of angles.) Now consider $\tri{FCB}$. $\ang{DBC}$ is an exterior angle of this
+triangle which is congruent to the opposite interior angle $FCB$. This has
+already been shown to be impossible. Hence we cannot have
+$\ang{DBC} < \ang{ACB}$. The only possibility then is
+$\ang{DBC} > \ang{ACB}$. This completes the proof.
+
 \noindent\emph{Second Proof.}\quad
-\VIItodo{pp.\,117--118, second proof, keyed to Fig.~7--4 --- the $G$, $H$
-construction with $\tri{GCA} \cong \tri{GBH}$.}
+Using the same labeling for the triangle, let $G$ be the point on $BC$, such
+that $BG \cong GC$. Let $H$ be the point on the line $AG$ that is on the other
+side of $G$ from $A$, such that $AG \cong GH$. Then
+$\tri{GCA} \cong \tri{GBH}$. (Why?) Hence $\ang{C} \cong \ang{GBH}$. The ray
+$BH$ is interior to $\ang{DBC}$. (This is obvious from Fig.~7--4, but it needs
+proof. It is interesting to note that Euclid neglects to prove this. See
+Exercise 3 below.) Therefore, $\ang{DBC} > \ang{HBC}$, and so
+$\ang{DBC} > \ang{C}$. (Why?)
 
 \FIGVIIFOUR
 
 \begin{remark}
-\VIItodo{p.\,118, the remark on proving Theorem 7--1 in Chapter 8 from the
-angle-sum fact, and on its independence from the theory of parallels.}
+In Chapter 8, when we study parallel lines, we shall be able to prove that an
+exterior angle is congruent to the ``sum'' of the opposite interior angles, and
+from this fact, Theorem 7--1 follows easily. What is interesting is that
+Theorem 7--1 may be proved without any knowledge of properties of parallel
+lines.
 \end{remark}
 
 \exercisegroup{7--2}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,118, Ex.\ 1 --- exterior angles of a right triangle.}
-\item \VIItodo{p.\,118, Ex.\ 2 --- angles opposite the legs are acute.}
-\item[\stex 3.] \VIItodo{p.\,118, Ex.\ 3 --- ray $BH$ interior to $\ang{DBC}$,
-      with its hint.}\VIIstarnote
-\item \VIItodo{p.\,118, Ex.\ 4 --- at most one perpendicular to $l$ from $P$,
-      with the hint keyed to Fig.~7--5.}
+\item What kind of angles are the exterior angles of a right triangle?
+\item Use Theorem 7--1 to prove that the angles opposite the legs of a right
+  triangle are acute angles.
+\item[\stex 3.]\stepcounter{exlisti} Prove that the ray $BH$ is interior to $\ang{DBC}$.
+  [\emph{Hint:} first show that $H$ is on the same side of line $BC$ as $D$.
+  Since $G$ is on the same side of $BD$ as $C$, if $H$ were on the opposite
+  side of $BD$ from $C$, then the segment $GH$ would contain a point of the
+  line $BD$. This is absurd.]
+\item Prove the following corollary to Theorem 7--1. There is at most one line
+  perpendicular to a given line $l$ from a given point $P$. [\emph{Hint:}
+  Suppose that there were two perpendiculars, as in Fig.~7--5.]
 \end{exlist}
 \end{multicols}
 
@@ -5880,94 +5946,140 @@ angle-sum fact, and on its independence from the theory of parallels.}
 \section*{7--3\quad INEQUALITIES IN TRIANGLES}
 \addcontentsline{toc}{section}{7--3\quad Inequalities in triangles}
 
-\VIItodo{p.\,118, opening paragraph of 7--3.}
+In this section we prove some theorems about the relative sizes of sides and
+angles in a triangle. We arrive at a proof of a theorem that, in effect, says
+that a line segment is the shortest path between two points.
 
 \begin{theorem}
-\VIItodo{p.\,118, Theorem 7--2, both directions.}
+If, in $\tri{ABC}$, $AB > AC$, then $\ang{C} > \ang{B}$, and conversely, if
+$\ang{C} > \ang{B}$, then $AB > AC$.
 \end{theorem}
 
 \begin{remark}
-\VIItodo{p.\,118, the brief restatement of Theorem 7--2.}
+The meaning of this theorem can be stated briefly as ``the greater side is
+opposite the greater angle.''
 \end{remark}
 
 \FIGVIISIX
 
 \noindent\emph{Proof.}\quad
-\VIItodo{p.\,119, proof of Theorem 7--2 keyed to Fig.~7--6, then the converse by
-trichotomy on the segments.}
+To prove the first part of the theorem, suppose that $AB > AC$, as shown in
+Fig.~7--6. Choose $C'$ on $AB$, such that $AC' \cong AC$. Then by
+Theorem 7--1, $\ang{AC'C} > \ang{B}$. But $\ang{AC'C} < \ang{C}$. Hence
+$\ang{C} > \ang{B}$.
+
+The converse follows readily from the fact that any two segments, are either
+congruent to each other or one is greater than the other. The argument is given
+below.
+
+Given that $\ang{C} > \ang{B}$, we wish to show that $AB > AC$. Exactly one of
+the relations $AB < AC$, $AB \cong AC$, or $AB > AC$ is true. If
+$AB \cong AC$, then we would have $\ang{C} \cong \ang{B}$, which contradicts
+the given fact that $\ang{C} > \ang{B}$. If $AB < AC$, then by the first part
+of the theorem, we would have $\ang{C} < \ang{B}$, which also contradicts the
+given fact that $\ang{C} > \ang{B}$. Hence the only possibility is that
+$AB > AC$.
 
 \exercisegroup{7--3}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,119, Ex.\ 1 --- smallest and largest angle in Fig.~7--7.}
-\item \VIItodo{p.\,119, Ex.\ 2 --- $\tri{EFG}$ with the $61^\circ$ and
-      $54^\circ$ data.}
-\item \VIItodo{p.\,119, Ex.\ 3 --- $\tri{PQR}$ with $QS$ bisecting $\ang{PQR}$,
-      keyed to Fig.~7--8, with its hint.}
+\item Which angle in Fig.~7--7 is the smallest? Which is the largest? The
+  numbers are lengths of the sides.
+\item If in $\tri{EFG}$, $\ang{E}$ has a measure of $61^\circ$, and $\ang{F}$ a
+  measure of $54^\circ$, which side is the longer, $FG$ or $EG$? Can you say
+  anything yet about the length of $EF$?
+\item In $\tri{PQR}$, $S$ is a point of $PR$, such that $QS$ bisects
+  $\ang{PQR}$ (see Fig.~7--8). Prove that $PQ > PS$. [\emph{Hint:} Prove first
+  that $\ang{PSQ} > \ang{PQS}$.]
 \end{exlist}
 \end{multicols}
 
 \FIGVIISEVENEIGHT
 
-\VIItodo{p.\,119, the sentence introducing the triangle inequality.}
+We now come to a very important and familiar inequality for triangles, called
+the \emph{triangle inequality}.
 
 \begin{theorem}
-\VIItodo{p.\,119, Theorem 7--3, the triangle inequality.}
+In any $\tri{ABC}$, $\sg{AB} + \sg{BC} > \sg{AC}$.
 \end{theorem}
 
 \FIGVIININETEN
 
 \noindent\emph{Proof.}\quad
-\VIItodo{p.\,120, the reduction to the case $\sg{AC} > \sg{AB}$ and
-$\sg{AC} > \sg{BC}$, keyed to Fig.~7--9.}
+If $AC$ is not the longest of the sides, the inequality is obvious. Therefore
+we may confine our attention to the case in which $\sg{AC} > \sg{AB}$ and
+$\sg{AC} > \sg{BC}$, as in Fig.~7--9.
 
 \begin{steps}
-\step{\VIItodo{p.\,120, Statement 1 --- $B'$ on $AC$ with $AB \cong AB'$.}}{Why?}
-\step{\VIItodo{Statement 2.}}{Why?}
-\step{\VIItodo{Statement 3.}}{Why?}
-\step{\VIItodo{Statement 4.}}{Why?}
-\step{\VIItodo{Statement 5.}}{\VIItodo{Reason 5.}}
-\step{\VIItodo{Statement 6.}}{Why?}
-\step{\VIItodo{Statement 7.}}{\VIItodo{Reason 7.}}
-\step{\VIItodo{Statement 8.}}{\VIItodo{Reason 8.}}
+\step{There is a point $B'$ on $AC$, such that $AB \cong AB'$.}{Why?}
+\step{$\ang{1} \cong \ang{2}$.}{Why?}
+\step{$\ang{3} > \ang{1}$.}{Why?}
+\step{$\ang{2} > \ang{4}$.}{Why?}
+\step{$\ang{3} > \ang{4}$.}{This follows from Statements 2, 3, and 4. Why?}
+\step{$\sg{B'C} < \sg{BC}$.}{Why?}
+\step{$\sg{AB'} + \sg{B'C} < \sg{AB} + \sg{BC}$.}{Statements 1 and 6 and
+      properties of numbers.}
+\step{$\sg{AC} < \sg{AB} + \sg{BC}$.}{$\sg{AC} = \sg{AB'} + \sg{B'C}$.}
 \end{steps}
 
 \begin{remark}
-\VIItodo{p.\,120, the remark on the loose statement ``a straight line is the
-shortest distance between two points.''}
+This theorem is sometimes loosely stated as ``a straight line is the shortest
+distance between two points.'' In fact, this last statement is sometimes used
+as a postulate, although incorrectly, since one must first have a notion of
+distance or of length of a segment.
 \end{remark}
 
-\VIItodo{p.\,120, the bridging paragraph introducing \emph{polygonal path}.}
+Having proved the triangle inequality, we now see that the lines we have been
+talking about all along are, after all, ``straight'' in the precise sense of
+the triangle inequality. Perhaps this can be made clearer by defining
+\emph{polygonal path} and \emph{length of a polygonal path}.
 
 \begin{definition}
-\VIItodo{p.\,120, Definition 7--2: polygonal path, endpoints, vertices, polygon,
-keyed to Fig.~7--10.}
+Let $P_1$, $P_2,\ldots, P_n$ be any set of $n$ points (Fig.~7--10). The set of
+points on all the segments $P_1P_2$, $P_2P_3,\ldots, P_{n-1}P_n$ is called a
+\emph{polygonal path}. The path is said to join, or connect, the
+\emph{endpoints} $P_1$ and $P_n$. The points $P_1,\ldots, P_n$ are called the
+\emph{vertices}. In particular, if $P_1 = P_n$, the polygonal path is called a
+\emph{polygon} and designated as polygon $P_1P_2\ldots P_{n-1}$.
 \end{definition}
 
 \begin{definition}
-\VIItodo{p.\,121, Definition 7--3: length of a polygonal path.}
+The \emph{length of the polygonal path} $P_1\ldots P_n$ is defined to be
+$\sg{P_1P_2} + \sg{P_2P_3} + \cdots + \sg{P_{n-1}P_n}$.
 \end{definition}
 
 \begin{corollary}
-\VIItodo{p.\,121, Corollary 7--3--1.}
+The length of a polygonal path is greater than, or equal to, the length of the
+segment joining its ends.
 \end{corollary}
 
 \exercisegroup{7--4}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,121, Ex.\ 1 --- third side given two of lengths 5 and 7 in.}
-\item \VIItodo{p.\,121, Ex.\ 2 --- whether 6, 8, 15 can be the three sides.}
-\item \VIItodo{p.\,121, Ex.\ 3 --- difference of two sides against the third.}
-\item[\stex 4.] \VIItodo{p.\,121, Ex.\ 4 --- Fig.~7--11 and the triangle
-      inequality.}
-\item[\stex 5.] \VIItodo{p.\,121, Ex.\ 5 --- Fig.~7--12, with its hint.}
-\item[\stex 6.] \VIItodo{p.\,121, Ex.\ 6 --- the converse drawn from Ex.\ 5.}
-\item[\stex 7.] \VIItodo{p.\,121, Ex.\ 7 --- $D$ inside $\tri{ABC}$,
-      keyed to Fig.~7--13, with its hint.}
-\item \VIItodo{p.\,121, Ex.\ 8 --- an equiangular triangle is equilateral.}
-\item \VIItodo{p.\,121, Ex.\ 9 --- Fig.~7--14, two lines perpendicular to $m$.}
-\item \VIItodo{p.\,121, Ex.\ 10 --- a four-vertex polygonal path of the same
-      length as $AB$.}
+\item Two sides of a triangle have lengths of 5 and 7 in. What can you say
+  about the third side?
+\item Can the numbers 6, 8, and 15 be the lengths of the three sides of a
+  triangle?
+\item Prove that the difference between the lengths of two sides of a triangle
+  is less than the length of the third side.
+\item[\stex 4.]\stepcounter{exlisti} Use the triangle inequality and Fig.~7--11 to show that if
+  $\ang{C} > \ang{B}$, then $AB > AC$.
+\item[\stex 5.]\stepcounter{exlisti} In Fig.~7--12, $AC \cong A'C'$, $BC \cong B'C'$, and
+  $\ang{ACB} > \ang{A'C'B'}$. Prove that $\sg{AB} > \sg{A'B'}$.
+  [\emph{Hint:} Show how to find a point $Q$ on $AB$, such that
+  $QB \cong QB'$, and use $\sg{AB} = \sg{AQ} + \sg{QB} = \sg{AQ} + \sg{QB'}$.]
+\item[\stex 6.]\stepcounter{exlisti} Use the result of Exercise 5 to prove that if, in two
+  triangles, $\tri{ABC}$ and $\tri{A'B'C'}$, $AC \cong A'C'$,
+  $BC \cong B'C'$, and $AB > A'B'$, then $\ang{C} > \ang{C'}$. Show that the
+  statements $\ang{C} \cong \ang{C'}$ and $\ang{C} < \ang{C'}$ are false.
+\item[\stex 7.]\stepcounter{exlisti} If $D$ in Fig.~7--13 is a point inside $\tri{ABC}$, show that
+  $\sg{AD} + \sg{DC} < \sg{AB} + \sg{BC}$. [\emph{Hint:} Consider first
+  $\tri{ABE}$ and $\tri{DEC}$.] Show also that $\ang{ADC} > \ang{ABC}$.
+\item By using Theorem 7--2, prove that an equiangular triangle is equilateral.
+\item If, in Fig.~7--14, $l \perp m$, and $l' \perp m$, prove that $l$ and $l'$
+  do not intersect. [\emph{Hint:} Suppose they do.]
+\item Show that a polygonal path connecting points $A$ and $B$ could have four
+  vertices and still have the same length as $AB$.
 \end{exlist}
 \end{multicols}
 
@@ -5979,27 +6091,54 @@ keyed to Fig.~7--10.}
 \section*{7--4\quad CIRCLES}
 \addcontentsline{toc}{section}{7--4\quad Circles}
 
-\VIItodo{p.\,122, opening paragraph of 7--4.}
+There are two ways that we could define a circle. One is to use the idea of
+congruent segments, and the other is to use the idea of distance. Because two
+segments are congruent if and only if they have the same length, these two ways
+are equivalent.
 
 \begin{definition}
-\VIItodo{p.\,122, Definition 7--4: circle, center, radius, diameter.}
+A circle is determined by a point $O$, called the \emph{center}, and a positive
+number $r$. The \emph{circle} is the set of all points $A$ of the plane, such
+that $\sg{OA} = r$. If $A$ is a point of the circle, then the segment $OA$ is
+called a \emph{radius} (plural, \emph{radii}). If $A$ and $B$ are on the
+circle, and the segment $AB$ contains $O$, then $AB$ is called a
+\emph{diameter}.
 \end{definition}
 
 \begin{VIIremarkn}{1}
-\VIItodo{p.\,122, Remark 1 --- why a circle is not called a ``curve.''}
+You will note that we have not said that a circle is a ``curve,'' because
+nowhere in our geometry have we defined what ``curve'' might mean. The circle
+is a set of points, and in the definition, we have told only how to decide
+whether any point $A$ is, or is not, a point of the circle.
 \end{VIIremarkn}
 
 \begin{VIIremarkn}{2}
-\VIItodo{p.\,122, Remark 2 --- radius as segment and as number.}
+According to the definition, a radius is a segment, that is, a set of points.
+It is common usage to also call the real number $r$ the radius. We will also
+use this language, so that the circle can be described as the ``circle with
+center $O$ and radius $r$.'' Similarly, if $AB$ is a diameter, the length
+$\sg{AB} = 2r$ will be called the diameter. No confusion will arise, because it
+will always be clear whether we are talking about a set of points or a number.
 \end{VIIremarkn}
 
 \begin{VIIremarkn}{3}
-\VIItodo{p.\,122, Remark 3 --- inside and outside not yet defined.}
+We have not mentioned the inside or outside of the circle as yet, because these
+sets have not yet been defined.
 \end{VIIremarkn}
 
 \begin{definition}
-\VIItodo{p.\,122, Definition 7--5: interior, exterior, chord, secant, central
-angle, inscribed angle, keyed to Fig.~7--15.}
+If a circle (Fig.~7--15) has center $O$ and radius $r$, the \emph{interior} of
+the circle is the set of all points $B$, such that $\sg{OB} < r$. The
+\emph{exterior} of the circle is the set of all points $C$, such that
+$\sg{OC} > r$.
+
+A \emph{chord} is a segment determined by two points $E$ and $F$ on the circle;
+the line through $E$ and $F$ is a \emph{secant}.
+
+A \emph{central angle} of a circle is an angle whose vertex is at the center of
+the circle. An \emph{inscribed angle} (such as $\ang{EFG}$) is an angle whose
+vertex is on the circle, and having points of the circle on each of the two
+sides of the angle.
 \end{definition}
 
 \FIGVIIFIFTEEN
@@ -6007,13 +6146,15 @@ angle, inscribed angle, keyed to Fig.~7--15.}
 \exercisegroup{7--5}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,123, Ex.\ 1 --- circle with centre $A$ and radius 5, and the
-      points $B$, $C$, $D$, $E$ with $\sg{AB} = 4$, $\sg{AC} = 5$,
-      $\sg{AD} = 17$, $\sg{AE} = 5$; in what sets are they?}
-\item \VIItodo{p.\,123, Ex.\ 2 --- $\ang{ACB}$ when $AB$ is a diameter.}
-\item \VIItodo{p.\,123, Ex.\ 3 --- the kinds of angle in Fig.~7--16.}
-\item \VIItodo{p.\,123, Ex.\ 4 --- defining a circle by congruence.}
-\item \VIItodo{p.\,123, Ex.\ 5 --- points $B$ with $\sg{OB} \le \sg{OA}$.}
+\item A circle has center $A$ and radius 5. The points $B$, $C$, $D$, $E$, are
+  such that $\sg{AB} = 4$, $\sg{AC} = 5$, $\sg{AD} = 17$, and $\sg{AE} = 5$.
+  Where are these points? That is, in what sets are they?
+\item If $AB$ is a diameter of a circle with center $C$, what is $\ang{ACB}$?
+\item In Fig.~7--16, the circle has center $O$. What kind of angles are
+  $\ang{A}$, $\ang{B}$, $\ang{C}$, $\ang{D}$, and $\ang{E}$?
+\item Give a definition of circle in terms of congruence instead of distance.
+\item If $A$ is a point of a circle and $O$ is the center, what can be said
+  about a point $B$, such that $\sg{OB} \leqq \sg{OA}$?
 \end{exlist}
 \end{multicols}
 
@@ -6023,187 +6164,319 @@ angle, inscribed angle, keyed to Fig.~7--15.}
 \section*{7--5\quad RULER AND COMPASS}
 \addcontentsline{toc}{section}{7--5\quad Ruler and compass}
 
-\VIItodo{p.\,123, opening paragraph of 7--5, ending with the remark that the
-ruler is an unmarked straightedge.}
+In the preceding section we defined a circle in terms of distance. When drawing
+a circle on a piece of paper, we use the fact, familiar from experience, that
+the distance between the two points of the compass stays fixed. In this section
+we define those drawings that are called ``ruler and compass constructions.''
+Do not think that these are the only constructions possible. They are only the
+simplest kind. The ruler used in these constructions is just an unmarked
+straightedge.
 
 \FIGVIISEVENTEEN
 
 \begin{definition}
-\VIItodo{p.\,123, Definition 7--6: ruler-and-compass (RC) construction.}
+To make a \emph{ruler and compass} (\RC) \emph{construction} is to draw a
+picture of a set of points, using only a ruler and compass. The ruler can only
+be used to draw a line through two points. The compass can only be used to
+draw a circle with a given center and radius.
 \end{definition}
 
 \begin{VIIremarkn}{1}
-\VIItodo{p.\,123, Remark 1 --- RC constructions and mechanical devices.}
+\RC{} constructions are sets that can be illustrated with certain mechanical
+devices. Circles and lines exist in our geometry independently of these
+mechanical devices. Interest in \RC{} constructions originates in the
+simplicity of the tools needed to make them.
 \end{VIIremarkn}
 
 \begin{VIIremarkn}{2}
-\VIItodo{p.\,124, Remark 2 --- two points are needed to draw a line or circle.}
+To draw a line or circle in an \RC{} construction, two points are needed. We
+may not slide the ruler, mark it, or guess the opening of the compass. We must
+have two points already constructed in order to draw a line or circle.
 \end{VIIremarkn}
 
 \begin{VIIremarkn}{3}
-\VIItodo{p.\,124, Remark 3 --- why RC constructions are studied here.}
+The study of \RC{} constructions at this point is not really necessary for the
+logical development of our geometry, but it does help us to visualize geometric
+figures, and it demonstrates the usefulness of what has already been studied.
 \end{VIIremarkn}
 
 \begin{VIIremarkn}{4}
-\VIItodo{p.\,124, Remark 4 --- their usefulness to a draftsman.}
+It will be clear that the knowledge of \RC{} constructions is quite useful to a
+draftsman.
 \end{VIIremarkn}
 
 %========================================================= 7-6
 \section*{7--6\quad HISTORICAL NOTE}
 \addcontentsline{toc}{section}{7--6\quad Historical note}
 
-\VIItodo{p.\,124, opening paragraph on the Greeks and the three famous problems.}
+The ancient Greeks were much attracted by \RC{} constructions and attempted to
+solve all sorts of problems with these two tools. However, they encountered
+several problems that they could not handle using only ruler and compass. This
+does not mean that these problems are not solvable---only that a ruler and
+compass are not enough. Three of the problems that puzzled the Greeks have had
+a long and interesting history, which we cannot pursue here. They are:
 
 \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=3pt]
-\item \VIItodo{p.\,124, (a) the trisection of an angle, keyed to Fig.~7--18.}
-\item \VIItodo{p.\,124, (b) the duplication of a cube.}
-\item \VIItodo{p.\,124, (c) squaring the circle, keyed to Fig.~7--19.}
+\item \emph{The trisection of an angle.} Given any $\ang{A}$, the problem is to
+  construct angles $B$, $C$, and $D$, as in Fig.~7--18, such that
+  $\ang{B} \cong \ang{C} \cong \ang{D}$.
+\item \emph{The duplication of a cube.} Suppose that a cube has side of length
+  $x$. The problem is to construct the side of a cube having twice the volume
+  of the given cube.
+\item \emph{Squaring the circle.} Given a circle, the problem is to construct a
+  square with the same area as the circle (Fig.~7--19).
 \end{enumerate}
 
 \FIGVIIEIGHTEENNINETEEN
 
-\VIItodo{pp.\,124--125, the closing paragraphs: all three are impossible with
-ruler and compass alone, the tack-hammer analogy, and the turn to constructions
-that \emph{are} possible.}
+All these problems have been completely resolved in modern times, and
+\emph{all are impossible of solution with ruler and compass alone}. This is a
+fact beyond dispute. It does not mean that in the trisection problem, for
+example, angles $B$, $C$, and $D$ do not exist. It means that one cannot draw
+them using ruler and compass alone. When you think about this a moment, it may
+not be so surprising. No one is surprised that it is impossible to build a
+large building with only a tack hammer. A ruler and compass alone are like a
+tack hammer in so far as these problems are concerned.
+
+There are, however, many constructions possible with ruler and compass. We will
+study some of them.
 
 %========================================================= 7-7
 \section*{7--7\quad COPYING ANGLES AND TRIANGLES}
 \addcontentsline{toc}{section}{7--7\quad Copying angles and triangles}
 
-\VIItodo{p.\,125, opening paragraph on copying $\ang{A}$ at $B$, keyed to
-Fig.~7--20.}
+$\ang{A}$ and a ray from point $B$ are given, as in Fig.~7--20. We wish to
+construct an angle at $B$ congruent to $\ang{A}$. Of course, from the existence
+postulate for angles, there are two such angles, as shown by the dotted lines
+in the figure. When we draw the angle at $B$ congruent to $\ang{A}$, we say
+that we have ``copied'' $\ang{A}$.
 
 \FIGVIITWENTYTWENTYONE
 
 \begin{construction}
-\VIItodo{p.\,125, Construction 7--1: copying an angle, keyed to Fig.~7--21.}
+Draw a circle of radius $r$, with center $A$. This circle will intersect the
+sides of $\ang{A}$ in two points $D$ and $E$ (Fig.~7--21). (Why?) Draw a circle
+of the same radius $r$ with center $B$. This circle will intersect the ray from
+$B$ in a point $F$. Draw a circle, with center $F$ and radius $\sg{DE}$. On a
+given side of the line $BF$, the two circles will intersect in a point $G$.
+$\ang{GBF}$ is congruent to $\ang{A}$.
 \end{construction}
 
-\VIItodo{p.\,125, the paragraph on the two things that must be proved ---
-existence of the intersection point, then congruence of the angles.}
+You should recognize that there are two things to prove. Because the entire
+construction is centered around finding a point in which our circles intersect,
+we must first prove that such a point exists in our geometry. Of course, when
+we draw the picture, it is clear that there should be such a point. The real
+question, however, is whether we can take the assumptions we have made and
+prove that there is such a point. After we establish the existence of this
+point, we must prove further that the angles are congruent to each other. These
+two proofs should be considered separately.
 
 \noindent\emph{Proof.} (a)\quad
-\VIItodo{p.\,126, the existence of a point of intersection of the circles.}
+(The existence of a point of intersection of the circles.) By the existence
+postulate for angles, there is exactly one ray $BH$, on a given side of $BF$,
+such that $\ang{FBH} \cong \ang{A}$. The existence of the \emph{ray} is thus
+assured. The existence of the points $D$, $E$, and $F$ follows from theorems of
+measurement and congruence. There is a point $G$ on the ray $BH$, such that
+$BG \cong BF \cong AE \cong AD$. Since $\ang{A} \cong \ang{B}$,
+$\tri{ADE} \cong \tri{BGF}$ by the S.A.S. theorem. Therefore,
+$GF \cong DE$. Hence, the point $G$ is on the circle with radius $\sg{DE}$ and
+center $F$. Since $G$ is also on the circle with center $B$ and radius
+$\sg{BF}$, it is therefore on both circles and is a point of intersection of
+the two circles.
 
 \noindent\emph{Proof.} (b)\quad
-\VIItodo{p.\,126, the congruence of the angles, by S.S.S.}
+(The congruence of the angles.) We now consider any point $G$ on both circles.
+$AD \cong AE \cong BG \cong BF$. Since both circles have the same radius,
+$DE \cong GF$, and $\tri{AED} \cong \tri{BFG}$ by the S.S.S. theorem. Hence
+$\ang{A} \cong \ang{B}$.
 
-\VIItodo{p.\,126, the sentence turning to copying a triangle.}
+In a similar manner we can copy a triangle.
 
 \begin{construction}
-\VIItodo{p.\,126, Construction 7--2, keyed to Fig.~7--22.}
+Given $\tri{ABC}$ (Fig.~7--22) and a ray from a point $A'$, use the previous
+construction to copy $\ang{A}$. Then draw a circle, with center $A'$ and radius
+$\sg{AB}$, which intersects the other side of $\ang{A'}$ at $B'$. Then draw a
+circle, with center $A'$ and radius $\sg{AC}$, which intersects the given ray
+in $C'$. Then $\tri{ABC} \cong \tri{A'B'C'}$.
 \end{construction}
 
 \noindent\emph{Proof.}\quad
-\VIItodo{p.\,126, left to the student.}
+The proof is left to the student.
 
 \FIGVIITWENTYTWOTWENTYTHREE
 
 \begin{construction}
-\VIItodo{p.\,126, Construction 7--3, keyed to Fig.~7--23.}
+Given $\tri{ABC}$ (Fig.~7--23) and a ray from a point $A'$, draw a circle, with
+center $A'$ and radius $\sg{AC}$, which intersects the ray in $C'$. Then draw
+circles, with centers at $A'$ and $C'$ and radii $\sg{AB}$ and $\sg{BC}$,
+respectively. These two circles will intersect, on a given side of the ray, in
+exactly one point $B'$. We will then have $\tri{ABC} \cong A'B'C'$.
 \end{construction}
 
 \noindent\emph{Proof.}\quad
-\VIItodo{p.\,126, left to the student, with the reminder to prove $B'$ exists
-first.}
+The proof is left to the student. Remember, you must first prove that $B'$
+exists and then prove $\tri{ABC} \cong \tri{A'B'C'}$.
 
 %========================================================= 7-8
 \section*{7--8\quad OTHER CONSTRUCTIONS}
 \addcontentsline{toc}{section}{7--8\quad Other constructions}
 
-\VIItodo{p.\,127, opening paragraph on existence proofs versus correctness
-proofs.}
+It should now be clear that proving the validity of certain constructions
+involves first the proof of the existence of certain points and lines, and
+secondly the proof that the construction produces the desired result. In the
+remainder of our work on constructions, we will concentrate our efforts on the
+second part. The proof of existence of certain points can actually be quite
+hard at times. For example, when we try to prove that the construction for the
+perpendicular bisector of a segment is valid, we need a theorem, Theorem 7--4,
+that is very difficult to prove at this time.
 
 \begin{theorem}
-\VIItodo{p.\,127, Theorem 7--4: two circles of radius $r > \frac{1}{2}\sg{AB}$
-about $A$ and $B$, keyed to Fig.~7--24.}
+If $AB$ is a segment, and circles are drawn, with centers at $A$ and $B$ and
+radius $r > \frac{1}{2}\sg{AB}$, then these circles intersect in exactly two
+points $P$ and $Q$, on opposite sides of the line through $A$ and $B$
+(Fig.~7--24).
 \end{theorem}
 
 \begin{remark}
-\VIItodo{p.\,127, the remark on midpoints and angle bisectors.}
+From what we know about measurement of length, we know that every line segment
+$AB$ has exactly one midpoint $C$, that is, a point $C$ such that
+$\sg{AC} = \sg{BC} = \frac{1}{2}\sg{AB}$. Likewise, it is easy to show that
+every angle has a bisector, that is, from the vertex of the angle, there is a
+ray that forms, with the sides of the given angle, two congruent angles.
 \end{remark}
 
 \FIGVIITWENTYFOURTWENTYFIVE
 
-\VIItodo{p.\,127, the paragraph noting that midpoints and bisectors were
-obtained independently of these constructions.}
+The constructions of this section show how to make \RC{} constructions for
+midpoints of segments and bisectors of angles; but the \emph{existence} of
+these midpoints and bisectors has been obtained independently of these
+constructions.
 
 \begin{construction}
-\VIItodo{p.\,127, Construction 7--4: the perpendicular bisector, keyed to
-Fig.~7--25.}
+Draw circles, with centers $A$ and $B$ and equal radii greater than
+$\frac{1}{2}\sg{AB}$. These circles intersect at points $P$ and $Q$. The line
+$PQ$ is the desired perpendicular bisector (Fig.~7--25).
 \end{construction}
 
 \noindent\emph{Proof.}
 \begin{steps}
-\step{\VIItodo{p.\,127, Statement 1.}}{Construction.}
-\step{\VIItodo{Statement 2.}}{S.S.S. theorem.}
-\step{\VIItodo{p.\,128, Statement 3.}}{\VIItodo{Reason 3.}}
-\step{\VIItodo{Statement 4.}}{S.A.S. theorem.}
-\step{\VIItodo{Statement 5.}}{Statement 4.}
-\step{\VIItodo{Statement 6.}}{Statement 5.}
+\step{$AP \cong PB \cong AQ \cong QB$.}{Construction.}
+\step{$\tri{APQ} \cong \tri{BPQ}$.}{S.S.S. theorem.}
+\step{$PQ$ intersects line $AB$ in $C$.}{$P$ and $Q$ are on opposite sides of
+      $AB$.}
+\step{$\tri{APC} \cong \tri{BPC}$.}{S.A.S. theorem.}
+\step{$AC \cong CB$, and $\ang{ACP} \cong \ang{BCP}$.}{Statement 4.}
+\step{$PQ$ is the $\perp$ bis $AB$.}{Statement 5.}
 \end{steps}
 
 \exercisegroup{7--6}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,128, Ex.\ 1 --- exactly one perpendicular bisector.}
-\item \VIItodo{p.\,128, Ex.\ 2 --- points on it are equidistant from $A$, $B$.}
-\item \VIItodo{p.\,128, Ex.\ 3 --- the converse.}
-\item \VIItodo{p.\,128, Ex.\ 4 --- constructing it from two points on one side.}
+\item Prove that each segment has exactly one perpendicular bisector.
+\item Prove that every point on the perpendicular bisector of $AB$ is
+  equidistant from $A$ and $B$.
+\item Prove that if a point $R$ is equidistant from $A$ and $B$, then it lies
+  on the perpendicular bisector of $AB$.
+\item Construct the perpendicular bisector of a segment by constructing two
+  points on the same side of the line and equidistant from the ends of the
+  segment.
 \end{exlist}
 \end{multicols}
 
 \begin{construction}
-\VIItodo{p.\,128, Construction 7--5: the perpendicular at a point of the line,
-keyed to Fig.~7--26.}
+To construct the perpendicular to a line at a point $P$ on the line
+(Fig.~7--26), draw a circle, with center $P$ and arbitrary radius, intersecting
+the line in points $A$ and $B$. Then construct the perpendicular bisector of
+$AB$.
 \end{construction}
 
 \begin{construction}
-\VIItodo{p.\,128, Construction 7--6: the perpendicular from a point not on the
-line, keyed to Fig.~7--27.}
+To construct a perpendicular to a line from a point not on the line, choose a
+point $A$ on the line, and draw the circle with center $P$ and radius $AP$
+(Fig.~7--27). The circle will intersect the line in a second point $B$ (if $A$
+is properly chosen). Then construct the perpendicular bisector of $AB$, which
+passes through $P$.
 \end{construction}
 
 \FIGVIITWENTYSIXSEVENEIGHT
 
 \noindent\emph{Proof.}\quad
-\VIItodo{pp.\,128--129, the two halves --- existence of a perpendicular through
-$P$ (keyed to Fig.~7--28), then that the RC construction produces it.}
+We first show that there actually is a line through $P$ perpendicular to the
+line. Then we show that the \RC{} construction produces this line.
+
+First choose any point $A$ on $l$ and any other point $C$ on $l$ (Fig.~7--28).
+Let $AQ$ be the ray, on the opposite side of $l$ from $P$, such that
+$\ang{PAC} \cong \ang{QAC}$. (There is only one such ray, by the existence
+postulate for angles.) Choose $P'$ on $AQ$, such that $AP' \cong AP$. Then
+$PP'$ intersects $l$ in a point $D$. (Why?) If $A \neq D$, then triangles are
+formed, and by S.A.S., $\tri{APD} \cong \tri{AP'D}$. Therefore, $\ang{ADP}$ and
+$\ang{ADP'}$ are right angles, and $PP' \perp l$. If $A = D$, there are no
+triangles, but then, because of the way $AQ$ was selected, $PP' \perp l$.
+(Why?)
+
+Having established that a perpendicular from $P$ exists, we now show that the
+\RC{} construction gives us this perpendicular. If $D \neq A$, there is a point
+$B$ on the opposite side of $D$ from $A$, so that $AD \cong BD$. It follows
+that the circle with center $P$ and radius $AP$ does intersect the line in a
+second point $B$, and this was the main part to be proved in the construction.
+Now the perpendicular bisector of $AB$ can be drawn, and $P$ lies on it.
+(Why?)
 
 \exercisegroup{7--7}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,129, Ex.\ 1 --- a right triangle from its two legs.}
-\item \VIItodo{p.\,129, Ex.\ 2 --- points $D$, $E$, $F$ quartering $AB$.}
-\item[\stex 3.] \VIItodo{p.\,129, Ex.\ 3 --- a circle meeting $l$ in exactly one
-      point, with its hint.}
-\item \VIItodo{p.\,129, Ex.\ 4 --- the perpendicular from $P$ via Fig.~7--29.}
+\item Construct a right triangle, having been given the lengths of the two
+  legs.
+\item Construct points $D$, $E$, and $F$ on the segment $AB$, such that
+  $\sg{AD} = \sg{DE} = \sg{EF} = \sg{FB} = \frac{1}{4}\sg{AB}$.
+\item[\stex 3.]\stepcounter{exlisti} Suppose that $P$ is not on a line $l$, and that a given circle
+  with center at $P$ intersects $l$ in exactly one point $Q$. Prove that $PQ$
+  is perpendicular to $l$. [\emph{Hint:} If $PQ$ were not perpendicular, then
+  the construction in the proof of Construction 7--6 would lead to a
+  contradiction.]
+\item Construct the perpendicular from $P$ by choosing $A$, as in Fig.~7--29,
+  constructing $\ang{2} \cong \ang{1}$, and point $P'$, such that
+  $AP \cong AP'$.
 \end{exlist}
 \end{multicols}
 
 \FIGVIITWENTYNINETHIRTY
 
 \begin{construction}
-\VIItodo{p.\,129, Construction 7--7: bisecting $\ang{A}$, keyed to Fig.~7--30.}
+To bisect $\ang{A}$, draw a circle, with center $A$, intersecting the sides of
+$\ang{A}$ in points $B$ and $C$ (Fig.~7--30). Then construct a point $Q$ on the
+perpendicular bisector of $BC$ and in the interior of $\ang{A}$. The ray $AQ$
+bisects $\ang{A}$.
 \end{construction}
 
 \noindent\emph{Proof.}\quad
-\VIItodo{p.\,129, the S.S.S. argument giving $\ang{BAQ} \cong \ang{CAQ}$.}
+The point $Q$ can be found by a previous construction.
+$\tri{ABQ} \cong \tri{ACQ}$, by S.S.S. Hence $\ang{BAQ} \cong \ang{CAQ}$.
 
 \exercisegroup{7--8}
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,130, Ex.\ 1 --- bisect an acute angle.}
-\item \VIItodo{p.\,130, Ex.\ 2 --- construct and bisect a right angle.}
-\item \VIItodo{p.\,130, Ex.\ 3 --- bisect an obtuse angle.}
-\item \VIItodo{p.\,130, Ex.\ 4 --- the three angle bisectors of a triangle.}
-\item \VIItodo{p.\,130, Ex.\ 5 --- $P$ on the bisector of $\ang{A}$ with
-      $\sg{AB} = \sg{AC}$.}
-\item \VIItodo{p.\,130, Ex.\ 6 --- an angle has only one bisector.}
-\item \VIItodo{p.\,130, Ex.\ 7 --- $M$ the midpoint of $BC$ and $AM$.}
-\item[\stex 8.] \VIItodo{p.\,130, Ex.\ 8 --- the alternative bisector
-      construction of Fig.~7--31.}
-\item[\stex 9.] \VIItodo{p.\,130, Ex.\ 9 --- halves of congruent angles,
-      keyed to Fig.~7--32.}
+\item Draw an acute angle, and construct its bisector.
+\item Construct and bisect a right angle.
+\item Bisect an obtuse angle.
+\item Draw a triangle, and construct the bisectors of its angles. (They should
+  meet in one point.)
+\item If $P$ is on the bisector of $\ang{A}$, and $B$ and $C$ are points on the
+  sides of $\ang{A}$, such that $AB = AC$, prove that $PB \cong PC$.
+\item Prove that an angle has only one bisector.
+\item Suppose that $B$ and $C$ are points on the two sides of $\ang{A}$, such
+  that $AB \cong AC$. Show that if $M$ is the midpoint of $BC$, then $AM$
+  bisects $\ang{A}$.
+\item[\stex 8.]\stepcounter{exlisti} Figure 7--31 shows another construction for the angle bisector.
+  Consider two circles, with center $A$ and radii $r$ and $r'$, such that
+  $r' > r$. These circles intersect the sides of $A$ in four points $C$, $C'$,
+  $D$, and $D'$. The lines through these points intersect in a point $P$ on the
+  bisector. (Why?)
+\item[\stex 9.]\stepcounter{exlisti} If, in Fig.~7--32, $\ang{CAD} \cong \ang{EBF}$,
+  $\ang{1} \cong \ang{2}$, and $\ang{3} \cong \ang{4}$, then
+  $\ang{2} \cong \ang{4}$. \emph{Note:} This theorem is often stated as
+  ``halves of congruent angles are congruent to each other.'' Prove this
+  theorem.
 \end{exlist}
 \end{multicols}
 
@@ -6213,39 +6486,52 @@ $P$ (keyed to Fig.~7--28), then that the RC construction produces it.}
 \section*{REVIEW OF CHAPTER 7}
 \addcontentsline{toc}{section}{Review of Chapter 7}
 
-\VIItodo{p.\,130, the review preamble, items (a) and (b), and the list of
-definitions met for the first time in this chapter.}
+In this chapter we have used the congruence theorems to study inequalities in
+triangles and verify constructions.
+
+\begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=3pt]
+\item Make a list of all the theorems on inequalities in triangles, then study
+  their proofs.
+\item Make a list of the different \RC{} constructions. Prove them correct
+  without looking at the book.
+\end{enumerate}
+
+Review the following definitions, which you met for the first time in this
+chapter: exterior angle, circle, interior of circle, exterior of circle,
+radius, diameter, chord, secant, central angle, inscribed angle, \RC{}
+construction.
 
 \begin{center}\bfseries Review Exercises\end{center}\nopagebreak
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,130, Review Ex.\ 1 --- construct a $45^\circ$ angle.}
-\item \VIItodo{p.\,130, Review Ex.\ 2 --- construct $60^\circ$, then
-      $30^\circ$.}
-\item \VIItodo{p.\,130, Review Ex.\ 3 --- construct $15^\circ$, then
-      $75^\circ$.}
-\item \VIItodo{p.\,130, Review Ex.\ 4 --- an equilateral triangle.}
-\item \VIItodo{p.\,131, Review Ex.\ 5 --- a right triangle with acute angles
-      $60^\circ$ and $30^\circ$.}
-\item \VIItodo{p.\,131, Review Ex.\ 6 --- the bisectors of an obtuse triangle.}
-\item \VIItodo{p.\,131, Review Ex.\ 7 --- copy an angle.}
-\item \VIItodo{p.\,131, Review Ex.\ 8 --- a triangle from three segments.}
-\item \VIItodo{p.\,131, Review Ex.\ 9 --- the perpendicular through $P$, and its
-      uniqueness.}
-\item \VIItodo{p.\,131, Review Ex.\ 10 --- the altitudes of a triangle.}
-\item \VIItodo{p.\,131, Review Ex.\ 11 --- the perpendicular bisectors of its
-      sides.}
-\item \VIItodo{p.\,131, Review Ex.\ 12 --- an isosceles triangle from the vertex
-      angle and the congruent sides.}
-\item \VIItodo{p.\,131, Review Ex.\ 13 --- a circle on a given segment as
-      diameter.}
-\item \VIItodo{p.\,131, Review Ex.\ 14 --- the longest side of a right triangle.}
-\item \VIItodo{p.\,131, Review Ex.\ 15 --- three sides of a quadrilateral against
-      the fourth.}
-\item \VIItodo{p.\,131, Review Ex.\ 16 --- keyed to Fig.~7--33.}
-\item \VIItodo{p.\,131, Review Ex.\ 17 --- keyed to Fig.~7--34.}
-\item \VIItodo{p.\,131, Review Ex.\ 18 --- keyed to Fig.~7--35, with its hint.}
-\item \VIItodo{p.\,131, Review Ex.\ 19 --- keyed to Fig.~7--36.}
+\item Construct an angle of $45^\circ$.
+\item Construct an angle of $60^\circ$, of $30^\circ$.
+\item Construct an angle of $15^\circ$, of $75^\circ$.
+\item Construct an equilateral triangle.
+\item Construct a right triangle having acute angles of $60^\circ$ and
+  $30^\circ$.
+\item Draw an obtuse triangle, and construct the bisectors of its angles.
+\item Draw an angle. Copy it, using ruler and compass.
+\item Draw three separate segments. Construct a triangle having sides congruent
+  to the given segments.
+\item Draw a line, and mark a point $P$ not on the line. Construct the
+  perpendicular to the line, passing through $P$. How do you know that there is
+  only this one perpendicular?
+\item Draw a triangle. Construct the altitudes of the triangle.
+\item Draw a triangle. Construct the perpendicular bisectors of its sides.
+\item Construct an isosceles triangle if the vertex angle and the congruent
+  sides are given.
+\item Draw a segment. Construct a circle having this segment as a diameter.
+\item In a right triangle, which side is longest? Why?
+\item Prove that the sum of the lengths of three sides of a quadrilateral is
+  greater than the length of the fourth side.
+\item $\ang{ABC}$ is a right angle, and $C$ is between $B$ and $D$. Prove that
+  $AD > AC$. (Fig.~7--33)
+\item Prove that $\sg{AD} + \sg{CB} > \sg{AB} + \sg{CD}$. (Fig.~7--34)
+\item $AE$ bisects $\ang{DAF}$, and $AC$ bisects $\ang{DAB}$. (Fig.~7--35)
+  Prove that $\ang{CAE}$ is right. [\emph{Hint:} Extend $AE$.]
+\item $AC$ bisects $\ang{DAB}$, and $\ang{CAE}$ is right. Prove that $AE$
+  bisects $\ang{DAF}$. (Fig.~7--36)
 \end{exlist}
 \end{multicols}
 
@@ -6255,22 +6541,32 @@ definitions met for the first time in this chapter.}
 \begin{center}\bfseries ALGEBRA REVIEW\end{center}\nopagebreak
 \begin{multicols}{2}
 \begin{exlist}
-\item \VIItodo{p.\,131, Algebra Review Ex.\ 1 --- $\tri{ABC}$ with
-      $\sg{AB} < \sg{BC} < \sg{CA}$, the $32^\circ$ and $120^\circ$ data.}
-\item \VIItodo{p.\,132, Ex.\ 2 --- exterior angle of $65^\circ$, the
-      $145^\circ$ and $150^\circ$ data.}
-\item \VIItodo{p.\,132, Ex.\ 3 --- collinear $O$, $A$, $B$ with $\sg{OA}$ seven
-      inches more than $\sg{BA}$.}
-\item \VIItodo{p.\,132, Ex.\ 4 --- $\sg{AB} = 17$, $\sg{AC} = 12$, and
-      $\sg{BC}$ a root of $(x-6)(x-4) = 0$.}
-\item \VIItodo{p.\,132, Ex.\ 5 --- $\sg{AC}/\sg{BC} = \frac{5}{3}$ and
-      $\sg{AB} = 10$ in.}
-\item \VIItodo{p.\,132, Ex.\ 6 --- $\sg{AB}/\sg{AC} = \frac{3}{5}$ and
-      $\sg{MB} = 3$.}
-\item[\stex 7.] \VIItodo{p.\,132, Ex.\ 7 --- $A$, $B$, $C$, $D$ in order, with
-      $\sg{AC}$ twice $\sg{BD}$, $\sg{AB}$ four times $\sg{CD}$, $\sg{BC} = 4$.}
-\item[\stex 8.] \VIItodo{p.\,132, Ex.\ 8 --- difference of squares 33, sum 11.}
-\item[\stex 9.] \VIItodo{p.\,132, Ex.\ 9 --- the number trick to analyze.}
+\item In $\tri{ABC}$, $AB < BC < CA$. The greatest angle in this triangle has a
+  measure of $32^\circ$ more than the measure of the smallest angle. The sum of
+  the measures of these two angles is $120^\circ$. Determine the number of
+  degrees in the smallest angle in this triangle.
+\item An exterior angle at $A$ of $\tri{ABC}$ has a measure of $65^\circ$. The
+  sum of the measures of angles $A$ and $B$ is $145^\circ$, and the sum of the
+  measures of angles $A$ and $C$ is $150^\circ$. Determine the number of
+  degrees in each angle of the triangle.
+\item Points $O$, $A$, and $B$ are collinear. $\sg{OA}$ is 7 in. more than
+  $\sg{BA}$. $A$ is not between $O$ and $B$. Determine the length of $OB$.
+\item $\sg{AB} = 17$, and $\sg{AC} = 12$. The number $\sg{BC}$ is a root of the
+  equation $(x-6)(x-4) = 0$. Determine $\sg{BC}$.
+\item If $B$ is between $A$ and $C$, $\sg{AC}/\sg{BC} = \frac{5}{3}$, and
+  $\sg{AB} = 10$ in., determine the lengths of $AC$ and $BC$.
+\item $B$ is between $A$ and $C$, and $\sg{AB}/\sg{AC} = \frac{3}{5}$. The
+  midpoint of $AC$ is $M$, and $\sg{MB} = 3$. Determine $\sg{AC}$.
+\item[\stex 7.]\stepcounter{exlisti} $A$, $B$, $C$ and $D$ are points in this order on a line. The
+  length of $AC$ is twice the length of $BD$. The length of $AB$ is four times
+  the length of $CD$. The length of $BC$ is 4. Determine the lengths of $AB$
+  and $AD$.
+\item[\stex 8.]\stepcounter{exlisti} The difference of the squares of two numbers is 33. The sum of
+  these numbers is 11. Determine the numbers.
+\item[\stex 9.]\stepcounter{exlisti} Analyze the following mathematical trick. Choose any number;
+  multiply this number by 2; add 4 to this product; multiply by 5; divide by
+  10; subtract from this result the original number. The result will be 2, no
+  matter what number was originally chosen.
 \end{exlist}
 \end{multicols}
 \clearpage
@@ -8042,9 +8338,9 @@ is $\tri{ABC}$.
       other leg?
 \item Write a formula for the length of one leg of a right triangle in terms of
       the lengths of the hypotenuse and other leg.
-\item[\stex 4.] In Fig.~9--48, $AB \pll CD$, $BC \pll AD$, and $AC \perp BD$. If
+\item[\stex 4.]\stepcounter{exlisti} In Fig.~9--48, $AB \pll CD$, $BC \pll AD$, and $AC \perp BD$. If
       $\sg{BD} = 24$, and $\sg{AD} = 13$, find $\sg{AC}$.
-\item[5.] In a right triangle, the two legs are 6 ft and 9 ft. How long is the
+\item[5.]\stepcounter{exlisti} In a right triangle, the two legs are 6 ft and 9 ft. How long is the
       hypotenuse?
 \item The two legs of a right triangle are equal, and the hypotenuse is 4 in.\
       long. How long are the legs?
@@ -11602,6 +11898,14 @@ The volume of a sphere of radius $r$ is $\frac{4}{3}\pi r^3$.
 \setcounter{theorem}{0}\setcounter{definition}{0}\setcounter{construction}{0}\setcounter{exgroup}{0}\setcounter{footnote}{0}
 \setcounter{chapter}{15}
 
+% Facing-page plate for the chapter opener (book p.250 = PDF 264, facing
+% p.251). Halftone photograph, never redrawn -- same treatment and the same
+% ownership rule as ch01's Pythagoras/Archimedes and ch02's Aristotle plates:
+% the chapter whose opener the plate faces emits it. Previously orphaned:
+% ch14-UNCERTAIN handed it to ch15, ch15-UNCERTAIN handed it back to ch14, so
+% no unit emitted it at all.
+\XVplate{Ren\'e Descartes (1596--1650)}{Courtesy of \emph{Scripta Mathematica}.}
+
 \chapter*{\raggedright\Huge ANALYTIC GEOMETRY}
 \addcontentsline{toc}{chapter}{15.\ Analytic Geometry}
 \markboth{ANALYTIC GEOMETRY}{}
@@ -11612,149 +11916,451 @@ The volume of a sphere of radius $r$ is $\frac{4}{3}\pi r^3$.
 \section*{15--1\quad SOME HISTORY}
 \addcontentsline{toc}{section}{15--1\quad Some history}
 
-\XVtodo{book pp.\ 251--253: the historical account of the rise of analytic
-geometry and of Descartes, together with the footnote on algebraic shorthand
-notation}
+We have commented before on the fact that numbers, other than integers, did
+not occur explicitly in Greek geometry. One reason for this was that numbers
+were hard to work with at that time. Even after the introduction, during the
+Middle Ages, of Arabic numerals and the place value of the decimal system,
+geometry continued in the Greek spirit. As a result, it often happened that
+problems that we would handle naturally with algebra were solved by geometric
+constructions.
+
+Of course, as time passed, there was a gradual tendency toward the use of
+algebra in geometric problems, but there was nothing systematic in its use.
+And until there was sufficient algebraic machinery available and people became
+skilled in using numbers, there was little advantage in changing a geometric
+problem into an algebraic problem.
+
+By the beginning of the 17th century, considerable progress had been made in
+algebra and in algebraic notation;* in particular, quadratic, cubic, and
+quartic equations could be solved. Mathematicians were interested in studying
+tangents to curves, which is more easily done with a little analytic geometry.
+So it was that in the 17th century the times were right for something new.
+Indeed, many men had actually been using some analytic geometry without making
+it a definite system for attacking problems in geometry. Today, looking back
+on those times, it is hard to imagine why some ideas were so slow in coming.
+But we must remember that discovery is always much harder than understanding
+what has been discovered.%
+\XVnote{*The beginning student hardly realizes how much easier the shorthand
+notation of algebra makes his problems. The interested student is urged to
+read in the history of mathematics and to try working a problem in earlier
+notations.}
+
+It is universally agreed that the French philosopher Ren\'e Descartes
+(1596--1650) was the discoverer (inventor?) of analytic geometry, and the date
+is generally set as 1637, when his \emph{Geometry} was published. Descartes is
+also noted for his work in physics and in philosophy. In the latter, he
+aspired to write a philosophy that would be perfectly logical and free from
+objectionable assumptions. His efforts in philosophy include the book
+\emph{Discourse on Method}, which expounds what is referred to today as
+Cartesian philosophy, and which has been a source of dispute ever since! But
+his \emph{Geometry} is undisputed. Analytic geometry is today a part of a
+liberal education as well as a necessity for pure and applied science.
+
+Some brief remarks about Descartes' life may be of interest. Born in 1596, he
+started school in a Jesuit institution at the age of eight. Never a strong,
+healthy boy, he was allowed by his school to stay in bed mornings to do his
+studies, and later in life he did much of his writing in bed. He left school
+in 1612, studied law, and even spent some time in the Dutch army as a
+gentleman volunteer, leaving in 1619. It appears that by 1620 most of his
+great ideas had been established in outline. In other words, he had thought
+them over and had a fairly clear picture of how they should go. Much of his
+life thereafter was spent in Holland. A devout man, he nevertheless had
+troubles with the church over his philosophical ideas. By the time his
+\emph{Geometry} was published, he was a well-known figure. In 1649 he visited
+the court of Queen Christina of Sweden, after much urging, to teach her his
+system of philosophy. Assigned the outlandish hour of 5 a.m. three days a week
+for the instructions, he fell ill in February 1650 and died a few days later.
+
+\emph{Geometry} was his only book on mathematics and, in a sense, contained
+nothing totally new. What Descartes did was to show how a systematic use of
+coordinates helps to attack problems. He classified various kinds of curves
+and suggested further work. The book was suggestive and tremendously fruitful.
+We owe to him our convention of using the first letters of the alphabet
+($a$, $b$, $c$) for knowns and the last letters ($x$, $y$, $z$) for unknowns.
+
+It is not easy to give a concise definition of analytic geometry. In a sense,
+this entire chapter is such a definition, for a complete definition should
+include some of its uses. But for the moment, it may suffice to say that, in
+analytic geometry, geometric figures are studied by means of equations. Then,
+if we wish to know something concerning the geometric figure, it \emph{may} be
+easy to learn this by examining an equation. The equations that are used
+involve numbers called coordinates, which serve to locate points. But why the
+word ``analytic''? Analytic geometry does enable one to analyze geometric
+figures, but this is also done in regular Euclidean geometry. Perhaps a better
+description would be to call this new way of looking at geometry, plane
+\emph{coordinate} geometry, or plane \emph{Cartesian} geometry. Remember that
+it is the same plane we are studying all the time, no matter how we look at it.
 
 \exercisegroup{15--1}
-\XVtodo{Exercise Group 15--1, two reading exercises}
+\begin{multicols}{2}
+\begin{exlist}
+\item Read the history of mathematics during the 17th century.
+\item Read a biography of Descartes in an encyclopedia or in \emph{Men of
+  Mathematics}, by E. T. Bell.
+\end{exlist}
+\end{multicols}
 
 %========================================================= 15-2
 \section*{15--2\quad EXAMPLES}
 \addcontentsline{toc}{section}{15--2\quad Examples}
 
-\XVtodo{book p.\ 253: everyday examples of coordinates --- city streets and
-avenues, and locating a nearby town}
+Although analytic geometry is distinguished by use of coordinates, the idea
+should already be familiar from some common situations. Some cities are laid
+out in squares, with the east-west and north-south roads called avenues and
+streets, respectively. The numbers of street and avenue fix any intersection.
+In the same way, you unconsciously use coordinates in describing a nearby town
+as, perhaps, 7 miles north and 5 miles west of ``here.''
 
 \exercisegroup{15--2}
-\XVtodo{Exercise Group 15--2, two exercises}
+\begin{multicols}{2}
+\begin{exlist}
+\item Try to think of other examples of coordinates, that is situations in
+  which position is determined by a pair of numbers.
+\item Discuss the need to have streets straight in order to ``coordinatize'' a
+  city.
+\end{exlist}
+\end{multicols}
 
-\XVtodo{book p.\ 253: recalling from Chapter 5 how coordinates are put on a
-line --- the origin $O$, the unit point $P_1$, the positive direction, and the
-coordinate of a point; with the footnote on the two ways of choosing $P_1$}
+By far the most important example of coordinates is our method (Chapter 5) of
+putting coordinates on a line. We recall how this was done:
+
+Given a line $l$ and a unit of length, choose a point $O$ on the line $l$, as
+in Fig.~15--1. Now choose* a point $P_1$ on $l$ at a distance 1 from $O$. This
+choice determines which half of the line we will call the \emph{positive
+axis}, or \emph{positive direction}. For every positive real number $x$, there
+is exactly one point $P_x$ of $l$ on the same side of $O$ as the point $P_1$
+such that the length $\sg{OP_x} = x$. For every negative real number $x'$,
+there is exactly one point $P_{x'}$ of $l$ on the opposite side of $O$ from
+$P_1$ such that the length $\sg{OP_{x'}} = -x' = |x'|$.%
+\XVnote{*There are two ways of choosing this point, namely on either side of
+$O$. Which side is chosen is not important.}
+
+Each of the numbers $x$ and $x'$ is called the \emph{coordinate} of the
+corresponding point of the line.
 
 \FIGXVONE
 
 \exercisegroup{15--3}
-\XVtodo{Exercise Group 15--3, three exercises}
+\begin{multicols}{2}
+\begin{exlist}
+\item How are the points $P_{x_1}$, $P_{x_2}$, and $O$ related if $x_1 < 0$
+  and $x_2 > 0$? if $0 < x_2 < x_1$? if $x_1 < x_2 < 0$?
+\item If we agree that points with larger coordinates ``lie to the right'' of
+  points with lesser coordinates, how are we thinking of the drawn line $l$
+  and the chosen point $P_1$?
+\item Two points on the line have coordinates $-3$ and 7. What is the distance
+  between them? between 5 and 12? between $x_1$ and $x_2$?
+\end{exlist}
+\end{multicols}
 
 \begin{definition}
-\XVtodo{Definition 15--1: coordinatization of a line, and the origin of
-coordinates}
+We will refer to the above construction of coordinates as a coordinatization
+of the line $l$, with the point $O$ as \emph{origin of coordinates}.
 \end{definition}
 
 %========================================================= 15-3
 \section*{15--3\quad THE EXISTENCE OF COORDINATES}
 \addcontentsline{toc}{section}{15--3\quad The existence of coordinates}
 
-\XVtodo{book p.\ 254: plane coordinates are built in a few simple steps, a unit
-of length having been selected}
+The construction of plane coordinates is best carried out in a number of
+simple steps. We assume that a unit of length has been selected in the plane.
 
 \begin{definition}
-\XVtodo{Definition 15--2: choosing the origin $O$, two perpendicular
-coordinate axes through $O$, the axis of abscissas and the axis of ordinates;
-with the two footnotes on the words \emph{abscissa} and \emph{ordinate}}
+Choose a point $O$ in the plane. Call this point the \emph{origin of
+coordinates}. Choose any two perpendicular lines through $O$. Call these lines
+\emph{coordinate axes}. Coordinatize each of the axes, with the point $O$ as
+origin of coordinates. Select one of these lines and call it the \emph{axis of
+abscissas}.* The other axis is called the \emph{axis of ordinates}.\dag\ See
+Fig.~15--2.%
+\XVnote{*This is not a fortunately chosen word. It would be better to say
+``first coordinates.'' In most drawings in textbooks, the axis of abscissas is
+drawn horizontally as the reader views it. There is nothing sacred about this,
+we just agree to consider one coordinate before we do the other (something
+must be first) and call this first coordinate by the strange name
+\emph{abscissa}.}%
+\XVnote{\dag\ This word is not much better, but the literature of mathematics
+is filled with this word too, so make the best of it and learn it. Of course
+``second coordinate'' is much better.}
 \end{definition}
 
 \FIGXVTWO
 
 \exercisegroup{15--4}
-\XVtodo{Exercise Group 15--4, three exercises}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw a figure, different from Fig.~15--2, illustrating Definition
+  15--2.
+\item Compare your figure with your neighbor's. Did you both choose the
+  ``same'' axis for abscissas? Turn your figure sideways. Do you have a
+  different opinion about which is the first coordinate?
+\item With the same drawing as in Exercise 1, reverse the coordinates on each
+  of the axes. Is this a possible way of satisfying Definition 15--2? Suppose
+  that we reversed the coordinates on only one of the axes.
+\end{exlist}
+\end{multicols}
 
-\XVtodo{book p.\ 255: the arbitrariness of the choice of origin and axes ---
-there are no fixed coordinate systems inherent in nature}
+Perhaps you will have observed a certain arbitrariness in the definition, in
+that we \emph{choose} a point $O$ and \emph{choose} lines for axes. This is
+actually the way things operate in practice. In applying analytic geometry to
+problems in physics or engineering, it is usually necessary to \emph{choose}
+coordinates. \emph{There are no fixed coordinate systems inherent in nature.}
+Coordinate systems are convenient inventions that facilitate mathematical
+computations.
+
+Having set up our axes, we can make certain statements concerning them. We
+give some of these in a theorem.
 
 \begin{theorem}
-\XVtodo{Theorem 15--1: the axes separate the plane into four quadrants;
-$PQ$ meets neither axis when $P$ and $Q$ lie in the same quadrant, and meets
-at least one axis when they lie in different quadrants}
+The coordinate axes separate the plane into four regions, called quadrants,
+such that if $P$ and $Q$ are points not on either axis and in the same
+quadrant, then the segment $PQ$ does not meet either axis, whereas if $P$ and
+$Q$ are in different quadrants, then $PQ$ meets at least one of the axes. See
+Fig.~15--3.
 \end{theorem}
 
 \FIGXVTHREE
 
 \noindent\emph{Proof.}
-\XVtodo{book p.\ 255: the proof, with its three ``(Why?)'' prompts}
+Each axis separates the plane. (Why?) Consider any point $P$ not on any axis.
+The point $P$ is on one side of the axis of abscissas and one side of the axis
+of ordinates. Let $Q$ be any point on the same side of the axis of abscissas
+as $P$ and on the same side of the axis of ordinates as $P$. Then $PQ$ meets
+neither axis. (Why?) The set of all such points $Q$ is a quadrant. If $Q_1$
+and $Q_2$ are two points of that quadrant, then $Q_1Q_2$ does not intersect
+either axis. (Why?)
+
+There are four ways of choosing the point $P$, according to which sides of the
+axes it is on. This gives rise to the four quadrants.
 
 \exercisegroup{15--5}
-\XVtodo{Exercise Group 15--5, two exercises}
+\begin{multicols}{2}
+\begin{exlist}
+\item Describe the four ways of choosing $P$ to get the four quadrants.
+\item Does the above proof require the axes to be perpendicular?
+\end{exlist}
+\end{multicols}
 
 \begin{definition}
-\XVtodo{Definition 15--3: right and left half planes, upper and lower half
-planes; with the footnote on drawing conventions}
+The half plane that contains the positive axis of abscissas will be called the
+\emph{right half plane}, and similarly for \emph{left half plane}.* The half
+plane that contains the positive axis of ordinates will be called the
+\emph{upper half plane}, and similarly for \emph{lower half plane}.%
+\XVnote{*This agrees with the way axes are conventionally drawn in textbooks.}
 \end{definition}
 
 \FIGXVFOUR
 
-\XVtodo{book p.\ 256: the four quadrants named in terms of the half planes}
+The quadrant that is in the right half plane and in the upper half plane will
+be called the \emph{first quadrant;} the \emph{second quadrant} lies in the
+upper and left half planes; the \emph{third quadrant}, in the lower and left
+half planes; and the \emph{fourth quadrant}, in the lower and right half
+planes. See Fig.~15--4.
 
 \exercisegroup{15--6}
-\XVtodo{Exercise Group 15--6, three exercises, of which 2 and 3 are starred}
+\begin{multicols}{2}
+\begin{exlist}
+\item In Fig.~15--5, which is quadrant I? quadrant II? quadrant III? quadrant
+  IV?
+\item[\stex 2.] Explain why Definition 15--3 does not require any previous
+  knowledge of what the words ``left'' and ``right'' mean.
+\item[\stex 3.] Has there been any use made of the fact that the axes have
+  been selected to be perpendicular? What changes would have to be made so far
+  if the axes were not at right angles?
+\end{exlist}
+\end{multicols}
 
 \FIGXVFIVE
 
 \begin{definition}
-\XVtodo{Definition 15--4: the lines $l_1$ and $l_2$ through $P$ parallel to the
-axes, the coordinates $(x,y)$ of $P$, abscissa and ordinate, and the
-$xy$-plane; with the two footnotes}
+Let $P$ be any point of the plane, and $l_1$ and $l_2$ the lines through $P$
+parallel, respectively, to the axis of ordinates and axis of abscissas. The
+line $l_1$ meets the first axis in a point $A$, with coordinate $x$. The line
+$l_2$ meets the second axis in a point $B$, with coordinate $y$. See
+Fig.~15--6. The two numbers $x$ and $y$ are called the \emph{coordinates} of
+$P$. We write them in parentheses, $(x, y)$, and refer to $(x, y)$ as a
+\emph{point}. The number $x$ is the \emph{abscissa} of $P$, and the number $y$
+is the \emph{ordinate} of $P$.
 \end{definition}
 
-\XVtodo{book p.\ 257: what it means for a point to be \emph{plotted}}
+Because the letters $x$ and $y$ are so frequently used for abscissa and
+ordinate, the axes are often called the \emph{x-axis} and the \emph{y-axis}.
+The plane then, when coordinatized in this way, is often called the
+\emph{xy-plane}.\dag%
+\XVnote{\dag\ Of course there is nothing really special about the letters $x$
+and $y$. Use of different letters, say $u$ and $v$, would give us a
+\emph{uv-plane}.}
+
+Given the coordinates of a point, if one marks that point in a figure, it is
+then said that the point has been \emph{plotted}.
 
 \begin{remark}
-\XVtodo{the point $O$ has coordinates $(0,0)$, followed by a ``(Why?)'' ---
-this Remark is one sentence long in the book}
+The point $O$ has coordinates $(0, 0)$. (Why?)
 \end{remark}
 
-\XVtodo{book p.\ 257: separate body paragraph (not part of the Remark) giving
-the coordinate conditions for lying on an axis --- neither coordinate of $P$
-can be $0$ when $P$ is off both axes; first coordinate $0$ puts $P$ on the axis
-of ordinates, and the converse holds}
+If $P$ does not lie on either axis, neither coordinate of $P$ can be 0. If the
+first coordinate of $P$ is 0, then $P$ is on the axis of ordinates. The
+converse is also true.
 
 \FIGXVSIX
 
 \exercisegroup{15--7}
-\XVtodo{Exercise Group 15--7, seventeen exercises, of which 3, 4, 5 and 7 are
-starred}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw axes, and plot the points $(2, 4)$; $(-2, 4)$;
+  $(-3, -\tfrac{1}{2})$; $(0, -5)$; $(-4, 0)$; and $(7\tfrac{1}{2}, -3)$.
+\item A point $P$ lies in the first quadrant. The perpendicular distance from
+  the $x$-axis is $4\tfrac{1}{2}$ units; the distance from the $y$-axis is 3
+  units. What are the coordinates of $P$? What are the coordinates if
+  distances are the same but $P$ is in the second quadrant?
+\item[\stex 3.] Suppose that, using the same lines as axes, the unit of
+  distance is chosen twice as large. What would be the effect upon the
+  coordinates of points?
+\item[\stex 4.] Where are all the points in the plane with abscissa 0?
+  abscissa negative? ordinate positive?
+\item[\stex 5.] Where are all the points in the plane whose ordinates are
+  equal to their abscissas?
+\item[6.] Draw the line that passes through the points $(-1, 5)$ and
+  $(2, -1)$. Can you easily draw a line parallel to it, which passes through
+  the origin?
+\item[\stex 7.] Carry out the construction of coordinates when the axes are
+  not perpendicular.
+\item[8.] Both coordinates of the point $S$ are negative numbers. The points
+  $S$ and $T$ are on the same side of the $x$-axis, but on opposite sides of
+  the $y$-axis. What can you say about the coordinates of $T$?
+% Manual \item[...] labels do not advance the list counter; resync so the
+% plain items below number 9-17 instead of restarting at 3.
+\setcounter{exlisti}{8}
+\item The positive and negative $x$- and $y$-axes are rays from $O$. Describe
+  the four quadrants as interiors of angles formed by these rays.
+\item The abscissa of a point is 0. Where must it lie?
+\item The ordinate of a point is 0. Where can it be?
+\item What can you say about a point if the product of its coordinates is
+  negative? 0? positive?
+\item Plot five distinct points with first coordinate equal to 3. Describe the
+  set of all points in the plane such that the first coordinate of every point
+  of the set is 3.
+\item Consider the set of all points in the plane such that the sum of the
+  coordinates of each point is 10. Plot six such points, two in each of
+  quadrants I, II, and IV. Why are there no such points in quadrant III?
+\item Describe the set of all points $(x, y)$ such that $x + 1 < 0$.
+\item What is the perpendicular distance from $(3, -4)$ to the $x$-axis? to
+  the $y$-axis? from $(-5, -7)$ to each axis?
+\item How far is $(3, 4)$ from $(0, 0)$?
+\end{exlist}
+\end{multicols}
 
 %========================================================= 15-4
 \section*{15--4\quad STRAIGHT LINES}
 \addcontentsline{toc}{section}{15--4\quad Straight lines}
 
-\XVtodo{book p.\ 258: how lines are described by coordinates, and the line
-$x=3$ as a first example of an \emph{equation} of a line}
+Having coordinates, we naturally ask how lines may be described by
+coordinates. In exercises we have already examined a few lines.
+
+For example, the set of all points $(x, y)$ with abscissa 3 is the line shown
+in Fig.~15--7, and every point on the line parallel to the $y$-axis, at a
+distance 3 to the right of the $y$-axis, has its $x$-coordinate equal to 3.
+Hence, this line can be specified briefly by writing just $x = 3$. We say then
+that ``$x = 3$'' is the \emph{equation} of this line.
 
 \FIGXVSEVEN
 
-\XVtodo{book p.\ 258: lines parallel to the $y$-axis have equations $x=a$, and
-lines parallel to the $x$-axis have equations $y=b$}
+Conversely, when we see the equation $x = 3$, we ask ourselves, ``What is the
+set of all points $(x, y)$ for which $x = 3$?''
+
+In the same way, all lines parallel to the $y$-axis have an equation $x = a$,
+where $a$ is some real number, positive or negative. (If $a = 0$, what is the
+line?)
+
+Likewise, lines parallel to the $x$-axis will have equations $y = b$.
 
 \exercisegroup{15--8}
-\XVtodo{Exercise Group 15--8, three exercises, of which 3 is starred}
+\begin{multicols}{2}
+\begin{exlist}
+\item A line is parallel to the $y$-axis and passes through the point
+  $(-3, 5)$. What is its equation? What if it is parallel to the $x$-axis?
+\item What is the equation of the line that bisects the first and third
+  quadrants? the second and fourth?
+\item[\stex 3.] Plot several points $(x, y)$ whose coordinates satisfy the
+  equation $x + y = 5$. Can you describe briefly the set of all points
+  $(x, y)$ whose coordinates satisfy this equation?
+\end{exlist}
+\end{multicols}
+
+We will prove shortly that every straight line has an equation of a simple
+kind. But first we see that such simple equations turn out to be straight
+lines.
 
 \begin{XVexample}[ 1]
-\XVtodo{book p.\ 258: finding points whose coordinates satisfy
-$2x-3y+6=0$, with the table of values $(0,2)$, $(3,4)$, $(-3,0)$}
+Consider the set of all points $(x, y)$ whose coordinates satisfy the equation
+$2x - 3y + 6 = 0$. We first find a few of these points, by choosing a value
+for $x$ (or $y$) and then solving for $y$ (or $x$). Thus, if $x = 0$, we have
+$0 - 3y + 6 = 0$, or $y = 2$. If $x = 3$, then $y = 4$. If $y = 0$, then
+$x = -3$.
+\par\medskip
+\begin{center}
+\begin{tabular}{c|c}
+\multicolumn{1}{c}{$x$} & \multicolumn{1}{c}{$y$} \\
+0 & 2 \\
+3 & 4 \\
+$-3$ & 0 \\
+\end{tabular}
+\end{center}
 \end{XVexample}
 
 \FIGXVEIGHTNINE
 
+When these points are plotted, we see (by looking at Fig.~15--8) that they
+apparently lie on a line.
+
+Find other points whose coordinates satisfy the equation, and plot them.
+
 \begin{XVexample}[ 2]
-\XVtodo{book p.\ 259: the equation $-4y-8=0$ and the line $y=-2$}
+Consider the set of all points $(x, y)$ whose coordinates satisfy the equation
+$-4y - 8 = 0$. From the equation, we see that $y = -2$, regardless of what $x$
+is. The set of all points $(x, -2)$ is the line parallel to the $x$-axis and a
+distance 2 units below. See Fig.~15--9.
 \end{XVexample}
 
 \exercisegroup{15--9}
-\XVtodo{Exercise Group 15--9, eight equations to plot}
+Plot several points $(x, y)$ whose coordinates satisfy the following
+equations:
+\begin{multicols}{2}
+\begin{exlist}
+\item $2x + 3y - 6 = 0$.
+\item $x - 2y + 4 = 0$.
+\item $3x - 9 = 0$.
+\item $-x - y + 4 = 0$.
+\item $2ax + 3ay - 6a = 0$; $a \neq 0$.
+\item $-3x + 5y - 15 = 0$.
+\item $y = 2x + 2$.
+\item $x = 3y - 6$.
+\end{exlist}
+\end{multicols}
 
-\XVtodo{book p.\ 259: equations of the form $Ax+By+C=0$ are satisfied by the
-coordinates of points on lines}
+From the examples we observe that equations of the form $Ax + By + C = 0$,
+where $A$, $B$, and $C$ are given numbers, are satisfied by the coordinates of
+points on lines. We now prove this theorem.
 
 \begin{XVstheorem}
-\XVtodo{Theorem 15--2: if $A$, $B$, $C$ are given numbers, not both $A$ and $B$
-zero, then all points $(x,y)$ satisfying $Ax+By+C=0$ lie on a single line}
+If $A$, $B$, and $C$ are given numbers, with not both $A$ and $B$ zero, then
+all points $(x, y)$ whose coordinates satisfy the equation $Ax + By + C = 0$
+lie on a single line.
 \end{XVstheorem}
 
 \noindent\emph{Proof.}
-\XVtodo{book pp.\ 259--260: the three cases $A=0$, $B=0$, and $A\neq0\neq B$}
+We separate the proof into three cases.
+
+\emph{Case} 1. $A = 0$. Then $B \neq 0$ (why?) and the equation is
+$By + C = 0$, or $y = -C/B$. Then all points with this $y$-coordinate lie on
+the line parallel to the $x$-axis and passing through $(0, -C/B)$.
+
+\emph{Case} 2. $B = 0$. In this case, the points lie on a line parallel to the
+$y$-axis.
+
+\emph{Case} 3. $A \neq 0$ and $B \neq 0$. It suffices to show that any two
+points $(x_1, y_1)$ and $(x_2, y_2)$ whose coordinates satisfy the equation
+lie on one line with the point $(0, -C/B)$. This will be the case if and only
+if the right triangles indicated in Fig.~15--10 are similar, where
 
 \begin{equation}\tag{15--1}
 y_1 = \frac{-Ax_1-C}{B}; \qquad y_2 = \frac{-Ax_2-C}{B}.
@@ -11762,104 +12368,247 @@ y_1 = \frac{-Ax_1-C}{B}; \qquad y_2 = \frac{-Ax_2-C}{B}.
 
 \FIGXVTENELEVEN
 
+But these triangles are similar if and only if
+
 \begin{equation}\tag{15--2}
 \frac{y_2-(-C/B)}{x_2} = \frac{y_1-(-C/B)}{x_1}.
 \end{equation}
 
-\XVtodo{book p.\ 260: the step ``From Eq.~(15--1) we see that'' followed by an
-unnumbered display equating $(y_2+C/B)/x_2$, $-A/B$ and $(y_1+C/B)/x_1$, then
-the conclusion that the triangles are similar and the three points are
-collinear}
+From Eq.~(15--1) we see that
+\[
+\frac{y_2+C/B}{x_2} = \frac{-A}{B} = \frac{y_1+C/B}{x_1}.
+\]
+
+Hence we conclude that the triangles are similar and the points
+$[0, -(C/B)]$, $(x_1, y_1)$, and $(x_2, y_2)$ are collinear.
 
 \begin{XVstheorem}
-\XVtodo{Theorem 15--3: if $l$ is a line there are numbers $A$, $B$, $C$, not
-both $A$ and $B$ zero, such that every point $(x,y)$ on $l$ satisfies}
+If $l$ is a line, then there are numbers $A$, $B$, and $C$, with not both $A$
+and $B$ zero, such that every point $(x, y)$ on $l$ has coordinates that
+satisfy the equation
 \begin{equation}\tag{15--3}
 Ax + By + C = 0.
 \end{equation}
 \end{XVstheorem}
 
 \noindent\emph{Proof.}
-\XVtodo{book p.\ 260: the three cases, with the footnote on the ordering of
-$x_1$, $x_2$, $x$ in Fig.~15--11}
+As in the previous theorem, we consider three cases.
+
+\emph{Case} 1. $l$ is parallel to the $x$-axis. Then there is a point
+$(0, b)$ on $l$, and every point $(x, y)$ on $l$ satisfies $y = b$. This is of
+the form of Eq.~(15--3), with $A = 0$, $B = 1$, and $C = -b$.
+
+\emph{Case} 2. $l$ is parallel to the $y$-axis. This case is left to the
+student.
+
+\emph{Case} 3. $l$ is parallel to neither axis. Choose $(x_1, y_1)$ and
+$(x_2, y_2)$, distinct points on $l$. Then $x_1 \neq x_2$ and
+$y_1 \neq y_2$. (Why?) Let $(x, y)$ be any other point on $l$.
+
+As shown in Fig.~15--11, the points $(x_2, y_1)$ and $(x, y_1)$ form, with
+$(x_1, y_1)$, $(x_2, y_2)$, and $(x, y)$, two right triangles that are
+similar. Because of similarity,\dag
 
 \begin{equation}\tag{15--4}
 \frac{y-y_1}{y_2-y_1} = \frac{x-x_1}{x_2-x_1}
 \end{equation}
+\XVnote{\dag\ Figure 15--11 is drawn so that $x_1 < x_2 < x$, and
+$y_1 < y_2 < y$, but all orders can occur for different points and different
+lines. In every case, however, Eq.~(15--4) will be satisfied. Thus it makes no
+difference which point is considered as $(x_1, y_1)$, so long as one is
+consistent in its use.}
 
-\XVtodo{book p.\ 261: the cleared form of Eq.~(15--4), completing the proof}
+\noindent or
+\[
+(y_2 - y_1)x - (x_2 - x_1)y + x_2y_1 - y_2x_1 = 0,
+\]
+which is of the form of Eq.~(15--3). This completes the proof.
 
-\begin{remark}
-\XVtodo{Remark 1: an equivalent form of Eq.~(15--4), useful for writing down at
-once an equation of the line through two given points}
+\begin{XVremark}{1}
+An equation equivalent to Eq.~(15--4) is
 \begin{equation}\tag{15--5}
 y - y_1 = \frac{y_2-y_1}{x_2-x_1}\,(x-x_1).
 \end{equation}
-\end{remark}
+This is a useful equation to remember because it enables one to write at once
+an equation satisfied by the coordinates of any point on a line through two
+given points.
+\end{XVremark}
 
-\begin{remark}
-\XVtodo{Remark 2: different equations may correspond to the same line ---
-\emph{equivalent} equations}
-\end{remark}
+\begin{XVremark}{2}
+Two different equations may correspond to the same line. Thus for example,
+$x = 2$ and $2x - 4 = 0$ represent the same line. Such equations are said to
+be \emph{equivalent} equations. In arriving at equations for lines, we usually
+do not care which equivalent equation we obtain.
+\end{XVremark}
 
 \begin{definition}
-\XVtodo{Definition 15--5: the equation of a line, the phrase ``the line
-$Ax+By+C=0$'', and \emph{linear equation} in $x$ and $y$}
+If $Ax + By + C = 0$ is an equation satisfied by the coordinates $(x, y)$ of
+all points on a line $l$, we say that $Ax + By + C = 0$ is the equation of
+$l$. We also speak of the \emph{``line $Ax + By + C = 0$.''} Such an equation
+of the first degree in $x$ and $y$ will be called a \emph{linear equation} in
+$x$ and $y$.
 \end{definition}
 
 \FIGXVTWELVE
 
 \begin{XVexample}
-\XVtodo{book p.\ 261: finding the equation of the line through $(-2,3)$ and
-$(1,5)$ by means of Eq.~(15--5)}
+Find the equation of the line through $(-2, 3)$ and $(1, 5)$ in Fig.~15--12,
+and draw the line. Using Eq.~(15--5), we have
+\[
+y - 3 = \frac{5-3}{1-(-2)}\,[x-(-2)]
+\qquad\text{or}\qquad
+y = \tfrac{2}{3}x + \tfrac{13}{3}.
+\]
 \end{XVexample}
 
 \exercisegroup{15--10}
-\XVtodo{Exercise Group 15--10, six exercises; exercise 1 draws ten lines,
-lettered (a)--(h) and then (k), (l) --- the book skips (i) and (j)}
+\begin{multicols}{2}
+\begin{exlist}
+\item Draw the lines
+  \begin{enumerate}[label=(\alph*),leftmargin=1.5em,itemsep=0pt,topsep=2pt,
+    parsep=0pt]
+  \item $3x - 4y = 12$,
+  \item $3x - 4y = 8$,
+  \item $4x + 3y = 0$,
+  \item $4x + 15 = 0$,
+  \item $-2x - 3y + 5 = 0$,
+  \item $y = \dfrac{-1}{2}\,x + 3$,
+  \item $y = \dfrac{-1}{2}\,x$,
+  \item $x = 3y + 3$,
+  \item[(k)] $5y - 12 = 0$,
+  \item[(l)] $2x + y = 7$.
+  \end{enumerate}
+\item Find the equations of the lines through the following pairs of points:
+  \begin{enumerate}[label=(\alph*),leftmargin=1.5em,itemsep=0pt,topsep=2pt,
+    parsep=0pt]
+  \item $(-1, 1)$ and $(3, -1)$,
+  \item $(2, 3)$ and $(-2, -3)$,
+  \item $(a, 0)$ and $(0, b)$,
+  \item $(-3, 0)$ and $(0, -5)$,
+  \item $(-2, -4)$ and $(-5, -5)$,
+  \item $(0, b)$ and $(1, m + b)$.
+  \end{enumerate}
+\item In Exercise 1, how many points did you plot to draw each line? Is there
+  a reason for plotting more than two?
+\item Find the coordinates of the point of intersection of the lines
+  $3x - 5y = 7$ and $2x + 3y = -1$.
+\item A line meets the $y$-axis in $(0, -3)$ and the $x$-axis in $(-4, 0)$.
+  Where does this line intersect the line $y = 7x - 19$?
+\item Show that the lines $2x + 3y = 0$ and $4x + 6y = 5$ are parallel.
+\end{exlist}
+\end{multicols}
 
 %========================================================= 15-5
 \section*{15--5\quad DISTANCE}
 \addcontentsline{toc}{section}{15--5\quad Distance}
 
-\XVtodo{book p.\ 262: distance between two points is easy to compute from
-their coordinates, and easiest when the line through them is parallel to an
-axis}
+The distance between any two points of the plane is easy to calculate from the
+coordinates of the points. It is particularly easy if the line through the
+points is parallel to one of the axes. Thus, $\sg{AB} = 1 - (-3) = 4$, and
+$\sg{CD} = |x_2 - x_1| = |x_1 - x_2|$ in Fig.~15--13.
 
 \FIGXVTHIRTEENFOURTEEN
 
-\XVtodo{book p.\ 262: the right triangle $P_1P_2Q$ and the Pythagorean theorem
-give the distance formula
-$\sg{P_1P_2}=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$}
+If the line through the points is not parallel to one of the axes, then with
+the point $Q$ $(x_2, y_1)$ a right triangle $P_1P_2Q$ is formed, as in
+Fig.~15--14, and the Pythagorean theorem asserts that
+$\sg{P_1P_2}^2 = \sg{P_1Q}^2 + \sg{P_2Q}^2 = |x_2 - x_1|^2 +
+|y_2 - y_1|^2$. Taking square roots, we obtain
+$\sg{P_1P_2} = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.
 
 \begin{remark}
-\XVtodo{it makes no difference which point is taken as $(x_1,y_1)$}
+In using this formula it makes no difference which point is considered to be
+$(x_1, y_1)$ because $(x_1 - x_2)^2 = (x_2 - x_1)^2$ and
+$(y_1 - y_2)^2 = (y_2 - y_1)^2$.
 \end{remark}
 
 \exercisegroup{15--11}
-\XVtodo{Exercise Group 15--11, seven exercises, of which 3 is starred}
+\begin{multicols}{2}
+\begin{exlist}
+\item Show that the triangle with vertices $(2, 6)$, $(5, 7)$, and
+  $(-8, -2)$ is a right triangle.
+\item What kind of triangle is the one with vertices $(3, 2)$, $(-4, 4)$, and
+  $(1, -5)$?
+\item[\stex 3.] Write an equation that states that the point $(x, y)$ is
+  equidistant from $(-3, 2)$ and $(2, 1)$. Show that this equation is
+  equivalent to a linear equation. Hence conclude that the set of all points
+  equidistant from $(-3, 2)$ and $(2, 1)$ is a straight line.
+\item[4.] Show that $(-1, -18)$, $(-13, -2)$, $(11, -8)$, and $(-1, 8)$ are
+  vertices of a parallelogram.
+% Manual \item[...] labels do not advance the list counter; resync so the
+% plain items below number 5-7 instead of restarting at 3.
+\setcounter{exlisti}{4}
+\item Show that if $(x, y)$ is a point on a circle whose center is $(-2, 1)$
+  and radius is 3, then $x^2 + y^2 + 4x - 2y = 4$.
+\item Show that the points $(2, 1)$, $(3, \tfrac{1}{2})$, and $(-2, 3)$ lie on
+  a line. What geometric theorems do you use?
+\item Show that the distance formula yields $|x_1 - x_2|$ if $y_1 = y_2$.
+\end{exlist}
+\end{multicols}
 
 %========================================================= 15-6
 \section*{15--6\quad MIDPOINT}
 \addcontentsline{toc}{section}{15--6\quad Midpoint}
 
-\XVtodo{book p.\ 263: the midpoint of $P_1P_2$ has coordinates
-$\left(\dfrac{x_1+x_2}{2},\ \dfrac{y_1+y_2}{2}\right)$, the proof being left to
-the student}
+The midpoint of the segment $P_1P_2$ may be shown to have coordinates
+\[
+\left(\frac{x_1+x_2}{2},\ \frac{y_1+y_2}{2}\right).
+\]
+
+The proof is left to the student. If the line through the points is parallel
+to one of the axes, the proof is very simple. If $x_1 \neq x_2$ and
+$y_1 \neq y_2$, a right triangle may be formed as in Fig.~15--15, and
+parallels to the coordinate axes through the midpoint will bisect the sides in
+points whose coordinates are easily computed.
 
 \begin{XVexample}
-\XVtodo{book p.\ 263: verifying that the midpoint formula gives a point
-equidistant from $(-1,3)$ and $(1,-1)$}
+Show in Fig.~15--16 that the midpoint formula actually gives a point
+equidistant from $(-1, 3)$ and $(1, -1)$.
 \end{XVexample}
 
 \FIGXVFIFTEENSIXTEEN
 
-\XVtodo{book p.\ 263: the computation of $M$, and of
-$\protect\sg{P_1P_2}$, $\protect\sg{P_1M}$ and $\protect\sg{MP_2}$}
+The point $M$ is
+$\left(\dfrac{-1+1}{2},\ \dfrac{3+(-1)}{2}\right) = (0, 1)$. Then
+\[
+\sg{P_1P_2} = \sqrt{2^2 + 4^2} = \sqrt{20} = 2\sqrt{5},
+\]
+\[
+\sg{P_1M} = \sqrt{1^2 + 2^2} = \sqrt{5},
+\]
+and
+\[
+\sg{MP_2} = \sqrt{1^2 + 2^2} = \sqrt{5}.
+\]
+Hence
+\[
+\sg{P_1P_2} = 2\sqrt{5} = \sqrt{5} + \sqrt{5} = \sg{P_1M} + \sg{MP_2}.
+\]
 
 \exercisegroup{15--12}
-\XVtodo{Exercise Group 15--12, eight exercises, of which 3, 4, 5, 7 and 8 are
-starred}
+\begin{multicols}{2}
+\begin{exlist}
+\item Find the midpoints of the sides, and the lengths of the medians, of the
+  triangle whose vertices are $(-4, 10)$, $(12, 10)$, and $(4, -2)$.
+\item Find the coordinates of the points that divide the segment $(-3, -7)$
+  $(11, 17)$ into fourths.
+\item[\stex 3.] Find the points that trisect the segment $(-3, -7)$
+  $(6, 11)$.
+\item[\stex 4.] Derive a formula for the coordinates of the points that
+  trisect the segment $(x_1, y_1)$ $(x_2, y_2)$.
+\item[\stex 5.] Show that the medians of the triangle with vertices
+  $(x_1, y_1)$, $(x_2, y_2)$, and $(x_3, y_3)$ intersect in the point
+  $[(x_1 + x_2 + x_3)/3, (y_1 + y_2 + y_3)/3]$.
+\item[6.] The point $(-3, 4)$ is the midpoint of a segment, one end of which
+  is $(5, 7)$. Find the other end.
+\item[\stex 7.] In Fig.~15--17, show that the line joining the midpoints of
+  the sides of a triangle is half as long as the third side, and parallel to
+  it. [\emph{Hint:} Choose your coordinate system so that one vertex is at the
+  origin and another is on the positive $x$-axis.]
+\item[\stex 8.] Prove that the diagonals of a parallelogram bisect each
+  other.
+\end{exlist}
+\end{multicols}
 
 \FIGXVSEVENTEEN
 
@@ -11867,27 +12616,90 @@ starred}
 \section*{15--7\quad CURVES AND EQUATIONS}
 \addcontentsline{toc}{section}{15--7\quad Curves and equations}
 
-\XVtodo{book p.\ 264: sets of points described by equations --- a straight line
-has a first degree equation; circles furnish the simplest further example}
+We have seen that certain sets of points can be described by equations. Thus a
+straight line has a linear or first degree equation, in the sense that the
+coordinates of every point on the line satisfy an equation of first degree in
+$x$ and $y$ of the form $Ax + By + C = 0$, and conversely. In the same way,
+other sets of points can be described by different equations. Perhaps the
+simplest example of this is furnished by circles.
 
 \FIGXVEIGHTEENNINETEEN
 
-\XVtodo{book p.\ 264: a point $(x,y)$ on the circle with centre $(h,k)$ and
-radius $r$ satisfies $\protect\sqrt{(x-h)^2+(y-k)^2}=r$, or equivalently}
+Suppose that $(x, y)$ in Fig.~15--18 is a point on the circle whose center is
+$(h, k)$ and whose radius is $r$, then
+\[
+\sqrt{(x-h)^2 + (y-k)^2} = r
+\]
+or, equivalently,
 
 \begin{equation}\tag{15--6}
 (x-h)^2 + (y-k)^2 = r^2.
 \end{equation}
 
-\XVtodo{book p.\ 265: the converse; ``the'' equation of a circle, with the
-worked example of centre $(-2,3)$ and radius $4$ given in both the forms
-$(x+2)^2+(y-3)^2=16$ and $x^2+y^2+4x-6y=3$; then recognizing a circle from its
-equation, and the worked completion of the square for $x^2+y^2+6x-8y+19=0$
-giving centre $(-3,4)$ and radius $\protect\sqrt{6}$; closing with the pointer
-to books on analytic geometry for other curves}
+Conversely, a point $(x, y)$ whose coordinates satisfy Eq.~(15--6) will be at
+a distance $r$ from $(h, k)$ and therefore lies on the circle.
+
+We speak of Eq.~(15--6) as ``the'' equation of a circle, although any
+equivalent equation would also be called ``the'' equation. For example, the
+equation of the circle whose center is at $(-2, 3)$, and whose radius is 4, is
+\[
+(x + 2)^2 + (y - 3)^2 = 16
+\]
+or
+\[
+x^2 + y^2 + 4x - 6y = 3.
+\]
+
+Given an equation in the form of Eq.~(15--6), we can recognize it at once for
+the equation of a circle. Any equation equivalent to Eq.~(15--6) is the
+equation of a circle. For example, consider the equation
+\[
+x^2 + y^2 + 6x - 8y + 19 = 0.
+\]
+
+Rewrite the equation as
+\[
+(x^2 + 6x + \,?) + (y^2 - 8y + \,?) = -19 + \,? + \,?.
+\]
+
+By completing the squares of the expressions in parentheses, we have
+\[
+(x^2 + 6x + 9) + (y^2 - 8y + 16) = -19 + 9 + 16
+\]
+or
+\[
+(x + 3)^2 + (y - 4)^2 = 6,
+\]
+which is the equation of a circle whose center is at $(-3, 4)$ and whose
+radius is $\sqrt{6}$. See Fig.~15--19.
+
+Other curves (sets of points) will have other kinds of equations. The student
+is referred to books on analytic geometry for more detail.
 
 \exercisegroup{15--13}
-\XVtodo{Exercise Group 15--13, five exercises, of which 4 and 5 are starred}
+\begin{multicols}{2}
+\begin{exlist}
+\item Write the equation of the circle whose center is $(3, 5)$ and whose
+  radius is 6.
+\item Write the equation of the circle whose center is at $(-4, -3)$ and which
+  (a) is tangent to the $y$-axis, (b) passes through the origin.
+\item Find center and radius of the following circles:
+  \begin{enumerate}[label=(\alph*),leftmargin=1.5em,itemsep=0pt,topsep=2pt,
+    parsep=0pt]
+  \item $x^2 + y^2 + 8x - 9 = 0$,
+  \item $x^2 + y^2 - 6x - 10y = 2$,
+  \item $x^2 + y^2 - 7 = 0$,
+  \item $2x^2 + 2y^2 + 5x + 4y - 5 = 0$,
+  \item $x^2 + y^2 - 6x - 8y + 25 = 0$.
+  \end{enumerate}
+\item[\stex 4.] Find an equation satisfied by the coordinates of every point
+  $(x, y)$ whose distance from $(2, 0)$ is equal to its distance from the line
+  whose equation is $x + 2 = 0$.
+\item[\stex 5.] If the sum of the distances from $(x, y)$ to $(-3, 0)$ and
+  from $(x, y)$ to $(3, 0)$ is equal to 10, show that
+  $16x^2 + 25y^2 = 400$.
+\end{exlist}
+\end{multicols}
 \clearpage
 % ==================== ch16 ====================
 \setcounter{theorem}{0}\setcounter{definition}{0}\setcounter{construction}{0}\setcounter{exgroup}{0}\setcounter{footnote}{0}
@@ -12317,6 +13129,9 @@ the earth is the acquisition of knowledge and understanding.
 % ==================== appendix ====================
 \setcounter{theorem}{0}\setcounter{definition}{0}\setcounter{construction}{0}\setcounter{exgroup}{0}\setcounter{footnote}{0}
 \setcounter{chapter}{17}
+% The Appendix text is verbatim, so line breaking must bend, not the wording:
+% give TeX a little extra stretch rather than reword to clear overfull boxes.
+\emergencystretch=2em
 
 % The book sets this opener flush RIGHT: "APPENDIX" occupies the slot that
 % "CHAPTER 10" occupies on a numbered chapter opener (cf. book p.180).
@@ -12326,12 +13141,11 @@ the earth is the acquisition of knowledge and understanding.
 \vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
 \figurekey
 
-\APPnote{Opening paragraph (book p.~275): the Appendix collects all the
-postulates for plane geometry together with a selection of the definitions
-and theorems. The authors recommend reading it through rather than merely
-consulting it, on the grounds that the order in which the theorems are
-arranged is itself a picture of how Euclidean geometry is built up.
-Summarised, not transcribed --- see \texttt{appendix-UNCERTAIN.md}, item~1.}
+This appendix lists all the postulates for plane geometry, along with
+some of the definitions and theorems. In addition to being convenient
+for reference purposes, the appendix merits study, because reading it
+over and thinking about the order of the theorems will help you fix the
+structure of Euclidean geometry in your mind.
 
 %========================================================= the postulates
 \APPhead{THE POSTULATES}{The Postulates}
@@ -12364,37 +13178,48 @@ The parallel postulate.
 \begin{applist}[resume]
 \item If $B$ is between $A$ and $C$, then $A$, $B$, and $C$ are three
       different, or distinct, points on a line.
-\item Of any three points on a line, exactly one is between the other two.
-\item Four points on a line can be named $A_1, A_2, A_3, A_4$ so that the
-      betweenness relations among them are exactly those given by the order
-      of the subscripts.
+\item For every three points on a line, exactly one of them is between the
+      other two.
+\item Any four points on a line may be named $A_1$, $A_2$, $A_3$, $A_4$, so
+      that the only betweenness relations are the same as the order of the
+      subscript numbers. That is, the betweenness relations are: $A_2$
+      between $A_1$ and $A_3$; $A_2$ between $A_1$ and $A_4$; etc.
 \item If $A$ and $B$ are two points, then there is at least one point $C$
       such that $B$ is between $A$ and $C$, and at least one point $D$ such
       that $D$ is between $A$ and $B$.
-\item Every line $l$ separates the plane: the points not on $l$ fall into
-      two sets, the two \emph{sides} of $l$, such that
+\item Every line separates the plane. By this we mean that all points of
+      the plane not on the line are divided into two sets, called the two
+      sides of the line, having the following properties:
       \begin{applist}
-      \item two points of the same set have no point of $l$ between them;
-      \item two points of different sets have a point of $l$ between them.
+      \item If $P$ and $Q$ belong to one of these sets, then no point of
+            $l$ is between $P$ and $Q$. We say then that $P$ and $Q$ are on
+            the same side of $l$.
+      \item If $P$ and $Q$ are in different sets, then there is a point on
+            $l$ which is between $P$ and $Q$.
       \end{applist}
 \end{applist}
 
 \APPsub{Linear Congruence Postulates}
 
 \begin{applist}[resume]
-\item Given $A$, $B$ on a line $l$ and $A'$ on a line $l'$, there is exactly
-      one point $B'$ on a given side of $A'$ with $AB \cong A'B'$. Order is
-      immaterial: $AB \cong A'B'$ also gives $AB \cong B'A'$,
-      $BA \cong A'B'$ and $BA \cong B'A'$.
-\item Segment congruence is reflexive, symmetric and transitive:
+\item Given points $A$ and $B$ on a line $l$ and a point $A'$ on a line
+      $l'$, then on a given side of $A'$ on $l'$ there is exactly one point
+      $B'$ such that $AB$ is congruent to $A'B'$. To indicate that $AB$ is
+      congruent to $A'B'$, we write ``$AB \cong A'B'$.''
+
+      In congruence the order of the points does not matter, that is, if
+      $AB \cong A'B'$, then also $AB \cong B'A'$, $BA \cong A'B'$, and
+      $BA \cong B'A'$.
+\item Congruence also satisfies the following:
       \begin{applist}
       \item $AB \cong AB$.
       \item If $AB \cong A'B'$, then $A'B' \cong AB$.
       \item If $AB \cong A'B'$ and $A'B' \cong A''B''$, then
             $AB \cong A''B''$.
       \end{applist}
-\item Segments may be added and subtracted. Let $B$ lie between $A$ and $C$
-      on a line $l$, and $B'$ between $A'$ and $C'$ on a line $l'$.
+\item (This postulate tells how to ``add'' and ``subtract'' segments.)
+      Suppose that $B$ is between $A$ and $C$ on a line $l$, and that $B'$
+      is between $A'$ and $C'$ on a line $l'$.
       \begin{applist}
       \item If $AB \cong A'B'$ and $BC \cong B'C'$, then $AC \cong A'C'$.
       \item If $AC \cong A'C'$ and $BC \cong B'C'$, then $AB \cong A'B'$.
@@ -12404,40 +13229,42 @@ The parallel postulate.
 \APPsub{Archimedes' Postulate}
 
 \begin{applist}[resume]
-\item Given a segment $AB$ on a line $l$ and any other segment $CD$, finitely
-      many points $A_1, A_2, \ldots, A_n$ of $l$ can be laid off in order
-      from $A$ with every segment $AA_1, A_1A_2, \ldots, A_{n-1}A_n$
-      congruent to $CD$, and with either $B = A_n$ or $B$ between $A_{n-1}$
+\item If $AB$ is any segment on a line $l$ and $CD$ any other segment, then
+      there is a finite number $n$ of points $A_1, A_2, \ldots, A_n$ on $l$
+      such that the points $A, A_1, A_2, \ldots, A_n$ are arranged in this
+      order, and all the segments $AA_1, A_1A_2, \ldots, A_{n-1}A_n$ are
+      congruent to $CD$, and either $B = A_n$ or $B$ lies between $A_{n-1}$
       and $A_n$.
 \end{applist}
 
 \APPsub{The Completeness Postulate}
 
 \begin{applist}[resume]
-\item For every line $l$, every point $A$ on $l$ and every positive real
-      number $x$, there is a point $B$ on a given side of $A$ with
-      $\sg{AB} = x$.
+\item For every line $l$ and any given point $A$ on $l$, and for any
+      positive real number $x$, there is, on a given side of $A$, a point
+      $B$ such that $\sg{AB} = x$.
 \end{applist}
 
 \APPsub{Congruence Postulates for Angles}
 
 \begin{applist}[resume]
-\item If $\ang{A}$ is not a straight angle and $r'$ is a ray from $A'$ on a
-      line $l'$, then on a given side of $l'$ there is exactly one ray $s'$
-      from $A'$ making the angle at $A'$ with sides $r'$, $s'$ congruent to
-      $\ang{A}$; we write $\ang{A'} \cong \ang{A}$. If $\ang{A}$ is a
-      straight angle, the straight angle at $A'$ with side $r'$ is the only
-      such angle.
-\item Angle congruence is reflexive, symmetric and transitive:
+\item If $\ang{A}$ is not a straight angle and if $r'$ is a ray from $A'$ on
+      a line $l'$, then on a given side of $l'$ there is exactly one ray
+      $s'$ from $A'$ such that the angle $A'$, with sides $r'$ and $s'$, is
+      congruent to angle $A$. We write this as ``$\ang{A'} \cong \ang{A}$.''
+      If $\ang{A}$ is a straight angle, then the straight angle at $A'$ with
+      one side $r'$ is the only angle with one side $r'$ congruent to angle
+      $A$.
+\item ~
       \begin{applist}
       \item $\ang{A} \cong \ang{A}$.
       \item If $\ang{A} \cong \ang{B}$, then $\ang{B} \cong \ang{A}$.
       \item If $\ang{A} \cong \ang{B}$ and $\ang{B} \cong \ang{C}$, then
             $\ang{A} \cong \ang{C}$.
       \end{applist}
-\item In the figure, if any two of the three pairs $\ang{A}$ and
-      $\ang{A'}$, $\ang{B}$ and $\ang{B'}$, $\ang{C}$ and $\ang{C'}$ are
-      congruent, then so is the third pair. That is:
+\item If in the figure any two of the pairs $\ang{A}$ and $\ang{A'}$,
+      $\ang{B}$ and $\ang{B'}$, $\ang{C}$ and $\ang{C'}$ are congruent, then
+      the third pair of angles are congruent. In other words:
       \begin{applist}
       \item If $\ang{A} \cong \ang{A'}$ and $\ang{B} \cong \ang{B'}$, then
             $\ang{C} \cong \ang{C'}$.
@@ -12467,99 +13294,125 @@ The parallel postulate.
 %========================================================= definitions
 \APPhead{SELECTED DEFINITIONS}{Selected Definitions}
 
-\APPnote{Headnote (book p.~277): not every definition is equally
-load-bearing, and the ones gathered here are the essential ones; a few are
-given in abbreviated form where the short form cannot be misread.
-Summarised, not transcribed.}
+Although every definition has a purpose, certain ones are more necessary
+than others, and most of these essential definitions are listed here. In
+some cases an abbreviated form of the definition is given when no
+misunderstanding can arise.
 
 \begin{applist}
-\item A \emph{geometric figure} is any set of points in the plane.
-\item The \emph{line segment} (or \emph{segment}) determined by two points
-      $A$, $B$ of a line is the set consisting of $A$, $B$ and all points
-      between them, written ``$AB$''; $A$ and $B$ are its \emph{ends}.
-\item For three points $A$, $B$, $C$ not all on a line, the points of the
-      segments $AB$, $BC$, $AC$ form a \emph{triangle}, written
-      $\tri{ABC}$; $A$, $B$, $C$ are its \emph{vertices} and $AB$, $AC$,
-      $BC$ its \emph{sides}.
-\item For $O$, $A$, $B$ on a line, $A$ and $B$ are on the \emph{same side of
-      $O$} if $O$ is not between them, and on \emph{opposite sides of $O$}
-      if $O$ is between them.
-\item A \emph{ray} from $O$ consists of $O$ together with all points on one
-      side of $O$ of a line through $O$.
-\item An \emph{angle} is the set of all points on two rays from a point $O$,
-      its \emph{vertex}; the rays are the \emph{sides}. If the rays lie on
-      one line the angle is a \emph{straight angle}.
-\item For an angle that is not straight, with vertex $O$ and sides $r_1$,
-      $r_2$ on lines $l_1$, $l_2$: its \emph{interior} is the set of points
-      lying both on the same side of $l_1$ as $r_2$ and on the same side of
-      $l_2$ as $r_1$; its \emph{exterior} is the set of points belonging
-      neither to the angle nor to its interior.
-\item Two angles are \emph{adjacent} if they share a side and vertex and
-      have no interior point in common.
-\item Let $AB$ and $A'B'$ be segments, $A'B'$ on a line $l'$, and let $B''$
-      be the point on the same side of $A'$ as $B'$ with $AB \cong A'B''$.
-      Then $AB > A'B'$ if $B'$ is between $A'$ and $B''$, and
-      $AB < A'B'$ if $B''$ is between $A'$ and $B'$.
+\item Each set of points in the plane is called a \emph{geometric figure}.
+\item If $A$ and $B$ are any two points on a line, then the set of points
+      consisting of $A$ and $B$ and all the points between $A$ and $B$ will
+      be called the \emph{line segment} (or \emph{segment}) determined by
+      $A$ and $B$. The segment will be indicated by ``$AB$.'' The points
+      $A$ and $B$ are called the \emph{ends} of the segment.
+\item If $A$, $B$, and $C$ are three points not all on a line, the set of
+      points of the segments $AB$, $BC$, $AC$ is called a \emph{triangle}.
+      We call the points $A$, $B$, and $C$ \emph{vertices} and the segments
+      $AB$, $AC$, $BC$ \emph{sides} of the triangle. To indicate ``triangle
+      $ABC$,'' we write ``$\tri{ABC}$.''
+\item If $O$ is a point of a line $l$ and $A$ and $B$ are two other points
+      of $l$, then we say that $A$ and $B$ are on the \emph{same side of
+      $O$} if $O$ is not between $A$ and $B$. We say that $A$ and $B$ are on
+      \emph{opposite sides of $O$} if $O$ is between $A$ and $B$.
+\item A \emph{ray} from $O$, or a ray with end $O$, is a set of
+      points consisting of $O$ and all the points on one side of $O$ of a
+      line $l$ through $O$.
+\item The set of all points on two rays from a point $O$ is called an
+      \emph{angle}. The point $O$ is called the \emph{vertex} of the angle,
+      and the two rays are called the \emph{sides} of the angle. If the two
+      rays are on the same line, the angle is called a \emph{straight
+      angle}.
+\item Consider an angle, not a straight angle, with vertex $O$ and whose
+      sides are the rays $r_1$ and $r_2$ on the lines $l_1$ and $l_2$,
+      respectively. The \emph{interior of the angle} is the set of all
+      points on the same side of $l_1$ as $r_2$ and on the same side of
+      $l_2$ as $r_1$. The \emph{exterior of the angle} is the set of all
+      points in the plane which are not points of the angle and are not in
+      the interior of the angle.
+\item Two angles are \emph{adjacent} to each other if they have a common
+      side and vertex and have no common interior points.
+\item Let $AB$ be any segment and $A'B'$ any other segment on a line $l'$.
+      On the same side of $A'$ as $B'$, let $B''$ be the point such that
+      $AB \cong A'B''$. If $B'$ is between $A'$ and $B''$, we say that
+      $AB > A'B'$. If $B''$ is between $A'$ and $B'$, we say that
+      $AB < A'B'$.
 \item For the definition of \emph{length of a segment} read Chapter 5,
       Section 4.
-\item A \emph{right} angle is one congruent to its supplement.
-\item Two triangles are \emph{congruent} if they can be labeled
-      $\tri{ABC}$ and $\tri{A'B'C'}$ in such a way that all three pairs of
-      corresponding sides and all three pairs of corresponding angles are
-      congruent. This is written $\tri{ABC} \cong \tri{A'B'C'}$.
-\item Let $\ang{A}$ and $\ang{B}$ be angles, neither of them straight. Copy
-      $\ang{B}$ as $\ang{B'}$ against the first side of $\ang{A}$, placing
-      it on the same side of that first side as the second side of
-      $\ang{A}$. Then $\ang{B} < \ang{A}$ if the second side of $\ang{B'}$
-      is interior to $\ang{A}$, and $\ang{B} > \ang{A}$ if it is exterior.
-      If $\ang{A}$ is straight and $\ang{B}$ is not, then
-      $\ang{A} > \ang{B}$.
-\item Given $n$ points $P_1, P_2, \ldots, P_n$, the points lying on the
-      segments $P_1P_2$, $P_2P_3$, \ldots, $P_{n-1}P_n$ form a
-      \emph{polygonal path} joining $P_1$ to $P_n$; the points $P_i$ are
-      its \emph{vertices}. If $P_1 = P_n$, the path is called a
-      \emph{polygon}, designated polygon $P_1P_2 \ldots P_{n-1}$.
+\item A \emph{right} angle is one which is congruent to its supplement.
+\item Two triangles are said to be \emph{congruent} if they can be labeled
+      $\tri{ABC}$ and $\tri{A'B'C'}$ such that $AB \cong A'B'$,
+      $AC \cong A'C'$, $BC \cong B'C'$, $\ang{A} \cong \ang{A'}$,
+      $\ang{B} \cong \ang{B'}$, and $\ang{C} \cong \ang{C'}$. To indicate
+      that ``triangle $ABC$ is congruent to triangle $A'B'C'$,'' we write
+      ``$\tri{ABC} \cong \tri{A'B'C'}$.''
+\item Let $A$ and $B$ be any angles, not straight angles. Let $\ang{B'}$ be
+      an angle congruent to $\ang{B}$ such that one side of $\ang{B'}$ is
+      the same as the first side of $\ang{A}$, and the other side of
+      $\ang{B'}$ and the second side of $\ang{A}$ lie on the same side of
+      the first side of $\ang{A}$. If the second side of $\ang{B'}$ is
+      interior to $\ang{A}$, we say $\ang{B} < \ang{A}$. If the second side
+      of $\ang{B'}$ is exterior to $\ang{A}$, we say $\ang{B} > \ang{A}$. If
+      $\ang{A}$ is a straight angle and $\ang{B}$ is not a straight angle,
+      we say $\ang{A} > \ang{B}$ and $\ang{B} < \ang{A}$.
+\item Let $P_1, P_2, \ldots, P_n$ be any set of $n$ points. The set of
+      points on all the segments $P_1P_2, P_2P_3, \ldots, P_{n-1}P_n$ is
+      called a \emph{polygonal path}. The path is said to join, or connect,
+      the endpoints $P_1$ and $P_n$. The points $P_1, \ldots, P_n$ are
+      called the \emph{vertices}. In particular, if $P_1 = P_n$, the
+      polygonal path is called a \emph{polygon} and designated as polygon
+      $P_1P_2 \ldots P_{n-1}$.
 
-      A polygon is \emph{convex} if, for every two of its points, every
-      point between them lies on the polygon or in its interior. A convex
-      polygon that is both equiangular and equilateral is \emph{regular}.
+      A polygon is \emph{convex} if for every two points on the polygon each
+      point between them is either on the polygon or in the interior. A
+      convex, equiangular, and equilateral polygon is called \emph{regular}.
 \item Two lines are \emph{parallel} if they do not intersect.
-\item If the ray $OB$ is in the interior of $\ang{AOC}$, or $\ang{AOC}$ is
-      straight, then $\ang{AOC}$ is the \emph{sum} of $\ang{AOB}$ and
+\item If the ray $OB$ is in the interior of $\ang{AOC}$ (or $\ang{AOC}$ is
+      straight), then $\ang{AOC}$ is the \emph{sum} of $\ang{AOB}$ and
       $\ang{BOC}$.
-\item The \emph{ratio} of segment $AB$ to segment $CD$ is the number
-      $\sg{AB} \div \sg{CD}$. Segments $AB$, $CD$ are \emph{proportional} to
-      $A'B'$, $C'D'$ when $\sg{AB}/\sg{A'B'} = \sg{CD}/\sg{C'D'}$; the sides
-      of $\tri{ABC}$ are proportional to those of $\tri{A'B'C'}$ when
-      $\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'} = \sg{CA}/\sg{C'A'}$.
-\item A \emph{circle} with center $O$ and positive number $r$ is the set of
-      points $A$ with $\sg{OA} = r$. For $A$ on the circle, $OA$ is a
-      \emph{radius} (plural \emph{radii}); a segment $AB$ with $A$, $B$ on
-      the circle and $O$ on $AB$ is a \emph{diameter}.
-\item For a circle with center $O$ and radius $r$: its \emph{interior} is
-      the set of points $B$ with $\sg{OB} < r$, its \emph{exterior} the set
-      of points $C$ with $\sg{OC} > r$. A \emph{chord} is a segment joining
-      two points $E$, $F$ of the circle, and line $EF$ is a \emph{secant}. A
-      \emph{central angle} has its vertex at the center; an \emph{inscribed
-      angle} has its vertex on the circle and meets the circle again on each
-      of its two sides.
-\item If to each positive integer $n$ a number $x_n$ is assigned, the
-      numbers $x_1, x_2, \ldots, x_n$ form an \emph{infinite sequence},
-      written $\{x_n\}$, and $x_n$ is its $n$th term.
-\item $L$ is the \emph{limit of the sequence} $x_n$ if $x_n$ is necessarily
-      arbitrarily close to $L$ for large $n$; written $L = \lim \{x_n\}$.
+\item If $AB$ and $CD$ are segments, the \emph{ratio} of $AB$ to $CD$ is the
+      number $\sg{AB} \div \sg{CD}$. The statement that the segments $AB$
+      and $CD$ are \emph{proportional} to the segments $A'B'$ and $C'D'$
+      means that $\sg{AB}/\sg{A'B'} = \sg{CD}/\sg{C'D'}$. We say that the
+      sides of $\tri{ABC}$ are proportional to the sides of $\tri{A'B'C'}$
+      if $\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'} = \sg{CA}/\sg{C'A'}$.
+\item A \emph{circle} is determined by a point $O$, called the center, and a
+      positive number $r$. The circle is the set of all points $A$ of the
+      plane such that the distance $\sg{OA} = r$. If $A$ is a point of the
+      circle, then the segment $OA$ is called a \emph{radius} (plural,
+      \emph{radii}). If $A$ and $B$ are on the circle and the segment $AB$
+      contains $O$, then $AB$ is called a \emph{diameter}.
+\item If a circle has center $O$ and radius $r$, the \emph{interior of the
+      circle} is the set of all points $B$ such that $\sg{OB} < r$. The
+      \emph{exterior of the circle} is the set of all points $C$ such that
+      $\sg{OC} > r$. A \emph{chord} is a segment determined by two points
+      $E$ and $F$ on the circle. The line through $E$ and $F$ is a
+      \emph{secant}. A \emph{central angle} of a circle is an angle whose
+      vertex is at the center of the circle. An \emph{inscribed angle} is an
+      angle with vertex on the circle and a second point of the circle on
+      each of the two sides of the angle.
+\item Suppose that for each positive integer $n$ there is associated in some
+      way, a number $x_n$. The numbers $x_1, x_2, \ldots, x_n$ then form an
+      \emph{infinite sequence}. The number $x_n$ is called the $n$th term of
+      the sequence. We designate the sequence by the symbol $\{x_n\}$.
+\item The number $L$ is called the \emph{limit of the sequence} $x_n$ if,
+      for large values of $n$, $x_n$ is necessarily arbitrarily close to
+      $L$. We then say that $L$ is the limit of the sequence of terms $x_n$
+      and write $L = \lim \{x_n\}$.
 \item The \emph{circumference} $C$ of a circle is the limit of the
-      perimeters $p_n$ of the regular inscribed polygons: $C = \lim \{p_n\}$.
-\item The number $C/d$, the same for every circle, is denoted by the Greek
-      letter $\pi$ (pi).
-\item The \emph{area} $S$ of a circle is the limit of the areas of the
-      inscribed regular polygons: $S = \lim \{S_n\}$.
-\item For a circular arc, let $l_n$ be the length of the regular polygonal
-      path of $2^n$ sides inscribed in it. The \emph{length} $l$ of the arc
-      is $l = \mathrm{limit}\, \{l_n\}$.
-\item On a circle of radius $r$, an arc of length $\pi r/180$ is subtended
-      by a central angle of \emph{one degree} ($1^\circ$).
-\item If a central angle of a circle of radius $r$ subtends an arc of length
+      perimeters $p_n$ of regular inscribed polygons. That is,
+      $C = \lim \{p_n\}$.
+\item The number $C/d$, which is the same for all circles, will be denoted
+      by the Greek letter $\pi$ (pi).
+\item The \emph{area $S$ of a circle} is the limit of the areas of inscribed
+      regular polygons. That is, $S = \lim \{S_n\}$.
+\item Given a circular arc, let $l_n$ be the length of a regular polygonal
+      path of $2^n$ sides inscribed in the arc. The \emph{length $l$ of the
+      arc} is defined to be the following limit:
+      $l = \mathrm{limit}\, \{l_n\}$.
+\item On a circle of radius $r$ an arc of length $\pi r/180$ is subtended by
+      a central angle of \emph{one degree} ($1^\circ$).
+\item If on a circle of radius $r$ a central angle subtends an arc of length
       $L$, then the \emph{measure of the angle in degrees} is
       $(L/\pi r) \cdot 180^\circ$.
 \end{applist}
@@ -12567,24 +13420,28 @@ Summarised, not transcribed.}
 %========================================================= theorems
 \APPhead{SELECTED THEOREMS}{Selected Theorems}
 
-\APPnote{Headnote (book p.~280): the theorems below were picked to show how
-the ideas were developed and, above all, \emph{in what order}; the list is
-avowedly incomplete, and where a statement here is looser than the one in
-the text the reader is asked to supply the missing precision or turn back to
-the chapter. Summarised, not transcribed.}
+The theorems selected below have been chosen to help you remember how the
+ideas have been developed and \emph{in what order}. There is no attempt at
+completeness, and in some cases the statement is less precise than in the
+text; when this is the case, you should try to fill in the details or refer
+back to the text.
 
 \begin{applist}
 \item Two different lines intersect in at most one point.
-\item A point $O$ of a line $l$ separates $l$ into two \emph{sides} of $O$,
-      such that for $P$, $Q$ on the same side either $OPQ$ or $OQP$, and for
-      $P$, $Q$ on different sides $POQ$.
-\item If $P$ and $Q$ are both interior to $\ang{O}$, so is the segment $PQ$.
-\item A ray $r$ from $O$ other than the sides $r_1$, $r_2$ of $\ang{O}$ lies
-      wholly in the interior or wholly in the exterior of $\ang{O}$.
-\item If $P$ is interior to $\ang{O}$ and $Q$ exterior, the segment $PQ$
-      contains a point of the angle.
-\item For any two segments exactly one of $AB > A'B'$, $AB \cong A'B'$,
-      $AB < A'B'$ holds.
+\item Let $O$ be any point of a line $l$. The point $O$ separates the line
+      into two sets, called the two sides of the point $O$ on the line,
+      having the following properties: (1) If $P$ and $Q$ belong to the same
+      side of $O$, then either $OPQ$ or $OQP$. (2) If $P$ and $Q$ belong to
+      different sides of $O$, then $POQ$.
+\item If $P$ and $Q$ are both in the interior of $\ang{O}$, then the segment
+      $PQ$ is in the interior of $\ang{O}$.
+\item If rays $r_1$ and $r_2$ form $\ang{O}$, a ray $r$ from $O$, other than
+      $r_1$ or $r_2$ lies either completely in the interior or completely in
+      the exterior of $\ang{O}$.
+\item If $P$ is in the interior of $\ang{O}$ and $Q$ is in the exterior of
+      $\ang{O}$, then the segment $PQ$ contains a point of the angle.
+\item If $AB$ and $A'B'$ are any two segments, either $AB > A'B'$, or
+      $AB \cong A'B'$, or $AB < A'B'$, and exactly one of these holds.
 \item If $AB > CD$ and $CD \cong EF$, then $AB > EF$.
 \item If $AB \cong A'B'$, then $\sg{AB} = \sg{A'B'}$.
 \item If $\sg{AB} = \sg{A'B'}$, then $AB \cong A'B'$.
@@ -12592,15 +13449,16 @@ the chapter. Summarised, not transcribed.}
 \item The S.A.S. theorem for congruent triangles.
 \item The A.S.A. theorem.
 \item The S.S.S. theorem.
-\item For any two angles exactly one of $\ang{A} < \ang{B}$,
-      $\ang{A} \cong \ang{B}$, $\ang{A} > \ang{B}$ is true.
+\item For any two angles $\ang{A}$ and $\ang{B}$ either
+      $\ang{A} < \ang{B}$, or $\ang{A} \cong \ang{B}$, or
+      $\ang{A} > \ang{B}$, and exactly one of these is true.
 \item All right angles are congruent to one another.
 \item An exterior angle of a triangle is greater than either opposite
       interior angle.
 \item In $\tri{ABC}$, $AB > AC$ if and only if $\ang{C} > \ang{B}$.
 \item In $\tri{ABC}$, $\sg{AB} + \sg{BC} > \sg{AC}$.
-\item If $l$ is any line and $A$ any point not on $l$, there exists at least
-      one line on $A$ parallel to $l$.
+\item If $l$ is any line and $A$ any point not on $l$, then there exists at
+      least one line on $A$ parallel to $l$.
 \item If parallel lines are cut by a transversal, the alternate interior
       angles are congruent.
 \item The sum of the angles of a triangle is a straight angle.
@@ -12616,9 +13474,9 @@ the chapter. Summarised, not transcribed.}
 \item In $\tri{ABC}$ with $\ang{C}$ a right angle,
       $\sg{AC}^2 + \sg{BC}^2 = \sg{AB}^2$.
 \item The area of a triangle is one half the base times the altitude.
-\item Circles with centers $A$ and $B$, each of radius
-      $r > \frac{1}{2}\sg{AB}$, intersect in two points on opposite sides of
-      the line $AB$.
+\item Suppose that circles with centers $A$ and $B$ each have radius
+      $r > \frac{1}{2}\sg{AB}$. Then these circles intersect in two points
+      on opposite sides of the line $AB$.
 \item Exactly one circle is circumscribed about a regular polygon.
 \item If regular polygons of $n$ sides are inscribed in two circles, then
       the perimeters of the polygons are proportional to the radii of the

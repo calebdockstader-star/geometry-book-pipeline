@@ -12,8 +12,17 @@
 % The book's stacked "Given: / Prove:" exercise layout (Exercise Groups 6--5,
 % 6--11, 6--14 and the review exercises).  Each argument may hold its own
 % \\-separated lines.
+% The leading break must NOT be taken when \VIgp is the first thing in an
+% \item.  LaTeX's \@endpe machinery (armed by any list/center environment that
+% just ended -- e.g. the centred display closing Ex. 6-6 #3) hands the NEXT
+% paragraph an \everypar that removes its last box, and that box is the item
+% label.  The label is then eaten and re-emitted on the following item, which
+% printed "4" and "5" on top of each other in Exercise Group 6-6.  Entering
+% horizontal mode with \leavevmode when we are still in vertical mode lays the
+% label down first and puts "Given:" on the same line, which is how every
+% correctly-set item in this chapter already reads.
 \newcommand{\VIgp}[2]{%
-  \par\smallskip\noindent
+  \ifvmode\leavevmode\else\par\smallskip\noindent\fi
   \begin{tabular}[t]{@{}l@{\hspace{0.6em}}l@{}}
     Given: & \begin{tabular}[t]{@{}l@{}}#1\end{tabular}\\[2pt]
     Prove: & \begin{tabular}[t]{@{}l@{}}#2\end{tabular}

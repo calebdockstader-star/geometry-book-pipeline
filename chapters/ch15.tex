@@ -22,6 +22,18 @@
 % (Same device as ch02's \IIstarnote and ch09's \IXstarnote.)
 \newcommand{\XVnote}[1]{\begingroup\renewcommand{\thefootnote}{}%
   \footnotetext{#1}\endgroup}
+% Halftone photographic plate: framed placeholder, never redrawn (B&W pass).
+% Same shape as ch01's \Iplate and ch02's \IIplate.
+\newcommand{\XVplate}[2]{%
+  \par\medskip
+  \begin{center}
+  \fbox{\begin{minipage}{0.72\linewidth}\centering\vspace{2.4cm}
+    {\footnotesize\itshape[halftone photographic plate --- not redrawn]}
+    \vspace{2.4cm}\end{minipage}}%
+  \par\smallskip
+  {\footnotesize\textsc{#1}\\ #2}
+  \end{center}
+  \par\medskip}
 % (No star-convention footnote here: ch15 has starred exercises and two starred
 % theorems, but none of book pp.251-265 carries the "*Starred exercises ... are
 % optional" note; ch02:311 owns the book-wide first use.)
@@ -29,6 +41,14 @@
 
 \begin{document}
 \setcounter{chapter}{15}
+
+% Facing-page plate for the chapter opener (book p.250 = PDF 264, facing
+% p.251). Halftone photograph, never redrawn -- same treatment and the same
+% ownership rule as ch01's Pythagoras/Archimedes and ch02's Aristotle plates:
+% the chapter whose opener the plate faces emits it. Previously orphaned:
+% ch14-UNCERTAIN handed it to ch15, ch15-UNCERTAIN handed it back to ch14, so
+% no unit emitted it at all.
+\XVplate{Ren\'e Descartes (1596--1650)}{Courtesy of \emph{Scripta Mathematica}.}
 
 \chapter*{\raggedright\Huge ANALYTIC GEOMETRY}
 \addcontentsline{toc}{chapter}{15.\ Analytic Geometry}

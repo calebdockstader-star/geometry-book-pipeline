@@ -58,3 +58,7 @@ the recovery map. Any session can resume from here.
 - Agents/API need network. Session crons: recovery checks armed for
   10:45 and 12:45 MDT on 2026-08-17 (session-local — gone if the terminal
   closes; then start a fresh session and follow this file).
+
+> **COMPLETE 2026-08-17 ~09:50 MDT.** The book shipped: build/book.pdf, 467 pp,
+> all gates green (2038/2038 constraints, 0 collisions, 0 placeholders).
+> This file is retained as history only. See STATUS.md and OPEN-QUESTIONS.md.

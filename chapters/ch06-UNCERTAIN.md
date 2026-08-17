@@ -313,3 +313,22 @@ paragraph opening, and every numeral. Compiles twice clean after the fixes
 3. **`\subsection*` blocks still carry no `\addcontentsline`** (carried over
    from §5 above). Correct per spec, but worth a decision if the review
    material should appear in the contents.
+
+---
+
+## Figure-finish closing note (2026-08-17, integration agent)
+
+The final figure pass (a 92-minute agent run) completed all remaining work but
+its report was lost to a server error. Final state verified independently from
+the gates:
+
+- `verify_figures.py 06` → **247/247** (constraints parse the TeX; 115 added
+  during scan verification of the previously-unverified blocks)
+- `check_labels.py … 06` → **0 COLLIDE**, 47 TIGHT across all 70 blocks
+- compiles twice clean; full 50-page visual pass re-done at integration —
+  the flagged dense blocks (6-40/41/42, 6-64..67, 6-87/88, 6-90/91, 6-92,
+  6-94, 6-117, 6-125/126) all render clean and legible.
+
+§4(d) and §4(e) above are SUPERSEDED by this state. The agent's scan-crop
+working files are in the session scratchpad (`ch06fin/`, `sm/`, `f6*.png`)
+for anyone wanting its measurement trail.
