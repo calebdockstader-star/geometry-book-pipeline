@@ -19,17 +19,17 @@
 \input{figures15}
 \input{figures17}
 % ================= local macros from frontmatter =================
-% Halftone photographs in the original are reproduced as PLATES: a framed
-% placeholder carrying the original caption. Never redrawn.
-%   #1 = placeholder height, #2 = caption block (already formatted)
-\newcommand{\FMplate}[2]{%
+% Halftone photographs are reproduced as PLATES, never redrawn.
+% Caleb, 2026-08-17: "I WANT THE ACTUAL HALFTONE PICTURES IN THERE".  The
+% plates now carry the real image, cut from his own iPad scans of his copy
+% (see plates/MANIFEST.md for the source page and processing of each).
+%   #1 = image file in plates/, #2 = printed height, #3 = caption block
+\newcommand{\FMplate}[3]{%
   \par\medskip
   \begin{center}
-  \fbox{\begin{minipage}[c][#1][c]{0.68\linewidth}\centering\footnotesize\itshape
-    halftone photograph\\ not reproduced in this edition
-  \end{minipage}}%
+  \includegraphics[height=#2]{#1}%
   \par\smallskip
-  {\footnotesize #2}
+  {\footnotesize #3}
   \end{center}
   \par\medskip}
 
@@ -54,16 +54,14 @@
 % Halftone plates: the book prints full-page photographs facing several pages of
 % this chapter. They are reproduced as framed placeholders carrying the original
 % caption; see ch01-UNCERTAIN.md.
-\newcommand{\Iplate}[2]{%
+% Carry the real halftone since 2026-08-17 (Caleb: "I WANT THE ACTUAL HALFTONE
+% PICTURES IN THERE"), cut from scan01 pp.19-20 -- see plates/MANIFEST.md.
+%   #1 = image file in plates/, #2 = title, #3 = caption
+\newcommand{\Iplate}[3]{%
   \par\medskip
   \begin{center}
-  \fbox{\begin{minipage}[c][0.42\textheight][c]{0.78\linewidth}\centering
-    \footnotesize\itshape [halftone photograph --- plate not reproduced]
-    \par\vspace{1.2em}
-    \normalfont\textsc{#1}\par
-    \smallskip
-    {\footnotesize #2}
-  \end{minipage}}
+  \includegraphics[height=64mm]{#1}\par\smallskip
+  {\normalfont\textsc{#2}\par\smallskip\footnotesize #3}
   \end{center}
   \par\medskip}
 % ================= local macros from ch03 =================
@@ -98,16 +96,9 @@
   \footnotetext{*\,#1}\endgroup}
 % Fig. 5-1 is a pictorial vignette, not a geometric diagram -> placeholder,
 % per the plate rule (same treatment as Fig. 4-1). See ch05-UNCERTAIN.md.
-\newcommand{\FIGVONE}{\begin{bkfigure}[0.46\linewidth]
-\fbox{\begin{minipage}{0.92\linewidth}\centering\footnotesize
-\vspace{1.6em}
-\textit{[Illustration: a man striding along the\\
-hatched ground beside a building, pacing\\
-off its length.]}
-\vspace{1.6em}
-\end{minipage}}
-\figcap{5--1}
-\end{bkfigure}}
+\newcommand{\FIGVONE}{\begin{bkfigure}[0.44\linewidth]
+\includegraphics[width=0.44\linewidth]{fig-5-1}%
+\figcap{5--1}\end{bkfigure}}
 % ================= local macros from ch06 =================
 % Unnumbered star footnote, same reasoning as ch02/ch09: \starnote in
 % brumfiel.sty emits a bare \footnotetext, which prints the footnote counter;
@@ -146,16 +137,15 @@ off its length.]}
 % use of the convention note (\IIstarnote); ch05 and ch10 omit it for the
 % same reason.
 % ================= local macros from ch08 =================
-% Plate placeholder: a halftone photograph in the original, never redrawn.
-\newcommand{\VIIIplate}[2]{%
+% Halftone plate, never redrawn.  Carries the real image since 2026-08-17
+% (Caleb: "I WANT THE ACTUAL HALFTONE PICTURES IN THERE"), cut from scan09
+% pp.12-13 -- see plates/MANIFEST.md.
+%   #1 = image file in plates/, #2 = caption block, #3 = figure number
+\newcommand{\VIIIplate}[3]{%
   \begin{bkfigure}[0.78\linewidth]
-  \setlength{\fboxsep}{10pt}%
-  \fbox{\begin{minipage}{0.80\linewidth}\centering\footnotesize
-    \textsc{plate}\par\medskip
-    #1\par\medskip
-    \emph{Halftone photograph in the original; not redrawn.}
-  \end{minipage}}
-  \figcap{#2}
+  \includegraphics[height=62mm]{#1}\par\smallskip
+  {\footnotesize #2}
+  \figcap{#3}
   \end{bkfigure}}
 % Two unnumbered "*" footnotes belonging to this chapter (book pp.135 and 139).
 % \starnote in brumfiel.sty emits a bare \footnotetext, which prints the
@@ -317,14 +307,13 @@ off its length.]}
   \footnotetext{#1}\endgroup}
 % Halftone photographic plate: framed placeholder, never redrawn (B&W pass).
 % Same shape as ch01's \Iplate and ch02's \IIplate.
-\newcommand{\XVplate}[2]{%
+%   #1 = image file in plates/, #2 = name, #3 = caption
+\newcommand{\XVplate}[3]{%
   \par\medskip
   \begin{center}
-  \fbox{\begin{minipage}{0.72\linewidth}\centering\vspace{2.4cm}
-    {\footnotesize\itshape[halftone photographic plate --- not redrawn]}
-    \vspace{2.4cm}\end{minipage}}%
+  \includegraphics[height=64mm]{#1}%
   \par\smallskip
-  {\footnotesize\textsc{#1}\\ #2}
+  {\footnotesize\textsc{#2}\\ #3}
   \end{center}
   \par\medskip}
 % (No star-convention footnote here: ch15 has starred exercises and two starred
@@ -354,6 +343,17 @@ off its length.]}
                     itemsep=2.5pt, topsep=4pt, parsep=0pt}
 \setlist[applist,2]{label=(\alph*), leftmargin=1.9em, labelsep=0.4em,
                     itemsep=1.5pt, topsep=2.5pt, parsep=0pt}
+% ================= local macros from errata =================
+\newlist{erratalist}{description}{1}
+\setlist[erratalist]{style=nextline, leftmargin=1.4em, labelsep=0.4em,
+                     itemsep=4pt, topsep=4pt, parsep=0pt,
+                     font=\normalfont\bfseries\small}
+% "reads X / meant Y" pair, set compactly under an entry head
+\newcommand{\ERprints}[1]{\emph{Prints:} #1}
+\newcommand{\ERmeans}[1]{\emph{Read:} #1}
+% ================= local macros from bookindex =================
+\newcommand{\idxmain}[2]{\par\noindent\hangindent=1.2em #1\quad #2\par}
+\newcommand{\idxsub}[2]{\par\noindent\hspace*{1.2em}\hangindent=2.4em #1\quad #2\par}
 % short pages end short instead of stretching inter-para glue
 \raggedbottom
 % several units relied on standalone-body emergencystretch; the
@@ -391,7 +391,7 @@ off its length.]}
 % Euclid frontispiece: engraved/halftone portrait plate facing the title page.
 \thispagestyle{empty}
 \null\vspace*{0.06\textheight}
-\FMplate{52mm}{%
+\FMplate{plate-euclid}{52mm}{%
   \textsc{Euclid}\\
   Courtesy of\\
   \textit{Scripta Mathematica}}
@@ -576,7 +576,7 @@ Good luck,\par
 \clearpage
 \thispagestyle{empty}
 \null\vspace*{0.05\textheight}
-\FMplate{58mm}{%
+\FMplate{plate-hilbert}{58mm}{%
   \textsc{David Hilbert}\\
   \textit{(1862--1943)}\\
   Professor of Mathematics,\\
@@ -684,9 +684,9 @@ followers. All ideas were communal property of the brotherhood. Besides the
 Pythagorean theorem concerning right triangles, he (or his school) made notable
 discoveries in music, astronomy, and arithmetic.
 
-\Iplate{Pythagoras}{From a fresco by Raphael.\\ Courtesy of \emph{Scripta Mathematica}.}
+\Iplate{plate-pythagoras}{Pythagoras}{From a fresco by Raphael.\\ Courtesy of \emph{Scripta Mathematica}.}
 
-\Iplate{The Death of Archimedes}{From a mosaic found in the ancient city of
+\Iplate{plate-archimedes}{The Death of Archimedes}{From a mosaic found in the ancient city of
 Pompeii.\\ Courtesy of \emph{Scripta Mathematica}.}
 
 \setcounter{footnote}{0}
@@ -942,7 +942,8 @@ compass, and protractor. However, throughout this course your best tool will be
 your ability to think straight.
 
 \exercisegroup{1--3}
-\begin{multicols}{2}
+% multicols dropped for this group: it carries figures, and the book sets each
+% one immediately after the exercise that cites it, at the full measure.
 \begin{exlist}
 \item Draw a picture of a line, using your straightedge. Now if you sharpened
       your pencil \emph{very} sharp, could you draw a picture of a line inside the
@@ -959,27 +960,23 @@ your ability to think straight.
       we call the \emph{angle} consists of the points on the two rays. The points
       between the rays form the \emph{interior} of the angle. The other points of
       the plane form the \emph{exterior} of the angle. (Fig.~1--4.)
+\exfig{\FIGIFOUR}
 \item A \emph{right angle} has a measure of $90^\circ$. Construct a right angle
       with your protractor.
-\end{exlist}
-\end{multicols}
-
-\FIGIFOUR
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{6}
 \item Draw an angle of $37^\circ$, of $120^\circ$, of $85^\circ$.
 \item An angle is \emph{bisected} if a ray from the vertex splits the angle into
       two angles of the same size. In Fig.~1--5, the ray $AC$ bisects
       $\ang{BAD}$ because $\ang{CAB}$ and $\ang{DAC}$ are the same size. The ray
       $AC$ is the bisector of the angle. Draw an angle of $45^\circ$ and bisect
       it, using your protractor.
+\exfig{\FIGIFIVE}
 \item Draw a picture of a triangle. Measure each of the angles of the triangle.
       What is their sum? Repeat for several different triangles. Can you guess
       something that is true for all triangles?
 \item As in Fig.~1--6, an \emph{acute angle} is an angle of less than
       $90^\circ$; an \emph{obtuse angle} is an angle of more than $90^\circ$.
       Draw two acute angles and two obtuse angles with your protractor.
+\exfig{\FIGISIX}
 \item Draw a triangle and measure the sides and the angles. Which side is
       opposite the largest angle? opposite the smallest angle? Draw another
       triangle and repeat the measurements. Can you guess something which now
@@ -989,37 +986,24 @@ your ability to think straight.
       angles of the triangle. What is their sum? Draw another right triangle and
       make the same measurements. Is the sum of the two angles the same as
       before?
-\end{exlist}
-\end{multicols}
-
-\FIGIFIVESIX
-
-\FIGISEVENEIGHT
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{12}
+\exfig{\FIGISEVEN}
 \item One angle is said to be \emph{complementary} to another if their sum is
       $90^\circ$. Construct two such angles with your protractor. In Fig.~1--8,
       if $\ang{AOB}$ is a right angle, what can you say about $\ang{COA}$? about
       $\ang{COB}$?
+\exfig{\FIGIEIGHT}
 \item One angle is said to be \emph{supplementary} to another if their sum is
       $180^\circ$. Construct two such angles with your protractor. What can you
       say about $\ang{AOB}$ and about $\ang{BOC}$ in Fig.~1--9?
+\exfig{\FIGININE}
 \item Two distinct rays $OA$ and $OB$ which lie on one straight line form a
       \emph{straight angle} (Fig.~1--10). What is the measure of a straight
       angle?
+\exfig{\FIGITEN}
 \item A \emph{quadrilateral} (Fig.~1--11) is a figure with four sides, just as a
       triangle is a figure with three sides. Draw a picture of a quadrilateral and
       measure its angles. What is their sum?
-\end{exlist}
-\end{multicols}
-
-\FIGININETEN
-
-\FIGIELEVEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{16}
+\exfig{\FIGIELEVEN}
 \item Add the following:
   \begin{enumerate}[label=(\alph*), leftmargin=1.9em, itemsep=1pt, topsep=2pt]
   \item $12^\circ\ 10'\ 25''$, $31^\circ\ 48'\ 30''$, and $43^\circ\ 50'\ 40''$.
@@ -1055,7 +1039,6 @@ your ability to think straight.
 \item What kind of angle is the supplement of an acute angle? of an obtuse angle?
       Does an obtuse angle have a complement?
 \end{exlist}
-\end{multicols}
 
 %========================================================= 1-6
 \section*{1--6\quad RULER AND COMPASS}
@@ -1073,7 +1056,8 @@ Greeks knew. Exercise 2, in fact, is the first proposition in Euclid's
 we shall \emph{prove} that some of them are correct.
 
 \exercisegroup{1--4}
-\begin{multicols}{2}
+% multicols dropped for this group: it carries figures, and the book sets each
+% one immediately after the exercise that cites it, at the full measure.
 \begin{exlist}
 \item A triangle having two sides of equal length is called an \emph{isosceles
       triangle}. Draw a picture of an isosceles triangle. Measure the angles
@@ -1085,38 +1069,27 @@ we shall \emph{prove} that some of them are correct.
       each angle in an equilateral triangle? A triangle with all angles equal is
       called an \emph{equiangular triangle}. Are equilateral triangles
       equiangular? Are equiangular triangles equilateral?
+\exfig{\FIGITWELVE}
 \item Draw an angle like that in Fig.~1--13. Use your compass to copy $\ang{AOB}$
       as $\ang{A'O'B'}$ in the figure. Measure the two angles with your protractor
       to see if they are the same size.
-\end{exlist}
-\end{multicols}
-
-\FIGITWELVETHIRTEEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{3}
+\exfig{\FIGITHIRTEEN}
 \item Draw the figures shown in Fig.~1--14.
+\exfig{\FIGIFOURTEEN}
 \item Use your straightedge and compass to draw and bisect an angle
       (Fig.~1--15). Check your work by measurement with a protractor. State in
       your own words why you think the construction is correct.
+\exfig{\FIGIFIFTEEN}
 \item Angles which have a common vertex and a common side and have no interior
       points in common are said to be \emph{adjacent}. Thus, in Fig.~1--16,
       $\ang{AOB}$ is adjacent to $\ang{BOC}$. Is $\ang{AOC}$ adjacent to
       $\ang{BOC}$? Are the angles in Fig.~1--17 adjacent to one another?
+\exfig{\FIGISIXTEEN}
+\exfig{\FIGISEVENTEEN}
 \item Draw a picture of a segment. From some point $A$ on a line, construct with
       your compass a segment $AB$ as long as the segment you first drew. (See
       Fig.~1--18.)
-\end{exlist}
-\end{multicols}
-
-\FIGIFOURTEEN
-
-\FIGIFIFTEENSIXTEEN
-
-\FIGISEVENTEENEIGHTEEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{7}
+\exfig{\FIGIEIGHTEEN}
 \item Two lines are \emph{perpendicular} if they intersect at right angles.
       Another way of defining perpendicular would be to say that all the adjacent
       angles formed by the intersecting lines are the same size. To indicate that
@@ -1130,12 +1103,15 @@ we shall \emph{prove} that some of them are correct.
       Draw a line segment and construct its perpendicular bisector with
       straightedge and compass. Check by measurement. State why you think the
       construction is correct.
+\exfig{\FIGININETEEN}
 \item Draw a line $l$ and mark a point $O$ on it. With straightedge and compass,
       construct a line $m \perp l$ and passing through $O$. (See Fig.~1--20.)
+\exfig{\FIGITWENTY}
 \item Draw a line $l$ and mark a point $P$ not on the line. With your straightedge
       and compass, construct a line $m$ through $P$ perpendicular to $l$. Check by
       measurement with your protractor. State why you think the construction is
       correct. (See Fig.~1--21.)
+\exfig{\FIGITWENTYONE}
 \item A line segment drawn from a vertex of a triangle to the midpoint of the
       opposite side is called a \emph{median} of the triangle. A triangle has
       three medians that meet in one point $O$ (see Fig.~1--22). We shall prove
@@ -1144,36 +1120,20 @@ we shall \emph{prove} that some of them are correct.
       Draw a triangle and its medians. Can you describe where the medians
       intersect? Try to find how to describe $O$ by measurement. Make this
       construction for several triangles.
+\exfig{\FIGITWENTYTWO}
 \item Cut a triangle out of cardboard. Find where the medians intersect. If your
       work is accurate you will find that the triangle will balance on your finger
       at the place where the medians intersect (Fig.~1--23).
-\end{exlist}
-\end{multicols}
-
-\FIGININETEENTWENTY
-
-\FIGITWENTYONETWENTYTWO
-
-\FIGITWENTYTHREE
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{12}
+\exfig{\FIGITWENTYTHREE}
 \item An \emph{altitude} of a triangle is a line segment drawn from a vertex
       perpendicular to the line \emph{containing} the opposite side [see
       Fig.~1--24, (a) and (b)]. A triangle has three altitudes. The lines
       containing the altitudes of a triangle always intersect in one point [see
       Fig.~1--24(c)]. Draw several triangles and their altitudes.
+\exfig{\FIGITWENTYFOUR}
 \item Draw a triangle and bisect each of the angles of the triangle. The three
       bisectors will meet in one point (Fig.~1--25).
-\end{exlist}
-\end{multicols}
-
-\FIGITWENTYFOUR
-
-\FIGITWENTYFIVE
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{14}
+\exfig{\FIGITWENTYFIVE}
 \item Two lines, $l$ and $m$, are said to be \emph{parallel} if they do not
       intersect. We indicate ``$l$ is parallel to $m$'' by writing $l \pll m$.
       (Remember that lines are infinitely long.) If another line $n$ intersects
@@ -1188,6 +1148,8 @@ we shall \emph{prove} that some of them are correct.
 
       We shall prove later that this construction with straightedge and compass is
       correct.
+\exfig{\FIGITWENTYSIX}
+\exfig{\FIGITWENTYSEVEN}
 \item Draw a line $l$ and mark a point $A$ not on $l$. Construct a line through
       the point $A$ parallel to $l$.
 \item Draw a right triangle (Fig.~1--28). The side opposite the right angle is
@@ -1199,12 +1161,8 @@ we shall \emph{prove} that some of them are correct.
       Pythagoras in the 6th century B.C. We will prove this important theorem
       later in the book. Test the truth of the Pythagorean theorem by measuring
       several different right triangles.
+\exfig{\FIGITWENTYEIGHT}
 \end{exlist}
-\end{multicols}
-
-\FIGITWENTYSIXTWENTYSEVEN
-
-\FIGITWENTYEIGHT
 
 %========================================================= Review
 \section*{REVIEW OF CHAPTER 1}
@@ -1373,14 +1331,15 @@ the answer. Do not guess.
 
 % ---- local macros (hoist into book preamble) ----
 % Halftone photographic plate: framed placeholder, never redrawn (B&W pass).
-\newcommand{\IIplate}[2]{%
+% Carries the real plate since 2026-08-17 (Caleb: "I WANT THE ACTUAL HALFTONE
+% PICTURES IN THERE"), cut from scan02 p.16 -- see plates/MANIFEST.md.
+%   #1 = image file in plates/, #2 = name, #3 = caption
+\newcommand{\IIplate}[3]{%
   \par\medskip
   \begin{center}
-  \fbox{\begin{minipage}{0.72\linewidth}\centering\vspace{2.4cm}
-    {\footnotesize\itshape[halftone photographic plate --- not redrawn]}
-    \vspace{2.4cm}\end{minipage}}%
+  \includegraphics[height=62mm]{#1}%
   \par\smallskip
-  {\footnotesize\textsc{#1}\\ #2}
+  {\footnotesize\textsc{#2}\\ #3}
   \end{center}
   \par\medskip}
 % Unnumbered star footnote. \starnote in brumfiel.sty emits a bare
@@ -1397,7 +1356,7 @@ the answer. Do not guess.
 % ---- end local macros ----
 
 % Facing-page plate for the chapter opener (book p.20, facing p.21).
-\IIplate{Aristotle}{A view of a statue in a Vienna museum.\\
+\IIplate{plate-aristotle}{Aristotle}{A view of a statue in a Vienna museum.\\
 Courtesy of \emph{Scripta Mathematica}.}
 
 \chapter*{\raggedright\Huge LOGIC}
@@ -2820,12 +2779,14 @@ or lines than shown in Fig.~3--7.
 \end{remark}
 
 \exercisegroup{3--1}
-\begin{multicols}{2}
+% multicols dropped for this group: it carries figures, and the book sets each
+% one immediately after the exercise that cites it, at the full measure.
 \begin{exlist}
 \item Restate the point-line and the three-point postulates in other words.
 \item Prove that if $l$ is any line, there is at least one point not on $l$.
 \item Explain why both $a$ and $b$ in Fig.~3--8 cannot represent lines if $P$ and
       $Q$ represent points.
+\exfig{\FIGIIIEIGHT}
 \item Prove that if $l$ is a line and $P$ is on $l$ then there is another point
       on $l$.
 \item Why can we not prove there are more than three lines in our plane?
@@ -2833,20 +2794,15 @@ or lines than shown in Fig.~3--7.
 \item Suppose that $l$ is a line. List all the things you can say about this line
       and points of the plane. Give your reasons.
 \item Given Fig.~3--9, what can you conclude about $l$ and $m$? Why?
+\exfig{\FIGIIININE}
 \item A line $l$ contains the points $P$ and $Q$. The line $m$ also contains $P$
       and $Q$. What can you conclude?
 \item Two lines have a point $A$ in common. What can you say about the lines?
 \item Prove that there are at least two lines on each point.
 \item Why, when looking at Fig.~3--10, can we not prove that there are at least
       five points in the plane?
+\exfig{\FIGIIITEN}
 \end{exlist}
-\end{multicols}
-
-\FIGIIIEIGHT
-
-\FIGIIININE
-
-\FIGIIITEN
 
 %========================================================= 3-4
 \section*{3--4\quad POSTULATES OF BETWEENNESS}
@@ -2980,7 +2936,8 @@ Before working the exercises, read all the postulates again to be sure that you
 understand them.
 
 \exercisegroup{3--2}
-\begin{multicols}{2}
+% multicols dropped for this group: it carries Fig. 3-18, and the book sets the
+% figure immediately after the exercise that cites it, at the full measure.
 \begin{exlist}
 \item Draw a line and mark five points on it. Write out all the betweenness
       relations.
@@ -2997,7 +2954,6 @@ understand them.
       $EFG$, how many possible positions are there for $H$ that can be described
       in terms of our betweenness relations?
 \end{exlist}
-\end{multicols}
 
 \begin{exlist}[start=7]
 \item $A$ and $B$ are points on a line $l$. Write three true statements about
@@ -3011,7 +2967,6 @@ understand them.
 \step{\rule{0.92\linewidth}{0.4pt}}{\rule{0.92\linewidth}{0.4pt}}
 \end{steps}
 
-\begin{multicols}{2}
 \begin{exlist}[start=8]
 \item If $RST$ and $VRS$, relabel the points $R$, $S$, $T$, and $V$ as $A_1$,
       $A_2$, $A_3$, and $A_4$ (in some order) in accordance with II--3. If
@@ -3040,6 +2995,7 @@ understand them.
 \item[\stex 15.] A line $l$ (Fig.~3--18) does not contain any of the vertices of
       a triangle. The line $l$ does intersect the side $AB$, but does not
       intersect the side $BC$. Prove that $l$ must intersect $AC$.
+\exfig{\FIGIIIEIGHTEEN}
 \item[\stex 16.] Draw a line and choose two points $A$ and $B$ on one side of the
       line. Choose $C$ so that $ACB$. Can you prove that $C$ and $A$ are on the
       same side of the line?
@@ -3048,9 +3004,6 @@ understand them.
 \item[\stex 18.] Prove that for every line $l$ there is a point on each side of
       $l$.
 \end{exlist}
-\end{multicols}
-
-\FIGIIIEIGHTEEN
 
 %========================================================= 3-5
 \section*{3--5\quad RAYS AND ANGLES}
@@ -3315,13 +3268,15 @@ segment $PQ$ contains a point of the triangle (Fig.~3--35).
 \FIGIIITHIRTYFOURTHIRTYFIVE
 
 \exercisegroup{3--6}
-\begin{multicols}{2}
+% multicols dropped for this group: it carries figures, and the book sets each
+% one immediately after the exercise that cites it, at the full measure.
 \begin{exlist}
 \item Referring to Fig.~3--36, draw an angle with vertex $O$. Pick a point $A$ on
       one side of $\ang{O}$. Draw an angle with vertex $A$ with one side the ray
       $AO$ and the other side a ray intersecting the other side of $\ang{O}$ in
       $B$. Shade the interior of $\ang{O}$ and the interior of $\ang{A}$. Are
       points in both interiors also in the interior of $\tri{OBA}$?
+\exfig{\FIGIIITHIRTYSIX}
 \item Draw a $\tri{ABC}$. If a point $P$ is on the same side of $AB$ as $C$ and
       on the same side of $BC$ as $A$, show that $P$ is not necessarily on the
       same side of $AC$ as $B$.
@@ -3344,6 +3299,7 @@ segment $PQ$ contains a point of the triangle (Fig.~3--35).
       \item (f) $P$ is on the same side of $l$ as $m_1$ and on the same side of
             $m$ as $l_1$.
       \end{itemize}
+\exfig{\FIGIIITHIRTYSEVEN}
 \item Prove that the following definition is equivalent to Definition 3--11: The
       interior of $\tri{ABC}$ is the set of all points in the interior of
       $\ang{A}$ and also in the interior of $\ang{B}$. (With this definition it
@@ -3360,20 +3316,15 @@ segment $PQ$ contains a point of the triangle (Fig.~3--35).
       (see Fig.~3--38). Show that there is a point $R$ of $r_1$ between $Q$ and
       $P$. [\emph{Hint:} Certainly there is a point $R$ of $l_1$ between $Q$ and
       $P$. Show that it is impossible that $R$ be on $r_1'$.]
+\exfig{\FIGIIITHIRTYEIGHT}
 \item[\stex 13.] In Theorem 3--6 suppose $Q$ is in position $Q_2$, that is, on
       $r_2'$ (see Fig.~3--39). Show that there is a point $R$ of $r_1$ between
       $Q$ and $P$.
+\exfig{\FIGIIITHIRTYNINE}
 \item[\stex 14.] Tell why the positions $Q_4$ and $Q_5$ of Fig.~3--33 are much
       the same as positions $Q_2$ and $Q_1$, respectively. If you have done
       positions $Q_1$ and $Q_2$, why are positions $Q_5$ and $Q_4$ easy?
 \end{exlist}
-\end{multicols}
-
-\FIGIIITHIRTYSIX
-
-\FIGIIITHIRTYSEVEN
-
-\FIGIIITHIRTYEIGHTTHIRTYNINE
 
 %========================================================= end matter
 \section*{REVIEW OF CHAPTER 3}
@@ -3709,7 +3660,10 @@ size. The third postulate tells how to combine segments by what we call
 
 \exercisegroup{4--2}
 
-\begin{multicols}{2}
+% No multicols: this group carries Figs. 4-4 and 4-5, which now sit inline
+% with the exercises that cite them (book p.66 sets 4-4 beside ex. 7 and 4-5
+% across the foot of the page).  A figure boxed into a 52 mm column would
+% print smaller than the book's own.
 \begin{exlist}
 \item What does it mean to say $RS = TU$?
 \item If $RS = TU$, is $RS \cong TU$? Justify your answer.
@@ -3725,6 +3679,7 @@ size. The third postulate tells how to combine segments by what we call
 \item In Fig.~4--4 the following congruences hold: $AB \cong BC$,
       $CD \cong CE$, $CE \cong ED$, $EF \cong EB$. List all other congruences
       that you recognize.
+\exfig{\FIGIVFOUR}
 \item The sign $=$ was defined in this section. State the definition in your own
       words.
 \item State the three postulates of linear congruence in your own words, using
@@ -3750,15 +3705,11 @@ size. The third postulate tells how to combine segments by what we call
 \item[15.] Each part of Fig.~4--5 indicates certain congruence relations. The
       marks show which segments are congruent. What other relations can be
       deduced? Point out how the postulates are used.
+\exfig{\FIGIVFIVE}
 \item[\stex 16.] Show how to relabel the points in parts (b) and (c) of
       Fig.~4--5 as $A$, $B$, $C$ and $A'$, $B'$, $C'$ so that the application of
       Postulate III--3 is clearly shown.
 \end{exlist}
-\end{multicols}
-
-\FIGIVFOUR
-
-\FIGIVFIVE
 
 %========================================================= 4-4
 \section*{4--4\quad COMPARING SEGMENTS}
@@ -3800,12 +3751,16 @@ $AB \cong A'B'$, or $AB < A'B'$, and exactly one of these is true.
 
 \exercisegroup{4--3}
 
-\begin{multicols}{2}
+% No multicols: Figs. 4-7, 4-8 and 4-9 belong to exercises 1, 2 and 3 and are
+% set immediately after them, as the book does on p.68.
 \begin{exlist}
 \item Does Fig.~4--7 indicate that $AB < CD$ or that $CD > AB$? Read
       Definition 4--1 again.
+\exfig{\FIGIVSEVEN}
 \item What relationships are indicated by Fig.~4--8? Use Definition 4--1.
+\exfig{\FIGIVEIGHT}
 \item What relationships are indicated by Fig.~4--9? Use Definition 4--1.
+\exfig{\FIGIVNINE}
 \item If we know that $AB \cong CD$ and $ABX$, what can we conclude? Use
       Definition 4--1.
 \item It is known that $RS \cong UT$ and $RVS$. What conclusion can be drawn?
@@ -3813,9 +3768,6 @@ $AB \cong A'B'$, or $AB < A'B'$, and exactly one of these is true.
 \item Does Definition 4--1 say that if $AB > CD$ then $CD < AB$? Does looking at
       a figure prove that this is so?
 \end{exlist}
-\end{multicols}
-
-\FIGIVSEVENEIGHTNINE
 
 The exercises above are meant to prepare you for the main theorem of this
 section, namely: if one segment is greater than a second, then the second is less
@@ -4680,23 +4632,22 @@ side $r\VIpr$ congruent to angle $A$.
 \FIGVIONE
 
 \exercisegroup{6--1}
-\begin{multicols}{2}
 \begin{exlist}
 \item If $\ang{A}$ is not a straight angle, how many angles with side $r\VIpr$
   are congruent to $\ang{A}$? How many if $\ang{A}$ is a straight angle?
 \item In a figure like 6--2 draw the possible positions of the side $s\VIpr$
   such that $\ang{A\VIpr} \cong \ang{A}$.
+\exfig{\FIGVITWO}
 \item In a figure like 6--3, draw all possible positions of $s\VIpr$ such that
   $\ang{A\VIpr} \cong \ang{A}$.
+\exfig{\FIGVITHREE}
 \item If in Fig.~6--4, $A$ is a straight angle and $r\VIpr$ is a ray from
   $A\VIpr$, draw an angle, with one side $r\VIpr$, that is congruent to $A$.
   Is it the only such angle?
+\exfig{\FIGVIFOUR}
 \item If $\ang{O}$ is a straight angle and $\ang{O\VIpr} \cong \ang{O}$, is
   $\ang{O\VIpr}$ a straight angle? Why?
 \end{exlist}
-\end{multicols}
-
-\FIGVITWOTHREEFOUR
 
 %========================================================= 6-3
 \section*{6--3\quad POSTULATE V--2, THE THREE-PART ANGLE POSTULATE}
@@ -4762,7 +4713,6 @@ In other words:
 \medskip
 
 \exercisegroup{6--3}
-\begin{multicols}{2}
 \begin{exlist}
 \item We have not yet in our geometry studied the measurement of angles in
   degrees. However, in this exercise, use the fact (which will be proved later)
@@ -4781,20 +4731,19 @@ In other words:
     $\ang{C} \cong \ang{C\VIpr}$ and $\ang{C\VIpr}$ is $33^\circ$, how many
     degrees in $\ang{B}$?
   \end{enumerate}
+\exfig{\FIGVISIX}
 \item In Fig.~6--7, if $\ang{POR} \cong \ang{SVU}$, and $\ang{QOR} \cong
   \ang{TVU}$, what can you say about $\ang{POQ}$?
+\exfig{\FIGVISEVEN}
 \item In Fig.~6--8, if $\ang{BAC} \cong \ang{DAE}$, what can you say about
   $\ang{BAD}$?
+\exfig{\FIGVIEIGHT}
 \item In Fig.~6--9, if $\ang{SPU} \cong \ang{RPT}$, what can you say about
   $\ang{RPS}$?
+\exfig{\FIGVININE}
 \item Is Exercise 2 an example of ``adding'' or ``subtracting'' angles? What
   about Exercises 3 and 4?
 \end{exlist}
-\end{multicols}
-
-\FIGVISIXSEVEN
-
-\FIGVIEIGHTNINE
 
 Supplementary and adjacent angles were defined in Definition 3--9. The
 statement that $\ang{A}$ is \emph{supplementary} to $\ang{B}$ shall mean that
@@ -4841,24 +4790,23 @@ It is important to distinguish between properties and relations.
 \end{remark}
 
 \exercisegroup{6--4}
-\begin{multicols}{2}
 \begin{exlist}
 \item If an angle is a right angle, what is its supplement?
 \item If $\ang{1} \cong \ang{2}$ in Fig.~6--13, prove that $\ang{EAC} \cong
   \ang{DAB}$.
+\exfig{\FIGVITHIRTEEN}
 \item In Fig.~6--14 it is given that $\ang{B}$ is congruent to the supplement
   of $\ang{C}$ and $\ang{C} \cong \ang{D}$. Prove that $\ang{A} \cong \ang{E}$.
+\exfig{\FIGVIFOURTEEN}
 \item[\stex 4.] An angle is congruent to a right angle. Show that it, too, is a
   right angle.
 \item[5.] In Fig.~6--15, the line $CD$ bisects $\ang{AOB}$. Show that it also
   bisects $\ang{EOF}$. (By ``bisect'' we mean that $\ang{AOC} \cong \ang{COB}$.)
+\exfig{\FIGVIFIFTEEN}
 \item[6.] Decide whether the following words refer to properties or relations:
   perpendicular, parallel, vertex, altitude, greater than, angle, segment,
   median, right (angle), straight (angle), bisector.
 \end{exlist}
-\end{multicols}
-
-\FIGVITHIRTEENFOURTEENFIFTEEN
 
 %========================================================= 6-5
 \section*{6--5\quad POSTULATE V--4, THE SIDE-ANGLE-SIDE POSTULATE}
@@ -4885,12 +4833,13 @@ the \emph{included} angles) are congruent to each other, then the other pairs
 of corresponding angles are congruent.
 
 \exercisegroup{6--5}
-\begin{multicols}{2}
 \begin{exlist}
 \item In Fig.~6--17, if $AB \cong DF$, $BC \cong DE$, and $\ang{B} \cong
   \ang{D}$, what angle is congruent to $\ang{A}$? to $\ang{C}$?
+\exfig{\FIGVISEVENTEEN}
 \item In Fig.~6--18, if $PQ = US$, $QR = UT$, and $\ang{Q} \cong \ang{U}$, what
   congruences hold?
+\exfig{\FIGVIEIGHTEEN}
 \item Draw figures to show that if $AB \cong A\VIpr B\VIpr$, and $\ang{A} \cong
   \ang{A\VIpr}$, but $AC \not\cong A\VIpr C\VIpr$ (the symbol $\not\cong$ is
   read ``is not congruent to''), then it need not be true that $\ang{C} \cong
@@ -4900,47 +4849,45 @@ of corresponding angles are congruent.
   true that $\ang{B} \cong \ang{B\VIpr}$.
 \item If, in the figure $AC \cong AD$, and $\ang{CAB} \cong \ang{BAD}$, prove
   that $\ang{C} \cong \ang{D}$. (Fig.~6--19)
+\exfig{\FIGVININETEEN}
 \item If, in the figure, $DO \cong OB$, and $AO \cong OC$, prove that $\ang{A}
   \cong \ang{C}$. (Fig.~6--20)
+\exfig{\FIGVITWENTY}
 \item If, in the figure, $AB \cong CD$, and $\ang{CBA} \cong \ang{BCD}$, prove
   that $\ang{CAB} \cong \ang{BDC}$. (Fig.~6--21)
+\exfig{\FIGVITWENTYONE}
 \item If, in the figure, $AD \cong BD$, and $\ang{ADC}$ is a right angle, prove
   that $\ang{A} \cong \ang{B}$. (Fig.~6--22)
+\exfig{\FIGVITWENTYTWO}
 \item \VIgp{$\ang{EBC} \cong \ang{ABD}$,\\ $AB \cong BC$,\\ $BE \cong BD$.}%
   {$\ang{A} \cong \ang{C}$.\\ \hbox{}\hfill(Fig.~6--23)}
+\exfig{\FIGVITWENTYTHREE}
 \item \VIgp{$AD \cong DC$,\\ $\ang{1} \cong \ang{C}$,\\ $\ang{2} \cong
   \ang{C}$.}{$\ang{3} \cong \ang{4}$.\\ \hbox{}\hfill(Fig.~6--24)}
+\exfig{\FIGVITWENTYFOUR}
 \item \VIgp{$\ang{1} \cong \ang{2}$,\\ $\ang{BCF} \cong \ang{ADF}$,\\ $CG \cong
   HD$,\\ $CF \cong DF$.}{$\ang{3} \cong \ang{4}$.\\ \hbox{}\hfill(Fig.~6--25)}
+\exfig{\FIGVITWENTYFIVE}
 \item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AE \cong CD$,\\ $AB \cong BC$.}%
   {$\ang{E} \cong \ang{D}$.\\ \hbox{}\hfill(Fig.~6--26)}
+\exfig{\FIGVITWENTYSIX}
 \item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AC \cong BC$,\\ $AM \cong BM$.}%
   {$\ang{3} \cong \ang{4}$.\\ \hbox{}\hfill(Fig.~6--27)}
+\exfig{\FIGVITWENTYSEVEN}
 \item \VIgp{$\ang{ADC} \cong \ang{ABC}$,\\ $\ang{1} \cong \ang{2}$,\\ $AD \cong
   BC$.}{$\ang{A} \cong \ang{C}$.\\ \hbox{}\hfill(Fig.~6--28)}
+\exfig{\FIGVITWENTYEIGHT}
 \item \VIgp{$AD \cong DC$,\\ $\ang{1} \cong \ang{2}$.}{$\ang{A} \cong
   \ang{C}$.\\ \hbox{}\hfill(Fig.~6--29)}
+\exfig{\FIGVITWENTYNINE}
 \item[\stex 16.] \VIgp{$BF \cong ED$,\\ $AE \cong CF$,\\ $\ang{1} \cong
   \ang{2}$.}{$\ang{3} \cong \ang{4}$,\\ $\ang{5} \cong \ang{6}$.\\
   \hbox{}\hfill(Fig.~6--30)}
+\exfig{\FIGVITHIRTY}
 \item[\stex 17.] \VIgp{$AB \cong AD$,\\ $BO \cong OD$,\\ $\ang{OAB} \cong
   \ang{OAD}$.}{$\ang{1} \cong \ang{2}$.\\ \hbox{}\hfill(Fig.~6--31)}
+\exfig{\FIGVITHIRTYONE}
 \end{exlist}
-\end{multicols}
-
-\FIGVISEVENTEENEIGHTEEN
-
-\FIGVININETEENTWENTY
-
-\FIGVITWENTYONETWENTYTWO
-
-\FIGVITWENTYTHREETWENTYFOUR
-
-\FIGVITWENTYFIVETWENTYSIXTWENTYSEVEN
-
-\FIGVITWENTYEIGHTTWENTYNINE
-
-\FIGVITHIRTYTHIRTYONE
 
 %========================================================= 6-6
 \section*{6--6\quad ISOSCELES TRIANGLES}
@@ -4979,43 +4926,43 @@ $AM \cong MB$.
 \end{definition}
 
 \exercisegroup{6--6}
-\begin{multicols}{2}
 \begin{exlist}
 \item Using Theorem 6--3, prove that an equilateral triangle is equiangular.
 \item If $PQ = PR$, and $\ang{Q}$ is $44^\circ$, how many degrees in $\ang{R}$?
   (We have not yet studied degrees in our geometry, but for this problem you
   may use what you already know from Chapter 1.) (Fig.~6--33)
+\exfig{\FIGVITHIRTYTHREE}
 \item If, in the figure, $AB \cong AC$ and $BD \cong DC$, prove that
   \begin{center}
   $\ang{ABC} \cong \ang{ACB}$,\\ $\ang{CBD} \cong \ang{BCD}$,\\
   $\ang{ABD} \cong \ang{ACD}$.\\ \hbox{}\hfill(Fig.~6--34)
   \end{center}
+\exfig{\FIGVITHIRTYFOUR}
 \item \VIgp{$AC \cong BC$,\\ $AD \cong DB$.}{$\ang{1} \cong \ang{2}$.\\
   \hbox{}\hfill(Fig.~6--35)}
+\exfig{\FIGVITHIRTYFIVE}
 \item \VIgp{$\ang{ABC} \cong \ang{ABE}$,\\ $CB \cong BE$.}{$\ang{C} \cong
   \ang{E}$.\\ \hbox{}\hfill(Fig.~6--36)}
+\exfig{\FIGVITHIRTYSIX}
 \item \VIgp{$AC \cong DF$,\\ $BD \cong CE$,\\ $\ang{1} \cong \ang{2}$.}%
   {$\ang{A} \cong \ang{F}$.\\ \hbox{}\hfill(Fig.~6--37)}
+\exfig{\FIGVITHIRTYSEVEN}
 \item In the figure $AD \cong EC$, and $BE \cong BD$. Show that $\ang{A} \cong
   \ang{C}$. (Fig.~6--38)
+\exfig{\FIGVITHIRTYEIGHT}
 \item \VIgp{$RS \cong RT$,\\ $US \cong UT$.}{$\ang{RSU} \cong \ang{RTU}$.\\
   \hbox{}\hfill(Fig.~6--39)}
+\exfig{\FIGVITHIRTYNINE}
 \item \VIgp{$AC \cong BC$,\\ $CD \cong CE$.}{$\ang{1} \cong \ang{2}$.\\
   \hbox{}\hfill(Fig.~6--40)}
+\exfig{\FIGVIFORTY}
 \item \VIgp{$AO \cong OD$,\\ $AF \cong FD$,\\ $BO \cong OC$,\\ $BF \cong FC$.}%
   {$\ang{EAB} \cong \ang{EDC}$.\\ \hbox{}\hfill(Fig.~6--41)}
+\exfig{\FIGVIFORTYONE}
 \item In the figure, $AC \cong BC$, $CG \cong CF$, and $\ang{1} \cong \ang{2}$.
   Prove that $\ang{3} \cong \ang{4}$. (Fig.~6--42)
+\exfig{\FIGVIFORTYTWO}
 \end{exlist}
-\end{multicols}
-
-\FIGVITHIRTYTHREETHIRTYFOURTHIRTYFIVE
-
-\FIGVITHIRTYSIXTHIRTYSEVEN
-
-\FIGVITHIRTYEIGHTTHIRTYNINE
-
-\FIGVIFORTYFORTYONEFORTYTWO
 
 %========================================================= 6-7
 \section*{6--7\quad CONGRUENCE OF TRIANGLES}
@@ -5085,46 +5032,45 @@ note that $\sg{AB} = \sg{CD}$ and by the properties of numbers $\sg{AM} =
 \sg{CN}$ so that $AM \cong CN$.
 
 \exercisegroup{6--8}
-\begin{multicols}{2}
 \begin{exlist}
 \item Given the figure, let $\ang{1} \cong \ang{2}$ and $AB \cong BC$. Prove
   that $AD \cong DC$. (Fig.~6--44)
+\exfig{\FIGVIFORTYFOUR}
 \item Given the figure, let $\ang{1} \cong \ang{2}$ and $EF \cong GH$. Prove
   that $\tri{EGH} = \tri{HFE}$. (Fig.~6--45)
+\exfig{\FIGVIFORTYFIVE}
 \item Given the figure, let $AC \cong AD$ and $AB$ bisect $\ang{A}$. Prove that
   $\ang{CBA} \cong \ang{DBA}$. (Fig.~6--46)
+\exfig{\FIGVIFORTYSIX}
 \item Given the figure, let $AB \cong AD$ and $BC \cong CD$. Prove that
   $\tri{ABC} \cong \tri{ADC}$. (Fig.~6--47)
+\exfig{\FIGVIFORTYSEVEN}
 \item If, in the figure, $AB \cong AC$, $D$ is the midpoint of $AB$, and $E$ is
   the midpoint of $AC$, prove that $\tri{ABE} \cong \tri{ACD}$. (Fig.~6--48)
+\exfig{\FIGVIFORTYEIGHT}
 \item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that
   $\ang{ABC} \cong \ang{ADC}$ and $\ang{BAC} \cong \ang{DAC}$. (Fig.~6--49)
+\exfig{\FIGVIFORTYNINE}
 \item In the figure, $AB \cong BC$, and $D$, $E$ are the midpoints of $AB$ and
   $BC$ respectively. Prove that $AE \cong CD$. (Fig.~6--50)
+\exfig{\FIGVIFIFTY}
 \item Given: $EB \cong BD$, $B$ is the midpoint of $AC$, and $\ang{EBC} \cong
   \ang{DBA}$. Prove that $AE \cong CD$. (Fig.~6--51)
+\exfig{\FIGVIFIFTYONE}
 \item Prove that $BD \cong AC$ if $\ang{DAB} \cong \ang{CBA}$ and $AD \cong
   BC$. (Fig.~6--52)
+\exfig{\FIGVIFIFTYTWO}
 \item In the figure, $AD \cong EC$, and $BE \cong BD$. Prove that $\tri{ABC}$
   is isosceles. (Fig.~6--53)
+\exfig{\FIGVIFIFTYTHREE}
 \item A farmer, wishing to find the distance between posts at $A$ and $B$ on
   opposite sides of a barn, does the following. He places a stake at $C$, and
   on the line through $B$ and $C$ places a stake at $D$, such that $\sg{BC} =
   \sg{DC}$. Then on the line through $A$ and $C$, he places a stake at $E$,
   such that $\sg{AC} = \sg{CE}$. He measures $DE$ and finds the length is
   78~ft. Prove that $\sg{AB} = 78$~ft. (Fig.~6--54)
+\exfig{\FIGVIFIFTYFOUR}
 \end{exlist}
-\end{multicols}
-
-\FIGVIFORTYFOURFORTYFIVE
-
-\FIGVIFORTYSIXFORTYSEVEN
-
-\FIGVIFORTYEIGHTFORTYNINE
-
-\FIGVIFIFTYFIFTYONE
-
-\FIGVIFIFTYTWOFIFTYTHREEFIFTYFOUR
 
 %========================================================= 6-8
 \section*{6--8\quad THE SECOND CONGRUENCE THEOREM}
@@ -5164,25 +5110,31 @@ A\VIpr}$ congruent to $\ang{C}$. This is impossible, so $B\VIpr = D\VIpr$.
 \end{steps}
 
 \exercisegroup{6--9}
-\begin{multicols}{2}
 \begin{exlist}
 \item If, in the figure, $\ang{1} \cong \ang{2}$, and $\ang{3} \cong \ang{4}$,
   prove that $\tri{ABD} \cong \tri{CBD}$. (Fig.~6--56)
+\exfig{\FIGVIFIFTYSIX}
 \item If, in the figure, $\ang{1} \cong \ang{2}$, and $\ang{3} \cong \ang{4}$,
   prove that $AB = CD$. (Fig.~6--57)
+\exfig{\FIGVIFIFTYSEVEN}
 \item If, in the figure, $\ang{1} \cong \ang{2}$, and $AB \cong BC$, prove that
   $AE \cong DC$. (Fig.~6--58)
+\exfig{\FIGVIFIFTYEIGHT}
 \item Draw a triangle. Let one angle be $31^\circ$, a second angle be
   $53^\circ$, and their included side be 7 inches.
 \item If, in the figure, $\ang{ABC} \cong \ang{ABE}$, and $\ang{CDB} \cong
   \ang{EDB}$, prove that $CD \cong ED$. (Fig.~6--59)
+\exfig{\FIGVIFIFTYNINE}
 \item If, in the figure, $AB \cong BC$, and $\ang{A} \cong \ang{C}$, prove that
   $\tri{ABD} \cong \tri{CBE}$. (Fig.~6--60)
+\exfig{\FIGVISIXTY}
 \item If, in the figure, $\ang{A} \cong \ang{D}$ and $AB \cong BD$, prove that
   $AE \cong CD$. (Fig.~6--61)
+\exfig{\FIGVISIXTYONE}
 \item If, in the figure, $AF \cong CD$, $\ang{A} \cong \ang{D}$, and
   $\ang{ACB} \cong \ang{DFE}$, prove that $\tri{ABC} \cong \tri{DEF}$.
   (Fig.~6--62)
+\exfig{\FIGVISIXTYTWO}
 \item Draw triangles $ABC$ whose parts are:
   \begin{enumerate}[label=(\alph*), leftmargin=2.2em, itemsep=1pt, topsep=3pt]
   \item $\ang{A} = 36^\circ$; $\ang{B} = 45^\circ$; $AB = 3$ in.
@@ -5191,28 +5143,20 @@ A\VIpr}$ congruent to $\ang{C}$. This is impossible, so $B\VIpr = D\VIpr$.
   \end{enumerate}
 \item \VIgp{$\ang{3} \cong \ang{4}$,\\ $AB \cong AD$,\\ $AC$ bisects
   $\ang{BAD}$.}{$BC \cong CD$.\\ \hbox{}\hfill(Fig.~6--63)}
+\exfig{\FIGVISIXTYTHREE}
 \item In the figure, $AF \cong FB$, and $AE \cong DB$. Prove that $\ang{3}
   \cong \ang{4}$. (Fig.~6--64)
+\exfig{\FIGVISIXTYFOUR}
 \item Prove that $\ang{1} \cong \ang{2}$ if $AB \cong BC$ and $AD \cong DC$.
   (Fig.~6--65)
+\exfig{\FIGVISIXTYFIVE}
 \item If $AH \cong HB$, and $AG \cong GB$, prove that $\ang{3} \cong \ang{4}$.
   (Fig.~6--66)
+\exfig{\FIGVISIXTYSIX}
 \item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AC \cong BC$,\\ $DF \cong EG$.}%
   {$\tri{HIJ}$ is isosceles.\\ \hbox{}\hfill(Fig.~6--67)}
+\exfig{\FIGVISIXTYSEVEN}
 \end{exlist}
-\end{multicols}
-
-\FIGVIFIFTYSIX
-
-\FIGVIFIFTYSEVENFIFTYEIGHT
-
-\FIGVIFIFTYNINESIXTY
-
-\FIGVISIXTYONESIXTYTWOSIXTYTHREE
-
-\FIGVISIXTYFOURSIXTYFIVE
-
-\FIGVISIXTYSIXSIXTYSEVEN
 
 In Section 6--6 we proved that the base angles of an isosceles triangle are
 congruent. We can now easily prove the converse.
@@ -5292,80 +5236,77 @@ Fig.~6--71(a) or 6--71(b).
 \FIGVISEVENTYONE
 
 \exercisegroup{6--11}
-\begin{multicols}{2}
 \begin{exlist}
 \item You can conclude from Theorem 6--7 that a triangle is \emph{rigid}. Why?
   Why is a brace put on a gate? (Fig.~6--72)
+\exfig{\FIGVISEVENTYTWO}
 \item If, in the figure, $\sg{AB} = \sg{BC}$, and $\sg{AD} = \sg{DC}$, prove
   that $\ang{ABD} \cong \ang{DBC}$. (Fig.~6--73)
+\exfig{\FIGVISEVENTYTHREE}
 \item If, in the figure, $\sg{AB} = \sg{DC}$, and $AD \cong BC$, prove that
   $\ang{CAB} \cong \ang{ACD}$ and $\ang{D} = \ang{B}$. (Fig.~6--74)
+\exfig{\FIGVISEVENTYFOUR}
 \item If, in the figure, $AB \cong BC$, and $AD \cong DC$, prove that $BD$
   bisects $\ang{ABC}$. (Fig.~6--75)
+\exfig{\FIGVISEVENTYFIVE}
 \item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that $\ang{1}
   \cong \ang{2}$, $\tri{ABE} \cong \tri{ADE}$, and $\ang{AEB}$ is a right
   angle. (Fig.~6--76)
+\exfig{\FIGVISEVENTYSIX}
 \item If, in the figure, $\sg{AB} = \sg{CD}$, and $\sg{BC} = \sg{AD}$, and
   $\sg{AF} = \sg{EC}$, prove that $\sg{BF} = \sg{ED}$. (Fig.~6--77)
+\exfig{\FIGVISEVENTYSEVEN}
 \item If, in the figure, $\tri{ABC}$ is isosceles with vertex $B$, and $AD
   \cong EC$, prove that $BE \cong BD$. (Fig.~6--78)
+\exfig{\FIGVISEVENTYEIGHT}
 \item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that $\ang{B}
   \cong \ang{D}$. (Fig.~6--79)
+\exfig{\FIGVISEVENTYNINE}
 \item \VIgp{$CE \cong CF$,\\ $AE \cong BF$,\\ $AD \cong BD$.}{$\ang{1} \cong
   \ang{2}$.\\ \hbox{}\hfill(Fig.~6--80)}
+\exfig{\FIGVIEIGHTY}
 \item \VIgp{$\ang{1} \cong \ang{2}$,\\ $\ang{DCE} \cong \ang{DCF}$,\\ $AC \cong
   BC$.}{$AD \cong BD$.\\ \hbox{}\hfill(Fig.~6--81)}
+\exfig{\FIGVIEIGHTYONE}
 \item If $AC \cong BD$, and $AD \cong BC$, show that $\ang{C} \cong \ang{D}$.
   (Fig.~6--82)
+\exfig{\FIGVIEIGHTYTWO}
 \item If $AB \cong BC$, and $BD \cong BE$, show that $\ang{A} \cong \ang{C}$.
   (Fig.~6--83)
+\exfig{\FIGVIEIGHTYTHREE}
 \item \VIgp{$AC \cong BC$,\\ $AD \cong DB$.}{$AO \cong BO$.\\
   \hbox{}\hfill(Fig.~6--84)}
+\exfig{\FIGVIEIGHTYFOUR}
 \item Prove that $AD \cong BE$ if $AC \cong BC$ and $\ang{1} \cong \ang{2}$.
   (Fig.~6--85)
+\exfig{\FIGVIEIGHTYFIVE}
 \item \VIgp{$AD \cong BC$,\\ $AB \cong DC$,\\ $AM \cong MC$.}{$EM \cong MF$.\\
   \hbox{}\hfill(Fig.~6--86)}
+\exfig{\FIGVIEIGHTYSIX}
 \item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AE \cong DB$.}{$\ang{3} \cong
   \ang{4}$.\\ \hbox{}\hfill(Fig.~6--87)}
+\exfig{\FIGVIEIGHTYSEVEN}
 \item \VIgp{$BE \cong CE$,\\ $\ang{1} \cong \ang{2}$.}{$\ang{3} \cong
   \ang{4}$.\\ \hbox{}\hfill(Fig.~6--88)}
+\exfig{\FIGVIEIGHTYEIGHT}
 \item Prove that the medians from the base angles of an isosceles triangle are
   congruent.
 \item \VIgp{$AD \cong BC$,\\ $AB \cong CD$,\\ $\ang{1} \cong \ang{2}$.}%
   {$DE \cong BF$.\\ \hbox{}\hfill(Fig.~6--89)}
+\exfig{\FIGVIEIGHTYNINE}
 \item \VIgp{$AD \cong CB$,\\ $BD \cong AC$.}{$\tri{DEC}$ is isosceles.\\
   \hbox{}\hfill(Fig.~6--90)}
+\exfig{\FIGVININETY}
 \item \VIgp{$AB \cong CD$,\\ $AE \cong CF$,\\ $\ang{3} \cong \ang{4}$.}%
   {$\ang{1} \cong \ang{2}$.\\ \hbox{}\hfill(Fig.~6--91)}
+\exfig{\FIGVININETYONE}
 \item If triangles $ABC$ and $ADE$ are isosceles with vertex $A$, and $\ang{1}
   \cong \ang{2}$, prove that $\ang{3} \cong \ang{4}$, $FG \cong FH$, and $GI
   \cong HJ$. (Fig.~6--92)
+\exfig{\FIGVININETYTWO}
 \item Prove that the line joining the vertex of an isosceles triangle to the
   midpoint of the base bisects the vertex angle, and conversely.
 \end{exlist}
-\end{multicols}
-
-\FIGVISEVENTYTWOSEVENTYTHREESEVENTYFOUR
-
-\FIGVISEVENTYFIVESEVENTYSIX
-
-\FIGVISEVENTYSEVENSEVENTYEIGHT
-
-\FIGVISEVENTYNINEEIGHTY
-
-\FIGVIEIGHTYONEEIGHTYTWO
-
-\FIGVIEIGHTYTHREEEIGHTYFOUR
-
-\FIGVIEIGHTYFIVEEIGHTYSIX
-
-\FIGVIEIGHTYSEVENEIGHTYEIGHT
-
-\FIGVIEIGHTYNINE
-
-\FIGVININETYNINETYONE
-
-\FIGVININETYTWO
 
 %========================================================= 6-10
 \section*{6--10\quad RIGHT ANGLES}
@@ -5397,17 +5338,15 @@ S.A.S. congruence theorem. $\ang{ACO} \cong \ang{A\VIpr CO}$, and these are
 right angles.
 
 \exercisegroup{6--12}
-\begin{multicols}{2}
 \begin{exlist}
 \item Perform a construction to draw a right angle.
 \item If, in the figure, $PQ \cong PS$, and $\ang{QPR} \cong \ang{SPR}$, prove
   that $\ang{PRQ}$ is a right angle. (Fig.~6--95)
+\exfig{\FIGVININETYFIVE}
 \item If, in the figure, $AB \cong AD$, and $BC \cong CD$, prove that
   $\ang{AEB}$ is a right angle. (Fig.~6--96)
+\exfig{\FIGVININETYSIX}
 \end{exlist}
-\end{multicols}
-
-\FIGVININETYFIVENINETYSIX
 
 %========================================================= 6-11
 \section*{6--11\quad INEQUALITIES FOR ANGLES}
@@ -5605,7 +5544,6 @@ Fig.~6--104(b). This is written ``$l \perp$ bis $AB$,'' and read ``$l$ is the
 perpendicular bisector of $AB$.''
 
 \exercisegroup{6--14}
-\begin{multicols}{2}
 \begin{exlist}
 \item Prove the theorem that if the two legs of one right triangle are
   congruent, respectively, to the two legs of another right triangle, then the
@@ -5613,34 +5551,35 @@ perpendicular bisector of $AB$.''
 \item In the figure, angles $ADC$ and $BCD$ are right, $AD \cong BC$, and $AB
   \cong CD$. Prove that $\tri{ADC} \cong \tri{BCD}$ and $\tri{ABD} \cong
   \tri{BAC}$. (Fig.~6--105)
+\exfig{\FIGVIONEHUNDREDFIVE}
 \item If, in the figure, $AD \cong DC$, and $BD \perp AC$, prove that
   $\ang{BAD} \cong \ang{BCD}$. (Fig.~6--106)
+\exfig{\FIGVIONEHUNDREDSIX}
 \item If, in the figure, $AD \cong BC$, angles $ADC$ and $BCD$ are right, and
   $DE \cong EC$, prove that $AE \cong BE$. (Fig.~6--107)
+\exfig{\FIGVIONEHUNDREDSEVEN}
 \item \VIgp{$BD \perp AC$,\\ $\ang{ABD} \cong \ang{DBC}$.}{$\ang{A} \cong
   \ang{C}$.\\ \hbox{}\hfill(Fig.~6--108)}
+\exfig{\FIGVIONEHUNDREDEIGHT}
 \item Using Fig.~6--108, prove that $\ang{A} \cong \ang{C}$ if $BD \perp$ bis
   $AC$.
 \item In the figure, $AB \perp BD$, $DE \perp BD$, and $BC \cong CD$. Prove
   that $AB \cong DE$. (Fig.~6--109)
+\exfig{\FIGVIONEHUNDREDNINE}
 \item \VIgp{$AB \perp DC$,\\ $BE \cong BC$,\\ $\ang{DEB} \cong \ang{C}$.}%
-  {$DE \cong AC$.\\ \hbox{}\hfill(Fig.~6--110)}
+  % Verified against scan08 p2 (book p.110) 2026-08-17: the book prints
+  % "Prove: DE = EC".  Our earlier "AC" was a transcription slip, not a
+  % printer's error -- corrected, not logged in the errata appendix.
+  {$DE \cong EC$.\\ \hbox{}\hfill(Fig.~6--110)}
+\exfig{\FIGVIONEHUNDREDTEN}
 \item Prove that the bisector of the vertex angle of an isosceles triangle is
   the perpendicular bisector of the base.
 \item Prove that the median from the vertex of an isosceles triangle is
   perpendicular to the base.
 \item \VIgp{$AC \cong AD$,\\ $AC \perp CB$,\\ $AD \perp DB$.}{$\tri{ACB} \cong
   \tri{ADB}$.\\ \hbox{}\hfill(Fig.~6--111)}
+\exfig{\FIGVIONEHUNDREDELEVEN}
 \end{exlist}
-\end{multicols}
-
-\FIGVIONEHUNDREDFIVEONEHUNDREDSIX
-
-\FIGVIONEHUNDREDSEVENONEHUNDREDEIGHT
-
-\FIGVIONEHUNDREDNINEONEHUNDREDTEN
-
-\FIGVIONEHUNDREDELEVEN
 
 %========================================================= Review
 \section*{REVIEW OF CHAPTER 6}
@@ -5678,7 +5617,6 @@ The third congruence theorem (S.S.S.).
 \end{quote}
 
 \subsection*{Review Exercises}
-\begin{multicols}{2}
 \begin{exlist}
 \item Draw an $\ang{A}$. Draw a ray $r$ from a point $O$. Draw the two angles
   congruent to $A$ that have the ray $r$ as one side. See Postulate V--1.
@@ -5686,20 +5624,26 @@ The third congruence theorem (S.S.S.).
   \cong \ang{F}$, prove that $\ang{A} \cong \ang{F}$. See Postulate V--2.
 \item If in Fig.~6--112, $\ang{A_1} \cong \ang{R}$, and $\ang{A_2} \cong
   \ang{S}$, prove that $\ang{B} \cong \ang{T}$. See Postulate V--3.
+\exfig{\FIGVIONEHUNDREDTWELVE}
 \item If in Fig.~6--113, $\ang{A} \cong \ang{B}$, prove that $\ang{C} \cong
   \ang{D}$. What is the converse of this? Is the converse true? What is the
   contrapositive of this? Is it true?
+\exfig{\FIGVIONEHUNDREDTHIRTEEN}
 \item If in Fig.~6--114, $\ang{AOB} \cong \ang{BOC}$, what is $\ang{AOB}$
   called?
+\exfig{\FIGVIONEHUNDREDFOURTEEN}
 \item If (Fig.~6--115) $FE \cong ST$, $EG \cong RT$, and $\ang{E} \cong
   \ang{T}$, to what angle is $\ang{F}$ congruent?
+\exfig{\FIGVIONEHUNDREDFIFTEEN}
 \item If (Fig.~6--116) $\sg{RS} = \sg{TS}$, prove that $\ang{R} \cong \ang{T}$.
+\exfig{\FIGVIONEHUNDREDSIXTEEN}
 \item Using Fig.~6--115, prove that the triangles are congruent.
 \item Figure 6--117 shows a way to measure the width $\sg{PQ}$ of a river. From
   any point $R$ not on the line $PQ$, $RU$ is sighted so that $\ang{URP} \cong
   \ang{PRQ}$. From $P$ a line $PT$ is sighted so that $\ang{TPR} \cong
   \ang{QPR}$. The point $S$, where $PT$ and $RU$ intersect, is determined, and
   $PS$ is measured. Why is this the distance from $P$ to $Q$?
+\exfig{\FIGVIONEHUNDREDSEVENTEEN}
 \item The first congruence theorem says that if two sides and the included
   angle of one triangle are congruent to two sides and the included angle of
   another triangle, then the triangles are congruent. What is the converse of
@@ -5708,24 +5652,32 @@ The third congruence theorem (S.S.S.).
   of this statement? Is it true? What is the contrapositive? Is it true?
 \item If in Fig.~6--118, $\tri{ABC}$ and $\tri{ADC}$ are isosceles, with
   vertices $B$ and $D$, prove that $BD$ bisects $\ang{ABC}$.
+\exfig{\FIGVIONEHUNDREDEIGHTEEN}
 \item If (Fig.~6--119) $\tri{ABC}$ is isosceles, and $\ang{ABD} \cong
   \ang{EBC}$, prove that $\sg{AD} = \sg{EC}$.
+\exfig{\FIGVIONEHUNDREDNINETEEN}
 \item If (Fig.~6--120) $\sg{AB} = \sg{BC}$, $\sg{AD} = \sg{DC}$, and
   $\ang{ADE} \cong \ang{CDF}$, prove that $BE \cong BF$.
+\exfig{\FIGVIONEHUNDREDTWENTY}
 \item When we build a house, the sub-flooring and the sheathing boards are
   usually laid diagonally. Why?
 \item If (Fig.~6--121) $QS \cong SR$, and $PS \perp QR$, prove that $PQ \cong
   PR$.
+\exfig{\FIGVIONEHUNDREDTWENTYONE}
 \item If the point $O$ bisects the segments $AB$ and $CD$, prove that $\ang{A}
   \cong \ang{B}$. See Fig.~6--122.
+\exfig{\FIGVIONEHUNDREDTWENTYTWO}
 \item Show that if two isosceles triangles have congruent vertex angles, and
   their congruent sides have the same length, then the triangles are congruent.
 \item If in Fig.~6--123, $AB \cong AD$, $BC \cong DE$, and $AC \cong AE$, to
   what angle is $\ang{B}$ congruent? Why?
+\exfig{\FIGVIONEHUNDREDTWENTYTHREE}
 \item If in Fig.~6--124 $\tri{ABC}$ is equilateral, and $D$, $E$, $F$ bisect
   the sides, prove that $\tri{EFD}$ is equilateral.
+\exfig{\FIGVIONEHUNDREDTWENTYFOUR}
 \item If (Fig.~6--125) $\ang{CAD} \cong \ang{BDA}$, and $\ang{CDA} \cong
   \ang{BAD}$, prove that $\sg{AB} = \sg{CD}$.
+\exfig{\FIGVIONEHUNDREDTWENTYFIVE}
 \item Prove that if two points are equidistant from the ends of a segment, they
   determine the perpendicular bisector of the segment.
 \item Prove that if the bisector of an angle of a triangle is perpendicular to
@@ -5734,24 +5686,8 @@ The third congruence theorem (S.S.S.).
   equidistant from the ends of the segment.
 \item \VIgp{$\ang{1} \cong \ang{2}$,\\ $AC \cong BC$,\\ $IJ \cong IK$.}%
   {$GJ \cong HK$,\\ $GF \cong FH$.\\ \hbox{}\hfill(Fig.~6--126)}
+\exfig{\FIGVIONEHUNDREDTWENTYSIX}
 \end{exlist}
-\end{multicols}
-
-\FIGVIONEHUNDREDTWELVEONEHUNDREDTHIRTEEN
-
-\FIGVIONEHUNDREDFOURTEENONEHUNDREDFIFTEEN
-
-\FIGVIONEHUNDREDSIXTEENONEHUNDREDSEVENTEEN
-
-\FIGVIONEHUNDREDEIGHTEENONEHUNDREDNINETEEN
-
-\FIGVIONEHUNDREDTWENTYONEHUNDREDTWENTYONE
-
-\FIGVIONEHUNDREDTWENTYTWOONEHUNDREDTWENTYTHREE
-
-\FIGVIONEHUNDREDTWENTYFOUR
-
-\FIGVIONEHUNDREDTWENTYFIVEONEHUNDREDTWENTYSIX
 
 \subsection*{Test 1}
 \begin{center}\bfseries True-False\end{center}
@@ -5810,6 +5746,7 @@ The third congruence theorem (S.S.S.).
 \item In Fig.~6--127, $\sg{AE} = \sg{AD}$, and $\sg{AB} = \sg{AC}$. $\sg{BE} =
   18$ in., and $\sg{DO} = \tfrac{1}{2}\sg{OC}$. Determine the length of segment
   $OC$.
+\exfig{\FIGVIONEHUNDREDTWENTYSEVEN}
 \item In $\tri{ABC}$, the bisector of vertex angle $A$ is perpendicular to the
   base $BC$ at point $D$. $\sg{BD} = \sg{CD}$. $\sg{AB} - \sg{BD} = 8$ in., and
   the perimeter of $\tri{ABC}$ is 40 in. Determine the length of each side of
@@ -5826,8 +5763,6 @@ The third congruence theorem (S.S.S.).
 \item[\stex 10.] Describe all possible pairs of numbers $a$ and $b$ such that
   $(a - 2)/(2b - 9) = a - 2$.
 \end{exlist}
-
-\FIGVIONEHUNDREDTWENTYSEVEN
 \clearpage
 % ==================== ch07 ====================
 \setcounter{theorem}{0}\setcounter{definition}{0}\setcounter{construction}{0}\setcounter{exgroup}{0}\setcounter{footnote}{0}
@@ -5934,7 +5869,6 @@ lines.
 \end{remark}
 
 \exercisegroup{7--2}
-\begin{multicols}{2}
 \begin{exlist}
 \item What kind of angles are the exterior angles of a right triangle?
 \item Use Theorem 7--1 to prove that the angles opposite the legs of a right
@@ -5947,10 +5881,8 @@ lines.
 \item Prove the following corollary to Theorem 7--1. There is at most one line
   perpendicular to a given line $l$ from a given point $P$. [\emph{Hint:}
   Suppose that there were two perpendiculars, as in Fig.~7--5.]
+\exfig{\FIGVIIFIVE}
 \end{exlist}
-\end{multicols}
-
-\FIGVIIFIVE
 
 %========================================================= 7-3
 \section*{7--3\quad INEQUALITIES IN TRIANGLES}
@@ -5991,20 +5923,18 @@ given fact that $\ang{C} > \ang{B}$. Hence the only possibility is that
 $AB > AC$.
 
 \exercisegroup{7--3}
-\begin{multicols}{2}
 \begin{exlist}
 \item Which angle in Fig.~7--7 is the smallest? Which is the largest? The
   numbers are lengths of the sides.
+\exfig{\FIGVIISEVEN}
 \item If in $\tri{EFG}$, $\ang{E}$ has a measure of $61^\circ$, and $\ang{F}$ a
   measure of $54^\circ$, which side is the longer, $FG$ or $EG$? Can you say
   anything yet about the length of $EF$?
 \item In $\tri{PQR}$, $S$ is a point of $PR$, such that $QS$ bisects
   $\ang{PQR}$ (see Fig.~7--8). Prove that $PQ > PS$. [\emph{Hint:} Prove first
   that $\ang{PSQ} > \ang{PQS}$.]
+\exfig{\FIGVIIEIGHT}
 \end{exlist}
-\end{multicols}
-
-\FIGVIISEVENEIGHT
 
 We now come to a very important and familiar inequality for triangles, called
 the \emph{triangle inequality}.
@@ -6064,7 +5994,6 @@ segment joining its ends.
 \end{corollary}
 
 \exercisegroup{7--4}
-\begin{multicols}{2}
 \begin{exlist}
 \item Two sides of a triangle have lengths of 5 and 7 in. What can you say
   about the third side?
@@ -6074,10 +6003,12 @@ segment joining its ends.
   is less than the length of the third side.
 \item[\stex 4.]\stepcounter{exlisti} Use the triangle inequality and Fig.~7--11 to show that if
   $\ang{C} > \ang{B}$, then $AB > AC$.
+\exfig{\FIGVIIELEVEN}
 \item[\stex 5.]\stepcounter{exlisti} In Fig.~7--12, $AC \cong A'C'$, $BC \cong B'C'$, and
   $\ang{ACB} > \ang{A'C'B'}$. Prove that $\sg{AB} > \sg{A'B'}$.
   [\emph{Hint:} Show how to find a point $Q$ on $AB$, such that
   $QB \cong QB'$, and use $\sg{AB} = \sg{AQ} + \sg{QB} = \sg{AQ} + \sg{QB'}$.]
+\exfig{\FIGVIITWELVE}
 \item[\stex 6.]\stepcounter{exlisti} Use the result of Exercise 5 to prove that if, in two
   triangles, $\tri{ABC}$ and $\tri{A'B'C'}$, $AC \cong A'C'$,
   $BC \cong B'C'$, and $AB > A'B'$, then $\ang{C} > \ang{C'}$. Show that the
@@ -6085,17 +6016,14 @@ segment joining its ends.
 \item[\stex 7.]\stepcounter{exlisti} If $D$ in Fig.~7--13 is a point inside $\tri{ABC}$, show that
   $\sg{AD} + \sg{DC} < \sg{AB} + \sg{BC}$. [\emph{Hint:} Consider first
   $\tri{ABE}$ and $\tri{DEC}$.] Show also that $\ang{ADC} > \ang{ABC}$.
+\exfig{\FIGVIITHIRTEEN}
 \item By using Theorem 7--2, prove that an equiangular triangle is equilateral.
 \item If, in Fig.~7--14, $l \perp m$, and $l' \perp m$, prove that $l$ and $l'$
   do not intersect. [\emph{Hint:} Suppose they do.]
+\exfig{\FIGVIIFOURTEEN}
 \item Show that a polygonal path connecting points $A$ and $B$ could have four
   vertices and still have the same length as $AB$.
 \end{exlist}
-\end{multicols}
-
-\FIGVIIELEVEN
-\FIGVIITWELVE
-\FIGVIITHIRTEENFOURTEEN
 
 %========================================================= 7-4
 \section*{7--4\quad CIRCLES}
@@ -6154,7 +6082,6 @@ sides of the angle.
 \FIGVIIFIFTEEN
 
 \exercisegroup{7--5}
-\begin{multicols}{2}
 \begin{exlist}
 \item A circle has center $A$ and radius 5. The points $B$, $C$, $D$, $E$, are
   such that $\sg{AB} = 4$, $\sg{AC} = 5$, $\sg{AD} = 17$, and $\sg{AE} = 5$.
@@ -6162,13 +6089,11 @@ sides of the angle.
 \item If $AB$ is a diameter of a circle with center $C$, what is $\ang{ACB}$?
 \item In Fig.~7--16, the circle has center $O$. What kind of angles are
   $\ang{A}$, $\ang{B}$, $\ang{C}$, $\ang{D}$, and $\ang{E}$?
+\exfig{\FIGVIISIXTEEN}
 \item Give a definition of circle in terms of congruence instead of distance.
 \item If $A$ is a point of a circle and $O$ is the center, what can be said
   about a point $B$, such that $\sg{OB} \leqq \sg{OA}$?
 \end{exlist}
-\end{multicols}
-
-\FIGVIISIXTEEN
 
 %========================================================= 7-5
 \section*{7--5\quad RULER AND COMPASS}
@@ -6433,7 +6358,6 @@ Now the perpendicular bisector of $AB$ can be drawn, and $P$ lies on it.
 (Why?)
 
 \exercisegroup{7--7}
-\begin{multicols}{2}
 \begin{exlist}
 \item Construct a right triangle, having been given the lengths of the two
   legs.
@@ -6447,10 +6371,8 @@ Now the perpendicular bisector of $AB$ can be drawn, and $P$ lies on it.
 \item Construct the perpendicular from $P$ by choosing $A$, as in Fig.~7--29,
   constructing $\ang{2} \cong \ang{1}$, and point $P'$, such that
   $AP \cong AP'$.
+\exfig{\FIGVIITWENTYNINE}
 \end{exlist}
-\end{multicols}
-
-\FIGVIITWENTYNINETHIRTY
 
 \begin{construction}
 To bisect $\ang{A}$, draw a circle, with center $A$, intersecting the sides of
@@ -6463,8 +6385,9 @@ bisects $\ang{A}$.
 The point $Q$ can be found by a previous construction.
 $\tri{ABQ} \cong \tri{ACQ}$, by S.S.S. Hence $\ang{BAQ} \cong \ang{CAQ}$.
 
+\FIGVIITHIRTY
+
 \exercisegroup{7--8}
-\begin{multicols}{2}
 \begin{exlist}
 \item Draw an acute angle, and construct its bisector.
 \item Construct and bisect a right angle.
@@ -6482,15 +6405,14 @@ $\tri{ABQ} \cong \tri{ACQ}$, by S.S.S. Hence $\ang{BAQ} \cong \ang{CAQ}$.
   $r' > r$. These circles intersect the sides of $A$ in four points $C$, $C'$,
   $D$, and $D'$. The lines through these points intersect in a point $P$ on the
   bisector. (Why?)
+\exfig{\FIGVIITHIRTYONE}
 \item[\stex 9.]\stepcounter{exlisti} If, in Fig.~7--32, $\ang{CAD} \cong \ang{EBF}$,
   $\ang{1} \cong \ang{2}$, and $\ang{3} \cong \ang{4}$, then
   $\ang{2} \cong \ang{4}$. \emph{Note:} This theorem is often stated as
   ``halves of congruent angles are congruent to each other.'' Prove this
   theorem.
+\exfig{\FIGVIITHIRTYTWO}
 \end{exlist}
-\end{multicols}
-
-\FIGVIITHIRTYONETHIRTYTWO
 
 %========================================================= Review
 \section*{REVIEW OF CHAPTER 7}
@@ -6512,7 +6434,6 @@ radius, diameter, chord, secant, central angle, inscribed angle, \RC{}
 construction.
 
 \begin{center}\bfseries Review Exercises\end{center}\nopagebreak
-\begin{multicols}{2}
 \begin{exlist}
 \item Construct an angle of $45^\circ$.
 \item Construct an angle of $60^\circ$, of $30^\circ$.
@@ -6537,16 +6458,16 @@ construction.
   greater than the length of the fourth side.
 \item $\ang{ABC}$ is a right angle, and $C$ is between $B$ and $D$. Prove that
   $AD > AC$. (Fig.~7--33)
+\exfig{\FIGVIITHIRTYTHREE}
 \item Prove that $\sg{AD} + \sg{CB} > \sg{AB} + \sg{CD}$. (Fig.~7--34)
+\exfig{\FIGVIITHIRTYFOUR}
 \item $AE$ bisects $\ang{DAF}$, and $AC$ bisects $\ang{DAB}$. (Fig.~7--35)
   Prove that $\ang{CAE}$ is right. [\emph{Hint:} Extend $AE$.]
+\exfig{\FIGVIITHIRTYFIVE}
 \item $AC$ bisects $\ang{DAB}$, and $\ang{CAE}$ is right. Prove that $AE$
   bisects $\ang{DAF}$. (Fig.~7--36)
+\exfig{\FIGVIITHIRTYSIX}
 \end{exlist}
-\end{multicols}
-
-\FIGVIITHIRTYTHREETHIRTYFOUR
-\FIGVIITHIRTYFIVETHIRTYSIX
 
 \begin{center}\bfseries ALGEBRA REVIEW\end{center}\nopagebreak
 \begin{multicols}{2}
@@ -6805,12 +6726,12 @@ appropriate to ask which house is better adapted to one's living requirements.
 And so it is also appropriate to ask which geometry is most convenient to
 describe the universe.*\VIIIgaussnote
 
-\VIIIplate{\textsc{Karl Friedrich Gauss}\\(1777--1855)\\
+\VIIIplate{plate-gauss}{\textsc{Karl Friedrich Gauss}\\(1777--1855)\\
   Probably the first mathematician to recognize the\\
   existence of non-Euclidean geometries.\\
   Courtesy of \emph{Scripta Mathematica}.}{--- (book p.~137)}
 
-\VIIIplate{\textsc{Nicolai Ivanovich Lobachevsky}\\(1793--1856)\\
+\VIIIplate{plate-lobachevsky}{\textsc{Nicolai Ivanovich Lobachevsky}\\(1793--1856)\\
   Co-inventor, with Johann Bolyai, of\\
   non-Euclidean geometry.\\
   Courtesy of \emph{Scripta Mathematica}.}{--- (book p.~138)}
@@ -6847,14 +6768,11 @@ $m$ \textup{(Fig.~8--6)}.
 \end{steps}
 
 \exercisegroup{8--5}
-
-\FIGVIIISEVENEIGHT
-
-\begin{multicols}{2}
 \begin{exlist}
 \item Prove that the construction of a parallel to $l$ through a given point
   $A$ is an \RC{} construction.
 \item In Fig.~8--7, $\ang{ABC} \cong \ang{BCD}$. Prove that $AB \pll CD$.
+\exfig{\FIGVIIISEVEN}
 \item Prove that if $l \perp n$, $n \perp m$, and $l \neq m$, then
   $l \pll m$. Have you used the parallel postulate?
 \item If $l \pll m$, and $l \perp n$, prove that $n \perp m$. Did you use the
@@ -6864,10 +6782,10 @@ $m$ \textup{(Fig.~8--6)}.
 \item[\stex 6.] In Fig.~8--8, $\sg{AB} = \sg{CD}$, and $\ang{ABC}$ and
   $\ang{BCD}$ are right. Prove that $AD \pll BC$. [\emph{Hint:} Prove that
   $\ang A \cong \ang D$.]
+\exfig{\FIGVIIIEIGHT}
 \item[\stex 7.] If a rectangle is defined as a quadrilateral with four right
   angles, prove that rectangles actually exist.
 \end{exlist}
-\end{multicols}
 
 %========================================================= 8-5
 \section*{8--5\quad CORRESPONDING AND\\ALTERNATE ANGLES}
@@ -6928,7 +6846,6 @@ corresponding angles are congruent, and conversely.
 \end{corollary}
 
 \exercisegroup{8--6}
-\begin{multicols}{2}
 \begin{exlist}
 \item Prove that if a line is perpendicular to one of two parallel lines, it
   is perpendicular to the other.
@@ -6936,6 +6853,7 @@ corresponding angles are congruent, and conversely.
   $n \pll p$.
 \item In Fig.~8--11, $\sg{AO} = \sg{CO}$, and $\sg{BO} = \sg{OD}$. Prove that
   $AB \pll CD$.
+\exfig{\FIGVIIIELEVEN}
 \item Show that $\sg{BC} = \sg{AD}$, and $BC \pll AD$ in Fig.~8--11.
 \item Show that if $AB \cong CD$, and $AB \pll CD$, then $BO \cong OD$, and
   $BC \pll AD$ in Fig.~8--11.
@@ -6945,9 +6863,6 @@ corresponding angles are congruent, and conversely.
   equidistant.'' State and prove the converse of this theorem. State also the
   contrapositive.
 \end{exlist}
-\end{multicols}
-
-\FIGVIIIELEVEN
 
 %========================================================= 8-6
 \section*{8--6\quad ANGLE SUMS}
@@ -7015,10 +6930,6 @@ $\ang{EAC} \cong \ang{ACB}$. The straight angle $DAE$ is the sum of angles
 $A$, $B$, and $C$.
 
 \exercisegroup{8--8}
-
-\FIGVIIIFOURTEEN
-
-\begin{multicols}{2}
 \begin{exlist}
 \item Show that the acute angles of a right triangle are complementary.
 \item Two angles of a triangle are $40^\circ\ 17'\ 30''$ and
@@ -7037,6 +6948,7 @@ $A$, $B$, and $C$.
   two angles of another triangle, then the third angles are congruent.
 \item In Fig.~8--14, $AB \cong A'B'$, $\ang A \cong \ang{A'}$, and
   $\ang C \cong \ang{C'}$. Prove that $\tri{ABC} \cong \tri{A'B'C'}$.
+\exfig{\FIGVIIIFOURTEEN}
 \item Is the following true? Two triangles are congruent to each other if one
   side and two angles of the one triangle are congruent to one side and two
   angles of the other.
@@ -7045,15 +6957,14 @@ $A$, $B$, and $C$.
   and acute angle of the other.
 \item In $\tri{ABC}$ (Fig.~8--15), $\ang A$ is right, and $AD \perp BC$. Prove
   that $\ang{BAD} \cong \ang{ACD}$, and $\ang{ABD} \cong \ang{DAC}$.
+\exfig{\FIGVIIIFIFTEEN}
 \item[\stex 12.] In Fig.~8--16, $D$ is the midpoint of $BC$, and
   $BD \cong AD$. Prove that $\ang{BAC}$ is right.
+\exfig{\FIGVIIISIXTEEN}
 \item[\stex 13.] Prove that two right triangles are congruent if the
   hypotenuse and one side of one triangle are congruent to the hypotenuse and
   one side of the other.
 \end{exlist}
-\end{multicols}
-
-\FIGVIIIFIFTEENSIXTEEN
 
 %========================================================= 8-7
 \section*{8--7\quad POLYGONS}
@@ -7128,13 +7039,15 @@ polygon is a segment joining any two nonadjacent vertices. Sides with a common
 vertex are called \emph{adjacent} sides.
 \end{definition}
 
-\FIGVIIITWENTYTWENTYONE
+\FIGVIIITWENTY
 
 \begin{definition}
 A simple polygon is called \emph{convex} if, whenever $A$ and $B$ are points
 of the polygon, every point of the segment $AB$ lies either on the polygon or
 in its interior (see Fig.~8--21).
 \end{definition}
+
+\FIGVIIITWENTYONE
 
 \begin{remark}
 Unless otherwise stated, we will confine our attention to simple convex
@@ -7199,10 +7112,6 @@ convex polygon of $n$ sides, the sum of the $n$ exterior angles (one at each
 vertex) is exactly two straight angles (Fig.~8--23).
 
 \exercisegroup{8--1}
-
-\FIGVIIITWENTYFOUR
-
-\begin{multicols}{2}
 \begin{exlist}
 \item A quadrilateral has three $95^\circ$ angles. How many degrees are there
   in the fourth angle?
@@ -7216,6 +7125,7 @@ vertex) is exactly two straight angles (Fig.~8--23).
 \item[\stex 6.] What is the sum of the angles at the vertices of a regular
   five-pointed star? (The points of the star are vertices of a regular
   pentagon.)
+\exfig{\FIGVIIITWENTYFOUR}
 \item[7.] An exterior angle of a regular polygon is $20^\circ$. How many sides
   has the polygon?
 \item[8.] Pentagon $ABCDE$ is regular. Prove that a line $l$, bisecting the
@@ -7225,7 +7135,6 @@ vertex) is exactly two straight angles (Fig.~8--23).
 \item[10.] Make up some theorems of your own relating to regular pentagons or
   regular hexagons.
 \end{exlist}
-\end{multicols}
 
 %========================================================= 8-8
 \section*{8--8\quad PARALLELOGRAMS}
@@ -7249,7 +7158,6 @@ many results, as the following exercises will demonstrate.
 \noindent The exercises below present many interesting theorems concerning
 polygons. Give proofs for these theorems.
 
-\begin{multicols}{2}
 \begin{exlist}
 \item A diagonal of a parallelogram divides it into two congruent triangles.
 \item Opposite sides of a parallelogram are congruent to each other.
@@ -7298,14 +7206,13 @@ polygons. Give proofs for these theorems.
   drawn from one vertex of a regular pentagon?
 \item In Fig.~8--26, $DE \pll AC$, and $DF \pll AB$. Use the figure to prove
   that the sum of the angles of $\tri{ABC}$ is a straight angle.
+\exfig{\FIGVIIITWENTYSIX}
 \item In the regular hexagon $ABCDEF$, prove that diagonal $FD$ is
   perpendicular to side $DC$ (Fig.~8--27).
+\exfig{\FIGVIIITWENTYSEVEN}
 \item Prove that $\sg{FC} = 2 \cdot \sg{DC}$ in Fig.~8--27. Show that the
   diagonals $FC$ and $AD$ bisect each other.
 \end{exlist}
-\end{multicols}
-
-\FIGVIIITWENTYSIXSEVEN
 
 %========================================================= Review of Chapter 8
 \section*{REVIEW OF CHAPTER 8}
@@ -7383,11 +7290,11 @@ equilateral polygon       & equiangular polygon \\
   angle.
 \item In Fig.~8--28 the letters represent the degree measures of the indicated
   angles. Prove that $x + y + t = r + s + z$.
+\exfig{\FIGVIIITWENTYEIGHT}
 \item In Fig.~8--29, $AB \cong BC$, $BE \cong BD$, and the measure of
   $\ang{CBD}$ is $40^\circ$. Determine the measure of $\ang{ADE}$.
+\exfig{\FIGVIIITWENTYNINE}
 \end{exlist}
-
-\FIGVIIITWENTYEIGHTNINE
 
 %========================================================= Review, Chs 1-8
 \section*{REVIEW EXERCISES,\\CHAPTERS 1 THROUGH 8}
@@ -7418,12 +7325,11 @@ equilateral polygon       & equiangular polygon \\
   (a) $AB \cong CD \imp AB = CD$, (b) $AB = CD \imp AB \cong CD$.
 \end{exlist}
 
-\FIGVIIITHIRTY
-
 \begin{exlist}
 \item[10.] Figure 8--30 indicates that $AB \cong A'B'$, and $ABC$. Using only
   the definitions of \emph{greater than} and \emph{less than}, does the figure
   indicate that $AC > A'B'$, or that $A'B' < AC$?
+\exfig{\FIGVIIITHIRTY}
 \item[11.] The length of $AB$, measured with $CD$ as unit, is 17.23. What is
   Archimedes' integer?
 \item[12.] The length of $CD$ in Exercise 11, as measured by $EF$, is 10. If
@@ -7466,9 +7372,8 @@ equilateral polygon       & equiangular polygon \\
   $N$ are midpoints of $CD$ and $AB$, respectively, then $MN$ is perpendicular
   both to $AB$ and to $CD$.}
   \end{quote}
+\exfig{\FIGVIIITHIRTYONE}
 \end{exlist}
-
-\FIGVIIITHIRTYONETWO
 
 \begin{exlist}
 \item[\stex 22.] Carry through the proofs of Exercises 20 and 21 using the
@@ -7484,6 +7389,7 @@ equilateral polygon       & equiangular polygon \\
   Figure 8--32 illustrates Euclid's parallel postulate. (a) Prove Euclid's
   parallel postulate as a theorem, using our parallel postulate. (b) Assuming
   the truth of Euclid's parallel postulate, prove ours as a theorem.
+\exfig{\FIGVIIITHIRTYTWO}
 \end{exlist}
 \clearpage
 % ==================== ch09 ====================
@@ -7580,28 +7486,27 @@ left for the student to show that $\sg{AC} = 2\sg{DE}$.
 \FIGIXFOUR
 
 \exercisegroup{9--2}
-\begin{multicols}{2}
 \begin{exlist}
 \item The three sides of a triangle have lengths 5, 12, and 13. What are the
       lengths of the segments joining the midpoints of the sides?
 \item In Fig.~9--5, $FC \cong CG$, $CD \pll EG$, and $DG \pll EF$. Prove that
       $\sg{EG} = 2\sg{CD}$.
+\exfig{\FIGIXFIVE}
 \item Prove Corollary 9--1--1.
 \item In Fig.~9--6, if $\sg{AB} = 2\sg{BC}$, how are $\sg{A'B'}$ and
       $\sg{B'C'}$ related? Suppose that $\sg{AB} = 3\sg{BC}$; $3\sg{AB} =
       5\sg{BC}$. Prove your statements.
+\exfig{\FIGIXSIX}
 \item In Fig.~9--6, suppose that $\sg{AC} = 10$ in., $\sg{BC} = 2$ in., and
       $\sg{B'C'} = 3$ in. How long is $A'B'$?
 \item In Fig.~9--6, if $\sg{AB} = 6$ in., $\sg{A'B'} = 8$ in., and $\sg{AC} =
       12$ in., what is $\sg{B'C'}$?
 \item In Fig.~9--7, if $\sg{EF} = 2$, $\sg{FG} = 3$, and $\sg{EP} = 3$, what is
       $\sg{EQ}$?
+\exfig{\FIGIXSEVEN}
 \item In the proof of Theorem 9--1, we assumed that $m$ was not parallel to
       $m'$. Prove Theorem 9--1 if $m \pll m'$.
 \end{exlist}
-\end{multicols}
-
-\FIGIXFIVESEVEN
 
 %========================================================= 9-3
 \section*{9--3\quad A CONSTRUCTION}
@@ -7641,7 +7546,6 @@ geometry.
 \end{remark}
 
 \exercisegroup{9--3}
-\begin{multicols}{2}
 \begin{exlist}
 \item Draw a segment, and divide it into three segments of equal length. This is
       called \emph{trisecting} a segment.
@@ -7652,26 +7556,29 @@ geometry.
       construction? eight equal parts? Is this an \RC\ construction?
 \item If, in Fig.~9--9, $\sg{AB} = 10$, $\sg{AD} = 2$, and $\sg{EC} = 3$, what is
       $\sg{BC}$?
+\exfig{\FIGIXNINE}
 \item If, in Fig.~9--9, $\sg{AD} = 6$, $\sg{DB} = 8$, and $\sg{EC} = 2$, what is
       $\sg{BC}$?
 \item In Fig.~9--10, $\sg{AB} = 18$, $\sg{BC} = 3$, and $\sg{AD} = 24$. What is
       $\sg{EF}$?
+\exfig{\FIGIXTEN}
 \item Using Fig.~9--10, find $\sg{EF}$ if $\sg{BC} = 1$, $\sg{AB} = 2$, and
       $\sg{AD} = 3$.
 \item In Fig.~9--11, if $BE \pll CF \pll DG$, and the lengths are as shown, how
       long is $AG$?
+\exfig{\FIGIXELEVEN}
 \item Solve Exercise 9 if everything is the same except that $\sg{AE} = 6$.
 \item In Fig.~9--12, how long is $AB$?
+\exfig{\FIGIXTWELVE}
 \item[\stex 12.] In Fig.~9--13, $ABCD$ is a parallelogram, and $E$ and $F$ are
       midpoints of $AB$ and $CD$, respectively. Prove that $AC$ intersects $ED$
       and $BF$ in $G$ and $H$, and that $G$ and $H$ trisect $AC$. Prove also that
       $\sg{EG} = \frac{1}{3}\sg{ED}$.
+\exfig{\FIGIXTHIRTEEN}
 \item[\stex 13.] In Fig.~9--14, $x$, $y$, $z$, and 1 refer to the lengths of the
       segments. If $x$ is a whole number, show that $z = xy$.
+\exfig{\FIGIXFOURTEEN}
 \end{exlist}
-\end{multicols}
-
-\FIGIXNINEFOURTEEN
 
 %========================================================= 9-4
 \section*{9--4\quad PROPORTION}
@@ -7795,7 +7702,6 @@ proportional to the sides of $\tri{A'B'C'}$ if $\sg{AB}/\sg{A'B'} =
 \end{definition}
 
 \exercisegroup{9--6}
-\begin{multicols}{2}
 \begin{exlist}
 \item Draw two segments. By measurement, determine the ratio of one segment to
       the other.
@@ -7803,6 +7709,7 @@ proportional to the sides of $\tri{A'B'C'}$ if $\sg{AB}/\sg{A'B'} =
       $\tri{E'F'G'}$. What is the ratio of $EG$ to $E'G'$, if $\sg{E'F'} = 2$,
       and the lengths of the sides of $\tri{EFG}$ are as shown? What is the ratio
       of $F'G'$ to $E'F'$?
+\exfig{\FIGIXFIFTEEN}
 \item If $\sg{AB} = 5$, $\sg{CD} = 7$, and $\sg{EF} = 3$, what is the ratio of
       $AB$ to $CD$? of $CD$ to $EF$? of $AB$ to $FE$?
 \item The sides of $\tri{ABC}$ are proportional to the sides of $\tri{A'B'C'}$
@@ -7812,9 +7719,6 @@ proportional to the sides of $\tri{A'B'C'}$ if $\sg{AB}/\sg{A'B'} =
       and $\sg{EF} = 7$, $\sg{FG} = 8$, $\sg{QR} = 6$, $\sg{RP} = 8$, find
       $\sg{GE}$ and $\sg{PQ}$.
 \end{exlist}
-\end{multicols}
-
-\FIGIXFIFTEEN
 
 Before proceeding, we should observe that a question might be raised concerning
 Definition 9--3. The number that we get for the length of a segment depends on
@@ -7948,7 +7852,6 @@ $\ang{E} \cong \ang{E'}$, and $\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'} =
 \FIGIXEIGHTEENNINETEEN
 
 \exercisegroup{9--8}
-\begin{multicols}{2}
 \begin{exlist}
 \item Two triangles are similar, and two sides of one triangle are 7 and 11 in.
       In the other triangle, the side corresponding to the 7-in.\ side has length
@@ -7982,13 +7885,12 @@ $\ang{E} \cong \ang{E'}$, and $\sg{AB}/\sg{A'B'} = \sg{BC}/\sg{B'C'} =
 \item Prove that all equilateral triangles are similar.
 \item In Fig.~9--20, $E$ and $F$ are midpoints of $AB$ and $BC$. Prove that
       $\tri{BEF} \simto \tri{BAC}$.
+\exfig{\FIGIXTWENTY}
 \item If, in Fig.~9--21, $A'$, $B'$, $C'$, and $D'$ bisect the corresponding
       segments from $O$, prove that the quadrilaterals $ABCD$ and $A'B'C'D'$ are
       similar.
+\exfig{\FIGIXTWENTYONE}
 \end{exlist}
-\end{multicols}
-
-\FIGIXTWENTYTWENTYONE
 
 %========================================================= 9-7
 \section*{9--7\quad THEOREMS ON SIMILAR TRIANGLES}
@@ -8065,10 +7967,10 @@ right triangle, then the triangles are similar.
 The proofs are left to the student.
 
 \exercisegroup{9--9}
-\begin{multicols}{2}
 \begin{exlist}
 \item If, in Fig.~9--23, $BE \pll CD$, $\sg{AE} = 4$, and $\sg{ED} = 6$, what is
       $\sg{AB}/\sg{AC}$?
+\exfig{\FIGIXTWENTYTHREE}
 \item A church steeple casts a shadow 100 ft long, and a 6-ft post casts, at the
       same time, a shadow 7 ft long. How high is the steeple?
 \item A line from the top of a cliff to the ground just passes over the top of a
@@ -8078,28 +7980,31 @@ The proofs are left to the student.
 \item As in Fig.~9--24, a lake lies between $A$ and $C$. If lines $AB$ and $DE$
       run north-south, $\sg{AB} = 8$ mi, $\sg{DE} = 1.2$ mi, and $\sg{DC} = 1.5$
       mi, how far is it from $A$ to $C$?
+\exfig{\FIGIXTWENTYFOUR}
 \item In Fig.~9--25, $DE \pll AC$. Prove that $\tri{ABC} \simto \tri{DBE}$.
+\exfig{\FIGIXTWENTYFIVE}
 \item If in $\tri{DEF}$, $G$ and $H$ are points on sides $EF$ and $DF$,
       respectively, and $\ang{GHF} \cong \ang{EDF}$, prove that $\tri{DEF} \simto
       \tri{HGF}$.
 \item In Fig.~9--26, $AB \perp AE$, and $DE \perp AE$. Prove that (a)
       $\sg{AB}/\sg{DE} = \sg{AC}/\sg{CE}$; (b) $\sg{AB}/\sg{BC} =
       \sg{DE}/\sg{DC}$.
+\exfig{\FIGIXTWENTYSIX}
 \item In $\tri{ABC}$, let $E$, $F$, and $G$ be the midpoints of the sides $AB$,
       $BC$, and $CA$, respectively. Prove that $\tri{ABC} \simto \tri{FGE}$.
 \item If $\tri{ABC} \simto \tri{A'B'C'}$, and $BD$ and $B'D'$ are the altitudes
       from $B$ and $B'$ respectively, prove that $\sg{AC}/\sg{A'C'} =
       \sg{BD}/\sg{B'D'}$.
 \item In Fig.~9--27, $l \pll m$. Prove that $\tri{EFG} \simto \tri{IHG}$.
+\exfig{\FIGIXTWENTYSEVEN}
 \item If, in Fig.~9--28, $\tri{PQR} \simto \tri{P'Q'R'}$, and $PS$ and $P'S'$
       bisect angles $P$ and $P'$, prove that $\sg{PQ}/\sg{PS} =
       \sg{P'Q'}/\sg{P'S'}$.
+\exfig{\FIGIXTWENTYEIGHT}
 \item In $\tri{ABC}$, $CD$ and $AE$ are altitudes, as in Fig.~9--29. Prove that
       (a) $\tri{BEA} \simto \tri{BDC}$; (b) $\tri{ADF} \simto \tri{CEF}$.
+\exfig{\FIGIXTWENTYNINE}
 \end{exlist}
-\end{multicols}
-
-\FIGIXTWENTYTHREETWENTYNINE
 
 Before proving the next of the fundamental theorems on similar triangles, we
 prove a theorem that we need later and which is interesting in itself.
@@ -8148,25 +8053,25 @@ Corollary 9--7--1. We may suppose that $AB > A'B'$. (Why?)
 \end{steps}
 
 \exercisegroup{9--10}
-\begin{multicols}{2}
 \begin{exlist}
 \item Prove that if the legs of one right triangle are proportional to the legs
       of another right triangle, then the triangles are similar.
 \item In Fig.~9--32, $\sg{AO} = 10$, $\sg{BO} = 12$, $\sg{OD} = 5$, and
       $\sg{OC} = 6$. Show that $\tri{AOB} \simto \tri{DOC}$.
+\exfig{\FIGIXTHIRTYTWO}
 \item Prove that two isosceles triangles are similar if their vertex angles are
       congruent; likewise if their base angles are all congruent to one another.
 \item In Fig.~9--33, if $\sg{AD} = x \cdot \sg{AB}$, and $\sg{AE} = x \cdot
       \sg{AC}$, prove that $\tri{ABC} \simto \tri{ADE}$.
+\exfig{\FIGIXTHIRTYTHREE}
 \item If $\tri{ABC}$ is a right triangle, with the right angle at $C$, and if, in
       Fig.~9--34, $\sg{AD}/\sg{AC} = \sg{AC}/\sg{AB}$, prove that $CD \perp AB$.
+\exfig{\FIGIXTHIRTYFOUR}
 \item[\stex 6.] In Fig.~9--35, if $\tri{ABC}$ is a right triangle, with right
       angle at $C$, and if $CD \perp AB$, prove that $\tri{ABC} \simto
       \tri{ACD}$.
+\exfig{\FIGIXTHIRTYFIVE}
 \end{exlist}
-\end{multicols}
-
-\FIGIXTHIRTYTWOTHIRTYFIVE
 
 The next theorem is the last of the three basic theorems on similar triangles.
 
@@ -8201,16 +8106,18 @@ and hence similar.
 \end{steps}
 
 \exercisegroup{9--11}
-\begin{multicols}{2}
 \begin{exlist}
 \item State, in your own words, the three basic theorems on similar triangles,
       Theorems 9--7, 9--9, and 9--10.
 \item In Fig.~9--37, the numbers are the lengths of the segments. How are the
       lines $AB$ and $CD$ related? Why?
+\exfig{\FIGIXTHIRTYSEVEN}
 \item If the hexagons of Fig.~9--38 are similar, prove that (a) $\tri{BCD} \simto
       \tri{B'C'D'}$; (b) quadrilateral $ABCD \simto$ quadrilateral $A'B'C'D'$.
+\exfig{\FIGIXTHIRTYEIGHT}
 \item In Fig.~9--39, $BE \perp AC$, and $CD \perp AB$. Find two similar
       triangles. How many proportions can you write?
+\exfig{\FIGIXTHIRTYNINE}
 \item If $\tri{ABC} \simto \tri{A'B'C'}$, and $AD$ and $A'D'$ are medians, prove
       that the ratio of the medians is equal to the ratio of any two
       corresponding sides. Restate this using the word \emph{proportion} (or
@@ -8220,9 +8127,6 @@ and hence similar.
 \item Is a statement like that of Exercise 6 true for similar polygons? How would
       you prove this?
 \end{exlist}
-\end{multicols}
-
-\FIGIXTHIRTYSEVENTHIRTYNINE
 
 %========================================================= 9-8
 \section*{9--8\quad THE PYTHAGOREAN THEOREM}
@@ -8269,23 +8173,23 @@ That is, in Fig.~9--40, $\sg{AC}^2 = \sg{AD} \cdot \sg{AB}$.
 \end{corollary}
 
 \exercisegroup{9--12}
-\begin{multicols}{2}
 \begin{exlist}
 \item In Fig.~9--42, $EF \perp FG$, and $FH \perp EG$. If $\sg{EF} = 8$, and
       $\sg{FG} = 5$, what is $\sg{FH}/\sg{EH}$? $\sg{FH}/\sg{HG}$?
+\exfig{\FIGIXFORTYTWO}
 \item In Fig.~9--43, the sides of a right triangle are 5, 12, and 13. How long is
       the altitude on the hypotenuse?
+\exfig{\FIGIXFORTYTHREE}
 \item In Fig.~9--44, $Q$ is a right angle, and $QS \perp PR$. Find $\sg{PQ}$, if
       $\sg{PS} = 4$, and $\sg{SR} = 5$.
+\exfig{\FIGIXFORTYFOUR}
 \item Using Fig.~9--44, if $\sg{QS} = 7$, what is the product
       $\sg{PS} \cdot \sg{SR}$?
 \item In Fig.~9--45, $\ang{C}$ is a right angle, as is $\ang{ADC}$. Express $h$
       in terms of lengths $a$, $b$, and $c$ of the sides. Obtain $\sg{AD}$ in
       terms of $a$, $b$, and $c$.
+\exfig{\FIGIXFORTYFIVE}
 \end{exlist}
-\end{multicols}
-
-\FIGIXFORTYTWOFORTYFIVE
 
 \begin{theorem}[Pythagorean theorem]
 The square of the length of the hypotenuse of a right triangle is equal to the
@@ -8338,7 +8242,6 @@ is $\tri{ABC}$.
 \end{steps}
 
 \exercisegroup{9--13}
-\begin{multicols}{2}
 \begin{exlist}
 \item It is said that the ancient Egyptians constructed right angles for
       surveying purposes by forming a triangle using ropes of length 3, 4, and 5
@@ -8350,6 +8253,7 @@ is $\tri{ABC}$.
       the lengths of the hypotenuse and other leg.
 \item[\stex 4.]\stepcounter{exlisti} In Fig.~9--48, $AB \pll CD$, $BC \pll AD$, and $AC \perp BD$. If
       $\sg{BD} = 24$, and $\sg{AD} = 13$, find $\sg{AC}$.
+\exfig{\FIGIXFORTYEIGHT}
 \item[5.]\stepcounter{exlisti} In a right triangle, the two legs are 6 ft and 9 ft. How long is the
       hypotenuse?
 \item The two legs of a right triangle are equal, and the hypotenuse is 4 in.\
@@ -8359,6 +8263,7 @@ is $\tri{ABC}$.
 \item Point $A$ in Fig.~9--49 is 21 mi due north of $O$, while point $B$ is 20 mi
       due east of $O$. What is the distance from $A$ to $B$, across the lake
       shown?
+\exfig{\FIGIXFORTYNINE}
 \item Find the altitude of an equilateral triangle, the length of whose side is
       $a$.
 \item A rope 100 ft long reaches from the top of a pole to a point 40 ft from the
@@ -8375,9 +8280,6 @@ is $\tri{ABC}$.
 \item[\stex 17.] If $n$ is any positive integer, can you construct (\RC) a
       segment of length $\sqrt{n}$?
 \end{exlist}
-\end{multicols}
-
-\FIGIXFORTYEIGHTFORTYNINE
 
 %========================================================= 9-9
 \section*{9--9\quad ON CONSTRUCTIONS}
@@ -8449,7 +8351,6 @@ $\ang{C}$ is a right angle.
 \end{steps}
 
 \exercisegroup{9--14}
-\begin{multicols}{2}
 \begin{exlist}
 \item A circle passes through the vertices of a right triangle whose sides are 3,
       4, and 5 in. What is the radius of the circle?
@@ -8457,10 +8358,8 @@ $\ang{C}$ is a right angle.
       circle, such that $\sg{PR} = 10$, how long is $\sg{RQ}$?
 \item In Fig.~9--52, $AB$ is a diameter of the circle, and $CD \perp AB$. If
       $\sg{AB} = 30$ and $\sg{EO} = 12$, find $\sg{CD}$.
+\exfig{\FIGIXFIFTYTWO}
 \end{exlist}
-\end{multicols}
-
-\FIGIXFIFTYTWO
 
 %========================================================= review
 \section*{REVIEW OF CHAPTER 9}
@@ -8547,14 +8446,10 @@ them, and review the proofs.
       10. If the nonparallel sides are extended, a triangle is formed by these
       extended sides and the greater base. (a) Show that this triangle is right.
       (b) Compute the lengths of the sides of this triangle.
+\exfig{\FIGIXFIFTYTHREE}
 \item[12.] If, in Exercise 11, the altitude is 6, rather than 8, and the other
       dimensions are as given, compute the length of the altitude of the
       triangle from the vertex opposite the side of length 18.
-\end{exlist}
-
-\FIGIXFIFTYTHREEFIFTYFOUR
-
-\begin{exlist}
 \item[13.] A parallelogram has adjacent sides of lengths 12 and 8, and these
       sides form a $60^\circ$ angle. Find the lengths of the diagonals of the
       parallelogram. Find the lengths of the diagonals, if the included angle is
@@ -8567,17 +8462,14 @@ them, and review the proofs.
       product of the three ratios, $AD$ to $DB$, $BE$ to $EC$, and $CF$ to $FA$,
       is 1. [\emph{Hint:} Consider perpendiculars $AX$, $BY$, and $CZ$ from $A$,
       $B$, and $C$ to $l$. Then $\sg{AD}/\sg{DB} = \sg{AX}/\sg{BY}$, etc.]
+\exfig{\FIGIXFIFTYFOUR}
 \item[16.] Construct a triangle similar to a given triangle and having a given
       perimeter.
 \item[17.] Upon a given segment as side, construct a triangle similar to a given
       triangle.
-\end{exlist}
-
-\FIGIXFIFTYFIVE
-
-\begin{exlist}
 \item[18.] In $\tri{ABC}$, $CD$ and $BE$ are altitudes, as in Fig.~9--55. Prove
       that $\sg{CD}/\sg{EB} = \sg{AC}/\sg{AB}$.
+\exfig{\FIGIXFIFTYFIVE}
 \item[19.] Prove that if, in triangles $ABC$ and $A'B'C'$, $AB \pll A'B'$,
       $BC \pll B'C'$, and $CA \pll C'A'$, then $\tri{ABC} \simto \tri{A'B'C'}$.
 \item[20.] Prove that the line joining the midpoints of two opposite sides of a
@@ -8877,8 +8769,15 @@ triangles provides us with a tool for determining areas of polygons in general,
 for the area of any polygon can be computed as the sum of the areas of certain
 triangles.
 
+% Exercise Group 10-5 carries eight figures (10-10 ... 10-17).  Each one now
+% sits inline, immediately after the exercise that names it, and the group
+% runs full measure rather than in two columns -- a figure set in a 52 mm
+% column would print smaller than the book's own.  (Caleb, 2026-08-17: "for
+% the exercise groups, the figures were not placed inline with the text like
+% they should be.")  The list was in two \begin{exlist} blocks with an
+% explicit \setcounter across the old figure dump; it is now one list, so the
+% numbering runs 1-38 by itself.
 \exercisegroup{10--5}
-\begin{multicols}{2}
 \begin{exlist}
 \item A triangle has an area of 30 and a base of 6. Determine its height.
 \item Two adjacent sides of a parallelogram have lengths of 12 and 8 in. These
@@ -8889,8 +8788,10 @@ triangles.
 \item In Fig.~10--10, $l$ and $m$ are parallel and 3 ft apart.
   $\sg{AB} = \sg{CD} = 5$ ft. If the distance from $B$ to $C$ is 1 mi, what is
   the area of the quadrilateral $ABDC$?
+\exfig{\FIGXTEN}
 \item What is the area of $\Xrect ABCD$ if the sides are as shown in
   Fig.~10--11 and $BD \perp AD$?
+\exfig{\FIGXELEVEN}
 \item The area of a triangle is $A$, and its base is $x$. Find the altitude in
   terms of $A$ and $x$.
 \item The base of a parallelogram can be expressed in terms of its area and
@@ -8922,21 +8823,19 @@ triangles.
 \item[17.] Find the area of an isosceles right triangle if one leg is 20 ft
   long.
 \item[18.] In Fig.~10--12, $AD \pll BC$. Compute the area of the figure.
+\exfig{\FIGXTWELVE}
 \item[\stex 19.] Generalize Exercise 18, designating the lengths of the
   parallel sides, or bases, by $b$ and $b'$ and the height by $h$. Of course,
   you are developing a formula for the area of a trapezoid.
 \item[20.] Besides the proof suggested by the dotted line in Fig.~10--12,
   Fig.~10--13 also suggests a proof. Here, it is assumed that $b > b'$. Make a
   proof.
-\end{exlist}
-\end{multicols}
-
-\FIGXTENELEVEN
-
-\FIGXTWELVETHIRTEEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{20}
+\exfig{\FIGXTHIRTEEN}
+% Items 11-20 carry explicit labels, which do not advance exlisti, so the
+% automatic counter is still at 10 here.  The old two-block layout restored it
+% with a \setcounter on the second \begin{exlist}; merging the blocks into one
+% list means the same correction has to be made in place.
+\setcounter{exlisti}{20}
 \item The bases of a trapezoid are 3 and 12, and the altitude is 6. What is
   its area?
 \item The area of a trapezoid of height 6 in.\ is 39 in$^2$. If one base is
@@ -8949,6 +8848,7 @@ triangles.
   side?
 \item In Fig.~10--14, $ABCD$ is a parallelogram. Prove that the four small
   triangles, $\tri{AOB}$, $\tri{BOC}$, etc., all have equal areas.
+\exfig{\FIGXFOURTEEN}
 \item The areas of two similar triangles are 360 and 250 square units. If a
   side of the first triangle is 8 units, how long is the corresponding side of
   the second triangle?
@@ -8962,6 +8862,7 @@ triangles.
   \[ A = \sqrt{s(s\!-\!a)(s\!-\!b)(s\!-\!c)}. \]
   This is ``Heron's formula,'' named after an Alexandrian Greek by that name of
   about 100 B.C., possibly later. Show that this formula is correct.
+\exfig{\FIGXFIFTEEN}
 \item[31.] The sides of a triangle are 8, 11, and 13 in. Find its area.
 \item[32.] The sides of a triangle are 17, 25, and 26 ft. Find its area. Find
   the height to the 25-ft side.
@@ -8971,6 +8872,7 @@ triangles.
 \item[35.] If, in Fig.~10--16, $ABCD$ is a parallelogram, with $\sg{BE} = 2$
   and $\sg{ED} = 6$, what is the number
   \[ \frac{\text{Area } (BEC)}{\text{Area } (ABCD)}\,? \]
+\exfig{\FIGXSIXTEEN}
 \item[36.] A square has a diagonal of length 12 in. Compute the area of the
   square. Determine a formula for the area of a square in terms of the length
   $d$ of its diagonal.
@@ -8980,14 +8882,8 @@ triangles.
   and $\sg{CB} = 12$. Compute the areas of triangles $ABC$, $ACD$, and $BCD$.
   Check your work by verifying that the sum of the area of the latter two
   triangles is equal to the area of $\tri{ABC}$.
+\exfig{\FIGXSEVENTEEN}
 \end{exlist}
-\end{multicols}
-
-\FIGXFOURTEEN
-
-\FIGXFIFTEEN
-
-\FIGXSIXTEENSEVENTEEN
 
 %========================================================= 10-5
 \section*{10--5\quad AREA PROOF OF THE\\PYTHAGOREAN THEOREM}
@@ -9027,8 +8923,9 @@ From algebra then,
 There are many more proofs of this theorem. Your teacher can show you some if
 you are interested.
 
+% multicols dropped: this group carries Fig 10-20, which now sits inline after
+% the exercise (no. 8) that names it.
 \exercisegroup{10--6}
-\begin{multicols}{2}
 \begin{exlist}
 \item Triangles $ABC$ and $A'B'C'$ are similar. $\sg{AB} = 3$,
   $\sg{A'B'} = 5$, and area $(ABC) = 18$. Compute area $(A'B'C')$.
@@ -9050,10 +8947,8 @@ you are interested.
   figure like that in Fig.~10--20 with the single word, ``Behold.'' Give a
   proof. In Fig.~10--20 $DF \pll AC$, and $EG \pll BC$.
   [\emph{Hint:} $\sg{FC} = a - b$.]
+\exfig{\FIGXTWENTY}
 \end{exlist}
-\end{multicols}
-
-\FIGXTWENTY
 
 %========================================================= 10-6
 \section*{*10--6\quad CONSTRUCTION PROBLEMS}
@@ -9068,12 +8963,14 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
 
 \FIGXTWENTYONE
 
+% multicols dropped: this group carries Figs 10-22 and 10-23, now inline after
+% exercises 1 and 10 respectively.
 \exercisegroup{10--7}
-\begin{multicols}{2}
 \begin{exlist}
 \item Construct a triangle whose area is equal to that of pentagon $ABCDE$
   (Fig.~10--22). Use the method employed above to construct a triangle equal in
   area to a given quadrilateral.
+\exfig{\FIGXTWENTYTWO}
 \item Show how to construct a square whose area is equal to the sum of the
   areas of two given squares.
 \item Solve Exercise 2 with ``sum'' replaced by ``difference.''
@@ -9093,10 +8990,8 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
   perpendiculars from $P$ to the sides of the triangle is equal to the length
   of an altitude of the triangle. [\emph{Hint:} Consider the areas of triangles
   $APB$, $APC$, and $BPC$.]
+\exfig{\FIGXTWENTYTHREE}
 \end{exlist}
-\end{multicols}
-
-\FIGXTWENTYTWOTHREE
 
 %========================================================= review
 \section*{REVIEW OF CHAPTER 10}
@@ -9127,6 +9022,7 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
   areas.
 \item[\stex 3.] Prove that the medians divide a triangle into six triangles of
   equal areas (Fig.~10--24).
+\exfig{\FIGXTWENTYFOUR}
 \item[4.] Prove that the area of a square is half the area of a square whose
   side is the diagonal of the given square.
 \item[5.] Two similar triangles have areas of 108 and 48 ft$^2$. The first has
@@ -9147,8 +9043,6 @@ parallel to diagonal $AC$. Show that area $(ABE)$ = area $(ABCD)$.
   From the foot of the altitude to a vertex is 8 in. How long is the
   hypotenuse?
 \end{exlist}
-
-\FIGXTWENTYFOUR
 
 \par\medskip\begin{center}\bfseries Review Test\end{center}\par\nopagebreak
 \begin{exlist}
@@ -9388,11 +9282,10 @@ angle} of a regular polygon is an angle, with vertex at the center, whose sides
 contain adjacent vertices of the polygon. See Fig.~11--6.
 \end{definition}
 
+% multicols dropped: this group carries Fig 11-7, which now sits inline after
+% the exercise (no. 4) that names it, instead of being hoisted above the whole
+% list.  (Caleb, 2026-08-17: exercise-group figures belong inline.)
 \exercisegroup{11--5}
-
-\FIGXISEVEN
-
-\begin{multicols}{2}
 \begin{exlist}
 \item Inscribe a regular hexagon in a circle. Draw the circle inscribing the
       hexagon.
@@ -9403,6 +9296,7 @@ contain adjacent vertices of the polygon. See Fig.~11--6.
       pentagon? hexagon? $n$-gon?
 \item If an exterior angle of a regular polygon is as shown in Fig.~11--7, how
       many degrees in it if the polygon has 5 sides? 6 sides? $n$ sides?
+\exfig{\FIGXISEVEN}
 \item Prove that a central angle of a regular polygon is the supplement of any
       angle of the polygon.
 \item Show that an exterior angle of a regular polygon is congruent to a
@@ -9410,7 +9304,6 @@ contain adjacent vertices of the polygon. See Fig.~11--6.
 \item In Definition 11--4, how do we know that the center of the inscribed
       polygon and the center of the circumscribed polygon are identical?
 \end{exlist}
-\end{multicols}
 
 %========================================================= 11-4
 \section*{11--4\quad REGULAR POLYGONS AND SIMILARITY}
@@ -9937,36 +9830,31 @@ diameters).
 
 \noindent The proofs are left to the student.
 
+% multicols dropped: this group carries Figs 11-13, 11-14, 11-15 and 11-16.
+% They were already sitting beside the exercises that name them, but inside a
+% 52 mm column, which printed them smaller than the book's own; each is now an
+% \exfig on the full measure.
 \exercisegroup{11--13}
-\begin{multicols}{2}
 \begin{exlist}
 \item Two circles have radii of 5 in. and 2.5 in. Find their areas. What is the
       ratio of their areas?
 \item An annular ring (Fig.~11--13) has inner radius 2 ft and outer radius
       4 ft. Find its area.
-
-      \FIGXITHIRTEEN
-
+\exfig{\FIGXITHIRTEEN}
 \item Figure 11--14 is composed of a circle and semicircles. If
       $\sg{AB} = \sg{BC} = 2$, $B$ is the center of the circle, and $AC$ is a
       diameter, find the area of the shaded portion.
-
-      \FIGXIFOURTEEN
-
+\exfig{\FIGXIFOURTEEN}
 \item Show that the area of the inscribed circle is half the area of the
       circumscribed circle of the square (Fig.~11--15).
-
-      \FIGXIFIFTEEN
-
+\exfig{\FIGXIFIFTEEN}
 \item The area of a circle is 154 in\textsuperscript{2}. Find its radius.
       (Use $\pi = 22/7$.)
 \item The area of a circle is 100 ft\textsuperscript{2}. Find its radius.
 \item Semicircles are constructed on the sides of a right triangle, as in
       Fig.~11--16. Show that the area of the largest is the sum of the areas of
       the other two.
-
-      \FIGXISIXTEEN
-
+\exfig{\FIGXISIXTEEN}
 \item A circle has its circumference equal to its area. What is its radius?
 \item A rectangular barn is 30 ft by 40 ft. A goat is tethered at one corner by
       a rope 40 ft long. Over what area can he graze? Over what area can he
@@ -9982,7 +9870,6 @@ diameters).
 \item[14.] The area of a circle is 49/4 times the area of another circle. What
       is the ratio of their radii?
 \end{exlist}
-\end{multicols}
 
 %========================================================= review
 \section*{REVIEW OF CHAPTER 11}
@@ -10097,11 +9984,11 @@ exterior to some central angle.
 \FIGXIIONE
 
 \exercisegroup{12--1}
-\begin{multicols}{2}
 \begin{exlist}
 \item In Fig.~12--2, show that if $\ang{AOB} > \ang{COB}$, with $C$ in the
       interior of $\ang{AOB}$, then every point of the arc $\XIIarc{CB}$ is a
       point of the arc $\XIIarc{AB}$.
+\exfig{\FIGXIITWO}
 \item If the arc $\XIIarc{AB}$ is subtended by the central angle $AOB$, define
       the \emph{midpoint of the arc}, and show that such a point exists.
 \item Use the result of Exercise 2 to prove that there are infinitely many
@@ -10111,15 +9998,12 @@ exterior to some central angle.
       $OP$, a point $Q$, which is on the arc $\XIIarc{EF}$. Show that if
       $P \neq P'$, then $Q \neq Q'$. How many points are there on the arc
       $\XIIarc{EF}$?
+\exfig{\FIGXIITHREE}
 \item Referring to Fig.~12--4, suppose that an arc is exterior to a central
       angle $AOB$. Show how to define the midpoint of the arc. Why is
       $\ang{AOC} \cong \ang{BOC}$?
+\exfig{\FIGXIIFOUR}
 \end{exlist}
-\end{multicols}
-
-\FIGXIITWOTHREE
-
-\FIGXIIFOUR
 
 %========================================================= 12-3
 \section*{12--3\quad ARC LENGTH}
@@ -10173,23 +10057,21 @@ of the arc} is defined to be the following limit: $l = \lim \{l_n\}$.
 \end{definition}
 
 \exercisegroup{12--2}
-\begin{multicols}{2}
 \begin{exlist}
 \item A regular hexagon is inscribed in a circle of radius 1, as in
       Fig.~12--7. Show that the length of the arc $\XIIarc{ACB}$ is greater
       than 2.
+\exfig{\FIGXIISEVEN}
 \item In a circle of radius 2, what is the length of arc subtended by a right
       angle? by a straight angle?
 \item In Fig.~12--8, the central angles $AOB$ and $BOC$ are congruent, and
       $\ang{AOC}$ is a right angle. What is the length of the arc $\XIIarc{AB}$
       if $\sg{AO} = 5$?
+\exfig{\FIGXIIEIGHT}
 \item[\stex 4.] Prove that the length of any arc is a positive number which is
       greater than the length of the line segment determined by the endpoints of
       the arc.
 \end{exlist}
-\end{multicols}
-
-\FIGXIISEVENEIGHT
 
 \begin{theorem}
 If, in a circle, two central angles are congruent, they subtend arcs of equal
@@ -10781,7 +10663,6 @@ $\XIIarc{PC}$) $= \frac{1}{2}$ (measure $\XIIarc{AC}$).
 The proof of Case 2 is left to the student.
 
 \exercisegroup{12--11}
-\begin{multicols}{2}
 \begin{exlist}
 \item If $\ang{ABC}$ is inscribed in a circle and measure
       $\XIIarc{AC} = 80^\circ$, how many degrees in $\ang{B}$?
@@ -10789,6 +10670,7 @@ The proof of Case 2 is left to the student.
       there in the arc it subtends?
 \item Prove that an angle ``inscribed in a semicircle'' is a right angle
       (Fig.~12--23).
+\exfig{\FIGXIITWENTYTHREE}
 \item How large can an angle be that is inscribed in a circle?
 \item Prove that two inscribed angles in one circle which subtend arcs of equal
       measure are congruent.
@@ -10797,20 +10679,24 @@ The proof of Case 2 is left to the student.
       opposite angles are supplementary.
 \item In Fig.~12--24 lines $AB$ and $CD$ are parallel. Prove that measure
       $\XIIarc{AC} = $ measure $\XIIarc{BD}$.
+\exfig{\FIGXIITWENTYFOUR}
 \item A trapezoid is inscribed in a circle. Prove that the base angles are
       congruent. [\emph{Hint:} Use the result of Exercise 7.]
 \item[\stex 9.] In Fig.~12--25, $AC$ is tangent to the circle. Prove that
       measure $\ang{ABD} = \frac{1}{2}$ measure $\XIIarc{BD}$. [\emph{Hint:}
       Draw $DE \pll AC$. Show that arcs $\XIIarc{BD}$ and $\XIIarc{BE}$ have the
       same measure. Then use $\ang{ABD} \cong \ang{BDE} \cong \ang{BED}$.]
+\exfig{\FIGXIITWENTYFIVE}
 \item[\stex 10.] Prove, for Fig.~12--26, that measure
       $\ang{A} = \frac{1}{2}$ (measure $\XIIarc{CD} - $ measure $\XIIarc{BE}$).
       State this theorem in words.
+\exfig{\FIGXIITWENTYSIX}
 \item[\stex 11.] State and prove theorems similar to that of Exercise 10 for
       cases in which either $AC$ or $AD$, or both, are tangent to the circle.
 \item[\stex 12.] Prove, for Fig.~12--27, that measure
       $\ang{AEB} = \frac{1}{2}$ (measure $\XIIarc{AB} + $ measure
       $\XIIarc{DC}$). [\emph{Hint:} Draw $BC$.] State this theorem in words.
+\exfig{\FIGXIITWENTYSEVEN}
 \item[13.] Using Fig.~12--27, prove that $\tri{AED} \simto \tri{BEC}$. Show that
       $\sg{AE} \cdot \sg{EC} = \sg{BE} \cdot \sg{ED}$. State this last property
       as a theorem.
@@ -10820,26 +10706,18 @@ The proof of Case 2 is left to the student.
 \item[15.] Two chords of a circle intersect as in Fig.~12--28. If
       $\sg{AO} = 12$, $\sg{OB} = 4$, and $\sg{CO} = 8$, find $\sg{OD}$.
       [\emph{Hint:} Use Exercise 13.]
+\exfig{\FIGXIITWENTYEIGHT}
 \item[\stex 16.] From point $A$ outside a circle, secants are drawn as in
       Fig.~12--29. If $\sg{AD} = 6$, $\sg{DE} = 10$, and $\sg{AB} = 8$, find
       $\sg{BC}$.
+\exfig{\FIGXIITWENTYNINE}
 \item[\stex 17.] In Fig.~12--30, $AB$ is tangent to the circle at $B$. Prove
       that $\tri{ACB} \simto \tri{ABD}$. You will need the result of Exercise 9
       for this. Prove also that $\sg{AB}^2 = \sg{AD} \cdot \sg{AC}$.
+\exfig{\FIGXIITHIRTY}
 \item[18.] If, in Fig.~12--30, $\sg{AC} = 8$ and $\sg{CD} = 10$, determine
       $\sg{AB}$.
 \end{exlist}
-\end{multicols}
-
-\FIGXIITWENTYTHREE
-
-\FIGXIITWENTYFOURTWENTYFIVE
-
-\FIGXIITWENTYSIXTWENTYSEVEN
-
-\FIGXIITWENTYEIGHT
-
-\FIGXIITWENTYNINETHIRTY
 
 %========================================================= review
 \par\bigskip
@@ -10899,11 +10777,7 @@ measurement} in terms of an arc length.
 \item From the definition of arc length, show that the length of arc subtended
       by a right angle (Fig.~12--31) is greater than $\sqrt{2}\,r$. Hence,
       conclude that $\pi/2 > \sqrt{2}$.
-\end{exlist}
-
-\FIGXIITHIRTYONE
-
-\begin{exlist}\setcounter{exlisti}{1}
+\exfig{\FIGXIITHIRTYONE}
 \item Angles of $15^\circ$ subtend arcs of lengths 10 and 12 on two circles.
       What is the ratio of the radii of the circles? Find the radii.
 \item Theorem 12--7 states that arc length is proportional to the radius. What
@@ -10979,7 +10853,6 @@ locus (c) is a line requires proof.
 In the following exercises, state what you believe the locus to be. Also
 describe this locus as a \emph{set}.
 
-\begin{multicols}{2}
 \begin{exlist}
 \item What is the locus of points $P$ such that $\sg{PP_0} = 4$, where $P_0$ is
       a given point?
@@ -10987,6 +10860,7 @@ describe this locus as a \emph{set}.
       units long (Fig.~13--3)? (By the distance from a point to a line segment,
       we mean the shortest distance from the point to any point of the
       segment.)
+\exfig{\FIGXIIITHREE}
 \item What is the locus of all points at a distance four units from the sides of
       a unit square? a square 12 units on a side? eight units?
 \item A circle of radius five units is given. What is the locus of all points at
@@ -10994,11 +10868,8 @@ describe this locus as a \emph{set}.
 \item A triangle has a fixed base four units long (Fig.~13--4). What is the
       locus of all possible positions of the vertex $V$ if the area is four
       units? if the area is $A$ units?
+\exfig{\FIGXIIIFOUR}
 \end{exlist}
-\end{multicols}
-
-\FIGXIIITHREE
-\FIGXIIIFOUR
 
 %========================================================= 13-2
 \section*{13--2\quad SOME LOCUS THEOREMS}
@@ -11072,7 +10943,6 @@ to the student.
 
 \exercisegroup{13--2}
 
-\begin{multicols}{2}
 \begin{exlist}
 \item What is the set of all points that are centers of circles tangent to both
       sides of an angle?
@@ -11084,25 +10954,23 @@ to the student.
 \item[\stex 4.] In Fig.~13--8, points $A$ and $B$ are fixed. What is the locus
       of all points $P$, on a given side of the line $AB$, such that
       $\ang{APB}$ is $50^\circ$?
+\exfig{\FIGXIIIEIGHT}
 \item[5.] What is the locus of points equidistant from three noncollinear
       points?
 \item[6.] As in Fig.~13--9, sketch the path of a point on the rim of a wheel
       rolling on a line. The curve obtained is called a \emph{cycloid}.
+\exfig{\FIGXIIININE}
 \item[\stex 7.] With the same wheel as in Exercise 6, sketch the locus if $P$ is
       on a spoke of the wheel; on an extension of a spoke.
 \item[8.] A small circle of radius $R/4$ rolls on the inside of a circle of
       radius $R$ (Fig.~13--10). What is the path of a point on the small circle?
       (The curve is called a \emph{hypocycloid}.)
+\exfig{\FIGXIIITEN}
 \item[\stex 9.] What are the various possibilities that arise from Exercise 8 if
       the radius of the small circle is $xR$? Investigate the locus if
       $x = \frac{1}{2}$; $x = \frac{1}{3}$; $x$ is a rational number; $x$ is an
       irrational number.
 \end{exlist}
-\end{multicols}
-
-\FIGXIIIEIGHT
-\FIGXIIININE
-\FIGXIIITEN
 
 %========================================================= 13-3
 \section*{13--3\quad UNIONS AND INTERSECTIONS}
@@ -11160,12 +11028,12 @@ The proof is left to the student.
 
 \exercisegroup{13--4}
 
-\begin{multicols}{2}
 \begin{exlist}
 \item Consider all lines that are parallel to the base of a triangle and that
       intersect the other sides in points $C$ and $D$ (Fig.~13--13). Show that
       the locus of midpoints of such segments $CD$ is the median to the base
       (except for one point!).
+\exfig{\FIGXIIITHIRTEEN}
 \item Show how to inscribe a circle in a triangle. State why your construction
       is correct. Why is there a unique inscribed circle?
 \item Show how to circumscribe a circle about a triangle. State why there is a
@@ -11176,11 +11044,8 @@ The proof is left to the student.
       with center $O$ containing $A$ and $B$. If $Q$ is a point of this circle
       and is on the same side of $AB$ as $O$, prove that
       $\ang{AQB} \cong \ang{ABC}$.
+\exfig{\FIGXIIIFOURTEEN}
 \end{exlist}
-\end{multicols}
-
-\FIGXIIITHIRTEEN
-\FIGXIIIFOURTEEN
 
 \begin{theorem}
 The medians of a triangle intersect in one point (called the \emph{centroid}),
@@ -11217,7 +11082,6 @@ intersection of the altitudes of $\tri{ABC}$.
 
 \exercisegroup{13--5}
 
-\begin{multicols}{2}
 \begin{exlist}
 \item Construct a triangle, given the lengths of its base, altitude, and one
       side.
@@ -11226,6 +11090,7 @@ intersection of the altitudes of $\tri{ABC}$.
 \item[\stex 3.] As in Fig.~13--17, construct a triangle, given the lengths of
       two sides and an angle other than the included angle. [\emph{Hint:} Use
       Exercise 4 in Group 13--4.]
+\exfig{\FIGXIIISEVENTEEN}
 \item[4.] Construct a triangle, given the lengths of an altitude to one side and
       the other two sides.
 \item[5.] Construct a triangle, given the midpoints of the three sides.
@@ -11263,9 +11128,6 @@ intersection of the altitudes of $\tri{ABC}$.
       are congruent to two of these segments, and such that the median to the
       other side is congruent to the third segment.
 \end{exlist}
-\end{multicols}
-
-\FIGXIIISEVENTEEN
 
 %========================================================= Review
 \section*{REVIEW OF CHAPTER 13}
@@ -11496,17 +11358,15 @@ side of $\pi_1$ as $\pi_2^+$.
 \end{definition}
 
 \exercisegroup{14--3}
-\begin{multicols}{2}
 \begin{exlist}
 \item Give a precise definition for a tetrahedron (Fig.~14--11). The
       tetrahedron is usually considered to be just the surface. What do you
       define the interior to be?
+\exfig{\FIGXIVELEVEN}
 \item Give a definition for a polyhedron (surface). See Fig.~14--12.
+\exfig{\FIGXIVTWELVE}
 \item Give a precise definition for a half plane.
 \end{exlist}
-\end{multicols}
-
-\FIGXIVELEVENTWELVE
 
 \XIVpart{B.\quad CONGRUENCE IN SPACE}
 \addcontentsline{toc}{section}{B.\ Congruence in Space}
@@ -11756,22 +11616,21 @@ The area of a polyhedron is the sum of the areas of its faces.
 \end{definition}
 
 \exercisegroup{14--12}
-\begin{multicols}{2}
 \begin{exlist}
 \item A \emph{prism} is a polyhedron two of whose faces are congruent polygons
       in parallel planes, called bases, and whose remaining edges are all
       parallel to one another, as in Fig.~14--31. The lateral area is the total
       area of the faces less the area of the bases. Find a formula for the
       lateral area of a prism.
+\exfig{\FIGXIVTHIRTYONE}
 \item Using Fig.~14--32, define \emph{pyramid} and \emph{regular pyramid}. Find
       a formula for the lateral area of a regular pyramid.
+\exfig{\FIGXIVTHIRTYTWO}
 \item A \emph{parallelepiped} is a special kind of prism. Give a definition that
       you think fits the drawing in Fig.~14--33. Prove that the opposite faces
       of a parallelepiped are congruent.
+\exfig{\FIGXIVTHIRTYTHREE}
 \end{exlist}
-\end{multicols}
-
-\FIGXIVTHIRTYONETHIRTYTHREE
 
 %========================================================= 14-8
 \section*{14--8\quad VOLUME}
@@ -11812,17 +11671,16 @@ The same formula holds for the volume of a prism. To see this, we first prove
 the theorem for prisms with triangular bases.
 
 \exercisegroup{14--14}
-\begin{multicols}{2}
 \begin{exlist}
 \item By constructing a parallelepiped of which a triangular prism is half, show
       that the volume of the prism is equal to the area of a base times the
       altitude. See Fig.~14--38(a).
+% (a) and (b) are one captioned unit in the book, so the block stays whole and
+% sits after the FIRST exercise that cites it.
+\exfig{\FIGXIVTHIRTYEIGHT}
 \item Show that the same result holds for an arbitrary prism. See
       Fig.~14--38(b).
 \end{exlist}
-\end{multicols}
-
-\FIGXIVTHIRTYEIGHT
 
 \begin{theorem}
 The volume of a prism is equal to the area of a base times the altitude.
@@ -11839,7 +11697,6 @@ If $B$ is the area of the base of a pyramid, then the volume $=
 \FIGXIVTHIRTYNINE
 
 \exercisegroup{14--15}
-\begin{multicols}{2}
 \begin{exlist}
 \item Find the volume of a regular pyramid with a base 4 ft square and altitude
       equal to 4 ft.
@@ -11849,10 +11706,8 @@ If $B$ is the area of the base of a pyramid, then the volume $=
 \item Define \emph{similar polyhedra}, and prove that the volumes of similar
       polyhedra are proportional to the cubes of corresponding edges. Thus,
       $V/V' = l^3/l'^3$, as in Fig.~14--40.
+\exfig{\FIGXIVFORTY}
 \end{exlist}
-\end{multicols}
-
-\FIGXIVFORTY
 
 %========================================================= 14-9
 \section*{14--9\quad CYLINDERS, CONES, AND SPHERES}
@@ -11867,17 +11722,14 @@ areas of prisms and pyramids.
 \FIGXIVFORTYONE
 
 \exercisegroup{14--16}
-\begin{multicols}{2}
 \begin{exlist}
 \item Give precise definitions for cylinders, cones, and spheres.
 \item Find a formula for the lateral surface of a ``regular'' cone, called a
       \emph{right circular cone} (Fig.~14--42).
+\exfig{\FIGXIVFORTYTWO}
 \end{exlist}
-\end{multicols}
 
 The surface area of a sphere is harder to discuss. We merely state the result.
-
-\FIGXIVFORTYTWOFORTYTHREE
 
 \begin{theorem}
 The area of the surface of a sphere of radius $r$ is $4\pi r^2$.
@@ -11886,6 +11738,8 @@ The area of the surface of a sphere of radius $r$ is $4\pi r^2$.
 With the aid of Theorem 14--23, it is not too hard to arrive at the volume of a
 sphere. Try to prove the following theorem by considering small ``pyramids,'' as
 shown in Fig.~14--43.
+
+\FIGXIVFORTYTHREE
 
 \begin{theorem}
 The volume of a sphere of radius $r$ is $\frac{4}{3}\pi r^3$.
@@ -11914,7 +11768,7 @@ The volume of a sphere of radius $r$ is $\frac{4}{3}\pi r^3$.
 % the chapter whose opener the plate faces emits it. Previously orphaned:
 % ch14-UNCERTAIN handed it to ch15, ch15-UNCERTAIN handed it back to ch14, so
 % no unit emitted it at all.
-\XVplate{Ren\'e Descartes (1596--1650)}{Courtesy of \emph{Scripta Mathematica}.}
+\XVplate{plate-descartes}{Ren\'e Descartes (1596--1650)}{Courtesy of \emph{Scripta Mathematica}.}
 
 \chapter*{\raggedright\Huge ANALYTIC GEOMETRY}
 \addcontentsline{toc}{chapter}{15.\ Analytic Geometry}
@@ -12166,20 +12020,21 @@ upper and left half planes; the \emph{third quadrant}, in the lower and left
 half planes; and the \emph{fourth quadrant}, in the lower and right half
 planes. See Fig.~15--4.
 
+% Fig. 15-5 is set INSIDE this group in the book (p.256, left column, directly
+% under exercise 1, which is the exercise that cites it), so it is inlined with
+% \exfig and the multicols wrapper is dropped -- a figure in a 52 mm column
+% would print smaller than the book's own.
 \exercisegroup{15--6}
-\begin{multicols}{2}
 \begin{exlist}
 \item In Fig.~15--5, which is quadrant I? quadrant II? quadrant III? quadrant
   IV?
+\exfig{\FIGXVFIVE}
 \item[\stex 2.] Explain why Definition 15--3 does not require any previous
   knowledge of what the words ``left'' and ``right'' mean.
 \item[\stex 3.] Has there been any use made of the fact that the axes have
   been selected to be perpendicular? What changes would have to be made so far
   if the axes were not at right angles?
 \end{exlist}
-\end{multicols}
-
-\FIGXVFIVE
 
 \begin{definition}
 Let $P$ be any point of the plane, and $l_1$ and $l_2$ the lines through $P$
@@ -12595,8 +12450,10 @@ Hence
 \sg{P_1P_2} = 2\sqrt{5} = \sqrt{5} + \sqrt{5} = \sg{P_1M} + \sg{MP_2}.
 \]
 
+% Fig. 15-17 is set INSIDE this group in the book (p.264, head of the right
+% column, immediately adjacent to exercise *7, the only exercise that cites
+% it), so it is inlined with \exfig and the multicols wrapper is dropped.
 \exercisegroup{15--12}
-\begin{multicols}{2}
 \begin{exlist}
 \item Find the midpoints of the sides, and the lengths of the medians, of the
   triangle whose vertices are $(-4, 10)$, $(12, 10)$, and $(4, -2)$.
@@ -12615,12 +12472,10 @@ Hence
   the sides of a triangle is half as long as the third side, and parallel to
   it. [\emph{Hint:} Choose your coordinate system so that one vertex is at the
   origin and another is on the positive $x$-axis.]
+\exfig{\FIGXVSEVENTEEN}
 \item[\stex 8.] Prove that the diagonals of a parallelogram bisect each
   other.
 \end{exlist}
-\end{multicols}
-
-\FIGXVSEVENTEEN
 
 %========================================================= 15-7
 \section*{15--7\quad CURVES AND EQUATIONS}
@@ -13508,5 +13363,469 @@ back to the text.
 \item The measure of an angle inscribed in a circle is one half the measure
       of the central angle which subtends the same arc.
 \end{applist}
+\clearpage
+% ==================== errata ====================
+\setcounter{theorem}{0}\setcounter{definition}{0}\setcounter{construction}{0}\setcounter{exgroup}{0}\setcounter{footnote}{0}
+\setcounter{chapter}{18}
+
+\chapter*{\raggedleft\Huge ERRATA}
+\addcontentsline{toc}{chapter}{Errata in the 1960 printing}
+\markboth{ERRATA IN THE 1960 PRINTING}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+
+The text of this edition follows the 1960 printing exactly, including the
+places where that printing is itself in error. This list gathers those
+places, so that a reader who is sent to the wrong figure, or who meets a
+theorem whose statement does not say what its proof needs, can see at once
+that the fault is the book's and not the argument's. Page numbers in
+parentheses are the original book's.
+
+Two of the entries below are the only ones corrected in the text rather than
+reproduced, because in each case the surrounding prose as transcribed would
+visibly contradict the page: they are marked \textsc{corrected}.
+
+\begin{erratalist}
+
+\item[Chapter 2 \quad Logic]
+\ERprints{Exercise Group 2--12, No.~10 refers to opposite \emph{lines} of the
+line $l$ (p.~33).}\\
+\ERmeans{opposite \emph{sides}.} The introduction to the same exercise group
+also misspells ``equivalence''; that spelling is normalised here.\\
+Section 2--8 (p.~35) repeats a clause of the form ``if both of these
+statements are true'' twice over --- a compositor's duplication.
+
+\item[Chapter 4 \quad Congruence of segments]
+\ERprints{``in \emph{the} Section 4--2'' (p.~64).}\\
+\ERmeans{``in Section 4--2''.}
+
+\item[Chapter 5 \quad Measurement of segments]
+Theorem 5--4 (p.~95) leaves its third length without the overbar carried by
+the first two. The book's use of the segment overbar is erratic throughout,
+and is reproduced as printed everywhere; this is simply the most visible
+instance.
+
+\item[Chapter 6 \quad Congruence of angles and triangles]
+A stray comma stands between ``segments'' and ``are either congruent''
+(p.~119). Several sites in this chapter also mix $=$ and $\cong$; that
+mixing is the book's own and is reproduced.\\
+The self-congruence $\tri{ABE} \cong \tri{ABE}$ on p.~184 is \emph{not} an
+error --- it is a genuine dissection argument in the Greek style, and must
+not be ``fixed''.
+
+\item[Chapter 7 \quad Use of the congruence theorems]
+\ERprints{Construction 7--3 (p.~126) states $ABC \cong A\text{\textup{'}}B\text{\textup{'}}C\text{\textup{'}}$
+without the triangle sign on the first name.}\\
+\ERmeans{$\tri{ABC} \cong \tri{A'B'C'}$.}\\
+Exercise Group 7--8, No.~8 (p.~130) refers to the sides of $A$ where it means
+the sides of $\ang{A}$.
+
+\item[Chapter 8 \quad Parallel lines]
+\ERprints{The second proof (p.~135) refers the reader to Fig.~8--2.}\\
+\ERmeans{Fig.~8--3, which is where angles 1 and 2 are drawn.}\\
+\textsc{corrected}: the cross-reference to ``Exercise Group 8--1'' (p.~147)
+is set here as \textbf{8--11}. It is a navigation label, and following the
+misprint would send a reader to a group twenty pages earlier.
+
+\item[Chapter 9 \quad Similarity of triangles and polygons]
+Exercise 9--33 pairs $D$ and $E$ the opposite way round from the exercise
+that sets it up; reproduced as printed.
+
+\item[Chapter 10 \quad Area]
+\ERprints{A reference to Fig.~9--2 (p.~180).}\\
+\ERmeans{Fig.~10--2.} A transcriber's footnote marks this site in the text.
+
+\item[Chapter 11 \quad Circles and regular polygons]
+\ERprints{Exercise Group 11--5, No.~7 twice names the centre of the inscribed
+\emph{polygon} (p.~197).}\\
+\ERmeans{the inscribed \emph{circle}, in both places.}\\
+Shanks's computation of $\pi$ is dated to the seventeenth century (p.~204);
+it was completed in 1873. The heading ``Remark. 2.'' (p.~205) is normalised
+here to ``Remark 2.''
+
+\item[Chapter 13 \quad Loci and sets]
+Definition 13--2 (p.~231) defines the union as all points of $S_1$
+\emph{and} $S_2$ where it means \emph{or}; the loose phrasing is the book's.\\
+Theorem 13--7 (p.~233) names its three parallelograms in inconsistent cyclic
+order.\\
+Review Exercise 3 (p.~235) bars the second and third $AB$ but not the first.
+
+\item[Chapter 14 \quad Space geometry]
+\ERprints{Theorem 14--12 (p.~242) writes the ratio with $A'B$ in the
+denominator.}\\
+\ERmeans{$A'B'$ --- a prime is missing.}\\
+Definition 14--6 (p.~244) names the polygon's last vertex $P_{n-1}$ where it
+means $P_n$.\\
+The hint to Theorem 14--13 (p.~244) names $\ang{CAV} \cong \ang{BAV}$, both
+angles at $A$, where the argument needs the angles at $V$.
+
+\item[Chapter 15 \quad Analytic geometry]
+\textsc{corrected}: in Fig.~15--14 (pp.~253\,ff.) the book labels $P_2$ with
+the same coordinates as $Q$. It is set here as $(x_2, y_2)$, because the
+transcribed prose alongside it refers to $y_2$ explicitly and the figure as
+printed contradicts it.\\
+Exercise 15--11, No.~1 (p.~262) gives three vertices that do not form a right
+triangle. No single-digit change reconstructs one, so this is a genuine error
+in the problem rather than a typesetting slip; it is left as printed.\\
+Ex.~15--7, No.~16 (p.~257) is \emph{not} an error: the second point reads
+$(-5, -7)$, confirmed against the physical copy.
+
+\item[Chapter 16 \quad Philosophy of mathematics]
+Berkeley is placed in the seventeenth century (p.~268); he belongs to the
+eighteenth. The perturbations of Uranus are dated early in the eighteenth
+century (p.~270); the work was done in the 1840s. A footnote on p.~268 names
+Baltimore twice in one imprint.
+
+\end{erratalist}
+
+\vspace{1em}
+\noindent\emph{Note on footnote marks.} From p.~259 the book's footnotes fall
+back to \dag\ because the asterisk is already committed to marking optional
+starred material. That is by design, and is preserved.
+\clearpage
+% ==================== bookindex ====================
+\setcounter{theorem}{0}\setcounter{definition}{0}\setcounter{construction}{0}\setcounter{exgroup}{0}\setcounter{footnote}{0}
+\setcounter{chapter}{19}
+
+\chapter*{\raggedleft\Huge INDEX}
+\addcontentsline{toc}{chapter}{Index}
+\markboth{INDEX}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+
+\begin{multicols}{2}
+\small\raggedright
+\idxmain{Abscissa}{454}
+\idxmain{Adams, John, C.}{481}
+\idxmain{Alexander the Great}{6}
+\idxmain{Algebra review}{69, 101, 118, 136, 204, 235, 265}
+\idxmain{Analytic geometry}{450}
+\idxmain{Angle(s)}{}
+\idxsub{acute}{190}
+\idxsub{adjacent}{90}
+\idxsub{alternate exterior}{249}
+\idxsub{alternate interior}{248}
+\idxsub{congruence of}{139}
+\idxsub{complementary}{251}
+\idxsub{corresponding}{249}
+\idxsub{definition of}{88}
+\idxsub{definition of degree measure of}{391}
+\idxsub{definition of "greater than" and "less than" for}{187}
+\idxsub{definition of one degree}{391}
+\idxsub{definition of right}{146}
+\idxsub{existence of right}{184}
+\idxsub{exterior of}{92}
+\idxsub{included}{149}
+\idxsub{interior of}{92}
+\idxsub{measurement of}{390}
+\idxsub{notation for indicating}{88}
+\idxsub{obtuse}{190}
+\idxsub{sides of}{88}
+\idxsub{straight}{88}
+\idxsub{sum of two}{254}
+\idxsub{supplementary}{145}
+\idxsub{supplementary and adjacent}{89}
+\idxsub{vertex of}{88}
+\idxsub{vertical}{89}
+\idxmain{Apollonius}{6}
+\idxmain{Arc}{375}
+\idxmain{Archimedes}{8, 128}
+\idxsub{Archimedes' axiom}{128}
+\idxsub{Archimedes' integer}{128}
+\idxmain{Area}{}
+\idxsub{of a circle}{370}
+\idxsub{determined by counting}{323}
+\idxsub{as a limit}{325}
+\idxsub{of a polyhedron}{442}
+\idxsub{of a rectangle}{328}
+\idxsub{of a sphere}{446}
+\idxsub{of a triangle}{334}
+\idxmain{Aristotle}{5, 479}
+\idxmain{Assumptions}{73}
+\idxmain{Axioms (postulates, assumptions)}{72}
+\idxmain{Axis(es)}{}
+\idxsub{of abscissas}{454}
+\idxsub{coordinate}{454}
+\idxsub{of ordinates}{454}
+\idxmain{Bell, E. T.}{452, 504}
+\idxmain{Bisector}{}
+\idxsub{of an angle}{193}
+\idxsub{perpendicular}{193}
+\idxmain{Bolyai, J.}{7, 243}
+\idxmain{Circle(s)}{}
+\idxsub{center of}{218}
+\idxsub{central angle of}{218}
+\idxsub{chord of}{218}
+\idxsub{circumscribing a polygon}{348}
+\idxsub{definition of}{218}
+\idxsub{definition of area of}{370}
+\idxsub{definition of circumference of}{363}
+\idxsub{diameter of}{218}
+\idxsub{exterior of}{218}
+\idxsub{inscribed angle of}{218}
+\idxsub{inscribed in a polygon}{352}
+\idxsub{interior of}{218}
+\idxsub{radius of}{218}
+\idxsub{secant of}{218}
+\idxsub{tangent to}{351}
+\idxmain{Circular arc(s)}{}
+\idxsub{adjacent}{382}
+\idxsub{definition of}{376}
+\idxsub{definition of degree measure of}{391}
+\idxsub{definition of semicircular arcs}{376}
+\idxsub{midpoint of}{379}
+\idxsub{subtended by a central angle}{376}
+\idxmain{Commensurable segments}{287}
+\idxmain{Completeness postulate}{131}
+\idxmain{Congruence of angles}{}
+\idxsub{postulate for}{139}
+\idxsub{reflexive, symmetric, and transitive properties}{142}
+\idxmain{Congruence of segments}{}
+\idxsub{postulates for}{105}
+\idxsub{reflexive, symmetric, and transitive properties}{106}
+\idxsub{undefined relation}{114}
+\idxmain{Congruence of triangles}{}
+\idxsub{angle-side-angle theorem}{166}
+\idxsub{definition of}{162}
+\idxsub{side-angle-side postulate}{148}
+\idxsub{side-angle-side theorem}{161}
+\idxsub{side-side-side theorem}{174}
+\idxmain{Converse of an implication}{54}
+\idxmain{Coordinate(s)}{}
+\idxsub{abscissa of a point}{458}
+\idxsub{ordinate of a point}{458}
+\idxsub{origin of}{454}
+\idxsub{of a point in the plane}{458}
+\idxsub{of a point on a line}{453}
+\idxmain{Decagon}{257}
+\idxmain{Definitions}{}
+\idxsub{importance of}{118}
+\idxsub{in algebra}{101, 118}
+\idxmain{Degree measure}{}
+\idxsub{of angles}{391}
+\idxsub{of arcs}{395}
+\idxmain{Descartes, René}{450}
+\idxsub{his Discourse on Method}{450}
+\idxsub{his Geometry}{450}
+\idxmain{Diameter}{218}
+\idxmain{Direction, rays with the same}{239}
+\idxmain{Distance between points}{467}
+\idxmain{Division}{}
+\idxsub{definition in algebra}{101}
+\idxsub{of segment into congruent parts}{277}
+\idxmain{Equation(s)}{}
+\idxsub{of a circle}{473}
+\idxsub{equivalent}{466}
+\idxsub{linear}{466}
+\idxmain{Euclid}{8, 20, 209}
+\idxsub{his Elements}{6, 20, 208}
+\idxsub{his parallel postulate}{}
+\idxmain{Eudoxus}{5, 128, 288}
+\idxmain{Figures, relation between figures and geometry}{75}
+\idxmain{Galileo}{479}
+\idxmain{Gauss, K. F.}{7, 244}
+\idxmain{Geometric figure}{13}
+\idxmain{Geometry}{}
+\idxsub{analytic}{451}
+\idxsub{cartesian}{451}
+\idxsub{coordinate}{451}
+\idxsub{origin of word}{3}
+\idxsub{reasons for study}{1}
+\idxsub{of space}{424}
+\idxmain{Greek letters}{39}
+\idxmain{Heptagon}{257}
+\idxmain{Heron's formula}{335}
+\idxmain{Hexagon}{260}
+\idxmain{Hilbert, David}{7, 107, 208, 264, 505}
+\idxsub{his Foundations of Geometry}{505}
+\idxmain{Historical notes}{6, 221, 243, 288, 380, 450}
+\idxmain{Hypotenuse}{271}
+\idxmain{Hypothesis}{50}
+\idxmain{Implication}{49}
+\idxmain{Incommensurable segments}{287}
+\idxmain{Inequalities}{}
+\idxsub{for angles}{186}
+\idxsub{for numbers}{125}
+\idxsub{for segments}{111, 133}
+\idxmain{Infinite sequences}{}
+\idxsub{of numbers}{358}
+\idxsub{of polygonal paths inscribed in an arc}{382}
+\idxmain{Infinite sum}{125}
+\idxmain{Integers}{124}
+\idxmain{Intersect}{74}
+\idxmain{Irrational numbers}{123}
+\idxmain{Isosceles triangle}{155}
+\idxsub{base angles of}{155}
+\idxmain{Jourdain, Philip}{505}
+\idxmain{Leibniz}{7}
+\idxmain{Le Verrier}{481}
+\idxmain{Limit(s)}{}
+\idxsub{area of rectangle as}{325}
+\idxsub{circumference of circle as}{363}
+\idxsub{length of circular arc as}{380}
+\idxsub{of a sequence}{360}
+\idxmain{Line(s)}{}
+\idxsub{abstract character of}{14}
+\idxsub{equations of}{462}
+\idxsub{existence of parallels to}{240, 242}
+\idxsub{parallel}{238}
+\idxsub{perpendicular}{193}
+\idxsub{perpendicular to a plane}{430}
+\idxsub{proof of straightness of}{211}
+\idxsub{skew}{432}
+\idxsub{straightness of}{73}
+\idxsub{transversal of}{247}
+\idxmain{Lobachevski}{7}
+\idxmain{Locus}{408}
+\idxsub{characterization of theorems on}{409}
+\idxsub{cycloid as}{414}
+\idxsub{definition of}{414}
+\idxsub{hypocycloid as}{414}
+\idxmain{Logic}{}
+\idxsub{Aristotelian}{60}
+\idxsub{deductive reasoning}{50}
+\idxsub{definition of}{45}
+\idxsub{drawing conclusions}{50}
+\idxmain{Mathematics}{}
+\idxsub{applied}{482}
+\idxsub{consistency of}{506}
+\idxsub{discovery or invention of}{506}
+\idxsub{independent of experiments}{479}
+\idxsub{models}{481}
+\idxsub{pure}{482}
+\idxsub{related to life}{506}
+\idxsub{related to truth}{506}
+\idxsub{research in}{506}
+\idxsub{usefulness of}{481}
+\idxmain{Measurement}{}
+\idxsub{of angles in degrees}{392}
+\idxsub{of angles in radians}{396}
+\idxsub{of an angle inscribed in a circle}{400}
+\idxsub{of arc length}{380}
+\idxsub{of arcs in degrees}{396}
+\idxsub{change of scale in}{134}
+\idxsub{of segments}{126}
+\idxsub{unit of length for}{127}
+\idxmain{Midpoint}{}
+\idxsub{of arc}{377}
+\idxsub{formula for coordinates of}{470}
+\idxsub{of segment}{156}
+\idxmain{Newton, Isaac}{5}
+\idxsub{his Principia}{5}
+\idxmain{n-gon}{261}
+\idxmain{Nonagon}{257}
+\idxmain{Non-Euclidean geometry}{245}
+\idxmain{Numbers}{}
+\idxsub{irrational}{123}
+\idxsub{positive integers}{122}
+\idxsub{positive rational}{122}
+\idxsub{ratio of integers}{124}
+\idxsub{real}{124}
+\idxsub{repeating decimals}{123}
+\idxsub{role in Greek geometry}{116}
+\idxsub{terminating decimals}{123}
+\idxmain{Octagon}{265}
+\idxmain{Ordinate}{454}
+\idxmain{Orthocenter}{418}
+\idxmain{Parallelogram}{265}
+\idxsub{altitude of}{331}
+\idxsub{base of}{331}
+\idxmain{Pentagon}{260}
+\idxmain{Perpendicular}{193}
+\idxmain{Philosophy,}{}
+\idxsub{epistemology}{476}
+\idxsub{metaphysics}{476}
+\idxsub{moral}{476}
+\idxsub{political}{476}
+\idxsub{religious}{476}
+\idxsub{theology}{476}
+\idxmain{Physics}{}
+\idxsub{assumptions of}{480}
+\idxsub{related to mathematics}{480}
+\idxmain{Pi}{}
+\idxsub{approximations for}{365}
+\idxsub{calculation of rational approximations}{367}
+\idxsub{definition of}{364}
+\idxmain{Plane(s)}{}
+\idxsub{abstract character of}{14}
+\idxsub{left half of}{457}
+\idxsub{lower half of}{457}
+\idxsub{parallel}{434}
+\idxsub{perpendicular to a line}{432}
+\idxsub{right half of}{457}
+\idxsub{upper half of}{457}
+\idxmain{Plato}{6}
+\idxmain{Point(s)}{}
+\idxsub{abstract character of}{18}
+\idxsub{collinear}{83}
+\idxsub{of tangency}{350}
+\idxsub{sides of on a line}{87}
+\idxmain{Polygon(s)}{}
+\idxsub{adjacent sides of}{257}
+\idxsub{adjacent vertices of}{256}
+\idxsub{apothem of regular}{354}
+\idxsub{center of regular}{354}
+\idxsub{central angle of regular}{354}
+\idxsub{circumscribing a circle}{353}
+\idxsub{classification of}{261}
+\idxsub{consecutive angles of}{261}
+\idxsub{convex}{260}
+\idxsub{diagonal of}{258}
+\idxsub{equiangular}{258}
+\idxsub{equilateral}{261}
+\idxsub{inscribed in a circle}{347}
+\idxsub{interior and exterior of}{259}
+\idxsub{radius of regular}{354}
+\idxsub{regular}{262}
+\idxsub{similar convex}{288}
+\idxsub{simple}{258}
+\idxsub{sum of exterior angles}{265}
+\idxsub{sum of interior angles}{265}
+\idxmain{Polygonal cell}{437}
+\idxmain{Polygonal path}{}
+\idxsub{definition of}{214}
+\idxsub{endpoints of}{214}
+\idxsub{inscribed in an arc}{380}
+\idxsub{length of}{217}
+\idxsub{sides of}{256}
+\idxsub{vertices of}{214}
+\idxmain{Positive axis}{452}
+\idxmain{Positive direction}{452}
+\idxmain{Postulate(s) (axioms, assumptions)}{72}
+\idxsub{of Archimedes}{128}
+\idxsub{of Group I (incidence)}{77}
+\idxsub{of Group II (betweenness)}{79, 83}
+\idxsub{of Group III (linear congruence)}{105, 107}
+\idxsub{of Group IV (angle congruence)}{139, 142}
+\idxsub{necessity for}{116}
+\idxsub{parallel}{242}
+\idxmain{Proof}{48}
+\idxsub{in algebra}{69}
+\idxsub{independent of geometric figures}{73}
+\idxsub{related to implication}{57}
+\idxsub{relation of definitions to}{112}
+\idxsub{techniques of}{61}
+\idxmain{Properties, distinguished from relations}{146}
+\idxmain{Proportion(al)}{281}
+\idxsub{mean}{305}
+\idxsub{sets of numbers}{284}
+\idxsub{sets of segments}{284}
+\idxmain{Ptolemy}{6}
+\idxmain{Pythagoras}{3}
+\idxmain{Pythagorean theorem}{304}
+\idxsub{area proof of}{339}
+\idxsub{converse of}{308}
+\idxmain{Quadrants}{456}
+\idxmain{Quadrilateral}{262}
+\idxmain{Radian measure}{397}
+\idxmain{Ratio}{281}
+\idxsub{of integers}{124}
+\idxsub{of segments}{284}
+\idxmain{Rays}{88}
+\idxsub{with same direction}{239}
+\idxmain{Rectangle}{265}
+\idxsub{area of}{323}
+\idxsub{existence of}{267}
+\idxmain{Relations}{148}
+\idxmain{Rhombus}{265}
+\end{multicols}
 \clearpage
 \end{document}

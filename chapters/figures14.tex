@@ -114,44 +114,9 @@
 % ---------------------------------------------------------------- Fig 14-2
 % Pictorial: a swept-wing jet above a sedan on a hatched ground line.  This is
 % an illustration, not a geometric construction -- see ch14-UNCERTAIN.md.
-\newcommand{\FIGXIVTWO}{\begin{bkfigure}[0.80\linewidth]
-\begin{tikzpicture}[scale=0.806]
-  % ---- jet, three-quarter view, nose to the right
-  \begin{scope}[yshift=1.55cm]
-    % fuselage
-    \draw[fig] (0.30,0.42) -- (0.95,0.30) -- (4.55,0.28) -- (4.95,0.40)
-               -- (4.95,0.56) -- (4.52,0.66) -- (1.05,0.70) -- (0.42,0.62)
-               -- cycle;
-    % canopy
-    \draw[fig] (3.05,0.70) -- (3.35,0.94) -- (4.00,0.94) -- (4.22,0.70);
-    \draw[fig] (3.42,0.70) -- (3.60,0.94);
-    % swept main wing (far) and near wing
-    \draw[fig] (1.85,0.70) -- (1.35,1.30) -- (2.55,1.24) -- (2.90,0.70);
-    \draw[fig] (2.05,0.28) -- (1.50,-0.34) -- (2.75,-0.28) -- (3.05,0.28);
-    % tailplane + fin
-    \draw[fig] (0.62,0.70) -- (0.28,1.10) -- (1.05,1.06) -- (1.28,0.70);
-    \draw[fig] (0.55,0.70) -- (0.45,1.42) -- (1.02,1.40) -- (1.30,0.70);
-    % nose probe
-    \draw[fig] (4.95,0.48) -- (5.35,0.48);
-  \end{scope}
-  % ---- sedan
-  \begin{scope}[xshift=4.05cm]
-    \draw[fig] (0.30,0.30) -- (0.36,0.62) -- (0.95,0.66) -- (1.55,1.02)
-               -- (2.95,1.04) -- (3.30,0.68) -- (4.15,0.62) -- (4.22,0.30);
-    \draw[fig] (0.30,0.30) -- (4.22,0.30);
-    \draw[fig] (1.62,0.94) -- (2.22,0.96) -- (2.22,0.66);
-    \draw[fig] (2.36,0.96) -- (2.90,0.96) -- (3.16,0.68);
-    \draw[fig] (0.95,0.66) -- (3.30,0.68);
-    \draw[fig] (1.28,0.30) circle (0.24);
-    \draw[fig] (3.42,0.30) circle (0.24);
-  \end{scope}
-  % ---- ground line with hatching
-  \draw[fig] (0.55,0.06) -- (9.20,0.06);
-  \foreach \x in {0.75,1.05,...,9.05}
-    {\draw[fig, line width=0.4pt] (\x,0.06) -- (\x-0.22,-0.16);}
-\end{tikzpicture}
-\figcap{14--2}
-\end{bkfigure}}
+\newcommand{\FIGXIVTWO}{\begin{bkfigure}[0.72\linewidth]
+\includegraphics[width=0.72\linewidth]{fig-14-2}%
+\figcap{14--2}\end{bkfigure}}
 
 % ---------------------------------------------------------------- Fig 14-3
 \newcommand{\FIGXIVTHREE}{\begin{bkfigure}[0.52\linewidth]

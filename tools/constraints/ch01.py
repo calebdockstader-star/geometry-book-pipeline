@@ -339,12 +339,8 @@ def build(check):
     check('1-22', 'O lies on median B-Mb', cross(B22, Mb, O22))
     check('1-22', 'O lies on median C-Mc', cross(C22, Mc, O22))
 
-    # ---- 1-23 : the balanced triangle is supported at its centroid
-    A23, B23, C23 = (-1.55, 0.18), (1.62, 0.30), (-0.28, 0.92)
-    Ma23 = lerp(B23, C23, 0.5)
-    O23 = lerp(A23, Ma23, 2.0 / 3.0)
-    check('1-23', 'support point is the centroid',
-          dist(O23, centroid(A23, B23, C23)))
+    # 1-23 is now the book's own line art (plates/fig-1-23.png),
+    # so there are no coordinates of ours left to check.
 
     # ---- 1-24 : altitudes meet their opposite sides at right angles
     Aa, Ba, Ca = (0, 0), (2.15, 0), (0.7256, 1.376)

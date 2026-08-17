@@ -677,36 +677,9 @@
 %--------------------------------------------------------------- Fig 1-23
 % Cardboard triangle balancing on a fingertip. ORGANIC (pictorial) -- traced
 % against scan02 p12 (book p.16). The medians are exact; the hand is stylised.
-\newcommand{\FIGITWENTYTHREE}{%
-\begin{bkfigure}[0.50\linewidth]
-\begin{tikzpicture}[scale=1.300]
-  % triangle seen almost edge-on, balanced at its centroid
-  \coordinate (A) at (-1.55,0.18);
-  \coordinate (B) at (1.62,0.30);
-  \coordinate (C) at (-0.28,0.92);
-  \coordinate (Ma) at ($(B)!0.5!(C)$);
-  \coordinate (Mb) at ($(C)!0.5!(A)$);
-  \coordinate (Mc) at ($(A)!0.5!(B)$);
-  \coordinate (O)  at ($(A)!0.6666666!(Ma)$);
-  \draw[given] (A) -- (B) -- (C) -- cycle;
-  \draw[aux] (A) -- (Ma);
-  \draw[aux] (B) -- (Mb);
-  \draw[aux] (C) -- (Mc);
-  % stylised finger and hand: the rounded fingertip touches the centroid and
-  % the finger runs down to meet the top of the fist (it must not float free)
-  \draw[fig] ($(O)+(-0.075,-1.14)$) -- ($(O)+(-0.075,-0.02)$)
-             arc (180:0:0.075) -- ($(O)+(0.075,-1.14)$);
-  \draw[fig] (-0.30,-0.62) .. controls (-0.34,-0.98) and (-0.30,-1.24) .. (-0.24,-1.42);
-  \draw[fig] ( 0.16,-0.62) .. controls (0.22,-0.98) and (0.24,-1.24) .. (0.20,-1.42);
-  \draw[fig] (-0.30,-0.62) .. controls (-0.20,-0.70) and (0.06,-0.70) .. (0.16,-0.62);
-  \foreach \k in {0,1,2} {
-    \draw[fig] (-0.30,-0.78-0.17*\k)
-       .. controls (-0.40,-0.84-0.17*\k) and (-0.42,-0.92-0.17*\k) ..
-          (-0.32,-0.96-0.17*\k);}
-  \draw[fig] (-0.30,-1.42) rectangle (0.22,-1.60);
-\end{tikzpicture}
-\figcap{1--23}
-\end{bkfigure}}
+\newcommand{\FIGITWENTYTHREE}{\begin{bkfigure}[0.52\linewidth]
+\includegraphics[width=0.52\linewidth]{fig-1-23}%
+\figcap{1--23}\end{bkfigure}}
 
 %--------------------------------------------------------------- Fig 1-24
 % Altitudes. (a) acute, foot inside; (b) obtuse, foot on the extension of the
