@@ -51,14 +51,18 @@
 % back-compat aliases used by the first draft
 \tikzset{emph/.style={key}, emphb/.style={keyb}}
 
-% Legend, printed once at the head of the chapter.
-\newcommand{\figurekey}{%
-  \par\medskip\noindent\fbox{\begin{minipage}{0.94\linewidth}\footnotesize
-  \textbf{How to read the figures.}\quad
-  \tikz[baseline=-0.6ex]{\draw[given](0,0)--(0.5,0);}~given\quad
-  \tikz[baseline=-0.6ex]{\draw[aux](0,0)--(0.5,0);}~auxiliary (added in the proof)\quad
-  \tikz[baseline=-0.6ex]{\draw[key](0,0)--(0.5,0);}~what is being proved or asked
-  \end{minipage}}\par\medskip}
+% Chapter-head legend RETIRED (Caleb, 2026-08-17): the B&W line conventions
+% match the book's own (solid given / dashed auxiliary), so the box is
+% redundant. \figurekey is kept as a no-op so chapter files need no edits;
+% restore the definition below if a colour edition ever wants it back.
+\newcommand{\figurekey}{}
+%\newcommand{\figurekey}{%
+%  \par\medskip\noindent\fbox{\begin{minipage}{0.94\linewidth}\footnotesize
+%  \textbf{How to read the figures.}\quad
+%  \tikz[baseline=-0.6ex]{\draw[given](0,0)--(0.5,0);}~given\quad
+%  \tikz[baseline=-0.6ex]{\draw[aux](0,0)--(0.5,0);}~auxiliary (added in the proof)\quad
+%  \tikz[baseline=-0.6ex]{\draw[key](0,0)--(0.5,0);}~what is being proved or asked
+%  \end{minipage}}\par\medskip}
 
 % ------------------------------------------------------- theorem apparatus
 % The book numbers within the chapter as 9-1, 9-2, ... with corollaries 9-1-1.
