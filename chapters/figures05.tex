@@ -12,6 +12,17 @@
 % tools/check_labels.py, whose driver inputs figures05.tex by itself.
 \usetikzlibrary{decorations.pathreplacing}
 
+% Label clearance, chapter-local (2026-08-17).  This chapter is nothing but
+% points-on-a-line with their labels set directly over the point.  The pass
+% that tightened the global `outer sep' to 2.2pt also made every point dot a
+% fixed 3.2pt node, and a 3.2pt dot reaches 1.6pt out of its point -- so at
+% 2.2pt the label box lands on the dot it is labelling.  check_labels shows
+% the cliff exactly at the dot's diameter: 43 collisions at 2.2pt, 0 at
+% 3.2pt.  Tightest clearance that clears the new dots; still tighter than
+% the 3.4pt this book used before the dots existed.
+\tikzset{vlab/.append style={outer sep=3.2pt},
+         slab/.append style={outer sep=3.2pt}}
+
 % ---------------------------------------------------------------- Fig. 5-2
 % Unit CD laid off from A: A1,A2,A3,A4 at 1..4 units; B between A3 and A4
 % (measured at 0.36 of that gap, giving AB about 3.36 units).

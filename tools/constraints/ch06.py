@@ -119,6 +119,18 @@ def _calc(e, P, scale):
         a = _pt(m.group('a'), P, scale)
         b = _pt(m.group('b'), P, scale)
         t = m.group('t').strip()
+        # ($(A)!(P)!(B)$) -- the perpendicular foot of P on line AB.  tikz's
+        # projection syntax; the reader has to know it or every altitude and
+        # every dropped perpendicular in the chapter reads as unparseable.
+        pm = re.fullmatch(r'\((?P<p>[^()]+)\)', t)
+        if pm:
+            q = _pt(pm.group('p'), P, scale)
+            ab = (b[0] - a[0], b[1] - a[1])
+            L2 = ab[0] ** 2 + ab[1] ** 2 or 1.0
+            frac = ((q[0] - a[0]) * ab[0] + (q[1] - a[1]) * ab[1]) / L2
+            p = (a[0] + frac * ab[0], a[1] + frac * ab[1])
+            rest = m.group('rest').strip()
+            return _offsets(p, rest, P, scale) if rest else p
         dm = re.fullmatch(rf'({NUMPAT})\s*(cm|pt)', t)
         if dm:                       # absolute distance: tikz scales it
             d = float(dm.group(1)) * (1.0 if dm.group(2) == 'cm' else 1 / CM)
@@ -505,6 +517,18 @@ def build(check):
     check('6-92', 'I = AE cap BC', on_seg(A, E, I) + on_seg(B, C, I))
     check('6-92', 'J = AD cap BC', on_seg(A, D, J) + on_seg(B, C, J))
 
+    # -------------------------------------------------------------- Fig 6-93
+    # Three panels: acute, RIGHT, obtuse.  Panel 2 is the right-angle case and
+    # is the whole point of the section, so OA there must be exactly
+    # perpendicular to l.  The old plate leaned it 14 degrees off and nothing
+    # caught it.  Panels 1 and 3 must stay acute and obtuse respectively.
+    Os, As, Bs93 = (COPIES('6-93', n) for n in ('O', 'A', 'B'))
+    check('6-93', 'panel 2: OA perp l', perp(V(Os[1], As[1]), V(Os[1], Bs93[1])))
+    check('6-93', 'panel 1: angle AOB acute',
+          0.0 if angdeg(As[0], Os[0], Bs93[0]) < 89.0 else 1.0)
+    check('6-93', 'panel 3: angle AOB obtuse',
+          0.0 if angdeg(As[2], Os[2], Bs93[2]) > 91.0 else 1.0)
+
     # -------------------------------------------------------------- Fig 6-94
     # Section 6-10: A' is the mirror of A in l, so AA' is perpendicular to l
     # and C is where AA' meets it.  Case 2 has C = O.
@@ -649,6 +673,44 @@ def build(check):
     # drawing during the figure review and fixed in figures06.tex; they are
     # recorded here so the plate cannot drift away from its own text again.
     # =====================================================================
+
+    # -------- Fig 6-113 (Review Ex. 4): two parallels cut by one transversal.
+    # A..D name the four ANGLES the book strikes an arc on, so what has to
+    # hold is the parallelism and that each crossing really is on both lines.
+    L1a, L1b, L2a, L2b, Pt, Qt, X1, X2 = P(
+        '6-113', 'L1a', 'L1b', 'L2a', 'L2b', 'P', 'Q', 'X1', 'X2')
+    check('6-113', 'the two lines are parallel',
+          par(V(L1a, L1b), V(L2a, L2b)))
+    check('6-113', 'lower crossing on both lines',
+          on_seg(L1a, L1b, X1) + on_seg(Pt, Qt, X1))
+    check('6-113', 'upper crossing on both lines',
+          on_seg(L2a, L2b, X2) + on_seg(Pt, Qt, X2))
+    check('6-113', 'transversal overshoots both parallels',
+          0.0 if Pt[1] < L1a[1] and Qt[1] > L2a[1] else 1.0)
+
+    # -------- Fig 6-19 (Ex. 5): AC = AD and angle CAB = angle BAD
+    A, B, C, D = P('6-19', 'A', 'B', 'C', 'D')
+    check('6-19', 'AC = AD', rel(dist(A, C), dist(A, D)))
+    check('6-19', 'angle CAB = angle BAD',
+          abs(angdeg(C, A, B) - angdeg(B, A, D)))
+
+    # -------- Fig 6-20 (Ex. 6): DO = OB and AO = OC, with the two closing
+    # sides DA and CB drawn (they were missing, leaving a bare X)
+    A, B, C, D, O = P('6-20', 'A', 'B', 'C', 'D', 'O')
+    check('6-20', 'O is the midpoint of DB', rel(dist(D, O), dist(O, B)))
+    check('6-20', 'O is the midpoint of AC', rel(dist(A, O), dist(O, C)))
+    check('6-20', 'O on DB', on_seg(D, B, O))
+    check('6-20', 'O on AC', on_seg(A, C, O))
+
+    # -------- Fig 6-21 (Ex. 7): AB = CD and angle CBA = angle BCD.  Equal
+    # alternate interior angles across BC put BA parallel to CD, so the plate
+    # must be a parallelogram -- but a sheared one, never a rectangle.
+    A, B, C, D = P('6-21', 'A', 'B', 'C', 'D')
+    check('6-21', 'AB = CD', rel(dist(A, B), dist(C, D)))
+    check('6-21', 'angle CBA = angle BCD',
+          abs(angdeg(C, B, A) - angdeg(B, C, D)))
+    check('6-21', 'no right angle at B (not a rectangle)',
+          0.0 if abs(angdeg(A, B, D) - 90.0) > 5.0 else 1.0)
 
     # -------- Fig 6-25 (Ex. 11): CF = DF, CG = HD, and C, F, D collinear
     B, C, G, F, H, D, A = P('6-25', 'B', 'C', 'G', 'F', 'H', 'D', 'A')

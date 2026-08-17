@@ -110,23 +110,41 @@ def build(check):
     for nm, a in (('A', 118), ('B', 3), ('C', 240.5)):
         check('12-4', f'{nm} on the circle', onc(O, P(O, a, R), R))
 
-    # ---- 12-5 : every vertex is the midpoint of the arc it bisects
-    for tag, hi, mid, lo in [('C mid arc AB', 135, 62, -11),
-                             ('D mid arc AC', 135, 98.5, 62),
-                             ('E mid arc CB', 62, 25.5, -11),
-                             ('F mid arc AD', 135, 116.75, 98.5),
-                             ('G mid arc DC', 98.5, 80.25, 62),
-                             ('H mid arc CE', 62, 43.75, 25.5),
-                             ('I mid arc EB', 25.5, 7.25, -11)]:
+    # ---- 12-5 : every vertex is the midpoint of the arc it bisects.
+    # Arc A(145) to B(-25), as the book draws it: 170 degrees, so OA and OB are
+    # two RADII meeting at a shallow bend, not a chord that misses the centre.
+    R = 1.5
+    check('12-5', 'OA and OB are radii',
+          max(onc(O, P(O, 145, R), R), onc(O, P(O, -25, R), R)))
+    check('12-5', 'central angle AOB is the book\'s 170 degrees',
+          abs((145 - (-25)) - 170))
+    for tag, hi, mid, lo in [('C mid arc AB', 145, 60, -25),
+                             ('D mid arc AC', 145, 102.5, 60),
+                             ('E mid arc CB', 60, 17.5, -25),
+                             ('F mid arc AD', 145, 123.75, 102.5),
+                             ('G mid arc DC', 102.5, 81.25, 60),
+                             ('H mid arc CE', 60, 38.75, 17.5),
+                             ('I mid arc EB', 17.5, -3.75, -25)]:
         check('12-5', tag, abs((hi - mid) - (mid - lo)))
-    check('12-5', 'eight-side path runs A..B', order(135, 116.75, 98.5, 80.25,
-                                                     62, 43.75, 25.5, 7.25, -11))
+    check('12-5', 'eight-side path runs A..B',
+          order(145, 123.75, 102.5, 81.25, 60, 38.75, 17.5, -3.75, -25))
+    check('12-5', 'all nine vertices on the circle',
+          max(onc(O, P(O, a, R), R) for a in
+              (145, 123.75, 102.5, 81.25, 60, 38.75, 17.5, -3.75, -25)))
+    # the nine labels must be far enough apart along the label circle to read
+    # as separate points; at 170 degrees over eight gaps they are 21.25 apart,
+    # which is what fixes the crowding Caleb saw at the old 146-degree span
+    check('12-5', 'label spacing at least 15 degrees',
+          max(0.0, 15.0 - min(
+              a - b for a, b in zip(
+                  (145, 123.75, 102.5, 81.25, 60, 38.75, 17.5, -3.75),
+                  (123.75, 102.5, 81.25, 60, 38.75, 17.5, -3.75, -25)))))
 
     # ---- 12-6 : circumscribed corners are the tangent intersections
     R = 1.3
-    A6, C6, B6 = P(O, 135, R), P(O, 62, R), P(O, -11, R)
-    T = P(O, 98.5, R / math.cos(math.radians(36.5)))
-    U = P(O, 25.5, R / math.cos(math.radians(36.5)))
+    A6, C6, B6 = P(O, 145, R), P(O, 60, R), P(O, -25, R)
+    T = P(O, 102.5, R / math.cos(math.radians(42.5)))
+    U = P(O, 17.5, R / math.cos(math.radians(42.5)))
     check('12-6', 'TA tangent at A', perp(V(O, A6), V(A6, T)))
     check('12-6', 'TC tangent at C', perp(V(O, C6), V(C6, T)))
     check('12-6', 'UC tangent at C', perp(V(O, C6), V(C6, U)))
@@ -144,25 +162,56 @@ def build(check):
         check('12-7', f'{nm} is a hexagon vertex',
               min(dist(v, h) for h in hexa) / R)
 
-    # ---- 12-8 : angle AOC is right, and angle AOB congruent to angle BOC
+    # ---- 12-8 : angle AOC is right, and angle AOB congruent to angle BOC.
+    # The fan is TILTED (78 / 33 / -12) so no ray is axis-aligned, as the book
+    # sets it -- axis-aligned rays made the right angle read as the frame.
     R = 1.25
-    A8, B8, C8 = P(O, 90, R), P(O, 45, R), P(O, 0, R)
+    aA8, aB8, aC8 = 78, 33, -12                     # ray directions, from .tex
+    arc_in, r_in = (33, 78), 0.36                   # inner arc, from .tex
+    arc_out, r_out = (-12, 33), 0.60                # outer arc, from .tex
+    A8, B8, C8 = P(O, aA8, R), P(O, aB8, R), P(O, aC8, R)
     check('12-8', 'angle AOC is right', perp(V(O, A8), V(O, C8)))
-    check('12-8', 'angle AOB == angle BOC', abs((90 - 45) - (45 - 0)))
+    check('12-8', 'angle AOB == angle BOC', abs((aA8 - aB8) - (aB8 - aC8)))
+    check('12-8', 'no radius is axis-aligned',
+          max(0.0, 5.0 - min(min(abs(a % 360 - q) for q in (0, 90, 180, 270, 360))
+                             for a in (aA8, aB8, aC8))))
+    # The two angle arcs must ABUT on ray OB, one naming each angle.  The fault
+    # Caleb caught was an outer arc running OA -> OC, straight ACROSS ray OB,
+    # so it named angle AOC and the pair read as nested rather than adjacent.
+    check('12-8', 'inner arc runs exactly OB to OA',
+          abs(arc_in[0] - aB8) + abs(arc_in[1] - aA8))
+    check('12-8', 'outer arc runs exactly OC to OB',
+          abs(arc_out[0] - aC8) + abs(arc_out[1] - aB8))
+    for nm, (lo, hi) in (('inner', arc_in), ('outer', arc_out)):
+        crossed = [a for a in (aA8, aB8, aC8) if lo < a < hi]
+        check('12-8', f'{nm} arc crosses no ray', float(len(crossed)))
+    # and they must be told apart by radius: the book's differ by about 60%
+    check('12-8', 'arc radii clearly different',
+          max(0.0, 0.40 - (r_out - r_in) / r_in))
 
     # ---- 12-9 : an IRREGULAR inscribed path, vertices on the circle and in
     #             order from A round to B
     R = 1.25
-    verts = (145, 126, 111, 88, 62, 40, 15, -8)
+    verts = (152, 112, 78, 30, -8)
     check('12-9', 'path vertices on circle',
           max(onc(O, P(O, a, R), R) for a in verts))
     check('12-9', 'path runs A..B in order', order(*verts))
     steps = [verts[i] - verts[i + 1] for i in range(len(verts) - 1)]
     check('12-9', 'path is NOT regular',
           max(0.0, 3.0 - (max(steps) - min(steps))))   # spacing must vary
+    # The sides must be long enough that the dashed path stands visibly INSIDE
+    # the circle.  The old seven-side path sagged 0.017 r -- under a point on
+    # the page -- so it printed on top of the circle as a doubled edge, which
+    # is the defect Caleb reported.  Demand at least 0.05 r of sag.
+    sag = min(R * (1 - math.cos(math.radians(s / 2.0))) for s in steps)
+    check('12-9', 'inscribed path visibly inside the circle',
+          max(0.0, 0.05 - sag / R))
 
-    # ---- 12-10 : arcs AB and BC are adjacent, sharing only B
-    check('12-10', 'B between A and C', order(75, 30, -15))
+    # ---- 12-10 : arcs AB and BC are adjacent, sharing only B; fan tilted
+    check('12-10', 'B between A and C', order(82, 37, -8))
+    check('12-10', 'no radius is axis-aligned',
+          max(0.0, 5.0 - min(min(abs(a % 360 - q) for q in (0, 90, 180, 270, 360))
+                             for a in (82, 37, -8))))
 
     # ---- 12-11 : C interior to angle AOB, so angle AOB > angle COB
     check('12-11', 'C interior to angle AOB', order(104, 90, 10))
@@ -187,13 +236,40 @@ def build(check):
     check('12-13', 'OE bisects angle DOC', abs((67.5 - 56.25) - (56.25 - 45)))
     check('12-13', 'B, D, E, C, A in order', order(90, 67.5, 56.25, 45, 0))
 
-    # ---- 12-14 : right-angle sector; P past E, since L exceeds 5/8 of a quarter
+    # ---- 12-14 : the book's sector, NOT a right angle.  It opens 68 degrees,
+    # tilted symmetric about the horizontal so neither bounding radius is
+    # level; the interior rays are the same halvings 12-13 constructs, read as
+    # fractions of the opening measured up from OA, and the SOLID ray sits at
+    # 0.662 -- "a little greater than 5/8", which is what the text claims of L.
     R = 1.7
-    A14, B14 = P(O, 0, R), P(O, 90, R)
-    check('12-14', 'sector is a right angle', perp(V(O, A14), V(O, B14)))
-    check('12-14', 'arc AP > arc AE', max(0.0, 56.25 - 60))
-    check('12-14', 'P on the arc', onc(O, P(O, 60, R), R))
-    check('12-14', 'arc AP inside the quadrant', order(90, 60, 0))
+    a14, b14 = -34.0, 34.0
+    span = b14 - a14
+    ray = {f: a14 + f * span for f in (0.500, 0.625, 0.662, 0.750)}
+    A14, B14 = P(O, a14, R), P(O, b14, R)
+    check('12-14', 'sector opening is the book\'s 68 degrees', abs(span - 68.0))
+    check('12-14', 'sector symmetric about the horizontal', abs(a14 + b14))
+    check('12-14', 'no bounding radius is level',
+          max(0.0, 5.0 - min(abs(a14), abs(b14))))
+    check('12-14', 'A and B on the arc',
+          max(onc(O, A14, R), onc(O, B14, R)))
+    check('12-14', 'P on the arc', onc(O, P(O, ray[0.662], R), R))
+    check('12-14', 'rays in order B, 3/4, P, 5/8, 1/2, A',
+          order(b14, ray[0.750], ray[0.662], ray[0.625], ray[0.500], a14))
+    check('12-14', 'arc AP a little greater than 5/8 of the sector',
+          max(0.0, 0.625 - 0.662) + max(0.0, 0.662 - 0.700))
+    # the l brace spans exactly arc AP, and the rays must stop SHORT of it --
+    # they used to run clear through, so the crossings read as ticks on it
+    # brace endpoints and radii as the .tex writes them (\XIIbrace{O}{\R+0.36}
+    # {\rP}{\Alo}{0.14}, rays drawn out to \R+0.15)
+    brace_from, brace_to = ray[0.662], a14
+    brace_r, brace_amp, ray_end = R + 0.36, 0.14, R + 0.15
+    check('12-14', 'brace spans exactly arc AP',
+          abs(abs(brace_from - brace_to) - abs(ray[0.662] - a14)))
+    # it must NOT span the whole sector, which is how it used to be drawn
+    check('12-14', 'brace is shorter than the whole sector',
+          max(0.0, 1.0 - (span - abs(brace_from - brace_to))))
+    check('12-14', 'rays stop short of the brace',
+          max(0.0, ray_end - (brace_r - brace_amp)))
 
     # ---- 12-15 / 12-16 : A falls on the (n+1)st arc, i.e. between the ray
     #                      that closes the nth degree and the one after it
@@ -267,6 +343,24 @@ def build(check):
           max(0.0, -min(bA, bC)))       # both rays on one side of BQ (angle 0)
     check('12-22', 'BQ outside angle ABC', order(bA, bC, 0))
     check('12-22', 'angle ABC == half arc AC', abs((bA - bC) - 0.5 * (110 - 36)))
+    # The two angle arcs at B, restored 2026-08-17.  Both sweep the whole of
+    # angle ABQ; chord BC falls strictly inside that sweep (asserted just
+    # above as 'BQ outside angle ABC'), which is what lets the figure carry
+    # angle ABC = angle ABQ - angle CBQ.
+    #
+    # The .tex cannot call atan2, so it lays the arcs out from the closed forms
+    # "the ray from the point at angle p to the point at angle q runs at
+    # (p+q)/2 - 90" and "the chord measures 2 r sin((p-q)/2)".  Those two
+    # formulae are what the drawing actually depends on, so verify THEM against
+    # the true geometry -- if either is wrong the arcs miss A and miss BQ.
+    check('12-22', 'chord-direction formula gives the ray B->A',
+          abs((0.5 * (180 + 110) - 90) - dirang(V(B22, A22))))
+    check('12-22', 'chord-length formula gives |BA|',
+          abs(2 * R * math.sin(math.radians(0.5 * (180 - 110)))
+              - dist(B22, A22)) / dist(B22, A22))
+    # outer radius is |BA| (so the outer arc springs from A itself); the inner
+    # is 0.55 of it, far enough in to read as a separate arc
+    check('12-22', 'arc radii clearly different', max(0.0, 0.30 - (1.0 - 0.55)))
 
     # ---- 12-23 : BC a diameter, so the inscribed angle BAC is right
     R = 1.25
@@ -331,28 +425,42 @@ def build(check):
               - dist(B27, E27) * dist(E27, D27))
           / (dist(A27, E27) * dist(E27, C27)))
 
-    # ---- 12-28 : Exercise 15 numbers -- AO:OB = 12:4, CO:OD = 8:6
+    # ---- 12-28 : the BOOK's schematic cut, not Exercise 15's numbers.
+    # Drawing AO:OB = 12:4 and CO:OD = 8:6 to scale let the student read the
+    # answer off the page with a ruler, so Caleb asked for the plate's own
+    # proportions back.  What the figure must still assert is the structure --
+    # four points on the circle, two chords, one crossing strictly inside --
+    # plus, positively, that the drawn ratios are NOT the quoted ones.
     R = 1.1
-    A28, B28 = P(O, 192.5, R), P(O, 31.1, R)
-    C28, D28 = P(O, 113.4, R), P(O, 354.1, R)
+    A28, B28 = P(O, 198, R), P(O, 31, R)
+    C28, D28 = P(O, 105, R), P(O, -18, R)
     X28 = cross(A28, B28, C28, D28)
-    check('12-28', 'AO/OB == 12/4',
-          abs(dist(A28, X28) / dist(X28, B28) - 3.0) / 3.0)
-    check('12-28', 'CO/OD == 8/6',
-          abs(dist(C28, X28) / dist(X28, D28) - 4.0 / 3.0) / (4.0 / 3.0))
+    for nm, X in (('A', A28), ('B', B28), ('C', C28), ('D', D28)):
+        check('12-28', f'{nm} on the circle', onc(O, X, R))
     check('12-28', 'crossing inside the circle', inside(O, X28, R, 0.05))
+    check('12-28', 'O between A and B', between(A28, B28, X28))
+    check('12-28', 'O between C and D', between(C28, D28, X28))
+    # the two chords must genuinely cross, not merely meet near an endpoint
+    check('12-28', 'chords properly cross',
+          max(0.0, 0.15 - min(param(A28, B28, X28), 1 - param(A28, B28, X28),
+                              param(C28, D28, X28), 1 - param(C28, D28, X28))))
+    # ...and must NOT encode the answer: both drawn ratios stay clear of the
+    # values Exercise 15 quotes (3 and 4/3).
+    check('12-28', 'AO/OB is NOT the quoted 3',
+          max(0.0, 0.05 - abs(dist(A28, X28) / dist(X28, B28) - 3.0) / 3.0))
+    check('12-28', 'CO/OD is NOT the quoted 4/3',
+          max(0.0, 0.05 - abs(dist(C28, X28) / dist(X28, D28) - 4.0 / 3.0)
+              / (4.0 / 3.0)))
 
-    # ---- 12-29 : Exercise 16 numbers -- AD = 6, DE = 10, AB = 8, so BC = 4
-    R = 1.55
-    A29 = (-3.3064, 0)
-    D29, E29 = (-1.5328, 0.2303), (1.4232, 0.6141)
-    B29, C29 = (-1.1566, -1.0319), (-0.0817, -1.5478)
-    k = dist(A29, D29) / 6.0
-    check('12-29', 'DE == 10 units', abs(dist(D29, E29) - 10 * k) / (10 * k))
-    check('12-29', 'AB == 8 units', abs(dist(A29, B29) - 8 * k) / (8 * k))
+    # ---- 12-29 : the BOOK's schematic cut (plate p.225), not Exercise 16's
+    # numbers.  A is DERIVED as the crossing of the two secants, so the two
+    # collinearities are exact rather than plotted.
+    R = 1.4
+    D29, E29 = P(O, 186, R), P(O, 47, R)
+    B29, C29 = P(O, 203, R), P(O, -21, R)
+    A29 = cross(D29, E29, B29, C29)
     check('12-29', 'A, D, E collinear', par(V(A29, E29), V(A29, D29)))
     check('12-29', 'A, B, C collinear', par(V(A29, C29), V(A29, B29)))
-    check('12-29', 'BC == 4 units', abs(dist(B29, C29) - 4 * k) / (4 * k))
     check('12-29', 'A outside the circle', outside(O, A29, R, 0.30))
     check('12-29', 'D between A and E', between(A29, E29, D29))
     check('12-29', 'B between A and C', between(A29, C29, B29))
@@ -362,16 +470,32 @@ def build(check):
           / (dist(A29, D29) * dist(A29, E29)))
     for nm, X in (('D', D29), ('E', E29), ('B', B29), ('C', C29)):
         check('12-29', f'{nm} on the circle', onc(O, X, R))
+    # the lower secant must cut a LONG chord, not graze the circle -- B and C
+    # landing together on the bottom arc was the defect Caleb reported
+    check('12-29', 'chord BC spans most of the circle',
+          max(0.0, 1.5 * R - dist(B29, C29)))
+    # the chords DE and BC do NOT cross inside the circle, as on the plate
+    check('12-29', 'chords DE and BC do not cross',
+          1.0 if 0 < param(D29, E29, cross(D29, E29, B29, C29)) < 1
+          and 0 < param(B29, C29, cross(D29, E29, B29, C29)) < 1 else 0.0)
+    # A stays close in: the book keeps it about 0.6 r clear, not 1.5 diameters
+    check('12-29', 'A close to the circle',
+          max(0.0, (dist(O, A29) - R) / R - 1.0))
+    # ...and the drawing must not encode Exercise 16's answer BC = 4 given
+    # AD = 6, DE = 10, AB = 8: on those numbers BC/AB = 0.5.
+    check('12-29', 'BC/AB is NOT the quoted 1/2',
+          max(0.0, 0.05 - abs(dist(B29, C29) / dist(A29, B29) - 0.5) / 0.5))
 
-    # ---- 12-30 : Exercises 17-18 -- AB tangent, AC = 8, CD = 10, so AB = 12
-    R = 1.5
-    A30 = (-3.3541, 0)
-    B30 = (-0.6708, 1.3416)
-    C30, D30 = (-1.4162, -0.4954), (1.0062, -1.1127)
+    # ---- 12-30 : likewise schematic.  The two facts Exercises *17-18 lean on
+    # ARE built in: AB tangent at B, and ACD a true diameter.
+    R = 1.4
+    OA30 = 2.59
+    A30 = (-OA30, 0.0)
+    C30, D30 = P(O, 180, R), P(O, 0, R)
+    B30 = P(O, 180 - math.degrees(math.acos(R / OA30)), R)
     check('12-30', 'AB tangent at B', perp(V(O, B30), V(A30, B30)))
-    k = dist(A30, C30) / 8.0
-    check('12-30', 'CD == 10 units', abs(dist(C30, D30) - 10 * k) / (10 * k))
-    check('12-30', 'AB == 12 units', abs(dist(A30, B30) - 12 * k) / (12 * k))
+    check('12-30', 'CD is a diameter', par(V(C30, O), V(O, D30)))
+    check('12-30', 'CD == 2r', abs(dist(C30, D30) - 2 * R) / (2 * R))
     check('12-30', 'A, C, D collinear', par(V(A30, D30), V(A30, C30)))
     check('12-30', 'A outside the circle', outside(O, A30, R, 0.30))
     check('12-30', 'C between A and D', between(A30, D30, C30))
@@ -380,6 +504,9 @@ def build(check):
           / dist(A30, B30) ** 2)
     for nm, X in (('B', B30), ('C', C30), ('D', D30)):
         check('12-30', f'{nm} on the circle', onc(O, X, R))
+    # ...and must not encode Exercise 18's numbers, AC = 8 with CD = 10.
+    check('12-30', 'AC/CD is NOT the quoted 4/5',
+          max(0.0, 0.05 - abs(dist(A30, C30) / dist(C30, D30) - 0.8) / 0.8))
 
     # ---- 12-31 : the two radii meet at a right angle; the chord is sqrt(2) r
     R = 1.25

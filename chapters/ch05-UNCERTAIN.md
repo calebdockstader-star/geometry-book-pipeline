@@ -180,3 +180,87 @@ scans (scan05 p21, scan06 p7):
    0.65–1.17 pt clearance between a point label and its own dot, which is the
    house style throughout the book; eyeballed at 110 dpi on every figure page
    and all read cleanly.
+
+***
+
+## Figure repair pass — 2026-08-17 (feedback/FIX-SPEC.md)
+
+Caleb photographed no Chapter 5 figure. All ten were swept against book
+pp. 73–83 (PDF 87–97) at 400 dpi.
+
+### §2 — exercise-group figures moved inline: **nothing to do**
+
+Checked every exercise group in the chapter against its book page: **no
+exercise in Chapter 5 cites a figure.** Groups 5-1, 5-3, 5-4, 5-5, 5-6, 5-7,
+5-8, 5-9, 5-10, 5-11, `\exercise{5--2}`, the Review and the Algebra Review are
+all figure-free, and Figs. 5-1 … 5-10 are chapter-body figures that were
+already inline where the book sets them (spec §2 rule 5 — leave alone). Every
+`multicols` in this chapter is therefore correct as it stands and none was
+removed. **0 figures inlined, 0 macros split** — by inspection, not by
+omission.
+
+The two little rules inside Ex. 5-6 no. 1 are set inline in the running text
+with `\raisebox`, exactly as the book sets them; they are not `\FIG` macros and
+are not affected. (Their length ratio remains open — see item 4 above.)
+
+### §3 — sweep result: no figure defects found
+
+Every figure was measured against the plate; all ten already match. Recorded
+so a later pass does not re-measure them:
+
+| Fig | Checked | Plate vs ours |
+|---|---|---|
+| 5-2 | unit spacing, *B* at 3.35 units, stubs, *CD* offset and its "1" | *AB* 3.35 vs 3.36 u; left stub 0.20 vs 0.20; right 0.44 vs 0.40; *C* at 0.51 vs 0.52 |
+| 5-3 | *B* between *A* and *A₁*, both stubs | *B* at 0.315 vs 0.32; stubs 0.225/0.72 vs 0.26/0.71 |
+| 5-4 | line **starts at *A*** (no left stub, unlike 5-2), *CD* below | confirmed on the plate; *C* at 0.51 vs 0.52; right stub 0.42 vs 0.40 |
+| 5-5 | *B* just short of *A₄*, no unit segment | *B* at 0.13 vs 0.18 of the *A₃A₄* gap; right stub 0.42 vs 0.40 |
+| 5-6 | tenth marks | **9 interior ticks**, counted on the plate; ours 9 |
+| 5-7 | *AB* ≈ 2.3 u, line stops dead at *B*, *CD* alongside with tenths | *AB* 2.31 vs 2.30; *B*−*C* gap 0.34 vs 0.34; *CD* = 1 u both |
+| 5-8 | rows left-aligned at *A*/*A′*, *B′* over *B*, *B″* inside | *B″* at 0.78 vs 0.77; row gap 0.16 vs 0.174 |
+| 5-9 | rows left-aligned, *B* over *E*, *D* between | *D* at 0.66 vs 0.66; row gap 0.148 vs 0.163 |
+| 5-10 | three-part layout, brace + "1" over *CD*, two ticks on *AB*, *ED* at right | positions in *CD* units — plate *A* 1.49, *B* 4.41, *E* 4.85, *D* 5.33; ours 1.55, 4.55, 5.15, 5.65 |
+
+No angle arcs, construction arcs, arrowheads or hidden lines occur anywhere in
+this chapter — every figure is a number-line diagram — so defect classes 1, 2,
+3 and 6 do not arise. No missing lines, no over-drawn lines beyond the
+tolerances above, no detached labels.
+
+### Label clearance — chapter-local override added
+
+`figures05.tex` now sets `vlab`/`slab` `outer sep` to **3.2 pt** (global is
+2.2 pt), for the same measured reason as ch04: the pass that tightened the
+global clearance also made every point dot a fixed **3.2 pt** node, reaching
+1.6 pt out of its own point, so at 2.2 pt the label box lands on the dot it
+labels. This chapter is nothing but labelled points on lines, so it was hit
+hardest — `check_labels` reports **43 collisions at 2.2 pt and 0 at 3.2 pt**,
+the cliff falling exactly at the dot's diameter. Still tighter than the 3.4 pt
+this book used before the dots existed.
+
+### Gates
+
+* `tectonic` twice, clean.
+* `verify_figures.py 5` — **80/80**.
+* `check_labels.py figures05.tex 5` — **0 collisions**, 43 tight.
+* Every figure page rasterised at 130 dpi and read.
+
+### Residual doubts (this pass)
+
+7. **Fig. 5-10: our *AB* is exactly 3·*CD*; the plate's is not, and that
+   stands.** An earlier pass enforced the exact ratio deliberately, and the
+   spec keeps it. Re-measured on the plate this pass to put a number on the
+   departure: the book's thirds of *AB* average 328 px against a *CD* of
+   337 px (≈3% short, not the ≈20% an earlier note recorded), and its *ED* is
+   160 px against a half-*CD* of 168 px. So the plate's own drafting is
+   slightly *under* three units, ours is exactly three. **Ours is right and
+   should not be "corrected" toward the photograph** — the whole point of the
+   figure is that *AB* is 3 with unit *CD* and 6 with unit *ED*. Recorded only
+   so the discrepancy is not rediscovered as a bug.
+8. **Figs. 5-2 and 5-4 hang their unit segment *CD* a little lower than the
+   plate.** Plate drops it 0.29 (5-2) and 0.22 (5-4) of a unit below line *l*;
+   ours drops 0.35 in both. This is the same legibility accommodation already
+   recorded as item 2 — our *C*/*D* labels sit above the unit segment and are
+   proportionally larger than the book's, so closing the gap would push them
+   into *l*. No change made.
+9. **Fig. 5-9's *B* and *E* labels sit directly above their points; the plate
+   sets both up-and-right.** Purely cosmetic, and directly-above reads
+   cleanly at 130 dpi. Left alone.

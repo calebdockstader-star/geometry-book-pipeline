@@ -20,6 +20,8 @@
 %   - the constructed outer triangle A'B'C' (Fig 13-16)
 % The book shades no region anywhere in this chapter, so no fill patterns.
 
+\usetikzlibrary{arrows.meta}
+
 % Primed labels (Fig 13-16).  Same 1.3pt drop as ch09: keeps the prime in the
 % same "word" as its letter for the collision audit.
 \newcommand{\XIIIpr}{\raisebox{-1.3pt}{\ensuremath{{}^{\prime}}}}
@@ -31,14 +33,34 @@
   slab/.append style={outer sep=2.9pt},
 }
 
+% Long, widely spaced dashes.  Caleb, 2026-08-17: in Figs 13-11/13-12/13-16 the
+% standard `aux' pattern is so fine that at print size the dashed cevians read
+% as solid and the figure turns into "a quadrilateral with diagonals".  Measured
+% off the print, the book's dashes in those three figures run about 2.6 mm on
+% and 1.4 mm off -- roughly double ours.
+\tikzset{auxlong/.style={aux, dash pattern=on 6.6pt off 3.8pt}}
+
+% Small filled arrowheads, at a FIXED printed size so they do not grow with the
+% stroke weight or shrink with the picture's `scale='.  The book's arrowheads
+% are small; ours were blotting where several met at one vertex (Fig 13-16).
+\tikzset{
+  bkarrow/.style  = {-{Latex[length=3.4pt,width=2.8pt]}},
+  bkarrows/.style = {{Latex[length=3.4pt,width=2.8pt]}-{Latex[length=3.4pt,width=2.8pt]}},
+}
+
 % The book marks the concurrency point in Figs 13-11, 13-12 and the centre in
-% Fig 13-14 with a small saltire/plus rather than a filled dot.
+% Fig 13-14 with a small saltire/plus rather than a filled dot.  In 13-11 and
+% 13-12 that mark is a bold six-rayed asterisk, clearly heavier than the lines
+% that cross there -- \XIIIstar reproduces it.
 \newcommand{\XIIIcross}[1]{%
   \draw[fig,line width=0.5pt] ($(#1)+(-0.10,-0.10)$) -- ($(#1)+(0.10,0.10)$);
   \draw[fig,line width=0.5pt] ($(#1)+(-0.10,0.10)$) -- ($(#1)+(0.10,-0.10)$);}
 \newcommand{\XIIIplus}[1]{%
   \draw[fig,line width=0.5pt] ($(#1)+(-0.11,0)$) -- ($(#1)+(0.11,0)$);
   \draw[fig,line width=0.5pt] ($(#1)+(0,-0.11)$) -- ($(#1)+(0,0.11)$);}
+\newcommand{\XIIIstar}[1]{%
+  \foreach \a in {15,75,135}
+    \draw[fig,line width=0.75pt] ($(#1)+(\a:0.15)$) -- ($(#1)+(\a+180:0.15)$);}
 
 % ---------------------------------------------------------------- Fig 13-1
 % Line l solid; the locus (a pair of parallels at distance d) dashed, one on
@@ -140,24 +162,36 @@
 % Thm 13-2.  The sides of the angle are solid; the bisector is dashed and
 % carries P.  A and B are the FEET of the perpendiculars from P, so they are
 % built with the projection operator -- never by eye.
+% Re-drawn 2026-08-17 against the print (Caleb's photo of p.229).  Four things
+% changed: (a) the arrowhead that pointed INTO the vertex is gone -- the book
+% has no arrowhead anywhere in this figure; (b) the dashed bisector now stops a
+% little past P instead of running to the edge of the picture; (c) PA and PB are
+% two straight segments meeting in a visible corner at P, with PA dropping
+% VERTICALLY to A (the book lays the lower side of the angle horizontal, which
+% is what makes that read); (d) the book's short cross-strokes at the two feet
+% and at P are drawn.  Opening at O is 32 degrees, as in the print.
 \newcommand{\FIGXIIISIX}{\begin{bkfigure}[\linewidth]
 \begin{tikzpicture}[scale=1.300]
   \coordinate (O) at (0,0);
-  \coordinate (Uend) at (18:3.95);   % upper side of the angle
-  \coordinate (Lend) at (-18:4.05);  % lower side
-  \coordinate (P) at (2.90,0);       % on the bisector (the x-axis)
+  \coordinate (Uend) at (32:3.56);   % upper side of the angle
+  \coordinate (Lend) at (0:3.56);    % lower side, horizontal as in the print
+  % |OP| = 2.85/cos 16 puts each foot at 0.80 of its drawn side, as the book does
+  \coordinate (P) at (16:2.9648);    % on the bisector of the 32-degree angle
   \coordinate (B) at ($(O)!(P)!(Uend)$);
   \coordinate (A) at ($(O)!(P)!(Lend)$);
   \draw[given] (O) -- (Uend);
   \draw[given] (O) -- (Lend);
-  \draw[aux,<-] (0.06,0) -- (4.15,0);
+  \draw[aux] (O) -- ($(O)!1.25!(P)$);
   \draw[aux] (B) -- (P);
   \draw[aux] (P) -- (A);
-  \XIIIplus{P}
-  \node[vlab, left] at (O) {$O$};
+  % the print's cross-strokes: one at each perpendicular foot, one at P
+  \draw[tick] ($(A)!-0.13!(P)$) -- ($(A)!0.13!(P)$);
+  \draw[tick] ($(B)!-0.13!(P)$) -- ($(B)!0.13!(P)$);
+  \draw[tick] ($(P)+(106:0.13)$) -- ($(P)+(-74:0.13)$);
+  \node[vlab, below left] at (O) {$O$};
   \node[vlab, above left] at (B) {$B$};
-  \node[vlab, below] at (A) {$A$};
-  \node[vlab, above right] at (P) {$P$};
+  \node[vlab] at ($(A)+(-84:0.32)$) {$A$};
+  \node[vlab] at ($(P)+(62:0.34)$) {$P$};
 \end{tikzpicture}
 \figcap{13--6}\end{bkfigure}}
 
@@ -210,17 +244,29 @@
 % Ex 13-2 #6: the wheel in two positions -- the second dashed -- with the
 % tracing point P on the rim.  Equal radii; the centres sit at the same
 % height, which is what rolling on a (horizontal) line forces.
+% Re-drawn 2026-08-17.  The two positions of the wheel are the SAME size and are
+% offset SIDEWAYS, so they cross cleanly near the top and near the bottom; the
+% old drawing let them all but coincide, which read as one circle nested inside
+% another.  The short solid connector that the book draws -- the first piece of
+% the traced path, from P's earlier position on the dashed rim to its later
+% position on the solid rim, with a cross-tick at the earlier end -- was missing
+% entirely, leaving the P label floating with nothing to name.
+% Offsets measured off the print: centre separation 0.43 r (= 0.215 diameter),
+% P at 241 degrees on the earlier wheel.
 \newcommand{\FIGXIIININE}{\begin{bkfigure}[\linewidth]
 \begin{tikzpicture}[scale=1.300]
-  \def\rr{0.98}
-  \coordinate (K) at (0.42,0);    % solid wheel, later position
-  \coordinate (Kp) at (0,0);      % dashed wheel, earlier position
-  \coordinate (P) at ($(K)+(222:\rr)$);
+  \def\rr{1.05}
+  \def\dd{0.4515}                 % = 0.43\rr, how far the wheel has rolled
+  \coordinate (Kp) at (0,0);      % dashed wheel, EARLIER position
+  \coordinate (K)  at (\dd,0);    % solid wheel, LATER position; centres level
+  % rolling without slipping turns the wheel through d/r = 0.43 rad = 24.637 deg
+  \coordinate (P0) at ($(Kp)+(241:\rr)$);
+  \coordinate (P)  at ($(K)+(216.363:\rr)$);
   \draw[aux] (Kp) circle (\rr);
   \draw[given] (K) circle (\rr);
-  % the short arc of the traced path between the two positions
-  \draw[given] ($(Kp)+(256:\rr)$) arc (256:222:\rr);
-  \node[vlab] at ($(P)+(42:0.34)$) {$P$};
+  \draw[given] (P0) -- (P);
+  \draw[tick] ($(P0)!0.33!90:(P)$) -- ($(P0)!-0.33!90:(P)$);
+  \node[vlab] at ($(P)+(38:0.36)$) {$P$};
 \end{tikzpicture}
 \figcap{13--9}\end{bkfigure}}
 
@@ -257,14 +303,17 @@
   \coordinate (Fc) at ($(A)!0.55871!(B)$);
   \coordinate (O) at (intersection of A--Da and B--Eb);
   \draw[given] (A) -- (B) -- (C) -- cycle;
-  \draw[aux] (A) -- (Da);
-  \draw[aux] (B) -- (Eb);
-  \draw[aux] (C) -- (Fc);
-  \XIIIcross{O}
+  % long dashes (see auxlong above): at the standard pattern these three read
+  % as solid and the figure turns into a quadrilateral with its diagonals
+  \draw[auxlong] (A) -- (Da);
+  \draw[auxlong] (B) -- (Eb);
+  \draw[auxlong] (C) -- (Fc);
+  % the print marks the concurrency with a bold asterisk, not a bare crossing
+  \XIIIstar{O}
   \node[vlab, below left] at (A) {$A$};
   \node[vlab, above] at (B) {$B$};
   \node[vlab, below right] at (C) {$C$};
-  \node[vlab] at ($(O)+(160:0.52)$) {$O$};
+  \node[vlab] at ($(O)+(167:0.42)$) {$O$};
 \end{tikzpicture}
 \figcap{13--11}\end{bkfigure}}
 
@@ -287,18 +336,22 @@
   \coordinate (Pbc) at ($(Mbc)!1!90:(C)$);
   \coordinate (O) at (intersection of Mab--Pab and Mbc--Pbc);
   \draw[given] (A) -- (B) -- (C) -- cycle;
-  \draw[aux] ($(Mab)+(0,-0.26)$) -- ($(O)+(0,0.58)$);
-  \draw[aux] (O) -- ($(O)!1.16!(Mbc)$);
-  % the perpendicular bisector of AC is drawn as ONE line in the print: it
-  % overshoots O to the upper left, then runs down through Mac into the
-  % triangle and dies on AB near B.
-  \coordinate (Kac) at (intersection of O--Mac and A--B);
-  \draw[aux] ($(O)!-0.62!(Mac)$) -- (Kac);
-  \XIIIcross{O}
+  % Re-drawn 2026-08-17.  The book draws each perpendicular bisector SHORT: it
+  % starts at the midpoint of its side and stops in a small stub just past O.
+  % The old drawing ran all three clean through the triangle and out the far
+  % side into empty space, which is what Caleb flagged.
+  \draw[auxlong] (Mab) -- ($(Mab)!1.26!(O)$);
+  \draw[auxlong] (Mbc) -- ($(Mbc)!1.22!(O)$);
+  \draw[auxlong] (Mac) -- ($(Mac)!2.25!(O)$);
+  % the cross-strokes at the midpoints -- these are what identify the three
+  % lines as PERPENDICULAR bisectors rather than as arbitrary cevians
+  \draw[tick] ($(Mab)!0.075!90:(B)$) -- ($(Mab)!-0.075!90:(B)$);
+  \draw[tick] ($(Mbc)!0.0856!90:(C)$) -- ($(Mbc)!-0.0856!90:(C)$);
+  \XIIIstar{O}
   \node[vlab, below left] at (A) {$A$};
   \node[vlab, below right] at (B) {$B$};
   \node[vlab, above right] at (C) {$C$};
-  \node[vlab] at ($(O)+(39:0.44)$) {$O$};
+  \node[vlab] at ($(O)+(40:0.40)$) {$O$};
 \end{tikzpicture}
 \figcap{13--12}\end{bkfigure}}
 
@@ -368,7 +421,7 @@
 % O is the orthocentre of ABC (= circumcentre of A'B'C').
 \newcommand{\FIGXIIIFIFTEENSIXTEEN}{\begin{bkfigure}[\linewidth]
 \hfill
-\begin{minipage}{0.44\linewidth}\centering
+\begin{minipage}{0.43\linewidth}\centering
 \begin{tikzpicture}[scale=0.92]
   \coordinate (A) at (0,0);
   \coordinate (B) at (2.00,2.14);
@@ -396,8 +449,8 @@
 \figcap{13--15}
 \end{minipage}
 \hfill
-\begin{minipage}{0.52\linewidth}\centering
-\begin{tikzpicture}[scale=0.84]
+\begin{minipage}{0.55\linewidth}\centering
+\begin{tikzpicture}[scale=0.82]
   \coordinate (A) at (0,0);
   \coordinate (B) at (1.10,0.95);
   \coordinate (C) at (2.86,-0.05);
@@ -408,22 +461,29 @@
   \coordinate (Fa) at ($(B)!(A)!(C)$);
   \coordinate (Fb) at ($(A)!(B)!(C)$);
   \coordinate (O) at (intersection of A--Fa and B--Fb);
-  \draw[aux,<->] ($(Cp)!-0.06!(Ap)$) -- ($(Ap)!-0.06!(Cp)$);
-  \draw[aux] (Cp) -- (Bp);
-  \draw[aux] (Ap) -- (Bp);
-  \draw[given] (A) -- (B) -- (C) -- cycle;
-  \draw[aux,<-] ($(A)!0.03!(O)$) -- (O);
-  % the print carries a second arrowhead at O, on the altitude through B
-  \draw[aux,->] (Fb) -- (O);
-  % scan15 p.2 (book p.233) shows arrowheads at BOTH inner vertices, A and C,
-  % on the two slanted altitudes, plus the one at O on the altitude through B
-  \draw[aux,<-] ($(C)!0.03!(O)$) -- (O);
+  % Re-drawn 2026-08-17 against the print.  The arrowheads had been put on the
+  % WRONG lines: the book arrows the three SOLID sides (two tips converging on
+  % C, one on A) and leaves the dashed altitudes AO and CO plain, with a single
+  % arrowhead at O belonging to the altitude through B.  Ours arrowed AO and CO
+  % into A and C, so three or four heads piled onto each vertex and blotted it
+  % -- which is also what made the straight line C'-A-B' look kinked at A.
+  \draw[auxlong,bkarrows] ($(Cp)!-0.04!(Ap)$) -- ($(Ap)!-0.04!(Cp)$);
+  \draw[auxlong] (Cp) -- (Bp);
+  \draw[auxlong] (Ap) -- (Bp);
+  \draw[given,bkarrow] (B) -- (A);
+  \draw[given,bkarrow] (B) -- (C);
+  \draw[given,bkarrow] (A) -- (C);
+  \draw[auxlong] (A) -- (O);
+  \draw[auxlong] (C) -- (O);
+  \draw[auxlong,bkarrow] (Fb) -- (O);
+  % the print ticks AC where the altitude through B meets it
+  \draw[tick] ($(Fb)!0.055!90:(C)$) -- ($(Fb)!-0.055!90:(C)$);
   \node[vlab, below left] at (A) {$A$};
-  \node[vlab] at ($(B)+(44:0.40)$) {$B$};
+  \node[vlab] at ($(B)+(44:0.46)$) {$B$};
   \node[vlab, below right] at (C) {$C$};
-  \node[vlab] at ($(Ap)+(62:0.44)$) {$A\XIIIpr$};
+  \node[vlab, right] at ($(Ap)!-0.04!(Cp)$) {$A\XIIIpr$};
   \node[vlab, below] at (Bp) {$B\XIIIpr$};
-  \node[vlab] at ($(Cp)+(118:0.46)$) {$C\XIIIpr$};
+  \node[vlab, left] at ($(Cp)!-0.04!(Ap)$) {$C\XIIIpr$};
   \node[vlab, above] at (O) {$O$};
 \end{tikzpicture}
 \figcap{13--16}
@@ -436,32 +496,43 @@
 % given lengths tick-marked.  Reproduced as the book draws it: the second side
 % of the angle at C runs free (the third vertex is not yet located), and the
 % triple-ticked segment is drawn across from that free side to CA.
+% Re-drawn 2026-08-17.  Caleb settled this figure: "YOU DID THIS CORRECT BESIDES
+% THE 1 TICK NOT BEING PERPENDICULAR TO THE LINE CA."  The single tick had been
+% struck at 115 degrees while CA runs at -43.6, i.e. only 25 degrees off lying
+% ALONG the line -- which is what smeared it into the triple tick below it.
+% Every tick group is now struck perpendicular to the segment it measures, the
+% three ticks are shortened and spread so they stay countable, and the whole
+% figure is re-proportioned to the print: angle at C = 26 degrees, the free ray
+% 1.36|CA| long, |AB| = 1.745|CA|, the polyline C-A-B turning 39 degrees at A,
+% the single tick at 0.468 of CA and the transversal foot at 0.70 (it used to be
+% at 0.85, which crowded the two tick groups together).
 \newcommand{\FIGXIIISEVENTEEN}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=1.300]
-  \coordinate (C) at (0,1.02);
-  \coordinate (A) at (0.98,0.20);
-  \coordinate (B) at (3.62,0.28);
-  % free end of the second ray from C: 14 degrees below horizontal, and it
-  % stops well short of B, as measured off the print (PDF 248)
-  \coordinate (Cf) at (1.825,0.561);
+\begin{tikzpicture}[scale=1.450]
+  \coordinate (C) at (0,1.30);
+  \coordinate (A) at ($(C)+(-43.6:1.55)$);
+  \coordinate (Cf) at ($(C)+(-17.6:2.108)$);   % free end of the second ray
+  \coordinate (B) at ($(A)+(-4.9:2.705)$);
   \draw[given] (C) -- (A);
   \draw[given] (A) -- (B);
   \draw[given] (C) -- (Cf);
-  % the cross-segment, from a point on the free ray down to CA (the print
-  % draws it very nearly perpendicular to the free ray)
-  \coordinate (S) at ($(C)!0.54!(Cf)$);
-  \coordinate (Sf) at ($(C)!0.85!(A)$);
-  \draw[given] (S) -- (Sf);
-  % ticks: single on CA, triple on the cross-segment, double on AB
-  \begin{scope}[tick]
-    \draw ($(C)!0.47!(A)$)+(115:0.11) -- +(-65:0.11);
-    \foreach \t in {0.40,0.50,0.60}
-      \draw ($(S)!\t!(Sf)$)+(20:0.11) -- +(200:0.11);
-    \foreach \t in {0.46,0.54}
-      \draw ($(A)!\t!(B)$)+(88:0.11) -- +(-92:0.11);
-  \end{scope}
+  % the triple-ticked transversal, from a point on CA across to the free ray
+  \coordinate (Sf) at ($(C)!0.70!(A)$);
+  \coordinate (S)  at ($(C)!0.51!(Cf)$);
+  \draw[given] (Sf) -- (S);
+  % ONE tick on CA, PERPENDICULAR to CA
+  \coordinate (T1) at ($(C)!0.468!(A)$);
+  \draw[tick] ($(T1)!0.1394!90:(A)$) -- ($(T1)!-0.1394!90:(A)$);
+  % THREE ticks on the transversal, perpendicular to it, grouped toward the CA
+  % end as the print groups them
+  \coordinate (Qt) at ($(Sf)!0.144!90:(S)$);
+  \foreach \t in {0.28,0.41,0.54}
+    \draw[tick] ($($(Sf)!\t!(S)$)+(Qt)-(Sf)$) -- ($($(Sf)!\t!(S)$)-(Qt)+(Sf)$);
+  % TWO ticks on AB, perpendicular to AB
+  \coordinate (Qb) at ($(A)!0.0388!90:(B)$);
+  \foreach \t in {0.47,0.53}
+    \draw[tick] ($($(A)!\t!(B)$)+(Qb)-(A)$) -- ($($(A)!\t!(B)$)-(Qb)+(A)$);
   \node[vlab, above left] at (C) {$C$};
-  \node[vlab, below] at (A) {$A$};
-  \node[vlab, right] at (B) {$B$};
+  \node[vlab, below left] at (A) {$A$};
+  \node[vlab, below right] at (B) {$B$};
 \end{tikzpicture}
 \figcap{13--17}\end{bkfigure}}

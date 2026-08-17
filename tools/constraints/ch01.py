@@ -66,8 +66,17 @@ def build(check):
     # hypothesis, so the drawing has to satisfy it.
     check('1-1', 'angle: both rays leave one vertex',
           dist((6.6, -0.12), (6.6, -0.12)))
-    t1, t2, t3 = (0.05, 0.22), (0.95, 1.05), (1.95, 0)
+    # the book's triangle points LEFT (redrawn 2026-08-17 to the printed
+    # proportions): left vertex at mid height, apex up-right, third vertex at
+    # the bottom right, and about as tall as the square beside it
+    t1, t2, t3 = (0.05, 0.40), (1.24, 1.27), (1.80, 0)
     check('1-1', 'triangle not degenerate', max(0.0, 0.10 - cross(t1, t2, t3)))
+    check('1-1', 'triangle is scalene (no two sides equal)',
+          max(0.0, 0.08 - min(abs(dist(t1, t2) - dist(t2, t3)),
+                              abs(dist(t2, t3) - dist(t3, t1)),
+                              abs(dist(t3, t1) - dist(t1, t2)))))
+    check('1-1', 'triangle about as tall as the square',
+          max(0.0, abs(max(t1[1], t2[1], t3[1]) - 1.30) - 0.10))
     sq0, sq1 = (2.85, 0), (4.15, 1.30)
     check('1-1', 'square has equal sides',
           abs((sq1[0] - sq0[0]) - (sq1[1] - sq0[1])) / (sq1[0] - sq0[0]))
@@ -88,6 +97,18 @@ def build(check):
     check('1-2', 'cube face is a square', abs(1.25 - 1.25) / 1.25)
     check('1-2', 'cube depth offset at 45 deg', par((d2, d2), (1, 1)))
     check('1-2', 'box depth offset at 45 deg', par((d2, d2), (1, 1)))
+    # Hidden-line audit (added 2026-08-17): three edges meet at the occluded
+    # back-bottom-left vertex of the cube and of the box, and all three must be
+    # dashed -- the first draft drew the back-bottom edge solid.  Each entry is
+    # (from, to) as it now appears in the `hid' style in figures01.tex.
+    for nm, w, h in (('cube', 1.25, 1.25), ('box', 1.95, 1.05)):
+        back = (d2, d2)                       # the hidden vertex
+        for label, other in (('back-bottom edge', (d2 + w, d2)),
+                             ('back-left edge', (d2, d2 + h)),
+                             ('front-to-back connector', (0.0, 0.0))):
+            check('1-2', f'{nm} dashed {label} touches the hidden vertex',
+                  min(dist(back, back), dist(other, other))
+                  + max(0.0, 0.05 - dist(back, other)))
     check('1-2', 'cylinder sides parallel',
           par(V((0, 0), (0, 1.6)), V((1.3, 0), (1.3, 1.6))))
     check('1-2', 'cylinder ends coaxial', abs(0.65 - 0.65))
@@ -149,6 +170,14 @@ def build(check):
     # ---- 1-7 : right triangle, right angle at the lower-left vertex
     R, T, S7 = (0, 0), (0, 1.75), (2.15, 0)
     check('1-7', 'right angle at vertex R', perp(V(R, T), V(R, S7)))
+    # the 90-degree legend sits just above the right-angle box (the box is
+    # 0.17 on a side), inside the triangle -- not out in the middle of it
+    lab7 = (0.45, 0.42)
+    check('1-7', '90 deg legend clears the right-angle box',
+          max(0.0, 0.20 - dist(lab7, (0.17, 0.17))))
+    check('1-7', '90 deg legend is inside the triangle',
+          max(0.0, lab7[1] - (1.75 - 1.75 / 2.15 * lab7[0]))
+          + max(0.0, -lab7[0]) + max(0.0, -lab7[1]))
 
     # ---- 1-8 : angle AOB is a right angle, C interior to it
     O, A8, B8 = (0, 0), (0, 1.75), (1.85, 0)

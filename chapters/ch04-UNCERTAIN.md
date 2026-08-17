@@ -355,3 +355,95 @@ midpoint. No tick marks the wrong segment.
 5. The 35 remaining TIGHT placements were all eyeballed at 110 dpi and one at
    600 dpi. They sit 0.80-1.19 pt out by metric box, i.e. roughly 2 pt of
    real ink clearance, and the book crowds these same labels. Accepted.
+
+***
+
+## Figure repair pass — 2026-08-17 (feedback/FIX-SPEC.md)
+
+Caleb photographed no Chapter 4 figure, so this pass was the structural fix in
+spec §2 plus a full sweep of all thirteen figures against book pp. 63–70
+(PDF 77–84), at 400 dpi crops.
+
+### §2 — exercise-group figures moved inline
+
+| Group | Was | Now |
+|---|---|---|
+| 4–1 | `multicols`, no figures | unchanged (no figures — rule 2) |
+| 4–2 | `multicols`; Figs. 4-4 and 4-5 dumped after `\end{multicols}` | no `multicols`; `\exfig{\FIGIVFOUR}` after ex. 7, `\exfig{\FIGIVFIVE}` after ex. 15 |
+| 4–3 | `multicols`; one combined `\FIGIVSEVENEIGHTNINE` after the list | no `multicols`; macro **split three ways**, `\exfig` after ex. 1, 2 and 3 |
+| 4–4 | `multicols`, no figures | unchanged (no figures — rule 2) |
+
+**5 figures inlined, 1 macro split into 3.** The split was correct under rule
+3: the book sets 4-7 under ex. 1 and 4-8 under ex. 2 in the left column of
+p. 68 and 4-9 at the head of the right column above ex. 3 — three separately
+captioned units cited by three different exercises. Coordinates were not
+touched, so `tools/constraints/ch04.py` still describes all three exactly; only
+the wrapper and `scale=` changed. Freed width taken up by hand (spec §5 forbids
+`measure_figures.py` this pass): 0.72 → 1.00 / 1.20 / 1.02, chosen so all three
+print about 4.4 cm wide, which is how the book sizes them relative to one
+another. Fig. 4-8's tick coordinates were shortened 0.108 → 0.090 to compensate
+for its larger scale, so all three print the same tick ink.
+
+The book itself sets Figs. 4-2/4-3, 4-10/4-11 and 4-12/4-13 as side-by-side
+pairs on pp. 65, 69 and 69, so those combined macros were **left combined** —
+rule 3's "the book itself prints them as one captioned unit" case.
+
+### §3 — figures corrected
+
+| Fig | Defect class | Fix |
+|---|---|---|
+| 4-3 | over-drawn line | both lines ran 0.47 of *AB* to the left of *A*/*A′*; the plate runs 0.22. Start points pulled in along the same lines (slope unchanged); `on_line` anchors in `ch04.py` moved with them. |
+| 4-10 | **wrong shape / reversed** | the two correspondence arrows bowed the wrong way. The plate bows them apart so they read as the facing pair `then ( … ) if`; ours were both `bend right`, which mirrored each and made the pair read `)(`. Now `bend left` on both (for an upward path that is the westward bow, for a downward path the eastward one). |
+| 4-10 | over-drawn line | right-hand stubs 4.30 → 3.80 — the plate runs ≈0.10 of *AB* past *B*/*C′*, ours ran 0.27. |
+| 4-10 | label detached / colliding | *B* and *C′* are the far ends of the two arcs, so the arc arrived into each label's own corner. Moved to the free outer quadrant (`above right`, `below right`) — which is also where the plate sets them. |
+| 4-12 | **missing line** | the *B′→B* correspondence arrow was a short stub hanging below *B* and pointing down into empty space; the plate draws a full arrow from just above *B′* up to just under *B*, crossing the upper arc. Redrawn as the plate has it, with the plate's slight eastward bow. |
+| 4-12 | over-drawn line | right-hand stubs 4.10 → 3.90 (plate ≈0.12 of *AC* past *C*/*C′*, ours 0.19). |
+
+Checked and found already faithful, no change needed: 4-2 (stubs, dot at neither
+line end), 4-4 (vertex ratios within 5% of the plate; no dots, as the plate has
+none), 4-5 (all three parts — double tick on the segment, single on the arc, and
+the (b)/(c) point fractions match the plate to within 0.01), 4-6 (including the
+dot the plate sets at the right end of *l′*), 4-7, 4-8, 4-9 (tick counts and
+positions), 4-11, 4-13 (segment ratio *AD′*:*D′B* 1.457 vs the plate's 1.451).
+
+No angle arcs or construction arcs occur anywhere in this chapter — every
+figure is a segment/betweenness diagram — so defect classes 1, 2 and 6 do not
+arise here.
+
+### Label clearance — chapter-local override added
+
+`figures04.tex` now sets `vlab`/`slab` `outer sep` to **3.2 pt** (global is
+2.2 pt). Reason, measured not guessed: the pass that tightened the global
+clearance also made every point dot a fixed **3.2 pt** node, and a 3.2 pt dot
+reaches 1.6 pt out of its own point — so at 2.2 pt the label box lands *on* the
+dot it labels. `check_labels` shows the cliff exactly at the dot's diameter:
+39 collisions at 2.2 pt, 2 at 3.2 pt, and no improvement at 3.4–5.0 pt. 3.2 pt
+is therefore the tightest setting that clears the new dots, and is still tighter
+than the 3.4 pt this book used before the dots existed.
+
+### Gates
+
+* `tectonic` twice, clean (one pre-existing `Overfull \vbox 3.5pt` at ch04.tex:73, unchanged from before this pass).
+* `verify_figures.py 4` — **105/105**.
+* `check_labels.py figures04.tex 4` — **2 collisions**, 35 tight. See below.
+* Every changed page rasterised at 130 dpi and read; Figs. 4-10 and 4-12 also at 400 dpi.
+
+### Residual doubts (this pass)
+
+6. **`check_labels` does not reach 0 for this chapter: 2 collisions remain,
+   both the label `B′`, in Fig. 4-10 and Fig. 4-12.** In both the lower arc
+   passes through the middle of the `B′` label's metric box. This is not
+   fixable while the label stays on its point, and I checked the arithmetic
+   rather than guessing: for Fig. 4-10 the box spans −12.7 pt to −4.4 pt below
+   the point and the arc sits at −10.1 pt, so clearing it needs the label
+   moved left to *t* ≤ 0.67 (≈9 pt off its point, i.e. defect class 7,
+   "labels detached from what they label") or the arc flattened to 40% of the
+   plate's depth. **The plate has the same graze** — on book p. 69 the arc
+   touches the foot of `B′` in both figures. Left as the book draws it.
+   If a later pass wants zero, the only faithful route is a slightly wider
+   row separation in both figures, which would then no longer match the plate's
+   proportions either.
+7. **Fig. 4-12's row separation is looser than the plate.** The book sets the
+   two lines 0.23 of *AC* apart; ours are 0.39 apart. Tightening would crowd
+   `B′` against the arc harder still (see 6) and was not done. Cosmetic; every
+   stated congruence is exact.

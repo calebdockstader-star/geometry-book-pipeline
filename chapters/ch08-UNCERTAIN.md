@@ -596,3 +596,143 @@ beyond both X and Y — and no longer divides by zero on degenerate input.
    pp.145–148, so Figs 8-19 through 8-25 were measured from the photo PDF at
    400 dpi rather than the iPad scans. The photo pages are sharp and fully
    legible for those figures, so this is noted rather than outstanding.
+
+---
+
+## Figure repair pass — 2026-08-17 (feedback/FIX-SPEC.md)
+
+Second pass over the chapter against Caleb's photo review. Text untouched.
+
+### §2 — exercise-group figures inlined (the headline fix)
+
+Every figure that an exercise cites now sits inside the list, immediately
+after the `\item` that names it, wrapped in `\exfig{...}`. **11 figures
+inlined**: 8-7, 8-8, 8-11, 8-14, 8-15, 8-16, 8-24, 8-26, 8-27, 8-28, 8-29,
+8-30, 8-31, 8-32 (14 counting the Algebra-Review and Review-Exercise lists,
+which were already single-column). `multicols` was dropped from the five
+exercise groups that carry a figure (8-5, 8-6, 8-8, the misnumbered 8-1 on
+book p.147, and 8-12); the six groups with **no** figure — 8-1, 8-2, 8-4,
+8-7, 8-9, 8-10 — keep `\begin{multicols}{2}` untouched.
+
+**6 combined macros split**, each half now a full-width `bkfigure` with its
+own `\figcap`, and each re-scaled by hand to use the freed measure (the spec
+forbids re-running `measure_figures.py` during a parallel pass):
+
+| was | became | why |
+|---|---|---|
+| `\FIGVIIISEVENEIGHT` | `\FIGVIIISEVEN` + `\FIGVIIIEIGHT` | Ex. 2 vs Ex. 6 of Group 8-5 |
+| `\FIGVIIIFIFTEENSIXTEEN` | `\FIGVIIIFIFTEEN` + `\FIGVIIISIXTEEN` | Ex. 11 vs Ex. 12 of Group 8-8 |
+| `\FIGVIIITWENTYTWENTYONE` | `\FIGVIIITWENTY` + `\FIGVIIITWENTYONE` | body figures, but the book gives 8-20 nearly the full measure on p.146 and prints 8-21 alone on p.147 |
+| `\FIGVIIITWENTYSIXSEVEN` | `\FIGVIIITWENTYSIX` + `\FIGVIIITWENTYSEVEN` | Ex. 29 vs Ex. 30 of Group 8-12 |
+| `\FIGVIIITWENTYEIGHTNINE` | `\FIGVIIITWENTYEIGHT` + `\FIGVIIITWENTYNINE` | Algebra Review Ex. 9 vs Ex. 10 |
+| `\FIGVIIITHIRTYONETWO` | `\FIGVIIITHIRTYONE` + `\FIGVIIITHIRTYTWO` | Review Ex. 21 vs Ex. 23 |
+
+Macro cross-check after the split: 27 defined, 27 referenced, no orphans and
+no dangling references. `tools/constraints/ch08.py` keys on coordinates, not
+macro names, so only the reshaped figures needed constraint edits.
+
+### §3 — the three figures Caleb photographed
+
+* **Fig 8-20** — leader plumbing rebuilt from the photograph of book p.146.
+  All six leaders now fan from **one apex each**, set immediately beside the
+  caption word they spring from; the two "Consecutive angles" tails no longer
+  cross (the shallower one serves the upper arc, the steeper the lower); every
+  leader is roughly half its former length and each arrowhead lands **on** its
+  target — the two angle arcs, the two called-out sides, the two dashed
+  diagonals — rather than stopping short in the interior. Apex and tip
+  positions were measured off the photo and scaled by the trapezoid's and the
+  pentagon's own widths, so the leader angles now reproduce the book's to
+  within about 1° (31.5°/57.0° for the consecutive pair). New `leader` style:
+  a 0.45 pt hairline with a solid `Latex` head, because `-latex` scales its
+  head with the line width and the old 0.4 pt leaders printed almost no head.
+  Figure scale 0.877 → 1.580 and the gap between the two sub-drawings pulled
+  in to the book's, so 8-20 now runs ~85 % of the measure as the book does.
+* **Fig 8-29** — rebuilt. The 40° angle arc was **missing entirely**; the book
+  strikes a small arc hard against B from ray BC round to ray BD, at radius
+  0.29·BD, and that arc is now drawn. Base BC was dead horizontal and is now
+  sloped 5° down to the right (C below B), which is what makes ∠DBC read as
+  40°. The "40°" label no longer floats a third of the way toward D — it sits
+  just outside the arc on the angle's bisector. Label E was stranded well left
+  of its point and is now snug against AB. B/C/D anchors re-seated to the
+  book's quadrants.
+* **Fig 8-32** — X and Y now carry `\dt{}` dots at **45 %** along each line,
+  well inside the solid part, with the dashing starting at 70 % as the book
+  draws it; previously the bare letters sat exactly at the solid→dashed break
+  and read as labelling the change of dash style. The dashed tips now simply
+  cross at P and run 9 % past it (the small X just right of the label); the
+  arrowhead-style wedge drawn at P was not in the book and is gone. Upper line
+  re-drawn nearly horizontal and lower one climbing ~23°, per the book, so the
+  two close on P at a genuinely acute angle.
+
+### §1 / gate 4 — clearance pulled back to 3.0 pt
+
+The global pass took ch08's local `outer sep` from 5.2 pt down to 3.0 pt,
+which left **18 COLLIDE**. None were raised back chapter-wide; all were fixed
+per-label:
+
+* 13 were letters seated on a `\dt` dot whose 1.6 pt radius the tighter
+  clearance no longer cleared — 8-2 (D, E), 8-10 (C, D, F), 8-13 (D, E), 8-30
+  (A, B, C, A′, B′). Each got an explicit `above=1.6pt`, i.e. exactly the dot
+  radius, so the letter sits as close to its point as it can without touching
+  the dot.
+* 3 were labels sitting on the small `><` convergence mark the book draws at a
+  hypothetical meeting point — 8-2, 8-4, 8-5. Each P label shifted 0.18 units
+  clear of the mark, which is where the book prints it anyway.
+* 1 was a genuine label-vs-label overlap: Fig 8-4 hung both `Q` and `m` on the
+  same coordinate. `m` moved to `below left`.
+
+### §3 sweep — rest of the chapter
+
+Every figure was rasterised at 130–320 dpi and compared against its source
+page (book p. N = PDF p. N+14) for the nine defect classes. No further
+missing arcs, missing or over-drawn lines, arrowheads-standing-in-for-dots, or
+detached labels were found: 8-1, 8-3, 8-6, 8-9, 8-12, 8-17/18, 8-19, 8-22/23,
+8-25 all match the source in structure and in what is marked. Two things
+checked and deliberately **not** changed:
+
+* Fig 8-5's `><` convergence mark looked like a defect but book p.139 draws it
+  exactly so, P label to its right.
+* Fig 8-21's "Not convex" dart is thin, but so is the book's on p.147.
+
+### Gates
+
+* `tectonic` twice from clean — 0 errors both passes (34 pp., up from 24: the
+  cost of dropping `multicols` from five exercise groups, which is what the
+  spec asks for).
+* `python3 tools/verify_figures.py 8` — **246/246**, up from 225. The 21 new
+  checks cover 8-20's six leaders (apex-relative direction, arrowhead
+  incidence on arcs/sides/diagonals, leader length, and that the shallower
+  consecutive-angle leader really serves the upper arc), 8-29's new sloped
+  base and interior BD, and 8-32's dot/dash ratios, overshoot past P and the
+  acute closing angle.
+* `python3 tools/check_labels.py chapters/figures08.tex 8` — **0 COLLIDE**,
+  1 TIGHT.
+* `tools/measure_figures.py` **not** run, per the spec.
+
+### Residual doubts from this pass
+
+1. **The one TIGHT is Fig 8-29's "40°" at 0.64 pt.** Accepted after looking at
+   300 dpi: the gap is clean white and the label is where the book sets it,
+   just outside the arc inside ∠DBC. Pushing it further out would start to
+   float it away from the angle, which is the defect Caleb reported in the
+   first place.
+2. **Supersedes §"Residual doubts" item 2 above.** That note recorded ∠ABC as
+   110° in the redraw against the book's ≈117°. With BC now sloped −5° and BA
+   still at 110°, ∠ABC = **115°**, so the gap is down to ~2°. AB = BC is still
+   enforced exactly (the book's own drawing is ~10 % out on that); ∠ADE = 20°
+   either way.
+3. **Fig 8-20's `Latex` arrow tips need `arrows.meta`**, which `brumfiel.sty`
+   does not load. `\usetikzlibrary{arrows.meta}` is therefore declared at the
+   top of `figures08.tex`, which I own. It is idempotent, so it is safe when
+   the integration pass inputs every `figuresNN.tex` into one preamble — but
+   if that pass would rather hoist it into `brumfiel.sty`, the local line can
+   simply be deleted.
+4. **Figure sizes for the twelve split/reshaped pictures were set by hand**
+   (scales roughly 1.30–1.58, targeting the fraction of the measure the book
+   gives each figure) rather than by the fitter. The final integration pass
+   re-fits the whole book, so these are starting points, not final values.
+5. **Chapter length.** Dropping `multicols` from Exercise Group 8-12 — 31
+   exercises — is what most of the +10 pages costs. It is what the spec
+   directs, but it is the one place where the single-column setting departs
+   noticeably from the book's own two-column page. Flagging for Caleb in case
+   he would rather that one group keep its columns and float its two figures.

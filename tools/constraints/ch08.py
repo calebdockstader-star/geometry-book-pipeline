@@ -445,6 +445,51 @@ def build(check):
           float(abs(_cyc_gap(0, 1, len(b)) - 1) + abs(_cyc_gap(1, 2, len(b)) - 1)))
     check('8-20', 'pentagon is convex', _convex(b))
     check('8-20', 'pentagon is simple', _simple(b))
+    # Leaders (rebuilt 2026-08-17 from the book photograph).  Each caption
+    # fans BOTH of its leaders from one apex, and the two never cross.
+    capex = (1.21, 1.77)
+    ctipU = (a[2][0] + 0.40 * math.cos(math.radians(205)),
+             a[2][1] + 0.40 * math.sin(math.radians(205)))
+    ctipL = (a[1][0] + 0.375 * math.cos(math.radians(131)),
+             a[1][1] + 0.375 * math.sin(math.radians(131)))
+    check('8-20', 'consecutive-angle arrowheads land on their arcs',
+          abs(dist(a[2], ctipU) - 0.40) + abs(dist(a[1], ctipL) - 0.375))
+    # the arcs really are the two consecutive angles: the upper tip must lie
+    # inside angle a4-a3-a2 and the lower one inside angle a3-a2-a1
+    check('8-20', 'upper arrowhead lands inside the upper marked angle',
+          _in_angle(a[2], a[3], a[1], ctipU))
+    check('8-20', 'lower arrowhead lands inside the lower marked angle',
+          _in_angle(a[1], a[2], a[0], ctipL))
+    # the shallower leader must reach the UPPER arc and the steeper one the
+    # lower arc; serving them the other way round is what made the two cross
+    check('8-20', 'shallower consecutive-angle leader serves the upper arc',
+          0.0 if (ctipU[1] > ctipL[1] and
+                  _angle_at(capex, ctipU) > _angle_at(capex, ctipL)) else 1.0)
+    aapex = (0.06, 2.171)
+    atipT = lerp(b[1], b[2], 0.15)          # on the top side b2b3
+    atipL = lerp(b[0], b[1], 0.74)          # on the left side b1b2
+    check('8-20', 'adjacent-side arrowheads land on the two called-out sides',
+          _on_line(b[1], b[2], atipT) + _on_line(b[0], b[1], atipL))
+    dapex = (1.421, 1.855)
+    dtipA = lerp(b[0], b[2], 0.62)          # on diagonal b1b3
+    dtipB = lerp(b[2], b[4], 0.53)          # on diagonal b3b5
+    check('8-20', 'diagonal arrowheads land on the two dashed diagonals',
+          _on_line(b[0], b[2], dtipA) + _on_line(b[2], b[4], dtipB))
+    # each apex sits ABOVE the shape it points into, so both of its leaders
+    # travel downward -- the book never runs a leader up into the drawing
+    for nm, (apex, t1, t2) in (('consecutive', (capex, ctipU, ctipL)),
+                               ('adjacent', (aapex, atipT, atipL)),
+                               ('diagonal', (dapex, dtipA, dtipB))):
+        check('8-20', f'{nm} leaders both run downward from their apex',
+              0.0 if apex[1] > t1[1] and apex[1] > t2[1] else 1.0)
+    # every leader is short: the book's longest is about 1.8 units here
+    for nm, (p0, p1) in (('consecutive upper', (capex, ctipU)),
+                         ('consecutive lower', (capex, ctipL)),
+                         ('adjacent top', (aapex, atipT)),
+                         ('adjacent left', (aapex, atipL)),
+                         ('diagonal long', (dapex, dtipA)),
+                         ('diagonal vertical', (dapex, dtipB))):
+        check('8-20', f'{nm} leader is short', max(0.0, dist(p0, p1) - 1.85))
 
     # ---- 8-21 : one quadrilateral convex, the other not
     conv = [(0, 0), (1.86, 0), (2.05, 1.42), (0.42, 1.62)]
@@ -627,17 +672,24 @@ def build(check):
 
     # ---- 8-29 : AB == BC ; D on AC with angle CBD == 40 ; E on AB with
     #             BE == BD ; angle B obtuse, as the book draws it
-    B29, C29 = (0.0, 0.0), (3.05, 0.0)
+    # The book slopes BC gently down to the right (C below B) -- that slope is
+    # what makes angle DBC read as 40 degrees -- so BC runs at -5 degrees and
+    # BA at 110 degrees, both of length 3.05.
+    B29 = (0.0, 0.0)
+    C29 = (3.05 * math.cos(math.radians(-5)), 3.05 * math.sin(math.radians(-5)))
     A29 = (3.05 * math.cos(math.radians(110)), 3.05 * math.sin(math.radians(110)))
     check('8-29', 'AB == BC', abs(dist(A29, B29) - dist(B29, C29)) / dist(B29, C29))
     # D as written into figures08.tex (the 40-degree ray from B meets AC there)
-    D29 = (1.38738, 1.16417)
+    D29 = (1.407456, 0.985597)
     check('8-29', 'D lies on AC', _on_line(A29, C29, D29))
     check('8-29', 'D between A and C',
           0.0 if min(A29[0], C29[0]) < D29[0] < max(A29[0], C29[0]) else 1.0)
     check('8-29', 'angle CBD == 40 degrees',
-          abs(_angle_at(B29, D29) - 40.0))
-    E29 = lerp(B29, A29, 0.59381)
+          abs(_angle(B29, C29, D29) - 40.0))
+    check('8-29', 'BD lies inside angle ABC', _in_angle(B29, A29, C29, D29))
+    check('8-29', 'base BC slopes down to the right (C below B)',
+          0.0 if C29[1] < B29[1] else 1.0)
+    E29 = lerp(B29, A29, 0.563356)
     check('8-29', 'E on AB', _on_line(A29, B29, E29))
     check('8-29', 'BE == BD', abs(dist(B29, E29) - dist(B29, D29)) / dist(B29, D29))
     check('8-29', 'angle ABC obtuse (as drawn)',
@@ -670,10 +722,29 @@ def build(check):
     # ---- 8-32 : X on ray AP, Y on ray BP, both on the same side of AB, and
     #             angle XAB + angle YBA less than a straight angle (Euclid's
     #             form of the parallel postulate, Ex. 23)
-    A32, B32 = (0.0, 1.72), (0.0, 0.0)
-    P32 = (3.05, 1.02)
-    X32 = lerp(A32, P32, 0.55)
-    Y32 = lerp(B32, P32, 0.55)
+    # Redrawn 2026-08-17 to the book's proportions: the upper line runs nearly
+    # horizontal, the lower one climbs about 23 degrees, and the heavy dots
+    # marking X and Y sit at 45 per cent -- well inside the solid part, which
+    # only breaks into dashes at 70 per cent.
+    A32, B32 = (0.0, 1.38), (0.0, 0.0)
+    P32 = (3.40, 1.48)
+    dot32, dash32, tip32 = 0.45, 0.70, 1.09   # ratios used in figures08.tex
+    X32 = lerp(A32, P32, dot32)
+    Y32 = lerp(B32, P32, dot32)
+    # the dots must fall clear of the solid/dashed break, or they read as
+    # marking the change of dash style rather than a point
+    check('8-32', 'dots X, Y sit well inside the solid part',
+          max(0.0, (dot32 + 0.10) - dash32))
+    # the dashed tips cross AT P and run a little way past it, as the book
+    # draws them -- no arrowhead, no stopping short
+    check('8-32', 'dashed tips run past the meeting point P',
+          max(0.0, 1.02 - tip32))
+    # upper line nearly horizontal, lower one climbing: they close on P at a
+    # very acute angle, which is the whole point of Euclid's postulate figure
+    check('8-32', 'AP is nearly horizontal',
+          max(0.0, abs(_angle_at(A32, P32)) - 5.0))
+    check('8-32', 'rays AP and BP meet at an acute angle under 30 degrees',
+          max(0.0, _angle(P32, A32, B32) - 30.0))
     check('8-32', 'X on ray AP', _on_line(A32, P32, X32))
     check('8-32', 'Y on ray BP', _on_line(B32, P32, Y32))
     sX = _cross(A32, B32, X32)

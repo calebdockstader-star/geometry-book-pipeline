@@ -1,0 +1,362 @@
+# Brumfiel, Eicholz & Shanks, GEOMETRY (Addison-Wesley, 1960) -- INDEX, verbatim transcription
+#
+# STAGE 1 of 2: page references below are the ORIGINAL book's page numbers, exactly
+# as printed. A later mechanical pass must translate them to this edition's pagination.
+#
+# Format: level<TAB>term<TAB>pages
+#   level 0 = main entry, level 1 = sub-entry indented under the preceding main entry
+#   term    = entry text exactly as printed (original capitalisation, hyphens, commas,
+#             and the book's own quirks, e.g. "Adams, John, C." and "Philosophy,")
+#   pages   = page list exactly as printed; empty for heading-only entries
+#
+# SOURCE: sources/Geometry.pdf, rendered at 400 dpi with pdftoppm and read visually.
+#   PDF 297 = book p. 283   (transcribed in full)
+#   PDF 298 = book p. 284   (transcribed in full)
+#   PDF 299 = book p. 285   (transcribed in full)
+#   PDF 300 = book p. 286   (transcribed in full)
+#   Offset book page N = PDF page N + 14 verified directly against the printed folios.
+#
+# INCOMPLETE -- BOOK p. 287 IS NOT IN THE SOURCE PDF.
+#   The index does NOT end on book p. 286: it continues onto p. 287 (entries from
+#   "Right angles" onward, i.e. roughly R-Z). sources/Geometry.pdf has only 300 pages,
+#   so p. 287 was never photographed as its own frame. It appears only edge-on in the
+#   curl at the right of PDF 300: the left column is legible but most of its page
+#   numbers are sheared off by the curl, and the entire right column is absent.
+#   The iPad scans do not help -- sources/scan-index/ covers no book page above 263.
+#   Nothing from p. 287 is recorded below, to avoid guessed page numbers.
+#   TO COMPLETE THIS FILE: a fresh scan of book p. 287 (and of p. 288 if the index
+#   runs that far -- unknown, since p. 287 itself was never captured) is required.
+#
+0	Abscissa	254
+0	Adams, John, C.	270
+0	Alexander the Great	5
+0	Algebra review	41, 61, 72, 82, 115, 131, 150
+0	Analytic geometry	251
+0	Angle(s)
+1	acute	108
+1	adjacent	55
+1	alternate exterior	140
+1	alternate interior	140
+1	congruence of	84
+1	complementary	142
+1	corresponding	140
+1	definition of	53
+1	definition of degree measure of	218
+1	definition of "greater than" and "less than" for	106
+1	definition of one degree	218
+1	definition of right	87
+1	existence of right	104
+1	exterior of	56
+1	included	89
+1	interior of	56
+1	measurement of	217
+1	notation for indicating	54
+1	obtuse	108
+1	sides of	53
+1	straight	53
+1	sum of two	142
+1	supplementary	87
+1	supplementary and adjacent	55
+1	vertex of	53
+1	vertical	54
+0	Apollonius	6
+0	Arc	209
+0	Archimedes	6, 77
+1	Archimedes' axiom	77
+1	Archimedes' integer	77
+0	Area
+1	of a circle	206
+1	determined by counting	180
+1	as a limit	182
+1	of a polyhedron	246
+1	of a rectangle	183
+1	of a sphere	249
+1	of a triangle	186
+0	Aristotle	5, 269
+0	Assumptions	44
+0	Axioms (postulates, assumptions)	43
+0	Axis(es)
+1	of abscissas	254
+1	coordinate	254
+1	of ordinates	254
+0	Bell, E. T.	253, 268
+0	Bisector
+1	of an angle	88
+1	perpendicular	109
+0	Bolyai, J.	6, 136
+0	Circle(s)
+1	center of	122
+1	central angle of	122
+1	chord of	122
+1	circumscribing a polygon	193
+1	definition of	122
+1	definition of area of	206
+1	definition of circumference of	202
+1	diameter of	122
+1	exterior of	122
+1	inscribed angle of	122
+1	inscribed in a polygon	196
+1	interior of	122
+1	radius of	122
+1	secant of	122
+1	tangent to	195
+0	Circular arc(s)
+1	adjacent	213
+1	definition of	209
+1	definition of degree measure of	220
+1	definition of semicircular arcs	210
+1	midpoint of	210
+1	subtended by a central angle	210
+0	Commensurable segments	162
+0	Completeness postulate	79
+0	Congruence of angles
+1	postulate for	84
+1	reflexive, symmetric, and transitive properties	85
+0	Congruence of segments
+1	postulates for	64
+1	reflexive, symmetric, and transitive properties	65
+1	undefined relation	70
+0	Congruence of triangles
+1	angle-side-angle theorem	97
+1	definition of	94
+1	side-angle-side postulate	88
+1	side-angle-side theorem	94
+1	side-side-side theorem	100
+0	Converse of an implication	31
+0	Coordinate(s)
+1	abscissa of a point	256
+1	ordinate of a point	256
+1	origin of	254
+1	of a point in the plane	256
+1	of a point on a line	253
+0	Decagon	146
+0	Definitions
+1	importance of	71
+1	in algebra	61, 62, 72
+0	Degree measure
+1	of angles	218
+1	of arcs	220
+0	Descartes, René	251
+1	his Discourse on Method	252
+1	his Geometry	252
+0	Diameter	122
+0	Direction, rays with the same	134
+0	Distance between points	262
+0	Division
+1	definition in algebra	62
+1	of segment into congruent parts	157
+0	Equation(s)
+1	of a circle	265
+1	equivalent	261
+1	linear	261
+0	Euclid	5, 10, 117
+1	his Elements	5, 11, 117
+1	his parallel postulate	153
+0	Eudoxus	5, 77, 163
+0	Figures, relation between figures and geometry	44
+0	Galileo	269
+0	Gauss, K. F.	6, 139
+0	Geometric figure	8
+0	Geometry
+1	analytic	252
+1	cartesian	252
+1	coordinate	252
+1	origin of word	2
+1	reasons for study	1
+1	of space	236
+0	Greek letters	22
+0	Heptagon	146
+0	Heron's formula	188
+0	Hexagon	146
+0	Hilbert, David	6, 65, 117, 149, 272
+1	his Foundations of Geometry	272
+0	Historical notes	2, 124, 136, 163, 217, 251
+0	Hypotenuse	154
+0	Hypothesis	29
+0	Implication	28
+0	Incommensurable segments	162
+0	Inequalities
+1	for angles	106
+1	for numbers	76
+1	for segments	67, 80
+0	Infinite sequences
+1	of numbers	199
+1	of polygonal paths inscribed in an arc	213
+0	Infinite sum	75
+0	Integers	74
+0	Intersect	45
+0	Irrational numbers	74
+0	Isosceles triangle	91
+1	base angles of	91
+0	Jourdain, Philip	274
+0	Leibniz	6
+0	Le Verrier	270
+0	Limit(s)
+1	area of rectangle as	182
+1	circumference of circle as	202
+1	length of circular arc as	212
+1	of a sequence	200
+0	Line(s)
+1	abstract character of	10
+1	equations of	258
+1	existence of parallels to	134, 135
+1	parallel	133
+1	perpendicular	109
+1	perpendicular to a plane	240
+1	proof of straightness of	119
+1	skew	242
+1	straightness of	44
+1	transversal of	140
+0	Lobachevski	6
+0	Locus	227
+1	characterization of theorems on	228
+1	cycloid as	231
+1	definition of	227
+1	hypocycloid as	231
+0	Logic
+1	Aristotelian	35
+1	deductive reasoning	29
+1	definition of	28
+1	drawing conclusions	29
+0	Mathematics
+1	applied	270
+1	consistency of	271
+1	discovery or invention of	273
+1	independent of experiments	268
+1	models	269
+1	pure	270
+1	related to life	273
+1	related to truth	270
+1	research in	273
+1	usefulness of	270
+0	Measurement
+1	of angles in degrees	218
+1	of angles in radians	221
+1	of an angle inscribed in a circle	222
+1	of arc length	212
+1	of arcs in degrees	220
+1	change of scale in	81
+1	of segments	76
+1	unit of length for	76
+0	Midpoint
+1	of arc	210
+1	formula for coordinates of	263
+1	of segment	92
+0	Newton, Isaac	5
+1	his Principia	5
+0	n-gon	146
+0	Nonagon	146
+0	Non-Euclidean geometry	139
+0	Numbers
+1	irrational	74
+1	positive integers	74
+1	positive rational	74
+1	ratio of integers	74
+1	real	75
+1	repeating decimals	74
+1	role in Greek geometry	70
+1	terminating decimals	74
+0	Octagon	146
+0	Ordinate	254
+0	Orthocenter	233
+0	Parallelogram	148
+1	altitude of	185
+1	base of	185
+0	Pentagon	146
+0	Perpendicular	109
+0	Philosophy,
+1	epistemology	267
+1	metaphysics	267
+1	moral	266
+1	political	267
+1	religious	266
+1	theology	266
+0	Physics
+1	assumptions of	269
+1	related to mathematics	269
+0	Pi
+1	approximations for	203
+1	calculation of rational approximations	204
+1	definition of	203
+0	Plane(s)
+1	abstract character of	10
+1	left half of	256
+1	lower half of	256
+1	parallel	242
+1	perpendicular to a line	241
+1	right half of	256
+1	upper half of	256
+0	Plato	5
+0	Point(s)
+1	abstract character of	10
+1	collinear	50
+1	of tangency	195
+1	sides of on a line	53
+0	Polygon(s)
+1	adjacent sides of	145
+1	adjacent vertices of	145
+1	apothem of regular	197
+1	center of regular	197
+1	central angle of regular	197
+1	circumscribing a circle	196
+1	classification of	146
+1	consecutive angles of	145
+1	convex	146
+1	diagonal of	145
+1	equiangular	146
+1	equilateral	146
+1	inscribed in a circle	193
+1	interior and exterior of	145
+1	radius of regular	197
+1	regular	146
+1	similar convex	163
+1	simple	145
+1	sum of exterior angles	147
+1	sum of interior angles	147
+0	Polygonal cell	244
+0	Polygonal path
+1	definition of	120
+1	endpoints of	120
+1	inscribed in an arc	212
+1	length of	121
+1	sides of	144
+1	vertices of	120
+0	Positive axis	253
+0	Positive direction	253
+0	Postulate(s) (axioms, assumptions)	43
+1	of Archimedes	77
+1	of Group I (incidence)	46
+1	of Group II (betweenness)	48, 49
+1	of Group III (linear congruence)	64, 65
+1	of Group IV (angle congruence)	84, 85, 86
+1	necessity for	70
+1	parallel	136
+0	Proof	28
+1	in algebra	41
+1	independent of geometric figures	44
+1	related to implication	36
+1	relation of definitions to	71
+1	techniques of	36
+0	Properties, distinguished from relations	88
+0	Proportion(al)	158
+1	mean	171
+1	sets of numbers	159
+1	sets of segments	160
+0	Ptolemy	5
+0	Pythagoras	2
+0	Pythagorean theorem	171
+1	area proof of	189
+1	converse of	173
+0	Quadrants	255
+0	Quadrilateral	146
+0	Radian measure	221
+0	Ratio	158
+1	of integers	74
+1	of segments	160
+0	Rays	53
+1	with same direction	134
+0	Rectangle	148
+1	area of	181
+1	existence of	150
+0	Relations	88
+0	Rhombus	148

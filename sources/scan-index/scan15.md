@@ -19,7 +19,7 @@
 - p17: book p.247 | Thm 14-19, Exercise 14-13, Fig 14-36, Fig 14-37, Thm 14-20, Exercise Group 14-14, Fig 14-38(a)(b), Thm 14-21, Thm 14-22, Fig 14-39 | good
 - p18: book p.248 | Exercise Group 14-15 (items 1-4), Fig 14-40, Fig 14-41 (cylinder/cone/sphere), 14-9 Cylinders, Cones, and Spheres, Exercise Group 14-16, Fig 14-42, Fig 14-43 | good
 - p19: book p.249 | Thm 14-23, Thm 14-24, Exercise Group 14-17 (items 1-4) | good
-- p20: book p.? | halftone/dot-pattern plate fragment (top ~1/3 only), rest of frame solid black | trash — unidentifiable content, likely accidental shot of a plate or book edge; bottom two-thirds unusable
+- p20: book p.250 (facing) | **Descartes portrait plate** — full, sharp, square-on capture (2114×2685 px) | GOOD. Re-catalogued 2026-08-17: previously logged as "trash — unidentifiable content". It is the best source on disk for that plate by a wide margin (the photo PDF holds it at ~506×636 px); `plates/plate-descartes.png` is cut from here.
 - p21: book p.254 (inferred: section 15-3 opener) | Def 15-2, Fig 15-2 (coordinate axes labeled Abscissas/Ordinates), Exercise Group 15-4 | partial — angled crop, top/bottom text cut off but Fig 15-2 fully legible
 - p22: book p.254 (duplicate, wider crop, header "Existence of Co[ordinates]" confirms section 15-3) | Def 15-2, Fig 15-2, Exercise Group 15-4 | good — angled but fully legible
 - p23: book p.262 (inferred: section 15-5 Distance) | Fig 15-13 (four labeled coordinate point-pairs incl. A(1,1), B(1,-3)), Fig 15-14 (P1P2Q right triangle for distance formula), distance-formula derivation, Remark | good

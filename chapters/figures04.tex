@@ -1,8 +1,22 @@
 % figures04.tex -- Chapter 4 figures redrawn in TikZ.
+%
+% Label clearance, chapter-local (2026-08-17).  Every figure in this chapter
+% is a point-on-a-line diagram whose labels sit directly over their point.
+% The global `outer sep' was tightened to 2.2pt in the same pass that turned
+% the point dots into fixed 3.2pt nodes -- and a 3.2pt dot reaches 1.6pt out
+% of its point, so at 2.2pt the label box lands ON the dot it labels.
+% check_labels bears this out exactly: the collision count for this chapter
+% falls off a cliff at 3.2pt (39 -> 2) and does not improve above it.  3.2pt
+% is therefore the tightest clearance that still clears the new dots, and is
+% still tighter than the 3.4pt this book used before the dots existed.
 % Coordinates are reconstructions; every congruence the printed figure
 % asserts holds EXACTLY here (see tools/constraints/ch04.py).
 % Self-contained: congruence ticks are drawn as explicit strokes, sized so
-% that each prints at about 2.2pt half-length at the figure's own scale.
+% that each prints at about 2.2pt half-length at the figure's own scale
+% (Figs. 4-7/4-8/4-9, split out and enlarged, carry the book's own
+% tick-to-segment ratio instead and so print nearer 3pt).
+\tikzset{vlab/.append style={outer sep=3.2pt},
+         slab/.append style={outer sep=3.2pt}}
 
 % ------------------------------------------------------------- Fig 4-1
 % Pictorial vignette (boy beside a marked spear stuck in hatched ground).
@@ -49,8 +63,12 @@ marked spear planted upright, its point above his head.]}
   \coordinate (Ap) at (1.09193,-1.07678);
   \coordinate (Bp) at (2.93545,-0.92196);
   \coordinate (Cp) at (3.64794,-0.86212);
-  \draw[fig] (0,0) -- (4.96981,0.54866);
-  \draw[fig] (0.22000,-1.15000) -- (5.20247,-0.73157);
+  % Left-hand stubs pulled in (2026-08-17): both lines ran 0.47 of AB to the
+  % left of A / A', where the plate runs only about 0.22.  New start points
+  % are exactly on the same lines (slope unchanged), so the incidence checks
+  % in tools/constraints/ch04.py still hold -- their anchors move with them.
+  \draw[fig] (0.46519,0.05136) -- (4.96981,0.54866);
+  \draw[fig] (0.68636,-1.11084) -- (5.20247,-0.73157);
   \foreach \p in {A,B,C,Ap,Bp,Cp} {\dt{\p}}
   \node[vlab,above]      at (A)  {$A$};
   \node[vlab,above]      at (B)  {$B$};
@@ -185,9 +203,18 @@ marked spear planted upright, its point above his head.]}
 % 4-7 (Ex 4-3 #1): AB congruent to CB', with C-B'-D.
 % 4-8 (Ex 4-3 #2): RS congruent to TS', with T-U-S'.
 % 4-9 (Ex 4-3 #3): AB=DE (single tick), BC=EC' (double tick).
-\newcommand{\FIGIVSEVENEIGHTNINE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.31\linewidth}\centering
-\begin{tikzpicture}[scale=0.72]
+%
+% SPLIT 2026-08-17: these three were one side-by-side block, printed after
+% the whole of Exercise Group 4-3.  The book sets each one immediately after
+% the exercise that cites it (4-7 after ex. 1 and 4-8 after ex. 2 in the left
+% column of p.68, 4-9 above ex. 3 at the head of the right column), so each
+% is now its own full-measure figure and ch04.tex places it inline.  Point
+% coordinates are unchanged -- only the wrapper and `scale' moved -- so
+% tools/constraints/ch04.py still describes them exactly.  The three scales
+% are chosen so all three print about 4.4 cm wide, as the book draws them at
+% one size; ticks ride the scale, keeping the book's tick-to-segment ratio.
+\newcommand{\FIGIVSEVEN}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.00]
   \coordinate (A)  at (1.20000,0.95000);
   \coordinate (B)  at (2.40000,0.95000);
   \coordinate (C)  at (0.92000,0);
@@ -205,9 +232,10 @@ marked spear planted upright, its point above his head.]}
   \node[vlab,below] at (D)  {$D$};
 \end{tikzpicture}
 \figcap{4--7}
-\end{minipage}\hfill
-\begin{minipage}{0.31\linewidth}\centering
-\begin{tikzpicture}[scale=0.72]
+\end{bkfigure}}
+
+\newcommand{\FIGIVEIGHT}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.20]
   \coordinate (R)  at (0.65000,1.30000);
   \coordinate (S)  at (3.00000,1.30000);
   \coordinate (T)  at (0.62000,0);
@@ -217,8 +245,10 @@ marked spear planted upright, its point above his head.]}
   \draw[fig] (0,0) -- (3.65000,0);
   \draw[fig] (R) .. controls +(0,0.64000) and +(0,0.64000) .. (S);
   \draw[fig] (T) .. controls +(0,0.64000) and +(0,0.64000) .. (Sp);
-  \draw[tick] (1.82500,1.67200) -- (1.82500,1.88800);
-  \draw[tick] (1.79500,0.37200) -- (1.79500,0.58800);
+  % tick half-length 0.090 here (not 0.108): this picture is drawn at
+  % scale 1.20, so the shorter coordinate prints the same ink as 4-7/4-9.
+  \draw[tick] (1.82500,1.69000) -- (1.82500,1.87000);
+  \draw[tick] (1.79500,0.39000) -- (1.79500,0.57000);
   \foreach \p in {R,S,T,U,Sp} {\dt{\p}}
   \node[vlab,above left]  at (R)  {$R$};
   \node[vlab,above right] at (S)  {$S$};
@@ -227,9 +257,10 @@ marked spear planted upright, its point above his head.]}
   \node[vlab,below] at (Sp) {$S'$};
 \end{tikzpicture}
 \figcap{4--8}
-\end{minipage}\hfill
-\begin{minipage}{0.31\linewidth}\centering
-\begin{tikzpicture}[scale=0.72]
+\end{bkfigure}}
+
+\newcommand{\FIGIVNINE}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.02]
   \coordinate (A)  at (0.75000,0.95000);
   \coordinate (B)  at (2.60000,0.95000);
   \coordinate (C)  at (3.40000,0.95000);
@@ -253,7 +284,6 @@ marked spear planted upright, its point above his head.]}
   \node[vlab,below] at (Cp) {$C'$};
 \end{tikzpicture}
 \figcap{4--9}
-\end{minipage}
 \end{bkfigure}}
 
 % ------------------------------------------------------ Figs 4-10, 4-11
@@ -268,8 +298,12 @@ marked spear planted upright, its point above his head.]}
   \coordinate (Ap) at (0.30000,0);
   \coordinate (Bp) at (2.75000,0);
   \coordinate (Cp) at (3.45000,0);
-  \draw[fig] (0,1.15000) -- (4.30000,1.15000);
-  \draw[fig] (0,0) -- (4.30000,0);
+  % Right-hand stubs trimmed 4.30 -> 3.80 (2026-08-17).  Measured off the
+  % plate, each line runs about 0.10 of AB past B / C'; ours ran 0.27 past,
+  % so both lines were over-drawn to the right.  The left stubs (0.30, also
+  % 0.10 of AB) already matched.
+  \draw[fig] (0,1.15000) -- (3.80000,1.15000);
+  \draw[fig] (0,0) -- (3.80000,0);
   \draw[fig] (A)  .. controls +(0,0.76000) and +(0,0.76000) .. (B);
   \draw[fig] (Ap) .. controls +(0,-0.76000) and +(0,-0.76000) .. (Cp);
   \draw[tick] (1.80000,1.62300) -- (1.80000,1.81700);
@@ -278,17 +312,27 @@ marked spear planted upright, its point above his head.]}
   \draw[tick] (1.95000,-0.66700) -- (1.95000,-0.47300);
   \draw[tick] (1.52500,1.05300) -- (1.52500,1.24700);
   \draw[tick] (1.52500,-0.09700) -- (1.52500,0.09700);
+  % The two correspondence arrows.  In the book they bow AWAY from each
+  % other, so that "then (" and ") if" read as a facing pair of parentheses:
+  % the B'->C arrow bows left (west), the B->C' arrow bows right (east).
+  % Both were drawn with `bend right' here, which mirrored each one and made
+  % the pair read ")(" instead.  For an upward path `bend left' is the
+  % westward bow; for a downward path it is the eastward one.
   \draw[fig,->,line width=0.55pt] (2.72000,0.14000)
-        to[bend right=28] (2.72000,1.01000);
+        to[bend left=28] (2.72000,1.01000);
   \draw[fig,->,line width=0.55pt] (3.45000,1.01000)
-        to[bend right=28] (3.45000,0.14000);
+        to[bend left=28] (3.45000,0.14000);
   \foreach \p in {A,C,B,Ap,Bp,Cp} {\dt{\p}}
-  \node[vlab,above left] at (A)  {$A$};
-  \node[vlab,above]      at (C)  {$C$};
-  \node[vlab,above]      at (B)  {$B$};
-  \node[vlab,below left] at (Ap) {$A'$};
-  \node[vlab,below]      at (Bp) {$B'$};
-  \node[vlab,below]      at (Cp) {$C'$};
+  \node[vlab,above left]  at (A)  {$A$};
+  \node[vlab,above]       at (C)  {$C$};
+  % B and C' are the far ends of the two arcs, so the arc arrives into the
+  % label's own corner.  The plate sets both in the free quadrant on the
+  % outside of the arc -- B above-RIGHT of its dot, C' below-RIGHT -- which
+  % is also what keeps them clear of the arc ends here.
+  \node[vlab,above right] at (B)  {$B$};
+  \node[vlab,below left]  at (Ap) {$A'$};
+  \node[vlab,below]       at (Bp) {$B'$};
+  \node[vlab,below right] at (Cp) {$C'$};
   \node[slab,left]  at (2.42000,0.57500) {then};
   \node[slab,right] at (3.78000,0.57500) {if};
 \end{tikzpicture}
@@ -334,8 +378,10 @@ marked spear planted upright, its point above his head.]}
   \coordinate (Ap) at (0.30000,0);
   \coordinate (Bp) at (2.75000,0);
   \coordinate (Cp) at (3.50000,0);
-  \draw[fig] (0,1.25000) -- (4.10000,1.25000);
-  \draw[fig] (0,0) -- (4.10000,0);
+  % Right-hand stubs trimmed 4.10 -> 3.90: the plate runs about 0.12 of AC
+  % past C / C', ours ran 0.19 past.
+  \draw[fig] (0,1.25000) -- (3.90000,1.25000);
+  \draw[fig] (0,0) -- (3.90000,0);
   \draw[fig] (A)  .. controls +(0,-0.60000) and +(0,-0.60000) .. (C);
   \draw[fig] (Ap) .. controls +(0,-0.60000) and +(0,-0.60000) .. (Cp);
   \draw[tick] (1.45000,1.15300) -- (1.45000,1.34700);
@@ -344,8 +390,13 @@ marked spear planted upright, its point above his head.]}
   \draw[tick] (1.60000,-0.09700) -- (1.60000,0.09700);
   \draw[tick] (1.90000,0.70300) -- (1.90000,0.89700);
   \draw[tick] (1.90000,-0.54700) -- (1.90000,-0.35300);
-  \draw[fig,->,line width=0.55pt] (2.75000,1.13000)
-        to[bend left=22] (2.82000,0.86000);
+  % The B'->B correspondence arrow.  The plate draws a full arrow from just
+  % above B' up to just under B, crossing the upper arc on the way; ours was
+  % a short stub hanging off B and pointing the wrong way (down into empty
+  % space), so the figure said nothing about which point matched which.
+  % Upward path + `bend right' = the plate's slight eastward bow.
+  \draw[fig,->,line width=0.55pt] (2.79000,0.15000)
+        to[bend right=14] (2.75000,1.11000);
   \foreach \p in {A,B,C,Ap,Bp,Cp} {\dt{\p}}
   \node[vlab,above] at (A)  {$A$};
   \node[vlab,above] at (B)  {$B$};

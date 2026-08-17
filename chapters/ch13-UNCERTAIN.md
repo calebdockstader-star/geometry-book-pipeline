@@ -385,3 +385,139 @@ bisector where the book tilts the whole figure $5^\circ$; the aperture
 **Note on rights:** I did not re-open the copyright question and am not a basis
 for it; I proceeded on the project's documented determination in
 `sources/copyright/renewal-search.md`.
+
+---
+
+# Figure-repair pass — 2026-08-17 (FIX-SPEC.md)
+
+Status after this pass: compiles twice clean (16 pp) · constraints **146/146**
+· collisions **0** (4 TIGHT, inspected and accepted) · every changed page
+rasterised at 150 dpi and looked at.
+
+## 1. Exercise-group figures are now inline (spec §2)
+
+Eight figures moved out of the post-list dump and into the list, each wrapped
+in `\exfig{}` directly after the exercise that names it. `multicols` was
+dropped from every group that carries a figure; **Group 13-3 keeps its
+`multicols`** because it has none.
+
+| Group | figures inlined | after exercise |
+|---|---|---|
+| 13-1 | 13-3, 13-4 | 2, 5 |
+| 13-2 | 13-8, 13-9, 13-10 | *4, 6, 8 |
+| 13-4 | 13-13, 13-14 | 1, 4 |
+| 13-5 | 13-17 | *3 |
+
+**No macros were split.** Chapter 13's only combined macro is
+`\FIGXIIIFIFTEENSIXTEEN`, and the book itself prints Figs 13-15 and 13-16 side
+by side on p. 233 (verified on PDF 247), so rule 3's exception applies. Neither
+is cited by an exercise, so rule 5 keeps them where they are.
+
+## 2. Figures corrected
+
+* **13-6** — removed the arrowhead that pointed into the vertex $O$ (the print
+  has no arrowheads at all here); the dashed bisector now stops just past $P$
+  instead of running to the picture edge; the lower side of the angle is laid
+  horizontal and the opening cut to the print's 32°, so $PA$ drops vertically
+  and $PA$/$PB$ read as two straight segments meeting in a corner at $P$ rather
+  than as one bowed curve; added the print's cross-strokes at both feet and at
+  $P$; pulled the $A$, $B$, $P$, $O$ labels in tight.
+* **13-9** — the two wheel positions were nearly coincident; centre separation
+  is now the print's 0.43 r, so the equal-radius rims cross cleanly top and
+  bottom. Added the missing solid connector (the first piece of the traced
+  path, from $P$'s earlier rim position to its later one) with the print's
+  perpendicular cross-tick at its free end, which gives the floating $P$ label
+  something to name. The rolling relation (turn = d/r) is now asserted.
+* **13-11** — bisectors moved to a long dash pattern (`auxlong`, 6.6/3.8 pt)
+  so they no longer read as solid; replaced the thin saltire at $O$ with the
+  print's bold six-rayed asterisk (`\XIIIstar`); tucked the $O$ label against
+  the mark (167°, 0.42 — the widest gap between the three cevians).
+* **13-12** — all three perpendicular bisectors were grossly over-extended;
+  each is now drawn from the midpoint of its side to a short stub just past
+  $O$, and none crosses back out through another side. Added the missing
+  cross-strokes at the midpoints of $AB$ and $BC$. Bold asterisk at $O$; $O$
+  label tightened.
+* **13-16** — the arrowheads were on the wrong lines. The print arrows the
+  three **solid** sides ($B{\to}A$, $B{\to}C$, $A{\to}C$: one tip at $A$, two
+  at $C$) and leaves the dashed altitudes $AO$, $CO$ plain, with a single
+  arrowhead at $O$ belonging to the altitude through $B$. Ours arrowed $AO$
+  and $CO$ into $A$ and $C$, piling three or four heads on each vertex — that
+  blot is also what made the straight line $C'\!-\!A\!-\!B'$ look kinked at
+  $A$; it is provably straight (constraint: $A$ is the midpoint of $B'C'$).
+  Arrowheads are now fixed-size 3.4 pt `Latex` tips. Added the missing tick
+  where the altitude through $B$ meets $AC$. Dashes moved to `auxlong`.
+* **13-17** — see §3.
+
+## 3. Fig 13-17 — SETTLED
+
+Caleb: *"YOU DID THIS CORRECT BESIDES THE 1 TICK NOT BEING PERPENDICULAR TO THE
+LINE CA."* Done, and asserted in `tools/constraints/ch13.py` as
+`the single tick is perpendicular to CA`. The old tick was struck at 115°
+while $CA$ runs at −43.6°, i.e. only 25° off lying **along** the line — which
+is exactly why it smeared into the triple tick below it.
+
+While there, the figure was re-proportioned to the print (de-rotating the page
+in Caleb's photo of p. 234): angle at $C$ = 26°, free ray 1.36 |CA|,
+|AB| = 1.745 |CA|, the polyline $C$–$A$–$B$ turning 39° at $A$, the single tick
+at 0.468 of $CA$ and the transversal foot at 0.70 (it had been at 0.85, which
+crowded the two tick groups together). All three tick groups are now struck
+perpendicular to the segment they measure; the triple ticks were shortened and
+spread so they stay countable; `scale` 1.30 → 1.45.
+
+**Open question #2 from the previous pass is now closed as far as the drawing
+goes** — Caleb has signed off on the structure. What the triple-ticked
+cross-segment *denotes* in the SSA construction is still unexplained, but that
+is a reading of the book, not a drawing defect, and it is reproduced as
+printed.
+
+## 4. Chapter sweep (spec §3 defect classes)
+
+Swept all 17 figures against the source (photo PDF pp. 227–235 = PDF 241–249;
+`scan14` pp. 21–24 and `scan15` p. 2 where they exist).
+
+* **Missing angle arcs** — none owed. Chapter 13 marks no angle anywhere with
+  an arc; the only angle it names numerically is the 50° of Ex. 13-2 #4, which
+  the book leaves unmarked in Fig 13-8.
+* **Missing construction arcs** — none owed. Despite being the constructions
+  chapter, ch13 draws no compass work: Group 13-5 states 20 constructions in
+  words and illustrates only the *given lengths* (Fig 13-17). There is no
+  plain × or solid tick anywhere standing in for crossing dashed arcs.
+* **Arrowheads for dots/junctions** — fixed in 13-6 and 13-16 (above). Checked
+  the rest: 13-3's two double-arrows are dimension arrows and are in the print;
+  no other figure carries an arrowhead.
+* **Missing lines / over-drawn lines** — 13-9's connector (added) and 13-12's
+  three bisectors (shortened). 13-1, 13-2, 13-3, 13-4, 13-5, 13-7, 13-8,
+  13-10, 13-13, 13-14, 13-15 re-checked against the print and match.
+* **Hidden-line dashing** — not applicable, no 3-D figures in this chapter.
+* **Clutter** — 13-17's tick blob (fixed) was the only instance.
+
+## 5. Still open
+
+1. **Scan coverage.** Unchanged from the previous pass and confirmed by the
+   brief: book pp. 230–232 and 234 have no scan, so Figs 13-7 … 13-14 and
+   13-17 were measured from the photo PDF (and, for 13-6/13-9/13-11/13-12/
+   13-16/13-17, from Caleb's close-up photographs, which are better than the
+   photo PDF for tick and dash detail). A scan of those four pages would
+   close it properly.
+2. **Fig 13-16 is size-limited by the book's own layout.** Caleb's note 6
+   ("drawn smaller / tighter than the book's") is mostly a consequence of the
+   arrowhead blot, now fixed. It cannot grow much further: the book prints it
+   beside 13-15, and at the current 0.55/0.43 minipage split it already fills
+   its half of the measure. Growing it would mean breaking the pairing the
+   book prints — flagged rather than done.
+3. **Four TIGHT label placements remain**, all inspected in the render and
+   accepted: 13-15's $G$ (0.68 pt) and $F$ (0.40 pt) — unchanged, see the
+   previous pass's note 3; 13-16's $B$ (0.79 pt, improved from 1.14 pt and
+   moved clear of the horizontal $C'A'$ line, which was Caleb's complaint) and
+   $B'$ (1.06 pt, unchanged). $B$ in 13-16 is genuinely boxed in: the altitude
+   through $B$ rises at 89°, $AO$ passes 0.56 units to its left at 60°, and
+   $CO$ passes 0.90 units to its right at 131°.
+4. **Three small overfull `\hbox`es** in exercise prose (5.5 pt at ch13.tex:109
+   — pre-existing; 3.9 pt at :178 and 2.6 pt at :322 — new, from the wider
+   single-column measure after dropping `multicols`). All under 2 mm. Not
+   touched, because the text is signed off and fixing them means re-breaking
+   prose.
+5. **Group 13-5 is now a single 20-item column** across pp. 12–14, where the
+   book runs it in two columns across pp. 233–235. That follows spec §2 rule 2
+   (the group contains Fig 13-17), and is noted here only so the integration
+   pass knows it is deliberate, not an accident.

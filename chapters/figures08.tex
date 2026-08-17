@@ -3,9 +3,15 @@
 % Local label clearance: ch08 has several figures where a vertex label sits
 % at a point that two or three drawn lines pass through, so the shared
 % 3.4pt outer sep is not enough.  Raised here only (brumfiel.sty untouched).
+\usetikzlibrary{arrows.meta}
 \tikzset{
   vlab/.style = {font=\footnotesize\itshape, inner sep=1.2pt, outer sep=3.0pt},
   slab/.style = {font=\scriptsize, inner sep=1.2pt, outer sep=3.0pt},
+  % A caption leader in Fig 8-20: a hairline with a solid head, the way the
+  % book draws them.  `-latex' scales its head with the line width, so a
+  % 0.4pt leader printed an almost invisible arrowhead.
+  leader/.style = {draw=bkInk, line width=0.45pt, line cap=round,
+                   -{Latex[length=1.7mm,width=1.15mm]}},
 }
 % Geometry read off the photo pages (book pp.133-153 = PDF 147-167) and the
 % iPad scans (scan09 pp.7-23 = book pp.133-148; scan10 pp.1-4 = book
@@ -55,10 +61,10 @@
   \foreach \p in {C,D,E}{\dt{\p}}
   \node[vlab] at (1.5100,1.8700) {$A$};
   \node[vlab,right] at (C) {$C$};
-  \node[vlab,above] at (D) {$D$};
-  \node[vlab,above] at (E) {$E$};   % book sets E above its dot, as with D
+  \node[vlab,above=1.6pt] at (D) {$D$};
+  \node[vlab,above=1.6pt] at (E) {$E$};   % book sets E above its dot, as with D
   \node[vlab] at (1.5200,-0.3300) {$B$};
-  \node[vlab,right] at (P) {$P$};
+  \node[vlab,right] at ($(P)+(0.18,0)$) {$P$};
   \node[vlab,below right] at (D) {$m$};
   \node[vlab,above] at (1.75,0) {$l$};
   \node[vlab] at (1.1200,0.8500) {$n$};
@@ -114,8 +120,8 @@
   \node[vlab,above left] at (A) {$A$};
   \node[vlab,below right] at (B) {$B$};
   \node[vlab,above] at (Q) {$Q$};
-  \node[vlab,right] at (P) {$P$};
-  \node[vlab,left] at (Q) {$m$};
+  \node[vlab,right] at ($(P)+(0.18,0)$) {$P$};
+  \node[vlab,below left] at (Q) {$m$};
   \node[vlab,left] at (0.0000,0) {$l$};
   \node[vlab,above right] at (3.0342,1.9177) {$n$};
 \end{tikzpicture}
@@ -139,7 +145,7 @@
   \node[vlab,left] at (0.30,1.90) {$l$};
   \node[vlab,left] at (0.30,1.12) {$n$};
   \node[vlab,left] at (0.30,0.34) {$m$};
-  \node[vlab,right] at (P) {$P$};
+  \node[vlab,right] at ($(P)+(0.18,0)$) {$P$};
 \end{tikzpicture}
 \figcap{8--5}
 \end{minipage}\hfill
@@ -162,9 +168,11 @@
 % ----------------------------------------------------------- Fig 8-7, 8-8
 % 8-7: angle ABC congruent to angle BCD, hence AB || CD.
 % 8-8: AB = CD, angles at B and C right, hence AD || BC.
-\newcommand{\FIGVIIISEVENEIGHT}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.885]
+% Split out of one side-by-side block (2026-08-17): Exercise Group 8-5 cites
+% 8-7 in Ex. 2 and 8-8 in Ex. 6, so each now sits inline after its own
+% exercise and stands at full measure.
+\newcommand{\FIGVIIISEVEN}{\begin{bkfigure}[0.60\linewidth]
+\begin{tikzpicture}[scale=1.150]
   \coordinate (A) at (0,0);    \coordinate (B) at (1.72,0);
   \coordinate (C) at (2.52,0.86);
   \coordinate (D) at ($(C)+(1.72,0)$);
@@ -175,9 +183,10 @@
   \node[vlab,right] at (D) {$D$};
 \end{tikzpicture}
 \figcap{8--7}
-\end{minipage}\hfill
-\begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.885]
+\end{bkfigure}}
+
+\newcommand{\FIGVIIIEIGHT}{\begin{bkfigure}[0.50\linewidth]
+\begin{tikzpicture}[scale=1.350]
   \coordinate (B) at (0,0);    \coordinate (C) at (3.05,0);
   \coordinate (A) at (0,1.72); \coordinate (D) at (3.05,1.72);
   \draw[fig] (A) -- (B) -- (C) -- (D) -- cycle;
@@ -194,7 +203,6 @@
   \node[vlab,above right] at (D) {$D$};
 \end{tikzpicture}
 \figcap{8--8}
-\end{minipage}
 \end{bkfigure}}
 
 % --------------------------------------------------------- Fig 8-9, 8-10
@@ -240,11 +248,11 @@
   \coordinate (G) at (2.60,1.86);
   \draw[aux] (A) -- (G);
   \foreach \p in {C,F,D,G,E}{\dt{\p}}  % book dots E too
-  \node[vlab,above] at (C) {$C$};
+  \node[vlab,above=1.6pt] at (C) {$C$};
   \node[vlab] at (1.374,1.735) {$A$};
-  \node[vlab,above] at (F) {$F$};
+  \node[vlab,above=1.6pt] at (F) {$F$};
   \node[vlab] at (1.586,-0.015) {$B$};
-  \node[vlab,above] at (D) {$D$};
+  \node[vlab,above=1.6pt] at (D) {$D$};
   \node[vlab,above left] at (E) {$E$};
   \node[vlab,above left] at (G) {$G$};
   \node[vlab,right] at (3.60,1.42) {$l_1$};
@@ -306,9 +314,9 @@
   \coordinate (E) at ($(A)+(1.15,0)$);
   \draw[fig] ($(A)+(-1.72,0)$) -- ($(A)+(1.72,0)$);
   \dt{D} \dt{E}
-  \node[vlab,above] at (D) {$D$};
+  \node[vlab,above=1.6pt] at (D) {$D$};
   \node[vlab,above] at (A) {$A$};
-  \node[vlab,above] at (E) {$E$};
+  \node[vlab,above=1.6pt] at (E) {$E$};
   \node[vlab,left]  at (B) {$B$};
   \node[vlab,right] at (C) {$C$};
   \node[vlab,right] at ($(A)+(1.72,0)$) {$l$};
@@ -344,9 +352,10 @@
 % -------------------------------------------------------- Fig 8-15, 8-16
 % 8-15: angle A right, AD perpendicular to BC (D is the foot).
 % 8-16: D the midpoint of BC, with BD congruent to AD.
-\newcommand{\FIGVIIIFIFTEENSIXTEEN}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.908]
+% Split (2026-08-17): Ex. 11 of Group 8-8 cites 8-15, Ex. 12 cites 8-16, so
+% each figure now stands alone, inline after its own exercise.
+\newcommand{\FIGVIIIFIFTEEN}{\begin{bkfigure}[0.52\linewidth]
+\begin{tikzpicture}[scale=1.300]
   % right angle at A: put A on the circle with diameter BC
   \coordinate (B) at (0,0);  \coordinate (C) at (3.45,0);
   \coordinate (M) at ($(B)!0.5!(C)$);
@@ -360,9 +369,10 @@
   \node[vlab,below] at (D) {$D$};
 \end{tikzpicture}
 \figcap{8--15}
-\end{minipage}\hfill
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.908]
+\end{bkfigure}}
+
+\newcommand{\FIGVIIISIXTEEN}{\begin{bkfigure}[0.52\linewidth]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (B) at (0,0);  \coordinate (C) at (3.45,0);
   \coordinate (D) at ($(B)!0.5!(C)$);       % midpoint of BC
   % A on the circle centred D through B, so that BD = AD
@@ -375,7 +385,6 @@
   \node[vlab,below] at (D) {$D$};
 \end{tikzpicture}
 \figcap{8--16}
-\end{minipage}
 \end{bkfigure}}
 
 % -------------------------------------------------------- Fig 8-17, 8-18
@@ -471,20 +480,31 @@
 % angles arced, and (as the book draws it) a PENTAGON carrying two of its
 % diagonals, dashed, with a pair of adjacent sides called out.
 % 8-21: convex and non-convex.
-\newcommand{\FIGVIIITWENTYTWENTYONE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.60\linewidth}\centering
-\begin{tikzpicture}[scale=0.877]
+% Leader plumbing rebuilt 2026-08-17 from Caleb's photograph of book p.146.
+% In the book EVERY pair of leaders fans from ONE apex set immediately beside
+% the caption word it springs from, the leaders are short, they never cross,
+% and each arrowhead lands ON the thing it names (the two angle arcs; the two
+% called-out sides; the two dashed diagonals).  Our first pass started all six
+% in blank space a line-height below the caption, ran them about twice as
+% long, and swapped the two "Consecutive angles" tails so they crossed.
+% Apex and tip positions below were measured off the photograph, scaled by
+% the trapezoid's and the pentagon's own widths.
+% 8-20 and 8-21 also split apart here: the book gives 8-20 nearly the full
+% measure on p.146 and prints 8-21 on its own on p.147.
+\newcommand{\FIGVIIITWENTY}{\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.580]
   % left quadrilateral: two consecutive angles marked with arcs
   \coordinate (a1) at (0,0);       \coordinate (a2) at (2.42,0);
   \coordinate (a3) at (2.42,1.42); \coordinate (a4) at (0.55,1.42);
   \draw[fig] (a1) -- (a2) -- (a3) -- (a4) -- cycle;
-  \draw[tick] ($(a3)+(180:0.36)$) arc (180:270:0.36);
+  \draw[tick] ($(a3)+(180:0.40)$) arc (180:270:0.40);
   \draw[tick] ($(a2)+(180:0.36)$) arc (180:90:0.36);
-  \node[slab,align=center] at (1.15,2.70) {Consecutive\\angles};
-  \draw[fig,-latex,line width=0.4pt] (1.20,2.00) -- (2.14,1.19);
-  \draw[fig,-latex,line width=0.4pt] (1.34,2.00) -- (2.14,0.29);
+  \node[slab,align=center] at (0.85,1.886) {Consecutive\\angles};
+  \coordinate (capex) at (1.21,1.77);      % just right of the word "angles"
+  \draw[leader] (capex) -- ($(a3)+(205:0.40)$);
+  \draw[leader] (capex) -- ($(a2)+(131:0.375)$);
   % right pentagon: adjacent sides and two diagonals
-  \begin{scope}[shift={(3.10,0)}]
+  \begin{scope}[shift={(2.85,0)}]
     \coordinate (b1) at (0,0);           % bottom-left
     \coordinate (b2) at (0.373,1.779);   % top-left
     \coordinate (b3) at (2.315,1.779);   % top-right
@@ -493,31 +513,33 @@
     \draw[fig] (b1) -- (b2) -- (b3) -- (b4) -- (b5) -- cycle;
     \draw[aux] (b1) -- (b3);
     \draw[aux] (b3) -- (b5);
-    \node[slab,align=center] at (0.35,2.70) {Adjacent\\sides};
-    \node[slab] at (2.45,2.86) {Diagonals};
-    \draw[fig,-latex,line width=0.4pt] (0.24,2.00) -- (0.131,0.623);
-    \draw[fig,-latex,line width=0.4pt] (0.62,2.00) -- (0.850,1.779);
-    \draw[fig,-latex,line width=0.4pt] (2.18,2.40) -- (1.572,1.208);
-    \draw[fig,-latex,line width=0.4pt] (2.62,2.40) -- (2.301,0.943);
+    \node[slab,align=center] at (-0.28,2.287) {Adjacent\\sides};
+    \coordinate (aapex) at (0.06,2.171); % just right of the word "sides"
+    \draw[leader] (aapex) -- ($(b2)!0.15!(b3)$);
+    \draw[leader] (aapex) -- ($(b1)!0.74!(b2)$);
+    \node[slab] at (1.448,2.13) {Diagonals};
+    \coordinate (dapex) at (1.421,1.855); % just under the word "Diagonals"
+    \draw[leader] (dapex) -- ($(b1)!0.62!(b3)$);
+    \draw[leader] (dapex) -- ($(b3)!0.53!(b5)$);
   \end{scope}
 \end{tikzpicture}
 \figcap{8--20}
-\end{minipage}\hfill
-\begin{minipage}{0.36\linewidth}\centering
-\begin{tikzpicture}[scale=0.651]
+\end{bkfigure}}
+
+\newcommand{\FIGVIIITWENTYONE}{\begin{bkfigure}[0.68\linewidth]
+\begin{tikzpicture}[scale=0.940]
   \coordinate (c1) at (0,0);   \coordinate (c2) at (1.86,0);
   \coordinate (c3) at (2.05,1.42); \coordinate (c4) at (0.42,1.62);
   \draw[fig] (c1) -- (c2) -- (c3) -- (c4) -- cycle;
-  \node[slab] at (1.05,2.20) {Convex};
+  \node[slab] at (1.05,2.10) {Convex};
   \begin{scope}[shift={(2.75,0)}]
     \coordinate (d1) at (0,0.55);  \coordinate (d2) at (1.30,1.05);
     \coordinate (d3) at (2.62,0);  \coordinate (d4) at (1.15,0.62);
     \draw[fig] (d1) -- (d2) -- (d3) -- (d4) -- cycle;
-    \node[slab] at (1.30,2.20) {Not convex};
+    \node[slab] at (1.30,2.10) {Not convex};
   \end{scope}
 \end{tikzpicture}
 \figcap{8--21}
-\end{minipage}
 \end{bkfigure}}
 
 % -------------------------------------------------------- Fig 8-22, 8-23
@@ -617,9 +639,11 @@
 
 % -------------------------------------------------------- Fig 8-26, 8-27
 % 8-26: DE || AC and DF || AB.   8-27: regular hexagon ABCDEF, diagonal FD.
-\newcommand{\FIGVIIITWENTYSIXSEVEN}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.934]
+% Split (2026-08-17): Ex. 29 of Group 8-12 cites 8-26, Ex. 30 cites 8-27; the
+% book stacks them one above the other in the right column beside those two
+% exercises, so each stands alone here.
+\newcommand{\FIGVIIITWENTYSIX}{\begin{bkfigure}[0.52\linewidth]
+\begin{tikzpicture}[scale=1.300]
   \coordinate (B) at (0,0);  \coordinate (C) at (3.45,0);
   \coordinate (A) at (1.72,1.86);
   \coordinate (D) at ($(B)!0.52!(C)$);
@@ -637,9 +661,10 @@
   \node[vlab,above right] at (F) {$F$};
 \end{tikzpicture}
 \figcap{8--26}
-\end{minipage}\hfill
-\begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.934]
+\end{bkfigure}}
+
+\newcommand{\FIGVIIITWENTYSEVEN}{\begin{bkfigure}[0.46\linewidth]
+\begin{tikzpicture}[scale=1.300]
   \foreach \i in {0,...,5}{\coordinate (h\i) at ({-60+60*\i}:1.42);}
   \draw[fig] (h0) -- (h1) -- (h2) -- (h3) -- (h4) -- (h5) -- cycle;
   \draw[aux] (h4) -- (h2);
@@ -651,7 +676,6 @@
   \node[vlab,below left] at (h5) {$A$};
 \end{tikzpicture}
 \figcap{8--27}
-\end{minipage}
 \end{bkfigure}}
 
 % -------------------------------------------------------- Fig 8-28, 8-29
@@ -661,9 +685,9 @@
 % With that reading x + y + t = r + s + z, which is what Ex. 9 asks for; it
 % is verified numerically in tools/constraints/ch08.py.
 % 8-29: AB = BC, BE = BD, angle CBD = 40 degrees; angle B obtuse as drawn.
-\newcommand{\FIGVIIITWENTYEIGHTNINE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.107]
+% Split (2026-08-17): Algebra Review Ex. 9 cites 8-28 and Ex. 10 cites 8-29.
+\newcommand{\FIGVIIITWENTYEIGHT}{\begin{bkfigure}[0.54\linewidth]
+\begin{tikzpicture}[scale=1.400]
   % Ratios measured off a 400 dpi crop of the book figure (book p.151):
   % Q at 0.369 and R at 0.620 of BC, apex almost exactly over Q so that AQ
   % reads as vertical.  A is nudged 0.04 left of Q so that angle AQC is
@@ -691,30 +715,43 @@
   \node[slab] at (2.8459,0.2113) {$r$};
 \end{tikzpicture}
 \figcap{8--28}
-\end{minipage}\hfill
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.844]
-  \coordinate (B) at (0,0);  \coordinate (C) at (3.05,0);
+\end{bkfigure}}
+
+% 8-29 rebuilt 2026-08-17 from Caleb's photograph of book p.151.  Three fixes:
+%   * the 40-degree angle was not marked at all -- the book strikes a small arc
+%     hard against B, from ray BC round to ray BD, and sets 40 just outside it;
+%     our label floated a third of the way up towards D with nothing to name.
+%   * base BC was drawn dead horizontal; the book slopes it gently down to the
+%     right (C below B), which is what makes angle DBC read as 40 degrees.
+%   * label E was stranded well to the left of its point; the book sets it
+%     snug against side AB.
+% B is the origin, BC runs at -5 degrees and BA at 110 degrees, so
+% angle ABC = 115 degrees (obtuse, as drawn) and AB = BC = 3.05 exactly.
+\newcommand{\FIGVIIITWENTYNINE}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.050]
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (3.038395,-0.265826);    % 3.05 at -5 deg
   % AB = BC: A on the circle centred B with radius BC, at 110 deg as drawn
-  \coordinate (A) at ($(B)+(110:3.05)$);
-  % D is where the 40-degree ray from B meets AC.  Solved exactly and written
-  % out as literals so no extra tikz library is needed; angle CBD = 40.0000
-  % deg is re-checked in tools/constraints/ch08.py.
-  \coordinate (D) at (1.38738,1.16417);
-  % BE = BD: E on BA at the same distance from B as D  (ratio 0.59381)
-  \coordinate (E) at ($(B)!0.59381!(A)$);
+  \coordinate (A) at (-1.043161,2.866064);    % 3.05 at 110 deg
+  % D is where the 40-degree ray from B (35 deg absolute) meets AC.  Solved
+  % exactly and written out as literals so no extra tikz library is needed;
+  % angle CBD = 40.0000 deg is re-checked in tools/constraints/ch08.py.
+  \coordinate (D) at (1.407456,0.985597);
+  % BE = BD: E on BA at the same distance from B as D  (ratio 0.563356)
+  \coordinate (E) at ($(B)!0.563356!(A)$);
   \draw[fig] (B) -- (C) -- (A) -- cycle;
   \draw[fig] (B) -- (D);
   \draw[fig] (E) -- (D);
+  % the angle mark the book strikes at B, between BC and BD
+  \draw[tick] ($(B)+(-5:0.50)$) arc (-5:35:0.50);
   \node[vlab,above left] at (A) {$A$};
-  \node[vlab,below] at (B) {$B$};
+  \node[vlab,below left] at (B) {$B$};
   \node[vlab,below right] at (C) {$C$};
-  \node[vlab] at (1.6670,1.4040) {$D$};
-  \node[vlab] at (-1.3700,1.4300) {$E$};
-  \node[slab] at (1.2592,0.4583) {$40^\circ$};
+  \node[vlab,above right] at (D) {$D$};
+  \node[vlab,left] at (E) {$E$};
+  \node[slab] at (16:0.95) {$40^\circ$};
 \end{tikzpicture}
 \figcap{8--29}
-\end{minipage}
 \end{bkfigure}}
 
 % --------------------------------------------------------------- Fig 8-30
@@ -726,16 +763,16 @@
   \coordinate (C) at (1.86,0);
   \foreach \p in {A,B,C}{\dt{\p}}
   \draw[tick] ($(A)!0.5!(B)+(0,-0.13)$) -- ($(A)!0.5!(B)+(0,0.13)$);
-  \node[vlab,above] at (A) {$A$};
-  \node[vlab,above] at (B) {$B$};
-  \node[vlab,above] at (C) {$C$};
+  \node[vlab,above=1.6pt] at (A) {$A$};
+  \node[vlab,above=1.6pt] at (B) {$B$};
+  \node[vlab,above=1.6pt] at (C) {$C$};
   \begin{scope}[shift={(3.05,0)}]
     \draw[fig] (-0.20,0) -- (1.60,0);
     \coordinate (Ap) at (0,0); \coordinate (Bp) at (1.05,0);
     \dt{Ap} \dt{Bp}
     \draw[tick] ($(Ap)!0.5!(Bp)+(0,-0.13)$) -- ($(Ap)!0.5!(Bp)+(0,0.13)$);
-    \node[vlab,above] at (Ap) {$A'$};
-    \node[vlab,above] at (Bp) {$B'$};
+    \node[vlab,above=1.6pt] at (Ap) {$A'$};
+    \node[vlab,above=1.6pt] at (Bp) {$B'$};
   \end{scope}
 \end{tikzpicture}
 \figcap{8--30}
@@ -744,9 +781,9 @@
 % -------------------------------------------------------- Fig 8-31, 8-32
 % 8-31: angles CAB and ABD right, CA = DB, M and N midpoints of CD and AB.
 % 8-32: X and Y on one side of AB; rays AX and BY meet at P.
-\newcommand{\FIGVIIITHIRTYONETWO}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.952]
+% Split (2026-08-17): Review Ex. 21 cites 8-31 and Ex. 23 cites 8-32.
+\newcommand{\FIGVIIITHIRTYONE}{\begin{bkfigure}[0.54\linewidth]
+\begin{tikzpicture}[scale=1.400]
   \coordinate (A) at (0,0);      \coordinate (B) at (3.05,0);
   \coordinate (C) at (0,1.62);   \coordinate (D) at (3.05,1.62);
   \coordinate (M) at ($(C)!0.5!(D)$);
@@ -770,26 +807,35 @@
   \node[vlab,below right] at (B) {$B$};
 \end{tikzpicture}
 \figcap{8--31}
-\end{minipage}\hfill
-\begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.952]
-  \coordinate (A) at (0,1.72);  \coordinate (B) at (0,0);
-  \coordinate (P) at (3.05,1.02);
-  \coordinate (X) at ($(A)!0.55!(P)$);
-  \coordinate (Y) at ($(B)!0.55!(P)$);
+\end{bkfigure}}
+
+% 8-32 rebuilt 2026-08-17 from Caleb's photograph of book p.153.  In the book
+% each line is SOLID for about 70 percent of its run and only then breaks into
+% dashes, while the heavy dot marking X (and Y) sits at about 45 percent --
+% well inside the solid part.  Our first pass put the letters exactly at the
+% solid/dashed transition, so they read as labelling the change of dash style
+% rather than a point.  The two dashed tips also simply CROSS at P and run a
+% little way past it (the small X just right of the label); the earlier
+% arrowhead-style wedge at P was not in the book.  The upper line is drawn
+% nearly horizontal and the lower one climbs about 23 degrees, as the book
+% draws them, so the two converge on P at a very acute angle.
+\newcommand{\FIGVIIITHIRTYTWO}{\begin{bkfigure}[0.56\linewidth]
+\begin{tikzpicture}[scale=1.240]
+  \coordinate (A) at (0,1.38);  \coordinate (B) at (0,0);
+  \coordinate (P) at (3.40,1.48);
+  \coordinate (X) at ($(A)!0.45!(P)$);
+  \coordinate (Y) at ($(B)!0.45!(P)$);
   \draw[fig] (A) -- (B);
-  \draw[fig] (A) -- (X);
-  \draw[fig] (B) -- (Y);
-  \draw[aux] (X) -- (P);
-  \draw[aux] (Y) -- (P);
-  \draw[fig] ($(P)+(0.17,0.20)$) -- (P) -- ($(P)+(0.17,-0.20)$);
+  \draw[fig] (A) -- ($(A)!0.70!(P)$);
+  \draw[fig] (B) -- ($(B)!0.70!(P)$);
+  \draw[aux] ($(A)!0.70!(P)$) -- ($(A)!1.09!(P)$);
+  \draw[aux] ($(B)!0.70!(P)$) -- ($(B)!1.09!(P)$);
   \dt{X} \dt{Y}
-  \node[vlab,above] at (A) {$A$};
-  \node[vlab,below] at (B) {$B$};
-  \node[vlab,above] at (X) {$X$};
-  \node[vlab,anchor=north] at ($(Y)+(0,-0.32)$) {$Y$};
-  \node[vlab,above right] at (P) {$P$};
+  \node[vlab,above left] at (A) {$A$};
+  \node[vlab,below left] at (B) {$B$};
+  \node[vlab,above=1.6pt] at (X) {$X$};
+  \node[vlab,below=1.6pt] at (Y) {$Y$};
+  \node[vlab,above left] at (P) {$P$};
 \end{tikzpicture}
 \figcap{8--32}
-\end{minipage}
 \end{bkfigure}}

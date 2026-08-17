@@ -198,27 +198,40 @@ def build(check):
     P27, A27, B27 = (1.6, 1.75), (0.35, 0), (2.85, 0)
     check('7-27', 'PA == PB', relerr(dist(P27, A27), dist(P27, B27)))
 
-    # ---- 7-28 : AP = AP', angle PAC = angle QAC, PP' _|_ l, D on l
+    # ---- 7-28 : AP = AP', angle PAC = angle QAC, PP' _|_ l, D on l.
+    #             l now STARTS at A (the book draws nothing left of the apex).
     A, P, Pp = (0, 0), (1.55, 1.8), (1.55, -1.8)
-    l28 = V((-0.4, 0), (3.4, 0))
+    l28 = V((0, 0), (3.55, 0))
     check('7-28', "AP == AP'", relerr(dist(A, P), dist(A, Pp)))
     check('7-28', "angle PAC == angle QAC",
           abs(ray_angle(A, P) + ray_angle(A, Pp)))
     check('7-28', "PP' perp l", perp(V(P, Pp), l28))
-    check('7-28', 'D on l', collinear((-0.4, 0), (3.4, 0), (1.55, 0)))
+    check('7-28', 'D on l', collinear((0, 0), (3.55, 0), (1.55, 0)))
+    check('7-28', 'B, C on l', collinear((0, 0), (3.55, 0), (2.42, 0))
+          + collinear((0, 0), (3.55, 0), (3.00, 0)))
 
-    # ---- 7-29 : angle 1 = angle 2 and AP = AP'
-    A, P, Pp = (0, 0), (1.6, 1.6), (1.6, -1.6)
+    # ---- 7-29 : angle 1 = angle 2, AP = AP', PP' _|_ l, D (= foot) on l
+    A, P, Pp = (0, 0), (1.57, 1.68), (1.57, -1.68)
+    l29 = V((-0.16, 0), (3.95, 0))
     check('7-29', 'angle 1 == angle 2',
           abs(ray_angle(A, P) + ray_angle(A, Pp)))
     check('7-29', "AP == AP'", relerr(dist(A, P), dist(A, Pp)))
+    check('7-29', "PP' perp l", perp(V(P, Pp), l29))
 
-    # ---- 7-30 : AB = AC (one circle) and QB = QC (perpendicular bisector)
-    A30 = (0, 2.0)
-    C30, B30 = (0, 1.0), (0.643, 1.234)
-    Q30 = (0.5303, 0.5435)
+    # ---- 7-30 : one circle of radius r about A cuts the sides in B and C,
+    #             so AB = AC; Q is on the bisector, hence QB = QC (Q is on
+    #             the perpendicular bisector of BC, which is what the
+    #             construction actually builds); and the ray AQ is drawn.
+    A30 = (0, 0)
+    C30, B30 = polar(268, 1.29), polar(-28.9, 1.29)
+    Q30 = polar(299.55, 2.24)
     check('7-30', 'AB == AC', relerr(dist(A30, B30), dist(A30, C30)))
     check('7-30', 'QB == QC', relerr(dist(Q30, B30), dist(Q30, C30)))
+    check('7-30', 'AQ bisects angle A',
+          abs(ray_angle(A30, Q30)
+              - (ray_angle(A30, B30) + ray_angle(A30, C30)) / 2))
+    check('7-30', 'Q outside the circle',
+          0.0 if dist(A30, Q30) > 1.29 else 1.0)
 
     # ---- 7-31 : two radii r and r', P on the bisector of angle A
     A31 = (0, 0)
@@ -232,10 +245,11 @@ def build(check):
     check('7-31', "P on D'C", collinear(Dp31, C31, P31))
     check('7-31', 'AP bisects angle A', abs(ray_angle(A31, P31) - 15.0))
 
-    # ---- 7-32 : angle 1 = angle 2, angle 3 = angle 4, angle CAD = angle EBF
-    #             (both fans drawn as 30 / 15 / 0 degrees)
-    aC, aMid, aD = 30.0, 15.0, 0.0
-    bE, bMid, bF = 30.0, 15.0, 0.0
+    # ---- 7-32 : angle 1 = angle 2, angle 3 = angle 4, angle CAD = angle EBF.
+    #             Both fans now straddle the horizontal at 28 / 13 / -2 deg,
+    #             as the book draws them (they used to sit wholly above it).
+    aC, aMid, aD = 28.0, 13.0, -2.0
+    bE, bMid, bF = 28.0, 13.0, -2.0
     check('7-32', 'angle 1 == angle 2', relerr(aC - aMid, aMid - aD))
     check('7-32', 'angle 3 == angle 4', relerr(bE - bMid, bMid - bF))
     check('7-32', 'angle CAD == angle EBF', relerr(aC - aD, bE - bF))

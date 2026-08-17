@@ -146,6 +146,27 @@ class Resolver:
     def __init__(self):
         self.pages, self.raw = page_texts()
         self.ourch = our_chapter_starts(self.raw)
+        # The Contents gives PRINTED folios; pdftotext gives SHEET indices, and
+        # the front matter puts ~20 roman-numbered sheets in front of printed
+        # page 1.  Searching sheet 133 for what is printed on page 133 lands
+        # twenty pages early, so map folio -> sheet off the printed numbers.
+        self.folio = {}          # sheet index -> printed folio
+        self.sheet = {}          # printed folio -> sheet index
+        for idx, txt in self.raw.items():
+            lines = [l.strip() for l in txt.splitlines() if l.strip()]
+            for cand in (lines[:2] + lines[-2:]):
+                m = re.match(r'^(\d{1,3})\b', cand) or re.search(r'\b(\d{1,3})$', cand)
+                if m:
+                    f = int(m.group(1))
+                    self.folio[idx] = f
+                    self.sheet.setdefault(f, idx)
+                    break
+        # Front matter is numbered in romans, so an arabic folio can only come
+        # from the body -- no de-collision needed.  Assert the run is monotonic
+        # rather than assuming it: a folio map that jumps backwards means the
+        # scrape caught something that is not a page number.
+        seq = [(s, f) for s, f in sorted(self.folio.items())]
+        self.folio_breaks = [b for a, b in zip(seq, seq[1:]) if b[1] < a[1]]
         self.bookch = book_chapter_ranges()
         self.log = []
         nums = sorted(k for k in self.ourch if isinstance(k, int))
@@ -153,12 +174,17 @@ class Resolver:
         self.last_page = max(self.pages)
 
     def our_span(self, ch):
+        """This chapter's printed folio span in our edition."""
         if ch not in self.ourch:
             return None
         start = self.ourch[ch]
         later = [self.ourch[c] for c in self.order if c > ch]
-        end = min(later) - 1 if later else self.last_page
+        end = min(later) - 1 if later else max(self.folio.values(), default=start)
         return start, max(start, end)
+
+    def sheets_for(self, folio_lo, folio_hi):
+        """Sheet indices carrying folios in [lo, hi]."""
+        return [s for s, f in self.folio.items() if folio_lo <= f <= folio_hi]
 
     def chapter_of(self, bookpage):
         for ch, (a, b) in self.bookch.items():
@@ -180,25 +206,32 @@ class Resolver:
         frac = (bookpage - a) / max(1, (b - a))
         guess = int(round(lo + frac * (hi - lo)))
 
-        needle = norm(term)
-        needle = re.sub(r'\b(see|also)\b', ' ', needle).strip()
-        words = [w for w in needle.split() if len(w) > 3]
+        # Search on the entry's own words, but drop the parenthetical
+        # qualifiers the index uses to disambiguate headings -- "Postulate(s)
+        # (axioms, assumptions) of Group III" is filed under words the page
+        # itself never prints, which is what left these interpolated.
+        bare = re.sub(r'\([^)]*\)', ' ', term)
+        needle = re.sub(r'\b(see|also)\b', ' ', norm(bare)).strip()
+        # singularise: the index heads entries "Angles", the page says "angle"
+        words = [w.rstrip('s') if len(w) > 4 else w
+                 for w in needle.split() if len(w) > 3]
         if not words:
             words = needle.split()
+
         hits = []
-        for p in range(lo, hi + 1):
-            txt = self.pages.get(p, '')
+        for s in self.sheets_for(lo, hi):
+            txt = self.pages.get(s, '')
             score = sum(1 for w in words if w in txt)
             if score:
-                hits.append((score, -abs(p - guess), p))
-        if hits and words:
+                hits.append((score, -abs(self.folio.get(s, guess) - guess), s))
+        if hits:
             best = max(hits)
-            if best[0] == len(words):
-                return best[2]
-            # partial match: only trust it if it beats the interpolation
-            if best[0] >= max(1, len(words) - 1):
-                self.log.append((term, bookpage, best[2], 'partial match'))
-                return best[2]
+            folio = self.folio.get(best[2])
+            if best[0] == len(words) and folio:
+                return folio
+            if folio and best[0] >= max(1, len(words) - 1):
+                self.log.append((term, bookpage, folio, 'partial match'))
+                return folio
         self.log.append((term, bookpage, guess, 'interpolated'))
         return guess
 

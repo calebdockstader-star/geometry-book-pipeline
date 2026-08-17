@@ -58,6 +58,12 @@ settled at the project level.
 - **Point dots**: `\dt{A}`, never `\fill (A) circle (Npt)`. A path-drawn dot
   is scaled by the picture's `scale=`, so dots in a `scale=0.62` figure came
   out at 0.93pt; `\dt` places a node, whose size ignores the transform.
+- **The dot radius is the floor on label clearance.** `\dt` is 3.2pt across,
+  so it reaches 1.6pt out from its point: an `outer sep` below ~3.2pt puts the
+  label box on the dot it is labelling. Measured, not guessed — ch04's
+  collisions fall 39 → 2 and ch05's 43 → 0 exactly at 3.2pt, and loosening
+  further to 5pt buys nothing. Tighten labels by moving individual ones into
+  their free quadrant, not by dropping the chapter-wide clearance under it.
 - **Figure size**: don't hand-tune `scale=` for size. `tools/measure_figures.py`
   measures every figure's real ink extent with Ghostscript and fits it to the
   measure (`--apply` grows once, capped; `--fit` only shrinks what overflows).

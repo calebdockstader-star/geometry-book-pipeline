@@ -52,6 +52,15 @@ def dist_pt_line(p, a, b):
     return dist(p, foot(a, b, p))
 
 
+def rot90(v):
+    return (-v[1], v[0])
+
+
+def side_of(p, a, b):
+    """sign of which side of line ab the point p falls on"""
+    return ((p[0] - a[0]) * (b[1] - a[1]) - (p[1] - a[1]) * (b[0] - a[0]))
+
+
 def angle_at(v, p, q):
     """measure of angle p-v-q, in degrees"""
     u1 = V(v, p)
@@ -122,9 +131,9 @@ def build(check):
     # Thm 13-2: P on the bisector, A and B the FEET of the perpendiculars,
     # so PA = PB and each is perpendicular to its side.
     O = (0, 0)
-    Uend = polar(18, 3.95)
-    Lend = polar(-18, 4.05)
-    P = (2.90, 0)
+    Uend = polar(32, 3.56)
+    Lend = polar(0, 3.56)
+    P = polar(16, 2.9648)
     Bf = foot(O, Uend, P)
     Af = foot(O, Lend, P)
     check('13-6', 'OP bisects the angle',
@@ -133,6 +142,31 @@ def build(check):
     check('13-6', 'PA perpendicular to the lower side', perp(V(P, Af), V(O, Lend)))
     check('13-6', 'PA = PB (equidistant from the sides)',
           rel(dist(P, Af), dist(P, Bf)))
+    # the print's proportions: each side is drawn past its foot, both by the
+    # same amount, and the bisector stops a little way past P
+    check('13-6', 'foot A at 0.80 of the drawn lower side',
+          rel(dist(O, Af) / dist(O, Lend), 0.80))
+    check('13-6', 'foot B at 0.80 of the drawn upper side',
+          rel(dist(O, Bf) / dist(O, Uend), 0.80))
+    Pend = lerp(O, P, 1.25)
+    check('13-6', 'the bisector stops just past P',
+          0.0 if 1.0 < dist(O, Pend) / dist(O, P) < 1.4 else 1.0)
+    # the print lets the bisector finish a shade beyond the two sides, but only
+    # a shade -- it must not run off across the whole picture as it used to
+    check('13-6', 'the bisector ends level with the sides, not beyond them',
+          0.0 if dist(O, Pend) < 1.15 * dist(O, Lend) else 1.0)
+    # PA and PB are two straight segments meeting in a real corner at P, not a
+    # single bowed curve: the turn at P is the supplement of the angle at O
+    check('13-6', 'PA and PB meet in a corner at P (= 180 - angle O)',
+          abs(angle_at(P, Af, Bf) - (180.0 - angle_at(O, Lend, Uend))), tol=0.2)
+    # the cross-stroke at each foot lies ALONG the perpendicular, so it crosses
+    # its side at a right angle
+    check('13-6', 'the tick at A crosses the lower side squarely',
+          perp(V(Af, P), V(O, Lend)))
+    check('13-6', 'the tick at B crosses the upper side squarely',
+          perp(V(Bf, P), V(O, Uend)))
+    check('13-6', 'the tick at P crosses the bisector squarely',
+          perp(polar(106, 1), V(O, P)))
 
     # ------------------------------------------------------------ Fig 13-7
     # Thm 13-3: AB a diameter, O its midpoint, P on the circle, AP _|_ PB
@@ -159,12 +193,31 @@ def build(check):
     # ------------------------------------------------------------ Fig 13-9
     # Ex 13-2 #6: the wheel in two positions; equal radii, centres level
     # (which is what rolling along a horizontal line forces), P on the rim.
-    rr = 0.98
-    K, Kp = (0.42, 0), (0, 0)
-    P = add(K, polar(222, rr))
+    rr = 1.05
+    dd = 0.4515
+    Kp, K = (0, 0), (dd, 0)
+    a0 = 241.0                                  # P's angle on the earlier wheel
+    a1 = a0 - math.degrees(dd / rr)             # after rolling through d/r
+    P0 = add(Kp, polar(a0, rr))
+    P = add(K, polar(a1, rr))
     check('13-9', 'the two wheel positions have equal radii', rel(rr, rr))
     check('13-9', 'centres level (rolling on a line)', abs(K[1] - Kp[1]))
-    check('13-9', 'P is on the rim', rel(dist(K, P), rr))
+    check('13-9', 'P is on the rim of the later wheel', rel(dist(K, P), rr))
+    check('13-9', 'P is on the rim of the earlier wheel', rel(dist(Kp, P0), rr))
+    # the offset is sideways and big enough that the two rims genuinely cross
+    # twice -- the old drawing let them all but coincide
+    check('13-9', 'the two rims cross in two points',
+          0.0 if 0.15 * rr < dist(Kp, K) < 1.85 * rr else 1.0)
+    check('13-9', 'centre separation is 0.43 r, as in the print',
+          rel(dist(Kp, K) / rr, 0.43))
+    # rolling without slipping: arc turned = distance travelled
+    check('13-9', 'rolling without slipping (turn = d/r)',
+          abs(math.radians(a0 - a1) * rr - dd))
+    # the connector runs from P's earlier rim position to its later one
+    check('13-9', 'the connector joins the two positions of P',
+          dist_pt_line(P, P0, P) + dist_pt_line(P0, P0, P))
+    check('13-9', 'the tick at the free end crosses the connector squarely',
+          perp(rot90(V(P0, P)), V(P0, P)))
 
     # ----------------------------------------------------------- Fig 13-10
     # Ex 13-2 #8: small circle of radius R/4, rolling INSIDE radius R
@@ -221,10 +274,34 @@ def build(check):
           perp(V(Mac, O), V(A, C)))
     check('13-12', 'angle B is obtuse (so O falls outside)',
           0.0 if angle_at(B, A, C) > 90.0 else 1.0)
-    # the AC bisector is drawn as one line through O and Mac, dying on AB
-    Kac = inter(O, Mac, A, B)
-    check('13-12', 'the AC bisector, extended, meets AB between Mab and B',
-          0.0 if Mab[0] < Kac[0] < B[0] else 1.0)
+    check('13-12', 'O falls outside the triangle, beyond side AC',
+          0.0 if side_of(O, A, C) * side_of(B, A, C) < 0 else 1.0)
+    # Each bisector is DRAWN from the midpoint of its side to a short stub just
+    # past O.  The book draws them short; the earlier version ran all three
+    # through the triangle and out the far side.
+    Eab = lerp(Mab, O, 1.26)
+    Ebc = lerp(Mbc, O, 1.22)
+    Eac = lerp(Mac, O, 2.25)
+    for tag, M, E, S0, S1 in (('AB', Mab, Eab, A, B),
+                              ('BC', Mbc, Ebc, B, C),
+                              ('AC', Mac, Eac, A, C)):
+        check('13-12', f'the {tag} bisector starts at the midpoint of {tag}',
+              dist(M, mid(S0, S1)))
+        check('13-12', f'the {tag} bisector as drawn is perpendicular to {tag}',
+              perp(V(M, E), V(S0, S1)))
+        check('13-12', f'O lies on the drawn {tag} bisector', dist_pt_line(O, M, E))
+        check('13-12', f'the {tag} bisector stops in a stub past O',
+              0.0 if 0.0 < (dist(M, E) - dist(M, O)) < 1.30 * dist(M, O) else 1.0)
+        check('13-12', f'the drawn {tag} bisector ends outside the triangle',
+              0.0 if side_of(E, A, C) * side_of(B, A, C) < 0 else 1.0)
+    # the AC bisector is the shortest of the three, since O is just outside AC
+    check('13-12', 'the AC bisector is the shortest of the three',
+          0.0 if dist(Mac, O) < min(dist(Mab, O), dist(Mbc, O)) else 1.0)
+    # the cross-strokes really do cross their sides at a right angle
+    check('13-12', 'the tick at Mab crosses AB squarely',
+          perp(rot90(V(Mab, B)), V(A, B)))
+    check('13-12', 'the tick at Mbc crosses BC squarely',
+          perp(rot90(V(Mbc, C)), V(B, C)))
 
     # ----------------------------------------------------------- Fig 13-13
     # Ex 13-4 #1: CD PARALLEL to the base, P the midpoint of CD, and P on the
@@ -314,17 +391,29 @@ def build(check):
           rel(dist(O, Ap), dist(O, Bp)))
     check('13-16', "O is the circumcentre of A'B'C' (OA' = OC')",
           rel(dist(O, Ap), dist(O, Cp)))
+    # C'-A-B' and A'-C-B' are SINGLE straight lines through the vertices: no
+    # kink is possible if A and C really are the midpoints of those sides
+    check('13-16', "A lies on the straight line C'B'", dist_pt_line(A, Cp, Bp))
+    check('13-16', "C lies on the straight line A'B'", dist_pt_line(C, Ap, Bp))
+    check('13-16', "B lies on the straight line C'A'", dist_pt_line(B, Cp, Ap))
+    # the arrowed dashed line at O is the altitude through B: it starts at its
+    # foot on AC, where the print strikes a tick
+    check('13-16', 'Fb lies on AC', dist_pt_line(Fb, A, C))
+    check('13-16', 'B-Fb is perpendicular to AC', perp(V(B, Fb), V(A, C)))
+    check('13-16', 'the tick at Fb crosses AC squarely',
+          perp(rot90(V(Fb, C)), V(A, C)))
+    check('13-16', 'Fb, B and O are collinear', dist_pt_line(B, Fb, O))
 
     # ----------------------------------------------------------- Fig 13-17
     # Ex 13-5 *3: construction data.  The three tick groups mark three
     # DIFFERENT given lengths, so there is no equality to assert; what is
     # structural is that the cross-segment really does span from the free ray
     # at C to the side CA.
-    C = (0, 1.02)
-    A = (0.98, 0.20)
-    Bx = (3.62, 0.28)
-    Cf = (1.825, 0.561)
-    ts, tf = 0.54, 0.85
+    C = (0, 1.30)
+    A = add(C, polar(-43.6, 1.55))
+    Cf = add(C, polar(-17.6, 2.108))
+    Bx = add(A, polar(-4.9, 2.705))
+    ts, tf = 0.51, 0.70
     S = lerp(C, Cf, ts)
     Sf = lerp(C, A, tf)
     check('13-17', 'S lies on the free ray from C', dist_pt_line(S, C, Cf))
@@ -333,6 +422,23 @@ def build(check):
           0.0 if 0.0 < ts < 1.0 else 1.0)
     check('13-17', 'the foot lies strictly inside CA (short of A)',
           0.0 if 0.0 < tf < 1.0 else 1.0)
+    # Caleb, 2026-08-17, SETTLED: the single tick must be PERPENDICULAR to CA.
+    # It used to be struck at 115 degrees, only 25 degrees off lying along CA,
+    # which is what smeared it into the triple tick below.
+    T1 = lerp(C, A, 0.468)
+    check('13-17', 'the single tick is perpendicular to CA',
+          perp(rot90(V(T1, A)), V(C, A)))
+    check('13-17', 'the triple ticks are perpendicular to the transversal',
+          perp(rot90(V(Sf, S)), V(Sf, S)))
+    check('13-17', 'the double ticks are perpendicular to AB',
+          perp(rot90(V(A, Bx)), V(A, Bx)))
+    # the two tick groups must stay clearly apart -- they collided into one
+    # blob before, and the whole point of the figure is that they are countable
+    T3 = lerp(Sf, S, 0.28)
+    check('13-17', 'the single tick clears the triple-tick group',
+          0.0 if dist(T1, T3) > 0.30 else 1.0)
+    check('13-17', 'the angle at C is opened to the print (26 degrees)',
+          abs(angle_at(C, A, Cf) - 26.0), tol=0.2)
     # the three tick groups mark three DIFFERENT given lengths, so no two of
     # the marked segments may be drawn the same length
     m1, m3, m2 = dist(C, A), dist(S, Sf), dist(A, Bx)

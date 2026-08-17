@@ -566,3 +566,159 @@ Compiles twice clean after the fix.
 Items 2 and 3 of the transcription pass's list (the Fig 15-14 doubled label,
 and the p. 25 widow) are unchanged and remain open; both are out of a text
 review's scope.
+
+---
+
+## Figure repair pass (2026-08-17) — FIX-SPEC
+
+Fresh pass against `feedback/FIX-SPEC.md`. Caleb photographed **no** ch 15
+figures (nothing for this chapter in `feedback/index_a*.md`), so this was the
+structural fix, the two settled decisions, and a full sweep of all 19 figures
+against the source: `sources/Geometry.pdf` pp. 265–279 read at 190 dpi with
+2–5× crops, plus `scans/scan15.pdf` pp. 22–23 (the only ch 15 scan coverage:
+Fig 15-2, and Figs 15-13/15-14).
+
+### 1. Exercise-group figures inlined (spec §2) — 2 figures, 0 macros split
+
+| Group | Figure | Was | Now |
+|---|---|---|---|
+| 15-6 | 15-5 | dumped after `\end{multicols}` | `\exfig{\FIGXVFIVE}` after ex. 1, `multicols` dropped |
+| 15-12 | 15-17 | dumped after `\end{multicols}` | `\exfig{\FIGXVSEVENTEEN}` after ex. \*7, `multicols` dropped |
+
+Both are the only exercise-cited figures in the chapter, and both were already
+standalone macros, so **no combined `\FIG…` macro needed splitting** and
+`tools/constraints/ch15.py` keyed on no macro name. Everything else in
+`figures15.tex` is a body figure sitting where the book sets it (spec §2 rule 5);
+those were left alone. Verified against the plates: the book prints Fig 15-5 in
+the left column of Ex. Group 15-6 directly under exercise 1 (p. 256), and
+Fig 15-17 at the head of the right column of Ex. Group 15-12, adjacent to
+exercise \*7 (p. 264) — the two exercises that cite them.
+
+### 2. The two settled decisions (spec §4)
+
+1. **Ex. 15-7 #16 — CLOSED.** Caleb checked the physical copy: the second point
+   is **(−5, −7)**. The tex already read (−5, −7); confirmed unchanged, and
+   re-read on the photo (PDF 271) where it is legible at this crop. The previous
+   reviewer's lean toward (−6, −7) (residual doubt 2 of the text review above)
+   is **withdrawn — this question is closed, do not reopen it.**
+2. **Fig 15-14 — CORRECTED.** The book prints `(x₂, y₁)` at **P₂** as well as at
+   **Q** (confirmed a fourth time here on scan15 p. 23, which is far sharper
+   than the plate). P₂ is now set **(x₂, y₂)**. A source comment at the site in
+   `figures15.tex` records the book's actual reading and why it is a misprint
+   (the prose one line above names Q as "the point Q (x₂, y₁)", and the
+   Pythagorean step needs P₂ = (x₂, y₂)). `tools/constraints/ch15.py` now also
+   asserts that the drawn P₂ shares x₂ with Q but *not* y₁, so the drawing
+   supports the corrected label. Residual doubt 1 of the figure review is
+   **resolved**; item 1 of §2 above is superseded.
+
+### 3. Sweep corrections (spec §3) — 8 figures changed
+
+Defect classes found here were **missing heavy dots** (class 3/4) and
+**over/under-drawn axes** (class 5). No angle arcs occur in this chapter, no
+construction arcs, no hidden-line work, and no organic shapes.
+
+1. **Fig 15-3** — the axis of abscissas was under-drawn on the right (4.3 back /
+   3.9 forward; the book draws it symmetric, 4.39/4.41), the quadrant-III *P*
+   was drawn half as deep as the book draws it (−0.62 → −1.26), and the II→IV
+   segment stopped a unit short of where the book runs it (2.35 → 3.05). All six
+   endpoints re-measured off PDF 269 and normalised to the drawn content width.
+2. **Fig 15-5** — abscissa branch lengths were near-symmetric (1.95 back / 2.05
+   forward); the book runs 1.62 / 2.27. Ordinate 3.9/1.8 → 3.86/1.84.
+3. **Fig 15-8** — the axis of ordinates carried only two ticks below the axis of
+   abscissas; the book strikes **three** (−3 … 4). Tick range and axis extent
+   corrected.
+4. **Fig 15-10** — (a) the book puts a heavy dot on **both feet**, (x₁,−C/B) and
+   (x₂,−C/B), as well as on the three named points; the feet were undotted.
+   (b) The axis of abscissas sat 0.39 x₂ below the base line where the book puts
+   it at 0.21 x₂ — grossly over-dropped; raised (final value 0.26 x₂, see the
+   note below). (c) The axis of ordinates ran 0.52 x₂ below the base; the book
+   runs 0.35.
+5. **Fig 15-11** — the book dots **all five** points; the two feet (x₂,y₁) and
+   (x,y₁) were undotted. The (x,y) label was set above right of its point; the
+   book sets it above **left**. Axis of abscissas lengthened toward the book's.
+6. **Fig 15-14** — besides the P₂ label (§2 above): **0** was set below *right*
+   of the origin, the book sets it below **left**; and P₁ was set straight above
+   its dot, the book sets it above **left**. Both corrected off scan15 p. 23.
+7. **Fig 15-17** — the book puts a heavy dot on **(a, 0)** and on **(b, c)** as
+   well as on the two midpoints; only the midpoints were dotted.
+8. **Fig 15-18** — (a) the book dots **(x, y)** where the radius meets the
+   circle; it was undotted. (b) The centre sat 0.21 r above the axis of
+   abscissas; the book puts it at ≈0.10 r, so the circle straddles that axis
+   almost evenly. Corrected to 0.10 r.
+
+Verified unchanged against the source and left alone: Figs 15-1, 15-2 (checked
+on scan15 p. 22 — numeral sides, tick ladders and branch ratios all match),
+15-4, 15-6, 15-7, 15-9, 15-12, 15-13, 15-16, 15-19.
+
+### 4. Collision work — the "0 collisions" claim above was STALE
+
+`check_labels.py` on the file **as inherited** reported **6 collisions**, not
+the 0 recorded in the figure review: the global 3.4 → 2.2 pt `outer sep` change
+and the switch to fixed-size `\dt{}` dots moved five labels onto ink after that
+review was written, and the audit's arc handling was tightened. All six are now
+fixed at source, together with the five my own corrections introduced:
+
+* Fig 15-5 — the ordinate unit numeral **1** sat exactly on its own dot; lifted.
+* Fig 15-6 — **O** was set with a −1 pt shift that pushed it onto the axis of
+  abscissas; now +0.7 pt, still above left as the book sets it.
+* Fig 15-13 — same −1 pt problem on **0**; same fix.
+* Fig 15-15 — **M** was tucked in with negative shifts and lay on the
+  hypotenuse; set above left of its dot, clear of the line.
+* Fig 15-18 — **0** was exiled *above* left because the audit used to chord the
+  arcs. It now evaluates the Béziers exactly, so the book's own **below left**
+  placement is available again and is used.
+* Fig 15-18 — **(h, k)**: with the centre lowered onto the axis, a label set
+  level with it straddles that axis; lifted to above right (the book's side).
+* Fig 15-10 — the new foot dots and the raised axis crowded the foot-label line.
+  The label is dropped 1.6 pt, the axis settled at 0.26 x₂ below the base rather
+  than the measured 0.21, and the axis letter **x** is set below the arrow tip
+  instead of level with it. See residual doubt 1.
+
+Final: **0 collisions, 5 TIGHT.** The five (Fig 15-3 "P" ×2 at 0.36 pt,
+Fig 15-5 "1" at 0.80, Fig 15-13 "D" at 1.10, Fig 15-14 "P₁" at 0.36) were
+rasterised at 130 dpi and read; all legible, all accepted.
+
+### 5. Gates
+
+| Gate | Result |
+|---|---|
+| `tectonic … ch15.tex` twice | clean both runs — no errors, only box warnings inside exercise lists |
+| `verify_figures.py 15` | **104/104** (was 101/101; +3 for the Fig 15-14 label correction and the Fig 15-10 axis placement) |
+| `check_labels.py … 15` | **0 collisions**, 5 TIGHT |
+| visual pass | all 28 pages rasterised at 130 dpi; every changed figure page (10, 11, 12, 13, 17, 18, 19, 22, 24, 25, 26) read at full size against its source crop |
+| `measure_figures.py` | **not run**, per spec §5 |
+
+### 6. Residual doubts for Caleb
+
+1. **Fig 15-10's axis of abscissas is at 0.26 x₂ below the base, not the book's
+   0.21.** At 0.21 the foot-label line "(x₁,−C/B) (x₂,−C/B)" — which the book
+   sets on one line between the base and the axis, and which we reproduce —
+   touches the axis arrowhead, because our coordinate labels run about twice as
+   wide relative to the drawing as the book's do. 0.26 is the smallest drop that
+   clears the gate. Same root cause as residual doubt 5 of the figure review
+   (label-to-figure scale at a 145 mm trim); a project-level decision on `slab`
+   size would let this go back to 0.21.
+2. **Fig 15-10's axis letter *x* is set below the arrow tip, not level with it**,
+   for the same reason: the foot-label line reaches past the arrow, so a level
+   *x* lands inside it. Cosmetic; reverts the moment doubt 1 is settled.
+3. **Fig 15-15's midpoint label is still set with solidi, not built-up
+   fractions** — unchanged and still blocked by the same tool limitation (a
+   `\frac` rule is filled ink inside the label's own box, which the audit reads
+   as geometry). The book sets it stacked, tucked beside P₂; ours is lifted
+   above. Unchanged from the figure review's residual doubt 2.
+4. **Fig 15-8 is drawn to equal scales; the book's is not.** Reading the two
+   plotted points (0, 2) and (3, 4) off PDF 273 gives an x-unit of ~145 px
+   against a y-unit of ~98 px — the book compresses the ordinate axis to about
+   two-thirds. Everything the text asserts (the three points, their
+   collinearity, the equation) holds either way, and page curvature makes the
+   ratio unreliable, so ours is left at equal scales. Flagging only because the
+   printed line therefore rises more gently than ours does.
+5. **Fig 15-14 may drop a dashed perpendicular from Q to the axis of
+   abscissas.** A short vertical stroke sits just above the axis at x₂ on both
+   the plate and the scan. At full zoom on scan15 p. 23 it reads as a stray tick
+   rather than the tail of the P₂Q line, which visibly stops at Q — so it was
+   **not** drawn. Worth one glance at the physical copy; if it is a real line,
+   the Q coordinate label would have to move off it.
+6. Fig 15-3's three segments remain in the `key` weight while the book draws
+   them at about the weight of the axes (figure review residual doubt 6,
+   unchanged — house semantics, left for a project-level call).

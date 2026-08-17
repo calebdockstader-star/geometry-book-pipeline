@@ -95,22 +95,27 @@
 % ---------------------------------------------------------------- Fig 15-3
 % Theorem 15-1: P,Q in the SAME quadrant => PQ meets neither axis;
 % P,Q in DIFFERENT quadrants => PQ meets at least one axis.
+% Re-measured off the plate (PDF 269) 2026-08-17: the axis of abscissas is
+% drawn very nearly SYMMETRIC about the axis of ordinates (the old drawing ran
+% 4.3 back / 3.9 forward, so its right branch was under-drawn); the quadrant-III
+% P sits twice as deep below the axis as it had been drawn; and the II-IV
+% segment runs a full unit further right than it had.
 \newcommand{\FIGXVTHREE}{\begin{bkfigure}[\linewidth]
 \begin{tikzpicture}[scale=1.014]
-  \draw[fig] (-4.3,0) -- (3.9,0);
-  \draw[fig] (0,2.9) -- (0,-1.5);
+  \draw[fig] (-4.39,0) -- (4.41,0);
+  \draw[fig] (0,2.52) -- (0,-1.76);
   % same quadrant (I): segment meets neither axis
-  \coordinate (P1) at (1.6,2.15);  \coordinate (Q1) at (2.65,1.35);
+  \coordinate (P1) at (1.43,2.29);  \coordinate (Q1) at (2.92,1.22);
   \draw[key] (P1) -- (Q1);
   \node[vlab,above=1pt] at (P1) {$P$};
   \node[vlab,right=1pt] at (Q1) {$Q$};
   % quadrant II to quadrant III: crosses the axis of abscissas
-  \coordinate (Q2) at (-2.45,1.5); \coordinate (P2) at (-3.75,-0.62);
+  \coordinate (Q2) at (-2.04,1.41); \coordinate (P2) at (-3.36,-1.26);
   \draw[key] (Q2) -- (P2);
   \node[vlab,above=1pt] at (Q2) {$Q$};
   \node[vlab,left=1pt]  at (P2) {$P$};
   % quadrant II to quadrant IV: crosses both axes
-  \coordinate (P3) at (-1.25,1.05); \coordinate (Q3) at (2.35,-0.72);
+  \coordinate (P3) at (-1.08,1.05); \coordinate (Q3) at (3.05,-0.84);
   \draw[key] (P3) -- (Q3);
   \node[vlab,above=1pt] at (P3) {$P$};
   \node[vlab,right=1pt] at (Q3) {$Q$};
@@ -150,12 +155,17 @@
 \begin{tikzpicture}[scale=1.040]
   \def\ox{-0.86603} \def\oy{0.5}       % ordinate positive (150 deg)
   \def\ax{-0.5}     \def\ay{-0.86603}  % abscissa positive (240 deg)
-  \draw[fig,-latex] (3.9*-\ox,3.9*-\oy) -- (1.8*\ox,1.8*\oy);
-  \draw[fig,-latex] (1.95*-\ax,1.95*-\ay) -- (2.05*\ax,2.05*\ay);
+  % branch lengths re-measured off the plate (PDF 270) 2026-08-17, in units of
+  % the drawn unit point: ordinate 3.86 back / 1.84 forward, abscissa 1.62 back
+  % / 2.27 forward.  The abscissa had been drawn nearly symmetric (1.95/2.05).
+  \draw[fig,-latex] (3.86*-\ox,3.86*-\oy) -- (1.84*\ox,1.84*\oy);
+  \draw[fig,-latex] (1.62*-\ax,1.62*-\ay) -- (2.27*\ax,2.27*\ay);
   \dt{\ox,\oy}
   \dt{\ax,\ay}
-  \node[slab,above] at (\ox,\oy) {$1$};
-  \node[slab,right] at (\ax,\ay) {$1$};
+  % lifted 1.2pt clear of its own dot -- at 2.2pt outer sep the numeral's box
+  % sat exactly on the dot's rim (collision audit)
+  \node[slab,above=1.2pt] at (\ox,\oy) {$1$};
+  \node[slab,right=1pt] at (\ax,\ay) {$1$};
   \node[slab,above] at (2.0*\ox,2.0*\oy) {Ordinates};
   \node[slab,below] at (2.25*\ax,2.25*\ay) {Abscissas};
 \end{tikzpicture}
@@ -176,7 +186,9 @@
   \draw[aux] (1.55,1.55) -- (1.55,-3.5);
   \draw[aux] (-1.65,-1.70) -- (3.2,-1.70);
   \foreach \p in {A,B,P} {\dt{\p}}
-  \node[vlab,above left=-1pt and 0pt] at (0,0) {$O$};
+  % O lifted clear of the axis of abscissas: the -1pt shift had pushed its box
+  % down onto the axis (collision audit).  Still above left, as the book sets it.
+  \node[vlab,above left=0.7pt and 0pt] at (0,0) {$O$};
   \node[vlab,above right=1pt and 1pt] at (A) {$A$};
   \node[vlab,above left=1pt and 1pt]  at (B) {$B$};
   \node[vlab,above right=1pt and 1pt] at (P) {$P$};
@@ -210,9 +222,12 @@
 \newcommand{\FIGXVEIGHTNINE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
 \begin{tikzpicture}[scale=0.44]
-  \XVaxes{-4.6}{6.4}{-2.6}{5.4}
+  % The book ticks the axis of ordinates from -3 to 4 (three marks below the
+  % axis of abscissas, not two -- counted at 400 dpi on PDF 273); the axis of
+  % ordinates was too short to carry the third and it was missing.
+  \XVaxes{-4.6}{6.4}{-3.5}{5.4}
   \XVxticks{-4}{5}
-  \XVyticks{-2}{4}
+  \XVyticks{-3}{4}
   % the line 2x - 3y + 6 = 0, i.e. y = (2/3)x + 2 -- endpoints computed
   \draw[aux] (-4.2,-0.8) -- (5.4,5.6);
   \foreach \p in {(-3,0),(0,2),(3,4)} {\node[bkdot] at \p {};}
@@ -250,21 +265,31 @@
   \coordinate (P2) at (4.2,2.205);      % (x2, y2)   -- collinear with O,P1
   \coordinate (F1) at (2.81,\bY);
   \coordinate (F2) at (4.2,\bY);
-  \draw[fig,-latex] (-0.52,-1.65) -- (4.54,-1.65);
-  \node[vlab,right] at (4.54,-1.65) {$x$};
-  \draw[fig,-latex] (0,-2.20) -- (0,2.49);
+  % Re-measured off the plate (PDF 274) 2026-08-17 in units of x_2: the axis of
+  % abscissas sits 0.21 x_2 below the base line (it had been drawn at 0.39, so
+  % nearly twice too low) and the axis of ordinates runs 0.35 x_2 below the base
+  % (it had run 0.52).
+  \draw[fig,-latex] (-0.53,-1.22) -- (4.95,-1.22);
+  % dropped below the arrow tip: our coordinate labels run about twice as wide
+  % relative to the drawing as the book's do (see ch15-UNCERTAIN.md), so the
+  % foot-label line reaches past the arrow and a level x would sit inside it.
+  \node[vlab,below right=0pt and -1pt] at (4.95,-1.06) {$x$};
+  \draw[fig,-latex] (0,-1.82) -- (0,2.49);
   \node[vlab,right] at (0,2.49) {$y$};
   \draw[fig] (O) -- (F2);
   \draw[fig] (P1) -- (F1);
   \draw[fig] (P2) -- (F2);
   \draw[aux] (O) -- (P2);
-  \foreach \p in {O,P1,P2} {\dt{\p}}
+  % the book dots BOTH feet as well as the three named points -- five heavy
+  % dots in all; the two feet had been left undotted.
+  \foreach \p in {O,P1,P2,F1,F2} {\dt{\p}}
   \node[slab,left]  at (O)  {$(0,-C/B)$};
   \node[slab,anchor=south east,xshift=-1pt,yshift=3pt] at (P1) {$(x_1,y_1)$};
   \node[slab,anchor=south east,xshift=9pt,yshift=3pt]  at (P2) {$(x_2,y_2)$};
   % one node holds both foot labels, as the book sets them: side by side on a
   % single line below the base.  Two separate nodes overlap at this trim.
-  \node[slab,below] at (3.3,\bY) {$(x_1,-C/B)\quad(x_2,-C/B)$};
+  % dropped 1.6pt so the pair clears the two foot dots now drawn on the base
+  \node[slab,below=1.6pt] at (3.3,\bY) {$(x_1,-C/B)\quad(x_2,-C/B)$};
 \end{tikzpicture}
 \figcap{15--10}
 \end{minipage}\hfill
@@ -275,18 +300,21 @@
   \coordinate (P3) at (4.67,2.284);     % (x, y)   -- collinear with P1,P2
   \coordinate (F2) at (1.78,1.36);
   \coordinate (F3) at (4.67,1.36);
-  \draw[fig,-latex] (-1.65,0) -- (4.93,0);
-  \node[vlab,right] at (4.93,0) {$x$};
+  \draw[fig,-latex] (-1.65,0) -- (5.30,0);
+  \node[vlab,right] at (5.30,0) {$x$};
   \draw[fig,-latex] (0,-1.02) -- (0,3.44);
   \node[vlab,right] at (0,3.44) {$y$};
   \draw[fig] (P1) -- (F3);
   \draw[fig] (P2) -- (F2);
   \draw[fig] (P3) -- (F3);
   \draw[fig] (P1) -- (P3);
-  \foreach \p in {P1,P2,P3} {\dt{\p}}
+  % the book dots all FIVE points, the two feet (x_2,y_1) and (x,y_1) included;
+  % the feet had been left undotted.
+  \foreach \p in {P1,P2,P3,F2,F3} {\dt{\p}}
   \node[slab,left] at (P1) {$(x_1,y_1)$};
   \node[slab] at ($(P2)+(-0.34,0.48)$) {$(x_2,y_2)$};
-  \node[slab] at ($(P3)+(0.10,0.50)$)  {$(x,y)$};
+  % the book sets (x,y) above and slightly LEFT of its point, not right
+  \node[slab] at ($(P3)+(-0.16,0.50)$) {$(x,y)$};
   \node[slab,below] at (F2) {$(x_2,y_1)$};
   \node[slab,below] at (F3) {$(x,y_1)$};
 \end{tikzpicture}
@@ -328,7 +356,8 @@
   \node[vlab,right] at (7.0,0) {$x$};
   \draw[fig,-latex] (0,-3.6) -- (0,4.6);
   \node[vlab,right] at (0,4.6) {$y$};
-  \node[slab,above left=-1pt and 0pt] at (0,0) {$0$};
+  % lifted clear of the axis of abscissas (collision audit); still above left
+  \node[slab,above left=0.7pt and 0pt] at (0,0) {$0$};
   % horizontal pair (2,3)-(6,3)
   \draw[aux] (2,3) -- (6,3);
   \dt{2,3} \dt{6,3}
@@ -364,7 +393,9 @@
   \node[vlab,right] at (4.57,0) {$x$};
   \draw[fig,-latex] (0,-0.26) -- (0,3.55);
   \node[vlab,right] at (0,3.55) {$y$};
-  \node[slab,below right=-1pt and 1pt] at (0,0) {$0$};
+  % the book sets 0 BELOW LEFT of the origin here (checked on scan15 p.23,
+  % which is sharper than the plate); it had been set below right.
+  \node[slab,below left=-1pt and 0pt] at (0,0) {$0$};
   \coordinate (P1) at (0.62,1.15);
   \coordinate (P2) at (3.72,3.05);
   \coordinate (Q)  at (3.72,1.15);
@@ -372,13 +403,21 @@
   \draw[aux] (P1) -- (Q);
   \draw[aux] (Q)  -- (P2);
   \foreach \p in {P1,P2,Q} {\dt{\p}}
-  \node[vlab,above,xshift=-2pt] at (P1) {$P_1$};
+  % P_1 is set above LEFT of its dot in the book, not straight above
+  \node[vlab,anchor=south east,xshift=2pt,yshift=-1pt] at (P1) {$P_1$};
   \node[vlab,anchor=south east,xshift=-1pt] at (P2) {$P_2$};
   \node[vlab,right,yshift=5pt] at (Q) {$Q$};
   % nudged right so it clears the axis of ordinates, as the book's does
   \node[slab,below,xshift=8pt] at (P1) {$(x_1,y_1)$};
-  % the book prints (x_2,y_1) at P_2 as well as at Q -- see ch15-UNCERTAIN.md
-  \node[slab,anchor=south west,xshift=1pt] at (P2) {$(x_2,y_1)$};
+  % SOURCE READING (book p.262 = PDF 276, confirmed three times at 400 dpi and
+  % on scan15): the plate prints "(x_2, y_1)" at P_2 -- the SAME pair it prints
+  % at Q.  That is a misprint in the book: the prose immediately above names Q
+  % as "the point Q (x_2, y_1)", and the Pythagorean step that follows needs
+  % P_2 to be (x_2, y_2).  With the prose now transcribed the contradiction is
+  % visible on the page, so P_2 is corrected here on Caleb's instruction
+  % (FIX-SPEC 2026-08-17 sec.4).  Logged in chapters/ch15-UNCERTAIN.md.
+  % set level with the dot, on its right, the way the book sets it
+  \node[slab,right,yshift=-1pt] at (P2) {$(x_2,y_2)$};
   \node[slab,below=3pt] at (Q) {$(x_2,y_1)$};
 \end{tikzpicture}
 \figcap{15--14}
@@ -410,7 +449,9 @@
   \foreach \p in {P1,P2,M} {\dt{\p}}
   \node[slab,anchor=north west,xshift=-9pt,yshift=-3pt] at (P1) {$P_1\,(x_1,y_1)$};
   \node[slab,right] at (P2) {$P_2\,(x_2,y_2)$};
-  \node[vlab,above left=-3pt and -1pt] at (M) {$M$};
+  % M had been tucked in with negative shifts, which put its box on the
+  % hypotenuse (collision audit).  Set above left of its dot, clear of the line.
+  \node[vlab,anchor=south east,xshift=-1.5pt,yshift=1.5pt] at (M) {$M$};
   % Solidus form: a built-up fraction draws a rule inside the label box, which
   % the collision audit reads as geometry.  The solidus runs about two and a
   % half times as wide as the book's stacked fraction, so the label is lifted
@@ -453,7 +494,9 @@
   \coordinate (M1) at ($(A)!0.5!(C)$);
   \coordinate (M2) at ($(B)!0.5!(C)$);
   \draw[aux] (M1) -- (M2);
-  \foreach \p in {M1,M2} {\dt{\p}}
+  % the book dots the two named vertices (a,0) and (b,c) as well as the two
+  % midpoints -- four heavy dots; the vertices had been left undotted.
+  \foreach \p in {M1,M2,B,C} {\dt{\p}}
   \node[slab,below right=-1pt and 0pt] at (A) {$(0,0)$};
   \node[slab,below] at (B) {$(a,0)$};
   \node[slab,right] at (C) {$(b,c)$};
@@ -478,16 +521,27 @@
   % the book sets 0 below left of the origin; the origin here lies inside the
   % circle, and the audit approximates each quarter-arc by its chord, so a
   % label dropped below left reads as touching that chord.  Set above left.
-  \node[slab,above left=-1pt and 0pt] at (0,0) {$0$};
-  \coordinate (K) at (1.04,0.38);
+  % The book sets 0 BELOW LEFT of the origin.  It had been exiled above left
+  % because the audit used to chord the arcs; the audit now evaluates the
+  % Beziers exactly, so the book's own placement is available again -- the only
+  % ink near the origin is the axis of abscissas, and 0.7pt clears it.
+  \node[slab,below left=0.7pt and 0pt] at (0,0) {$0$};
+  % Re-measured off the plate (PDF 278) 2026-08-17: the centre sits only about
+  % 0.10 r above the axis of abscissas (it had been drawn at 0.21 r), so the
+  % circle straddles that axis almost evenly, as the book's does.
+  \coordinate (K) at (1.04,0.18);
   \def\rr{1.85}
   \draw[key] (K) circle (\rr);
   % (x,y) placed on the circle at 148.5 deg from the centre -- exact by
   % construction, so the drawn radius really has length r.
   \coordinate (X) at ($(K)+(148.5:\rr)$);
   \draw[fig] (K) -- (X);
+  % the book dots (x,y) where the radius meets the circle as well as the centre
   \dt{K}
-  \node[slab,right] at (K) {$(h,k)$};
+  \dt{X}
+  % now that the centre sits close to the axis of abscissas, a label set level
+  % with it straddles that axis; lifted to above right, still on the book's side
+  \node[slab,above right=-1pt and 1pt] at (K) {$(h,k)$};
   \node[slab,left=1pt]  at (X) {$(x,y)$};
   % r set off the radius along the perpendicular, so it does not sit on the line
   \node[slab] at ($(K)!0.5!(X)+(58.5:0.34)$) {$r$};

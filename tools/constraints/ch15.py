@@ -57,9 +57,9 @@ def build(check):
 
     # ---- 15-3 : Thm 15-1 -- same quadrant => PQ meets no axis;
     #             different quadrants => PQ meets at least one axis
-    P1_, Q1_ = (1.6, 2.15), (2.65, 1.35)          # both in quadrant I
-    Q2_, P2_ = (-2.45, 1.5), (-3.75, -0.62)       # II -> III
-    P3_, Q3_ = (-1.25, 1.05), (2.35, -0.72)       # II -> IV
+    P1_, Q1_ = (1.43, 2.29), (2.92, 1.22)         # both in quadrant I
+    Q2_, P2_ = (-2.04, 1.41), (-3.36, -1.26)      # II -> III
+    P3_, Q3_ = (-1.08, 1.05), (3.05, -0.84)       # II -> IV
     check('15-3', 'same-quadrant PQ meets no axis', seg_avoids_axes(P1_, Q1_))
     check('15-3', 'II-III PQ crosses x-axis', seg_crosses_axis(Q2_, P2_, 'x'))
     check('15-3', 'II-IV PQ crosses x-axis', seg_crosses_axis(P3_, Q3_, 'x'))
@@ -123,7 +123,9 @@ def build(check):
     # Eq (15-2): y2/x2 == y1/x1
     check('15-10', 'y2/x2 == y1/x1',
           abs(Q2[1] / Q2[0] - Q1[1] / Q1[0]) / (Q1[1] / Q1[0]))
-    check('15-10', 'x-axis below the base line', 0.0 if -1.65 < Ob[1] else 1.0)
+    check('15-10', 'x-axis below the base line', 0.0 if -0.88 < Ob[1] else 1.0)
+    # the axis of ordinates runs below the axis of abscissas, as in the book
+    check('15-10', 'y-axis runs below the x-axis', 0.0 if -1.48 < -0.88 else 1.0)
 
     # ---- 15-11 : Thm 15-3 Case 3.  (x1,y1), (x2,y2), (x,y) collinear;
     #              right angles at (x2,y1) and (x,y1)
@@ -173,6 +175,12 @@ def build(check):
     check('15-14', 'P_1 Q || x-axis', par(V(D1, Qq), (1, 0)))
     check('15-14', 'Q P_2 || y-axis', par(V(Qq, D2), (0, 1)))
     check('15-14', 'Q is (x2,y1)', dist(Qq, (D2[0], D1[1])))
+    # P_2 is (x2,y2): it shares its abscissa with Q but NOT its ordinate.  The
+    # book misprints P_2's label as (x2,y1) -- the same pair it prints at Q --
+    # and we correct it, so the drawing must actually support the corrected
+    # reading.  See chapters/ch15-UNCERTAIN.md.
+    check('15-14', 'P_2 shares x2 with Q', abs(D2[0] - Qq[0]))
+    check('15-14', 'P_2 ordinate is NOT y1', 0.0 if abs(D2[1] - D1[1]) > 0.5 else 1.0)
     # Pythagoras holds for the drawn triangle
     check('15-14', 'P1P2^2 == P1Q^2 + QP2^2',
           abs(dist(D1, D2) ** 2 - (dist(D1, Qq) ** 2 + dist(Qq, D2) ** 2))
@@ -214,7 +222,7 @@ def build(check):
 
     # ---- 15-18 : Eq (15-6) -- the drawn radius really has length r, and the
     #              circle crosses both axes as it does in the book
-    K, r = (1.04, 0.38), 1.85
+    K, r = (1.04, 0.18), 1.85
     X = (K[0] + r * math.cos(math.radians(148.5)),
          K[1] + r * math.sin(math.radians(148.5)))
     check('15-18', 'distance (h,k) to (x,y) == r', on_circle(K, r, X))

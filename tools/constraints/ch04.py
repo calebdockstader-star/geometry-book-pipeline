@@ -52,9 +52,9 @@ def build(check):
     eq('4-3', 'BC = B\'C\'', B, C, Bp, Cp)
     between('4-3', 'B between A and C', A, B, C)
     between('4-3', 'B\' between A\' and C\'', Ap, Bp, Cp)
-    on_line('4-3', 'l', (0, 0), (4.96981, 0.54866),
+    on_line('4-3', 'l', (0.46519, 0.05136), (4.96981, 0.54866),
             [('A', A), ('B', B), ('C', C)])
-    on_line('4-3', "l'", (0.22000, -1.15000), (5.20247, -0.73157),
+    on_line('4-3', "l'", (0.68636, -1.11084), (5.20247, -0.73157),
             [("A'", Ap), ("B'", Bp), ("C'", Cp)])
 
     # ---- 4-4 : Ex 4-2 #7.  AB=BC, CD=CE=ED, EF=EB
@@ -173,9 +173,9 @@ def build(check):
     eq('4-10', 'AC = A\'B\'', A, C, Ap, Bp)
     between('4-10', 'C between A and B', A, C, B)
     between('4-10', 'B\' between A\' and C\'', Ap, Bp, Cp)
-    on_line('4-10', 'upper line', (0, 1.15000), (4.30000, 1.15000),
+    on_line('4-10', 'upper line', (0, 1.15000), (3.80000, 1.15000),
             [('A', A), ('C', C), ('B', B)])
-    on_line('4-10', 'lower line', (0, 0), (4.30000, 0),
+    on_line('4-10', 'lower line', (0, 0), (3.80000, 0),
             [("A'", Ap), ("B'", Bp), ("C'", Cp)])
 
     # ---- 4-11 : AC = A'B', CX = B'C'
@@ -205,9 +205,9 @@ def build(check):
     eq('4-12', 'AC = A\'C\'', A, C, Ap, Cp)
     between('4-12', 'B between A and C', A, B, C)
     between('4-12', 'B\' between A\' and C\'', Ap, Bp, Cp)
-    on_line('4-12', 'upper line', (0, 1.25000), (4.10000, 1.25000),
+    on_line('4-12', 'upper line', (0, 1.25000), (3.90000, 1.25000),
             [('A', A), ('B', B), ('C', C)])
-    on_line('4-12', 'lower line', (0, 0), (4.10000, 0),
+    on_line('4-12', 'lower line', (0, 0), (3.90000, 0),
             [("A'", Ap), ("B'", Bp), ("C'", Cp)])
 
     # ---- 4-13 : Thm 4-4.  AD' = CD = EF, D' between A and B
