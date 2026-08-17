@@ -525,3 +525,128 @@ twice clean (0 errors; only pre-existing overfull-box warnings).
    section 1 above (Fig.~9--33's D/E pairing and Fig.~9--48's proportions) are
    figure questions and stand as written --- in both cases the *text* matches
    the book exactly, and the disagreement is the book's own.
+
+---
+
+# Figure-repair pass — 2026-08-17 (FIX-SPEC)
+
+Scope: figure **placement** and figure **geometry** only. No prose was touched.
+
+Gates at hand-off: `ch09.tex` compiles **twice with 0 errors** (50 pp.) ·
+`verify_figures.py 9` = **212/212** · `check_labels.py figures09.tex 9` =
+**0 collisions**, 26 tight · every one of the 50 pages rasterised at 120 dpi
+and looked at, with 240–300 dpi zooms on 9-10, 9-14, 9-50 and 9-54.
+
+## 1. Spec §2 — exercise-group figures are now inline
+
+**36 figures moved inside their exercise lists**, each in `\exfig{...}`
+directly after the exercise that first names it, and `multicols` dropped from
+all ten exercise groups that carry a figure (9-2, 9-3, 9-6, 9-8, 9-9, 9-10,
+9-11, 9-12, 9-13, 9-14) plus the Review Exercises. Groups 9-4, 9-5 and 9-7
+carry no figure and keep `multicols` untouched, as the spec requires.
+
+**9 combined macros split into 30**, since in every case the parts were cited
+by *different* exercises:
+
+| was | became |
+|---|---|
+| `\FIGIXFIVESEVEN` | `\FIGIXFIVE` `\FIGIXSIX` `\FIGIXSEVEN` |
+| `\FIGIXNINEFOURTEEN` | `\FIGIXNINE` … `\FIGIXFOURTEEN` (6) |
+| `\FIGIXTWENTYTWENTYONE` | `\FIGIXTWENTY` `\FIGIXTWENTYONE` |
+| `\FIGIXTWENTYTHREETWENTYNINE` | `\FIGIXTWENTYTHREE` … `\FIGIXTWENTYNINE` (7) |
+| `\FIGIXTHIRTYTWOTHIRTYFIVE` | `\FIGIXTHIRTYTWO` … `\FIGIXTHIRTYFIVE` (4) |
+| `\FIGIXTHIRTYSEVENTHIRTYNINE` | `\FIGIXTHIRTYSEVEN` `\FIGIXTHIRTYEIGHT` `\FIGIXTHIRTYNINE` |
+| `\FIGIXFORTYTWOFORTYFIVE` | `\FIGIXFORTYTWO` … `\FIGIXFORTYFIVE` (4) |
+| `\FIGIXFORTYEIGHTFORTYNINE` | `\FIGIXFORTYEIGHT` `\FIGIXFORTYNINE` |
+| `\FIGIXFIFTYTHREEFIFTYFOUR` | `\FIGIXFIFTYTHREE` `\FIGIXFIFTYFOUR` |
+
+Every split figure lost its `minipage`/`\hfill` scaffolding and was re-fitted
+by hand to the freed width (spec §5 forbids `measure_figures.py` on this pass).
+Typical gain is large: Fig 9-23 went from 1.3 cm of drawn width to 5.2 cm.
+
+`\FIGIXFIFTYTHREE/FOUR/FIVE` are now defined in `figures09.tex`, not in
+`ch09.tex`'s local block — this closes residual doubt #1 of the previous pass,
+and all three are now covered by both tools.
+
+The three Review-Exercise `exlist` blocks, which had been split only to make
+room for the batched figure dumps, are merged back into **one** list.
+
+## 2. Chapter-wide: the `key` weight is gone
+
+All 32 `\draw[key]` strokes became `\draw[given]`. The book strikes every line
+of a diagram at one weight; `key` survived the colour edition only as a heavier
+stroke, which is what Caleb flagged on 9-23, 9-25, 9-14, 9-27 and 9-50. Do not
+reintroduce it in this chapter.
+
+## 3. Every figure corrected, with the reason
+
+| Fig | What was wrong → what was done |
+|---|---|
+| 9-4 | `G` label collided with line `m'`, which passes through it → moved to the free quadrant |
+| 9-10 | transversal 2 missed `A`, both slants near-vertical (10° off) instead of the book's 31°, parallels dead horizontal and cut short, and **both** "Parallel" notes drawn as double-headed arrows → figure rebuilt from the photograph: parallels slope 8° down-right, spacing 1.5 : 1, slants at 0.586 across per 1 down, T1 and T2 crossing exactly on `l1` at `A`, and both notes redrawn as the book's fans of single-headed leaders |
+| 9-11 | the length label `8` sat on the hypotenuse it measures → lifted clear |
+| 9-12 | "Parallel" was a vertical double-headed span → the book's three-leader fan from one apex. (The numerals 2/3/4/6 are **segment lengths, not angles** — checked on the p.158 plate at 500 dpi — so the index's "missing angle arcs" note does not apply and none were added.) `A`'s label pulled in to its crossing |
+| 9-13 | rescaled only |
+| 9-14 | the two brace rows on each side sat almost on the side they measure and the long `x` brace was drawn *inside* the short `1` brace; the two "Parallel" leaders started from two different points → braces offset at the book's 0.07 and 0.24 of each side's length, long brace outermost on both sides, teeth pointing outward to their labels, leaders fanned from one apex (the upper one crossing the right side, as the book's does) |
+| 9-15 | the length label `6` sat on side `FG` → offset along its normal |
+| 9-17 | `E`/`F` labels grazed the point dots beneath them |
+| 9-23 | `E` label had drifted down level with `D`; `CD` drawn dead level where the book runs it slightly down to `D`; `BE` heavier than the sides |
+| 9-24 | **four** lake contours where the book has **three** (innermost oval removed, verified on the p.166 plate at 500 dpi); `DE` drawn heavy solid where the book draws a **fine dashed** segment (zoomed to 500 dpi to confirm); `C` was not on the drawn base line — the base ran to (3.265, 0.075) while `C` sat at y = 0.025, which is exactly the "kink near B" Caleb saw. `AB` now dead vertical and the base dead horizontal, as "run north-south" requires; `D`'s label moved into the clear band between contours 1 and 2 |
+| 9-25 | `DE` heavier than the sides; `D`/`E` labels sat on the sides they divide |
+| 9-26 | `AE` drawn dead vertical where the book leans it; `AB : DE` was 1.6 : 1 against the book's 2.53 : 1; the `C` label sat on the crossing lines |
+| 9-27 | `l` and `m` were stubs, so `l ∥ m` could not be read, and the `l` label floated past the end of its own line; transversals heavier than the parallels |
+| 9-28 | **Caleb's "worst offender"**: `R` and `P′` printed jammed together. Gap between the triangles widened to 0.55 units, primed triangle at the book's 0.62, whole block redrawn at roughly five times the old area |
+| 9-29 | rescaled only (the book strikes no right-angle squares at `D`/`E`; none added) |
+| 9-30 | `D` label sat on side `AB` |
+| 9-33 | `D` sat on `AC` and `E` on `AB` |
+| 9-37 | length labels `10` and `14` sat on side `EC` |
+| 9-38 | the primed hexagon is rotated −30°, so the unrotated label anchors sent `C′`, `D′`, `E′` the wrong way and `D′`/`E′` printed on top of each other |
+| 9-39 | the right-angle square at `D` was drawn on the `A` side; the p.170 plate puts it in the wedge between `DB` and `DC`. Dashed base now runs a short way **past** `E`, as the book draws it |
+| 9-40/9-41 | both drawn at ~2.5 cm; enlarged. **Fig 9-41's apex is `C`, not `C′`** — confirmed against the p.171 plate at 500 dpi, matching Caleb's check of the physical copy. `l` was set in `slab` (scriptsize upright) while `l′`/`l″` were `vlab`; all three now match |
+| 9-42–9-45 | split and rescaled |
+| 9-48 | **reverted to schematic** per Caleb's decision: the render drew `BD : AC` at the exercise's own 24 : 10, which gives the answer away. Now the book's ≈1.58 : 1. The three *stated* hypotheses (`AB ∥ CD`, `BC ∥ AD`, `AC ⊥ BD`) still hold exactly and force a rhombus; a constraint now asserts the drawn ratio is **not** 2.4 |
+| 9-50 | apex at 0.65 of `AB` against the book's 0.50, so the vesica was far too fat (arcs cutting the base at 18 %/82 % instead of 31 %/69 %) and three thick strokes met at the apex in the blob that read as a filled arrowhead; the arcs stopped dead at their intersections. Arcs now run ±57°, overshooting the ±45° meeting points by 12° so the book's small **×** is struck at `P` and again below; arcs drawn finer than the triangle; `PC` no longer heavier; `r` hugs the midpoint of `PA` |
+| 9-51/9-52 | rescaled |
+| 9-53 | rescaled (2.2 cm → 3.0 cm wide) |
+| 9-54 | apex 53 % along the base and 0.89 of it high, against the book's 39 % and 0.67 — which is *why* the dashed `AX` ran within 5° of side `AB` and the two were indistinguishable. Rebuilt at the book's flat, wide shape (they now diverge by 15°, asserted as a constraint); base rises slightly right as the book's does; `l`/`X`/`D` pulled apart along **and** across the line (they were merging into a single "XD" blob in the audit); `Y` and `Z` hug their own feet; the dashed extension of `AC` uses a longer dash so it no longer reads as a fourth perpendicular |
+| 9-55 | the right-angle square at `E` was struck at 0.16 of \|EA\| and \|EB\| — sides four times longer than `D`'s — so it printed much the larger and hung into the interior. Both squares are now a fixed 0.17 units, with `E`'s in the wedge between `EC` and `EB` as the p.179 plate has it. Triangle flattened from 0.85 to the book's 0.72 (this also cleared a 31 pt overfull box) |
+
+Defect classes swept across the whole chapter, not just the photographed
+figures: heavier-than-book strokes (all 32), labels sitting on the lines they
+name (12 figures), double-headed "Parallel" arrows (9-9, 9-10, 9-12, 9-14),
+and misplaced right-angle marks (9-39).
+
+## 4. Questions for Caleb / things I could not settle
+
+1. **`book.tex` is stale for chapter 9.** It still inlines the nine old
+   combined macros and the batched figure dumps. Its own header says it is
+   generated by `tools/assemble_book.py` and must not be hand-edited, so I
+   left it alone — **the integration pass must re-run the assembler**, or
+   ch09 will fail to build inside the book.
+2. **Body figures I did *not* rescale.** Spec §1 says to flag rather than
+   re-scale, so these are flagged: **9-2/9-3, 9-4, 9-18/9-19, 9-22** still
+   print at roughly 2.5–3.5 cm and now look noticeably smaller than the
+   split exercise figures beside them (5–8 cm). They read, but the chapter
+   is no longer visually consistent. Recommend the integration re-fit grows
+   them to match. (9-40/9-41, 9-50/9-51 and 9-52 *were* enlarged, because
+   each needed a geometry rebuild anyway.)
+3. **Fig 9-41's `C` label** sits above-left of the apex in our render; the
+   book sets it below-left, inside the triangle. At our narrower apex the
+   below-left position cannot clear side `AC` and the dashed line `l` at
+   once. The letter is unambiguous where it is, but it is not the book's
+   position.
+4. **Fig 9-24's lake** is still the traced scan outline placed against the
+   triangle by bounding box. Contour *count* is now right (3) and `D` sits
+   on the outer contour where `AC` leaves the water, but the lake sits a
+   little higher and further right in the frame than the book's, and the
+   contour shapes are our trace, not the book's. Flagged, not re-traced.
+5. **Fig 9-12's numerals.** `feedback/index_ae.md` reads them as angle
+   numerals missing their arcs. They are **segment lengths**; the book
+   strikes no arcs. I have not added any. If Caleb disagrees, this is the
+   one place in ch09 where the "missing angle arcs" defect class was
+   claimed and rejected.
+6. The 26 TIGHT label placements were each eyeballed at 120 dpi and
+   accepted; the closest is Fig 9-54's `D` at 0.94 pt, which is legible.
+7. Section 1's two older questions (Fig 9-33's `D`/`E` pairing, Fig 9-48's
+   proportions) — **9-48 is now settled** by Caleb's decision above. The
+   9-33 pairing question stands as written.

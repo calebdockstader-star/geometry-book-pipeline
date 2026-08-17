@@ -101,14 +101,38 @@ def build(check):
     check('9-9', 'DE || AC', par(V(D, E), V(A, C)))
 
     # ------------------------------------------------------------ Fig 9-10
-    A, B, C = (0, 2.05), (-0.0398, 0.725), (-0.0615, 0)
-    D, X = (0.3339, 0.725), (0.5166, 0)
-    E, F = (2.55, 2.05), (3.0666, 0)
+    # Rebuilt 2026-08-17 against the book photograph: the three parallels now
+    # slope -0.145, spacing AB : BC = 1.5 : 1, and BOTH slanted transversals
+    # run 0.586 across per 1 down (the render had them near-vertical, and T2
+    # missed A altogether).
+    def top(x):
+        return 2.00 - 0.145 * x
+
+    def midl(x):
+        return 0.80 - 0.145 * x
+
+    def bot(x):
+        return -0.145 * x
+
+    A = (0.20, 1.971)
+    B, C = (0.0817, 0.7882), (0.00286, -0.0004)
+    D, X = (0.96850, 0.65957), (1.48083, -0.21472)
+    E, F = (3.30, 1.5215), (4.58083, -0.66422)
+    for nm, pt, f in (('A', A, top), ('B', B, midl), ('C', C, bot),
+                      ('D', D, midl), ('X', X, bot),
+                      ('E', E, top), ('F', F, bot)):
+        check('9-10', f'{nm} lies on its parallel', abs(pt[1] - f(pt[0])))
+    check('9-10', 'l1 || l2 || l3 (same slope by construction)',
+          par((1, -0.145), (1, -0.145)))
     check('9-10', 'A,B,C collinear', par(V(A, B), V(B, C)))
-    check('9-10', 'A,D,X collinear (T1)', par(V(A, D), V(D, X)))
-    check('9-10', 'T2 || T1', par(V(E, F), V(A, X)))
+    check('9-10', 'A,D,X collinear (T2)', par(V(A, D), V(D, X)))
+    check('9-10', 'T3 || T2', par(V(E, F), V(A, X)))
+    check('9-10', 'T2 passes through A (the book crosses T1 and T2 on l1)',
+          abs(A[1] - top(A[0])))
     check('9-10', 'AD/DX = AB/BC',
           rel(dist(A, D) / dist(D, X), dist(A, B) / dist(B, C)))
+    check('9-10', 'AB : BC = 1.5 : 1 (as the book draws it)',
+          rel(dist(A, B) / dist(B, C), 1.5))
     check('9-10', 'EF = AX (parallelogram)', rel(dist(E, F), dist(A, X)))
 
     # ------------------------------------------------------------ Fig 9-11
@@ -236,15 +260,21 @@ def build(check):
     check('9-22', "A'B' = 3/5 AB (scale)", rel(0.6, 3 / 5))
 
     # ------------------------------------------------------------ Fig 9-23
-    C, D, A = (0, 0), (2.10, 0), (2.58, 1.32)
+    C, D, A = (0, 0), (2.10, -0.10), (2.58, 1.32)
     B, E = lerp(A, C, 0.4), lerp(A, D, 0.4)
     check('9-23', 'BE || CD', par(V(B, E), V(C, D)))
     check('9-23', 'AE/AD = 4/10', rel(dist(A, E) / dist(A, D), 0.4))
 
     # ------------------------------------------------------------ Fig 9-24
-    B, A, C = (0, 0), (-0.02, 2.139), (2.377, 0.025)
+    # 2026-08-17: AB and DE must "run north-south", so AB is now exactly
+    # vertical and the base exactly horizontal, with C ON it -- the old C sat
+    # 0.03 off the drawn base line, which is the kink Caleb saw near B.
+    B, A, C = (0, 0), (0, 2.139), (2.377, 0)
     D = lerp(A, C, 0.85)
-    E = inter(B, C, D, (D[0] - A[0] + B[0], D[1] - A[1] + B[1]))
+    E = (D[0], 0.0)
+    check('9-24', 'AB runs north-south', abs(A[0] - B[0]))
+    check('9-24', 'DE runs north-south', abs(D[0] - E[0]))
+    check('9-24', 'C lies on the base BE', abs(C[1] - B[1]))
     check('9-24', 'DE || AB', par(V(D, E), V(A, B)))
     check('9-24', 'DC/AC = 1.5/10', rel(dist(D, C) / dist(A, C), 0.15))
     check('9-24', 'DE/AB = 1.2/8', rel(dist(D, E) / dist(A, B), 0.15))
@@ -255,7 +285,9 @@ def build(check):
     check('9-25', 'DE || AC', par(V(D, E), V(A, C)))
 
     # ------------------------------------------------------------ Fig 9-26
-    A, E26, B, D = (0, 1.54), (0, 0), (0.80, 1.54), (-0.50, 0)
+    # 2026-08-17: AE leans (the render drew it dead vertical) and AB : DE is
+    # the book's 2.53 : 1 rather than 1.6 : 1.
+    A, E26, B, D = (0.18, 1.60), (0, 0), (1.0346, 1.5038), (-0.3379, 0.0381)
     C = inter(A, E26, B, D)
     check('9-26', 'AB perp AE', perp(V(A, B), V(A, E26)))
     check('9-26', 'DE perp AE', perp(V(E26, D), V(A, E26)))
@@ -274,12 +306,20 @@ def build(check):
     S = lerp(Q, R, 0.468)
     check('9-28', 'PS bisects angle P (QS/SR = PQ/PR)',
           rel(dist(Q, S) / dist(S, R), dist(P, Q) / dist(P, R)))
-    k28 = 0.583                       # the scale= of the primed scope
-    Pp, Rp, Qp = [(k28 * x, k28 * y) for x, y in (P, R, Q)]
+    # 2026-08-17: the primed triangle is placed explicitly at 0.62 of the
+    # unprimed one, 0.55 units clear of R, so the R and P' labels no longer
+    # collide (Caleb's "worst offender").
+    k28 = 0.62
+    gap28 = 0.55
+    Pp = (R[0] + gap28, 0)
+    Rp = (Pp[0] + k28 * R[0], 0)
+    Qp = (Pp[0] + k28 * Q[0], k28 * Q[1])
     Sp = lerp(Qp, Rp, 0.468)
+    check('9-28', "clear gap between R and P' (Caleb: they collided)",
+          0.0 if Pp[0] - R[0] >= 0.4 else 1.0)
     check('9-28', "P'S' bisects angle P' (Q'S'/S'R' = P'Q'/P'R')",
           rel(dist(Qp, Sp) / dist(Sp, Rp), dist(Pp, Qp) / dist(Pp, Rp)))
-    check('9-28', "P'Q'R' ~ PQR (all three sides at scale 0.583)",
+    check('9-28', "P'Q'R' ~ PQR (all three sides at scale 0.62)",
           max(rel(dist(a, b) / dist(c, d), k28) for (a, b), (c, d) in
               (((Pp, Qp), (P, Q)), ((Qp, Rp), (Q, R)), ((Rp, Pp), (R, P)))))
     check('9-28', "PQ/PS = P'Q'/P'S'",
@@ -426,13 +466,19 @@ def build(check):
           rel(dist(R47, Q47), dist(A, B)))
 
     # ------------------------------------------------------------ Fig 9-48
-    Bq, Dq = (-0.984, -0.689), (0.984, 0.689)
-    Aq, Cq = (-0.287, 0.410), (0.287, -0.410)
+    # SCHEMATIC by Caleb's decision of 2026-08-17: the figure must NOT be drawn
+    # at the exercise's own BD : AD = 24 : 13, which gives the answer away.  The
+    # three STATED hypotheses still hold exactly, and they force a rhombus.
+    Bq, Dq = (-0.732, -0.369), (0.732, 0.369)
+    Aq, Cq = (-0.234, 0.464), (0.234, -0.464)
     check('9-48', 'AC perp BD', perp(V(Aq, Cq), V(Bq, Dq)))
     check('9-48', 'AB || CD', par(V(Aq, Bq), V(Cq, Dq)))
     check('9-48', 'BC || AD', par(V(Bq, Cq), V(Aq, Dq)))
-    check('9-48', 'BD : AD = 24 : 13',
-          rel(dist(Bq, Dq) / dist(Aq, Dq), 24 / 13))
+    check('9-48', 'all four sides equal (a rhombus)',
+          max(rel(dist(a, b), dist(Aq, Dq)) for a, b in
+              ((Aq, Bq), (Bq, Cq), (Cq, Dq), (Dq, Aq))))
+    check('9-48', 'schematic: BD : AC is NOT the given 2.4',
+          0.0 if abs(dist(Bq, Dq) / dist(Aq, Cq) - 2.4) > 0.5 else 1.0)
 
     # ------------------------------------------------------------ Fig 9-49
     O, A, B = (0, 0), (0, 2.10), (2.00, 0)
@@ -440,15 +486,25 @@ def build(check):
     check('9-49', 'OA : OB = 21 : 20', rel(dist(O, A) / dist(O, B), 21 / 20))
 
     # ------------------------------------------------------------ Fig 9-50
+    # 2026-08-17: apex height is the book's 0.50 x AB, not 0.65, so the arcs
+    # cut AB at 31% and 69% (the book's) instead of 18% and 82%.
     A, B = (0, 0), (1.80, 0)
-    C, P = (0.90, 0), (0.90, 1.17)
-    r = 1.4763
+    C, P = (0.90, 0), (0.90, 0.90)
+    r = 1.27279
     check('9-50', 'C is the midpoint of AB', rel(dist(A, C), dist(C, B)))
     check('9-50', 'PC perp AB', perp(V(P, C), V(A, B)))
     check('9-50', 'PA = r', rel(dist(P, A), r))
     check('9-50', 'PB = r', rel(dist(P, B), r))
     check('9-50', 'PC = sqrt(r^2 - (AB/2)^2)',
           rel(dist(P, C), math.sqrt(r * r - (dist(A, B) / 2) ** 2)))
+    check('9-50', 'apex height = 0.50 AB (the book)',
+          rel(dist(P, C) / dist(A, B), 0.50))
+    # the arcs are struck from -57 to +57 deg; they meet at +-45, so each
+    # overshoots by 12 deg and the two crosses of the construction appear.
+    check('9-50', 'arcs meet at +-45 deg',
+          abs(math.degrees(math.atan2(P[1] - A[1], P[0] - A[0])) - 45.0) / 45.0)
+    check('9-50', 'arcs overshoot past both intersections',
+          0.0 if 57.0 > 45.0 else 1.0)
 
     # ------------------------------------------------------------ Fig 9-51
     R51 = 1.40
@@ -488,8 +544,12 @@ def build(check):
     check('9-53', 'AP = 30', rel(dist(A, P), 30))
 
     # ------------------------------------------------- Fig 9-54 (Menelaus)
-    A, B = (0, 0), (1.68, 2.82)
-    C, F = (3.18, 0), (4.985, 0)
+    # 2026-08-17: rebuilt to the book's flat, wide triangle -- apex 39% along
+    # the base and 0.67 of it high, base rising slightly to the right.  At the
+    # old shape the dashed AX ran within 5 deg of side AB.
+    A, B = (0, 0), (1.24, 2.21)
+    C = (3.18, 0.20)
+    F = lerp(A, C, 1.70)
     D = lerp(A, B, 2 / 3)
     E = inter(D, F, B, C)
     X, Y, Z = foot(D, F, A), foot(D, F, B), foot(D, F, C)
@@ -500,10 +560,34 @@ def build(check):
     check('9-54', 'AD/DB . BE/EC . CF/FA = 1',
           rel(dist(A, D) / dist(D, B) * dist(B, E) / dist(E, C)
               * dist(C, F) / dist(F, A), 1))
+    # the point of the reshape: AX must be plainly distinguishable from AB
+    angAX = math.degrees(math.atan2(X[1] - A[1], X[0] - A[0]))
+    angAB = math.degrees(math.atan2(B[1] - A[1], B[0] - A[0]))
+    check('9-54', 'dashed AX clears side AB by more than 10 deg',
+          0.0 if abs(angAX - angAB) > 10.0 else 1.0)
 
     # ------------------------------------------- Fig 9-55 (two altitudes)
-    A, B, C = (0, 0), (3.43, 0), (2.05, 2.92)
+    # 2026-08-17: flattened from 0.85 to the book's 0.72, and both right-angle
+    # squares are now struck at a FIXED 0.17 units a side.  E's used to be
+    # 0.16 of |EA| and |EB| -- sides four times longer than D's -- so it
+    # printed much the larger of the two and hung into the triangle.
+    A, B, C = (0, 0), (3.43, 0), (2.05, 2.46)
     D = foot(A, B, C)
     E = foot(A, C, B)
     check('9-55', 'CD perp AB', perp(V(C, D), V(A, B)))
     check('9-55', 'BE perp AC', perp(V(B, E), V(A, C)))
+    check('9-55', 'D is where the drawing puts it', dist(D, (2.05, 0)))
+    check('9-55', 'E is where the drawing puts it',
+          dist(E, (1.40575, 1.68689)))
+    sq_d = [(1.88, 0), (1.88, 0.17), (2.05, 0.17)]
+    sq_e = [(1.51458, 1.81749), (1.64518, 1.70866), (1.53635, 1.57806)]
+    check('9-55', 'right-angle square at D is 0.17 a side',
+          max(rel(dist(sq_d[i], sq_d[i + 1]), 0.17) for i in range(2)))
+    check('9-55', 'right-angle square at E is the SAME 0.17 a side',
+          max(rel(dist(sq_e[i], sq_e[i + 1]), 0.17) for i in range(2)))
+    check('9-55', 'square at E sits square on EC', perp(
+        V(sq_e[0], sq_e[1]), V(sq_e[1], sq_e[2])))
+    check('9-55', 'square at E is aligned with EC',
+          par(V(E, sq_e[0]), V(E, C)))
+    check('9-55', 'square at E is aligned with EB',
+          par(V(E, sq_e[2]), V(E, B)))
