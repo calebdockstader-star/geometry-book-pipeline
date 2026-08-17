@@ -550,8 +550,26 @@ def build(check):
     check('6-107', 'AB || DC', par(V(A, B), V(D, C)))
     A, C, D = P('6-108', 'A', 'C', 'D')
     check('6-108', 'D is the midpoint of AC', rel(dist(A, D), dist(D, C)))
-    C, D, B = P('6-110', 'C', 'D', 'B')
+
+    # Fig 6-109, Exercise 7: AB perp BD, DE perp BD, BC = CD.  The two short
+    # closing sides carry the whole exercise, so their perpendicularity is
+    # asserted here as well as drawn.
+    A, B, C, D, E = P('6-109', 'A', 'B', 'C', 'D', 'E')
+    check('6-109', 'AB perp BD', perp(V(A, B), V(B, D)))
+    check('6-109', 'DE perp BD', perp(V(D, E), V(B, D)))
+    check('6-109', 'C lies on BD', on_seg(B, D, C))
+    check('6-109', 'C lies on AE', on_seg(A, E, C))
+    check('6-109', 'BC = CD', rel(dist(B, C), dist(C, D)))
+
+    # Fig 6-110, Exercise 8: AB perp DC, BE = BC, E on AB.
+    # The right angle at B is marked twice in the book; a mark asserted in the
+    # drawing but not here is exactly how the old plate drifted to 66 degrees.
+    A, B, C, D, E = P('6-110', 'A', 'B', 'C', 'D', 'E')
     check('6-110', 'B lies on DC', on_seg(D, C, B))
+    check('6-110', 'AB perp DC', perp(V(A, B), V(D, C)))
+    check('6-110', 'E lies on AB', on_seg(A, B, E))
+    check('6-110', 'E between A and B',
+          0.0 if 0.0 < dist(A, E) / dist(A, B) < 1.0 else 1.0)
 
     # ------------------------------------------------------------- Fig 6-111
     A, B, C, D = P('6-111', 'A', 'B', 'C', 'D')

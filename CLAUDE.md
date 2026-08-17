@@ -50,8 +50,28 @@ settled at the project level.
   `\addcontentsline{toc}{section}{N--M\quad Title}` — the assembled book's
   `\tableofcontents` depends on these.
 - Halftone photographs (chapter-opener plates, the Aristotle plate, the
-  Euclid frontispiece) are PLATES: insert a framed placeholder note with the
-  original caption, list in UNCERTAIN.md, never attempt to redraw.
+  Euclid frontispiece) are PLATES: never redraw them. Since 2026-08-17 they
+  carry the real image, cropped from the scans into `plates/` — the framed
+  placeholder is the fallback, not the goal.
+
+## Figure conventions added in the 2026-08-17 review pass
+- **Point dots**: `\dt{A}`, never `\fill (A) circle (Npt)`. A path-drawn dot
+  is scaled by the picture's `scale=`, so dots in a `scale=0.62` figure came
+  out at 0.93pt; `\dt` places a node, whose size ignores the transform.
+- **Figure size**: don't hand-tune `scale=` for size. `tools/measure_figures.py`
+  measures every figure's real ink extent with Ghostscript and fits it to the
+  measure (`--apply` grows once, capped; `--fit` only shrinks what overflows).
+  It rewrites every chapter, so run it from the integration seat, never from a
+  chapter agent.
+- **Exercise figures go inline**: `\exfig{\FIG...}` immediately after the
+  `\item` that cites the figure, and figure-bearing exercise groups are set
+  single-column. Batching figures after `\end{multicols}` is the thing this
+  pass existed to undo.
+- **Stroke weight is uniform** (`fig` 0.9pt, `key` 1.0pt): the book draws at
+  one weight, so never use a heavy stroke to mean "this line matters".
+- `tools/contact_sheet.py <pdf> <first> <last>` tiles pages for the visual
+  sweep; `tools/build_index.py` re-keys the book's index to our pagination by
+  locating each entry's words inside the chapter its original page pointed to.
 
 ## Source policy (Caleb's rules)
 1. Text: photo PDF. Fall back to scans only where the photo is illegible.

@@ -21,7 +21,16 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CH = os.path.join(ROOT, 'chapters')
 
-UNITS = (['frontmatter'] + [f'ch{n:02d}' for n in range(1, 17)] + ['appendix'])
+# Back matter added 2026-08-17 on Caleb's answers to OPEN-QUESTIONS: an errata
+# list (policy 1.1(b) -- reproduce the 1960 slips, but tell the reader) and the
+# book's own index, re-keyed to this edition's pagination (policy 1.4).  Either
+# is skipped if its file is not on disk yet, so the book still assembles while
+# the back matter is being built.
+UNITS = ([u for u in ['frontmatter'] + [f'ch{n:02d}' for n in range(1, 17)]
+          + ['appendix', 'errata', 'bookindex']
+          if os.path.exists(os.path.join(
+              os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+              'chapters', u + '.tex'))])
 
 MARK_A = '% ---- local macros (hoist into book preamble) ----'
 MARK_B = '% ---- end local macros ----'

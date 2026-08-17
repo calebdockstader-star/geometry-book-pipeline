@@ -1,0 +1,151 @@
+\documentclass[11pt]{book}
+\usepackage[paperwidth=145mm,paperheight=200mm,top=18mm,bottom=20mm,inner=20mm,outer=16mm]{geometry}
+\usepackage{brumfiel}
+
+% errata.tex -- back-matter list of the 1960 printing's own slips.
+%
+% Editorial policy (OPEN-QUESTIONS 1.1).  The standing rule for this
+% restoration is FAITHFUL TRANSCRIPTION: every slip the compositor made in
+% 1960 is set here exactly as the book sets it, with a source comment at its
+% site in the tex so no later pass "corrects" it silently.  This appendix is
+% the other half of that policy -- it keeps the text faithful while still
+% telling a reader who hits a wrong figure reference what the book meant.
+%
+% Two entries are exceptions, corrected in the text because the transcription
+% would otherwise contradict itself on the page; both are called out below.
+%
+% Every entry was confirmed at 300-450 dpi, most of them twice (teacher's
+% photo PDF + Caleb's iPad scan of his own copy).  Entries are keyed to the
+% chapter and section, theorem or exercise rather than to a page, since this
+% edition is re-typeset and its pagination differs from the original's; the
+% original book page is given in parentheses for anyone reading alongside a
+% physical copy.
+
+% ---- local macros (hoist into book preamble) ----
+\newlist{erratalist}{description}{1}
+\setlist[erratalist]{style=nextline, leftmargin=1.4em, labelsep=0.4em,
+                     itemsep=4pt, topsep=4pt, parsep=0pt,
+                     font=\normalfont\bfseries\small}
+% "reads X / meant Y" pair, set compactly under an entry head
+\newcommand{\ERprints}[1]{\emph{Prints:} #1}
+\newcommand{\ERmeans}[1]{\emph{Read:} #1}
+% ---- end local macros ----
+
+\begin{document}
+\setcounter{chapter}{18}
+
+\chapter*{\raggedleft\Huge ERRATA}
+\addcontentsline{toc}{chapter}{Errata in the 1960 printing}
+\markboth{ERRATA IN THE 1960 PRINTING}{}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{1em}
+
+The text of this edition follows the 1960 printing exactly, including the
+places where that printing is itself in error. This list gathers those
+places, so that a reader who is sent to the wrong figure, or who meets a
+theorem whose statement does not say what its proof needs, can see at once
+that the fault is the book's and not the argument's. Page numbers in
+parentheses are the original book's.
+
+Two of the entries below are the only ones corrected in the text rather than
+reproduced, because in each case the surrounding prose as transcribed would
+visibly contradict the page: they are marked \textsc{corrected}.
+
+\begin{erratalist}
+
+\item[Chapter 2 \quad Logic]
+\ERprints{Exercise Group 2--12, No.~10 refers to opposite \emph{lines} of the
+line $l$ (p.~33).}\\
+\ERmeans{opposite \emph{sides}.} The introduction to the same exercise group
+also misspells ``equivalence''; that spelling is normalised here.\\
+Section 2--8 (p.~35) repeats a clause of the form ``if both of these
+statements are true'' twice over --- a compositor's duplication.
+
+\item[Chapter 4 \quad Congruence of segments]
+\ERprints{``in \emph{the} Section 4--2'' (p.~64).}\\
+\ERmeans{``in Section 4--2''.}
+
+\item[Chapter 5 \quad Measurement of segments]
+Theorem 5--4 (p.~95) leaves its third length without the overbar carried by
+the first two. The book's use of the segment overbar is erratic throughout,
+and is reproduced as printed everywhere; this is simply the most visible
+instance.
+
+\item[Chapter 6 \quad Congruence of angles and triangles]
+A stray comma stands between ``segments'' and ``are either congruent''
+(p.~119). Several sites in this chapter also mix $=$ and $\cong$; that
+mixing is the book's own and is reproduced.\\
+The self-congruence $\tri{ABE} \cong \tri{ABE}$ on p.~184 is \emph{not} an
+error --- it is a genuine dissection argument in the Greek style, and must
+not be ``fixed''.
+
+\item[Chapter 7 \quad Use of the congruence theorems]
+\ERprints{Construction 7--3 (p.~126) states $ABC \cong A\text{\textup{'}}B\text{\textup{'}}C\text{\textup{'}}$
+without the triangle sign on the first name.}\\
+\ERmeans{$\tri{ABC} \cong \tri{A'B'C'}$.}\\
+Exercise Group 7--8, No.~8 (p.~130) refers to the sides of $A$ where it means
+the sides of $\ang{A}$.
+
+\item[Chapter 8 \quad Parallel lines]
+\ERprints{The second proof (p.~135) refers the reader to Fig.~8--2.}\\
+\ERmeans{Fig.~8--3, which is where angles 1 and 2 are drawn.}\\
+\textsc{corrected}: the cross-reference to ``Exercise Group 8--1'' (p.~147)
+is set here as \textbf{8--11}. It is a navigation label, and following the
+misprint would send a reader to a group twenty pages earlier.
+
+\item[Chapter 9 \quad Similarity of triangles and polygons]
+Exercise 9--33 pairs $D$ and $E$ the opposite way round from the exercise
+that sets it up; reproduced as printed.
+
+\item[Chapter 10 \quad Area]
+\ERprints{A reference to Fig.~9--2 (p.~180).}\\
+\ERmeans{Fig.~10--2.} A transcriber's footnote marks this site in the text.
+
+\item[Chapter 11 \quad Circles and regular polygons]
+\ERprints{Exercise Group 11--5, No.~7 twice names the centre of the inscribed
+\emph{polygon} (p.~197).}\\
+\ERmeans{the inscribed \emph{circle}, in both places.}\\
+Shanks's computation of $\pi$ is dated to the seventeenth century (p.~204);
+it was completed in 1873. The heading ``Remark. 2.'' (p.~205) is normalised
+here to ``Remark 2.''
+
+\item[Chapter 13 \quad Loci and sets]
+Definition 13--2 (p.~231) defines the union as all points of $S_1$
+\emph{and} $S_2$ where it means \emph{or}; the loose phrasing is the book's.\\
+Theorem 13--7 (p.~233) names its three parallelograms in inconsistent cyclic
+order.\\
+Review Exercise 3 (p.~235) bars the second and third $AB$ but not the first.
+
+\item[Chapter 14 \quad Space geometry]
+\ERprints{Theorem 14--12 (p.~242) writes the ratio with $A'B$ in the
+denominator.}\\
+\ERmeans{$A'B'$ --- a prime is missing.}\\
+Definition 14--6 (p.~244) names the polygon's last vertex $P_{n-1}$ where it
+means $P_n$.\\
+The hint to Theorem 14--13 (p.~244) names $\ang{CAV} \cong \ang{BAV}$, both
+angles at $A$, where the argument needs the angles at $V$.
+
+\item[Chapter 15 \quad Analytic geometry]
+\textsc{corrected}: in Fig.~15--14 (pp.~253\,ff.) the book labels $P_2$ with
+the same coordinates as $Q$. It is set here as $(x_2, y_2)$, because the
+transcribed prose alongside it refers to $y_2$ explicitly and the figure as
+printed contradicts it.\\
+Exercise 15--11, No.~1 (p.~262) gives three vertices that do not form a right
+triangle. No single-digit change reconstructs one, so this is a genuine error
+in the problem rather than a typesetting slip; it is left as printed.\\
+Ex.~15--7, No.~16 (p.~257) is \emph{not} an error: the second point reads
+$(-5, -7)$, confirmed against the physical copy.
+
+\item[Chapter 16 \quad Philosophy of mathematics]
+Berkeley is placed in the seventeenth century (p.~268); he belongs to the
+eighteenth. The perturbations of Uranus are dated early in the eighteenth
+century (p.~270); the work was done in the 1840s. A footnote on p.~268 names
+Baltimore twice in one imprint.
+
+\end{erratalist}
+
+\vspace{1em}
+\noindent\emph{Note on footnote marks.} From p.~259 the book's footnotes fall
+back to \dag\ because the asterisk is already committed to marking optional
+starred material. That is by design, and is preserved.
+
+\end{document}
