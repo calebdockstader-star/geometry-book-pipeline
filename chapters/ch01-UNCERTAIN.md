@@ -412,3 +412,102 @@ that every drawn arc actually reaches the crossing it is drawn for.
 - Figs 1-6, 1-16, 1-17 angles are within a few degrees of the book but were
   read off a photographed page with visible page curvature; treat the exact
   degree values as approximate.
+
+---
+
+## Figure-repair pass, 2026-08-17 (feedback/FIX-SPEC.md)
+
+Caleb photographed no Chapter 1 figures, so this pass is the structural fix
+(§2) plus a full sweep of the chapter against `sources/Geometry.pdf`
+(book pp. 7–19 = PDF pp. 21–33).
+
+### Exercise-group figures are now inline (§2)
+
+All **28** chapter figures now sit immediately after the exercise that cites
+them, wrapped in `\exfig{…}` inside the list. This matches the source pages
+exactly — I checked each one and the book does place every exercise figure
+directly beneath its own exercise, never batched at the end of a group.
+
+* `multicols` dropped from **Exercise Groups 1-3 and 1-4** (both carry
+  figures). Groups 1-1 and 1-2 carry none and keep their two columns.
+* Each group is now a **single continuous `exlist`**; the old
+  `\setcounter{exlisti}{N}` restarts that existed only to let figure blocks
+  interrupt the list are gone. Numbering verified unchanged: group 1-3 runs
+  1–24, group 1-4 runs 1–17.
+* **9 combined macros split into 18** (each now a full-width `bkfigure` with
+  its own `\figcap`, `minipage`/`\hfill` scaffolding dropped, `scale=` raised
+  ×1.45 for the freed width):
+  `\FIGIFIVESIX`, `\FIGISEVENEIGHT`, `\FIGININETEN`, `\FIGITWELVETHIRTEEN`,
+  `\FIGIFIFTEENSIXTEEN`, `\FIGISEVENTEENEIGHTEEN`, `\FIGININETEENTWENTY`,
+  `\FIGITWENTYONETWENTYTWO`, `\FIGITWENTYSIXTWENTYSEVEN`.
+* Exercise 1-4 #6 cites Figs 1-16 **and** 1-17, and #15 cites 1-26 **and**
+  1-27; the book prints each of those as its own captioned unit, so they are
+  emitted as two consecutive `\exfig` calls rather than kept combined.
+
+### Figures corrected against the source
+
+* **Fig 1-1 — triangle was the wrong shape.** The panel had a standard
+  upward triangle; the book draws one pointing *left* (vertex at mid height on
+  the left, apex up-and-right, third vertex at the bottom right). Redrawn to
+  the printed proportions and made about as tall as the square beside it.
+* **Fig 1-2 — cube and box: hidden-line dashing was wrong.** Three edges meet
+  at the occluded back-bottom-left vertex and the book dashes all three; the
+  redraw had the back-bottom edge solid. Now dashed in both solids.
+* **Fig 1-2 — torus was the wrong shape.** The hole was 0.49 of the outer
+  radius against the book's ~0.63, so the ring read far too fat; and the tube
+  cross-section was one wide flat arc straight across the hole instead of a
+  small circle straddling the inner rim. Both redrawn, far half dashed.
+* **Fig 1-12 — spurious construction ink removed.** The book strikes only the
+  two compass arcs and lets them cross of their own accord at the apex and run
+  on through the far base vertex. The redraw added a hand-drawn cross at the
+  apex and a tick at each base vertex on top of the arcs. Removed; the arcs now
+  carry the crossings themselves, and are struck lighter (0.55 pt) than the
+  triangle, as the book prints them.
+* **Figs 1-13, 1-15, 1-21 — construction arcs re-weighted** to 0.55 pt. The
+  book consistently draws compass work lighter than the figure proper; at a
+  single 0.9 pt weight the arcs competed with the rays.
+* **Fig 1-7 — legend detached from what it labels.** The 90° legend sat out in
+  the middle of the triangle; the book sets it immediately above the
+  right-angle box. Moved (position measured off the printed figure).
+* **Label clearance, 7 collisions cleared** (all "letter sitting on its own
+  dot", a consequence of the global `outer sep` tightening): Fig 1-1 A/B/O,
+  Fig 1-8 A, Fig 1-10 A/B, Fig 1-21 P (which sat on the compass cross).
+
+### Verified correct, left alone
+
+Figs 1-3, 1-4, 1-5, 1-6, 1-8 through 1-11, 1-14, 1-16 through 1-20, 1-22,
+1-24 through 1-28 were each compared against the source page and are
+structurally faithful — including the alternate-interior angle numbering in
+1-26/1-27, the dashed medians/altitudes/bisectors of 1-22/1-24/1-25, and the
+three non-adjacent pairs of 1-17. **Fig 1-23 (the balanced triangle on a
+fingertip) was not touched** — it is pictorial line art being handled centrally
+as a scan crop; its placeholder is intact and now sits inline after
+Exercise 1-4 #12.
+
+### Gates
+
+* `tectonic` — compiles twice clean, 35 pp.
+* `python3 tools/verify_figures.py 1` — **122/122 constraints hold**
+  (three new groups added: the Fig 1-1 triangle shape, the Fig 1-2 hidden-edge
+  audit and torus proportions, the Fig 1-7 legend placement).
+* `python3 tools/check_labels.py chapters/figures01.tex 1` — **0 collisions**,
+  9 tight placements.
+* Every changed page rasterised at 100–330 dpi and inspected.
+
+### Open / unsettled
+
+* **The chapter is now 35 pp against the book's 20.** Dropping `multicols`
+  from the two figure-bearing exercise groups and enlarging the split figures
+  ×1.45 is exactly what the spec asks for, but it roughly doubles the length of
+  §§1-5 and 1-6, and a tall `\exfig` that will not fit in the remaining space
+  drags its exercise onto the next page, leaving visible holes. The standalone
+  chapter build uses `\flushbottom`, which exaggerates this; the assembled book
+  applies `\raggedbottom`. **The integration pass should re-fit this chapter
+  and check the page breaks around Figs 1-7, 1-19, 1-20 and 1-24.**
+* **One overfull hbox (10.8 pt) in Exercise 1-3 #23**, from an unbreakable
+  degrees-minutes-seconds group at a bad break point. The text is signed off so
+  I did not touch it; it needs either a discretionary or a re-fit at
+  integration.
+* Figs 1-25 and 1-28 were *not* split, so they keep their old
+  `bkfigure[0.52\linewidth]` and now read noticeably smaller than their split
+  neighbours. Left for the book-wide re-fit rather than hand-tuned here.

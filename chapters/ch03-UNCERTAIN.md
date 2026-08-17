@@ -311,3 +311,105 @@ the photo PDF (pp. 57–76) and the key ones against `scans/scan04.pdf`.
 - **Fig 3-2 wobble is traced, not derived.** The eight-point spline paths carry
   the printed hand-wobble as digitized; they are faithful in amplitude but are
   not a pixel-exact recovery of the plate.
+
+---
+
+## Figure-repair pass, 2026-08-17 (feedback/FIX-SPEC.md)
+
+Caleb photographed no Chapter 3 figures, so this pass is the structural fix
+(§2) plus a full sweep of the chapter against `sources/Geometry.pdf`
+(book pp. 44–59 = PDF pp. 58–73).
+
+### Exercise-group figures are now inline (§2)
+
+All **7** exercise figures now sit immediately after the exercise that cites
+them, wrapped in `\exfig{…}`. Checked against the source pages: the book does
+place each of these directly beneath its own exercise.
+
+* `multicols` dropped from **Exercise Groups 3-1, 3-2 and 3-6** (the three that
+  carry figures). Groups 3-4 and 3-5 carry none and keep their two columns.
+* Placement: Fig 3-8 after Ex. 3-1 #3, Fig 3-9 after #8, Fig 3-10 after #12;
+  Fig 3-18 after Ex. 3-2 *15; Fig 3-36 after Ex. 3-6 #1, Fig 3-37 after #7,
+  Fig 3-38 after *12, Fig 3-39 after *13.
+* **1 combined macro split into 2:** `\FIGIIITHIRTYEIGHTTHIRTYNINE` →
+  `\FIGIIITHIRTYEIGHT` + `\FIGIIITHIRTYNINE`, each a full-width `bkfigure`
+  with its own `\figcap`; `scale=` raised 0.675 → 1.15 for the freed width.
+  (Ex. *12 cites 3-38 and *13 cites 3-39, so they had to come apart.)
+* Group 3-2's `steps` table splits its list into three blocks; all three lost
+  `multicols` so the group reads as one column throughout. Exercise numbering
+  verified unchanged (1–6, 7, 8–18).
+* `\FIGIIITWENTYTWOTWENTYTHREE` was **left combined**. Fig 3-23 is cited by
+  *Exercise 3-3*, which is a single unnumbered paragraph rather than a list, and
+  the book itself prints 3-22 and 3-23 side by side immediately above it — so
+  the existing placement already matches the source. Fig 3-33 is cited by
+  Ex. 3-6 *14 but is a body figure printed earlier in the book (rule 5),
+  so it stayed put.
+
+### Figures corrected against the source
+
+* **Fig 3-19 — wrong shape.** The two spans over the line were drawn as
+  squared-off brackets; the book sets proper **curly braces**, each end curling
+  down toward *l* and each middle carrying a point up toward its caption. Added
+  a chapter-scoped `\IIIbrace` helper (pure Bézier, no new tikz library, so it
+  cannot clash with another chapter's figure file) and raised the two captions
+  to clear the new tips.
+* **Fig 3-32 — missing arrowheads.** The two arcs marking ∠(r₁,r) and ∠(r,r₂)
+  were plain; in the book each is struck outward from *r* and lands on its ray
+  with an arrowhead — the same "indicating the sides" notation the book itself
+  introduces in Fig 3-25(a). Both arcs now run outward and carry `->`.
+* **Fig 3-7 — label on a line.** *B* was set `below right`, which put it
+  straight on the two tails that run past the crossing. Moved into the free
+  wedge below.
+* **Fig 3-24 — label on a ray.** The *O* of drawing (ii) was grazing the
+  down-left ray. Pushed further left.
+* **Label clearance, 30 collisions cleared.** All but two were the same defect
+  — a letter set directly on its own `\dt` point, which the global `outer sep`
+  tightening turned into a touch. Cleared with a 1.5 pt shift away from the dot
+  in Figs 3-1, 3-2, 3-3, 3-9, 3-10, 3-11, 3-12, 3-13, 3-14, 3-16, 3-22, 3-24,
+  3-31, 3-33 and 3-39, plus the two placement fixes above.
+
+### Verified correct, left alone
+
+Figs 3-5, 3-6, 3-8, 3-9, 3-10, 3-17, 3-18, 3-20, 3-21, 3-22, 3-23, 3-25, 3-26,
+3-27, 3-28, 3-29, 3-30, 3-31, 3-33, 3-34, 3-35, 3-36, 3-37, 3-38, 3-39 were
+each compared against the source page and are structurally faithful. In
+particular the angle arcs of 3-25(a)(b)(c), 3-26 (four arcs, numerals 1–4),
+3-27 (three drawings, two arcs each), 3-28 and 3-37 are all present and land on
+their own rays; the dashed opposite rays of 3-30/3-37/3-38/3-39 and the solid
+ones of 3-31 match the book; the double-hatched wedge of 3-29 is correct.
+**Fig 3-15 (the three men on a sight line) was not touched** — pictorial line
+art handled centrally; its placeholder is intact and still in the body text.
+
+The brief mentions one organic/freehand figure early in ch02 or ch03: in this
+chapter it is the **Fig 3-1 / 3-2 pair**, whose six lines and hand-wobble were
+already digitized from `scans/scan04.pdf` p4 in the first build (noted above in
+this file). I re-checked it against the photo page and left the geometry alone.
+
+### Gates
+
+* `tectonic` — compiles twice clean, 32 pp.
+* `python3 tools/verify_figures.py 3` — **195/195 constraints hold** (a new
+  group added for the Fig 3-19 braces: tip at the span's own midpoint, each
+  brace clear of *O*, the two not overlapping).
+* `python3 tools/check_labels.py chapters/figures03.tex 3` — **0 collisions**,
+  40 tight placements.
+* Every changed page rasterised at 70–600 dpi and inspected.
+
+### Open / unsettled
+
+* **40 tight placements**, up from 19. The 1.5 pt shifts used to clear the
+  dot-collisions land most of those letters in the 0.9–1.2 pt band, which the
+  tool calls tight but legal. Eyeballed at 100 dpi and again at 600 dpi on
+  Figs 3-13, 3-14, 3-19, 3-32, 3-33, 3-38, 3-39; all read cleanly, and they are
+  tight in the direction Caleb asked for (letters close to what they label).
+  Flagging the count because it is a large jump.
+* **Fig 3-26 label *O*.** Still parked outside the ring of arcs, where the book
+  sets it just inside, below the crossing. The global clearance change was not
+  enough to fit it there at this type size. Unchanged from the earlier note in
+  this file; would need the figure grown rather than the label moved.
+* **Two small overfull hboxes (2.2 pt, 3.2–3.9 pt) on the figure lines for
+  3-1/3-2 and 3-3/3-4/3-5** — pre-existing, in body figures I did not touch;
+  worth catching in the book-wide re-fit.
+* Figs 3-8, 3-9, 3-10, 3-18, 3-36 and 3-37 were already standalone macros, so
+  per §5 I left their `scale=` alone; they now read smaller than the split
+  3-38/3-39 beside them. Left for the book-wide re-fit.

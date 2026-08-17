@@ -269,6 +269,17 @@ def build(check):
           0.0 if 0.35 < 1.40 < 2.45 else 1.0)
     check('3-19', 'Other-side caption over its brace',
           0.0 if 2.65 < 3.80 < 4.95 else 1.0)
+    # The spans are curly braces (\IIIbrace{left}{mid}{right}{base}), not the
+    # squared brackets of the first draft: each one must point up at its own
+    # midpoint, and the two must meet over O without overlapping it.
+    for nm, (bl, bm, br) in (('One side', (0.35, 1.40, 2.45)),
+                             ('Other side', (2.65, 3.80, 4.95))):
+        check('3-19', f'{nm} brace tip is at its own midpoint',
+              abs(bm - (bl + br) / 2.0))
+        check('3-19', f'{nm} brace clears the point O',
+              0.0 if (br < O19[0] or bl > O19[0]) else 1.0)
+    check('3-19', 'the two braces do not overlap',
+          max(0.0, 2.45 - 2.65))
 
     # 3-20: proof of Thm 3-3 -- m is the line through O and a point A not on l.
     la20, lb20 = (0.0, 0.55), (4.35, 0.55)

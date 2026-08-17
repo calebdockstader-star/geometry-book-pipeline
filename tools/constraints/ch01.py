@@ -116,6 +116,17 @@ def build(check):
     check('1-2', 'sphere equator concentric',
           dist((0.85, 0.85), (0.85, 0.85)))
     check('1-2', 'cone apex over base centre', abs(0.78 - 0.78))
+    # torus: a THIN ring (hole ~0.63 of the outer radius) whose tube
+    # cross-section straddles the inner rim on the left
+    Rout, Rin = 0.82, 0.52
+    check('1-2', 'torus hole is about 0.63 of the outer radius',
+          max(0.0, abs(Rin / Rout - 0.63) - 0.03))
+    rim_left = (1.12 - Rin, 0.92)
+    xsec_c, xsec_rx = (0.60, 0.92), 0.15
+    check('1-2', 'tube cross-section is centred on the inner rim',
+          dist(xsec_c, rim_left))
+    check('1-2', 'tube cross-section straddles the rim',
+          max(0.0, abs(xsec_c[0] - rim_left[0]) - xsec_rx))
     # prism: the top face is the bottom face translated straight up, so all
     # three lateral edges are vertical and of equal length
     for up, dn in (((0, 1.732), (0, 0.426)), ((1.205, 1.656), (1.205, 0.350)),

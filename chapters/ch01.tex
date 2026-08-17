@@ -7,16 +7,14 @@
 % Halftone plates: the book prints full-page photographs facing several pages of
 % this chapter. They are reproduced as framed placeholders carrying the original
 % caption; see ch01-UNCERTAIN.md.
-\newcommand{\Iplate}[2]{%
+% Carry the real halftone since 2026-08-17 (Caleb: "I WANT THE ACTUAL HALFTONE
+% PICTURES IN THERE"), cut from scan01 pp.19-20 -- see plates/MANIFEST.md.
+%   #1 = image file in plates/, #2 = title, #3 = caption
+\newcommand{\Iplate}[3]{%
   \par\medskip
   \begin{center}
-  \fbox{\begin{minipage}[c][0.42\textheight][c]{0.78\linewidth}\centering
-    \footnotesize\itshape [halftone photograph --- plate not reproduced]
-    \par\vspace{1.2em}
-    \normalfont\textsc{#1}\par
-    \smallskip
-    {\footnotesize #2}
-  \end{minipage}}
+  \includegraphics[height=64mm]{#1}\par\smallskip
+  {\normalfont\textsc{#2}\par\smallskip\footnotesize #3}
   \end{center}
   \par\medskip}
 % ---- end local macros ----
@@ -117,9 +115,9 @@ followers. All ideas were communal property of the brotherhood. Besides the
 Pythagorean theorem concerning right triangles, he (or his school) made notable
 discoveries in music, astronomy, and arithmetic.
 
-\Iplate{Pythagoras}{From a fresco by Raphael.\\ Courtesy of \emph{Scripta Mathematica}.}
+\Iplate{plate-pythagoras}{Pythagoras}{From a fresco by Raphael.\\ Courtesy of \emph{Scripta Mathematica}.}
 
-\Iplate{The Death of Archimedes}{From a mosaic found in the ancient city of
+\Iplate{plate-archimedes}{The Death of Archimedes}{From a mosaic found in the ancient city of
 Pompeii.\\ Courtesy of \emph{Scripta Mathematica}.}
 
 \setcounter{footnote}{0}
@@ -375,7 +373,8 @@ compass, and protractor. However, throughout this course your best tool will be
 your ability to think straight.
 
 \exercisegroup{1--3}
-\begin{multicols}{2}
+% multicols dropped for this group: it carries figures, and the book sets each
+% one immediately after the exercise that cites it, at the full measure.
 \begin{exlist}
 \item Draw a picture of a line, using your straightedge. Now if you sharpened
       your pencil \emph{very} sharp, could you draw a picture of a line inside the
@@ -392,27 +391,23 @@ your ability to think straight.
       we call the \emph{angle} consists of the points on the two rays. The points
       between the rays form the \emph{interior} of the angle. The other points of
       the plane form the \emph{exterior} of the angle. (Fig.~1--4.)
+\exfig{\FIGIFOUR}
 \item A \emph{right angle} has a measure of $90^\circ$. Construct a right angle
       with your protractor.
-\end{exlist}
-\end{multicols}
-
-\FIGIFOUR
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{6}
 \item Draw an angle of $37^\circ$, of $120^\circ$, of $85^\circ$.
 \item An angle is \emph{bisected} if a ray from the vertex splits the angle into
       two angles of the same size. In Fig.~1--5, the ray $AC$ bisects
       $\ang{BAD}$ because $\ang{CAB}$ and $\ang{DAC}$ are the same size. The ray
       $AC$ is the bisector of the angle. Draw an angle of $45^\circ$ and bisect
       it, using your protractor.
+\exfig{\FIGIFIVE}
 \item Draw a picture of a triangle. Measure each of the angles of the triangle.
       What is their sum? Repeat for several different triangles. Can you guess
       something that is true for all triangles?
 \item As in Fig.~1--6, an \emph{acute angle} is an angle of less than
       $90^\circ$; an \emph{obtuse angle} is an angle of more than $90^\circ$.
       Draw two acute angles and two obtuse angles with your protractor.
+\exfig{\FIGISIX}
 \item Draw a triangle and measure the sides and the angles. Which side is
       opposite the largest angle? opposite the smallest angle? Draw another
       triangle and repeat the measurements. Can you guess something which now
@@ -422,37 +417,24 @@ your ability to think straight.
       angles of the triangle. What is their sum? Draw another right triangle and
       make the same measurements. Is the sum of the two angles the same as
       before?
-\end{exlist}
-\end{multicols}
-
-\FIGIFIVESIX
-
-\FIGISEVENEIGHT
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{12}
+\exfig{\FIGISEVEN}
 \item One angle is said to be \emph{complementary} to another if their sum is
       $90^\circ$. Construct two such angles with your protractor. In Fig.~1--8,
       if $\ang{AOB}$ is a right angle, what can you say about $\ang{COA}$? about
       $\ang{COB}$?
+\exfig{\FIGIEIGHT}
 \item One angle is said to be \emph{supplementary} to another if their sum is
       $180^\circ$. Construct two such angles with your protractor. What can you
       say about $\ang{AOB}$ and about $\ang{BOC}$ in Fig.~1--9?
+\exfig{\FIGININE}
 \item Two distinct rays $OA$ and $OB$ which lie on one straight line form a
       \emph{straight angle} (Fig.~1--10). What is the measure of a straight
       angle?
+\exfig{\FIGITEN}
 \item A \emph{quadrilateral} (Fig.~1--11) is a figure with four sides, just as a
       triangle is a figure with three sides. Draw a picture of a quadrilateral and
       measure its angles. What is their sum?
-\end{exlist}
-\end{multicols}
-
-\FIGININETEN
-
-\FIGIELEVEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{16}
+\exfig{\FIGIELEVEN}
 \item Add the following:
   \begin{enumerate}[label=(\alph*), leftmargin=1.9em, itemsep=1pt, topsep=2pt]
   \item $12^\circ\ 10'\ 25''$, $31^\circ\ 48'\ 30''$, and $43^\circ\ 50'\ 40''$.
@@ -488,7 +470,6 @@ your ability to think straight.
 \item What kind of angle is the supplement of an acute angle? of an obtuse angle?
       Does an obtuse angle have a complement?
 \end{exlist}
-\end{multicols}
 
 %========================================================= 1-6
 \section*{1--6\quad RULER AND COMPASS}
@@ -506,7 +487,8 @@ Greeks knew. Exercise 2, in fact, is the first proposition in Euclid's
 we shall \emph{prove} that some of them are correct.
 
 \exercisegroup{1--4}
-\begin{multicols}{2}
+% multicols dropped for this group: it carries figures, and the book sets each
+% one immediately after the exercise that cites it, at the full measure.
 \begin{exlist}
 \item A triangle having two sides of equal length is called an \emph{isosceles
       triangle}. Draw a picture of an isosceles triangle. Measure the angles
@@ -518,38 +500,27 @@ we shall \emph{prove} that some of them are correct.
       each angle in an equilateral triangle? A triangle with all angles equal is
       called an \emph{equiangular triangle}. Are equilateral triangles
       equiangular? Are equiangular triangles equilateral?
+\exfig{\FIGITWELVE}
 \item Draw an angle like that in Fig.~1--13. Use your compass to copy $\ang{AOB}$
       as $\ang{A'O'B'}$ in the figure. Measure the two angles with your protractor
       to see if they are the same size.
-\end{exlist}
-\end{multicols}
-
-\FIGITWELVETHIRTEEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{3}
+\exfig{\FIGITHIRTEEN}
 \item Draw the figures shown in Fig.~1--14.
+\exfig{\FIGIFOURTEEN}
 \item Use your straightedge and compass to draw and bisect an angle
       (Fig.~1--15). Check your work by measurement with a protractor. State in
       your own words why you think the construction is correct.
+\exfig{\FIGIFIFTEEN}
 \item Angles which have a common vertex and a common side and have no interior
       points in common are said to be \emph{adjacent}. Thus, in Fig.~1--16,
       $\ang{AOB}$ is adjacent to $\ang{BOC}$. Is $\ang{AOC}$ adjacent to
       $\ang{BOC}$? Are the angles in Fig.~1--17 adjacent to one another?
+\exfig{\FIGISIXTEEN}
+\exfig{\FIGISEVENTEEN}
 \item Draw a picture of a segment. From some point $A$ on a line, construct with
       your compass a segment $AB$ as long as the segment you first drew. (See
       Fig.~1--18.)
-\end{exlist}
-\end{multicols}
-
-\FIGIFOURTEEN
-
-\FIGIFIFTEENSIXTEEN
-
-\FIGISEVENTEENEIGHTEEN
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{7}
+\exfig{\FIGIEIGHTEEN}
 \item Two lines are \emph{perpendicular} if they intersect at right angles.
       Another way of defining perpendicular would be to say that all the adjacent
       angles formed by the intersecting lines are the same size. To indicate that
@@ -563,12 +534,15 @@ we shall \emph{prove} that some of them are correct.
       Draw a line segment and construct its perpendicular bisector with
       straightedge and compass. Check by measurement. State why you think the
       construction is correct.
+\exfig{\FIGININETEEN}
 \item Draw a line $l$ and mark a point $O$ on it. With straightedge and compass,
       construct a line $m \perp l$ and passing through $O$. (See Fig.~1--20.)
+\exfig{\FIGITWENTY}
 \item Draw a line $l$ and mark a point $P$ not on the line. With your straightedge
       and compass, construct a line $m$ through $P$ perpendicular to $l$. Check by
       measurement with your protractor. State why you think the construction is
       correct. (See Fig.~1--21.)
+\exfig{\FIGITWENTYONE}
 \item A line segment drawn from a vertex of a triangle to the midpoint of the
       opposite side is called a \emph{median} of the triangle. A triangle has
       three medians that meet in one point $O$ (see Fig.~1--22). We shall prove
@@ -577,36 +551,20 @@ we shall \emph{prove} that some of them are correct.
       Draw a triangle and its medians. Can you describe where the medians
       intersect? Try to find how to describe $O$ by measurement. Make this
       construction for several triangles.
+\exfig{\FIGITWENTYTWO}
 \item Cut a triangle out of cardboard. Find where the medians intersect. If your
       work is accurate you will find that the triangle will balance on your finger
       at the place where the medians intersect (Fig.~1--23).
-\end{exlist}
-\end{multicols}
-
-\FIGININETEENTWENTY
-
-\FIGITWENTYONETWENTYTWO
-
-\FIGITWENTYTHREE
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{12}
+\exfig{\FIGITWENTYTHREE}
 \item An \emph{altitude} of a triangle is a line segment drawn from a vertex
       perpendicular to the line \emph{containing} the opposite side [see
       Fig.~1--24, (a) and (b)]. A triangle has three altitudes. The lines
       containing the altitudes of a triangle always intersect in one point [see
       Fig.~1--24(c)]. Draw several triangles and their altitudes.
+\exfig{\FIGITWENTYFOUR}
 \item Draw a triangle and bisect each of the angles of the triangle. The three
       bisectors will meet in one point (Fig.~1--25).
-\end{exlist}
-\end{multicols}
-
-\FIGITWENTYFOUR
-
-\FIGITWENTYFIVE
-
-\begin{multicols}{2}
-\begin{exlist}\setcounter{exlisti}{14}
+\exfig{\FIGITWENTYFIVE}
 \item Two lines, $l$ and $m$, are said to be \emph{parallel} if they do not
       intersect. We indicate ``$l$ is parallel to $m$'' by writing $l \pll m$.
       (Remember that lines are infinitely long.) If another line $n$ intersects
@@ -621,6 +579,8 @@ we shall \emph{prove} that some of them are correct.
 
       We shall prove later that this construction with straightedge and compass is
       correct.
+\exfig{\FIGITWENTYSIX}
+\exfig{\FIGITWENTYSEVEN}
 \item Draw a line $l$ and mark a point $A$ not on $l$. Construct a line through
       the point $A$ parallel to $l$.
 \item Draw a right triangle (Fig.~1--28). The side opposite the right angle is
@@ -632,12 +592,8 @@ we shall \emph{prove} that some of them are correct.
       Pythagoras in the 6th century B.C. We will prove this important theorem
       later in the book. Test the truth of the Pythagorean theorem by measuring
       several different right triangles.
+\exfig{\FIGITWENTYEIGHT}
 \end{exlist}
-\end{multicols}
-
-\FIGITWENTYSIXTWENTYSEVEN
-
-\FIGITWENTYEIGHT
 
 %========================================================= Review
 \section*{REVIEW OF CHAPTER 1}

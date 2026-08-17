@@ -15,13 +15,14 @@
   % --- row 1
   \draw[given] (0,0) -- (2.0,0);
   \dt{0,0}\dt{2.0,0}
-  \node[vlab, above] at (0,0.02) {$A$};
-  \node[vlab, above] at (2.0,0.02) {$B$};
+  % the book leaves a clear gap between each letter and its dot
+  \node[vlab, above, yshift=2pt] at (0,0.02) {$A$};
+  \node[vlab, above, yshift=2pt] at (2.0,0.02) {$B$};
   \node[below=5pt] at (1.0,-0.05) {Line segment};
 
   \draw[given] (3.3,0) -- (5.3,0);
   \dt{3.3,0}
-  \node[vlab, above] at (3.3,0.02) {$O$};
+  \node[vlab, above, yshift=2pt] at (3.3,0.02) {$O$};
   \node[below=5pt] at (4.3,-0.05) {Ray from $O$};
 
   \draw[given] (6.6,-0.12) -- (8.7,-0.12);
@@ -30,8 +31,11 @@
 
   % --- row 2
   \begin{scope}[yshift=-2.35cm]
-    \draw[given] (0.05,0.22) -- (0.95,1.05) -- (1.95,0) -- cycle;
-    \node[below=5pt] at (1.0,-0.05) {Triangle};
+    % the book's triangle points LEFT: a vertex at mid height on the left, the
+    % apex up and right of it, the third vertex at the bottom right (measured
+    % off the printed figure, 310 x 225 px at 400 dpi)
+    \draw[given] (0.05,0.40) -- (1.24,1.27) -- (1.80,0) -- cycle;
+    \node[below=5pt] at (0.95,-0.05) {Triangle};
 
     \draw[given] (2.85,0) rectangle (4.15,1.3);
     \node[below=5pt] at (3.5,-0.05) {Square};
@@ -73,10 +77,15 @@
 \begin{tikzpicture}[scale=1.019, every node/.style={font=\scriptsize},
                     hid/.style={fig, dashed, dash pattern=on 2pt off 1.6pt}]
   % ---- cube
+  % Three edges meet at the hidden back-bottom-left vertex and ALL THREE are
+  % dashed in the book: the back-bottom edge, the back-left vertical, and the
+  % connector down to the front-bottom-left corner.  The first draft drew the
+  % back-bottom edge solid.
   \begin{scope}
     \def\d{0.42}
     \draw[given] (0,0) rectangle (1.25,1.25);
-    \draw[given] (\d,\d) -- (\d+1.25,\d) -- (\d+1.25,\d+1.25) -- (\d,\d+1.25);
+    \draw[hid]   (\d,\d) -- (\d+1.25,\d);
+    \draw[given] (\d+1.25,\d) -- (\d+1.25,\d+1.25) -- (\d,\d+1.25);
     \draw[hid]   (\d,\d) -- (\d,\d+1.25);
     \draw[given] (0,1.25) -- (\d,\d+1.25);
     \draw[given] (1.25,1.25) -- (\d+1.25,\d+1.25);
@@ -88,7 +97,8 @@
   \begin{scope}[xshift=3.15cm]
     \def\d{0.42}
     \draw[given] (0,0) rectangle (1.95,1.05);
-    \draw[given] (\d,\d) -- (\d+1.95,\d) -- (\d+1.95,\d+1.05) -- (\d,\d+1.05);
+    \draw[hid]   (\d,\d) -- (\d+1.95,\d);
+    \draw[given] (\d+1.95,\d) -- (\d+1.95,\d+1.05) -- (\d,\d+1.05);
     \draw[hid]   (\d,\d) -- (\d,\d+1.05);
     \draw[given] (0,1.05) -- (\d,\d+1.05);
     \draw[given] (1.95,1.05) -- (\d+1.95,\d+1.05);
@@ -157,9 +167,15 @@
   \end{scope}
   % ---- torus
   \begin{scope}[xshift=3.15cm, yshift=-6.2cm]
+    % the book's ring is THIN -- the hole is about 0.63 of the outer radius,
+    % where the first draft drew 0.49 and made the tube look far too fat
     \draw[given] (1.05,0.85) circle (0.82);
-    \draw[given] (1.12,0.92) circle (0.40);
-    \draw[given] (0.72,0.92) arc (180:300:0.40 and 0.16);
+    \draw[given] (1.12,0.92) circle (0.52);
+    % the tube's cross-section straddles the inner rim on the left: near half
+    % solid, far half dashed (the first draft drew one wide flat arc right
+    % across the hole instead)
+    \draw[given] (0.45,0.92) arc (180:360:0.15 and 0.19);
+    \draw[hid]   (0.45,0.92) arc (180:0:0.15 and 0.19);
     \node[align=center, below=5pt] at (1.05,-0.05)
          {Torus, or doughnut,\\or anchor ring};
   \end{scope}
@@ -241,13 +257,14 @@
 \figcap{1--4}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-5, 1-6
-% 1-5: ray AC bisects angle BAD -- C placed at exactly half the angle of B.
-% 1-6: acute (< 90) and obtuse (> 90) angles.
-\newcommand{\FIGIFIVESIX}{%
+%--------------------------------------------------------------- Fig 1-5
+% Ray AC bisects angle BAD -- C placed at exactly half the angle of B.
+% Split out of the old \FIGIFIVESIX pair (2026-08-17): Ex. 1-3 #8 cites 1-5 and
+% #10 cites 1-6, so each now stands alone after its own exercise, at full
+% measure (scale x1.45 for the freed width).
+\newcommand{\FIGIFIVE}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.103]
+\begin{tikzpicture}[scale=1.599]
   \coordinate (A) at (0,0);
   \coordinate (D) at (2.30,0);
   \coordinate (B) at (58:2.30);
@@ -261,9 +278,13 @@
   \node[vlab, right] at (C) {$C$};
 \end{tikzpicture}
 \figcap{1--5}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.103]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-6
+% Acute (< 90) and obtuse (> 90) angles.
+\newcommand{\FIGISIX}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.599]
   % acute: vertex bottom-left, 32 degrees
   \draw[given] (0,0) -- (1.55,0);
   \draw[given] (0,0) -- (32:1.55);
@@ -275,27 +296,31 @@
   \node[slab, above] at (2.85,1.15) {Obtuse angle};
 \end{tikzpicture}
 \figcap{1--6}
-\end{minipage}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-7, 1-8
-% 1-7: right triangle, right angle at the lower-left vertex.
-% 1-8: angle AOB is a right angle; C interior.
-\newcommand{\FIGISEVENEIGHT}{%
+%--------------------------------------------------------------- Fig 1-7
+% Right triangle, right angle at the lower-left vertex.  Split out of the old
+% \FIGISEVENEIGHT pair: Ex. 1-3 #12 cites 1-7, #13 cites 1-8.
+\newcommand{\FIGISEVEN}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.294]
+\begin{tikzpicture}[scale=1.876]
   \coordinate (R) at (0,0);
   \coordinate (T) at (0,1.75);
   \coordinate (S) at (2.15,0);
   \draw[given] (R) -- (T) -- (S) -- cycle;
   \draw[fig] (0,0.17) -- (0.17,0.17) -- (0.17,0);
-  \node[slab] at (0.56,0.30) {90\textdegree};
+  % the book sets 90 deg immediately above the right-angle box, not out in the
+  % middle of the triangle (measured off the printed figure)
+  \node[slab] at (0.45,0.42) {90\textdegree};
 \end{tikzpicture}
 \figcap{1--7}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.294]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-8
+% Angle AOB is a right angle; C interior.
+\newcommand{\FIGIEIGHT}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.876]
   \coordinate (O) at (0,0);
   \coordinate (A) at (0,1.75);
   \coordinate (B) at (1.85,0);
@@ -304,22 +329,20 @@
   \draw[given] (O) -- (B);
   \draw[given] (O) -- (C);
   \dt{A}\dt{B}\dt{C}
-  \node[vlab, above] at (A) {$A$};
+  \node[vlab, above, yshift=1.5pt] at (A) {$A$};
   \node[vlab, right] at (B) {$B$};
   \node[vlab, right] at (C) {$C$};
   \node[vlab, below left, xshift=-1pt, yshift=-0pt] at (O) {$O$};
 \end{tikzpicture}
 \figcap{1--8}
-\end{minipage}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-9, 1-10
-% 1-9: A, O, C collinear on l (so angle AOB and angle BOC are supplementary).
-% 1-10: straight angle A-O-B.
-\newcommand{\FIGININETEN}{%
+%--------------------------------------------------------------- Fig 1-9
+% A, O, C collinear on l (so angle AOB and angle BOC are supplementary).
+% Split out of the old \FIGININETEN pair: Ex. 1-3 #14 cites 1-9, #15 cites 1-10.
+\newcommand{\FIGININE}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.142]
+\begin{tikzpicture}[scale=1.656]
   \coordinate (A) at (-1.55,0);
   \coordinate (O) at (0,0);
   \coordinate (C) at (1.55,0);
@@ -334,20 +357,23 @@
   \node[vlab, below] at (0.80,-0.02) {$l$};
 \end{tikzpicture}
 \figcap{1--9}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.142]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-10
+% Straight angle A-O-B.
+\newcommand{\FIGITEN}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.656]
   \coordinate (A) at (-1.45,0);
   \coordinate (O) at (0,0);
   \coordinate (B) at (1.45,0);
   \draw[given] (A) -- (B);
   \dt{A}\dt{O}\dt{B}
-  \node[vlab, above] at (A) {$A$};
-  \node[vlab, above] at (B) {$B$};
+  \node[vlab, above, yshift=1.5pt] at (A) {$A$};
+  \node[vlab, above, yshift=1.5pt] at (B) {$B$};
   \node[vlab, below] at (O) {$O$};
 \end{tikzpicture}
 \figcap{1--10}
-\end{minipage}
 \end{bkfigure}}
 
 %--------------------------------------------------------------- Fig 1-11
@@ -360,47 +386,51 @@
 \figcap{1--11}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-12, 1-13
-% 1-12: equilateral triangle by the two-arc construction (Euclid I.1).
-% 1-13: an angle and its copy -- both drawn at exactly 52 degrees.
-\newcommand{\FIGITWELVETHIRTEEN}{%
+%--------------------------------------------------------------- Fig 1-12
+% Equilateral triangle by the two-arc construction (Euclid I.1).
+% Split out of the old \FIGITWELVETHIRTEEN pair: Ex. 1-4 #2 cites 1-12,
+% #3 cites 1-13.
+% 2026-08-17: the book strikes ONLY the two compass arcs, drawn lighter than
+% the triangle, and lets them cross of their own accord at the apex and run on
+% through the far base vertex.  The first draft added a hand-drawn cross at the
+% apex and a tick at each base vertex on top of the arcs -- ink the book does
+% not print.  Both removed; the arcs now carry the crossings themselves.
+\newcommand{\FIGITWELVE}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=1.122]
+\begin{tikzpicture}[scale=1.627]
   \def\s{2.05}
   \coordinate (A) at (0,0);
   \coordinate (B) at (\s,0);
   \coordinate (C) at (60:\s);          % exact equilateral apex
   \draw[given] (A) -- (B) -- (C) -- cycle;
-  \draw[fig] (A) ++(-18:\s) arc (-18:78:\s);
-  \draw[fig] (B) ++(198:\s) arc (198:102:\s);
-  \draw[fig] ($(C)+(-0.09,-0.09)$) -- ($(C)+(0.09,0.09)$);
-  \draw[fig] ($(C)+(-0.09,0.09)$) -- ($(C)+(0.09,-0.09)$);
-  % compass-point marks where each arc passes through the opposite base vertex
-  \draw[fig] ($(A)+(135:0.11)$) -- ($(A)+(-45:0.11)$);
-  \draw[fig] ($(B)+(45:0.11)$)  -- ($(B)+(225:0.11)$);
+  \draw[fig, line width=0.55pt] (A) ++(-18:\s) arc (-18:78:\s);
+  \draw[fig, line width=0.55pt] (B) ++(198:\s) arc (198:102:\s);
 \end{tikzpicture}
 \figcap{1--12}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=1.122]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-13
+% An angle and its copy -- both drawn at exactly 60 degrees.  The compass arc
+% is drawn lighter than the two rays, as the book prints it.
+\newcommand{\FIGITHIRTEEN}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.627]
   \foreach \x/\lo/\lb/\la in {0/{O}/{B}/{A}, 2.75/{O\mkern2mu'}/{B\mkern2mu'}/{A\mkern2mu'}} {
     \begin{scope}[xshift=\x cm]
       \coordinate (V) at (0,0);
       \draw[given] (V) -- (1.45,0);
       \draw[given] (V) -- (60:1.60);
-      \draw[fig] (V) ++(0:0.62) arc (0:60:0.62);
+      \draw[fig, line width=0.55pt] (V) ++(0:0.62) arc (0:60:0.62);
       % the book marks where the arc cuts each ray: a tick on OB, a cross on OA
-      \draw[fig] ($(V)+(0.62,-0.10)$) -- ($(V)+(0.62,0.10)$);
-      \draw[fig] ($(V)+(60:0.62)+(15:0.11)$)  -- ($(V)+(60:0.62)+(195:0.11)$);
-      \draw[fig] ($(V)+(60:0.62)+(105:0.11)$) -- ($(V)+(60:0.62)+(285:0.11)$);
+      \draw[fig, line width=0.55pt] ($(V)+(0.62,-0.10)$) -- ($(V)+(0.62,0.10)$);
+      \draw[fig, line width=0.55pt] ($(V)+(60:0.62)+(15:0.11)$)  -- ($(V)+(60:0.62)+(195:0.11)$);
+      \draw[fig, line width=0.55pt] ($(V)+(60:0.62)+(105:0.11)$) -- ($(V)+(60:0.62)+(285:0.11)$);
       \node[vlab, below left, xshift=-0pt, yshift=-0pt] at (V) {$\lo$};
       \node[vlab, right] at (1.45,0) {$\lb$};
       \node[vlab, above] at (60:1.60) {$\la$};
     \end{scope}}
 \end{tikzpicture}
 \figcap{1--13}
-\end{minipage}
 \end{bkfigure}}
 
 %--------------------------------------------------------------- Fig 1-14
@@ -428,30 +458,36 @@
 \figcap{1--14}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-15, 1-16
-% 1-15: angle bisected with compass; Z is the exact arc crossing, so VZ bisects.
-% 1-16: adjacent angles AOB and BOC sharing ray OB.
-\newcommand{\FIGIFIFTEENSIXTEEN}{%
+%--------------------------------------------------------------- Fig 1-15
+% Angle bisected with compass; Z is the exact arc crossing, so VZ bisects.
+% Split out of the old \FIGIFIFTEENSIXTEEN pair: Ex. 1-4 #5 cites 1-15,
+% #6 cites 1-16 and 1-17.
+\newcommand{\FIGIFIFTEEN}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.281]
+\begin{tikzpicture}[scale=1.857]
   \coordinate (V) at (0,0);
   \draw[given] (V) -- (26:2.15);
   \draw[given] (V) -- (-26:2.15);
   \coordinate (X) at (26:0.72);
   \coordinate (Y) at (-26:0.72);
-  \draw[fig] (V) ++(34:0.72) arc (34:-34:0.72);
+  % the vertex arc runs PAST both rays, as the book draws it, and is struck
+  % lighter than the rays themselves
+  \draw[fig, line width=0.55pt] (V) ++(34:0.72) arc (34:-34:0.72);
   % arcs of radius 0.716170 about X and Y meet at Z on the bisector; as in the
   % book only their crossing is marked, the two small arcs are not drawn
   \coordinate (Z) at (1.29,0);
   \draw[given] (V) -- (2.15,0);
-  \draw[fig] ($(Z)+(-0.09,-0.09)$) -- ($(Z)+(0.09,0.09)$);
-  \draw[fig] ($(Z)+(-0.09,0.09)$) -- ($(Z)+(0.09,-0.09)$);
+  \draw[fig, line width=0.55pt] ($(Z)+(-0.09,-0.09)$) -- ($(Z)+(0.09,0.09)$);
+  \draw[fig, line width=0.55pt] ($(Z)+(-0.09,0.09)$) -- ($(Z)+(0.09,-0.09)$);
 \end{tikzpicture}
 \figcap{1--15}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.281]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-16
+% Adjacent angles AOB and BOC sharing ray OB.
+\newcommand{\FIGISIXTEEN}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.857]
   \coordinate (O) at (0,0);
   \coordinate (A) at (36:2.05);
   \coordinate (B) at (-2:2.05);
@@ -465,19 +501,18 @@
   \node[vlab, right] at (C) {$C$};
 \end{tikzpicture}
 \figcap{1--16}
-\end{minipage}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-17, 1-18
-% 1-17: three pairs of angles, none of them adjacent (traced from scan02 p9):
+%--------------------------------------------------------------- Fig 1-17
+% Three pairs of angles, none of them adjacent (traced from scan02 p9):
 %   (a) two angles at two DIFFERENT vertices;
 %   (b) two angles sharing a vertex and a side but overlapping interiors;
 %   (c) two angles sharing only the vertex -- no common side.
-% 1-18: copying a segment onto a line at A.
-\newcommand{\FIGISEVENTEENEIGHTEEN}{%
+% Split out of the old \FIGISEVENTEENEIGHTEEN pair: Ex. 1-4 #6 cites 1-17,
+% #7 cites 1-18.
+\newcommand{\FIGISEVENTEEN}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.56\linewidth}\centering
-\begin{tikzpicture}[scale=1.034]
+\begin{tikzpicture}[scale=1.499]
   % (a) two nearby but distinct vertices
   \begin{scope}
     \coordinate (V) at (0,0);
@@ -510,9 +545,13 @@
   \end{scope}
 \end{tikzpicture}
 \figcap{1--17}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.40\linewidth}\centering
-\begin{tikzpicture}[scale=1.088]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-18
+% Copying a segment onto a line at A.
+\newcommand{\FIGIEIGHTEEN}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.578]
   \draw[given] (0.28,0.52) -- (2.05,0.52);        % the given segment
   \draw[given] (0,0) -- (2.30,0);                  % the line
   \coordinate (A) at (0.28,0);
@@ -522,17 +561,15 @@
   \node[vlab, above right, xshift=-3pt, yshift=0pt] at (2.05,0.02) {$B$};
 \end{tikzpicture}
 \figcap{1--18}
-\end{minipage}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-19, 1-20
-% 1-19: perpendicular bisector of AB; C is the exact midpoint, l is exactly
-%       perpendicular (vertical through C).
-% 1-20: perpendicular to l at a point O on l.
-\newcommand{\FIGININETEENTWENTY}{%
+%--------------------------------------------------------------- Fig 1-19
+% Perpendicular bisector of AB; C is the exact midpoint, l is exactly
+% perpendicular (vertical through C).  Split out of the old
+% \FIGININETEENTWENTY pair: Ex. 1-4 #8 cites 1-19, #9 cites 1-20.
+\newcommand{\FIGININETEEN}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.45]
   % drawn 1.4x the first draft's size, to the book's own proportions
   \coordinate (A) at (-1.89,0);
   \coordinate (B) at (1.89,0);
@@ -558,10 +595,14 @@
   \node[vlab, below right, xshift=0pt, yshift=-1pt] at (0,-2.17) {$l$};
 \end{tikzpicture}
 \figcap{1--19}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.0]
-  % same 1.4x enlargement as Fig 1-19, so the pair matches
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-20
+% Perpendicular to l at a point O on l.
+\newcommand{\FIGITWENTY}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.45]
+  % same enlargement as Fig 1-19, so the pair matches
   \coordinate (O) at (0,0);
   \draw[given] (-2.03,0) -- (2.03,0);
   \draw[given] (0,-2.03) -- (0,2.17);
@@ -580,35 +621,39 @@
   \node[vlab] at (0.20,-0.33) {$O$};
 \end{tikzpicture}
 \figcap{1--20}
-\end{minipage}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-21, 1-22
-% 1-21: perpendicular to l from an external point P (m is exactly vertical).
-% 1-22: the three medians; O is the exact centroid.
-\newcommand{\FIGITWENTYONETWENTYTWO}{%
+%--------------------------------------------------------------- Fig 1-21
+% Perpendicular to l from an external point P (m is exactly vertical).
+% Split out of the old \FIGITWENTYONETWENTYTWO pair: Ex. 1-4 #10 cites 1-21,
+% #11 cites 1-22.
+\newcommand{\FIGITWENTYONE}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=1.153]
+\begin{tikzpicture}[scale=1.672]
   \coordinate (P) at (0,1.30);
   \draw[given] (-1.60,0) -- (1.60,0);
   \draw[given] (0,-1.15) -- (0,1.55);
   % arc of radius 1.75 about P cuts l at x = +- sqrt(1.75^2 - 1.30^2) = 1.171538;
   % the crossings are at 227.95 deg and 312.05 deg, so the sweep runs past them
-  \draw[fig] (P) ++(222:1.75) arc (222:318:1.75);
-  \draw[fig] (-0.09,1.30-0.09) -- (0.09,1.30+0.09);
-  \draw[fig] (-0.09,1.30+0.09) -- (0.09,1.30-0.09);
+  \draw[fig, line width=0.55pt] (P) ++(222:1.75) arc (222:318:1.75);
+  \draw[fig, line width=0.55pt] (-0.09,1.30-0.09) -- (0.09,1.30+0.09);
+  \draw[fig, line width=0.55pt] (-0.09,1.30+0.09) -- (0.09,1.30-0.09);
   % arcs of radius 1.45 about those points meet at y = -sqrt(1.45^2 - 1.171538^2)
-  \draw[fig] (-0.09,-0.854400-0.09) -- (0.09,-0.854400+0.09);
-  \draw[fig] (-0.09,-0.854400+0.09) -- (0.09,-0.854400-0.09);
-  \node[vlab, left] at (P) {$P$};
+  \draw[fig, line width=0.55pt] (-0.09,-0.854400-0.09) -- (0.09,-0.854400+0.09);
+  \draw[fig, line width=0.55pt] (-0.09,-0.854400+0.09) -- (0.09,-0.854400-0.09);
+  % P sits on the compass cross, so its letter is pushed clear of the strokes
+  \node[vlab, left, xshift=-3pt] at (P) {$P$};
   \node[vlab, left] at (-1.60,0) {$l$};
   \node[vlab, below] at (0,-1.15) {$m$};
 \end{tikzpicture}
 \figcap{1--21}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=1.153]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-22
+% The three medians; O is the exact centroid.
+\newcommand{\FIGITWENTYTWO}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.672]
   % proportions from the book: apex at 0.64 of the base, height 0.627 of the base
   \coordinate (A) at (0,0);
   \coordinate (B) at (3.40,0);
@@ -627,7 +672,6 @@
   \node[vlab] at ($(O)+(296.33:0.47)$) {$O$};
 \end{tikzpicture}
 \figcap{1--22}
-\end{minipage}
 \end{bkfigure}}
 
 %--------------------------------------------------------------- Fig 1-23
@@ -744,14 +788,14 @@
 \figcap{1--25}
 \end{bkfigure}}
 
-%--------------------------------------------------------------- Figs 1-26, 1-27
-% 1-26: l parallel to m (same direction vector), transversal n; angles 1 and 2
-%       are corresponding angles, hence equal.
-% 1-27: copying angle 2 at P produces a line through P parallel to l.
-\newcommand{\FIGITWENTYSIXTWENTYSEVEN}{%
+%--------------------------------------------------------------- Fig 1-26
+% l parallel to m (same direction vector), transversal n; angles 1 and 2 are
+% alternate interior angles, hence equal.  Split out of the old
+% \FIGITWENTYSIXTWENTYSEVEN pair (Ex. 1-4 #15 cites both, but the book prints
+% them as two separate captioned units).
+\newcommand{\FIGITWENTYSIX}{%
 \begin{bkfigure}[\linewidth]
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.134]
+\begin{tikzpicture}[scale=1.644]
   % l and m share the direction (3.2, 0.9); n is the transversal
   \coordinate (l1) at (0.10,0.95);  \coordinate (l2) at (3.30,1.85);
   \coordinate (m1) at (0.10,0.30);  \coordinate (m2) at (3.30,1.20);
@@ -771,9 +815,13 @@
   \node[vlab, below right, xshift=-1pt, yshift=-0pt] at (n2) {$n$};
 \end{tikzpicture}
 \figcap{1--26}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.134]
+\end{bkfigure}}
+
+%--------------------------------------------------------------- Fig 1-27
+% Copying angle 2 at P produces a line through P parallel to l.
+\newcommand{\FIGITWENTYSEVEN}{%
+\begin{bkfigure}[\linewidth]
+\begin{tikzpicture}[scale=1.644]
   \coordinate (l1) at (0,1.35);  \coordinate (l2) at (3.10,1.35);
   \coordinate (n1) at (0.72,0);  \coordinate (n2) at (2.02,2.10);
   \draw[given] (l1) -- (l2);
@@ -791,7 +839,6 @@
   \node[vlab, above] at (n2) {$n$};
 \end{tikzpicture}
 \figcap{1--27}
-\end{minipage}
 \end{bkfigure}}
 
 %--------------------------------------------------------------- Fig 1-28
