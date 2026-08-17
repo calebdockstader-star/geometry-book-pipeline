@@ -10,9 +10,13 @@
 
 \tikzset{
   hid/.style  = {fig, dashed, dash pattern=on 2.6pt off 2.2pt},
-  dot/.style  = {fill, circle, inner sep=0pt, minimum size=2.2pt},
   arw/.style  = {fig, ->, >=latex},
+  % A dihedral/plane-angle arc, as the book strikes it.
+  farc/.style = {fig, line width=0.6pt},
 }
+% Point dots are \dt{} (style/brumfiel.sty): a node of fixed 3.2pt diameter, so
+% it prints the same size whatever `scale=' the picture carries.  The book's
+% points are heavy round discs -- never arrowheads (Caleb, 2026-08-17).
 
 % \XIVplane{name}{ox}{oy}{width}{dx}{dy} -- a plane as a parallelogram.
 % Defines <name>sw, <name>se, <name>ne, <name>nw and strokes the outline.
@@ -35,52 +39,73 @@
 % prism, square pyramid.  Scan: the cube carries no hidden edges; the prism
 % and the pyramid do.
 \newcommand{\FIGXIVONE}{\begin{bkfigure}[\linewidth]
-\begin{tikzpicture}[scale=0.754]
-  % (1) two intersecting planes.  Both parallelograms are built ON the common
-  %     line L1L2 -- one splaying down-left, the other up-right -- so the pair
-  %     crosses in an X, as the book draws it.  Straddling the line by a tenth
-  %     of the offset leaves the little spikes the book shows at each end.
-  \coordinate (L1) at (0.30,2.10);  \coordinate (L2) at (2.00,0.10);
-  \coordinate (u1) at (-0.68,-0.38);   % offset of plane 1 (down-left)
-  \coordinate (u2) at (0.30,0.72);     % offset of plane 2 (up-right)
-  \draw[fig] ($(L1)-0.10*(u1)$) -- ($(L2)-0.10*(u1)$) -- ($(L2)+(u1)$)
-             -- ($(L1)+(u1)$) -- cycle;
-  \draw[fig] ($(L1)-0.10*(u2)$) -- ($(L2)-0.10*(u2)$) -- ($(L2)+(u2)$)
-             -- ($(L1)+(u2)$) -- cycle;
+\begin{tikzpicture}[scale=0.760]
+  % (1) two intersecting planes.  The book draws two long parallelogram
+  %     "boards" that genuinely CROSS near their lower-right ends, leaving the
+  %     two little spikes where each corner pokes out past the other.  (The old
+  %     version built both on one common line, which put three near-coincident
+  %     long edges down the middle -- the "smear" Caleb flagged.)
+  \coordinate (oA) at (1.05,2.90);  \coordinate (dA) at (1.20,-2.60);
+  \coordinate (wA) at (0.55,0.18);
+  \coordinate (oB) at (0.05,1.75);  \coordinate (dB) at (2.55,-1.55);
+  \coordinate (wB) at (0.42,0.62);
+  \draw[fig] (oA) -- ($(oA)+(dA)$) -- ($(oA)+(dA)+(wA)$) -- ($(oA)+(wA)$)
+             -- cycle;
+  \draw[fig] (oB) -- ($(oB)+(dB)$) -- ($(oB)+(dB)+(wB)$) -- ($(oB)+(wB)$)
+             -- cycle;
   % (2) cube
-  \begin{scope}[xshift=3.35cm, yshift=0.15cm]
+  \begin{scope}[xshift=3.55cm, yshift=0.45cm]
     \draw[fig] (0,0) -- (1.45,0) -- (1.45,1.45) -- (0,1.45) -- cycle;
     \draw[fig] (0,1.45) -- (0.62,1.95) -- (2.07,1.95) -- (1.45,1.45);
     \draw[fig] (1.45,0) -- (2.07,0.5) -- (2.07,1.95);
   \end{scope}
-  % (3) sphere, with the book's stippled crescent
-  \begin{scope}[xshift=6.75cm, yshift=1.2cm]
+  % (3) sphere.  The book shades it with a DENSE fine dot screen filling a
+  %     broad annulus just inside the rim, heaviest at the upper left and
+  %     thinning round the bottom, leaving a clean highlight low and right.
+  %     `pattern=dots' is far too sparse for that, so the screen is drawn.
+  \begin{scope}[xshift=7.05cm, yshift=1.5cm]
     \begin{scope}[even odd rule]
       \clip (0,0) circle (0.86);
-      \clip (0.20,-0.17) circle (0.79) (-1.1,-1.1) rectangle (1.1,1.1);
-      \fill[pattern=dots] (-1.1,-1.1) rectangle (1.1,1.1);
+      \clip (0.86,-0.86) rectangle (-0.86,0.86) (0.26,-0.22) circle (0.72);
+      \foreach \i in {0,...,31}{\foreach \j in {0,...,31}{
+        \fill ({-0.87+0.056*\i+0.028*mod(\j,2)},{-0.87+0.056*\j})
+              circle (0.30pt);}}
     \end{scope}
     \draw[fig] (0,0) circle (0.86);
   \end{scope}
-  % (4) pentagonal prism, long axis up-right
-  \begin{scope}[xshift=8.35cm, yshift=0.05cm]
-    \foreach \n/\x/\y in {a/0/0.32, b/0.34/0, c/0.78/0.16, d/0.78/0.66, e/0.34/0.86}
-      {\coordinate (p\n) at (\x,\y); \coordinate (q\n) at (\x+1.06,\y+1.18);}
-    \draw[fig] (qa) -- (qb) -- (qc) -- (qd) -- (qe) -- cycle;   % far face
-    \draw[fig] (pa) -- (pb) -- (pc);                            % near silhouette
-    \draw[fig] (pa) -- (qa); \draw[fig] (pb) -- (qb); \draw[fig] (pc) -- (qc);
-    \draw[hid] (pc) -- (pd) -- (pe) -- (pa);                    % near hidden
-    \draw[hid] (pd) -- (qd); \draw[hid] (pe) -- (qe);
+  % (4) rectangular box, standing on end and tilted, drawn open at the top --
+  %     the book's fourth solid.  e1 = width, e2 = depth, e3 = length.
+  \begin{scope}[xshift=8.95cm, yshift=2.40cm]
+    \coordinate (e1) at (1.02,0.09);
+    \coordinate (e2) at (0.60,-0.83);
+    \coordinate (e3) at (-1.02,-2.33);
+    \coordinate (TL) at (0,0);
+    \coordinate (TT) at ($(TL)+(e1)$);
+    \coordinate (TR) at ($(TL)+(e1)+(e2)$);
+    \coordinate (TB) at ($(TL)+(e2)$);
+    \coordinate (BL) at ($(TL)+(e3)$);
+    \coordinate (BT) at ($(TT)+(e3)$);
+    \coordinate (BR) at ($(TR)+(e3)$);
+    \coordinate (BB) at ($(TB)+(e3)$);
+    \draw[fig] (TL) -- (TT) -- (TR) -- (TB) -- cycle;   % top face (rim)
+    \draw[fig] (TL) -- (BL) -- (BB) -- (TB);            % near-left face
+    \draw[fig] (BB) -- (BR) -- (TR);                    % near-right face
+    \draw[hid] (BT) -- (TT);                            % hidden far edge
+    \draw[hid] (BT) -- (BL);  \draw[hid] (BT) -- (BR);  % hidden bottom edges
+    % the inner lip: the box reads as open at the top
+    \coordinate (c) at ($(TL)!0.5!(TR)$);
+    \draw[fig] ($(c)!0.80!(TL)$) -- ($(c)!0.80!(TB)$) -- ($(c)!0.80!(TR)$);
   \end{scope}
-  % (5) square pyramid
-  \begin{scope}[xshift=11.5cm, yshift=0.1cm]
+  % (5) square pyramid.  The book draws the apex-to-rear-vertex edge SOLID and
+  %     fans the two hidden base edges from its foot as straight dashes.
+  \begin{scope}[xshift=11.15cm, yshift=0.40cm]
     \coordinate (b1) at (0,0.34); \coordinate (b2) at (1.0,0);
     \coordinate (b3) at (2.0,0.34); \coordinate (b4) at (1.0,0.68);
     \coordinate (ap) at (1.0,1.92);
     \draw[fig] (b1) -- (b2) -- (b3);
     \draw[fig] (ap) -- (b1); \draw[fig] (ap) -- (b2); \draw[fig] (ap) -- (b3);
+    \draw[fig] (ap) -- (b4);
     \draw[hid] (b3) -- (b4) -- (b1);
-    \draw[hid] (ap) -- (b4);
   \end{scope}
 \end{tikzpicture}
 \figcap{14--1}
@@ -132,9 +157,9 @@
 \newcommand{\FIGXIVTHREE}{\begin{bkfigure}[0.52\linewidth]
 \begin{tikzpicture}[scale=0.910]
   \XIVplane{P}{0}{0}{3.5}{0.95}{1.30}
-  \node[dot] at (1.30,0.52) {};
-  \node[dot] at (2.55,0.86) {};
-  \node[dot] at (1.95,0.30) {};
+  \dt{1.30,0.52}
+  \dt{2.55,0.86}
+  \dt{1.95,0.30}
 \end{tikzpicture}
 \figcap{14--3}
 \end{bkfigure}}
@@ -144,10 +169,10 @@
 \begin{minipage}{0.47\linewidth}\centering
 \begin{tikzpicture}[scale=0.793]
   \XIVplane{P}{0}{0}{3.5}{0.95}{1.30}
-  \node[dot] at (1.15,0.46) {};
-  \node[dot] at (2.30,0.78) {};
-  \node[dot] at (1.85,0.26) {};
-  \node[dot] at (2.20,1.52) {};   % the fourth point, off the plane
+  \dt{1.15,0.46}
+  \dt{2.30,0.78}
+  \dt{1.85,0.26}
+  \dt{2.20,1.52}   % the fourth point, off the plane
 \end{tikzpicture}
 \figcap{14--4}
 \end{minipage}\hfill
@@ -163,7 +188,7 @@
   \draw[fig] (Lo) -- (Le);
   \draw[hid] (Le) -- (Pp);
   \draw[fig] (Pp) -- (Lu);
-  \node[dot] at (Pp) {};
+  \dt{Pp}
   \node[vlab, left=3pt] at (Pp) {$P$};
   \node[vlab, right=3pt] at (Lu) {$l$};
 \end{tikzpicture}
@@ -173,14 +198,14 @@
 
 % ------------------------------------------------------------ Fig 14-6, 14-7
 \newcommand{\FIGXIVSIXSEVEN}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.42\linewidth}\centering
+\begin{minipage}{0.40\linewidth}\centering
 \begin{tikzpicture}[scale=1.144]
   \XIVplane{P}{0}{0}{2.9}{0.85}{1.20}
   % PQ is lifted clear of the bottom edge so that "l" fits underneath it
   \coordinate (Pp) at (0.72,0.80); \coordinate (Qq) at (2.05,0.60);
   \draw[fig] (Pp) -- (Qq);
-  \node[dot] at (Pp) {}; \node[dot] at (Qq) {};
-  \node[dot] at (2.26,0.96) {};
+  \dt{Pp} \dt{Qq}
+  \dt{2.26,0.96}
   \node[vlab, above left=3pt] at (Pp) {$P$};
   \node[vlab, right=3.5pt] at (Qq) {$Q$};
   \node[vlab, right=3.5pt] at (2.26,0.96) {$R$};
@@ -188,24 +213,26 @@
 \end{tikzpicture}
 \figcap{14--6}
 \end{minipage}\hfill
-\begin{minipage}{0.54\linewidth}\centering
-\begin{tikzpicture}[scale=0.988]
-  % four planes sharing the line l; m is a dashed transversal
-  \coordinate (A) at (3.35,-0.55);          % lower end of l
-  \coordinate (B) at (0.05,1.35);           % upper-left end of the pencil
-  \foreach \s/\ty in {0/1.00, 1/0.78, 2/0.56, 3/0.36}{
-    \draw[fig] (A) -- ($(B)+(0.62*\s,0.16*\s)$)
-                  -- ($(B)+(0.62*\s+1.30,0.16*\s+0.72)$)
-                  -- ($(A)+(1.30,0.72)$);}
-  \draw[fig] (A) -- ($(A)+(1.30,0.72)$);
-  % m is the transversal through the four far corners: draw it ALONG the step
-  % between them so that it passes exactly through every dot.
-  \coordinate (md) at (0.62,0.16);
-  \draw[aux] ($(B)-0.55*(md)$) -- ($(B)+5.60*(md)$);
-  \node[vlab, right=2pt] at ($(B)+5.60*(md)$) {$m$};
-  \node[vlab, below right=3pt] at (A) {$l$};
-  \foreach \s in {0,1,2,3}
-    {\node[dot] at ($(B)+\s*(md)$) {};}
+\begin{minipage}{0.56\linewidth}\centering
+\begin{tikzpicture}[scale=1.10]
+  % Theorem 14-3: infinitely many planes contain one line.  The book draws the
+  % axis l nearly end-on, so the four planes are parallelograms built on the
+  % SAME short segment AB of l and fanned about it like a deck of cards; each
+  % has real area, and its far corner is a heavy dot on the dashed transversal
+  % m.  (The old drawing made the planes slivers and left l undrawn.)
+  \coordinate (Av) at (-1.450,1.167);        % upper common vertex, on l
+  \coordinate (Bv) at (0,0);                 % lower common vertex, on l
+  \coordinate (d1) at (-2.917,1.450);        % first dot on m
+  \coordinate (dm) at (2.867,0.650);         % direction of m
+  \foreach \t in {0, 0.53, 0.695, 1.0}{
+    \coordinate (D) at ($(d1)+\t*(dm)$);
+    \coordinate (W) at ($(D)-(Av)$);
+    \draw[fig] (Av) -- (D) -- ($(Bv)+(W)$) -- (Bv);}
+  \draw[fig] (Av) -- (Bv) -- (0.233,-0.283);       % the axis l, overshooting B
+  \draw[hid] ($(d1)-0.16*(dm)$) -- ($(d1)+1.30*(dm)$);   % m, dashed throughout
+  \foreach \t in {0, 0.53, 0.695, 1.0}{\dt{$(d1)+\t*(dm)$}}
+  \node[vlab, right=2pt] at ($(d1)+1.30*(dm)$) {$m$};
+  \node[vlab, below right=1pt] at (0.233,-0.283) {$l$};
 \end{tikzpicture}
 \figcap{14--7}
 \end{minipage}
@@ -215,40 +242,43 @@
 \newcommand{\FIGXIVEIGHTNINE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.47\linewidth}\centering
 \begin{tikzpicture}[scale=1.259]
-  \XIVplane{P}{0}{0}{3.0}{0.55}{1.30}
-  % l_1 runs Q -> E1, l_2 runs P -> E2; R is their true crossing.
-  \coordinate (Pp) at (0.75,0.88); \coordinate (Qq) at (0.55,0.36);
-  \coordinate (E1) at (2.60,0.98); \coordinate (E2) at (2.65,0.28);
-  % the book tips each line with an arrowhead at P and at Q
-  \draw[arw] (E2) -- (Pp);
-  \draw[arw] (E1) -- (Qq);
+  \XIVplane{P}{0}{0}{3.0}{0.75}{1.25}
+  % l_1 runs Q -> E1, l_2 runs P -> E2; R is their true crossing.  The book
+  % ends each segment on a HEAVY ROUND DOT at P and at Q -- no arrowheads --
+  % and marks R with the largest dot of the three.
+  \coordinate (Pp) at (1.10,1.00); \coordinate (Qq) at (0.95,0.45);
+  \coordinate (E1) at (2.62,1.06); \coordinate (E2) at (2.68,0.36);
+  \draw[fig] (Pp) -- (E2);
+  \draw[fig] (Qq) -- (E1);
   \coordinate (R) at (intersection of Pp--E2 and Qq--E1);
-  \node[dot] at (R) {};
-  \node[vlab] at (0.88,1.12) {$P$};
-  \node[vlab] at (0.34,0.18) {$Q$};
-  \node[vlab, below=4pt] at (R) {$R$};
-  \node[vlab] at (2.86,1.14) {$l_1$};
-  \node[vlab] at (2.96,0.44) {$l_2$};
+  \dt{Pp}\dt{Qq}\dt{R}
+  \node[vlab, left=4pt] at (Pp) {$P$};
+  \node[vlab, left=4pt] at (Qq) {$Q$};
+  \node[vlab, below=3pt] at (R) {$R$};
+  \node[vlab, right=2.5pt] at (E1) {$l_1$};
+  \node[vlab, right=2.5pt] at (E2) {$l_2$};
 \end{tikzpicture}
 \figcap{14--8}
 \end{minipage}\hfill
 \begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=1.364]
-  % Two planes whose common line is PQ: each parallelogram is built ON that
-  % line, so P and Q genuinely lie in both planes.
-  \coordinate (I1) at (1.05,0.42); \coordinate (I2) at (2.62,0.86);
-  \coordinate (ua) at (-0.72,1.02);   % offset of pi_1
-  \coordinate (ub) at (0.62,0.95);    % offset of pi_2
-  \draw[fig] ($(I1)-0.42*(ua)$) -- ($(I2)-0.42*(ua)$) -- ($(I2)+1.15*(ua)$)
-             -- ($(I1)+1.15*(ua)$) -- cycle;
-  \draw[fig] ($(I1)-0.55*(ub)$) -- ($(I2)-0.55*(ub)$) -- ($(I2)+1.05*(ub)$)
-             -- ($(I1)+1.05*(ub)$) -- cycle;
-  \draw[fig] (I1) -- (I2);
-  \node[dot] at (I1) {}; \node[dot] at (I2) {};
-  \node[vlab] at (0.72,0.26) {$P$};
-  \node[vlab, above=5pt] at (I2) {$Q$};
-  \node[vlab] at (0.24,0.92) {$\pi_1$};
-  \node[vlab] at (1.80,0.98) {$\pi_2$};
+\begin{tikzpicture}[scale=1.44]
+  % Theorem 14-5.  The book draws an OPEN-BOOK hinge: the two planes share one
+  % COMPLETE edge and swing away from each other, so nothing crosses anything.
+  % (The old drawing had them straddle the line, so each plane ran out past the
+  % other on both sides and the middle filled with a lens-shaped tangle.)
+  \coordinate (I1) at (0,0);            % bottom-left end of the common edge
+  \coordinate (I2) at (1.567,1.217);    % upper-right end of it
+  \coordinate (ua) at (-0.333,1.017);   % pi_1 swings up-left
+  \coordinate (ub) at (1.183,0.333);    % pi_2 swings out to the right
+  \draw[fig] (I1) -- (I2) -- ($(I2)+(ua)$) -- ($(I1)+(ua)$) -- cycle;
+  \draw[fig] (I1) -- (I2) -- ($(I2)+(ub)$) -- ($(I1)+(ub)$) -- cycle;
+  \coordinate (Pp) at ($(I1)!0.31!(I2)$);
+  \coordinate (Qq) at ($(I1)!0.81!(I2)$);
+  \dt{Pp} \dt{Qq}
+  \node[vlab] at ($(Pp)+(-0.28,0.24)$) {$P$};
+  \node[vlab] at ($(Qq)+(-0.28,0.24)$) {$Q$};
+  \node[vlab] at (0.10,0.95) {$\pi_1$};
+  \node[vlab] at (1.25,0.68) {$\pi_2$};
 \end{tikzpicture}
 \figcap{14--9}
 \end{minipage}
@@ -257,7 +287,7 @@
 % --------------------------------------------------------------- Fig 14-10
 % Dihedral angle: the two half planes are solid, the rest of each plane dashed.
 \newcommand{\FIGXIVTEN}{\begin{bkfigure}[0.60\linewidth]
-\begin{tikzpicture}[scale=1.755]
+\begin{tikzpicture}[scale=1.620]
   \coordinate (E1) at (0.55,0.35);  \coordinate (E2) at (2.95,1.35);  % edge l
   \coordinate (u) at (-0.55,0.85);   % offset of half plane 1 (up-left)
   \coordinate (v) at (0.75,-0.55);   % offset of half plane 2 (down-right)
@@ -278,21 +308,24 @@
 \figcap{14--10}
 \end{bkfigure}}
 
-% ----------------------------------------------------------- Fig 14-11, 14-12
-\newcommand{\FIGXIVELEVENTWELVE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.884]
+% ---------------------------------------------------------------- Fig 14-11
+% Split out of the old \FIGXIVELEVENTWELVE block: Ex.~14-3 \#1 cites 14-11 and
+% \#2 cites 14-12, so each now stands on its own inside the exercise list.
+\newcommand{\FIGXIVELEVEN}{\begin{bkfigure}[0.62\linewidth]
+\begin{tikzpicture}[scale=1.55]
   % tetrahedron seen nearly edge-on: L apex at left, vertical edge T-B at right
   \coordinate (L) at (0,0.62); \coordinate (T) at (2.32,1.42);
-  \coordinate (Bv) at (2.32,0.02); \coordinate (R) at (3.15,0.72);
+  \coordinate (Bv) at (2.32,0.02); \coordinate (R) at (2.86,0.72);
   \draw[fig] (L) -- (T) -- (Bv) -- cycle;
   \draw[fig] (T) -- (R) -- (Bv);
   \draw[hid] (L) -- (R);
 \end{tikzpicture}
 \figcap{14--11}
-\end{minipage}\hfill
-\begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.884]
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 14-12
+\newcommand{\FIGXIVTWELVE}{\begin{bkfigure}[0.46\linewidth]
+\begin{tikzpicture}[scale=1.35]
   % irregular polyhedron (surface), no hidden edges in the book's drawing
   \draw[fig] (0.62,0.10) -- (0.06,1.02) -- (0.30,2.02) -- (1.28,2.52)
              -- (2.10,2.18) -- (2.30,1.08) -- (1.72,0.16) -- cycle;
@@ -302,7 +335,6 @@
   \draw[fig] (1.05,0.62) -- (0.62,0.10);
 \end{tikzpicture}
 \figcap{14--12}
-\end{minipage}
 \end{bkfigure}}
 
 % ----------------------------------------------------------- Fig 14-13, 14-14
@@ -318,7 +350,7 @@
   \draw[hid] (O) -- ($(O)!-0.85!(Aa)$);      % the rest of the line of OA
   \draw[fig, line width=0.5pt]
         (1.3331,0.6192) -- (1.2339,0.9024) -- (0.9508,0.8031);
-  \node[dot] at (O) {};
+  \dt{O}
   \node[vlab] at (1.22,0.24) {$O$};
   \node[vlab] at (2.24,0.92) {$A$};
   \node[vlab] at (0.50,1.49) {$B$};
@@ -329,7 +361,8 @@
     \coordinate (Op) at (1.375,1.10);
     \coordinate (rp) at (0.50,1.10);        % r'
     \coordinate (rpp) at (1.375,2.21);      % r''  (perpendicular to r')
-    \draw[arw] (Op) -- (rp); \draw[arw] (Op) -- (rpp);
+    % the book tips OA and OB with arrowheads but leaves r' and r'' plain
+    \draw[fig] (Op) -- (rp); \draw[fig] (Op) -- (rpp);
     \draw[hid] (Op) -- ($(Op)!-1!(rp)$);     % the rest of the line of r'
     \draw[fig, line width=0.5pt] (1.03,1.10) -- (1.03,1.445) -- (1.375,1.445);
     \node[vlab] at (0.95,0.85) {$r'$};
@@ -354,7 +387,7 @@
   % right-angle mark between l and m, sheared into the oblique projection
   \draw[fig, line width=0.5pt] ($(Pp)+(0,0.30)$)
         -- ($(Pp)+(0,0.30)+0.30*(md)$) -- ($(Pp)+0.30*(md)$);
-  \node[dot] at (Pp) {};
+  \dt{Pp}
   \node[vlab, above] at (1.72,2.05) {$l$};
   \node[vlab, below=1pt] at (Pp) {$P$};
   \node[vlab, right=2pt] at ($(Pp)+1.15*(md)$) {$m$};
@@ -367,7 +400,7 @@
 % ----------------------------------------------------------- Fig 14-15, 14-16
 \newcommand{\FIGXIVFIFTEENSIXTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=1.22]
+\begin{tikzpicture}[scale=1.13]
   \XIVplane{P}{-0.35}{0}{3.35}{0.85}{1.20}
   % Theorem 14-6 / its hint: l_1 = PB and l_2 = PC are the two intersecting
   % lines of pi; B and C are chosen on them, Q is a point of the auxiliary
@@ -386,7 +419,7 @@
   \draw[fig] (Pp) -- ($(Pp)!3.14!(Qq)$);     % m = PQ
   \draw[hid] (Bb) -- (Cc);
   \foreach \z in {Bb,Qq,Cc}{\draw[hid] (Aa) -- (\z); \draw[hid] (Ap) -- (\z);}
-  \foreach \z in {Pp,Qq,Aa,Ap}{\node[dot] at (\z) {};}
+  \foreach \z in {Pp,Qq,Aa,Ap}{\dt{\z}}
   \node[vlab, above] at (1.15,2.72) {$l$};
   \node[vlab] at (1.42,2.42) {$A$};
   \node[vlab] at (1.46,-0.95) {$A'$};
@@ -401,33 +434,48 @@
 \figcap{14--15}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.88]
-  % (a) the plane perpendicular to l at P, seen nearly edge-on
-  \draw[fig] (0.72,0.02) -- (1.72,0.36) -- (1.42,1.85) -- (0.42,1.52) -- cycle;
-  \coordinate (Pa) at (0.95,0.86);
-  \draw[fig] (-0.15,0.86) -- (Pa);
-  \draw[hid] (Pa) -- (1.55,0.98);
-  \draw[fig] (1.55,0.98) -- (2.35,1.02);
-  \node[dot] at (Pa) {};
-  \node[vlab, left] at (-0.15,0.86) {$l$};
-  \node[vlab, below=3.5pt] at (Pa) {$P$};
-  \node[slab] at (1.05,-0.42) {(a)};
-  % (b) l1, l2, l3 and l' all perpendicular to l at P
-  \begin{scope}[xshift=2.85cm]
+\begin{tikzpicture}[scale=0.81]
+  % (a) the plane perpendicular to l at P.  The book's plane is a parallelogram
+  % with NEAR-VERTICAL sides; l runs solid to the heavy dot at P, is hidden
+  % (dashed) for exactly the stretch that lies behind the plane -- from P to the
+  % point where it leaves the parallelogram -- and solid again beyond.  The old
+  % drawing put a wedge at P that read as an arrowhead and stranded the label.
+  \coordinate (T1) at (0.30,2.05);  \coordinate (T2) at (1.35,1.50);
+  \coordinate (T3) at (1.35,-0.10); \coordinate (T4) at (0.30,0.45);
+  \draw[fig] (T1) -- (T2) -- (T3) -- (T4) -- cycle;
+  \coordinate (L0) at (-0.55,1.32); \coordinate (L1) at (2.30,1.12);
+  \coordinate (Pa) at ($(L0)!0.40!(L1)$);
+  \coordinate (Xa) at (intersection of L0--L1 and T2--T3);
+  \draw[fig] (L0) -- (Pa);
+  \draw[hid] (Pa) -- (Xa);
+  \draw[fig] (Xa) -- (L1);
+  \dt{Pa}
+  \node[vlab, left=2pt] at (L0) {$l$};
+  \node[vlab, below=3pt] at (Pa) {$P$};
+  \node[slab] at (0.90,-0.62) {(a)};
+  % (b) l1, l2, l3 and l' all perpendicular to l at P.  The right-angle mark
+  % belongs in the wedge between l and l' (it used to sit between l and l_3),
+  % and every ray label sits just past the free end of its own ray.
+  \begin{scope}[xshift=2.75cm]
     \coordinate (Pb) at (0.95,0.95);
-    \draw[fig] (Pb) -- (0.95,2.05);
-    \draw[fig] (Pb) -- (2.05,1.02);
-    \draw[fig] (Pb) -- (0.22,0.08);
-    \draw[fig] (Pb) -- (1.55,0.10);
-    \draw[aux] (Pb) -- (1.85,1.85);
-    \draw[fig, line width=0.5pt] (0.95,1.22) -- (1.22,1.22) -- (1.22,0.95);
-    \node[vlab, above] at (0.95,2.05) {$l$};
-    \node[vlab, right] at (2.05,1.02) {$l_3$};
-    \node[vlab, below left=3pt] at (0.22,0.08) {$l_1$};
-    \node[vlab, below right=3pt] at (1.55,0.10) {$l_2$};
-    \node[vlab, right] at (1.85,1.85) {$l'$};
-    \node[vlab] at (0.60,1.14) {$P$};
-    \node[slab] at (1.05,-0.42) {(b)};
+    \coordinate (Lb) at (0.98,2.10);      % l
+    \coordinate (Lp) at (1.88,1.88);      % l'
+    \coordinate (L3) at (2.15,0.87);      % l_3
+    \coordinate (L2) at (1.67,0.20);      % l_2
+    \coordinate (L1b) at (0.10,0.26);     % l_1
+    \draw[fig] (Pb) -- (Lb);
+    \draw[fig] (Pb) -- (L3);
+    \draw[fig] (Pb) -- (L1b);
+    \draw[fig] (Pb) -- (L2);
+    \draw[aux] (Pb) -- (Lp);
+    \draw[farc] (0.9568,1.2099) -- (1.1406,1.3937) -- (1.1338,1.1338);
+    \node[vlab, above] at (Lb) {$l$};
+    \node[vlab, right=2pt] at (L3) {$l_3$};
+    \node[vlab, below left=1pt] at (L1b) {$l_1$};
+    \node[vlab, below right=1pt] at (L2) {$l_2$};
+    \node[vlab, above right=0pt] at (Lp) {$l'$};
+    \node[vlab] at (0.62,1.12) {$P$};
+    \node[slab] at (1.05,-0.62) {(b)};
   \end{scope}
 \end{tikzpicture}
 \figcap{14--16}
@@ -437,16 +485,24 @@
 % ----------------------------------------------------------- Fig 14-17, 14-18
 \newcommand{\FIGXIVSEVENTEENEIGHTEEN}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.47\linewidth}\centering
-\begin{tikzpicture}[scale=1.236]
-  \draw[fig] (0.42,0.02) -- (2.05,0.20) -- (1.88,1.92) -- (0.20,1.68) -- cycle;
-  \coordinate (Pp) at (1.02,0.85);
-  \draw[fig] (-0.42,0.85) -- (Pp);
-  \draw[hid] (Pp) -- (1.72,0.92);
-  \draw[fig] (1.72,0.92) -- (2.62,0.96);
-  \node[dot] at (Pp) {};
-  \node[dot] at (1.02,1.30) {};
-  \node[vlab] at (1.30,1.34) {$Q$};
-  \node[vlab, left] at (-0.42,0.85) {$l$};
+\begin{tikzpicture}[scale=1.55]
+  % Theorem 14-8.  The book's plane stands close to upright (near-vertical left
+  % and right edges, top and bottom edges sloping DOWN to the right) and the
+  % hidden run of l goes from the piercing dot ALL THE WAY to the plane's right
+  % edge -- ours used to go solid again while still inside the plane.
+  \coordinate (T1) at (0.05,1.85);  \coordinate (T2) at (1.80,1.38);
+  \coordinate (T3) at (1.74,-0.43); \coordinate (T4) at (-0.01,0.04);
+  \draw[fig] (T1) -- (T2) -- (T3) -- (T4) -- cycle;
+  \coordinate (L0) at (-0.64,0.98); \coordinate (L1) at (2.38,0.52);
+  \coordinate (Pp) at ($(L0)!0.452!(L1)$);
+  \coordinate (Xp) at (intersection of L0--L1 and T2--T3);
+  \draw[fig] (L0) -- (Pp);
+  \draw[hid] (Pp) -- (Xp);
+  \draw[fig] (Xp) -- (L1);
+  \dt{Pp}
+  \dt{0.75,1.405}
+  \node[vlab] at (0.95,1.25) {$Q$};
+  \node[vlab, left=2pt] at (L0) {$l$};
 \end{tikzpicture}
 \figcap{14--17}
 \end{minipage}\hfill
@@ -456,7 +512,7 @@
   \coordinate (F1) at (1.05,0.42); \coordinate (F2) at (1.95,0.66);
   \draw[fig] (F1) -- (1.05,1.72);
   \draw[fig] (F2) -- (1.95,1.96);
-  \node[dot] at (F1) {}; \node[dot] at (F2) {};
+  \dt{F1} \dt{F2}
 \end{tikzpicture}
 \figcap{14--18}
 \end{minipage}
@@ -489,7 +545,7 @@
   \coordinate (Pp) at (1.35,1.05);
   \draw[aux] ($(Pp)-(1.30,0.52)$) -- ($(Pp)+(1.30,0.52)$);   % l1' -- slope 0.40
   \draw[aux] ($(Pp)-(1.20,-0.72)$) -- ($(Pp)+(1.20,-0.72)$); % l2' -- slope -0.60
-  \node[dot] at (Pp) {};
+  \dt{Pp}
   \node[vlab] at (1.30,1.42) {$P$};
   \node[vlab] at (2.86,1.86) {$l_1'$};
   \node[vlab, right=4.5pt] at ($(Pp)+(1.20,-0.72)$) {$l_2'$};
@@ -498,23 +554,40 @@
 \end{minipage}\hfill
 \begin{minipage}{0.34\linewidth}\centering
 \begin{tikzpicture}[scale=0.88]
-  \XIVplane{P}{0}{0}{2.9}{0.85}{1.20}
-  \coordinate (Xx) at (1.72,0.58);
-  \draw[fig] ($(Xx)-(1.05,0.42)$) -- ($(Xx)+(1.05,0.42)$);   % l1, slope 0.40
-  \draw[fig] ($(Xx)-(1.10,-0.66)$) -- ($(Xx)+(1.10,-0.66)$); % l2, slope -0.60
-  \node[vlab] at (3.02,0.90) {$l_1$};
-  \node[vlab, right=3.5pt] at ($(Xx)+(1.10,-0.66)$) {$l_2$};
+  \XIVplane{P}{0}{0}{3.2}{0.95}{1.45}
+  \coordinate (Xx) at (1.85,0.75);
+  % In the book both segments are SHORT and lie entirely inside the plane --
+  % ours ran corner to corner and poked out through two edges.
+  \draw[fig] ($(Xx)-(0.62,0.248)$) -- ($(Xx)+(0.62,0.248)$);   % l1, slope 0.40
+  \draw[fig] ($(Xx)-(0.58,-0.348)$) -- ($(Xx)+(0.58,-0.348)$); % l2, slope -0.60
+  \node[vlab] at (2.68,1.10) {$l_1$};
+  \node[vlab] at (2.66,0.30) {$l_2$};
 \end{tikzpicture}
 \figcap{14--21}
 \end{minipage}\hfill
 \begin{minipage}{0.30\linewidth}\centering
 \begin{tikzpicture}[scale=0.86]
-  % two parallel planes seen nearly edge-on, with the common perpendicular
-  \draw[fig] (0.35,0.20) -- (0.95,0.66) -- (0.95,2.32) -- (0.35,1.86) -- cycle;
-  \draw[fig] (2.35,0.20) -- (2.95,0.66) -- (2.95,2.32) -- (2.35,1.86) -- cycle;
-  \draw[fig] (-0.15,1.20) -- (0.68,1.20);
-  \draw[hid] (0.68,1.20) -- (2.62,1.20);
-  \draw[fig] (2.62,1.20) -- (3.45,1.20);
+  % Two parallel planes with their common perpendicular.  Each plane stands on
+  % edge with VERTICAL front and back edges and top/bottom edges sloping down
+  % to the right.  Dashing (the defect Caleb flagged, "fully inverted"): the
+  % line is SOLID everywhere -- including the whole stretch BETWEEN the planes
+  % -- and dashed only for the short run inside each plane, from its piercing
+  % point back to that plane's far edge.  Each plane's near vertical edge is
+  % broken with a small gap where the line passes in front of it; the far edge
+  % is drawn straight through, since it stands in front of the hidden run.
+  \coordinate (aL) at (0.10,2.60);  \coordinate (bL) at (0.93,2.125);
+  \coordinate (cL) at (0.93,0.175); \coordinate (dL) at (0.10,0.65);
+  \coordinate (aR) at (2.19,2.62);  \coordinate (bR) at (3.02,2.145);
+  \coordinate (cR) at (3.02,0.195); \coordinate (dR) at (2.19,0.67);
+  \draw[fig] (aL) -- (bL) -- (cL) -- (dL);
+  \draw[fig] (aL) -- (0.10,1.205);  \draw[fig] (0.10,1.025) -- (dL);
+  \draw[fig] (aR) -- (bR) -- (cR) -- (dR);
+  \draw[fig] (aR) -- (2.19,1.268);  \draw[fig] (2.19,1.088) -- (dR);
+  \draw[fig] (-0.395,1.1000) -- (0.465,1.1260);
+  \draw[hid] (0.465,1.1260) -- (0.930,1.1400);
+  \draw[fig] (0.930,1.1400) -- (2.576,1.1897);
+  \draw[hid] (2.576,1.1897) -- (3.020,1.2031);
+  \draw[fig] (3.020,1.2031) -- (3.330,1.2125);
 \end{tikzpicture}
 \figcap{14--22}
 \end{minipage}
@@ -522,35 +595,49 @@
 
 % --------------------------------------------------------------- Fig 14-23
 % Three parallel planes cut by l and l'; AB:BC = A'B':B'C' by construction.
-\newcommand{\FIGXIVTWENTYTHREE}{\begin{bkfigure}[0.62\linewidth]
-\begin{tikzpicture}[scale=2.015]
-  \XIVplane{T}{0.55}{2.30}{2.60}{0.72}{0.62}
-  \XIVplane{M}{0.28}{1.15}{2.60}{0.72}{0.62}
-  \XIVplane{B}{0.00}{0.00}{2.60}{0.72}{0.62}
-  % line l' : A -> B -> C  (t = 0 at A, 1 at C; B at t = 0.5)
-  \coordinate (Aa) at (1.62,2.62);
-  \coordinate (Cc) at (0.92,0.32);
-  \coordinate (Bb) at ($(Aa)!0.52!(Cc)$);
-  % line l : A' -> B' -> C'.  The SAME parameter 0.52 puts B' in the middle
-  % plane and makes AB:BC = A'B':B'C', which is what Theorem 14-12 asserts.
-  \coordinate (Ap) at (2.05,2.58);
-  \coordinate (Cp) at (2.72,0.28);
-  \coordinate (Bp) at ($(Ap)!0.52!(Cp)$);
-  \draw[fig] ($(Aa)!-0.16!(Cc)$) -- (Aa);
-  \draw[hid] (Aa) -- (Cc);
-  \draw[fig] (Cc) -- ($(Aa)!1.16!(Cc)$);
-  \draw[fig] ($(Ap)!-0.16!(Cp)$) -- (Ap);
-  \draw[hid] (Ap) -- (Cp);
-  \draw[fig] (Cp) -- ($(Ap)!1.16!(Cp)$);
-  \foreach \z in {Aa,Bb,Cc,Ap,Bp,Cp}{\node[dot] at (\z) {};}
-  \node[vlab, left=5pt] at (Aa) {$A$};
-  \node[vlab, left=5pt] at (Bb) {$B$};
-  \node[vlab] at (0.60,0.24) {$C$};
-  \node[vlab, right=5pt] at (Ap) {$A'$};
-  \node[vlab, right=5pt] at (Bp) {$B'$};
-  \node[vlab] at (3.18,0.20) {$C'$};
-  \node[vlab, above left=1pt] at ($(Aa)!-0.16!(Cc)$) {$l'$};
-  \node[vlab, above right=1pt] at ($(Ap)!-0.16!(Cp)$) {$l$};
+\newcommand{\FIGXIVTWENTYTHREE}{\begin{bkfigure}[0.64\linewidth]
+\begin{tikzpicture}[scale=1.60]
+  \XIVplane{T}{0.55}{2.30}{2.85}{0.72}{0.62}
+  \XIVplane{M}{0.28}{1.15}{2.85}{0.72}{0.62}
+  \XIVplane{B}{0.00}{0.00}{2.85}{0.72}{0.62}
+  % Two transversals.  In the book the LEFT-hand label at the top is l', but
+  % its line runs down to the RIGHT through A', B', C'; the right-hand label is
+  % l and its line runs down to the LEFT through A, B, C -- the two cross just
+  % above the top plane.  Both are parameterised by height h (h = 1 in the top
+  % plane, 0.5 in the middle, 0 in the bottom), so B and B' fall in the middle
+  % plane and AB:BC = A'B':B'C' exactly, which is Theorem 14-12's claim.
+  \coordinate (Aa) at (1.72,2.62);   \coordinate (Cc) at (0.60,0.32);
+  \coordinate (Bb) at ($(Aa)!0.5!(Cc)$);
+  \coordinate (Ap) at (2.05,2.62);   \coordinate (Cp) at (2.80,0.32);
+  \coordinate (Bp) at ($(Ap)!0.5!(Cp)$);
+  % Hidden-line runs, computed rather than guessed: the line is dashed exactly
+  % where it passes BELOW a plane and its projection still falls inside that
+  % plane's parallelogram.  That is a short break under each of A, B and C, and
+  % solid everywhere else -- the reverse of the old drawing, which was dashed
+  % almost end to end and so carried no depth information at all.
+  \draw[fig] (2.101,3.402) -- (Aa);
+  \draw[hid] (Aa) -- (1.564,2.300);
+  \draw[fig] (1.564,2.300) -- (Bb);
+  \draw[hid] (Bb) -- (1.004,1.150);
+  \draw[fig] (1.004,1.150) -- (Cc);
+  \draw[hid] (Cc) -- (0.444,0.000);
+  \draw[fig] (0.444,0.000) -- (0.331,-0.232);
+  \draw[fig] (1.795,3.402) -- (Ap);
+  \draw[hid] (Ap) -- (2.154,2.300);
+  \draw[fig] (2.154,2.300) -- (Bp);
+  \draw[hid] (Bp) -- (2.529,1.150);
+  \draw[fig] (2.529,1.150) -- (Cp);
+  \draw[hid] (Cp) -- (2.837,0.205);
+  \draw[fig] (2.837,0.205) -- (2.980,-0.232);
+  \foreach \z in {Aa,Bb,Cc,Ap,Bp,Cp}{\dt{\z}}
+  \node[vlab, left=3pt] at (Aa) {$A$};
+  \node[vlab, left=3pt] at (Bb) {$B$};
+  \node[vlab, below right=0pt] at (Cc) {$C$};
+  \node[vlab, right=3pt] at (Ap) {$A'$};
+  \node[vlab, right=3pt] at (Bp) {$B'$};
+  \node[vlab] at (2.48,0.20) {$C'$};
+  \node[vlab, above=1pt] at (1.795,3.402) {$l'$};
+  \node[vlab, above=1pt] at (2.101,3.402) {$l$};
 \end{tikzpicture}
 \figcap{14--23}
 \end{bkfigure}}
@@ -558,7 +645,7 @@
 % ----------------------------------------------------------- Fig 14-24, 14-25
 \newcommand{\FIGXIVTWENTYFOURTWENTYFIVE}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=1.45]
+\begin{tikzpicture}[scale=1.34]
   \coordinate (V) at (1.72,3.05);
   \coordinate (Q1) at (0.42,0.72);   % P1
   \coordinate (Q2) at (0.95,1.28);   % P2
@@ -572,8 +659,8 @@
   \draw[fig] (Q1) -- (Q4) -- (Q3);
   \draw[hid] (Q3) -- (Q2) -- (Q1);
   \coordinate (Qq) at ($(V)!1.30!(Pt)$);
-  \node[dot] at (Qq) {};
-  \node[vlab, above] at (V) {$V$};
+  \dt{Qq}
+  \node[vlab, above=1.5pt] at (V) {$V$};
   \node[vlab, left=3.5pt] at (Q1) {$P_1$};
   \node[vlab] at (0.56,1.50) {$P_2$};
   \node[vlab, right=3.5pt] at (Q3) {$P_3$};
@@ -585,24 +672,29 @@
 \figcap{14--24}
 \end{minipage}\hfill
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=1.35]
-  \coordinate (V) at (1.05,2.62);
-  \coordinate (Aa) at (0.28,0.32);
-  \coordinate (Bb) at (3.05,0.86);
-  \coordinate (Dd) at ($(Aa)!0.46!(Bb)$);    % D lies on AB
-  \coordinate (Cc) at (1.02,1.05);
-  \draw[fig] (V) -- (Aa); \draw[fig] (V) -- (Bb); \draw[fig] (V) -- (Cc);
+\begin{tikzpicture}[scale=1.03]
+  % Theorem 14-13's hint figure.  V sits at the upper LEFT and B far off to the
+  % right, so VB and CB form the narrow wedge the book draws.  The rays V->A
+  % and V->C overshoot A and C; the DASHED V->D stops dead at D.  (Ours used to
+  % overshoot the dashed VD instead -- which read as a stray fragment -- and
+  % carried no overshoot on VC at all.)
+  \coordinate (Aa) at (0,0);
+  \coordinate (V)  at (0.667,1.983);
+  \coordinate (Bb) at (3.900,0.733);
+  \coordinate (Cc) at (0.733,0.817);
+  \coordinate (Dd) at ($(Aa)!0.402!(Bb)$);   % D lies on AB
+  \draw[fig] (V) -- ($(V)!1.26!(Aa)$);
+  \draw[fig] (V) -- ($(V)!2.17!(Cc)$);
+  \draw[fig] (V) -- (Bb);
   \draw[hid] (V) -- (Dd);
   \draw[fig] (Aa) -- (Bb);
   \draw[fig] (Aa) -- (Cc); \draw[fig] (Cc) -- (Bb);
-  \draw[fig] (Aa) -- ($(V)!1.30!(Aa)$);
-  \draw[fig] (Dd) -- ($(V)!1.22!(Dd)$);
-  \foreach \z in {Aa,Bb,Cc,Dd}{\node[dot] at (\z) {};}
-  \node[vlab, above] at (V) {$V$};
-  \node[vlab] at (0.06,0.52) {$A$};
+  \foreach \z in {V,Aa,Cc,Dd}{\dt{\z}}
+  \node[vlab, above=2pt] at (V) {$V$};
+  \node[vlab, left=3pt] at (Aa) {$A$};
   \node[vlab, right=3.5pt] at (Bb) {$B$};
-  \node[vlab] at (0.74,1.14) {$C$};
-  \node[vlab, below right=3pt] at (Dd) {$D$};
+  \node[vlab] at (0.54,0.99) {$C$};
+  \node[vlab, below=3pt] at (Dd) {$D$};
 \end{tikzpicture}
 \figcap{14--25}
 \end{minipage}
@@ -716,68 +808,105 @@
 % ----------------------------------------------------------- Fig 14-29, 14-30
 \newcommand{\FIGXIVTWENTYNINETHIRTY}{\begin{bkfigure}[\linewidth]
 \begin{minipage}{0.50\linewidth}\centering
-\begin{tikzpicture}[scale=0.766]
-  % a dihedral angle cut by two parallel planes
-  \XIVplane{B}{0}{0}{3.05}{0.95}{0.85}
-  \XIVplane{T}{0.35}{2.05}{3.05}{0.95}{0.85}
-  % the two faces of the dihedral angle, standing between the planes
-  \draw[fig] (1.15,0.28) -- (2.05,0.62) -- (2.42,2.72) -- (1.52,2.38) -- cycle;
-  \draw[fig] (1.52,2.38) -- (2.62,2.95) -- (2.42,2.72);
-  \draw[hid] (1.15,0.28) -- (2.25,0.85) -- (2.05,0.62);
-  \draw[hid] (2.25,0.85) -- (2.62,2.95);
-  \draw[fig, line width=0.5pt] (1.72,2.45) -- (1.95,2.60) -- (1.88,2.42);
-  \draw[fig, line width=0.5pt] (1.35,0.35) -- (1.58,0.50) -- (1.51,0.32);
+\begin{tikzpicture}[scale=1.10]
+  % Theorem 14-17: a dihedral angle cut by two parallel planes.  The EDGE of
+  % the dihedral is the left edge BL-TL of the "wall"; the near face F1 is the
+  % solid quadrilateral, and the far face F2 lies behind it, so only its outer
+  % edge shows -- dashed.  Each plane cuts the dihedral in a plane angle: at
+  % the top it is the thin wedge TL-TR / TL-U, struck with an ARC and a
+  % perpendicular tick; at the bottom the same wedge, its second side hidden
+  % behind the wall and therefore dashed.  (The old drawing had two arrowheads
+  % where those two arcs belong and no ticks at all.)
+  \XIVplane{PB}{-1.30}{-0.85}{3.30}{0.95}{1.25}
+  \XIVplane{PT}{-0.75}{1.55}{3.30}{0.95}{1.25}
+  \coordinate (BLw) at (0,0);        \coordinate (TLw) at (0.55,2.40);
+  \coordinate (BRw) at (1.25,0.12);  \coordinate (TRw) at (1.80,2.52);
+  \coordinate (Ub)  at (1.20,0.34);  \coordinate (Ut)  at (1.75,2.74);
+  \draw[fig] (TLw) -- (TRw) -- (BRw) -- (BLw) -- cycle;   % near face F1
+  \draw[fig] (TLw) -- (Ut);                               % F2 trace, top plane
+  \draw[hid] (Ut) -- (Ub);                                % F2 far edge, hidden
+  \draw[hid] (BLw) -- (Ub);                       % F2 trace, bottom, hidden
+  \draw[farc] ([shift=(5.48:0.78)]TLw) arc (5.48:15.82:0.78);
+  \draw[farc] ([shift=(5.48:0.42)]BLw) arc (5.48:15.82:0.42);
+  \coordinate (Qt) at ($(TLw)!0.66!(Ut)$);
+  \draw[farc] (Qt) -- ($(TLw)!(Qt)!(TRw)$);
+  \coordinate (Qb) at ($(BLw)!0.60!(Ub)$);
+  \draw[farc] (Qb) -- ($(BLw)!(Qb)!(BRw)$);
 \end{tikzpicture}
 \figcap{14--29}
 \end{minipage}\hfill
 \begin{minipage}{0.46\linewidth}\centering
-\begin{tikzpicture}[scale=0.766]
-  \XIVplane{B}{0}{0}{3.15}{0.95}{0.85}
-  % one face rises from the plane; the second, rectangular, is perpendicular
-  \draw[fig] (1.05,0.35) -- (2.62,0.85) -- (3.05,2.15) -- (1.48,1.65) -- cycle;
-  \draw[fig] (1.05,0.35) -- (1.05,1.75) -- (2.55,1.75) -- (2.55,0.35);
-  \draw[hid] (1.05,0.35) -- (2.55,0.35);
-  \draw[fig, line width=0.5pt] (1.28,0.42) -- (1.48,0.56) -- (1.42,0.38);
+\begin{tikzpicture}[scale=1.05]
+  % Definition 14-8.  A dihedral edge E0->E1 lies in the horizontal plane; one
+  % face rises from it as the tilted flap, and the plane PERPENDICULAR to the
+  % edge is the clean rectangle standing in front.  The edge passes BEHIND the
+  % rectangle, so it is dashed, and it RISES to the right (ours used to run
+  % flat along the rectangle's foot, which killed the depth reading); a
+  % perpendicular tick marks the right angle at the rectangle's foot.
+  \draw[fig] (-0.950,-0.523) -- (2.483,-0.110) -- (3.633,1.200)
+             -- (0.183,0.800) -- cycle;                 % the horizontal plane
+  \coordinate (E0) at (0,0);          \coordinate (E1) at (1.933,0.850);
+  \coordinate (r)  at (1.517,0.150);  \coordinate (u)  at (0.067,1.140);
+  \draw[fig] ($(E0)+(u)$) -- ($(E1)+(u)$) -- (E1);       % the flap
+  \draw[hid] (E1) -- (E0);                              % the dihedral edge
+  \draw[fig] (E0) -- ($(E0)+(r)$) -- ($(E0)+(r)+(u)$) -- ($(E0)+(u)$)
+             -- cycle;                                  % the perpendicular
+  \coordinate (Qe) at ($(E0)!0.25!(E1)$);
+  \draw[farc] (Qe) -- ($(E0)!(Qe)!($(E0)+(r)$)$);
 \end{tikzpicture}
 \figcap{14--30}
 \end{minipage}
 \end{bkfigure}}
 
-% ---------------------------------------------------- Fig 14-31, 14-32, 14-33
-\newcommand{\FIGXIVTHIRTYONETHIRTYTHREE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.52\linewidth}\centering
-\begin{tikzpicture}[scale=0.720]
-  % hexagonal prism standing in two parallel planes
-  \XIVplane{B}{0}{0}{3.55}{1.05}{0.75}
-  \XIVplane{T}{0.15}{2.85}{3.55}{1.05}{0.75}
-  \foreach \i in {0,...,5}
-    {\coordinate (b\i) at ({1.92+0.98*cos(30+60*\i)},{0.48+0.40*sin(30+60*\i)});
-     \coordinate (t\i) at ({2.07+0.98*cos(30+60*\i)},{3.33+0.40*sin(30+60*\i)});}
+% ---------------------------------------------------------------- Fig 14-31
+% Split out of the old \FIGXIVTHIRTYONETHIRTYTHREE block: Ex.~14-12 cites
+% 14-31 in \#1, 14-32 in \#2 and 14-33 in \#3, so each stands on its own now.
+\newcommand{\FIGXIVTHIRTYONE}{\begin{bkfigure}[0.74\linewidth]
+\begin{tikzpicture}[scale=1.45]
+  % A right hexagonal prism with its bases IN two parallel planes.  The old
+  % hexagon put its vertices at 30+60i degrees, so the pairs (30,330) and
+  % (150,210) shared an x -- their lateral edges landed on top of one another
+  % and the solid read as a flat bar with a single dashed line down it.  These
+  % vertex angles are the book's own irregular ones: no two share an x, so the
+  % near side shows FOUR solid lateral edges and the far side TWO dashed.
+  \XIVplane{PB}{0}{0}{4.00}{1.10}{1.05}
+  \XIVplane{PT}{0}{2.60}{4.00}{1.10}{1.05}
+  \foreach \i/\a in {0/-10, 1/36, 2/118, 3/181, 4/213, 5/301}
+    {\coordinate (b\i) at ({2.20+1.00*cos(\a)},{0.52+0.44*sin(\a)});
+     \coordinate (t\i) at ({2.20+1.00*cos(\a)},{3.12+0.44*sin(\a)});}
+  % top base: seen from above, so the whole outline is visible
   \draw[fig] (t0) -- (t1) -- (t2) -- (t3) -- (t4) -- (t5) -- cycle;
+  % bottom base: near half solid, far half hidden
   \draw[fig] (b3) -- (b4) -- (b5) -- (b0);
   \draw[hid] (b0) -- (b1) -- (b2) -- (b3);
   \foreach \i in {0,3,4,5}{\draw[fig] (b\i) -- (t\i);}
   \foreach \i in {1,2}{\draw[hid] (b\i) -- (t\i);}
 \end{tikzpicture}
 \figcap{14--31}
-\end{minipage}\hfill
-\begin{minipage}{0.42\linewidth}\centering
-\begin{tikzpicture}[scale=0.720]
-  % pentagonal pyramid
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 14-32
+\newcommand{\FIGXIVTHIRTYTWO}{\begin{bkfigure}[0.44\linewidth]
+\begin{tikzpicture}[scale=1.10]
+  % pentagonal pyramid.  q0 and q2 are the silhouette vertices and q1 the front
+  % one, so those three lateral edges are solid; q3 and q4 lie behind, so their
+  % lateral edges AND the three base edges joining them are dashed.  (The old
+  % version drew the back edge q2--q3 and the lateral to q3 solid.)
   \coordinate (ap) at (1.42,2.72);
   \foreach \i in {0,...,4}
     {\coordinate (q\i) at ({1.42+1.32*cos(198+72*\i)},{0.62+0.46*sin(198+72*\i)});}
-  \draw[fig] (q0) -- (q1) -- (q2) -- (q3);
-  \draw[hid] (q3) -- (q4) -- (q0);
-  \foreach \i in {0,1,2,3}{\draw[fig] (ap) -- (q\i);}
-  \draw[hid] (ap) -- (q4);
+  \draw[fig] (q0) -- (q1) -- (q2);
+  \draw[hid] (q2) -- (q3) -- (q4) -- (q0);
+  \foreach \i in {0,1,2}{\draw[fig] (ap) -- (q\i);}
+  \foreach \i in {3,4}{\draw[hid] (ap) -- (q\i);}
 \end{tikzpicture}
 \figcap{14--32}
+\end{bkfigure}}
 
-\vspace{0.9em}
-\begin{tikzpicture}[scale=0.720]
+% ---------------------------------------------------------------- Fig 14-33
+\newcommand{\FIGXIVTHIRTYTHREE}{\begin{bkfigure}[0.54\linewidth]
+\begin{tikzpicture}[scale=1.15]
   % parallelepiped
-  \coordinate (o) at (0,0);
   \coordinate (ea) at (2.65,0.32);   % length
   \coordinate (eb) at (1.15,0.95);   % depth
   \coordinate (ec) at (-0.62,1.05);  % height
@@ -796,7 +925,6 @@
   \draw[hid] (A3) -- (B3);
 \end{tikzpicture}
 \figcap{14--33}
-\end{minipage}
 \end{bkfigure}}
 
 % ----------------------------------------------------------- Fig 14-34, 14-35
@@ -817,18 +945,28 @@
 \figcap{14--34}
 \end{minipage}\hfill
 \begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.886]
-  % two polyhedra sharing one (hatched) face
-  \coordinate (v1) at (0.10,0.72); \coordinate (v2) at (1.42,0.02);
-  \coordinate (v3) at (3.35,0.28); \coordinate (v4) at (3.62,1.15);
-  \coordinate (v5) at (2.25,1.85); \coordinate (v6) at (0.42,1.62);
-  \draw[fig] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- cycle;
-  \coordinate (m1) at (1.55,1.02); \coordinate (m2) at (1.72,0.28);
-  \fill[pattern=north east lines] (v1) -- (m2) -- (m1) -- cycle;
-  \draw[fig] (v1) -- (m2) -- (m1) -- cycle;
-  \draw[hid] (m1) -- (v5); \draw[hid] (m1) -- (v4);
-  \draw[hid] (m2) -- (v3);
-  \draw[fig] (v6) -- (m1); \draw[fig] (v2) -- (m2);
+\begin{tikzpicture}[scale=1.25]
+  % Theorem 14-19: one polyhedron as the union of two, sharing the HATCHED
+  % face.  The book's shared section is a big triangle spanning the whole near
+  % face (ours was a small patch in one corner), its boundary heavy and solid,
+  % its interior filled with dense steep hatching.  The one hidden vertex is F;
+  % only its two hidden edges FA and FC are dashed.
+  \coordinate (Av) at (-1.117,1.917);
+  \coordinate (Bv) at ( 1.350,2.033);
+  \coordinate (Cv) at ( 2.883,1.550);
+  \coordinate (Dv) at ( 2.483,0.167);
+  \coordinate (Ev) at ( 0,0);
+  \coordinate (Fv) at (-0.017,1.167);
+  \begin{scope}
+    \clip (Bv) -- (Fv) -- (Ev) -- cycle;
+    \foreach \k in {0,...,27}
+      {\draw[fig, line width=0.35pt]
+         ({-1.40+0.107*\k},-0.30) -- ({-1.40+0.107*\k+1.05},2.55);}
+  \end{scope}
+  \draw[fig] (Av) -- (Bv) -- (Cv) -- (Dv) -- (Ev) -- cycle;
+  \draw[fig] (Bv) -- (Ev);  \draw[fig] (Bv) -- (Dv);
+  \draw[fig] (Bv) -- (Fv) -- (Ev);
+  \draw[hid] (Fv) -- (Av);  \draw[hid] (Fv) -- (Cv);
 \end{tikzpicture}
 \figcap{14--35}
 \end{minipage}
@@ -886,8 +1024,8 @@
 \end{bkfigure}}
 
 % --------------------------------------------------------------- Fig 14-38
-\newcommand{\FIGXIVTHIRTYEIGHT}{\begin{bkfigure}[0.86\linewidth]
-\begin{tikzpicture}[scale=0.754]
+\newcommand{\FIGXIVTHIRTYEIGHT}{\begin{bkfigure}[0.94\linewidth]
+\begin{tikzpicture}[scale=0.950]
   % (a) a parallelepiped of which a triangular prism is half
   \begin{scope}
     \coordinate (ea) at (2.55,0); \coordinate (eb) at (1.02,0.72);
@@ -900,8 +1038,10 @@
     \draw[fig] (A1) -- (B1); \draw[fig] (A2) -- (B2);
     \draw[fig] (B0) -- (B1) -- (B2) -- (B3) -- cycle;
     \draw[hid] (A0) -- (A3) -- (A2); \draw[hid] (A3) -- (B3);
-    \draw[fig] (B0) -- (B2);          % the diagonal cut, on the top face
-    \draw[hid] (A0) -- (A2);
+    % The cut runs BACK corner -> FRONT corner of the top face (B3 -> B1).  The
+    % old B0--B2 diagonal ran almost along the top edge, so it read as a stray
+    % duplicate edge; and the book draws no companion diagonal on the base.
+    \draw[fig] (B3) -- (B1);
     \node[slab, below] at (1.72,-0.55) {(a)};
   \end{scope}
   % (b) an arbitrary prism, cut into triangular prisms
@@ -921,7 +1061,9 @@
     \coordinate (S1) at ($(B0)!0.62!(B1)$);
     \coordinate (S2) at ($(B3)!0.62!(B2)$);
     \draw[fig] (S0) -- (S1) -- (S2);
-    \draw[hid] (S0) -- ($(A3)!0.62!(A2)$);
+    % the cut's hidden edge is the VERTICAL down the back face, not a line
+    % across the base: it drops from the top-back edge to the hidden bottom one
+    \draw[hid] (S2) -- ($(A3)!0.62!(A2)$);
     \node[slab, below] at (2.02,-0.55) {(b)};
   \end{scope}
 \end{tikzpicture}
@@ -929,8 +1071,8 @@
 \end{bkfigure}}
 
 % --------------------------------------------------------------- Fig 14-39
-\newcommand{\FIGXIVTHIRTYNINE}{\begin{bkfigure}[0.44\linewidth]
-\begin{tikzpicture}[scale=1.755]
+\newcommand{\FIGXIVTHIRTYNINE}{\begin{bkfigure}[0.50\linewidth]
+\begin{tikzpicture}[scale=1.560]
   % base is a parallelogram; ct is where its diagonals meet, so the altitude
   % really does fall on the centre of the base.
   % The base is a parallelogram whose front vertex is NOT under the apex, so
@@ -1007,26 +1149,33 @@
 \figcap{14--41}
 \end{bkfigure}}
 
-% ----------------------------------------------------------- Fig 14-42, 14-43
-\newcommand{\FIGXIVFORTYTWOFORTYTHREE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.858]
-  % right circular cone with an inscribed pyramid
-  \coordinate (ap) at (0,2.42);
-  \draw[fig] (0,0) ellipse (1.32 and 0.46);
-  \draw[fig] (-1.32,0) -- (ap) -- (1.32,0);
-  \foreach \i in {0,...,7}
-    {\coordinate (e\i) at ({1.32*cos(202+45*\i)},{0.46*sin(202+45*\i)});}
-  \draw[fig] (e0) -- (e1) -- (e2) -- (e3) -- (e4);
-  \draw[hid] (e4) -- (e5) -- (e6) -- (e7) -- (e0);
-  \foreach \i in {0,1,2,3,4}{\draw[fig] (ap) -- (e\i);}
-  \foreach \i in {5,6,7}{\draw[hid] (ap) -- (e\i);}
-  \draw[hid] (-1.32,0) -- (1.32,0);
+% ---------------------------------------------------------------- Fig 14-42
+% Split out of the old \FIGXIVFORTYTWOFORTYTHREE block: Ex.~14-16 \#2 cites
+% 14-42, while 14-43 belongs to the body text about Theorem 14-24.
+\newcommand{\FIGXIVFORTYTWO}{\begin{bkfigure}[0.50\linewidth]
+\begin{tikzpicture}[scale=1.35]
+  % Right circular cone with an inscribed pyramid.  The book's base polygon is
+  % a HEXAGON with vertices at the two extremes of the ellipse plus two in
+  % front and two behind: the three near base chords are solid, the three far
+  % ones dashed, and the two hidden lateral edges stand clear of the solid
+  % ones instead of smearing into them at the apex.  (Ours drew a single
+  % dashed chord and no near chords at all, so nothing read as a pyramid, and
+  % it carried a spurious dashed diameter across the base.)
+  \coordinate (ap) at (0,2.07);
+  \draw[fig] (0,0) ellipse (1.42 and 0.61);
+  \foreach \i/\a in {0/180, 1/230, 2/310, 3/0, 4/50, 5/130}
+    {\coordinate (e\i) at ({1.42*cos(\a)},{0.61*sin(\a)});}
+  \draw[fig] (e0) -- (e1) -- (e2) -- (e3);          % near base chords
+  \draw[hid] (e3) -- (e4) -- (e5) -- (e0);          % far base chords
+  \foreach \i in {0,1,2,3}{\draw[fig] (ap) -- (e\i);}
+  \foreach \i in {4,5}{\draw[hid] (ap) -- (e\i);}
 \end{tikzpicture}
 \figcap{14--42}
-\end{minipage}\hfill
-\begin{minipage}{0.48\linewidth}\centering
-\begin{tikzpicture}[scale=0.858]
+\end{bkfigure}}
+
+% ---------------------------------------------------------------- Fig 14-43
+\newcommand{\FIGXIVFORTYTHREE}{\begin{bkfigure}[0.48\linewidth]
+\begin{tikzpicture}[scale=0.980]
   % a sphere carved into small "pyramids" with a common apex at the centre
   \begin{scope}[even odd rule]
     \clip (0,0) circle (1.42);
@@ -1041,8 +1190,7 @@
   \draw[fig] (k1) -- (k2) -- (k3) -- (k4) -- cycle;
   \draw[fig] (O) -- (k1); \draw[fig] (O) -- (k4);
   \draw[hid] (O) -- (k2); \draw[hid] (O) -- (k3);
-  \node[dot] at (O) {};
+  \dt{O}
 \end{tikzpicture}
 \figcap{14--43}
-\end{minipage}
 \end{bkfigure}}

@@ -313,3 +313,104 @@ chapter compiles twice clean with no overfull hbox.
     object, the facet layout of Fig 14–12, and the aircraft/car silhouettes.
     Everything else in the chapter is either constrained or was measured
     against the printed page at 300 dpi.
+
+---
+
+## Figure repair pass, 2026-08-17 (`feedback/FIX-SPEC.md`)
+
+Gates after this pass: compiles twice clean; `verify_figures.py 14` **181/181**;
+`check_labels.py chapters/figures14.tex 14` **0 COLLIDE**, 7 TIGHT (all
+eyeballed and accepted); every changed page rasterised at 135 dpi and read.
+
+### Spec §2 — exercise-group figures moved inline
+
+Nine figures now sit inside their exercise list, each directly after the
+exercise that cites it, via `\exfig{}`; `multicols` dropped from the five
+groups that carry figures (14-3, 14-12, 14-14, 14-15, 14-16). Groups with no
+figures (14-1, 14-4, 14-5, 14-6, 14-17) keep their two columns.
+
+Three combined macros were split, because their halves are cited by different
+exercises (or by an exercise and the body text):
+
+* `\FIGXIVELEVENTWELVE` → `\FIGXIVELEVEN` + `\FIGXIVTWELVE`
+* `\FIGXIVTHIRTYONETHIRTYTHREE` → `\FIGXIVTHIRTYONE` + `\FIGXIVTHIRTYTWO`
+  + `\FIGXIVTHIRTYTHREE`
+* `\FIGXIVFORTYTWOFORTYTHREE` → `\FIGXIVFORTYTWO` (Ex. 14-16 #2) +
+  `\FIGXIVFORTYTHREE` (body text, Theorem 14-24)
+
+`\FIGXIVTHIRTYEIGHT` stayed whole: the book prints (a) and (b) as one
+captioned unit, so it sits after the first citing exercise (14-14 #1).
+
+**Question for Caleb.** On book p. 240 the book itself prints Figs 14-11 and
+14-12 *below* the whole two-column Exercise Group 14-3, not beside the
+exercises that cite them; p. 247 sets Fig 14-38 beside its group. The spec's
+rule (figure inside the list, right after its exercise; no `multicols`) was
+followed everywhere, which is more consistent but is not a facsimile of those
+two pages. Say the word and either can revert.
+
+### Spec §3 — figures corrected
+
+| Fig | What was wrong / what changed |
+|---|---|
+| 14-1 | Two "planes" crossed mid-length with three near-coincident long edges reading as a smear; now two long boards that genuinely cross near their lower-right ends. Sphere shading was a broken single-file arc; now a dense drawn dot screen filling a broad annulus with the clean highlight low and right. Fourth solid was a slender 45° bar; now the book's chunky tilted box, open at the top, with the hidden back-bottom vertex as a dashed Y. Pyramid's apex-to-rear-vertex edge is solid, as the book draws it. |
+| 14-7 | Planes were slivers and `l` was never drawn. Rebuilt from the printed page: four parallelograms fanned about the short segment `AB` of `l`, each with real area, `l` drawn solid and overshooting `B`, `m` dashed end to end with a heavy dot at each of the four far corners. |
+| 14-8 | Arrowheads at P and Q replaced with heavy dots (`\dt`); R now carries a dot too and its label tucks under it; P and Q pulled inboard so their left-hand labels clear the plane's edge. |
+| 14-9 | Wrong topology — the two planes straddled the line and crossed, filling the middle with a lens-shaped tangle. Now the book's open-book hinge: one complete shared edge, planes opening to opposite sides, dots at P and Q. |
+| 14-13 | Arrowheads removed from `r'` and `r''` in the `π'` panel (the book tips only OA and OB). |
+| 14-16(a) | Plane re-proportioned to the book's near-vertical sides; the wedge that read as an arrowhead is now a dot; the hidden run is computed to end exactly where `l` leaves the plane's outline; label P sits under the dot. |
+| 14-16(b) | Right-angle mark moved from between `l`/`l₃` to the wedge between `l` and `l'`, where the book has it; `l₁` and `l₂` labels brought up beside their ray ends; P moved off ray `l₁`. |
+| 14-17 | Plane's lean reversed to match the book (top and bottom edges falling to the right); the hidden run, which used to go solid again while still inside the plane, now runs from the piercing dot to the plane's right edge. |
+| 14-21 | Both segments ran corner-to-corner and poked out through two edges; shortened and, with a slightly larger plane, both segments and their labels are now entirely interior. |
+| 14-22 | **Dashing was fully inverted.** Now solid everywhere including the whole gap between the planes, dashed only for the short run inside each plane; each plane's near vertical edge is broken where the line passes in front of it; plane lean corrected. |
+| 14-23 | `l`/`l'` labels were swapped and the two lines never crossed; they now cross above the top plane with the book's labelling. Dashing was inverted (dashed almost end to end); the breaks are now computed occlusion — a short dash below each of A, B, C and solid elsewhere, with a solid stub past the last plane. Planes widened so `C'` has room. |
+| 14-25 | The stray solid stub below D removed (the book stops the dashed `VD` dead at D); the missing `VC` overshoot added; whole figure re-laid to the book's attitude (V upper left, B far right, narrow wedge). |
+| 14-29 | Arrowheads replaced by the two angle **arcs** the book strikes, each with its perpendicular tick; hidden work rebuilt as a real dihedral — near face solid, far face's outer edge dashed behind it, its trace in the lower plane dashed; figure ~40 % larger. |
+| 14-30 | Rectangle and flap no longer slice through each other; the dihedral edge now rises to the right (it was flat) and is dashed behind the perpendicular rectangle, with the right-angle tick at its foot. |
+| 14-31 | The old hexagon put vertices at 30+60i°, so two pairs shared an x and their lateral edges landed on top of each other — the solid collapsed to a flat bar with one dashed line. New vertex angles (the book's own irregular set) give four solid near lateral edges and two dashed far ones; both bases legible; figure much larger. |
+| 14-32 | Back base edge `q₂q₃` and the lateral edge to `q₃` were solid; both are hidden and are now dashed. |
+| 14-35 | Rebuilt to the book's shape: the hatched section is now a large triangle spanning the near face (it was a small corner patch), drawn with dense steep hatch inside heavy solid boundaries, and only the two genuinely hidden edges at the back vertex are dashed. |
+| 14-38 | (a) the "diagonal" ran within 12° of the top edge and read as a duplicated edge — it now runs back corner → front corner; the spurious hidden diagonal on the base is gone. (b) the cut's hidden edge is now the vertical at the cut station rather than a line across the base. Both drawn larger. |
+| 14-42 | The inscribed pyramid was invisible — one dashed chord, no near chords. Now the book's hexagonal base: three solid near chords, three dashed far ones, four solid and two dashed lateral edges, no spurious dashed diameter, and a more open base ellipse. |
+| all | The chapter's local 2.2 pt `dot` style is retired; all 25 point marks are `\dt{}` (3.2 pt, scale-independent), which is what fixes the "pin-prick dots" note on 14-17, 14-23 and 14-25. |
+
+Fig 14-2 (jet and automobile) was left untouched — pictorial line art handled
+centrally.
+
+### Constraints added
+
+`tools/constraints/ch14.py` grew from 60 to 181 checks. New ones assert the
+things this pass fixed: that 14-1's boards cross near their far ends; that
+14-8's points and line ends stay inside the plane; that 14-9's planes open to
+*opposite* sides of the shared edge; that 14-16(a)/14-17's hidden run starts
+at the piercing point and ends on the plane's boundary; that 14-16(b)'s
+right-angle mark is built on `l` and `l'`; that 14-21's segments stay
+interior; that 14-22's dashed runs are exactly the in-plane stretches and the
+gap run is solid; that 14-23's six points lie in their own planes and the two
+transversals cross above the top plane; that 14-25's overshoots belong to the
+rays `VA` and `VC`; the whole of 14-29 and 14-30; that no two of 14-31's
+lateral edges coincide in projection; and 14-38(a)'s diagonal.
+
+### Residual doubts from this pass
+
+37. **Fig 14-29's two plane angles.** The printed figure is small and its two
+    angle marks are thin slivers; I read them as sharing a vertex at the
+    *left* end of each horizontal edge (arc + perpendicular tick), which is
+    what both the scan and Caleb's photo show and is congruent top and
+    bottom, as Theorem 14-17 requires. If Caleb reads the top vertex as being
+    at the right instead, the wedge simply mirrors.
+
+38. **Fig 14-23's dash lengths.** The breaks are now genuine occlusion, so
+    each is short — from the piercing point down to where the line leaves
+    that plane's outline. The printed figure looks as though the run from B
+    through C stays dashed a little longer than geometry allows; I kept the
+    geometry.
+
+39. **One overfull \hbox remains** (8.2 pt, Ex. 14-15 #2, "…whose side has
+    length a"). It is a consequence of dropping `multicols` from that group —
+    the wider measure leaves a long unbreakable tail. Fixing it means either
+    re-wording (forbidden: text is signed off) or a local `\sloppy`, which I
+    left for the integration pass. Nothing bleeds visibly into the margin.
+
+40. **Fig 14-1's box lip.** The book's fourth solid is drawn open at the top
+    with a visible inner lip; I render the lip as a single inset parallelogram
+    rather than tracing the interior walls. Reads correctly at print size.
