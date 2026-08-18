@@ -10,6 +10,7 @@
 \RequirePackage{enumitem}
 \RequirePackage{multicol}
 \RequirePackage{tabularx}
+\RequirePackage{varwidth}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 % Plates and pictorial line art live in plates/.  Chapter files compile from
@@ -166,12 +167,70 @@
   \begin{minipage}{\dimexpr\linewidth+\leftmargin\relax}#1\end{minipage}%
   \par\smallskip}
 
+% The printed book sets exercise groups in two columns.  Keep each exercise
+% diagram at its house size and immediately after the exercise that owns it,
+% but box it as one indivisible unit so multicol may move it to the next column
+% instead of clipping it or leaving a forced hole.  Ragged columns and strong
+% widow/orphan penalties avoid the stretched or stranded fragments that made
+% earlier compact layouts look unnecessarily sparse.
+\newsavebox{\bkexfigbox}
+\newsavebox{\bkexmeasurebox}
+\newcommand{\bkcolexfigbody}[1]{%
+  \begingroup
+  \dimen0=\dimexpr\linewidth+\leftmargin\relax
+  % Measure the diagram at its house size without the normal fixed-width
+  % bkfigure minipage.  Most figures fit and retain scale 1.  Only a diagram
+  % wider than the exercise column has its coordinate units reduced; labels,
+  % line weights, and the caption remain at the book's normal type size.
+  \sbox{\bkexmeasurebox}{%
+    \hfuzz=\maxdimen\hbadness=10000\vbadness=10000
+    \bkmeasurefiguretrue#1}%
+  \def\bkexfigscale{1}%
+  \ifdim\wd\bkexmeasurebox>\dimen0
+    \dimen2=\wd\bkexmeasurebox
+    \pgfmathparse{0.94*(\the\dimen0)/(\the\dimen2)}%
+    \edef\bkexfigscale{\pgfmathresult}%
+  \fi
+  \sbox{\bkexfigbox}{%
+    \begin{minipage}{\dimen0}%
+      \bkcompactfiguretrue
+      \renewcommand{\figunit}{\bkexfigscale}#1%
+    \end{minipage}}%
+  \noindent\hspace*{-\leftmargin}\usebox{\bkexfigbox}%
+  \par\smallskip
+  \endgroup}
+\newcommand{\bkcolexfig}[1]{\par\smallskip\bkcolexfigbody{#1}}
+\newenvironment{exercisecols}{%
+  \setlength{\columnsep}{1.15em}%
+  \begin{multicols}{2}\raggedcolumns\small
+  \clubpenalty=10000
+  \widowpenalty=10000
+  \let\exfig\bkcolexfig
+  \setlist[exlist]{label=\arabic*., leftmargin=1.45em, itemsep=1pt,
+    topsep=2pt, parsep=0pt}%
+}{\end{multicols}}
+
 % ------------------------------------------------------------- figure caption
 % Book style: small caps "FIGURE 9-1" centred beneath.
 \newcommand{\figcap}[1]{\par\smallskip{\footnotesize\textsc{Figure} #1}}
+\newif\ifbkmeasurefigure
+\newif\ifbkcompactfigure
 \newenvironment{bkfigure}[1][]{%
-  \par\medskip\begin{center}\begin{minipage}{#1}\centering}%
-  {\end{minipage}\end{center}\par\medskip}
+  \ifbkmeasurefigure
+    \begin{varwidth}{\textwidth}\centering
+  \else
+    \par\medskip\begin{center}%
+    \ifbkcompactfigure
+      \begin{minipage}{\linewidth}\centering
+    \else
+      \begin{minipage}{#1}\centering
+    \fi
+  \fi}%
+  {\ifbkmeasurefigure
+     \end{varwidth}%
+   \else
+     \end{minipage}\end{center}\par\medskip
+   \fi}
 
 % ------------------------------------------------------------------ notation
 \newcommand{\sg}[1]{\overline{#1}}          % segment / its length

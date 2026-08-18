@@ -4,7 +4,7 @@ A complete, re-typeset edition of Brumfiel, Eicholz & Shanks, *Geometry*
 (Addison-Wesley, 1960): full text, ~420 figures redrawn as vector art, plus
 an errata list and the book's own index re-keyed to this edition's pages.
 
-Output: `build/book.pdf` — 526 pp, 145×200 mm, black and white.
+Output: `build/book.pdf` — 458 pp, 145×200 mm, black and white.
 
 ## Rights
 

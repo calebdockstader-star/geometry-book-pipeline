@@ -958,7 +958,10 @@
 \end{bkfigure}}
 
 \newcommand{\FIGIXTHIRTYEIGHT}{\begin{bkfigure}[0.74\linewidth]
-\begin{tikzpicture}[scale=1.30]
+% This paired diagram is wider than a single restored-book exercise column.
+% Reduce only this exercise figure enough to clear the neighboring column;
+% labels and line weights retain the shared book settings.
+\begin{tikzpicture}[scale=1.05]
   % 9-38: one hexagon, then the same hexagon rotated -30 and scaled 0.72,
   % so the two really are similar.
   \def\hexA{(-0.87,0.58) (0.41,0.81) (0.79,0.06) (0.39,-0.65)
