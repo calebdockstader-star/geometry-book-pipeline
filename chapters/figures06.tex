@@ -137,11 +137,14 @@
 % dashed stub to the left of A' carries the caption "Given side of l'".
 \newcommand{\FIGVIONE}{\begin{bkfigure}[\linewidth]
 \begin{tikzpicture}[scale=1.235]
-  % given angle A, drawn free above
-  \coordinate (A)  at (2.55,1.32);
-  \draw[given] (A) -- (3.12,2.14);
-  \draw[given] (A) -- (3.95,0.92);
-  \node[vlab, above left] at (A) {$A$};
+  % Given angle A, drawn free above.  Lift the whole drawing together so its
+  % lower ray cannot be mistaken for a continuation of the construction below.
+  \begin{scope}[yshift=0.28cm]
+    \coordinate (A)  at (2.55,1.32);
+    \draw[given] (A) -- (3.12,2.14);
+    \draw[given] (A) -- (3.95,0.92);
+    \node[vlab, above left] at (A) {$A$};
+  \end{scope}
   % line l' with A' on it
   \coordinate (Ap) at (1.72,0.16);
   \draw[given] (Ap) -- (3.62,-0.22);           % ray r'
@@ -237,7 +240,8 @@
   \coordinate (Ap) at (2.16,1.02);
   \coordinate (Rp) at (3.71,0.605);
   \draw[given] (Ap) -- (Rp);
-  \node[vlab] at ($(Ap)+(100:0.36)$) {$A\VIpr$};
+  % Put A' above-right of its own endpoint, away from the separate line at A.
+  \node[vlab] at ($(Ap)+(55:0.42)$) {$A\VIpr$};
   \node[slab, right] at (Rp) {$r\VIpr$};
 \end{tikzpicture}
 \figcap{6--4}
@@ -263,9 +267,12 @@
    \draw[given] (V) -- ++(146:2.30);        % outer side, left
    \draw[given] (V) -- ++(94:2.38);         % common side of B and C
    \draw[given] (V) -- ++(52:2.20);         % outer side, right
-   % large arc -- the middle ray cuts it into the marks for B and C
+   % Stagger the two part-angle arcs: C sits slightly nearer the vertex than B,
+   % making the two named angles distinct instead of one continuous sweep.
    \draw[tick] ([shift=(146:2.04)]V)
-        arc[start angle=146, end angle=52, radius=2.04];
+        arc[start angle=146, end angle=94, radius=2.04];
+   \draw[tick] ([shift=(94:1.88)]V)
+        arc[start angle=94, end angle=52, radius=1.88];
    % small arc near the vertex -- the mark for the whole angle A
    \draw[tick] ([shift=(146:0.80)]V)
         arc[start angle=146, end angle=52, radius=0.80];
@@ -377,7 +384,7 @@
 %   supplement B on a line; the primed copy).  6-11: two crossing lines with
 %   vertical angles A and A', and B one of the others.  6-12: a right angle.
 \newcommand{\FIGVITENELEVENTWELVE}{\begin{bkfigure}[\linewidth]
-\begin{minipage}{0.50\linewidth}\centering
+\begin{minipage}{0.49\linewidth}\centering
 % In the book the ray rises to the RIGHT from a point on the line, so the
 % OBTUSE angle (marked by the big arc sweeping over the top from the
 % left-hand ray) is A and the small acute one tucked between the ray and the
@@ -400,8 +407,8 @@
   \end{scope}}
 \end{tikzpicture}
 \figcap{6--10}
-\end{minipage}\hfill
-\begin{minipage}{0.30\linewidth}\centering
+\end{minipage}\hspace{0.05\linewidth}
+\begin{minipage}{0.28\linewidth}\centering
 % Two crossing lines: A and A' are the vertical pair (left and right), B is
 % one of the other two (the top one).  Each letter sits on the BISECTOR of
 % its own wedge -- off the bisector a letter drifts into one of the four rays,
@@ -421,7 +428,7 @@
 \end{tikzpicture}
 \figcap{6--11}
 \end{minipage}\hfill
-\begin{minipage}{0.16\linewidth}\centering
+\begin{minipage}{0.14\linewidth}\centering
 \begin{tikzpicture}[scale=0.80]
   \coordinate (O) at (0.62,0);
   \coordinate (R) at (1.24,0);
@@ -2963,9 +2970,9 @@
   \VIarc{La}{A}{Sb}{0.44cm}
   \VInumb{Sa}{A}{Sb}{0.96cm}{$B\VIpr$}
   \node[vlab, below right] at (A) {$A$};
-  % angle B, apex right, set lower on the page as the book sets it
-  \coordinate (Lb) at (3.25,-0.32);
-  \coordinate (B)  at (5.50,-0.50);
+  % Angle B is a separate drawing but shares angle A's level baseline.
+  \coordinate (Lb) at (3.25,0);
+  \coordinate (B)  at (5.50,0);
   \draw[given] (Lb) -- (B);
   \coordinate (Sc) at ($(B)+(95.4:1.50)$);
   \draw[given] (B) -- (Sc);
