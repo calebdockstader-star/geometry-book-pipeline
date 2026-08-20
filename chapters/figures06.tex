@@ -2719,7 +2719,9 @@
 % horizontal) and the line l stopped too soon after B.
 \newcommand{\FIGVININETYTHREE}{\begin{bkfigure}[\linewidth]
 \begin{tikzpicture}[scale=1.170]
- \foreach \dx/\ax/\ay in {0/0.860/1.229, 2.62/0/1.320, 5.24/-0.532/1.317}{
+ % Keep at least 0.80 cm of clear paper between the three independent cases.
+ % Their geometry stays at the book scale; only the panel origins move.
+ \foreach \dx/\ax/\ay in {0/0.860/1.229, 2.94/0/1.320, 5.88/-0.532/1.317}{
   \begin{scope}[xshift=\dx cm]
    \coordinate (O) at (0.32,0);
    \coordinate (B) at (1.12,0);
@@ -2780,7 +2782,8 @@
    \node[vlab, below left] at (Ap) {$A\VIpr$};
   \end{scope}
   % --- case 2: C = O
-  \begin{scope}[xshift=2.72cm]
+  % The cases are independent drawings, not one continuous construction.
+  \begin{scope}[xshift=3.00cm]
    \coordinate (O) at (0.42,0);
    \coordinate (B) at (1.52,0);
    \coordinate (A) at (0.42,1.42);
@@ -2805,7 +2808,7 @@
    \node[vlab, below left] at (Ap) {$A\VIpr$};
   \end{scope}
   % --- case 3: C on the far side of O from B
-  \begin{scope}[xshift=5.44cm]
+  \begin{scope}[xshift=6.00cm]
    \coordinate (O) at (1.42,0);
    % B must lie OUTSIDE both arcs.  Measured on the plate (book p.105, photo
    % PDF p.119, panel 3 at 5x): OC = 217 px and OB = 270 px, so OB = 1.244*OC,
@@ -2937,8 +2940,8 @@
   \VInumb{La}{A}{Sb}{0.84cm}{$B\VIpr$}
   \node[vlab, below right] at (A) {$A$};
   % angle B, apex on the RIGHT, opening leftward, well clear of the first
-  \coordinate (Lb) at (2.90,0);
-  \coordinate (B)  at (5.10,0);
+  \coordinate (Lb) at (3.20,0);
+  \coordinate (B)  at (5.40,0);
   \draw[given] (Lb) -- (B);
   \coordinate (Sc) at ($(B)+(133:1.35)$);
   \draw[given] (B) -- (Sc);
@@ -2961,8 +2964,8 @@
   \VInumb{Sa}{A}{Sb}{0.96cm}{$B\VIpr$}
   \node[vlab, below right] at (A) {$A$};
   % angle B, apex right, set lower on the page as the book sets it
-  \coordinate (Lb) at (2.95,-0.32);
-  \coordinate (B)  at (5.20,-0.50);
+  \coordinate (Lb) at (3.25,-0.32);
+  \coordinate (B)  at (5.50,-0.50);
   \draw[given] (Lb) -- (B);
   \coordinate (Sc) at ($(B)+(95.4:1.50)$);
   \draw[given] (B) -- (Sc);
@@ -2998,8 +3001,8 @@
   \VInumb{La}{A}{Sb}{1.45cm}{$B\VIpr$}
   \node[vlab, below right] at (A) {$A$};
   % angle B: the same thin wedge, apex on the RIGHT, opening leftward
-  \coordinate (Lb) at (3.20,0);
-  \coordinate (B)  at (5.40,0);
+  \coordinate (Lb) at (3.40,0);
+  \coordinate (B)  at (5.60,0);
   \draw[given] (Lb) -- (B);
   \coordinate (Sc) at ($(B)+(158:1.90)$);
   \draw[given] (B) -- (Sc);
@@ -3016,8 +3019,8 @@
   \coordinate (Sa) at ($(A)+(130:1.50)$);
   \draw[given] (A) -- (Sa);
   \node[vlab, below right] at (A) {$A$};
-  \coordinate (Lb) at (3.10,0);
-  \coordinate (B)  at (5.30,0);
+  \coordinate (Lb) at (3.35,0);
+  \coordinate (B)  at (5.55,0);
   \draw[given] (Lb) -- (B);
   \coordinate (Sb) at ($(B)+(155:1.55)$);   % second side of angle B
   \coordinate (Sc) at ($(B)+(130:1.70)$);   % second side of A', exterior
@@ -3104,7 +3107,7 @@
    \node[slab, below] at (0.95,-0.28) {(a)};
   \end{scope}
   % (b)
-  \begin{scope}[xshift=2.42cm]
+  \begin{scope}[xshift=2.75cm]
    \coordinate (O) at (0.95,0);
    \draw[given] (-0.02,0) -- (1.92,0);
    \draw[given] (O) -- ($(O)+(90:1.38)$);
@@ -3119,7 +3122,7 @@
   % nothing to name, and they had been parked as RAY labels (at the top of the
   % vertical and out at the right-hand end of the horizontal) instead of
   % sitting low against the small arc, flanking the vertical.
-  \begin{scope}[xshift=4.84cm]
+  \begin{scope}[xshift=5.50cm]
    \coordinate (O) at (1.18,0);
    \draw[given] (0.02,0) -- (2.34,0);
    \draw[given] (O) -- ($(O)+(90:1.58)$);

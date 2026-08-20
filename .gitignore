@@ -12,6 +12,7 @@ geometry figures-*.zip
 output/
 build/sheets/
 build/probe/
+build/audit/
 build/figure-widths.tsv
 
 # working notes -- kept local, not published
