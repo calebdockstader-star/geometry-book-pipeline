@@ -10,6 +10,7 @@ geometry figures-*.zip
 !feedback/FIX-SPEC.md
 # regenerable working output
 output/
+tmp/
 build/sheets/
 build/probe/
 build/audit/
